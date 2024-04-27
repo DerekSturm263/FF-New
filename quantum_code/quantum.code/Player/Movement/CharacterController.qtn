@@ -6,26 +6,31 @@ enum States
     IsBlocking,
     IsDodging,
     IsBursting,
-    IsAttacking,
+    IsUsingMainWeapon,
+    IsUsingSubWeapon,
+    IsUsingSkill,
+    IsUsingUltimate,
     IsInteracting,
     IsEmoting
 }
 
-enum AttackType
+[System.Flags]
+enum Colliders
 {
-    MainWeapon,
-    SubWeapon,
-    Skill,
-    Ultimate
+    Ground = 1,
+    LeftWall = 2,
+    RightWall = 4,
+    Ceiling = 8
 }
 
 component CharacterController
 {
 	asset_ref<MovementSettings> MovementSettings;
-    bitset[9] States;
+    bitset[12] States;
+    bitset[12] Holding;
+    int FramesInState;
 	
-    Boolean IsGrounded;
-    int IsAgainstWall;
+    Colliders NearbyColliders;
 
     // Move
     FP Velocity;
@@ -33,27 +38,20 @@ component CharacterController
 
     // Jump
     short JumpCount;
-    int JumpTime;
-    int JumpSettingsIndex;
-    bool IsHoldingJump;
+    short JumpSettingsIndex;
     
     // Dodge
     FPVector2 DodgeDirection;
     short DodgeCount;
-    int DodgeTime;
-    int DodgeSettingsIndex;
-    bool IsHoldingDodge;
+    short DodgeSettingsIndex;
 
-    // Attacking
-    int AttackOpenLag;
-    AttackType AttackType;
-    int StartupLag;
+    // Attacking/Emoting
     Direction Direction;
-    bool IsReady;
-    bool Invoked;
 
-    // Burst
-    int BurstTime;
+    // Interact
+    entity_ref HeldItem;
 
+    // Ready
     bool IsReady;
+    FP ReadyTime;
 }

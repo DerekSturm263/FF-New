@@ -30,7 +30,14 @@ namespace Quantum.Multiplayer
         private void HandleReady(Frame f, ref Filter filter, ref Input input, PlayerLink* playerLink)
         {
             if (input.Ready && !filter.CharacterController->IsReady)
+                filter.CharacterController->ReadyTime += f.DeltaTime;
+            else
+                filter.CharacterController->ReadyTime = 0;
+
+            if (filter.CharacterController->ReadyTime > FP._0_50)
             {
+                filter.CharacterController->IsReady = true;
+
                 if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
                 {
                     if (!playerCounter->CanPlayersEdit)
@@ -39,7 +46,6 @@ namespace Quantum.Multiplayer
                     ++playerCounter->PlayersReady;
                 }
 
-                filter.CharacterController->IsReady = true;
                 f.Events.OnPlayerReady(*playerLink);
 
                 if (playerCounter is not null && playerCounter->PlayersReady == playerCounter->TotalPlayers)
@@ -64,7 +70,7 @@ namespace Quantum.Multiplayer
                 filter.CharacterController->IsReady = false;
                 f.Events.OnPlayerCancel(*playerLink);
 
-                f.SystemEnable<MovementSystem>();
+                f.SystemEnable<PlayerStateSystem>();
                 f.SystemDisable<TimerSystem>();
             }
         }
@@ -73,7 +79,7 @@ namespace Quantum.Multiplayer
         {
             f.Events.OnAllPlayersReady();
 
-            f.SystemDisable<MovementSystem>();
+            f.SystemDisable<PlayerStateSystem>();
             f.SystemEnable<TimerSystem>();
         }
     }

@@ -6,6 +6,52 @@
 using System;
 namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.CharacterController))]
+  public class CharacterController_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.CharacterController_Prototype> {
+    public Quantum.AssetRefMovementSettings MovementSettings;
+    [Quantum.Inspector.BitSetAttribute((Int32)12)]
+    [Quantum.Inspector.ArrayLengthAttribute((Int32)1)]
+    public System.UInt64[] States = new System.UInt64[1];
+    [Quantum.Inspector.BitSetAttribute((Int32)12)]
+    [Quantum.Inspector.ArrayLengthAttribute((Int32)1)]
+    public System.UInt64[] Holding = new System.UInt64[1];
+    public System.Int32 FramesInState;
+    public Quantum.Prototypes.Colliders_Prototype NearbyColliders;
+    public Photon.Deterministic.FP Velocity;
+    public Photon.Deterministic.FP MovingLerp;
+    public System.Int16 JumpCount;
+    public System.Int16 JumpSettingsIndex;
+    public Photon.Deterministic.FPVector2 DodgeDirection;
+    public System.Int16 DodgeCount;
+    public System.Int16 DodgeSettingsIndex;
+    public Quantum.Prototypes.Direction_Prototype Direction;
+    [Quantum.LocalReference]
+    public global::EntityPrototype HeldItem;
+    public Quantum.QBoolean IsReady;
+    public Photon.Deterministic.FP ReadyTime;
+
+    public sealed override Quantum.Prototypes.CharacterController_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.CharacterController_Prototype();
+      result.MovementSettings = this.MovementSettings;
+      result.States = this.States;
+      result.Holding = this.Holding;
+      result.FramesInState = this.FramesInState;
+      result.NearbyColliders = this.NearbyColliders;
+      result.Velocity = this.Velocity;
+      result.MovingLerp = this.MovingLerp;
+      result.JumpCount = this.JumpCount;
+      result.JumpSettingsIndex = this.JumpSettingsIndex;
+      result.DodgeDirection = this.DodgeDirection;
+      result.DodgeCount = this.DodgeCount;
+      result.DodgeSettingsIndex = this.DodgeSettingsIndex;
+      result.Direction = this.Direction;
+      converter.Convert(this.HeldItem, out result.HeldItem);
+      result.IsReady = this.IsReady;
+      result.ReadyTime = this.ReadyTime;
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.HitboxInstance))]
   public class HitboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.HitboxInstance_Prototype> {
     public System.Int32 PathQueryIndex;

@@ -141,7 +141,7 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(Quantum.Prototypes.AttackType_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Direction_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.ParentType_Prototype))]

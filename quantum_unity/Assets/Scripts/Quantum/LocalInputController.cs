@@ -39,8 +39,8 @@ public class LocalInputController : MonoBehaviour
             Emote = _controls.Player.Emote.IsPressed(),
             Interact = _controls.Player.Interact.IsPressed(),
 
-            Ready = _controls.Player.Ready.WasPerformedThisFrame(),
-            Cancel = _controls.Player.Cancel.WasPerformedThisFrame()
+            Ready = _controls.Player.Ready.IsPressed(),
+            Cancel = _controls.Player.Cancel.IsPressed()
         };
 
         callback.SetInput(input, DeterministicInputFlags.Repeatable);

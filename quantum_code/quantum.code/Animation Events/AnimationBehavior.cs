@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Quantum.Movement.MovementSystem;
+using static Quantum.Movement.PlayerStateSystem;
 
 namespace Quantum
 {

@@ -2,18 +2,21 @@
 
 namespace Quantum.Movement
 {
-    public unsafe class MovementSystem : SystemMainThreadFilter<MovementSystem.Filter>
+    public unsafe class PlayerStateSystem : SystemMainThreadFilter<PlayerStateSystem.Filter>
     {
-        public static Dictionary<States, MovementState> AllStates = new() {
+        public static Dictionary<States, PlayerState> AllStates = new() {
             [States.IsCrouching] = new CrouchState(),
             [States.IsJumping] = new JumpState(),
             [States.IsFastFalling] = new FastFallState(),
             [States.IsBursting] = new BurstState(),
-            [States.IsBlocking] = new BlockState(),
             [States.IsDodging] = new DodgeState(),
+            [States.IsBlocking] = new BlockState(),
             [States.IsEmoting] = new EmoteState(),
-            [States.IsAttacking] = new AttackState(),
+            [States.IsUsingUltimate] = new UltimateState(),
             [States.IsInteracting] = new InteractState(),
+            [States.IsUsingMainWeapon] = new MainWeaponState(),
+            [States.IsUsingSubWeapon] = new SubWeaponState(),
+            [States.IsUsingSkill] = new SkillState(),
         };
 
         public struct Filter
@@ -33,9 +36,11 @@ namespace Quantum.Movement
             // Grab the player's movement settings.
             MovementSettings settings = f.FindAsset<MovementSettings>(filter.CharacterController->MovementSettings.Id);
 
+            // Get all the nearby colliders.
+            filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, settings, filter.Transform);
+
             // Get if the player is grounded or not...
-            filter.CharacterController->IsGrounded = filter.CharacterController->GetIsGrounded(f, settings, filter.Transform) && !filter.CharacterController->IsInState(States.IsJumping);
-            if (filter.CharacterController->IsGrounded)
+            if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {
                 // If they are, reset their jumps and dodges.
                 filter.CharacterController->JumpCount = 2;
@@ -43,11 +48,8 @@ namespace Quantum.Movement
             }
 
             // Update any miscellaneous CustomAnimator values.
-            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", filter.CharacterController->IsGrounded);
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", filter.CharacterController->GetNearbyCollider(Colliders.Ground));
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", filter.PhysicsBody->Velocity.Y);
-
-            // Get if the player is against a wall or not (and if so, which direction its in).
-            filter.CharacterController->IsAgainstWall = filter.CharacterController->GetIsAgainstWall(f, settings, filter.Transform);
 
             // Get the player's input before we do anything with it.
             Input input = *f.GetPlayerInput(filter.PlayerLink->Player);
@@ -70,24 +72,23 @@ namespace Quantum.Movement
                     // If they aren't, try to see if the should enter the state...
                     AllStates[state].TryEnterAndResolveState(f, ref filter, ref input, settings);
                 }
+
+                // Set whether or not a given button is being held to prevent states from triggering multiple times.
+                filter.CharacterController->SetIsHolding(state, AllStates[state].GetInput(ref input));
             }
 
-            // TEMP: Delete since I don't like this.
-            if (!input.Jump)
-                filter.CharacterController->IsHoldingJump = false;
-
-            if (!input.Block || input.Movement == default)
-                filter.CharacterController->IsHoldingDodge = false;
-
-            // Handle the left-right movement.
+            // Handle the left/right movement.
             HandleMovement(f, ref filter, ref input, settings);
+
+            // Increment the state number.
+            ++filter.CharacterController->FramesInState;
         }
 
         private void HandleMovement(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings)
         {
             if (!filter.CharacterController->IsInState(States.IsCrouching))
             {
-                filter.CharacterController->Move(f, input.Movement.X, filter.Transform, filter.PhysicsBody, filter.CustomAnimator, movementSettings, filter.CharacterController->IsGrounded, f.DeltaTime);
+                filter.CharacterController->Move(f, input.Movement.X, filter.Transform, filter.PhysicsBody, filter.CustomAnimator, movementSettings, f.DeltaTime);
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Quantum
 {
-    public unsafe class MatchSystem : SystemMainThreadFilter<MatchSystem.Filter>
+    public unsafe class MatchSystem : SystemMainThreadFilter<MatchSystem.Filter>, ISignalOnComponentAdded<MatchInstance>, ISignalOnComponentRemoved<MatchInstance>
     {
         public struct Filter
         {
@@ -29,12 +29,23 @@ namespace Quantum
                 playerCounter->CanPlayersEdit = false;
             }
 
-            f.SystemEnable<MovementSystem>();
+            f.SystemEnable<PlayerStateSystem>();
         }
 
         public static void EndOfMatch(Frame f)
         {
             f.Global->DeltaTime = (FP._1 / f.UpdateRate) * FP._0_25;
+        }
+
+        public void OnAdded(Frame f, EntityRef entity, MatchInstance* component)
+        {
+            component->Match.Teams = f.AllocateList<Team>();
+        }
+
+        public void OnRemoved(Frame f, EntityRef entity, MatchInstance* component)
+        {
+            f.FreeList(component->Match.Teams);
+            component->Match.Teams = default;
         }
     }
 }

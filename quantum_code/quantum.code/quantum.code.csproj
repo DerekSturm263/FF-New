@@ -96,6 +96,10 @@
     <None Include="Item\ItemInstance.qtn" />
     <Compile Include="Item\ItemSpawnSystem.cs" />
     <Compile Include="Item\ItemSystem.cs" />
+    <Compile Include="Player\Movement\States\MainWeaponState.cs" />
+    <Compile Include="Player\Movement\States\SkillState.cs" />
+    <Compile Include="Player\Movement\States\SubWeaponState.cs" />
+    <Compile Include="Player\Movement\States\UltimateState.cs" />
     <Compile Include="Player\Stats\StatsSystem.cs" />
     <None Include="Projectile\ProjectileSettings.qtn" />
     <Compile Include="Collision\HitboxHurtboxQueryInjectionSystem.cs" />
@@ -104,12 +108,11 @@
     <Compile Include="Player\Movement\States\BurstState.cs" />
     <Compile Include="Player\Movement\States\CrouchState.cs" />
     <Compile Include="Player\Movement\States\DodgeState.cs" />
-    <Compile Include="Player\Movement\States\AttackState.cs" />
     <Compile Include="Player\Movement\States\EmoteState.cs" />
     <Compile Include="Player\Movement\States\FastFallState.cs" />
     <Compile Include="Player\Movement\States\InteractState.cs" />
     <Compile Include="Player\Movement\States\JumpState.cs" />
-    <Compile Include="Player\Movement\States\MovementState.cs" />
+    <Compile Include="Player\Movement\States\PlayerState.cs" />
     <None Include="Player\Multiplayer\Events\OnPlayerCancel.qtn" />
     <None Include="Player\Multiplayer\Events\OnPlayerReady.qtn" />
     <None Include="Player\Multiplayer\Events\OnAllPlayersReady.qtn" />
@@ -213,7 +216,7 @@
     <Compile Include="SimulationConfig.User.cs" />
     <Compile Include="SystemSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Player\Movement\MovementSystem.cs" />
+    <Compile Include="Player\Movement\PlayerStateSystem.cs" />
     <None Include="Types\Directional\DirectionalAsset.qtn" />
   </ItemGroup>
   <ItemGroup>

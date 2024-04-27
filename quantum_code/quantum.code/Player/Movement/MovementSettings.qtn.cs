@@ -27,19 +27,23 @@ namespace Quantum
         public FP KnockbackResistance;
 
         [Header("Dodge Settings")]
-        public int DodgeFrameMin;
         public MovementCurveSettings GroundedDodgeSettings;
         public MovementCurveSettings AerialDodgeSettings;
 
         [Header("Burst Settings")]
-        public int BurstFrames;
         public FP BurstCost;
+
+        [Header("Interact Settings")]
+        public ShapeCastHelper InteractCast;
+
+        [Header("Throw Settings")]
+        public FPVector2 ThrowAmount;
 
         [Header("Knockback Settings")]
         public FP DirectionalInfluenceForce;
 
-        [Header("Throw Settings")]
-        public FPVector2 ThrowAmount;
+        [Header("Direction Settings")]
+        public int DirectionChangeTime;
 
         [Header("Wall Slide Settings")]
         public FP SlideForce;
@@ -48,5 +52,6 @@ namespace Quantum
         public ShapeCastHelper GroundedCast;
         public ShapeCastHelper WallCastLeft;
         public ShapeCastHelper WallCastRight;
+        public ShapeCastHelper CeilingCast;
     }
 }

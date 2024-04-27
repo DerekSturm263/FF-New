@@ -20,7 +20,7 @@
         new Core.PlayerConnectedSystem(),
 
         // user systems go here 
-        new Movement.MovementSystem(),
+        new Movement.PlayerStateSystem(),
         new Multiplayer.PlayerSpawnSystem(),
         new Multiplayer.ConfirmationSystem(),
         new Timing.TimerSystem(),

@@ -11,6 +11,8 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private GameObject _stock;
     [SerializeField] private Image _energy;
     [SerializeField] private Material _activateUltimate;
+    [SerializeField] private Material _lowHealth;
+    [SerializeField] private GameObject _lowHealthObj;
     [SerializeField] private Image _portrait;
 
     [Header("Settings")]
@@ -25,6 +27,17 @@ public class HUDPlayerLink : MonoBehaviour
     {
         _health.fillAmount = (newHealth / maxHealth).AsFloat;
         _health.color = Color.Lerp(_emptyHealth, _fullHealth, _health.fillAmount);
+
+        if (_health.fillAmount <= 0.2f)
+        {
+            _portrait.material = _lowHealth;
+            _lowHealthObj.SetActive(true);
+        }
+        else
+        {
+            _portrait.material = null;
+            _lowHealthObj.SetActive(false);
+        }
     }
 
     public void UpdateEnergy(FP newEnergy, FP maxEnergy)

@@ -14,24 +14,37 @@ namespace Quantum
 
         public readonly bool IsInState(States state) => States.IsSet((int)state);
 
-        public readonly bool GetIsGrounded(Frame f, MovementSettings movementSettings, Transform2D* parent)
+        public void SetIsHolding(States state, bool isHolding)
         {
-            return movementSettings.GroundedCast.GetCastResults(f, parent).Count > 0;
+            if (isHolding)
+                Holding.Set((int)state);
+            else
+                Holding.Clear((int)state);
         }
 
-        public readonly int GetIsAgainstWall(Frame f, MovementSettings movementSettings, Transform2D* parent)
+        public readonly bool IsHolding(States state) => Holding.IsSet((int)state);
+
+        public readonly Colliders GetNearbyColliders(Frame f, MovementSettings movementSettings, Transform2D* parent)
         {
+            Colliders result = default;
+
+            if (movementSettings.GroundedCast.GetCastResults(f, parent).Count > 0)
+                result |= Colliders.Ground;
             if (movementSettings.WallCastLeft.GetCastResults(f, parent).Count > 0)
-                return -1;
-            else if (movementSettings.WallCastRight.GetCastResults(f, parent).Count > 0)
-                return 1;
+                result |= Colliders.LeftWall;
+            if (movementSettings.WallCastRight.GetCastResults(f, parent).Count > 0)
+                result |= Colliders.RightWall;
+            if (movementSettings.CeilingCast.GetCastResults(f, parent).Count > 0)
+                result |= Colliders.Ceiling;
 
-            return 0;
+            return result;
         }
 
-        public readonly MovementMoveSettings GetMoveSettings(MovementSettings movementSettings, bool isGrounded)
+        public readonly bool GetNearbyCollider(Colliders collider) => NearbyColliders.HasFlag(collider);
+
+        public readonly MovementMoveSettings GetMoveSettings(MovementSettings movementSettings)
         {
-            if (isGrounded)
+            if (GetNearbyCollider(Colliders.Ground))
                 return movementSettings.GroundedMoveSettings;
             else
                 return movementSettings.AerialMoveSettings;
@@ -49,7 +62,7 @@ namespace Quantum
             };
         }
 
-        public readonly MovementCurveSettings GetDodgeSettings(MovementSettings movementSettings, bool isGrounded)
+        public readonly MovementCurveSettings GetDodgeSettings(MovementSettings movementSettings)
         {
             return DodgeSettingsIndex switch
             {
@@ -59,9 +72,9 @@ namespace Quantum
             };
         }
 
-        public void Move(Frame f, FP amount, Transform2D* transform, PhysicsBody2D* physicsBody, CustomAnimator* customAnimator, MovementSettings movementSettings, bool isGrounded, FP dt)
+        public void Move(Frame f, FP amount, Transform2D* transform, PhysicsBody2D* physicsBody, CustomAnimator* customAnimator, MovementSettings movementSettings, FP dt)
         {
-            MovementMoveSettings moveSettings = GetMoveSettings(movementSettings, isGrounded);
+            MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
 
             //bool isTurning = false;
 
@@ -93,7 +106,7 @@ namespace Quantum
                 }
 
                 // Set the player's look direction.
-                if (isGrounded)
+                if (GetNearbyCollider(Colliders.Ground))
                 {
                     if (physicsBody->Velocity.X < 0)
                     {
