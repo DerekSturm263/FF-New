@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Quantum</RootNamespace>
+    <AssemblyName>quantum.code</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\quantum_unity\Assets\Photon\Quantum\Assemblies\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;QUANTUM_PROFILER_ENABLED</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\quantum_unity\Assets\Photon\Quantum\Assemblies\</OutputPath>
+    <DefineConstants />
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseProfiler|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\quantum_unity\Assets\Photon\Quantum\Assemblies\</OutputPath>
+    <DefineConstants>QUANTUM_PROFILER_ENABLED</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath Condition="'$(Configuration)' == 'Release'">..\..\assemblies\release\PhotonDeterministic.dll</HintPath>
+      <HintPath Condition="'$(Configuration)' == 'Debug'">..\..\assemblies\debug\PhotonDeterministic.dll</HintPath>
+    </Reference>
+    <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath Condition="'$(Configuration)' == 'Release'">..\..\assemblies\release\quantum.core.dll</HintPath>
+      <HintPath Condition="'$(Configuration)' == 'ReleaseProfiler'">..\..\assemblies\release-profiler\quantum.core.dll</HintPath>
+      <HintPath Condition="'$(Configuration)' == 'Debug'">..\..\assemblies\debug\quantum.core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Collision\Hitbox\HitboxInstance.qtn" />
+    <None Include="Collision\Hitbox\EntityRefList.qtn" />
+    <None Include="Collision\Hurtbox\HurtboxInstance.qtn" />
+    <None Include="Item\Item.qtn" />
+    <None Include="Item\ItemSpawner.qtn" />
+    <None Include="Player\Movement\CharacterController.qtn" />
+    <None Include="Player\Movement\Events\OnPlayerSpawn.qtn" />
+    <None Include="Player\Movement\MovementMoveSettings.qtn" />
+    <None Include="Collision\Hurtbox\HurtboxSettings.qtn" />
+    <None Include="Player\Multiplayer\PlayerCounter.qtn" />
+    <None Include="Player\Multiplayer\Team\Team.qtn" />
+    <None Include="Player\Stats\Events\OnPlayerBlockHit.qtn" />
+    <None Include="Player\Stats\Events\OnPlayerModifyStocks.qtn" />
+    <None Include="Player\Stats\Events\OnPlayerAttack.qtn" />
+    <None Include="Player\Stats\Stats.qtn" />
+    <Compile Include="Collision\Hitbox\HitboxSystem.cs" />
+    <Compile Include="Collision\Hurtbox\HurtboxSystem.cs" />
+    <None Include="Player\Stats\Events\OnPlayerLowHealth.qtn" />
+    <None Include="Player\Stats\Events\OnPlayerModifyHealth.qtn" />
+    <None Include="Player\Stats\Events\OnPlayerModifyEnergy.qtn" />
+    <Compile Include="Item\Item.qtn.cs" />
+    <None Include="Serializable Item\Build\AnimationRef.qtn" />
+    <None Include="Item\ItemInstance.qtn" />
+    <Compile Include="Item\ItemSpawnSystem.cs" />
+    <Compile Include="Item\ItemSystem.cs" />
+    <Compile Include="Player\Stats\StatsSystem.cs" />
+    <None Include="Projectile\ProjectileSettings.qtn" />
+    <Compile Include="Collision\HitboxHurtboxQueryInjectionSystem.cs" />
+    <Compile Include="Collision\HitboxHurtboxRetrievalSystem.cs" />
+    <Compile Include="Player\Movement\States\BlockState.cs" />
+    <Compile Include="Player\Movement\States\BurstState.cs" />
+    <Compile Include="Player\Movement\States\CrouchState.cs" />
+    <Compile Include="Player\Movement\States\DodgeState.cs" />
+    <Compile Include="Player\Movement\States\AttackState.cs" />
+    <Compile Include="Player\Movement\States\EmoteState.cs" />
+    <Compile Include="Player\Movement\States\FastFallState.cs" />
+    <Compile Include="Player\Movement\States\InteractState.cs" />
+    <Compile Include="Player\Movement\States\JumpState.cs" />
+    <Compile Include="Player\Movement\States\MovementState.cs" />
+    <None Include="Player\Multiplayer\Events\OnPlayerCancel.qtn" />
+    <None Include="Player\Multiplayer\Events\OnPlayerReady.qtn" />
+    <None Include="Player\Multiplayer\Events\OnAllPlayersReady.qtn" />
+    <Compile Include="Player\Multiplayer\ConfirmationSystem.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorSystems\CustomAnimatorStateSystem.cs" />
+    <Compile Include="Animation Events\QuantumAnimationEvent.qtn.cs" />
+    <Compile Include="Player\Movement\CharacterController.qtn.cs" />
+    <Compile Include="Player\Movement\MovementCurveSettings.qtn.cs" />
+    <Compile Include="Player\Movement\MovementSettings.qtn.cs" />
+    <None Include="Collision\Hitbox\HitboxSettings.qtn" />
+    <None Include="Serializable Item\Build\Build.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\Avatar\FFAvatar.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\Color Palette\ColorPalette.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\CosmeticSettings.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\Emote\Emote.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\Head Pieces\HeadPiece.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\Head Pieces\HeadSettings.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Badge\Badge.qtn" />
+    <None Include="Serializable Item\Build\Equipment\EquipmentSettings.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitPiece.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitSettings.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Skill\Skill.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Weapons\Main Weapon\MainWeapon.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Weapons\Sub-weapon\SubWeapon.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Weapons\Ultimate\Ultimate.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Weapons\WeaponSettings.qtn" />
+    <None Include="Serializable Item\Match\Events\OnMatchForfeit.qtn" />
+    <None Include="Serializable Item\Match\Events\OnMatchLose.qtn" />
+    <None Include="Serializable Item\Match\Events\OnMatchStart.qtn" />
+    <None Include="Serializable Item\Build\BuildAsset.qtn" />
+    <Compile Include="Serializable Item\Build\BuildAsset.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Cosmetics\Emote\Emote.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Skill\Skill.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Weapons\Main Weapon\MainWeapon.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-weapon\SubWeapon.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Weapons\Ultimate\Ultimate.qtn.cs" />
+    <Compile Include="Serializable Item\Match\MatchSystem.cs" />
+    <Compile Include="Serializable Item\Ruleset\RulesetAsset.qtn.cs" />
+    <Compile Include="Serializable Item\Stage\StageAsset.qtn.cs" />
+    <Compile Include="Timer\Timer.qtn.cs" />
+    <Compile Include="Timer\TimerSystem.cs" />
+    <Compile Include="Animation Events\Events\ApplyPhysicsEvent.cs" />
+    <Compile Include="Animation Events\Events\ModifyHurtboxesEvent.cs" />
+    <Compile Include="Animation Events\Events\SpawnProjectileEvent.cs" />
+    <Compile Include="Animation Events\Events\FrameEvent.qtn.cs" />
+    <Compile Include="Animation Events\Events\SpawnHitboxEvent.cs" />
+    <Compile Include="Types\ShapeCastHelper\ShapeCastHelper.qtn.cs" />
+    <Compile Include="Types\Directional\DirectionalAssetHelper.cs" />
+    <None Include="Camera\CameraSettings.qtn" />
+    <None Include="Player\Movement\MovementSettings.qtn" />
+    <None Include="Animation Events\QuantumAnimationEvent.qtn" />
+    <None Include="Serializable Item\Match\Events\OnMatchWin.qtn" />
+    <None Include="Serializable Item\Match\Match.qtn" />
+    <None Include="Serializable Item\Match\MatchInstance.qtn" />
+    <None Include="Serializable Item\Ruleset\Settings\ItemSettings.qtn" />
+    <None Include="Serializable Item\Ruleset\Settings\MatchSettings.qtn" />
+    <None Include="Serializable Item\Ruleset\Settings\PlayerSettings.qtn" />
+    <None Include="Serializable Item\Ruleset\Ruleset.qtn" />
+    <None Include="Serializable Item\Ruleset\RulesetAsset.qtn" />
+    <None Include="Serializable Item\Ruleset\RulesetInstance.qtn" />
+    <None Include="Serializable Item\Ruleset\Settings\StageSettings.qtn" />
+    <None Include="Serializable Item\Stage\Settings\ObjectSettings.qtn" />
+    <None Include="Serializable Item\Stage\Settings\SpawnSettings.qtn" />
+    <None Include="Serializable Item\Stage\Stage.qtn" />
+    <None Include="Serializable Item\Stage\StageAsset.qtn" />
+    <None Include="Serializable Item\Stage\StageInstance.qtn" />
+    <None Include="Serializable Item\Stage\Settings\ThemeSettings.qtn" />
+    <None Include="Timer\OnOneMinuteLeft.qtn" />
+    <None Include="Timer\Timer.qtn" />
+    <None Include="Timer\OnTimerTick.qtn" />
+    <None Include="Animation Events\Events\FrameEvent.qtn" />
+    <Compile Include="Camera\CameraSettings.qtn.cs" />
+    <Compile Include="CommandSetup.User.cs" />
+    <Compile Include="Core\CodeGen.cs" />
+    <Compile Include="CommandSetup.Legacy.cs" />
+    <Compile Include="Core\Core.cs" />
+    <Compile Include="Animation Events\AnimationBehavior.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\AnimatorDefinitions\CustomAnimator.User.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorBehavior.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorCondition.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorData.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorFrame.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorGraph.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorGraph.Serialization.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorLayer.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorMotion.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorSystems\CustomAnimatorResetTriggersSystem.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorRuntimeBlendData.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorState.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorSystems\CustomAnimatorSystem.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorTransition.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorUpdater.cs" />
+    <Compile Include="Custom Animator\QuantumCustomAnimatorState\CustomAnimatorVariables.cs" />
+    <Compile Include="Frame.User.cs" />
+    <Compile Include="FrameContext.User.cs" />
+    <Compile Include="Input\Input.qtn.cs" />
+    <None Include="Custom Animator\QuantumCustomAnimatorState\AnimatorDefinitions\CustomAnimator.qtn" />
+    <Compile Include="Player\Multiplayer\PlayerSpawnSystem.cs" />
+    <Compile Include="RuntimeConfig.User.cs" />
+    <Compile Include="RuntimePlayer.User.cs" />
+    <Compile Include="SimulationConfig.User.cs" />
+    <Compile Include="SystemSetup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Player\Movement\MovementSystem.cs" />
+    <None Include="Types\Directional\DirectionalAsset.qtn" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="db.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Input\Input.qtn" />
+    <None Include="Player\Multiplayer\PlayerLink.qtn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="User Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)..\..\quantum_unity\Assets"</PostBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)..\..\quantum_unity\Assets"</PostBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

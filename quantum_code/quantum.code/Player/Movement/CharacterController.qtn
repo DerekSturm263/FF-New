@@ -1,0 +1,59 @@
+enum States
+{
+    IsCrouching,
+    IsJumping,
+    IsFastFalling,
+    IsBlocking,
+    IsDodging,
+    IsBursting,
+    IsAttacking,
+    IsInteracting,
+    IsEmoting
+}
+
+enum AttackType
+{
+    MainWeapon,
+    SubWeapon,
+    Skill,
+    Ultimate
+}
+
+component CharacterController
+{
+	asset_ref<MovementSettings> MovementSettings;
+    bitset[9] States;
+	
+    Boolean IsGrounded;
+    int IsAgainstWall;
+
+    // Move
+    FP Velocity;
+    FP MovingLerp;
+
+    // Jump
+    short JumpCount;
+    int JumpTime;
+    int JumpSettingsIndex;
+    bool IsHoldingJump;
+    
+    // Dodge
+    FPVector2 DodgeDirection;
+    short DodgeCount;
+    int DodgeTime;
+    int DodgeSettingsIndex;
+    bool IsHoldingDodge;
+
+    // Attacking
+    int AttackOpenLag;
+    AttackType AttackType;
+    int StartupLag;
+    Direction Direction;
+    bool IsReady;
+    bool Invoked;
+
+    // Burst
+    int BurstTime;
+
+    bool IsReady;
+}

@@ -1,0 +1,649 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a366507de6e4aa44aea490bd69adace, type: 3}
+  m_Name: Online Battle Map
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/Online Battle Map
+      Guid:
+        Value: 2301540944961319450
+    UserAsset:
+      Id:
+        Value: 0
+    Scene: Online Battle
+    ScenePath: Assets/Scenes/Game/Play/Online/Online Battle.unity
+    SceneGuid: 8c85f77afe386064c9220edc492e65f6
+    WorldSize: 256
+    BucketsCount: 16
+    BucketsSubdivisions: 8
+    BucketingAxis: 0
+    SortingAxis: 1
+    TriangleMeshCellSize: 4
+    StaticColliders3DTrianglesData:
+      Id:
+        Value: 4588472460639547693
+    OptionalTriangleMetadataSerializationEnabled: 1
+    SerializeTrianglesMetadata: 0
+    StaticColliders3DTrianglesBinaryFile: 
+    GridSizeX: 32
+    GridSizeY: 32
+    GridNodeSize: 4
+    NavMeshLinks: []
+    Regions: []
+    StaticColliders2D:
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: 384303
+        Y:
+          RawValue: 10308
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 945625
+        Y:
+          RawValue: 16384
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Floor
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 0
+        MutableMode: 0
+    - Rotation:
+        RawValue: 1703
+      Position:
+        X:
+          RawValue: -650241
+        Y:
+          RawValue: 112970
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 192039
+        Y:
+          RawValue: 103670
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Van 1
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 1
+        MutableMode: 0
+    - Rotation:
+        RawValue: 20829
+      Position:
+        X:
+          RawValue: -495439
+        Y:
+          RawValue: 158040
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 52580
+        Y:
+          RawValue: 49788
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Van 2
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 2
+        MutableMode: 0
+    - Rotation:
+        RawValue: 72792
+      Position:
+        X:
+          RawValue: -445428
+        Y:
+          RawValue: 93205
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 52580
+        Y:
+          RawValue: 49788
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Van 3
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 3
+        MutableMode: 0
+    - Rotation:
+        RawValue: 102574
+      Position:
+        X:
+          RawValue: -427537
+        Y:
+          RawValue: 65942
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 52580
+        Y:
+          RawValue: 49788
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Van 4
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 4
+        MutableMode: 0
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: -816119
+        Y:
+          RawValue: 595525
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 22346
+        Y:
+          RawValue: 545785
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Wall Left
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 5
+        MutableMode: 0
+    - Rotation:
+        RawValue: 0
+      Position:
+        X:
+          RawValue: 480575
+        Y:
+          RawValue: 556335
+      Height:
+        RawValue: 0
+      VerticalOffset:
+        RawValue: 135004
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 6
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 22346
+        Y:
+          RawValue: 545785
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: Wall Right
+        Tag: Untagged
+        Layer: 6
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 6
+        MutableMode: 0
+    StaticColliders3D: []
+    MapEntities: []
+  Prototypes:
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner: []
+    MatchInstance: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance:
+    - Stage:
+        Theme:
+          _empty_prototype_dummy_field_: 0
+        Objects:
+          _empty_prototype_dummy_field_: 0
+        Spawn:
+          _empty_prototype_dummy_field_: 0
+    Stats: []
+    Timer: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Rotation:
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner: []
+    MatchInstance: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance:
+    - Ruleset:
+        Match:
+          _empty_prototype_dummy_field_: 0
+        Players:
+          _empty_prototype_dummy_field_: 0
+        Stage:
+          _empty_prototype_dummy_field_: 0
+        Items:
+          _empty_prototype_dummy_field_: 0
+    StageInstance: []
+    Stats: []
+    Timer: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: -23220
+        Y:
+          RawValue: 65023
+      Rotation:
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner: []
+    MatchInstance:
+    - Match:
+        Ruleset:
+          Match:
+            _empty_prototype_dummy_field_: 0
+          Players:
+            _empty_prototype_dummy_field_: 0
+          Stage:
+            _empty_prototype_dummy_field_: 0
+          Items:
+            _empty_prototype_dummy_field_: 0
+        Stage:
+          Theme:
+            _empty_prototype_dummy_field_: 0
+          Objects:
+            _empty_prototype_dummy_field_: 0
+          Spawn:
+            _empty_prototype_dummy_field_: 0
+        Teams: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance: []
+    Stats: []
+    Timer: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: -23220
+        Y:
+          RawValue: 65023
+      Rotation:
+        RawValue: 0
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner: []
+    MatchInstance: []
+    PlayerCounter:
+    - TotalPlayers: 0
+      PlayersReady: 0
+      CanPlayersEdit:
+        Value: 1
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance: []
+    Stats: []
+    Timer: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner:
+    - TimeSinceLastSpawned:
+        RawValue: 327680
+      MinTimeToSpawn:
+        RawValue: 65536
+      MaxTimeToSpawn:
+        RawValue: 327680
+      Prototype:
+        Id:
+          Value: 1661997301976249809
+    MatchInstance: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance: []
+    Stats: []
+    Timer: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner: []
+    MatchInstance: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance: []
+    Stats: []
+    Timer:
+    - Multiplier:
+        RawValue: -65536
+      OriginalTime: 3
+      End: 0
+      Time:
+        RawValue: 196608
+      IsCounting:
+        Value: 1
+      TriggerStartOfMatch:
+        Value: 1
+      TriggerEndOfMatch:
+        Value: 0
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
+    ItemSpawner: []
+    MatchInstance: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance: []
+    Stats: []
+    Timer:
+    - Multiplier:
+        RawValue: -65536
+      OriginalTime: 78
+      End: 0
+      Time:
+        RawValue: 5111808
+      IsCounting:
+        Value: 1
+      TriggerStartOfMatch:
+        Value: 0
+      TriggerEndOfMatch:
+        Value: 1
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []

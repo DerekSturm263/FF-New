@@ -1,0 +1,17 @@
+component Stats
+{
+	int MaxStocks;
+	int CurrentStocks;
+
+	int MaxHealth;
+	FP CurrentHealth;
+
+	int MaxEnergy;
+	FP CurrentEnergy;
+
+	Build Build;
+	list<EntityRef> Hitboxes;
+	dictionary<HurtboxType, entity_ref> Hurtboxes;
+
+	asset_ref<EntityPrototype> Hurtbox;
+}

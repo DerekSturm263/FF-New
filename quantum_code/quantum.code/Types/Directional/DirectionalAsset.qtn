@@ -1,0 +1,31 @@
+enum Direction
+{
+	Neutral,
+	Horizontal,
+	Up,
+	Down
+}
+
+struct DirectionalEmote
+{
+	asset_ref<Emote> Neutral;
+	asset_ref<Emote> Horizontal;
+	asset_ref<Emote> Up;
+	asset_ref<Emote> Down;
+}
+
+struct DirectionalSkill
+{
+	asset_ref<Skill> Neutral;
+	asset_ref<Skill> Horizontal;
+	asset_ref<Skill> Up;
+	asset_ref<Skill> Down;
+}
+
+struct DirectionalAnimationRef
+{
+	AnimationRef Neutral;
+	AnimationRef Horizontal;
+	AnimationRef Up;
+	AnimationRef Down;
+}

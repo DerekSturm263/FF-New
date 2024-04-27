@@ -1,0 +1,24 @@
+﻿enum ParentType
+{
+    User,
+    MainWeapon,
+    SubWeapon
+}
+
+[Serializable]
+struct HitboxSettings
+{
+    asset_ref<EntityPrototype> Prototype;
+    LayerMask Layer;
+
+    ParentType Parent;
+    FP Radius;
+    FPVector2 Offset;
+    FP Damage;
+    FPVector2 Knockback;
+    uint UserFreezeDuration;
+    uint TargetFreezeDuration;
+    FP TargetShakeIntensity;
+    FP CameraShakeIntensity;
+    bool OnlyHitOnce;
+}

@@ -1,0 +1,56 @@
+﻿// Asset used to REPLACE the original Quantum Animator Graph
+// See CustomAnimatorGraph.cs file to see the asset extension and to modify it as you will
+// On UNITY, this is the asset created in order to import Unity's animation info
+asset CustomAnimatorGraph;
+
+component CustomAnimator{
+	asset_ref<CustomAnimatorGraph> animatorGraph;
+
+	[HideInInspector] FP time;
+	[HideInInspector] FP normalized_time;
+	[HideInInspector] FP last_time;
+	[HideInInspector] FP length;
+	[HideInInspector] Int32 current_state_id;
+	[HideInInspector] Boolean freeze;
+	[HideInInspector] FP speed;
+
+	[HideInInspector] Int32 from_state_id;
+	[HideInInspector] FP from_state_time;
+	[HideInInspector] FP from_state_last_time;
+	[HideInInspector] FP from_state_normalized_time;
+	[HideInInspector] FP from_length;
+
+	[HideInInspector] Int32 to_state_id;
+	[HideInInspector] FP to_state_time;
+	[HideInInspector] FP to_state_last_time;
+	[HideInInspector] FP to_state_normalized_time;
+	[HideInInspector] FP to_length;
+
+	[HideInInspector] Int32 transition_index;
+	[HideInInspector] FP transition_time;
+	[HideInInspector] FP transition_duration;
+	[HideInInspector] Int32 animator_blend_count;
+
+	[HideInInspector] list<CustomAnimatorRuntimeVariable> AnimatorVariables;
+
+    // <state id, weights>
+    [HideInInspector] dictionary<int, BlendTreeWeights> BlendTreeWeights;
+}
+
+struct BlendTreeWeights
+{
+    list<FP> Values;
+}
+
+union CustomAnimatorRuntimeVariable{
+	FP FPValue;
+	Int32 IntegerValue;
+	Boolean BooleanValue;
+}
+
+// Singal work
+signal OnAnimatorStateEnter(EntityRef entity, CustomAnimator* animator);
+// Singal work
+signal OnAnimatorStateUpdate(EntityRef entity, CustomAnimator* animator);
+// Singal work
+signal OnAnimatorStateExit(EntityRef entity, CustomAnimator* animator);

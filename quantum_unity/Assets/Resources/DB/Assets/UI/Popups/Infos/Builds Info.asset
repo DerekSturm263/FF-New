@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119913672a2c78f43be62b25b2180ea2, type: 3}
+  m_Name: Builds Info
+  m_EditorClassIdentifier: 
+  _title: Builds
+  _description: 'Create and test out your unique fighter builds.
+
+
+    This mode
+    acts as a character builder, as well as a training room where you can practice
+    your fighters against computer players or other people in the same room.'
+  _responses:
+    _kvps:
+    - _item1: OK
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
+            m_MethodName: ClosePopup
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2

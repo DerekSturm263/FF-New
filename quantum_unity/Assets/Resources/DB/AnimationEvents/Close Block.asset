@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7924789853424956359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9b6f8ee2265754b9da7862f1b73379, type: 3}
+  m_Name: Make Tangible
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Close Block|Make Tangible
+      Guid:
+        Value: 730254135483942762
+    StartingFrame: 2
+    EndingFrame: 2
+    Hurtboxes: -1
+    Settings:
+      CanBeDamaged:
+        Value: 1
+      CanBeInterrupted:
+        Value: 1
+      CanBeKnockedBack:
+        Value: 1
+      DisableHitbox:
+        Value: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Close Block
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Close Block
+      Guid:
+        Value: 3829497505950195207
+    Events:
+    - Id:
+        Value: 730254135483942762

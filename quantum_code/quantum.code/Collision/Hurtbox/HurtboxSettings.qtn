@@ -1,0 +1,28 @@
+﻿[System.Flags]
+enum HurtboxType
+{
+    Belly = 1,
+    LeftUpperLeg = 2,
+    LeftLowerLeg = 4,
+    LeftFoot = 8,
+    LeftUpperArm = 16,
+    LeftForeArm = 32,
+    LeftHand = 64,
+    RightUpperLeg = 128,
+    RightLowerLeg = 256,
+    RightFoot = 512,
+    RightUpperArm = 1024,
+    RightForeArm = 2048,
+    RightHand = 4096,
+    NeckChest = 8192,
+    Head = 16384
+}
+
+[Serializable]
+struct HurtboxSettings
+{
+    bool CanBeDamaged;
+    bool CanBeInterrupted;
+    bool CanBeKnockedBack;
+    bool DisableHitbox;
+}

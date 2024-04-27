@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786f42ac12d5639418bef5c2062c3606, type: 3}
+  m_Name: Alleyway
+  m_EditorClassIdentifier: PhotonQuantum::TrackAsset
+  Sections:
+  - name: Pre-Game
+    BPM: 170
+    ExitTime: 0
+    KeepActive: 0
+    Clips:
+    - {fileID: 8300000, guid: 7b6ca00c26f8aef4393216f55597358f, type: 3}
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraph, GameResources
+            m_MethodName: SetWeightOne
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions: []
+  - name: Countdown
+    BPM: 60
+    ExitTime: 2.5
+    KeepActive: 0
+    Clips:
+    - {fileID: 8300000, guid: 5e62cebd211b6dd429326e7014697135, type: 3}
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraph, GameResources
+            m_MethodName: SetWeightOne
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions:
+    - To: Tension
+      Clip: {fileID: 0}
+      Length: 4
+  - name: Normal
+    BPM: 150
+    ExitTime: 0
+    KeepActive: 1
+    Clips:
+    - {fileID: 8300000, guid: 8112b7d1ae8fd1649bcbe49531382309, type: 3}
+    - {fileID: 8300000, guid: 98824e31d2ead2846ba642518885ab35, type: 3}
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraph, GameResources
+            m_MethodName: SetWeightsOneZero
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions:
+    - To: Last Minute
+      Clip: {fileID: 8300000, guid: 7b9dbbd0e64671e41afe41b83db0592a, type: 3}
+      Length: 1
+  - name: Tension
+    BPM: 150
+    ExitTime: 0
+    KeepActive: 1
+    Clips:
+    - {fileID: 8300000, guid: d950d548317af1e41907b629c618c040, type: 3}
+    - {fileID: 8300000, guid: 04fbee70bc4e32a479f06693e2abb74c, type: 3}
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraph, GameResources
+            m_MethodName: SetWeightsOneZero
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions:
+    - To: Last Minute
+      Clip: {fileID: 8300000, guid: 7b9dbbd0e64671e41afe41b83db0592a, type: 3}
+      Length: 1
+  - name: Last Minute
+    BPM: 150
+    ExitTime: 0
+    KeepActive: 0
+    Clips:
+    - {fileID: 8300000, guid: 006188473e53ec0458744b00a51f5f2f, type: 3}
+    - {fileID: 8300000, guid: 2ae36687cc8291a4fb3c69106f22f4f0, type: 3}
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraph, GameResources
+            m_MethodName: SetWeightsOneZero
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions: []

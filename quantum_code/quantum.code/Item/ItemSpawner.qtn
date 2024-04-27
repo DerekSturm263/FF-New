@@ -1,0 +1,8 @@
+singleton Component ItemSpawner
+{
+	FP TimeSinceLastSpawned;
+	FP MinTimeToSpawn;
+	FP MaxTimeToSpawn;
+
+	asset_ref<EntityPrototype> Prototype;
+}

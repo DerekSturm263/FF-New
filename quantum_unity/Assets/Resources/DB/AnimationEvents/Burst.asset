@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-852433400876170322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ede89f12f440ff49a7194688928d3b6, type: 3}
+  m_Name: New Event 2
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Burst|New Event 2
+      Guid:
+        Value: 4353448811302768375
+    StartingFrame: 1
+    EndingFrame: 2
+    Settings: {fileID: 11400000, guid: 3045b095bec668d4b89b238def6f88dc, type: 2}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Burst
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Burst
+      Guid:
+        Value: 1131542861135584775
+    Events:
+    - Id:
+        Value: 4132347426701160259
+    - Id:
+        Value: 4353448811302768375
+    - Id:
+        Value: 1126665172000336546
+--- !u!114 &3672677731246183076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9b6f8ee2265754b9da7862f1b73379, type: 3}
+  m_Name: fd
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Burst|fd
+      Guid:
+        Value: 1126665172000336546
+    StartingFrame: 1
+    EndingFrame: 2
+    Hurtboxes: -1
+    Settings:
+      CanBeDamaged:
+        Value: 0
+      CanBeInterrupted:
+        Value: 0
+      CanBeKnockedBack:
+        Value: 0
+      DisableHitbox:
+        Value: 1
+--- !u!114 &5080887121173982603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
+  m_Name: New Event
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Burst|New Event
+      Guid:
+        Value: 4132347426701160259
+    StartingFrame: 1
+    EndingFrame: 24
+    Settings:
+      CameraShakeIntensity:
+        RawValue: 0
+      Damage:
+        RawValue: 655360
+      Knockback:
+        X:
+          RawValue: -6553600
+        Y:
+          RawValue: 6553600
+      Layer:
+        BitMask: 512
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 65536
+      OnlyHitOnce:
+        Value: 0
+      Parent: 0
+      Prototype:
+        Id:
+          Value: 3156569685704267981
+      Radius:
+        RawValue: 114688
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
