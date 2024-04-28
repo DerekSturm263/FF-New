@@ -45,6 +45,8 @@ namespace GameResources.Camera
             CalculateTargetRotation();
             CalculateShake();
 
+            _cam.fieldOfView = Mathf.Lerp(_cam.fieldOfView, _settings.Settings.FOV, Time.deltaTime * _settings.Settings.TranslationSpeed.AsFloat);
+
             ApplyPosition(Time.deltaTime);
             ApplyRotation(Time.deltaTime);
 

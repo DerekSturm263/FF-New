@@ -10,6 +10,11 @@ public class PlayerBattleEventListener : MonoBehaviour
         _huds[player.Player._index - 1].gameObject.SetActive(true);
     }
 
+    public void Destroy(QuantumGame game, PlayerLink player)
+    {
+        _huds[player.Player._index - 1].gameObject.SetActive(false);
+    }
+
     private void Awake()
     {
         QuantumEvent.Subscribe<EventOnPlayerModifyHealth>(listener: this, handler: (e) => _huds[e.Player.Player._index - 1].UpdateHealth(e.NewHealth, e.MaxHealth));

@@ -10,18 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Item", order = Quantum.EditorDefines.AssetMenuPriorityStart + 208)]
-public partial class ItemAsset : AssetBase {
-  public Quantum.Item Settings;
+public abstract partial class ItemAsset : AssetBase {
 
-  public override Quantum.AssetObject AssetObject => Settings;
-  
-  public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.Item();
-    }
-    base.Reset();
-  }
 }
 
 public static partial class ItemAssetExts {

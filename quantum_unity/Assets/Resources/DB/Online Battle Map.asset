@@ -351,11 +351,21 @@ MonoBehaviour:
     StageInstance:
     - Stage:
         Theme:
-          _empty_prototype_dummy_field_: 0
+          CameraSettings:
+            Default:
+              Id:
+                Value: 0
+            Zoom:
+              Id:
+                Value: 0
+            Tension:
+              Id:
+                Value: 0
         Objects:
-          _empty_prototype_dummy_field_: 0
+          Gizmos: []
         Spawn:
-          _empty_prototype_dummy_field_: 0
+          PlayerSpawnPoints: []
+          ItemSpawnPoints: []
     Stats: []
     Timer: []
     CharacterController2D: []
@@ -395,13 +405,54 @@ MonoBehaviour:
     RulesetInstance:
     - Ruleset:
         Match:
-          _empty_prototype_dummy_field_: 0
+          WinCondition:
+            Id:
+              Value: 0
+          Time: 0
+          ShowTimer:
+            Value: 0
+          MatchCount: 0
+          EndMatchesWhenWinnerClear:
+            Value: 0
+          ShowScores:
+            Value: 0
+          ShowCurrentWinner:
+            Value: 0
         Players:
-          _empty_prototype_dummy_field_: 0
+          StockCount: 0
+          ShowStocks:
+            Value: 0
+          MaxHealth: 0
+          ShowHealth:
+            Value: 0
+          MaxEnergy: 0
+          ShowEnergy:
+            Value: 0
+          EnergyChargeRate:
+            RawValue: 0
+          RespawnTime:
+            RawValue: 0
+          FriendlyFire:
+            Value: 0
+          DisallowDuplicateSelection:
+            Value: 0
         Stage:
-          _empty_prototype_dummy_field_: 0
+          Stages: []
+          StagePicker:
+            Value: 0
+          AllowGizmos:
+            Value: 0
+          AllowCustomStages:
+            Value: 0
+          DisallowDuplicateSelection:
+            Value: 0
         Items:
-          _empty_prototype_dummy_field_: 0
+          StartingItem:
+            Id:
+              Value: 0
+          Items: []
+          SpawnFrequency:
+            RawValue: 0
     StageInstance: []
     Stats: []
     Timer: []
@@ -440,20 +491,71 @@ MonoBehaviour:
     - Match:
         Ruleset:
           Match:
-            _empty_prototype_dummy_field_: 0
+            WinCondition:
+              Id:
+                Value: 0
+            Time: 0
+            ShowTimer:
+              Value: 0
+            MatchCount: 0
+            EndMatchesWhenWinnerClear:
+              Value: 0
+            ShowScores:
+              Value: 0
+            ShowCurrentWinner:
+              Value: 0
           Players:
-            _empty_prototype_dummy_field_: 0
+            StockCount: 0
+            ShowStocks:
+              Value: 0
+            MaxHealth: 0
+            ShowHealth:
+              Value: 0
+            MaxEnergy: 0
+            ShowEnergy:
+              Value: 0
+            EnergyChargeRate:
+              RawValue: 0
+            RespawnTime:
+              RawValue: 0
+            FriendlyFire:
+              Value: 0
+            DisallowDuplicateSelection:
+              Value: 0
           Stage:
-            _empty_prototype_dummy_field_: 0
+            Stages: []
+            StagePicker:
+              Value: 0
+            AllowGizmos:
+              Value: 0
+            AllowCustomStages:
+              Value: 0
+            DisallowDuplicateSelection:
+              Value: 0
           Items:
-            _empty_prototype_dummy_field_: 0
+            StartingItem:
+              Id:
+                Value: 0
+            Items: []
+            SpawnFrequency:
+              RawValue: 0
         Stage:
           Theme:
-            _empty_prototype_dummy_field_: 0
+            CameraSettings:
+              Default:
+                Id:
+                  Value: 0
+              Zoom:
+                Id:
+                  Value: 0
+              Tension:
+                Id:
+                  Value: 0
           Objects:
-            _empty_prototype_dummy_field_: 0
+            Gizmos: []
           Spawn:
-            _empty_prototype_dummy_field_: 0
+            PlayerSpawnPoints: []
+            ItemSpawnPoints: []
         Teams: []
     PlayerCounter: []
     PlayerLink: []
@@ -498,46 +600,6 @@ MonoBehaviour:
       PlayersReady: 0
       CanPlayersEdit:
         Value: 1
-    PlayerLink: []
-    RulesetInstance: []
-    StageInstance: []
-    Stats: []
-    Timer: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D: []
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - CharacterController: []
-    CustomAnimator: []
-    HitboxInstance: []
-    HurtboxInstance: []
-    ItemInstance: []
-    ItemSpawner:
-    - TimeSinceLastSpawned:
-        RawValue: 327680
-      MinTimeToSpawn:
-        RawValue: 65536
-      MaxTimeToSpawn:
-        RawValue: 327680
-      Prototype:
-        Id:
-          Value: 1661997301976249809
-    MatchInstance: []
-    PlayerCounter: []
     PlayerLink: []
     RulesetInstance: []
     StageInstance: []

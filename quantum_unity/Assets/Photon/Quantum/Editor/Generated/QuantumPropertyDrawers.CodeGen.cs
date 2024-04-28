@@ -64,6 +64,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefGizmo))]
+  public class AssetRefGizmoPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(GizmoAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefHeadPiece))]
   public class AssetRefHeadPiecePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -127,6 +134,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefStatusEffect))]
+  public class AssetRefStatusEffectPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(StatusEffectAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefSubWeapon))]
   public class AssetRefSubWeaponPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -141,10 +155,18 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefWinCondition))]
+  public class AssetRefWinConditionPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(WinConditionAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Direction_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.ParentType_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.StagePickerType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.States_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]
   partial class PrototypeDrawer {}

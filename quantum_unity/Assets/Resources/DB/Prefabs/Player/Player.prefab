@@ -406,39 +406,30 @@ MonoBehaviour:
       Id:
         Value: 887067288549751597
     States: 0000000000000000
-    IsGrounded:
+    Holding: 0000000000000000
+    FramesInState: 0
+    NearbyColliders:
       Value: 0
-    IsAgainstWall: 0
     Velocity:
       RawValue: 0
     MovingLerp:
       RawValue: 0
     JumpCount: 0
-    JumpTime: 0
     JumpSettingsIndex: 0
-    IsHoldingJump:
-      Value: 0
     DodgeDirection:
       X:
         RawValue: 0
       Y:
         RawValue: 0
     DodgeCount: 0
-    DodgeTime: 0
     DodgeSettingsIndex: 0
-    IsHoldingDodge:
-      Value: 0
-    AttackOpenLag: 0
-    AttackType:
-      Value: 0
-    StartupLag: 0
     Direction:
       Value: 0
-    Invoked:
-      Value: 0
-    BurstTime: 0
+    HeldItem: {fileID: 0}
     IsReady:
       Value: 0
+    ReadyTime:
+      RawValue: 0
 --- !u!95 &-7058321633535672688
 Animator:
   serializedVersion: 7
@@ -484,7 +475,7 @@ MonoBehaviour:
       RawValue: 0
     Build:
       Equipment:
-        WeaponSettings:
+        Weapons:
           MainWeapon:
             Id:
               Value: 0
@@ -508,12 +499,15 @@ MonoBehaviour:
             Id:
               Value: 0
         Badges:
-        - Id:
-            Value: 0
-        - Id:
-            Value: 0
-        - Id:
-            Value: 0
+          Badge1:
+            Id:
+              Value: 0
+          Badge2:
+            Id:
+              Value: 0
+          Badge3:
+            Id:
+              Value: 0
         Outfit:
           Headgear:
             Id:

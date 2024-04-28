@@ -32,8 +32,6 @@ namespace GameResources.Audio
             // Only invoke events if the current frame is the start of the next beat (based on the BPM of the current Track).
             if (_frame % (spm / _getBPM.Invoke()) == 0)
             {
-                Debug.Log("Beat");
-
                 // Execute every event that's only supposed to happen this beat, then erase the list.
                 foreach (System.Action action in _nextAction)
                 {

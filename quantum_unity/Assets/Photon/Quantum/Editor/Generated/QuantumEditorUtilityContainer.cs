@@ -28,17 +28,21 @@ namespace Quantum.Editor {
 
     [System.Serializable]
     public partial class KnownObjectsContainer : QuantumEditorUtility.SerializableObjectsContainerBase {
-      public Quantum.Item[] Item = {};
+      public Quantum.HealingItem[] HealingItem = {};
       public Quantum.QuantumAnimationEvent[] QuantumAnimationEvent = {};
       public Quantum.MovementSettings[] MovementSettings = {};
       public Quantum.BuildAsset[] BuildAsset = {};
       public Quantum.Emote[] Emote = {};
+      public Quantum.OutfitPiece[] OutfitPiece = {};
       public Quantum.Skill[] Skill = {};
       public Quantum.MainWeapon[] MainWeapon = {};
       public Quantum.SubWeapon[] SubWeapon = {};
       public Quantum.Ultimate[] Ultimate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};
+      public Quantum.WinCondition[] WinCondition = {};
+      public Quantum.Gizmo[] Gizmo = {};
       public Quantum.StageAsset[] StageAsset = {};
+      public Quantum.StatusEffect[] StatusEffect = {};
       public Quantum.ApplyPhysicsEvent[] ApplyPhysicsEvent = {};
       public Quantum.ModifyHurtboxesEvent[] ModifyHurtboxesEvent = {};
       public Quantum.SpawnProjectileEvent[] SpawnProjectileEvent = {};
@@ -48,7 +52,6 @@ namespace Quantum.Editor {
       public Quantum.ColorPalette[] ColorPalette = {};
       public Quantum.HeadPiece[] HeadPiece = {};
       public Quantum.Badge[] Badge = {};
-      public Quantum.OutfitPiece[] OutfitPiece = {};
       public Quantum.CustomAnimatorGraph[] CustomAnimatorGraph = {};
       public Quantum.SimulationConfig[] SimulationConfig = {};
       public Quantum.BinaryData[] BinaryData = {};

@@ -2607,6 +2607,18 @@ MonoBehaviour:
           m_StringArgument: Pre-Game
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 288680293511525287}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 1
+        m_CallState: 2
   _onAllPlayersReady:
     m_PersistentCalls:
       m_Calls:
@@ -2695,6 +2707,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: Start
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 288680293511525287}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Start
+          m_BoolArgument: 0
         m_CallState: 2
   _onMatchStart:
     m_PersistentCalls:
@@ -2966,13 +2990,54 @@ MonoBehaviour:
   Prototype:
     Ruleset:
       Match:
-        _empty_prototype_dummy_field_: 0
+        WinCondition:
+          Id:
+            Value: 0
+        Time: 0
+        ShowTimer:
+          Value: 0
+        MatchCount: 0
+        EndMatchesWhenWinnerClear:
+          Value: 0
+        ShowScores:
+          Value: 0
+        ShowCurrentWinner:
+          Value: 0
       Players:
-        _empty_prototype_dummy_field_: 0
+        StockCount: 0
+        ShowStocks:
+          Value: 0
+        MaxHealth: 0
+        ShowHealth:
+          Value: 0
+        MaxEnergy: 0
+        ShowEnergy:
+          Value: 0
+        EnergyChargeRate:
+          RawValue: 0
+        RespawnTime:
+          RawValue: 0
+        FriendlyFire:
+          Value: 0
+        DisallowDuplicateSelection:
+          Value: 0
       Stage:
-        _empty_prototype_dummy_field_: 0
+        Stages: []
+        StagePicker:
+          Value: 0
+        AllowGizmos:
+          Value: 0
+        AllowCustomStages:
+          Value: 0
+        DisallowDuplicateSelection:
+          Value: 0
       Items:
-        _empty_prototype_dummy_field_: 0
+        StartingItem:
+          Id:
+            Value: 0
+        Items: []
+        SpawnFrequency:
+          RawValue: 0
 --- !u!114 &347227800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3672,20 +3737,71 @@ MonoBehaviour:
     Match:
       Ruleset:
         Match:
-          _empty_prototype_dummy_field_: 0
+          WinCondition:
+            Id:
+              Value: 0
+          Time: 0
+          ShowTimer:
+            Value: 0
+          MatchCount: 0
+          EndMatchesWhenWinnerClear:
+            Value: 0
+          ShowScores:
+            Value: 0
+          ShowCurrentWinner:
+            Value: 0
         Players:
-          _empty_prototype_dummy_field_: 0
+          StockCount: 0
+          ShowStocks:
+            Value: 0
+          MaxHealth: 0
+          ShowHealth:
+            Value: 0
+          MaxEnergy: 0
+          ShowEnergy:
+            Value: 0
+          EnergyChargeRate:
+            RawValue: 0
+          RespawnTime:
+            RawValue: 0
+          FriendlyFire:
+            Value: 0
+          DisallowDuplicateSelection:
+            Value: 0
         Stage:
-          _empty_prototype_dummy_field_: 0
+          Stages: []
+          StagePicker:
+            Value: 0
+          AllowGizmos:
+            Value: 0
+          AllowCustomStages:
+            Value: 0
+          DisallowDuplicateSelection:
+            Value: 0
         Items:
-          _empty_prototype_dummy_field_: 0
+          StartingItem:
+            Id:
+              Value: 0
+          Items: []
+          SpawnFrequency:
+            RawValue: 0
       Stage:
         Theme:
-          _empty_prototype_dummy_field_: 0
+          CameraSettings:
+            Default:
+              Id:
+                Value: 0
+            Zoom:
+              Id:
+                Value: 0
+            Tension:
+              Id:
+                Value: 0
         Objects:
-          _empty_prototype_dummy_field_: 0
+          Gizmos: []
         Spawn:
-          _empty_prototype_dummy_field_: 0
+          PlayerSpawnPoints: []
+          ItemSpawnPoints: []
       Teams: []
 --- !u!114 &399604885
 MonoBehaviour:
@@ -4585,12 +4701,36 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 945202671}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &515679155 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6773988797683742072, guid: 290cb46a74217ac438122de7b554477b,
+    type: 3}
+  m_PrefabInstance: {fileID: 945202671}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f8cb476d6840949b3f301fb6960c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &519335544 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2927678267595041938, guid: 290cb46a74217ac438122de7b554477b,
     type: 3}
   m_PrefabInstance: {fileID: 1078999016}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &519335545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6773988797683742072, guid: 290cb46a74217ac438122de7b554477b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1078999016}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f8cb476d6840949b3f301fb6960c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &555096602
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,7 +4749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &555096603
 Transform:
   m_ObjectHideFlags: 0
@@ -6478,7 +6618,7 @@ PrefabInstance:
     - target: {fileID: 6106332728288337555, guid: 290cb46a74217ac438122de7b554477b,
         type: 3}
       propertyPath: m_Name
-      value: Player Stats
+      value: Player Stats RTL
       objectReference: {fileID: 0}
     - target: {fileID: 6106332728288337555, guid: 290cb46a74217ac438122de7b554477b,
         type: 3}
@@ -6718,7 +6858,7 @@ PrefabInstance:
     - target: {fileID: 6106332728288337555, guid: 290cb46a74217ac438122de7b554477b,
         type: 3}
       propertyPath: m_Name
-      value: Player Stats (1)
+      value: Player Stats RTL (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6106332728288337555, guid: 290cb46a74217ac438122de7b554477b,
         type: 3}
@@ -7630,6 +7770,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1072535929}
         m_TargetAssemblyTypeName: PlayerTracker`1[[UnityEngine.RectTransform, UnityEngine
         m_MethodName: UntrackPlayer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1931528012}
+        m_TargetAssemblyTypeName: PlayerBattleEventListener, FusionFighters
+        m_MethodName: Destroy
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8987,7 +9139,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 2021771174}
-  - {fileID: 555096604}
   - {fileID: 1123558578}
   - {fileID: 1512231794}
 --- !u!1 &1762998805
@@ -9950,9 +10101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _huds:
   - {fileID: 1211770979}
-  - {fileID: 0}
+  - {fileID: 515679155}
   - {fileID: 365713270}
-  - {fileID: 0}
+  - {fileID: 519335545}
 --- !u!1 &1973038635
 GameObject:
   m_ObjectHideFlags: 0
@@ -15235,11 +15386,21 @@ MonoBehaviour:
   Prototype:
     Stage:
       Theme:
-        _empty_prototype_dummy_field_: 0
+        CameraSettings:
+          Default:
+            Id:
+              Value: 0
+          Zoom:
+            Id:
+              Value: 0
+          Tension:
+            Id:
+              Value: 0
       Objects:
-        _empty_prototype_dummy_field_: 0
+        Gizmos: []
       Spawn:
-        _empty_prototype_dummy_field_: 0
+        PlayerSpawnPoints: []
+        ItemSpawnPoints: []
 --- !u!114 &2058460621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15859,6 +16020,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 288680293511525285}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &288680293511525287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 640672124503047119, guid: 4f0d59b6c530d3f4fb72f2caf36d480f,
+    type: 3}
+  m_PrefabInstance: {fileID: 288680293511525285}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1433202382618131495
 PrefabInstance:
   m_ObjectHideFlags: 0
