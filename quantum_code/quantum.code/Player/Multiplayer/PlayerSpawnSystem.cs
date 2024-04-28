@@ -24,9 +24,9 @@ namespace Quantum.Multiplayer
             f.Add(entity, playerLink);
             f.Events.OnPlayerSpawn(playerLink);
 
-            if (f.Unsafe.TryGetPointer(entity, out Transform3D* transform3D))
+            if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
             {
-                transform3D->Position.X = (int)player;
+                ++playerCounter->TotalPlayers;
             }
 
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
@@ -36,9 +36,17 @@ namespace Quantum.Multiplayer
                 f.Events.OnPlayerModifyStocks(playerLink, stats->CurrentStocks, stats->CurrentStocks, stats->MaxStocks);
             }
 
-            if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
+            if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
-                ++playerCounter->TotalPlayers;
+                /*if (f.Unsafe.TryGetPointerSingleton(out StageInstance* stageInstance))
+                {
+                    var spawnPoints = f.ResolveList(stageInstance->Stage.Spawn.PlayerSpawnPoints);
+                    transform->Position = spawnPoints[f.Global->RngSession.Next(0, spawnPoints.Count)];
+                }
+                else
+                {*/
+                    transform->Position = new(0, 0);
+                //}
             }
         }
     }

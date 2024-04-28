@@ -17,6 +17,7 @@
         public virtual States[] KillStateList => new States[] { };
         protected abstract int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings);
         protected virtual int DelayedEntranceTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => 0;
+        public virtual bool CanInterruptSelf => false;
 
         private bool DoesStateTypeMatch(ref PlayerStateSystem.Filter filter)
         {

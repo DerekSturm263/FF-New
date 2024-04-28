@@ -9,6 +9,7 @@ namespace Quantum.Movement
         public override bool GetInput(ref Input input) => input.Jump;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => filter.CharacterController->GetJumpSettings(settings).Frames;
+        public override bool CanInterruptSelf => true;
 
         protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
         {

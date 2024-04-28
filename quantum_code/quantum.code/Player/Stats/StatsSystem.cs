@@ -72,6 +72,9 @@ namespace Quantum
             FP oldHealth = stats->CurrentHealth;
             stats->CurrentHealth = amount;
 
+            if (stats->CurrentHealth > stats->MaxHealth)
+                stats->CurrentHealth = stats->MaxHealth;
+
             f.Events.OnPlayerModifyHealth(*playerLink, oldHealth, stats->CurrentHealth, stats->MaxHealth);
 
             if (stats->CurrentHealth <= 0)
@@ -102,6 +105,9 @@ namespace Quantum
         {
             FP oldEnergy = stats->CurrentEnergy;
             stats->CurrentEnergy = amount;
+
+            if (stats->CurrentEnergy > stats->MaxEnergy)
+                stats->CurrentEnergy = stats->MaxEnergy;
 
             f.Events.OnPlayerModifyEnergy(*playerLink, oldEnergy, stats->CurrentEnergy, stats->MaxEnergy);
         }

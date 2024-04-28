@@ -6,7 +6,10 @@ using UnityEngine;
 public class TrackGraph : ScriptableObject
 {
     public List<TrackSection> Sections;
-    public TrackSection GetFromName(string name) => Sections.First(item => item.name == name);
+
+    private Dictionary<string, TrackSection> _sectionsByName;
+    public void InitializeSectionsDictionary() => _sectionsByName = Sections.ToDictionary(item => item.name);
+    public TrackSection GetFromName(string name) => _sectionsByName[name];
 
     private TrackSection _currentSection;
     public TrackSection CurrentSection => _currentSection;

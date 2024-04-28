@@ -1,4 +1,19 @@
+enum StagePickerType
+{
+	Anyone,
+	Turns,
+	Loser,
+	Winner,
+	InOrder,
+	Random
+}
+
+[Serializable]
 struct StageSettings
 {
-
+	list<asset_ref<StageAsset>> Stages;
+	StagePickerType StagePicker;
+	bool AllowGizmos;
+	bool AllowCustomStages;
+	bool DisallowDuplicateSelection;
 }

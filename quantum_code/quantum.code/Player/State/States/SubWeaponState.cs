@@ -13,7 +13,7 @@ namespace Quantum.Movement
 
         protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
         {
-            if (f.TryFindAsset(filter.Stats->Build.Equipment.WeaponSettings.SubWeapon.Id, out SubWeapon subWeapon))
+            if (f.TryFindAsset(filter.Stats->Build.Equipment.Weapons.SubWeapon.Id, out SubWeapon subWeapon))
                 return filter.Stats->CurrentEnergy >= subWeapon.EnergyAmount;
 
             return false;
@@ -36,6 +36,12 @@ namespace Quantum.Movement
             base.DelayedEnter(f, ref filter, ref input, settings);
 
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+
+            AssetRefSubWeapon subWeaponAsset = filter.Stats->Build.Equipment.Weapons.SubWeapon;
+            if (f.TryFindAsset(subWeaponAsset.Id, out SubWeapon subWeapon))
+            {
+                StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -subWeapon.EnergyAmount);
+            }
         }
     }
 }

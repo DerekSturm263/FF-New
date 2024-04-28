@@ -71,14 +71,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Camera\CameraSettingsGroup.qtn" />
     <None Include="Collision\Hitbox\HitboxInstance.qtn" />
     <None Include="Collision\Hitbox\EntityRefList.qtn" />
     <None Include="Collision\Hurtbox\HurtboxInstance.qtn" />
     <None Include="Item\Item.qtn" />
     <None Include="Item\ItemSpawner.qtn" />
-    <None Include="Player\Movement\CharacterController.qtn" />
-    <None Include="Player\Movement\Events\OnPlayerSpawn.qtn" />
-    <None Include="Player\Movement\MovementMoveSettings.qtn" />
+    <None Include="Player\Multiplayer\Events\OnAllPlayersCancel.qtn" />
+    <None Include="Player\State\CharacterController.qtn" />
+    <None Include="Player\State\Events\OnPlayerSpawn.qtn" />
+    <None Include="Player\State\MovementMoveSettings.qtn" />
     <None Include="Collision\Hurtbox\HurtboxSettings.qtn" />
     <None Include="Player\Multiplayer\PlayerCounter.qtn" />
     <None Include="Player\Multiplayer\Team\Team.qtn" />
@@ -96,32 +98,33 @@
     <None Include="Item\ItemInstance.qtn" />
     <Compile Include="Item\ItemSpawnSystem.cs" />
     <Compile Include="Item\ItemSystem.cs" />
-    <Compile Include="Player\Movement\States\MainWeaponState.cs" />
-    <Compile Include="Player\Movement\States\SkillState.cs" />
-    <Compile Include="Player\Movement\States\SubWeaponState.cs" />
-    <Compile Include="Player\Movement\States\UltimateState.cs" />
+    <Compile Include="Item\Items\HealingItem.cs" />
+    <Compile Include="Player\State\States\MainWeaponState.cs" />
+    <Compile Include="Player\State\States\SkillState.cs" />
+    <Compile Include="Player\State\States\SubWeaponState.cs" />
+    <Compile Include="Player\State\States\UltimateState.cs" />
     <Compile Include="Player\Stats\StatsSystem.cs" />
     <None Include="Projectile\ProjectileSettings.qtn" />
     <Compile Include="Collision\HitboxHurtboxQueryInjectionSystem.cs" />
     <Compile Include="Collision\HitboxHurtboxRetrievalSystem.cs" />
-    <Compile Include="Player\Movement\States\BlockState.cs" />
-    <Compile Include="Player\Movement\States\BurstState.cs" />
-    <Compile Include="Player\Movement\States\CrouchState.cs" />
-    <Compile Include="Player\Movement\States\DodgeState.cs" />
-    <Compile Include="Player\Movement\States\EmoteState.cs" />
-    <Compile Include="Player\Movement\States\FastFallState.cs" />
-    <Compile Include="Player\Movement\States\InteractState.cs" />
-    <Compile Include="Player\Movement\States\JumpState.cs" />
-    <Compile Include="Player\Movement\States\PlayerState.cs" />
+    <Compile Include="Player\State\States\BlockState.cs" />
+    <Compile Include="Player\State\States\BurstState.cs" />
+    <Compile Include="Player\State\States\CrouchState.cs" />
+    <Compile Include="Player\State\States\DodgeState.cs" />
+    <Compile Include="Player\State\States\EmoteState.cs" />
+    <Compile Include="Player\State\States\FastFallState.cs" />
+    <Compile Include="Player\State\States\InteractState.cs" />
+    <Compile Include="Player\State\States\JumpState.cs" />
+    <Compile Include="Player\State\States\PlayerState.cs" />
     <None Include="Player\Multiplayer\Events\OnPlayerCancel.qtn" />
     <None Include="Player\Multiplayer\Events\OnPlayerReady.qtn" />
     <None Include="Player\Multiplayer\Events\OnAllPlayersReady.qtn" />
     <Compile Include="Player\Multiplayer\ConfirmationSystem.cs" />
     <Compile Include="Custom Animator\QuantumCustomAnimatorSystems\CustomAnimatorStateSystem.cs" />
     <Compile Include="Animation Events\QuantumAnimationEvent.qtn.cs" />
-    <Compile Include="Player\Movement\CharacterController.qtn.cs" />
-    <Compile Include="Player\Movement\MovementCurveSettings.qtn.cs" />
-    <Compile Include="Player\Movement\MovementSettings.qtn.cs" />
+    <Compile Include="Player\State\CharacterController.qtn.cs" />
+    <Compile Include="Player\State\MovementCurveSettings.qtn.cs" />
+    <Compile Include="Player\State\MovementSettings.qtn.cs" />
     <None Include="Collision\Hitbox\HitboxSettings.qtn" />
     <None Include="Serializable Item\Build\Build.qtn" />
     <None Include="Serializable Item\Build\Cosmetics\Avatar\FFAvatar.qtn" />
@@ -129,29 +132,35 @@
     <None Include="Serializable Item\Build\Cosmetics\CosmeticSettings.qtn" />
     <None Include="Serializable Item\Build\Cosmetics\Emote\Emote.qtn" />
     <None Include="Serializable Item\Build\Cosmetics\Head Pieces\HeadPiece.qtn" />
-    <None Include="Serializable Item\Build\Cosmetics\Head Pieces\HeadSettings.qtn" />
+    <None Include="Serializable Item\Build\Cosmetics\Head Pieces\HeadSet.qtn" />
     <None Include="Serializable Item\Build\Equipment\Badge\Badge.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Badge\BadgeSet.qtn" />
     <None Include="Serializable Item\Build\Equipment\EquipmentSettings.qtn" />
     <None Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitPiece.qtn" />
-    <None Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitSettings.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitSet.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitStats.qtn" />
     <None Include="Serializable Item\Build\Equipment\Skill\Skill.qtn" />
     <None Include="Serializable Item\Build\Equipment\Weapons\Main Weapon\MainWeapon.qtn" />
     <None Include="Serializable Item\Build\Equipment\Weapons\Sub-weapon\SubWeapon.qtn" />
     <None Include="Serializable Item\Build\Equipment\Weapons\Ultimate\Ultimate.qtn" />
-    <None Include="Serializable Item\Build\Equipment\Weapons\WeaponSettings.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Weapons\WeaponSet.qtn" />
     <None Include="Serializable Item\Match\Events\OnMatchForfeit.qtn" />
     <None Include="Serializable Item\Match\Events\OnMatchLose.qtn" />
     <None Include="Serializable Item\Match\Events\OnMatchStart.qtn" />
     <None Include="Serializable Item\Build\BuildAsset.qtn" />
     <Compile Include="Serializable Item\Build\BuildAsset.qtn.cs" />
     <Compile Include="Serializable Item\Build\Cosmetics\Emote\Emote.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Outfit Piece\OutfitPiece.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Skill\Skill.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Weapons\Main Weapon\MainWeapon.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-weapon\SubWeapon.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Weapons\Ultimate\Ultimate.qtn.cs" />
     <Compile Include="Serializable Item\Match\MatchSystem.cs" />
     <Compile Include="Serializable Item\Ruleset\RulesetAsset.qtn.cs" />
+    <Compile Include="Serializable Item\Ruleset\Win Condition\WinCondition.qtn.cs" />
+    <Compile Include="Serializable Item\Stage\Gizmo\Gizmo.qtn.cs" />
     <Compile Include="Serializable Item\Stage\StageAsset.qtn.cs" />
+    <Compile Include="Status Effect\StatusEffect.qtn.cs" />
     <Compile Include="Timer\Timer.qtn.cs" />
     <Compile Include="Timer\TimerSystem.cs" />
     <Compile Include="Animation Events\Events\ApplyPhysicsEvent.cs" />
@@ -162,7 +171,7 @@
     <Compile Include="Types\ShapeCastHelper\ShapeCastHelper.qtn.cs" />
     <Compile Include="Types\Directional\DirectionalAssetHelper.cs" />
     <None Include="Camera\CameraSettings.qtn" />
-    <None Include="Player\Movement\MovementSettings.qtn" />
+    <None Include="Player\State\MovementSettings.qtn" />
     <None Include="Animation Events\QuantumAnimationEvent.qtn" />
     <None Include="Serializable Item\Match\Events\OnMatchWin.qtn" />
     <None Include="Serializable Item\Match\Match.qtn" />
@@ -174,12 +183,15 @@
     <None Include="Serializable Item\Ruleset\RulesetAsset.qtn" />
     <None Include="Serializable Item\Ruleset\RulesetInstance.qtn" />
     <None Include="Serializable Item\Ruleset\Settings\StageSettings.qtn" />
+    <None Include="Serializable Item\Ruleset\Win Condition\WinCondition.qtn" />
+    <None Include="Serializable Item\Stage\Gizmo\Gizmo.qtn" />
     <None Include="Serializable Item\Stage\Settings\ObjectSettings.qtn" />
     <None Include="Serializable Item\Stage\Settings\SpawnSettings.qtn" />
     <None Include="Serializable Item\Stage\Stage.qtn" />
     <None Include="Serializable Item\Stage\StageAsset.qtn" />
     <None Include="Serializable Item\Stage\StageInstance.qtn" />
     <None Include="Serializable Item\Stage\Settings\ThemeSettings.qtn" />
+    <None Include="Status Effect\StatusEffect.qtn" />
     <None Include="Timer\OnOneMinuteLeft.qtn" />
     <None Include="Timer\Timer.qtn" />
     <None Include="Timer\OnTimerTick.qtn" />
@@ -216,8 +228,9 @@
     <Compile Include="SimulationConfig.User.cs" />
     <Compile Include="SystemSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Player\Movement\PlayerStateSystem.cs" />
+    <Compile Include="Player\State\PlayerStateSystem.cs" />
     <None Include="Types\Directional\DirectionalAsset.qtn" />
+    <None Include="Types\Positional\PositionalAsset.qtn" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="db.json" />
@@ -227,6 +240,8 @@
     <None Include="Player\Multiplayer\PlayerLink.qtn" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Audio\Track\" />
+    <Folder Include="Serializable Item\Build\Equipment\Badge\Badges\" />
     <Folder Include="User Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

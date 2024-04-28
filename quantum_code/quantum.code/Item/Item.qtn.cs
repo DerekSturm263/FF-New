@@ -2,7 +2,7 @@
 
 namespace Quantum
 {
-    public partial class Item
+    public abstract unsafe partial class Item
     {
         public enum Handedness
         {
@@ -10,8 +10,9 @@ namespace Quantum
             TwoHanded
         }
 
-        public string Name;
-        public string Description;
         public Handedness HandednessType;
+        public int Uses;
+
+        public abstract void Invoke(Frame f, PlayerLink* user, PlayerLink* target);
     }
 }

@@ -2,8 +2,8 @@ using Extensions.Components.Miscellaneous;
 using GameResources.Audio;
 using Quantum;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using static System.Collections.Specialized.BitVector32;
 
 public class DynamicTrackController : Controller<DynamicTrackController>
 {
@@ -35,6 +35,8 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
         if (_trackGraph)
         {
+            _trackGraph.InitializeSectionsDictionary();
+
             _trackGraph.SetCurrentSection(null);
             _trackGraph.SetCurrentTransition(null);
 
@@ -66,14 +68,6 @@ public class DynamicTrackController : Controller<DynamicTrackController>
     }
 
     private void TensionTransition(EventOnPlayerLowHealth e)
-    {
-        Extensions.Miscellaneous.Helper.Delay(_endDelay, () => TrackEventController.Instance.ExecuteOnNextBeat(() =>
-        {
-            ForceTransitionSmooth("Tension");
-        }));
-    }
-
-    private void NormalTransition(EventOnPlayerLowHealth e)
     {
         Extensions.Miscellaneous.Helper.Delay(_endDelay, () => TrackEventController.Instance.ExecuteOnNextBeat(() =>
         {
@@ -194,7 +188,7 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
     public void ForceTransition(string name)
     {
-        if (_trackGraph.CurrentSection is not null && _trackSources.TryGetValue(_trackGraph.CurrentSection, out System.Collections.Generic.List<AudioSource> audioSources))
+        if (_trackGraph.CurrentSection is not null && _trackSources.TryGetValue(_trackGraph.CurrentSection, out List<AudioSource> audioSources))
         {
             audioSources[0].gameObject.SetActive(false);
         }
@@ -207,7 +201,7 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
     public void ForceTransitionSmooth(string name)
     {
-        BeginTransition(_trackGraph.CurrentSection, _trackGraph.CurrentSection.Transitions.First(item => item.To == name));
+        BeginTransition(_trackGraph.CurrentSection, _trackGraph.CurrentSection.Transitions.Find(item => item.To == name));
     }
 
     public void GetBPM(Extensions.Types.ReturningUnityEvent<int>.Resolver resolver)

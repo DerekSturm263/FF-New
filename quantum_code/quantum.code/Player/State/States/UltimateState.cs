@@ -24,10 +24,12 @@ namespace Quantum.Movement
         {
             base.Enter(f, ref filter, ref input, settings);
 
-            if (f.TryFindAsset(filter.Stats->Build.Equipment.WeaponSettings.Ultimate.Id, out Ultimate ultimate))
+            if (f.TryFindAsset(filter.Stats->Build.Equipment.Weapons.Ultimate.Id, out Ultimate ultimate))
             {
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, ultimate.Move.ID);
             }
+
+            StatsSystem.SetEnergy(f, filter.PlayerLink, filter.Stats, 0);
         }
     }
 }

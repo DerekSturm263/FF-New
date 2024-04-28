@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Extensions.Types
@@ -49,7 +48,7 @@ namespace Extensions.Types
 
         public int IndexOf(TKey key)
         {
-            Tuple<TKey, TValue> list = _kvps.First(item => item.Item1.Equals(key));
+            Tuple<TKey, TValue> list = _kvps.Find(item => item.Item1.Equals(key));
             return _kvps.IndexOf(list);
         }
 

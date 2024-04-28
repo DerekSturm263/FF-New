@@ -38,6 +38,8 @@ namespace Quantum.Movement
 
             // Get all the nearby colliders.
             filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, settings, filter.Transform);
+            if (filter.CharacterController->IsInState(States.IsJumping))
+                filter.CharacterController->NearbyColliders &= ~Colliders.Ground;
 
             // Get if the player is grounded or not...
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
@@ -63,8 +65,12 @@ namespace Quantum.Movement
                     // If they are, try to see if they should leave the state...
                     if (!AllStates[state].TryExitAndResolveState(f, ref filter, ref input, settings))
                     {
-                        // If they shouldn't, update the state.
-                        AllStates[state].Update(f, ref filter, ref input, settings);
+                        // Some states can be interrupted by themselves, this lets that happen.
+                        if (!AllStates[state].CanInterruptSelf || !AllStates[state].TryEnterAndResolveState(f, ref filter, ref input, settings))
+                        {
+                            // If they shouldn't, update the state.
+                            AllStates[state].Update(f, ref filter, ref input, settings);
+                        }
                     }
                 }
                 else

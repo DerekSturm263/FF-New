@@ -1,6 +1,5 @@
 using Extensions.Miscellaneous;
 using Quantum;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -74,7 +73,7 @@ public class AnimationEventContainerWindow : EditorWindow
         {
             AssetDatabase.RemoveObjectFromAsset(Selected);
 
-            AssetRefFrameEvent toRemove = _eventAsset.Settings.Events.First(item => item.Id == Selected.AssetObject.Guid);
+            AssetRefFrameEvent toRemove = _eventAsset.Settings.Events.Find(item => item.Id == Selected.AssetObject.Guid);
             _eventAsset.Settings.Events.Remove(toRemove);
 
             AssetDatabase.SaveAssets();

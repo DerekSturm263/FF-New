@@ -19,10 +19,23 @@ namespace Quantum
                 
                 if (f.Unsafe.TryGetPointer(newItem, out Transform2D* transform))
                 {
-                    transform->Position = new(0, 10);
+                    if (f.Unsafe.TryGetPointerSingleton(out StageInstance* stageInstance))
+                    {
+                        var spawnPoints = f.ResolveList(stageInstance->Stage.Spawn.ItemSpawnPoints);
+                        transform->Position = spawnPoints[f.Global->RngSession.Next(0, spawnPoints.Count)];
+                    }
+                    else
+                    {
+                        transform->Position = new(0, 10);
+                    }
                 }
 
                 filter.Spawner->TimeSinceLastSpawned = f.Global->RngSession.Next(filter.Spawner->MinTimeToSpawn, filter.Spawner->MaxTimeToSpawn);
+
+                if (f.Unsafe.TryGetPointerSingleton(out RulesetInstance* rulesetInstance))
+                {
+                    filter.Spawner->TimeSinceLastSpawned *= 1 / rulesetInstance->Ruleset.Items.SpawnFrequency;
+                }
             }
             else
             {

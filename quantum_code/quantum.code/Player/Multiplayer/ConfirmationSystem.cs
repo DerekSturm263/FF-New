@@ -44,13 +44,12 @@ namespace Quantum.Multiplayer
                         return;
 
                     ++playerCounter->PlayersReady;
-                }
+                    f.Events.OnPlayerReady(*playerLink);
 
-                f.Events.OnPlayerReady(*playerLink);
-
-                if (playerCounter is not null && playerCounter->PlayersReady == playerCounter->TotalPlayers)
-                {
-                    HandleAllPlayersReady(f);
+                    if (playerCounter->PlayersReady == playerCounter->TotalPlayers)
+                    {
+                        HandleAllPlayersReady(f);
+                    }
                 }
             }
         }
@@ -64,14 +63,16 @@ namespace Quantum.Multiplayer
                     if (!playerCounter->CanPlayersEdit)
                         return;
 
+                    bool shouldCancelAll = playerCounter->PlayersReady == playerCounter->TotalPlayers;
+
                     --playerCounter->PlayersReady;
+
+                    filter.CharacterController->IsReady = false;
+                    f.Events.OnPlayerCancel(*playerLink);
+                    
+                    if (shouldCancelAll)
+                        HandleAllPlayersCancel(f);
                 }
-
-                filter.CharacterController->IsReady = false;
-                f.Events.OnPlayerCancel(*playerLink);
-
-                f.SystemEnable<PlayerStateSystem>();
-                f.SystemDisable<TimerSystem>();
             }
         }
 
@@ -81,6 +82,24 @@ namespace Quantum.Multiplayer
 
             f.SystemDisable<PlayerStateSystem>();
             f.SystemEnable<TimerSystem>();
+        }
+
+        private void HandleAllPlayersCancel(Frame f)
+        {
+            f.Events.OnAllPlayersCancel();
+
+            f.SystemEnable<PlayerStateSystem>();
+            f.SystemDisable<TimerSystem>();
+
+            foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
+            {
+                if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
+                {
+                    StatsSystem.SetHealth(f, playerLink.Component, stats, 0);
+                    StatsSystem.SetEnergy(f, playerLink.Component, stats, 0);
+                    StatsSystem.SetStocks(f, playerLink.Component, stats, 0);
+                }
+            }
         }
     }
 }

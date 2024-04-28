@@ -4,6 +4,8 @@ namespace Quantum
 {
     public partial class CameraSettings
     {
+        public int FOV;
+
         public FP TranslationSpeed;
         public FPVector3 TranslationOffset;
         public FPVector3 TranslationMinClamp;

@@ -1,4 +1,11 @@
+[Serializable]
 struct MatchSettings
 {
-
+	asset_ref<WinCondition> WinCondition;
+	int Time;
+	bool ShowTimer;
+	int MatchCount;
+	bool EndMatchesWhenWinnerClear;
+	bool ShowScores;
+	bool ShowCurrentWinner;
 }

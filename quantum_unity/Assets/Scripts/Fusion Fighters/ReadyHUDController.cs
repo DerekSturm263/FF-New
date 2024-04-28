@@ -2,7 +2,7 @@ using GameResources.Camera;
 using Quantum;
 using UnityEngine;
 
-public class ReadyController : PlayerTracker<RectTransform>
+public class ReadyHUDController : PlayerTracker<RectTransform>
 {
     [SerializeField] private GameObject[] _readies;
     [SerializeField] private Vector2 _offset;

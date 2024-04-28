@@ -7,16 +7,17 @@ namespace Quantum.Movement
     {
         public override States GetState() => States.IsDodging;
 
-        public override bool GetInput(ref Input input) => input.Block;
+        public override bool GetInput(ref Input input) => input.Block && input.Movement != default;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => filter.CharacterController->GetDodgeSettings(settings).Frames;
         protected override int DelayedEntranceTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => settings.DirectionChangeTime;
 
         public override States[] EntranceBlacklist => new States[] { States.IsBursting };
+        public override States[] KillStateList => new States[] { States.IsJumping };
 
         protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
         {
-            return input.Movement != default && filter.CharacterController->DodgeCount > 0;
+            return filter.CharacterController->DodgeCount > 0;
         }
 
         protected override void Enter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
@@ -24,6 +25,11 @@ namespace Quantum.Movement
             base.Enter(f, ref filter, ref input, settings);
 
             filter.CharacterController->DodgeDirection = SnapTo8Directions(input.Movement);
+            --filter.CharacterController->DodgeCount;
+
+            if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
+                --filter.CharacterController->JumpCount;
+
             filter.PhysicsBody->GravityScale = 0;
         }
 
@@ -37,14 +43,9 @@ namespace Quantum.Movement
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "DodgeDirY", filter.CharacterController->DodgeDirection.Y);
 
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-            {
                 filter.CharacterController->DodgeSettingsIndex = 0;
-            }
             else
-            {
                 filter.CharacterController->DodgeSettingsIndex = 1;
-                --filter.CharacterController->DodgeCount;
-            }
         }
 
         public override void Update(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
@@ -67,7 +68,7 @@ namespace Quantum.Movement
             filter.CharacterController->DodgeSettingsIndex = 0;
         }
 
-        private static FP DOT_SUCCESS = (FP)1 / 2;
+        private static FP DOT_SUCCESS = FP._0_50;
 
         public static FPVector2 SnapTo8Directions(FPVector2 vector2)
         {

@@ -1,7 +1,8 @@
+[Serializable]
 struct EquipmentSettings
 {
-	WeaponSettings WeaponSettings;
+	WeaponSet Weapons;
 	DirectionalSkill Skills;
-	array<asset_ref<Badge>>[3] Badges;
-	OutfitSettings Outfit;
+	BadgeSet Badges;
+	OutfitSet Outfit;
 }

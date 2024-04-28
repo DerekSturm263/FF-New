@@ -1,4 +1,7 @@
+[Serializable]
 struct ItemSettings
 {
-
+	asset_ref<Item> StartingItem;
+	list<asset_ref<Item>> Items;
+	FP SpawnFrequency;
 }

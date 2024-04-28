@@ -1,4 +1,14 @@
+[Serializable]
 struct PlayerSettings
 {
-
+	int StockCount;
+	bool ShowStocks;
+	int MaxHealth;
+	bool ShowHealth;
+	int MaxEnergy;
+	bool ShowEnergy;
+	FP EnergyChargeRate;
+	FP RespawnTime;
+	bool FriendlyFire;
+	bool DisallowDuplicateSelection;
 }

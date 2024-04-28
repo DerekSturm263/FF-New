@@ -37,6 +37,7 @@ namespace Quantum.Timing
                             {
                                 StatsSystem.SetHealth(f, playerLink.Component, stats, stats->MaxHealth);
                                 StatsSystem.SetEnergy(f, playerLink.Component, stats, stats->MaxEnergy / 5);
+                                StatsSystem.SetStocks(f, playerLink.Component, stats, stats->MaxStocks);
                             }
                         }
 
@@ -59,15 +60,16 @@ namespace Quantum.Timing
                 {
                     if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
                     {
-                        FP healthLerp = filter.Timer->Time / filter.Timer->OriginalTime;
-                        FP health = FPMath.Lerp(stats->MaxHealth, 0, healthLerp);
+                        FP lerpValue = filter.Timer->Time / filter.Timer->OriginalTime;
 
+                        FP health = FPMath.Lerp(stats->MaxHealth, 0, lerpValue);
                         StatsSystem.SetHealth(f, playerLink.Component, stats, health);
 
-                        FP energyLerp = filter.Timer->Time / filter.Timer->OriginalTime;
-                        FP energy = FPMath.Lerp(stats->MaxEnergy / 5, 0, healthLerp);
-
+                        FP energy = FPMath.Lerp(stats->MaxEnergy / 5, 0, lerpValue);
                         StatsSystem.SetEnergy(f, playerLink.Component, stats, energy);
+
+                        int stocks = FPMath.Lerp(stats->MaxStocks, 0, lerpValue).AsInt;
+                        StatsSystem.SetStocks(f, playerLink.Component, stats, stocks);
                     }
                 }
             }
