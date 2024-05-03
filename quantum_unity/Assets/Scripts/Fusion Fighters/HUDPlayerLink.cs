@@ -28,14 +28,24 @@ public class HUDPlayerLink : MonoBehaviour
         _health.fillAmount = (newHealth / maxHealth).AsFloat;
         _health.color = Color.Lerp(_emptyHealth, _fullHealth, _health.fillAmount);
 
+        if (_portrait.material != _activateUltimate)
+        {
+            if (_health.fillAmount <= 0.2f)
+            {
+                _portrait.material = _lowHealth;
+            }
+            else
+            {
+                _portrait.material = null;
+            }
+        }
+
         if (_health.fillAmount <= 0.2f)
         {
-            _portrait.material = _lowHealth;
             _lowHealthObj.SetActive(true);
         }
         else
         {
-            _portrait.material = null;
             _lowHealthObj.SetActive(false);
         }
     }
@@ -51,29 +61,41 @@ public class HUDPlayerLink : MonoBehaviour
         }
         else
         {
-            _portrait.material = null;
+            if (_health.fillAmount <= 0.2f)
+            {
+                _portrait.material = _lowHealth;
+            }
+            else
+            {
+                _portrait.material = null;
+            }
+        }
+
+        if (_health.fillAmount <= 0.2f)
+        {
+            _lowHealthObj.SetActive(true);
+        }
+        else
+        {
+            _lowHealthObj.SetActive(false);
         }
     }
 
     public void UpdateStocks(int newStocks, int maxStocks)
     {
-        if (newStocks == maxStocks)
+        if (newStocks > _stocks.transform.childCount)
         {
-            for (int i = 0; i < maxStocks; ++i)
+            int count = newStocks - _stocks.transform.childCount;
+
+            for (int i = 0; i < count; ++i)
             {
-                GameObject stock = Instantiate(_stock, _stocks.transform);
-                stock.GetComponent<Image>().color = _fullStock;
+                Instantiate(_stock, _stocks.transform);
             }
         }
-        else
-        {
-            if (newStocks < 0)
-                return;
 
-            for (int i = maxStocks - 1; i >= newStocks; --i)
-            {
-                _stocks.transform.GetChild(i).GetComponent<Image>().color = _emptyStock;
-            }
+        for (int i = 0; i < maxStocks; ++i)
+        {
+            _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
         }
     }
 }

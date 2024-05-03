@@ -57,26 +57,8 @@ namespace Quantum
 
         public readonly bool TryGetCastResults(Frame f, out Physics2D.HitCollection hitCollection, Transform2D* parent = null)
         {
-            if (parent is null)
-            {
-                if (Shape.ShapeType == Shape2DType.Box)
-                    Draw.Rectangle(Shape.PositionOffset, Shape.BoxExtents, 0);
-                else
-                    Draw.Circle(Shape.PositionOffset, Shape.CircleRadius);
-
-                hitCollection = f.Physics2D.OverlapShape(FPVector2.Zero, 0, Shape.CreateShape(f), LayerMask);
-                return hitCollection.Count > 0;
-            }
-            else
-            {
-                if (Shape.ShapeType == Shape2DType.Box)
-                    Draw.Rectangle(parent->Position + Shape.PositionOffset, Shape.BoxExtents, 0);
-                else
-                    Draw.Circle(parent->Position + Shape.PositionOffset, Shape.CircleRadius);
-
-                hitCollection = f.Physics2D.OverlapShape(parent->Position, 0, Shape.CreateShape(f), LayerMask);
-                return hitCollection.Count > 0;
-            }
+            hitCollection = GetCastResults(f, parent);
+            return hitCollection.Count > 0;
         }
     }
 }

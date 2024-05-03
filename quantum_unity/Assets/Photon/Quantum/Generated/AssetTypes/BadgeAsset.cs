@@ -10,18 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Badge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 26)]
-public partial class BadgeAsset : AssetBase {
-  public Quantum.Badge Settings;
+public abstract partial class BadgeAsset : AssetBase {
 
-  public override Quantum.AssetObject AssetObject => Settings;
-  
-  public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.Badge();
-    }
-    base.Reset();
-  }
 }
 
 public static partial class BadgeAssetExts {

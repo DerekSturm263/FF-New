@@ -5,13 +5,24 @@ component Stats
 
 	int MaxHealth;
 	FP CurrentHealth;
+	FP HealthModifyMultiplier;
 
 	int MaxEnergy;
 	FP CurrentEnergy;
+	FP EnergyModifyMultiplier;
 
 	Build Build;
 	list<EntityRef> Hitboxes;
 	dictionary<HurtboxType, entity_ref> Hurtboxes;
 
+	ApparelStats ApparelStatsMultiplier;
+	MainWeaponStats MainWeaponStatsMultiplier;
+
 	asset_ref<EntityPrototype> Hurtbox;
+
+    entity_ref HeldItem;
+	
+	asset_ref<StatusEffect> StatusEffect;
+	int StatusEffectTimeLeft;
+	FP StatusEffectMultiplier;
 }

@@ -33,8 +33,8 @@ public class LocalInputController : MonoBehaviour
             Block2 = _controls.Player.Block2.IsPressed(),
 
             MainWeapon = _controls.Player.MainWeapon.IsPressed(),
+            AlternateWeapon = _controls.Player.AlternateWeapon.IsPressed(),
             SubWeapon = _controls.Player.Subweapon.IsPressed(),
-            Skill = _controls.Player.Skill.IsPressed(),
 
             Emote = _controls.Player.Emote.IsPressed(),
             Interact = _controls.Player.Interact.IsPressed(),

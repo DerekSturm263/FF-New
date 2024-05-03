@@ -1,5 +1,6 @@
 ﻿enum ParentType
 {
+    None,
     User,
     MainWeapon,
     SubWeapon
@@ -21,4 +22,5 @@ struct HitboxSettings
     FP TargetShakeIntensity;
     FP CameraShakeIntensity;
     bool OnlyHitOnce;
+    asset_ref<StatusEffect> StatusEffect;
 }

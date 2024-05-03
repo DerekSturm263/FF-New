@@ -1,1 +1,6 @@
-asset SubWeapon;
+[Serializable]
+struct SubWeapon
+{
+	asset_ref<SubWeaponTemplate> Template;
+	SubWeaponEnhancerSet Enhancers;
+}

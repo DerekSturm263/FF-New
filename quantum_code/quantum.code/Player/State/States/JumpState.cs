@@ -8,17 +8,17 @@ namespace Quantum.Movement
 
         public override bool GetInput(ref Input input) => input.Jump;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
-        protected override int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => filter.CharacterController->GetJumpSettings(settings).Frames;
+        protected override int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => filter.CharacterController->GetJumpSettings(settings).Frames;
         public override bool CanInterruptSelf => true;
 
-        protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             return filter.CharacterController->JumpCount > 0;
         }
 
-        protected override void Enter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        protected override void Enter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            base.Enter(f, ref filter, ref input, settings);
+            base.Enter(f, ref filter, ref input, settings, stats);
 
             if (!filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {
@@ -34,16 +34,16 @@ namespace Quantum.Movement
             --filter.CharacterController->JumpCount;
         }
 
-        public override void Update(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        public override void Update(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            base.Update(f, ref filter, ref input, settings);
+            base.Update(f, ref filter, ref input, settings, stats);
 
-            if (filter.CharacterController->FramesInState < settings.FullHopFrameMin && filter.CharacterController->JumpSettingsIndex < 2)
+            if (filter.CharacterController->StateTime < settings.FullHopFrameMin && filter.CharacterController->JumpSettingsIndex < 2)
             {
                 if (!input.Jump)
                 {
                     filter.CharacterController->JumpSettingsIndex = 0;
-                    filter.CharacterController->FramesInState = settings.FullHopFrameMin; // TODO: CHANGE
+                    filter.CharacterController->StateTime = settings.FullHopFrameMin; // TODO: CHANGE
 
                     CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "JumpStrength", (Photon.Deterministic.FP)1 / 2);
                 }
@@ -57,13 +57,13 @@ namespace Quantum.Movement
             else
             {
                 MovementCurveSettings jumpSettings = filter.CharacterController->GetJumpSettings(settings);
-                filter.PhysicsBody->Velocity.Y = jumpSettings.Curve.Evaluate(filter.CharacterController->FramesInState) * jumpSettings.Force;
+                filter.PhysicsBody->Velocity.Y = jumpSettings.Curve.Evaluate(filter.CharacterController->StateTime) * (jumpSettings.Force * (1 / stats.Weight));
             }
         }
 
-        protected override void Exit(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        protected override void Exit(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            base.Exit(f, ref filter, ref input, settings);
+            base.Exit(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->JumpSettingsIndex = 0;
         }

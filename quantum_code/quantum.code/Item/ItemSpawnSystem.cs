@@ -1,10 +1,13 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
+using System.IO.MemoryMappedFiles;
 
 namespace Quantum
 {
     public unsafe class ItemSpawnSystem : SystemMainThreadFilter<ItemSpawnSystem.Filter>
     {
+        public override bool StartEnabled => false;
+
         public struct Filter
         {
             public EntityRef Entity;
@@ -15,18 +18,21 @@ namespace Quantum
         {
             if (filter.Spawner->TimeSinceLastSpawned <= 0)
             {
+                if (filter.Spawner->CurrentSpawned == filter.Spawner->MaxAllowed)
+                    return;
+
                 EntityRef newItem = f.Create(filter.Spawner->Prototype);
                 
                 if (f.Unsafe.TryGetPointer(newItem, out Transform2D* transform))
                 {
-                    if (f.Unsafe.TryGetPointerSingleton(out StageInstance* stageInstance))
+                    /*if (f.Unsafe.TryGetPointerSingleton(out StageInstance* stageInstance))
                     {
                         var spawnPoints = f.ResolveList(stageInstance->Stage.Spawn.ItemSpawnPoints);
                         transform->Position = spawnPoints[f.Global->RngSession.Next(0, spawnPoints.Count)];
                     }
-                    else
+                    else*/
                     {
-                        transform->Position = new(0, 10);
+                        transform->Position = new(0, 2);
                     }
                 }
 
@@ -36,6 +42,8 @@ namespace Quantum
                 {
                     filter.Spawner->TimeSinceLastSpawned *= 1 / rulesetInstance->Ruleset.Items.SpawnFrequency;
                 }
+
+                ++filter.Spawner->CurrentSpawned;
             }
             else
             {

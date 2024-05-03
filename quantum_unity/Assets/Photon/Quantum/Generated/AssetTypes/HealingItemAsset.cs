@@ -10,8 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Item/HealingItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
-public partial class HealingItemAsset : ItemAsset {
+[CreateAssetMenu(menuName = "Quantum/Item/UsableItem/HealingItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
+public partial class HealingItemAsset : UsableItemAsset {
   public Quantum.HealingItem Settings;
 
   public override Quantum.AssetObject AssetObject => Settings;

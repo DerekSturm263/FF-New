@@ -14,6 +14,7 @@ namespace Quantum
 
         [Header("Jump Settings")]
         public int FullHopFrameMin;
+        public short MaxJumpCount;
         public MovementCurveSettings ShortHopSettings;
         public MovementCurveSettings FullHopSettings;
         public MovementCurveSettings AerialJumpSettings;
@@ -27,17 +28,16 @@ namespace Quantum
         public FP KnockbackResistance;
 
         [Header("Dodge Settings")]
+        public short MaxDodgeCount;
         public MovementCurveSettings GroundedDodgeSettings;
         public MovementCurveSettings AerialDodgeSettings;
 
         [Header("Burst Settings")]
         public FP BurstCost;
-
-        [Header("Interact Settings")]
-        public ShapeCastHelper InteractCast;
+        public int BurstTime;
 
         [Header("Throw Settings")]
-        public FPVector2 ThrowAmount;
+        public FPVector2 ThrowForce;
 
         [Header("Knockback Settings")]
         public FP DirectionalInfluenceForce;
@@ -49,6 +49,7 @@ namespace Quantum
         public FP SlideForce;
 
         [Header("ShapeCast Settings")]
+        public ShapeCastHelper InteractCast;
         public ShapeCastHelper GroundedCast;
         public ShapeCastHelper WallCastLeft;
         public ShapeCastHelper WallCastRight;

@@ -10,18 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/StatusEffect", order = Quantum.EditorDefines.AssetMenuPriorityStart + 468)]
-public partial class StatusEffectAsset : AssetBase {
-  public Quantum.StatusEffect Settings;
+public abstract partial class StatusEffectAsset : AssetBase {
 
-  public override Quantum.AssetObject AssetObject => Settings;
-  
-  public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.StatusEffect();
-    }
-    base.Reset();
-  }
 }
 
 public static partial class StatusEffectAssetExts {

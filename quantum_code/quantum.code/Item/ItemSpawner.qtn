@@ -4,5 +4,8 @@ singleton Component ItemSpawner
 	FP MinTimeToSpawn;
 	FP MaxTimeToSpawn;
 
+	int CurrentSpawned;
+	int MaxAllowed;
+
 	asset_ref<EntityPrototype> Prototype;
 }

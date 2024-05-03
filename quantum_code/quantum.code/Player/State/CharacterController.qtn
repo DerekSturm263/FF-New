@@ -25,10 +25,11 @@ enum Colliders
 
 component CharacterController
 {
+    bool CanInput;
 	asset_ref<MovementSettings> MovementSettings;
     bitset[12] States;
     bitset[12] Holding;
-    int FramesInState;
+    int StateTime;
 	
     Colliders NearbyColliders;
 
@@ -38,20 +39,22 @@ component CharacterController
 
     // Jump
     short JumpCount;
+    short MaxJumpCount;
     short JumpSettingsIndex;
     
     // Dodge
     FPVector2 DodgeDirection;
     short DodgeCount;
+    short MaxDodgeCount;
     short DodgeSettingsIndex;
 
     // Attacking/Emoting
     Direction Direction;
 
-    // Interact
-    entity_ref HeldItem;
-
     // Ready
     bool IsReady;
     FP ReadyTime;
+
+    // Ultimate
+    int UltimateTime;
 }

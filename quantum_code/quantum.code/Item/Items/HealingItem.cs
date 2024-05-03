@@ -3,7 +3,7 @@
 namespace Quantum
 {
     [System.Serializable]
-    public unsafe partial class HealingItem : Item
+    public unsafe partial class HealingItem : UsableItem
     {
         public enum Stat
         {
@@ -15,7 +15,7 @@ namespace Quantum
         public Stat HealingStat;
         public int Amount;
 
-        public override void Invoke(Frame f, PlayerLink* user, PlayerLink* target)
+        public override void Invoke(Frame f, PlayerLink* user, EntityRef item, ItemInstance* itemInstance)
         {
             if (f.Unsafe.TryGetPointer(user->Entity, out Stats* stats))
             {
@@ -34,6 +34,8 @@ namespace Quantum
                         break;
                 }
             }
+
+            base.Invoke(f, user, item, itemInstance);
         }
     }
 }

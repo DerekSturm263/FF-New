@@ -2,7 +2,7 @@
 struct EquipmentSettings
 {
 	WeaponSet Weapons;
-	DirectionalSkill Skills;
-	BadgeSet Badges;
-	OutfitSet Outfit;
+	asset_ref<Ultimate> Ultimate;
+	asset_ref<Badge> Badge;
+	Outfit Outfit;
 }

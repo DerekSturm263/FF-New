@@ -452,7 +452,7 @@ MonoBehaviour:
               Value: 0
           Items: []
           SpawnFrequency:
-            RawValue: 0
+            RawValue: 65536
     StageInstance: []
     Stats: []
     Timer: []
@@ -593,6 +593,48 @@ MonoBehaviour:
     HitboxInstance: []
     HurtboxInstance: []
     ItemInstance: []
+    ItemSpawner:
+    - TimeSinceLastSpawned:
+        RawValue: 327680
+      MinTimeToSpawn:
+        RawValue: 1966080
+      MaxTimeToSpawn:
+        RawValue: 5898240
+      CurrentSpawned: 0
+      MaxAllowed: 5
+      Prototype:
+        Id:
+          Value: 1661997301976249809
+    MatchInstance: []
+    PlayerCounter: []
+    PlayerLink: []
+    RulesetInstance: []
+    StageInstance: []
+    Stats: []
+    Timer: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - CharacterController: []
+    CustomAnimator: []
+    HitboxInstance: []
+    HurtboxInstance: []
+    ItemInstance: []
     ItemSpawner: []
     MatchInstance: []
     PlayerCounter:
@@ -681,10 +723,10 @@ MonoBehaviour:
     Timer:
     - Multiplier:
         RawValue: -65536
-      OriginalTime: 78
+      OriginalTime: 363
       End: 0
       Time:
-        RawValue: 5111808
+        RawValue: 23789568
       IsCounting:
         Value: 1
       TriggerStartOfMatch:

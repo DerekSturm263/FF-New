@@ -16,15 +16,6 @@ struct DirectionalEmote
 }
 
 [Serializable]
-struct DirectionalSkill
-{
-	asset_ref<Skill> Neutral;
-	asset_ref<Skill> Horizontal;
-	asset_ref<Skill> Up;
-	asset_ref<Skill> Down;
-}
-
-[Serializable]
 struct DirectionalAnimationRef
 {
 	AnimationRef Neutral;

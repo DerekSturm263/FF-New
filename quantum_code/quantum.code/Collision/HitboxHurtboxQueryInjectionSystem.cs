@@ -23,13 +23,25 @@ namespace Quantum.Collision
 
             while (hitboxFilter.Next(&hitbox))
             {
+                Shape2D shape2D = Shape2D.CreateCircle(hitbox.Hitbox->Settings.Radius, hitbox.Hitbox->Settings.Offset);
+
                 if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Parent, out Transform2D* transform))
                 {
                     hitbox.Hitbox->PathQueryIndex = f.Physics2D.AddOverlapShapeQuery
                     (
                         position: hitbox.Transform->Position + transform->Position,
                         rotation: 0,
-                        shape: Shape2D.CreateCircle(hitbox.Hitbox->Settings.Radius, hitbox.Hitbox->Settings.Offset),
+                        shape: shape2D,
+                        layerMask: hitbox.Hitbox->Settings.Layer
+                    );
+                }
+                else
+                {
+                    hitbox.Hitbox->PathQueryIndex = f.Physics2D.AddOverlapShapeQuery
+                    (
+                        position: hitbox.Transform->Position,
+                        rotation: 0,
+                        shape: shape2D,
                         layerMask: hitbox.Hitbox->Settings.Layer
                     );
                 }

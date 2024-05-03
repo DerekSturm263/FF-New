@@ -19,9 +19,29 @@ namespace Quantum
                 playerRef = playerLink->Player;
                 input = *f.GetPlayerInput(playerRef);
 
-                if (input.SubWeapon)
+                if (input.Emote)
                 {
                     ModifyHealth(f, playerLink, filter.Stats, -10);
+                }
+
+                if (input.Block)
+                {
+                    ModifyEnergy(f, playerLink, filter.Stats, 10);
+                }
+            }
+
+            if (filter.Stats->StatusEffectTimeLeft > 0)
+            {
+                filter.Stats->StatusEffectTimeLeft--;
+                StatusEffect statusEffect = f.FindAsset<StatusEffect>(filter.Stats->StatusEffect.Id);
+
+                if (filter.Stats->StatusEffectTimeLeft == 0)
+                {
+                    statusEffect.OnRemove(f, filter.Entity);
+                }
+                else if (filter.Stats->StatusEffectTimeLeft % statusEffect.TickRate == 0)
+                {
+                    statusEffect.OnTick(f, filter.Entity);
                 }
             }
         }
@@ -39,10 +59,14 @@ namespace Quantum
                     SetHurtbox(f, entity, hurtboxInstance, hurtbox, i);
                 }
             }
+
+            ApplyBuild(f, entity, component, component->Build);
         }
 
         public void OnRemoved(Frame f, EntityRef entity, Stats* component)
         {
+            RemoveBuild(f, entity, component);
+
             f.FreeList(component->Hitboxes);
             component->Hitboxes = default;
 
@@ -64,7 +88,7 @@ namespace Quantum
 
         public static void ModifyHealth(Frame f, PlayerLink* playerLink, Stats* stats, FP amount)
         {
-            SetHealth(f, playerLink, stats, stats->CurrentHealth + amount);
+            SetHealth(f, playerLink, stats, stats->CurrentHealth + amount * stats->HealthModifyMultiplier);
         }
 
         public static void SetHealth(Frame f, PlayerLink* playerLink, Stats* stats, FP amount)
@@ -98,7 +122,7 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, PlayerLink* playerLink, Stats* stats, FP amount)
         {
-            SetEnergy(f, playerLink, stats, stats->CurrentEnergy + amount);
+            SetEnergy(f, playerLink, stats, stats->CurrentEnergy + amount * stats->EnergyModifyMultiplier);
         }
 
         public static void SetEnergy(Frame f, PlayerLink* playerLink, Stats* stats, FP amount)
@@ -123,6 +147,22 @@ namespace Quantum
             stats->CurrentStocks = amount;
 
             f.Events.OnPlayerModifyStocks(*playerLink, oldStocks, stats->CurrentStocks, stats->MaxStocks);
+        }
+
+        public static void ApplyBuild(Frame f, EntityRef user, Stats* stats, Build build)
+        {
+            stats->Build = build;
+
+            if (f.TryFindAsset(build.Equipment.Badge.Id, out Badge badge1))
+                badge1.OnApply(f, user);
+        }
+
+        public static void RemoveBuild(Frame f, EntityRef user, Stats* stats)
+        {
+            if (f.TryFindAsset(stats->Build.Equipment.Badge.Id, out Badge badge1))
+                badge1.OnRemove(f, user);
+
+            stats->Build = default;
         }
     }
 }

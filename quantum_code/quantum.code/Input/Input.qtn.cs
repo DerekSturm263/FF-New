@@ -15,8 +15,8 @@ namespace Quantum
             Block2 = 1 << 5,         // Player pressed the “block” button this tick
 
             MainWeapon = 1 << 6,    // Player pressed the “main weapon” button this tick
-            SubWeapon = 1 << 7,     // Player pressed the “sub-weapon” button this tick
-            Skill = 1 << 8,         // Player pressed the “skill” button this tick
+            AlternateWeapon = 1 << 7,         // Player pressed the “skill” button this tick
+            SubWeapon = 1 << 8,     // Player pressed the “sub-weapon” button this tick
 
             Emote = 1 << 9,         // Player pressed the “emote” button this tick
             Interact = 1 << 10,     // Player pressed the “interact” button this tick
@@ -160,7 +160,7 @@ namespace Quantum
             }
         }
 
-        public readonly bool Block => Block1 || Block2;
+        public readonly bool Block => Block1 ^ Block2;
 
         public bool MainWeapon
         {
@@ -177,11 +177,26 @@ namespace Quantum
             }
         }
 
+        public bool AlternateWeapon
+        {
+            readonly get
+            {
+                return (InputButtons & Buttons.AlternateWeapon) != 0 && !SubWeapon;
+            }
+            set
+            {
+                if (value == true)
+                    InputButtons |= Buttons.AlternateWeapon;
+                else
+                    InputButtons &= ~Buttons.AlternateWeapon;
+            }
+        }
+
         public bool SubWeapon
         {
             readonly get
             {
-                return (InputButtons & Buttons.SubWeapon) != 0;
+                return (InputButtons & Buttons.SubWeapon) != 0 && !AlternateWeapon;
             }
             set
             {
@@ -192,22 +207,7 @@ namespace Quantum
             }
         }
 
-        public bool Skill
-        {
-            readonly get
-            {
-                return (InputButtons & Buttons.Skill) != 0;
-            }
-            set
-            {
-                if (value == true)
-                    InputButtons |= Buttons.Skill;
-                else
-                    InputButtons &= ~Buttons.Skill;
-            }
-        }
-
-        public readonly bool Ultimate => MainWeapon && Skill;
+        public readonly bool Ultimate => MainWeapon && AlternateWeapon;
 
         public readonly bool Burst => Block1 && Block2;
 

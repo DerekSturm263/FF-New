@@ -8,6 +8,27 @@ namespace Quantum.Editor {
   using UnityEngine;
   using UnityEditor;
 
+  [CustomPropertyDrawer(typeof(AssetRefApparelModifier))]
+  public class AssetRefApparelModifierPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(ApparelModifierAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefApparelPattern))]
+  public class AssetRefApparelPatternPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(ApparelPatternAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefApparelTemplate))]
+  public class AssetRefApparelTemplatePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(ApparelTemplateAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefBadge))]
   public class AssetRefBadgePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -29,13 +50,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefColorPalette))]
-  public class AssetRefColorPalettePropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(ColorPaletteAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefCustomAnimatorGraph))]
   public class AssetRefCustomAnimatorGraphPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -47,6 +61,13 @@ namespace Quantum.Editor {
   public class AssetRefEmotePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(EmoteAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefEyes))]
+  public class AssetRefEyesPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(EyesAsset));
     }
   }
 
@@ -71,10 +92,10 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefHeadPiece))]
-  public class AssetRefHeadPiecePropertyDrawer : PropertyDrawer {
+  [CustomPropertyDrawer(typeof(AssetRefHair))]
+  public class AssetRefHairPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(HeadPieceAsset));
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(HairAsset));
     }
   }
 
@@ -85,10 +106,24 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefMainWeapon))]
-  public class AssetRefMainWeaponPropertyDrawer : PropertyDrawer {
+  [CustomPropertyDrawer(typeof(AssetRefMainWeaponEnhancer))]
+  public class AssetRefMainWeaponEnhancerPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponAsset));
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponEnhancerAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefMainWeaponMaterial))]
+  public class AssetRefMainWeaponMaterialPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponMaterialAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefMainWeaponTemplate))]
+  public class AssetRefMainWeaponTemplatePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponTemplateAsset));
     }
   }
 
@@ -96,13 +131,6 @@ namespace Quantum.Editor {
   public class AssetRefMovementSettingsPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MovementSettingsAsset));
-    }
-  }
-
-  [CustomPropertyDrawer(typeof(AssetRefOutfitPiece))]
-  public class AssetRefOutfitPiecePropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(OutfitPieceAsset));
     }
   }
 
@@ -120,13 +148,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefSkill))]
-  public class AssetRefSkillPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SkillAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefStageAsset))]
   public class AssetRefStageAssetPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -141,10 +162,17 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefSubWeapon))]
-  public class AssetRefSubWeaponPropertyDrawer : PropertyDrawer {
+  [CustomPropertyDrawer(typeof(AssetRefSubWeaponEnhancer))]
+  public class AssetRefSubWeaponEnhancerPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubWeaponAsset));
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubWeaponEnhancerAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefSubWeaponTemplate))]
+  public class AssetRefSubWeaponTemplatePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubWeaponTemplateAsset));
     }
   }
 

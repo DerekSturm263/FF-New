@@ -33,18 +33,6 @@ namespace Quantum.Types
             };
         }
 
-        public static AssetRefSkill GetFromDirection(DirectionalSkill asset, Direction direction)
-        {
-            return direction switch
-            {
-                Direction.Neutral => asset.Neutral,
-                Direction.Horizontal => asset.Horizontal,
-                Direction.Up => asset.Up,
-                Direction.Down => asset.Down,
-                _ => default
-            };
-        }
-
         public static void SetFromDirection(DirectionalEmote asset, AssetRefEmote value, Direction direction)
         {
             switch (direction)
@@ -89,31 +77,8 @@ namespace Quantum.Types
             }
         }
 
-        public static void SetFromDirection(DirectionalSkill asset, AssetRefSkill value, Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Neutral:
-                    asset.Neutral = value;
-                    break;
-
-                case Direction.Horizontal:
-                    asset.Horizontal = value;
-                    break;
-
-                case Direction.Up:
-                    asset.Up = value;
-                    break;
-
-                case Direction.Down:
-                    asset.Down = value;
-                    break;
-            }
-        }
-
         public static AssetRefEmote GetValueFromDirection(DirectionalEmote asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
         public static AnimationRef GetValueFromDirection(DirectionalAnimationRef asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
-        public static AssetRefSkill GetValueFromDirection(DirectionalSkill asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
 
         public static Direction GetEnumFromDirection(FPVector2 direction)
         {

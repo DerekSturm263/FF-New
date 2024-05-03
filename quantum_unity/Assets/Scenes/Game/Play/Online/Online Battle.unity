@@ -2458,7 +2458,7 @@ GameObject:
   - component: {fileID: 118852954}
   - component: {fileID: 118852955}
   m_Layer: 0
-  m_Name: Match Event Listener
+  m_Name: Ready Player Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3040,7 +3040,7 @@ MonoBehaviour:
             Value: 0
         Items: []
         SpawnFrequency:
-          RawValue: 0
+          RawValue: 65536
 --- !u!114 &347227800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4764,7 +4764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &555096603
 Transform:
   m_ObjectHideFlags: 0
@@ -4773,12 +4773,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555096602}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.35431314, y: -0.9921869, z: 0.8208971}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 836444854}
+  m_Father: {fileID: 599783066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &555096604
 MonoBehaviour:
@@ -4975,9 +4975,11 @@ MonoBehaviour:
     TimeSinceLastSpawned:
       RawValue: 327680
     MinTimeToSpawn:
-      RawValue: 65536
+      RawValue: 1966080
     MaxTimeToSpawn:
-      RawValue: 327680
+      RawValue: 5898240
+    CurrentSpawned: 0
+    MaxAllowed: 5
     Prototype:
       Id:
         Value: 1661997301976249809
@@ -5361,6 +5363,7 @@ Transform:
   - {fileID: 2058460619}
   - {fileID: 347227801}
   - {fileID: 399604883}
+  - {fileID: 555096603}
   - {fileID: 118852954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6155,7 +6158,6 @@ Transform:
   - {fileID: 773928765}
   - {fileID: 1750335941}
   - {fileID: 2021771173}
-  - {fileID: 555096603}
   - {fileID: 85880615}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8339,10 +8341,10 @@ MonoBehaviour:
   Prototype:
     Multiplier:
       RawValue: -65536
-    OriginalTime: 78
+    OriginalTime: 363
     End: 0
     Time:
-      RawValue: 5111808
+      RawValue: 23789568
     IsCounting:
       Value: 1
     TriggerStartOfMatch:
@@ -9120,6 +9122,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 555096604}
   - {fileID: 2021771174}
   - {fileID: 1123558578}
   - {fileID: 1512231794}
@@ -10217,7 +10220,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1973038635}
   serializedVersion: 8
   lengthInSec: 1.5
-  simulationSpeed: 0.75
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0

@@ -8,37 +8,32 @@ namespace Quantum.Movement
 
         public override bool GetInput(ref Input input) => input.SubWeapon;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
-        protected override int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => -1;
-        protected override int DelayedEntranceTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings) => settings.DirectionChangeTime;
+        protected override int StateTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => 10;
+        protected override int DelayedEntranceTime(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
 
-        protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            if (f.TryFindAsset(filter.Stats->Build.Equipment.Weapons.SubWeapon.Id, out SubWeapon subWeapon))
+            if (f.TryFindAsset(filter.Stats->Build.Equipment.Weapons.SubWeapon.Template.Id, out SubWeaponTemplate subWeapon))
                 return filter.Stats->CurrentEnergy >= subWeapon.EnergyAmount;
 
             return false;
         }
 
-        protected override bool CanExit(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        protected override void Enter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return filter.CustomAnimator->normalized_time == 1;
-        }
-
-        protected override void Enter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
-        {
-            base.Enter(f, ref filter, ref input, settings);
+            base.Enter(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
         }
 
-        protected override void DelayedEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings)
+        protected override void DelayedEnter(Frame f, ref PlayerStateSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            base.DelayedEnter(f, ref filter, ref input, settings);
+            base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
 
-            AssetRefSubWeapon subWeaponAsset = filter.Stats->Build.Equipment.Weapons.SubWeapon;
-            if (f.TryFindAsset(subWeaponAsset.Id, out SubWeapon subWeapon))
+            SubWeapon subWeaponAsset = filter.Stats->Build.Equipment.Weapons.SubWeapon;
+            if (f.TryFindAsset(subWeaponAsset.Template.Id, out SubWeaponTemplate subWeapon))
             {
                 StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -subWeapon.EnergyAmount);
             }

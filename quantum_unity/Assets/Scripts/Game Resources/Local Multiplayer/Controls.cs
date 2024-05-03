@@ -91,18 +91,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sub-weapon"",
+                    ""name"": ""Alternate Weapon"",
                     ""type"": ""Button"",
-                    ""id"": ""13102845-4bbd-43a9-a7ed-fb4fd863af37"",
+                    ""id"": ""42eae7ed-8457-4b6b-8866-99cf0d488017"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Skill"",
+                    ""name"": ""Sub-weapon"",
                     ""type"": ""Button"",
-                    ""id"": ""42eae7ed-8457-4b6b-8866-99cf0d488017"",
+                    ""id"": ""13102845-4bbd-43a9-a7ed-fb4fd863af37"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -293,28 +293,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Fast Fall"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""81a273fe-c160-4750-aa3c-847325596ff4"",
-                    ""path"": ""<Keyboard>/k"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Skill"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""38291a72-4c26-4153-b70a-216fd52d05ef"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -667,6 +645,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Block 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81a273fe-c160-4750-aa3c-847325596ff4"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Alternate Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38291a72-4c26-4153-b70a-216fd52d05ef"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Alternate Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1097,8 +1097,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Block1 = m_Player.FindAction("Block 1", throwIfNotFound: true);
         m_Player_Block2 = m_Player.FindAction("Block 2", throwIfNotFound: true);
         m_Player_MainWeapon = m_Player.FindAction("Main Weapon", throwIfNotFound: true);
+        m_Player_AlternateWeapon = m_Player.FindAction("Alternate Weapon", throwIfNotFound: true);
         m_Player_Subweapon = m_Player.FindAction("Sub-weapon", throwIfNotFound: true);
-        m_Player_Skill = m_Player.FindAction("Skill", throwIfNotFound: true);
         m_Player_Emote = m_Player.FindAction("Emote", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
@@ -1187,8 +1187,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Block1;
     private readonly InputAction m_Player_Block2;
     private readonly InputAction m_Player_MainWeapon;
+    private readonly InputAction m_Player_AlternateWeapon;
     private readonly InputAction m_Player_Subweapon;
-    private readonly InputAction m_Player_Skill;
     private readonly InputAction m_Player_Emote;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Join;
@@ -1206,8 +1206,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Block1 => m_Wrapper.m_Player_Block1;
         public InputAction @Block2 => m_Wrapper.m_Player_Block2;
         public InputAction @MainWeapon => m_Wrapper.m_Player_MainWeapon;
+        public InputAction @AlternateWeapon => m_Wrapper.m_Player_AlternateWeapon;
         public InputAction @Subweapon => m_Wrapper.m_Player_Subweapon;
-        public InputAction @Skill => m_Wrapper.m_Player_Skill;
         public InputAction @Emote => m_Wrapper.m_Player_Emote;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Join => m_Wrapper.m_Player_Join;
@@ -1244,12 +1244,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MainWeapon.started += instance.OnMainWeapon;
             @MainWeapon.performed += instance.OnMainWeapon;
             @MainWeapon.canceled += instance.OnMainWeapon;
+            @AlternateWeapon.started += instance.OnAlternateWeapon;
+            @AlternateWeapon.performed += instance.OnAlternateWeapon;
+            @AlternateWeapon.canceled += instance.OnAlternateWeapon;
             @Subweapon.started += instance.OnSubweapon;
             @Subweapon.performed += instance.OnSubweapon;
             @Subweapon.canceled += instance.OnSubweapon;
-            @Skill.started += instance.OnSkill;
-            @Skill.performed += instance.OnSkill;
-            @Skill.canceled += instance.OnSkill;
             @Emote.started += instance.OnEmote;
             @Emote.performed += instance.OnEmote;
             @Emote.canceled += instance.OnEmote;
@@ -1293,12 +1293,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MainWeapon.started -= instance.OnMainWeapon;
             @MainWeapon.performed -= instance.OnMainWeapon;
             @MainWeapon.canceled -= instance.OnMainWeapon;
+            @AlternateWeapon.started -= instance.OnAlternateWeapon;
+            @AlternateWeapon.performed -= instance.OnAlternateWeapon;
+            @AlternateWeapon.canceled -= instance.OnAlternateWeapon;
             @Subweapon.started -= instance.OnSubweapon;
             @Subweapon.performed -= instance.OnSubweapon;
             @Subweapon.canceled -= instance.OnSubweapon;
-            @Skill.started -= instance.OnSkill;
-            @Skill.performed -= instance.OnSkill;
-            @Skill.canceled -= instance.OnSkill;
             @Emote.started -= instance.OnEmote;
             @Emote.performed -= instance.OnEmote;
             @Emote.canceled -= instance.OnEmote;
@@ -1495,8 +1495,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnBlock1(InputAction.CallbackContext context);
         void OnBlock2(InputAction.CallbackContext context);
         void OnMainWeapon(InputAction.CallbackContext context);
+        void OnAlternateWeapon(InputAction.CallbackContext context);
         void OnSubweapon(InputAction.CallbackContext context);
-        void OnSkill(InputAction.CallbackContext context);
         void OnEmote(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnJoin(InputAction.CallbackContext context);

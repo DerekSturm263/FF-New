@@ -6,52 +6,6 @@
 using System;
 namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.CharacterController))]
-  public class CharacterController_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.CharacterController_Prototype> {
-    public Quantum.AssetRefMovementSettings MovementSettings;
-    [Quantum.Inspector.BitSetAttribute((Int32)12)]
-    [Quantum.Inspector.ArrayLengthAttribute((Int32)1)]
-    public System.UInt64[] States = new System.UInt64[1];
-    [Quantum.Inspector.BitSetAttribute((Int32)12)]
-    [Quantum.Inspector.ArrayLengthAttribute((Int32)1)]
-    public System.UInt64[] Holding = new System.UInt64[1];
-    public System.Int32 FramesInState;
-    public Quantum.Prototypes.Colliders_Prototype NearbyColliders;
-    public Photon.Deterministic.FP Velocity;
-    public Photon.Deterministic.FP MovingLerp;
-    public System.Int16 JumpCount;
-    public System.Int16 JumpSettingsIndex;
-    public Photon.Deterministic.FPVector2 DodgeDirection;
-    public System.Int16 DodgeCount;
-    public System.Int16 DodgeSettingsIndex;
-    public Quantum.Prototypes.Direction_Prototype Direction;
-    [Quantum.LocalReference]
-    public global::EntityPrototype HeldItem;
-    public Quantum.QBoolean IsReady;
-    public Photon.Deterministic.FP ReadyTime;
-
-    public sealed override Quantum.Prototypes.CharacterController_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.CharacterController_Prototype();
-      result.MovementSettings = this.MovementSettings;
-      result.States = this.States;
-      result.Holding = this.Holding;
-      result.FramesInState = this.FramesInState;
-      result.NearbyColliders = this.NearbyColliders;
-      result.Velocity = this.Velocity;
-      result.MovingLerp = this.MovingLerp;
-      result.JumpCount = this.JumpCount;
-      result.JumpSettingsIndex = this.JumpSettingsIndex;
-      result.DodgeDirection = this.DodgeDirection;
-      result.DodgeCount = this.DodgeCount;
-      result.DodgeSettingsIndex = this.DodgeSettingsIndex;
-      result.Direction = this.Direction;
-      converter.Convert(this.HeldItem, out result.HeldItem);
-      result.IsReady = this.IsReady;
-      result.ReadyTime = this.ReadyTime;
-      return result;
-    }
-  }
-  [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.HitboxInstance))]
   public class HitboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.HitboxInstance_Prototype> {
     public System.Int32 PathQueryIndex;
@@ -94,11 +48,16 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.AssetRefItem Item;
     [Quantum.LocalReference]
     public global::EntityPrototype Holder;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Owner;
+    public System.Int32 Uses;
 
     public sealed override Quantum.Prototypes.ItemInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.ItemInstance_Prototype();
       result.Item = this.Item;
       converter.Convert(this.Holder, out result.Holder);
+      converter.Convert(this.Owner, out result.Owner);
+      result.Uses = this.Uses;
       return result;
     }
   }
@@ -162,8 +121,10 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 CurrentStocks;
     public System.Int32 MaxHealth;
     public Photon.Deterministic.FP CurrentHealth;
+    public Photon.Deterministic.FP HealthModifyMultiplier;
     public System.Int32 MaxEnergy;
     public Photon.Deterministic.FP CurrentEnergy;
+    public Photon.Deterministic.FP EnergyModifyMultiplier;
     public Quantum.Prototypes.Build_Prototype Build;
     [Quantum.Inspector.DynamicCollectionAttribute()]
     [Quantum.LocalReference]
@@ -171,7 +132,14 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.DictionaryAttribute()]
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
+    public Quantum.Prototypes.ApparelStats_Prototype ApparelStatsMultiplier;
+    public Quantum.Prototypes.MainWeaponStats_Prototype MainWeaponStatsMultiplier;
     public Quantum.AssetRefEntityPrototype Hurtbox;
+    [Quantum.LocalReference]
+    public global::EntityPrototype HeldItem;
+    public Quantum.AssetRefStatusEffect StatusEffect;
+    public System.Int32 StatusEffectTimeLeft;
+    public Photon.Deterministic.FP StatusEffectMultiplier;
 
     public sealed override Quantum.Prototypes.Stats_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.Stats_Prototype();
@@ -179,12 +147,20 @@ namespace Quantum.Prototypes.Unity {
       result.CurrentStocks = this.CurrentStocks;
       result.MaxHealth = this.MaxHealth;
       result.CurrentHealth = this.CurrentHealth;
+      result.HealthModifyMultiplier = this.HealthModifyMultiplier;
       result.MaxEnergy = this.MaxEnergy;
       result.CurrentEnergy = this.CurrentEnergy;
+      result.EnergyModifyMultiplier = this.EnergyModifyMultiplier;
       result.Build = this.Build;
       result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
+      result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
+      result.MainWeaponStatsMultiplier = this.MainWeaponStatsMultiplier;
       result.Hurtbox = this.Hurtbox;
+      converter.Convert(this.HeldItem, out result.HeldItem);
+      result.StatusEffect = this.StatusEffect;
+      result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
+      result.StatusEffectMultiplier = this.StatusEffectMultiplier;
       return result;
     }
   }

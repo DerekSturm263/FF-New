@@ -72,7 +72,7 @@ namespace Quantum
             };
         }
 
-        public void Move(Frame f, FP amount, Transform2D* transform, PhysicsBody2D* physicsBody, CustomAnimator* customAnimator, MovementSettings movementSettings, FP dt)
+        public void Move(Frame f, FP amount, Transform2D* transform, PhysicsBody2D* physicsBody, CustomAnimator* customAnimator, MovementSettings movementSettings, ApparelStats stats)
         {
             MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
 
@@ -82,27 +82,27 @@ namespace Quantum
             if (FPMath.Abs(amount) < movementSettings.DeadStickZone)
             {
                 // Set the player to stop moving.
-                Velocity = LerpSpeed(moveSettings, dt, 0, Velocity, moveSettings.Deceleration);
-                MovingLerp = FPMath.Lerp(MovingLerp, 0, dt * 10);
+                Velocity = LerpSpeed(moveSettings, f.DeltaTime, 0, Velocity, moveSettings.Deceleration);
+                MovingLerp = FPMath.Lerp(MovingLerp, 0, f.DeltaTime * 10);
             }
             else
             {
                 // Calculate the player's speed.
-                FP topSpeed = CalculateTopSpeed(moveSettings, amount);
+                FP topSpeed = CalculateTopSpeed(moveSettings, amount) * stats.Agility;
 
                 // Apply the target velocity based on their speed.
                 if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.Sign(amount) != FPMath.Sign(Velocity))
                 {
-                    Velocity = LerpSpeed(moveSettings, dt, amount, Velocity, moveSettings.TurnAroundSpeed);
+                    Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.TurnAroundSpeed);
                     //isTurning = true;
                 }
                 else if (FPMath.Abs(Velocity) < FPMath.Abs(topSpeed))
                 {
-                    Velocity = LerpSpeed(moveSettings, dt, amount, Velocity, moveSettings.Acceleration);
+                    Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.Acceleration);
                 }
-                else if (FPMath.Abs(CalculateTopSpeed(moveSettings, amount)) < FPMath.Abs(Velocity))
+                else if (FPMath.Abs(Velocity) > FPMath.Abs(topSpeed))
                 {
-                    Velocity = LerpSpeed(moveSettings, dt, amount, Velocity, moveSettings.Acceleration);
+                    Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.Acceleration);
                 }
 
                 // Set the player's look direction.

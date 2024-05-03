@@ -343,7 +343,7 @@ namespace Quantum
 
         #endregion
 
-        public static Custom.Animator.AnimatorState GetCurrentState(Frame f, CustomAnimator* anim)
+        public static AnimatorState GetCurrentState(Frame f, CustomAnimator* anim)
         {
             if (anim->to_state_id == 0)
                 return f.FindAsset<CustomAnimatorGraph>(anim->animatorGraph.Id).GetState(anim->current_state_id);
@@ -354,6 +354,12 @@ namespace Quantum
         public static void SetCurrentState(Frame f, CustomAnimator* anim, int stateId)
         {
             anim->to_state_id = stateId;
+        }
+
+        public static AnimatorState GetStateFromId(Frame f, CustomAnimator* anim, int stateId)
+        {
+            CustomAnimatorGraph graph = f.FindAsset<CustomAnimatorGraph>(anim->animatorGraph.Id);
+            return graph.GetState(stateId);
         }
     }
 }

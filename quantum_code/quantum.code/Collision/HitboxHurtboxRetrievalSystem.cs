@@ -39,6 +39,7 @@ namespace Quantum.Collision
                         {
                             if (f.Unsafe.TryGetPointer(ownerHit, out PlayerLink* hitPlayerLink))
                             {
+                                // Apply damage.
                                 StatsSystem.ModifyHealth(f, hitPlayerLink, stats, -hitbox.Hitbox->Settings.Damage);
                             }
 
@@ -46,13 +47,24 @@ namespace Quantum.Collision
                             {
                                 if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
                                 {
+                                    // Increase energy.
                                     StatsSystem.ModifyEnergy(f, ownerPlayerLink, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
                                 }
+                            }
+
+                            if (f.TryFindAsset(hitbox.Hitbox->Settings.StatusEffect.Id, out StatusEffect statusEffect))
+                            {
+                                // Apply status effect.
+                                stats->StatusEffect = statusEffect;
+                                stats->StatusEffectTimeLeft = statusEffect.ActiveTime;
+
+                                statusEffect.OnApply(f, ownerHit);
                             }
                         }
 
                         if (hurtbox->Settings.CanBeKnockedBack && f.Unsafe.TryGetPointer(ownerHit, out PhysicsBody2D* physicsBody))
                         {
+                            // Apply knockback.
                             physicsBody->Velocity = hitbox.Hitbox->Settings.Knockback;
                         }
 

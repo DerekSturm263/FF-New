@@ -31,16 +31,6 @@ namespace Quantum.Timing
 
                     if (filter.Timer->TriggerStartOfMatch)
                     {
-                        foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
-                        {
-                            if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
-                            {
-                                StatsSystem.SetHealth(f, playerLink.Component, stats, stats->MaxHealth);
-                                StatsSystem.SetEnergy(f, playerLink.Component, stats, stats->MaxEnergy / 5);
-                                StatsSystem.SetStocks(f, playerLink.Component, stats, stats->MaxStocks);
-                            }
-                        }
-
                         MatchSystem.StartOfMatch(f);
                     }
 
