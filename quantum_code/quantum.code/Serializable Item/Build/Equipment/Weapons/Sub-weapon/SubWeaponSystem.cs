@@ -4,8 +4,8 @@ namespace Quantum
         {
                 public struct Filter
                 {
-                       public EntityRef Entity;
-                       public SubWeaponInstance* SubWeaponInstance;
+                        public EntityRef Entity;
+                        public SubWeaponInstance* SubWeaponInstance;
                 }
 
                 public override void Update(Frame f, ref Filter filter)
