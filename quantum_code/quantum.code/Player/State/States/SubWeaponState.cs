@@ -36,6 +36,12 @@ namespace Quantum.Movement
             if (f.TryFindAsset(subWeaponAsset.Template.Id, out SubWeaponTemplate subWeapon))
             {
                 StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -subWeapon.EnergyAmount);
+                EntityRef entity = SubWeaponSystem.Spawn(f, filter.Stats->Build.Equipment.Weapons.SubWeapon, filter.PlayerLink);
+
+                if (input.IsUsingSubWeapon)
+                    ItemSystem.PickUp(f, filter.Entity, entity);
+                else
+                    ItemSystem.Throw(f, filter.Entity, entity, settings.ThrowForce);
             }
         }
     }
