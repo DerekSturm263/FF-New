@@ -1,6 +1,6 @@
 namespace Quantum
 {
-        public unsafe class SubWeaponSystem : SystemMainThreadFilter<SubWeaponSystem.Filter>
+        public unsafe class SubWeaponSystem : SystemMainThreadFilter<SubWeaponSystem.Filter>, ISignalOnCollisionEnter2D
         {
                 public struct Filter
                 {
