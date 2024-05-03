@@ -16,7 +16,7 @@ namespace Quantum
                         template.OnUpdate(f, filter.ItemInstance->User, filter.SubWeaponInstance->Target, filter.Entity);
                 }
 
-                public static void Spawn(Frame f, SubWeapon subWeapon, PlayerLink* player)
+                public static EntityRef Spawn(Frame f, SubWeapon subWeapon, PlayerLink* player)
                 {
                         SubWeaponTemplate template = f.FindAsset<SubWeaponTemplate>(subWeapon.Template.Id);
                         EntityRef entity = f.Create(template.Prototype);
@@ -38,6 +38,8 @@ namespace Quantum
                                         template.OnSpawn(f, player->Entity, entity);
                                 }
                         }
+
+                        return entity;
                 }
         }
 }
