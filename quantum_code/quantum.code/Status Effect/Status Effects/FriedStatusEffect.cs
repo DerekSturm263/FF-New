@@ -11,6 +11,11 @@ namespace Quantum
             {
                 characterController->CanInput = false;
             }
+            
+            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
+            {
+                stats->StatusEffectTime *= stats->StatusEffectMultiplier;
+            }
         }
 
         public override void OnRemove(Frame f, EntityRef user)
