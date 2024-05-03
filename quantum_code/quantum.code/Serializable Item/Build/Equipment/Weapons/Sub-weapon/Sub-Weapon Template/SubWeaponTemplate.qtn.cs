@@ -2,7 +2,7 @@
 
 namespace Quantum
 {
-    public partial class SubWeaponTemplate
+    public unsafe abstract partial class SubWeaponTemplate
     {
         public FP EnergyAmount;
     }
