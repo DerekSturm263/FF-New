@@ -4,6 +4,7 @@ namespace Quantum
 {
     public unsafe abstract partial class SubWeaponTemplate
     {
+        public EntityPrototype Prototype;
         public FP EnergyAmount;
 
         public abstract void OnSpawn(Frame f, EntityRef user, EntityRef subWeaponInstance);
