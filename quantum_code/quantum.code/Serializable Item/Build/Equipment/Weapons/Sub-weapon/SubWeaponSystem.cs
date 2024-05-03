@@ -5,13 +5,15 @@ namespace Quantum
                 public struct Filter
                 {
                         public EntityRef Entity;
+                        
                         public SubWeaponInstance* SubWeaponInstance;
+                        public ItemInstance* ItemInstance;
                 }
 
                 public override void Update(Frame f, ref Filter filter)
                 {
                         SubWeaponTemplate template = f.FindAsset<SubWeaponTemplate>(filter.SubWeaponInstance->SubWeapon.Template.Id);
-                        template.OnUpdate(f, filter.SubWeaponInstance->User, filter.SubWeaponInstance->Target, filter.Entity);
+                        template.OnUpdate(f, filter.ItemInstance->User, filter.SubWeaponInstance->Target, filter.Entity);
                 }
 
                 public static void Spawn(Frame f, SubWeapon subWeapon, PlayerLink* player)
@@ -30,8 +32,8 @@ namespace Quantum
                                                 transform>Position = parentTransform->Position;
                                         }
 
-                                        if (f.Unsafe.TryGetPointer(entity, out SubWeaponInstance* subWeaponInstance))
-                                                subWeaponInstance->Owner = player->Entity;
+                                        if (f.Unsafe.TryGetPointer(entity, out ItemInstance* itemInstance))
+                                                itemInstance->Owner = player->Entity;
                                         
                                         template.OnSpawn(f, player->Entity, entity);
                                 }
