@@ -9,6 +9,7 @@ namespace Quantum
     public abstract unsafe partial class Badge
     {
         public abstract void OnApply(Frame f, EntityRef user);
+        public abstract void OnUpdate(Frame f, EntityRef user);
         public abstract void OnRemove(Frame f, EntityRef user);
     }
 }
