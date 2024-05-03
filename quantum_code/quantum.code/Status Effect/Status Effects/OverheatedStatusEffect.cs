@@ -11,7 +11,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->CurrentHealth -= Damage;
+                stats->CurrentHealth -= Damage * stats->StatusEffectMultiplier;
             }
         }
 
@@ -19,7 +19,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->CurrentHealth -= Damage;
+                stats->CurrentHealth -= Damage * stats->StatusEffectMultiplier;
             }
         }
 
