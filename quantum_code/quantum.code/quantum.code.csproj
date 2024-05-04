@@ -154,6 +154,7 @@
     <None Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\SubWeaponTemplate.qtn" />
     <None Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\SubWeapon.qtn" />
     <None Include="Serializable Item\Build\Equipment\Ultimate\Ultimate.qtn" />
+    <None Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\SubWeaponInstance.qtn" />
     <None Include="Serializable Item\Build\Equipment\Weapons\WeaponSet.qtn" />
     <None Include="Serializable Item\Match\Events\OnMatchForfeit.qtn" />
     <None Include="Serializable Item\Match\Events\OnMatchLose.qtn" />
@@ -172,6 +173,7 @@
     <Compile Include="Serializable Item\Build\Equipment\Badge\Badge.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Badge\Badges\HardcodedBadge.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Badge\Badges\MagneticBadge.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Badge\Badges\UnderdogBoostBadge.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Ultimate\Ultimate.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Ultimate\Ultimates\OverclockUltimate.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Ultimate\Ultimates\SubStormUltimate.cs" />
@@ -180,10 +182,14 @@
     <Compile Include="Serializable Item\Build\Equipment\Weapons\Main Weapon\Main Weapon Template\MainWeaponTemplate.qtn.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Weapons\MainWeaponHelper.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\SubWeaponEnhancer.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\Sub-Weapon Templates\ExplodingSubWeaponTemplate.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\Sub-Weapon Templates\MissileSubWeaponTemplate.cs" />
     <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\SubWeaponTemplate.qtn.cs" />
+    <Compile Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\SubWeaponSystem.cs" />
     <Compile Include="Serializable Item\Match\MatchSystem.cs" />
     <Compile Include="Serializable Item\Ruleset\RulesetAsset.qtn.cs" />
     <Compile Include="Serializable Item\Ruleset\Win Condition\WinCondition.qtn.cs" />
+    <Compile Include="Serializable Item\SerializationHelper.cs" />
     <Compile Include="Serializable Item\Stage\Gizmo\Gizmo.qtn.cs" />
     <Compile Include="Serializable Item\Stage\StageAsset.qtn.cs" />
     <Compile Include="Status Effect\Status Effects\FriedStatusEffect.cs" />
@@ -212,6 +218,7 @@
     <None Include="Serializable Item\Ruleset\RulesetInstance.qtn" />
     <None Include="Serializable Item\Ruleset\Settings\StageSettings.qtn" />
     <None Include="Serializable Item\Ruleset\Win Condition\WinCondition.qtn" />
+    <None Include="Serializable Item\SerializableData.qtn" />
     <None Include="Serializable Item\Stage\Gizmo\Gizmo.qtn" />
     <None Include="Serializable Item\Stage\Settings\ObjectSettings.qtn" />
     <None Include="Serializable Item\Stage\Settings\SpawnSettings.qtn" />
@@ -269,6 +276,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Audio\Track\" />
+    <Folder Include="Serializable Item\Build\Equipment\Weapons\Main Weapon\Main Weapon Enhancer\Main Weapon Enhancers\" />
+    <Folder Include="Serializable Item\Build\Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\Sub-Weapon Enhancers\" />
     <Folder Include="User Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,10 +13,22 @@ namespace Quantum.Types
         {
             return direction switch
             {
-                Direction.Neutral => asset.Neutral,
-                Direction.Horizontal => asset.Horizontal,
                 Direction.Up => asset.Up,
                 Direction.Down => asset.Down,
+                Direction.Left => asset.Left,
+                Direction.Right => asset.Right,
+                _ => default
+            };
+        }
+
+        public static FPVector2 GetFromDirection(DirectionalFPVector2 asset, Direction direction)
+        {
+            return direction switch
+            {
+                Direction.Up => asset.Up,
+                Direction.Down => asset.Down,
+                Direction.Left => asset.Left,
+                Direction.Right => asset.Right,
                 _ => default
             };
         }
@@ -26,7 +38,8 @@ namespace Quantum.Types
             return direction switch
             {
                 Direction.Neutral => asset.Neutral,
-                Direction.Horizontal => asset.Horizontal,
+                Direction.Left => asset.Horizontal,
+                Direction.Right => asset.Horizontal,
                 Direction.Up => asset.Up,
                 Direction.Down => asset.Down,
                 _ => default
@@ -37,20 +50,42 @@ namespace Quantum.Types
         {
             switch (direction)
             {
-                case Direction.Neutral:
-                    asset.Neutral = value;
-                    break;
-
-                case Direction.Horizontal:
-                    asset.Horizontal = value;
-                    break;
-
                 case Direction.Up:
                     asset.Up = value;
                     break;
 
                 case Direction.Down:
                     asset.Down = value;
+                    break;
+
+                case Direction.Left:
+                    asset.Left = value;
+                    break;
+
+                case Direction.Right:
+                    asset.Right = value;
+                    break;
+            }
+        }
+
+        public static void SetFromDirection(DirectionalFPVector2 asset, FPVector2 value, Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    asset.Up = value;
+                    break;
+
+                case Direction.Down:
+                    asset.Down = value;
+                    break;
+
+                case Direction.Left:
+                    asset.Left = value;
+                    break;
+
+                case Direction.Right:
+                    asset.Right = value;
                     break;
             }
         }
@@ -63,7 +98,8 @@ namespace Quantum.Types
                     asset.Neutral = value;
                     break;
 
-                case Direction.Horizontal:
+                case Direction.Left:
+                case Direction.Right:
                     asset.Horizontal = value;
                     break;
 
@@ -78,11 +114,12 @@ namespace Quantum.Types
         }
 
         public static AssetRefEmote GetValueFromDirection(DirectionalEmote asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
+        public static FPVector2 GetValueFromDirection(DirectionalFPVector2 asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
         public static AnimationRef GetValueFromDirection(DirectionalAnimationRef asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
 
         public static Direction GetEnumFromDirection(FPVector2 direction)
         {
-            Direction result;
+            Direction result = Direction.Neutral;
 
             if (FPVector2.Dot(direction, FPVector2.Up) > DIRECTION_SUCCESS)
             {
@@ -92,11 +129,11 @@ namespace Quantum.Types
             {
                 result = Direction.Down;
             }
-            else if (FPVector2.Dot(direction, FPVector2.Left) > DIRECTION_SUCCESS || FPVector2.Dot(direction, FPVector2.Right) > DIRECTION_SUCCESS)
+            else if (FPVector2.Dot(direction, FPVector2.Left) > DIRECTION_SUCCESS)
             {
-                result = Direction.Horizontal;
+                result = Direction.Left;
             }
-            else
+            else if (FPVector2.Dot(direction, FPVector2.Right) > DIRECTION_SUCCESS)
             {
                 result = Direction.Neutral;
             }

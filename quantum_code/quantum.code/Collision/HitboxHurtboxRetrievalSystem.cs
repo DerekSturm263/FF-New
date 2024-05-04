@@ -39,8 +39,16 @@ namespace Quantum.Collision
                         {
                             if (f.Unsafe.TryGetPointer(ownerHit, out PlayerLink* hitPlayerLink))
                             {
+                                // Grab the hit player's stats from their outfit.
+                                ApparelStats apparelStats = ApparelHelper.Default;
+                                {
+                                    apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, stats->Build.Equipment.Outfit.Headgear), apparelStats);
+                                    apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, stats->Build.Equipment.Outfit.Clothing), apparelStats);
+                                    apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, stats->Build.Equipment.Outfit.Legwear), apparelStats);
+                                }
+
                                 // Apply damage.
-                                StatsSystem.ModifyHealth(f, hitPlayerLink, stats, -hitbox.Hitbox->Settings.Damage);
+                                StatsSystem.ModifyHealth(f, hitPlayerLink, stats, -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense));
                             }
 
                             if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out PlayerLink* ownerPlayerLink))

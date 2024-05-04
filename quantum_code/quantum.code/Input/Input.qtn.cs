@@ -181,7 +181,7 @@ namespace Quantum
         {
             readonly get
             {
-                return (InputButtons & Buttons.AlternateWeapon) != 0 && !SubWeapon;
+                return (InputButtons & Buttons.AlternateWeapon) != 0;
             }
             set
             {
@@ -196,7 +196,7 @@ namespace Quantum
         {
             readonly get
             {
-                return (InputButtons & Buttons.SubWeapon) != 0 && !AlternateWeapon;
+                return (InputButtons & Buttons.SubWeapon) != 0;
             }
             set
             {

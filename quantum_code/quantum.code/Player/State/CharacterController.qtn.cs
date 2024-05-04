@@ -88,7 +88,7 @@ namespace Quantum
             else
             {
                 // Calculate the player's speed.
-                FP topSpeed = CalculateTopSpeed(moveSettings, amount) * stats.Agility;
+                FP topSpeed = CalculateTopSpeed(moveSettings, amount);
 
                 // Apply the target velocity based on their speed.
                 if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.Sign(amount) != FPMath.Sign(Velocity))
@@ -122,7 +122,7 @@ namespace Quantum
             }
 
             // Apply velocity to the player.
-            physicsBody->Velocity.X = Velocity;
+            physicsBody->Velocity.X = Velocity * stats.Agility;
 
             CustomAnimator.SetFixedPoint(f, customAnimator, "Speed", FPMath.Abs(Velocity));
         }

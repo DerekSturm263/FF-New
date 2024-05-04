@@ -38,15 +38,10 @@ namespace Quantum.Multiplayer
 
             if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
-                /*if (f.Unsafe.TryGetPointerSingleton(out StageInstance* stageInstance))
-                {
-                    var spawnPoints = f.ResolveList(stageInstance->Stage.Spawn.PlayerSpawnPoints);
-                    transform->Position = spawnPoints[f.Global->RngSession.Next(0, spawnPoints.Count)];
-                }
+                if (f.Unsafe.TryGetPointerSingleton(out StageInstance* stageInstance))
+                    transform->Position = stageInstance->Stage.Spawn.PlayerSpawnPoints[player._index];
                 else
-                {*/
                     transform->Position = new(0, 0);
-                //}
             }
         }
     }

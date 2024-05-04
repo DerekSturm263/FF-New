@@ -2,6 +2,6 @@
 struct ItemSettings
 {
 	asset_ref<Item> StartingItem;
-	list<asset_ref<Item>> Items;
+	array<asset_ref<Item>>[16] Items;
 	FP SpawnFrequency;
 }

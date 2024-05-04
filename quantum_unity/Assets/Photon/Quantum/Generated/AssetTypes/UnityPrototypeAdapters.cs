@@ -179,6 +179,20 @@ namespace Quantum.Prototypes.Unity {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.SubWeaponInstance))]
+  public class SubWeaponInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.SubWeaponInstance_Prototype> {
+    public Quantum.Prototypes.SubWeapon_Prototype SubWeapon;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Target;
+
+    public sealed override Quantum.Prototypes.SubWeaponInstance_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.SubWeaponInstance_Prototype();
+      result.SubWeapon = this.SubWeapon;
+      converter.Convert(this.Target, out result.Target);
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.PhysicsJoints3D))]
   public class PhysicsJoints3D_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.PhysicsJoints3D_Prototype> {
     [Quantum.Inspector.DynamicCollectionAttribute()]

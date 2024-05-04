@@ -1,6 +1,6 @@
 [Serializable]
 struct ObjectSettings
 {
-	//asset_ref<EntityPrototype> Stage;
-	list<PositionalGizmo> Gizmos;
+	asset_ref<EntityPrototype> Stage;
+	array<PositionalGizmo>[64] Gizmos;
 }

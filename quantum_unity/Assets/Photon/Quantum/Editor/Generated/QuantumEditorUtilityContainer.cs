@@ -42,13 +42,15 @@ namespace Quantum.Editor {
       public Quantum.ApparelTemplate[] ApparelTemplate = {};
       public Quantum.HardcodedBadge[] HardcodedBadge = {};
       public Quantum.MagneticBadge[] MagneticBadge = {};
+      public Quantum.UnderdogBoostBadge[] UnderdogBoostBadge = {};
       public Quantum.OverclockUltimate[] OverclockUltimate = {};
       public Quantum.SubStormUltimate[] SubStormUltimate = {};
       public Quantum.MainWeaponEnhancer[] MainWeaponEnhancer = {};
       public Quantum.MainWeaponMaterial[] MainWeaponMaterial = {};
       public Quantum.MainWeaponTemplate[] MainWeaponTemplate = {};
       public Quantum.SubWeaponEnhancer[] SubWeaponEnhancer = {};
-      public Quantum.SubWeaponTemplate[] SubWeaponTemplate = {};
+      public Quantum.ExplodingSubWeaponTemplate[] ExplodingSubWeaponTemplate = {};
+      public Quantum.MissileSubWeaponTemplate[] MissileSubWeaponTemplate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};
       public Quantum.WinCondition[] WinCondition = {};
       public Quantum.Gizmo[] Gizmo = {};

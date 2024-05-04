@@ -14,7 +14,7 @@ namespace Quantum
             
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->StatusEffectTime *= stats->StatusEffectMultiplier;
+                stats->StatusEffectTimeLeft = (stats->StatusEffectTimeLeft * stats->StatusEffectMultiplier).AsInt;
             }
         }
 

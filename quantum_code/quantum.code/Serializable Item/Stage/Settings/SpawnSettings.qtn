@@ -1,6 +1,6 @@
 [Serializable]
 struct SpawnSettings
 {
-	list<FPVector2> PlayerSpawnPoints;
-	list<FPVector2> ItemSpawnPoints;
+	array<FPVector2>[4] PlayerSpawnPoints;
+	array<FPVector2>[16] ItemSpawnPoints;
 }

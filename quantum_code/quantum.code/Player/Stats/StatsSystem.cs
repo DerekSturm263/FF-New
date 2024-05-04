@@ -30,6 +30,11 @@ namespace Quantum
                 }
             }
 
+            if (f.TryFindAsset(filter.Stats->Build.Equipment.Badge.Id, out Badge badge))
+            {
+                badge.OnUpdate(f, filter.Entity);
+            }
+
             if (filter.Stats->StatusEffectTimeLeft > 0)
             {
                 filter.Stats->StatusEffectTimeLeft--;

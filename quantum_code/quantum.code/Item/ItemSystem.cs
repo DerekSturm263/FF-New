@@ -40,13 +40,14 @@ namespace Quantum
                 if (info.Other == itemInstance->Owner)
                     return;
 
-                Item item = f.FindAsset<Item>(itemInstance->Item.Id);
-
-                if (item is HoldableItem holdableItem)
+                if (f.TryFindAsset(itemInstance->Item.Id, out Item item))
                 {
-                    if (f.Unsafe.TryGetPointer(itemInstance->Owner, out PlayerLink* playerLink))
+                    if (item is HoldableItem holdableItem)
                     {
-                        holdableItem.OnHit(f, playerLink, info.Other, info.Entity, itemInstance);
+                        if (f.Unsafe.TryGetPointer(itemInstance->Owner, out PlayerLink* playerLink))
+                        {
+                            holdableItem.OnHit(f, playerLink, info.Other, info.Entity, itemInstance);
+                        }
                     }
                 }
             }
@@ -64,6 +65,10 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(item, out PhysicsCollider2D* physicsCollider))
                     physicsCollider->Enabled = false;
+
+
+                if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody))
+                    physicsBody->GravityScale = 1;
             }
         }
 

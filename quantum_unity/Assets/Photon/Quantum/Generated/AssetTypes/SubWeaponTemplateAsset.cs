@@ -10,18 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/SubWeaponTemplate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 468)]
-public partial class SubWeaponTemplateAsset : AssetBase {
-  public Quantum.SubWeaponTemplate Settings;
+public abstract partial class SubWeaponTemplateAsset : AssetBase {
 
-  public override Quantum.AssetObject AssetObject => Settings;
-  
-  public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.SubWeaponTemplate();
-    }
-    base.Reset();
-  }
 }
 
 public static partial class SubWeaponTemplateAssetExts {

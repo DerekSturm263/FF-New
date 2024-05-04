@@ -1,18 +1,28 @@
 enum Direction
 {
 	Neutral,
-	Horizontal,
 	Up,
-	Down
+	Down,
+	Left,
+	Right
 }
 
 [Serializable]
 struct DirectionalEmote
 {
-	asset_ref<Emote> Neutral;
-	asset_ref<Emote> Horizontal;
 	asset_ref<Emote> Up;
 	asset_ref<Emote> Down;
+	asset_ref<Emote> Left;
+	asset_ref<Emote> Right;
+}
+
+[Serializable]
+struct DirectionalFPVector2
+{
+	FPVector2 Up;
+	FPVector2 Down;
+	FPVector2 Left;
+	FPVector2 Right;
 }
 
 [Serializable]

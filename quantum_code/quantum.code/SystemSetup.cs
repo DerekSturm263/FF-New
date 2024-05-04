@@ -27,6 +27,7 @@
         new HurtboxSystem(),
         new StatsSystem(),
         new MatchSystem(),
+        new SubWeaponSystem(),
         new ItemSpawnSystem(),
         new ItemSystem(),
 

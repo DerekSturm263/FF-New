@@ -12,10 +12,10 @@ namespace Quantum.Movement
             [States.IsDodging] = new DodgeState(),
             [States.IsBlocking] = new BlockState(),
             [States.IsEmoting] = new EmoteState(),
+            [States.IsUsingSubWeapon] = new SubWeaponState(),
             [States.IsUsingUltimate] = new UltimateState(),
             [States.IsInteracting] = new InteractState(),
-            [States.IsUsingMainWeapon] = new MainWeaponState(),
-            [States.IsUsingSubWeapon] = new SubWeaponState()
+            [States.IsUsingMainWeapon] = new MainWeaponState()
         };
 
         public struct Filter

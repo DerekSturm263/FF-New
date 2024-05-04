@@ -38,10 +38,15 @@ namespace Quantum.Movement
                 StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -subWeapon.EnergyAmount);
                 EntityRef entity = SubWeaponSystem.Spawn(f, filter.Stats->Build.Equipment.Weapons.SubWeapon, filter.PlayerLink);
 
-                if (input.IsUsingSubWeapon)
+                if (input.SubWeapon)
+                {
                     ItemSystem.PickUp(f, filter.Entity, entity);
+                }
                 else
-                    ItemSystem.Throw(f, filter.Entity, entity, settings.ThrowForce);
+                {
+                    if (filter.CharacterController->Direction == Direction.Up)
+                    ItemSystem.Throw(f, filter.Entity, entity, DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
+                }
             }
         }
     }

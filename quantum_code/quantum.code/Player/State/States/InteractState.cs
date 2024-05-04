@@ -1,4 +1,6 @@
-﻿namespace Quantum.Movement
+﻿using Quantum.Types;
+
+namespace Quantum.Movement
 {
     public unsafe sealed class InteractState : PlayerState
     {
@@ -30,7 +32,7 @@
             }
             else
             {
-                ItemSystem.Throw(f, filter.Entity, filter.Stats->HeldItem, settings.ThrowForce);
+                ItemSystem.Throw(f, filter.Entity, filter.Stats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
             }
         }
     }
