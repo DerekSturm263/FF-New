@@ -4,13 +4,16 @@ namespace Quantum
 {
     public partial class MainWeaponTemplate
     {
+        // Main
         public DirectionalAnimationRef GroundedHeavies;
         public DirectionalAnimationRef GroundedLights;
-
+        
         public DirectionalAnimationRef Aerials;
-
-        public DirectionalAnimationRef AlternateHeavies;
-
+        
+        public AnimationRef GetUp;
         public AnimationRef Dash;
+        
+        // Support
+        public DirectionalAnimationRef GroundedSupports;
     }
 }
