@@ -16,6 +16,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Image _portrait;
 
     [Header("Settings")]
+    [SerializeField] private float _lerpSpeed;
     [SerializeField] private Color _emptyHealth;
     [SerializeField] private Color _fullHealth;
     [SerializeField] private Color _emptyEnergy;
@@ -23,9 +24,17 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Color _emptyStock;
     [SerializeField] private Color _fullStock;
 
+    private float _healthFill, _energyFill;
+
+    private void Update()
+    {
+        _health.fillAmount = _healthFill;
+        _energy.fillAmount = _energyFill;
+    }
+
     public void UpdateHealth(FP newHealth, FP maxHealth)
     {
-        _health.fillAmount = (newHealth / maxHealth).AsFloat;
+        _healthFill = (newHealth / maxHealth).AsFloat;
         _health.color = Color.Lerp(_emptyHealth, _fullHealth, _health.fillAmount);
 
         if (_portrait.material != _activateUltimate)
@@ -52,7 +61,7 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateEnergy(FP newEnergy, FP maxEnergy)
     {
-        _energy.fillAmount = (newEnergy / maxEnergy).AsFloat;
+        _energyFill = (newEnergy / maxEnergy).AsFloat;
         _energy.color = Color.Lerp(_emptyEnergy, _fullEnergy, _energy.fillAmount);
 
         if (newEnergy == maxEnergy)

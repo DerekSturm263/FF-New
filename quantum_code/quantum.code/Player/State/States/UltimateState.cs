@@ -36,8 +36,6 @@ namespace Quantum.Movement
                 ultimate.OnBegin(f, filter.Entity);
                 filter.CharacterController->UltimateTime = ultimate.Length;
             }
-
-            StatsSystem.SetEnergy(f, filter.PlayerLink, filter.Stats, 0);
         }
     }
 }

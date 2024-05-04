@@ -18,9 +18,9 @@ namespace Quantum.Movement
                 AnimationRef animRef;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.MainGrounded, filter.CharacterController->Direction);
+                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedHeavies, filter.CharacterController->Direction);
                 else
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.MainAerial, filter.CharacterController->Direction);
+                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
                 if (animRef.ID != 0)
                     return (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animRef.ID).motion as AnimatorClip).data.frameCount;
@@ -50,9 +50,9 @@ namespace Quantum.Movement
                 AnimationRef animRef;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.MainGrounded, filter.CharacterController->Direction);
+                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedHeavies, filter.CharacterController->Direction);
                 else
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.MainAerial, filter.CharacterController->Direction);
+                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animRef.ID);
             }

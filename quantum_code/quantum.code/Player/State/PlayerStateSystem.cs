@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Photon.Deterministic;
+using System.Collections.Generic;
 
 namespace Quantum.Movement
 {
@@ -102,15 +103,18 @@ namespace Quantum.Movement
             // Decrease the time left in the Ultimate state if the player is using their Ultimate.
             if (filter.CharacterController->UltimateTime > 0)
             {
-                filter.CharacterController->UltimateTime--;
-                if (filter.CharacterController->UltimateTime == 0)
+                if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
                 {
-                    // Invoke the Ultimate's End function once time runs out to reset stats and stuff.
-                    if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
+                    filter.CharacterController->UltimateTime--;
+
+                    if (filter.CharacterController->UltimateTime == 0)
                     {
+                        // Invoke the Ultimate's End function once time runs out to reset stats and stuff.
                         ultimate.OnEnd(f, filter.Entity);
                     }
                 }
+
+                StatsSystem.SetEnergy(f, filter.PlayerLink, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * filter.Stats->MaxEnergy);
             }
         }
 

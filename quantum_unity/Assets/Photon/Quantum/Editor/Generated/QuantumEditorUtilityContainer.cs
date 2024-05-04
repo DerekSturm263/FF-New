@@ -45,10 +45,12 @@ namespace Quantum.Editor {
       public Quantum.UnderdogBoostBadge[] UnderdogBoostBadge = {};
       public Quantum.OverclockUltimate[] OverclockUltimate = {};
       public Quantum.SubStormUltimate[] SubStormUltimate = {};
-      public Quantum.MainWeaponEnhancer[] MainWeaponEnhancer = {};
+      public Quantum.ChargingMainWeaponEnhancer[] ChargingMainWeaponEnhancer = {};
+      public Quantum.VampiricMainWeaponEnhancer[] VampiricMainWeaponEnhancer = {};
       public Quantum.MainWeaponMaterial[] MainWeaponMaterial = {};
       public Quantum.MainWeaponTemplate[] MainWeaponTemplate = {};
-      public Quantum.SubWeaponEnhancer[] SubWeaponEnhancer = {};
+      public Quantum.ElectrifiedSubWeaponEnhancer[] ElectrifiedSubWeaponEnhancer = {};
+      public Quantum.PiercingSubWeaponEnhancer[] PiercingSubWeaponEnhancer = {};
       public Quantum.ExplodingSubWeaponTemplate[] ExplodingSubWeaponTemplate = {};
       public Quantum.MissileSubWeaponTemplate[] MissileSubWeaponTemplate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};

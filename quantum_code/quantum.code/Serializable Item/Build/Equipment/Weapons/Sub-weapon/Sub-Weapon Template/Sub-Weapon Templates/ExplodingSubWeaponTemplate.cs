@@ -1,5 +1,3 @@
-using Photon.Deterministic;
-
 namespace Quantum
 {
     [System.Serializable]
@@ -8,9 +6,9 @@ namespace Quantum
         public HitboxSettings HitboxSettings;
         public int Lifetime;
 
-        public unsafe void OnHit(Frame f, PlayerLink* user, EntityRef target)
+        public override void OnHit(Frame f, EntityRef user, EntityRef target, EntityRef subWeapon, SubWeaponInstance* subWeaponInstance)
         {
-            HitboxSystem.SpawnHitbox(f, HitboxSettings, Lifetime, user->Entity);
+            HitboxSystem.SpawnHitbox(f, HitboxSettings, Lifetime, user);
         }
     }
 }

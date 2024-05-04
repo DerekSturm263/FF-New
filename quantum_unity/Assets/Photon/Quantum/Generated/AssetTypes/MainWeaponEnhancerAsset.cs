@@ -10,18 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/MainWeaponEnhancer", order = Quantum.EditorDefines.AssetMenuPriorityStart + 312)]
-public partial class MainWeaponEnhancerAsset : AssetBase {
-  public Quantum.MainWeaponEnhancer Settings;
+public abstract partial class MainWeaponEnhancerAsset : AssetBase {
 
-  public override Quantum.AssetObject AssetObject => Settings;
-  
-  public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.MainWeaponEnhancer();
-    }
-    base.Reset();
-  }
 }
 
 public static partial class MainWeaponEnhancerAssetExts {

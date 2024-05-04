@@ -8,11 +8,11 @@ namespace Quantum
         public FP Speed;
         public FP LerpTime;
 
-        public override void OnUpdate(Frame f, EntityRef user, EntityRef target, EntityRef subWeaponInstance)
+        public override void OnUpdate(Frame f, EntityRef user, EntityRef target, EntityRef subWeapon, SubWeaponInstance* subWeaponInstance)
         {
-            if (f.Unsafe.TryGetPointer(subWeaponInstance, out PhysicsBody2D* physicsBody))
+            if (f.Unsafe.TryGetPointer(subWeapon, out PhysicsBody2D* physicsBody))
             {
-                if (f.Unsafe.TryGetPointer(subWeaponInstance, out Transform2D* transform))
+                if (f.Unsafe.TryGetPointer(subWeapon, out Transform2D* transform))
                 {
                     if (f.Unsafe.TryGetPointer(target, out Transform2D* targetTransform))
                     {
