@@ -8,7 +8,7 @@
 
         // physics querying
         new HitboxSystem(),
-        new Collision.HitboxHurtboxQueryInjectionSystem(),
+        new HitboxHurtboxQueryInjectionSystem(),
 
         new Core.PhysicsSystem2D(),
         //new Core.PhysicsSystem3D(),
@@ -18,21 +18,21 @@
         // new Core.NavigationSystem(),
         new Core.EntityPrototypeSystem(),
         new Core.PlayerConnectedSystem(),
+        new MatchSystem(),
 
         // user systems go here 
-        new Movement.PlayerStateSystem(),
-        new Multiplayer.PlayerSpawnSystem(),
-        new Multiplayer.ConfirmationSystem(),
-        new Timing.TimerSystem(),
+        new CharacterControllerSystem(),
+        new PlayerSpawnSystem(),
+        new ConfirmationSystem(),
+        new TimerSystem(),
         new HurtboxSystem(),
         new StatsSystem(),
-        new MatchSystem(),
         new SubWeaponSystem(),
         new ItemSpawnSystem(),
         new ItemSystem(),
 
         // physics resolution
-        new Collision.HitboxHurtboxRetrievalSystem(),
+        new HitboxHurtboxRetrievalSystem(),
 
         // animation-related systems
         new CustomAnimatorSystem(),

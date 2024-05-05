@@ -26,10 +26,10 @@ struct DirectionalFPVector2
 }
 
 [Serializable]
-struct DirectionalAnimationRef
+struct DirectionalMoveRef
 {
-	AnimationRef Neutral;
-	AnimationRef Horizontal;
-	AnimationRef Up;
-	AnimationRef Down;
+	MoveRef Neutral;
+	MoveRef Horizontal;
+	MoveRef Up;
+	MoveRef Down;
 }

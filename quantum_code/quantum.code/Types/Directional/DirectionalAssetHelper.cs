@@ -33,7 +33,7 @@ namespace Quantum.Types
             };
         }
 
-        public static AnimationRef GetFromDirection(DirectionalAnimationRef asset, Direction direction)
+        public static MoveRef GetFromDirection(DirectionalMoveRef asset, Direction direction)
         {
             return direction switch
             {
@@ -90,7 +90,7 @@ namespace Quantum.Types
             }
         }
 
-        public static void SetFromDirection(DirectionalAnimationRef asset, AnimationRef value, Direction direction)
+        public static void SetFromDirection(DirectionalMoveRef asset, MoveRef value, Direction direction)
         {
             switch (direction)
             {
@@ -115,7 +115,7 @@ namespace Quantum.Types
 
         public static AssetRefEmote GetValueFromDirection(DirectionalEmote asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
         public static FPVector2 GetValueFromDirection(DirectionalFPVector2 asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
-        public static AnimationRef GetValueFromDirection(DirectionalAnimationRef asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
+        public static MoveRef GetValueFromDirection(DirectionalMoveRef asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
 
         public static Direction GetEnumFromDirection(FPVector2 direction)
         {

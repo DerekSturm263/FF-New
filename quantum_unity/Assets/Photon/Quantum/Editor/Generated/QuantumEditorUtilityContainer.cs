@@ -30,6 +30,7 @@ namespace Quantum.Editor {
     public partial class KnownObjectsContainer : QuantumEditorUtility.SerializableObjectsContainerBase {
       public Quantum.ExplodingItem[] ExplodingItem = {};
       public Quantum.HealingItem[] HealingItem = {};
+      public Quantum.MatchAsset[] MatchAsset = {};
       public Quantum.QuantumAnimationEvent[] QuantumAnimationEvent = {};
       public Quantum.MovementSettings[] MovementSettings = {};
       public Quantum.BuildAsset[] BuildAsset = {};
@@ -54,7 +55,9 @@ namespace Quantum.Editor {
       public Quantum.ExplodingSubWeaponTemplate[] ExplodingSubWeaponTemplate = {};
       public Quantum.MissileSubWeaponTemplate[] MissileSubWeaponTemplate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};
-      public Quantum.WinCondition[] WinCondition = {};
+      public Quantum.BestKillToDeathRatioWinCondition[] BestKillToDeathRatioWinCondition = {};
+      public Quantum.LeastDeathsWinCondition[] LeastDeathsWinCondition = {};
+      public Quantum.MostKillsWinCondition[] MostKillsWinCondition = {};
       public Quantum.Gizmo[] Gizmo = {};
       public Quantum.StageAsset[] StageAsset = {};
       public Quantum.FriedStatusEffect[] FriedStatusEffect = {};

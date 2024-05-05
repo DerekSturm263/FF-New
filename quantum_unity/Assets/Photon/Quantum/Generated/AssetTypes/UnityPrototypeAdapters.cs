@@ -65,10 +65,14 @@ namespace Quantum.Prototypes.Unity {
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.MatchInstance))]
   public class MatchInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.MatchInstance_Prototype> {
     public Match_Prototype Match;
+    public Quantum.QBoolean IsTimerOver;
+    public Quantum.QBoolean IsMatchRunning;
 
     public sealed override Quantum.Prototypes.MatchInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.MatchInstance_Prototype();
       result.Match = this.Match.Convert(converter);
+      result.IsTimerOver = this.IsTimerOver;
+      result.IsMatchRunning = this.IsMatchRunning;
       return result;
     }
   }
@@ -117,6 +121,14 @@ namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.Stats))]
   public class Stats_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.Stats_Prototype> {
+    public Quantum.Prototypes.Build_Prototype Build;
+    [Quantum.Inspector.DynamicCollectionAttribute()]
+    [Quantum.LocalReference]
+    public global::EntityPrototype[] Hitboxes = System.Array.Empty<global::EntityPrototype>();
+    [Quantum.Inspector.DictionaryAttribute()]
+    [Quantum.Inspector.DynamicCollectionAttribute()]
+    public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
+    public Quantum.AssetRefEntityPrototype Hurtbox;
     public System.Int32 MaxStocks;
     public System.Int32 CurrentStocks;
     public System.Int32 MaxHealth;
@@ -125,16 +137,10 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 MaxEnergy;
     public Photon.Deterministic.FP CurrentEnergy;
     public Photon.Deterministic.FP EnergyModifyMultiplier;
-    public Quantum.Prototypes.Build_Prototype Build;
-    [Quantum.Inspector.DynamicCollectionAttribute()]
-    [Quantum.LocalReference]
-    public global::EntityPrototype[] Hitboxes = System.Array.Empty<global::EntityPrototype>();
-    [Quantum.Inspector.DictionaryAttribute()]
-    [Quantum.Inspector.DynamicCollectionAttribute()]
-    public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
+    public System.Int32 Kills;
+    public System.Int32 Deaths;
     public Quantum.Prototypes.ApparelStats_Prototype ApparelStatsMultiplier;
     public Quantum.Prototypes.MainWeaponStats_Prototype MainWeaponStatsMultiplier;
-    public Quantum.AssetRefEntityPrototype Hurtbox;
     [Quantum.LocalReference]
     public global::EntityPrototype HeldItem;
     public Quantum.AssetRefStatusEffect StatusEffect;
@@ -143,6 +149,10 @@ namespace Quantum.Prototypes.Unity {
 
     public sealed override Quantum.Prototypes.Stats_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.Stats_Prototype();
+      result.Build = this.Build;
+      result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
+      result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
+      result.Hurtbox = this.Hurtbox;
       result.MaxStocks = this.MaxStocks;
       result.CurrentStocks = this.CurrentStocks;
       result.MaxHealth = this.MaxHealth;
@@ -151,12 +161,10 @@ namespace Quantum.Prototypes.Unity {
       result.MaxEnergy = this.MaxEnergy;
       result.CurrentEnergy = this.CurrentEnergy;
       result.EnergyModifyMultiplier = this.EnergyModifyMultiplier;
-      result.Build = this.Build;
-      result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
-      result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
+      result.Kills = this.Kills;
+      result.Deaths = this.Deaths;
       result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
       result.MainWeaponStatsMultiplier = this.MainWeaponStatsMultiplier;
-      result.Hurtbox = this.Hurtbox;
       converter.Convert(this.HeldItem, out result.HeldItem);
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;

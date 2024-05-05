@@ -10,18 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/WinCondition", order = Quantum.EditorDefines.AssetMenuPriorityStart + 572)]
-public partial class WinConditionAsset : AssetBase {
-  public Quantum.WinCondition Settings;
+public abstract partial class WinConditionAsset : AssetBase {
 
-  public override Quantum.AssetObject AssetObject => Settings;
-  
-  public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.WinCondition();
-    }
-    base.Reset();
-  }
 }
 
 public static partial class WinConditionAssetExts {

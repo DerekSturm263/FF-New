@@ -20663,8 +20663,8 @@ MonoBehaviour:
               hurtboxPositions: []
             looped: 0
             mirror: 0
-          blendParameterIndex: 13
-          blendParameterIndexY: 13
+          blendParameterIndex: 16
+          blendParameterIndexY: 16
           positions:
           - X:
               RawValue: 0
@@ -48174,8 +48174,8 @@ MonoBehaviour:
               hurtboxPositions: []
             looped: 0
             mirror: 0
-          blendParameterIndex: 13
-          blendParameterIndexY: 13
+          blendParameterIndex: 16
+          blendParameterIndexY: 16
           positions:
           - X:
               RawValue: 0
@@ -75721,8 +75721,8 @@ MonoBehaviour:
               hurtboxPositions: []
             looped: 0
             mirror: 0
-          blendParameterIndex: 10
-          blendParameterIndexY: 11
+          blendParameterIndex: 13
+          blendParameterIndexY: 14
           positions:
           - X:
               RawValue: 0
@@ -108225,8 +108225,8 @@ MonoBehaviour:
               hurtboxPositions: []
             looped: 0
             mirror: 0
-          blendParameterIndex: 10
-          blendParameterIndexY: 10
+          blendParameterIndex: 13
+          blendParameterIndexY: 13
           positions:
           - X:
               RawValue: -65536
@@ -149038,7 +149038,7 @@ MonoBehaviour:
           hasExitTime: 0
           canTransitionToSelf: 0
           conditions:
-          - variableName: IsAttacking
+          - variableName: IsUsingMainWeapon
             mode: 1
             thresholdFp:
               RawValue: 0
@@ -149148,7 +149148,7 @@ MonoBehaviour:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: IsBlocking
+    - name: IsBursting
       index: 3
       type: 2
       defaultFp:
@@ -149162,99 +149162,120 @@ MonoBehaviour:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: IsBursting
+    - name: IsBlocking
       index: 5
       type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: IsAttacking
+    - name: IsEmoting
       index: 6
       type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: IsInteracting
+    - name: IsUsingSubWeapno
       index: 7
       type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: IsEmoting
+    - name: IsUsingUltimate
       index: 8
       type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: Speed
+    - name: IsInteracting
       index: 9
-      type: 1
+      type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: DodgeDirX
+    - name: IsUsingMainWeapon
       index: 10
-      type: 1
+      type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: DodgeDirY
+    - name: IsUsingAltWeapon
       index: 11
-      type: 1
+      type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: Pick Up Weight
+    - name: Speed
       index: 12
       type: 1
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: ThrowWeight
+    - name: DodgeDirX
       index: 13
       type: 1
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: YVelocity
+    - name: DodgeDirY
       index: 14
       type: 1
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: JumpStrength
+    - name: Pick Up Weight
       index: 15
       type: 1
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
-    - name: IsGrounded
+    - name: ThrowWeight
       index: 16
+      type: 1
+      defaultFp:
+        RawValue: 0
+      defaultInt: 0
+      defaultBool: 0
+    - name: YVelocity
+      index: 17
+      type: 1
+      defaultFp:
+        RawValue: 0
+      defaultInt: 0
+      defaultBool: 0
+    - name: JumpStrength
+      index: 18
+      type: 1
+      defaultFp:
+        RawValue: 0
+      defaultInt: 0
+      defaultBool: 0
+    - name: IsGrounded
+      index: 19
       type: 2
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
     - name: Hit
-      index: 17
+      index: 20
       type: 3
       defaultFp:
         RawValue: 0
       defaultInt: 0
       defaultBool: 0
     - name: Die
-      index: 18
+      index: 21
       type: 3
       defaultFp:
         RawValue: 0

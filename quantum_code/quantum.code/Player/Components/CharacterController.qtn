@@ -1,0 +1,58 @@
+enum States
+{
+    IsCrouching,
+    IsJumping,
+    IsFastFalling,
+    IsBursting,
+    IsDodging,
+    IsBlocking,
+    IsEmoting,
+    IsUsingSubWeapon,
+    IsUsingUltimate,
+    IsInteracting,
+    IsUsingMainWeapon,
+    IsUsingAltWeapon,
+}
+
+[System.Flags]
+enum Colliders
+{
+    Ground = 1,
+    LeftWall = 2,
+    RightWall = 4,
+    Ceiling = 8
+}
+
+component CharacterController
+{
+    bool CanInput;
+	asset_ref<MovementSettings> Settings;
+    bitset[12] States;
+    bitset[12] Holding;
+    int StateTime;
+	
+    Colliders NearbyColliders;
+
+    // Move
+    FP Velocity;
+    FP MovingLerp;
+
+    // Jump
+    short JumpCount;
+    short JumpSettingsIndex;
+    
+    // Dodge
+    FPVector2 DodgeDirection;
+    short DodgeCount;
+    short DodgeSettingsIndex;
+
+    // Attacking/Emoting
+    Direction Direction;
+
+    // Ready
+    bool IsReady;
+    FP ReadyTime;
+
+    // Ultimate
+    int UltimateTime;
+}

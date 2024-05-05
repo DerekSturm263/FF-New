@@ -93,7 +93,10 @@ public class CustomExportAnimations : MonoBehaviour
         newState.cycleOffset = FP.FromFloat_UNSAFE(state.cycleOffset);
 
                 for (int i = 0; i < state.behaviours.Length; ++i)
+                {
+                    (state.behaviours[i] as AnimationEventContainer).Event.Settings.AnimID = newState.id;
                     newState.StateAsset = new() { Id = (state.behaviours[i] as AnimationEventContainer).Event.AssetObject.Guid };
+                }
 
                 if (state.motion != null)
         {

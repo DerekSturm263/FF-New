@@ -74,13 +74,15 @@ namespace GameResources.Camera
         {
             Vector3 targetPosition = default;
 
+            float targetCountWeight = 0;
             for (int i = 0; i < _targets.Count; ++i)
             {
                 targetPosition += _targets[i].Item2.position * _targets[i].Item1;
+                targetCountWeight += _targets[i].Item1;
             }
 
             if (_targets.Count > 0)
-                targetPosition /= _targets.Count;
+                targetPosition /= targetCountWeight;
 
             targetPosition.x = Mathf.Clamp(targetPosition.x, _settings.Settings.TranslationMinClamp.X.AsFloat, _settings.Settings.TranslationMaxClamp.X.AsFloat);
             targetPosition.y = Mathf.Clamp(targetPosition.y, _settings.Settings.TranslationMinClamp.Y.AsFloat, _settings.Settings.TranslationMaxClamp.Y.AsFloat);
@@ -127,6 +129,8 @@ namespace GameResources.Camera
             {
                 if (i != index)
                     _instance._targets[i] = new(0, _instance._targets[i].Item2);
+                else
+                    _instance._targets[i] = new(1, _instance._targets[i].Item2);
             }
         }
 
