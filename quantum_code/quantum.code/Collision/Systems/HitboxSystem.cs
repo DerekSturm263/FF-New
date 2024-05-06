@@ -1,5 +1,5 @@
 ﻿using Quantum.Collections;
-using System.Runtime;
+using System.Diagnostics;
 
 namespace Quantum
 {
@@ -15,20 +15,30 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            Draw.Circle(filter.Transform->Position + filter.HitboxInstance->Settings.Offset, filter.HitboxInstance->Settings.Radius);
+            DrawHitbox(filter.Transform, filter.HitboxInstance);
 
             --filter.HitboxInstance->Lifetime;
-
             if (filter.HitboxInstance->Lifetime <= 0)
             {
-                if (f.Unsafe.TryGetPointer(filter.HitboxInstance->Owner, out Stats* stats))
-                {
-                    QList<EntityRef> hitboxes = f.ResolveList(stats->Hitboxes);
-                    hitboxes.Remove(filter.Entity);
-                }
-
-                f.Destroy(filter.Entity);
+                KillHitbox(f, filter.HitboxInstance->Owner, filter.Entity);
             }
+        }
+
+        [Conditional("DEBUG")]
+        private void DrawHitbox(Transform2D* transform, HitboxInstance* hitboxInstance)
+        {
+            Draw.Circle(transform->Position + hitboxInstance->Settings.Offset, hitboxInstance->Settings.Radius);
+        }
+
+        private void KillHitbox(Frame f, EntityRef owner, EntityRef hitbox)
+        {
+            if (f.Unsafe.TryGetPointer(owner, out Stats* stats))
+            {
+                QList<EntityRef> hitboxes = f.ResolveList(stats->Hitboxes);
+                hitboxes.Remove(hitbox);
+            }
+
+            f.Destroy(hitbox);
         }
 
         public static void SpawnHitbox(Frame f, HitboxSettings settings, int lifetime, EntityRef user)

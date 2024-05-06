@@ -12,35 +12,26 @@ namespace Extensions.Components.UI
     {
         private System.TimeSpan _time;
 
-        [SerializeField] private EntityView _timer;
-
         [SerializeField] private string _format = "hh':'mm':'ss";
         [SerializeField] private bool _trimStart;
         [SerializeField] private bool _trimEnd;
+        [SerializeField] private bool _useBeginningCountdown;
 
         [SerializeField] private Types.Dictionary<int, UnityEvent<int>> _tickEvents;
-        [SerializeField] private UnityEvent _onTick;
-        public void InvokeTickEvent(int index)
+        [SerializeField] private UnityEvent<string> _onTick;
+
+        public void InvokeTickEvent(int time)
         {
-            if (_tickEvents.TryGetValue(index, out UnityEvent<int> unityEvent))
-                unityEvent.Invoke(index);
-
-            _onTick.Invoke();
+            if (_tickEvents.TryGetValue(time, out UnityEvent<int> unityEvent))
+                unityEvent.Invoke(time);
         }
-
-        private TMPro.TMP_Text _text;
 
         protected override void Awake()
         {
-            _text = GetComponent<TMPro.TMP_Text>();
-
-            QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e =>
-            {
-                if (e.Caller != _timer.EntityRef)
-                    return;
-
-                UpdateTimer(e.Time);
-            });
+            if (_useBeginningCountdown)
+                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time));
+            else
+                QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e => UpdateTimer(e.Time));
         }
 
         private void UpdateTimer(int time)
@@ -53,8 +44,7 @@ namespace Extensions.Components.UI
             if (_trimEnd)
                 text = text.TrimEnd('0');
 
-            _text.SetText(text);
-
+            _onTick.Invoke(text);
             InvokeTickEvent(time);
         }
     }

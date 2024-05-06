@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Diagnostics;
 
 namespace Quantum
 {
@@ -20,21 +21,26 @@ namespace Quantum
                 if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out Transform2D* parentTransform))
                 {
                     FPVector3 offset = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[filter.HurtboxInstance->Index];
-
                     filter.Transform->Position = parentTransform->Position + offset.XY;
                 }
             }
 
+            DrawHurtbox(filter.Transform, filter.PhysicsCollider, filter.HurtboxInstance);
+        }
+
+        [Conditional("DEBUG")]
+        private void DrawHurtbox(Transform2D* transform, PhysicsCollider2D* physicsCollider, HurtboxInstance* hurtboxInstance)
+        {
             ColorRGBA color = new() { R = 0, G = 0, B = 0, A = 128 };
 
-            if (filter.HurtboxInstance->Settings.CanBeInterrupted)
+            if (hurtboxInstance->Settings.CanBeInterrupted)
                 color.R = 255;
-            if (filter.HurtboxInstance->Settings.CanBeKnockedBack)
+            if (hurtboxInstance->Settings.CanBeKnockedBack)
                 color.G = 255;
-            if (filter.HurtboxInstance->Settings.CanBeDamaged)
+            if (hurtboxInstance->Settings.CanBeDamaged)
                 color.B = 255;
 
-            Draw.Circle(filter.Transform->Position, filter.PhysicsCollider->Shape.BroadRadius);
+            Draw.Circle(transform->Position, physicsCollider->Shape.BroadRadius);
         }
     }
 }

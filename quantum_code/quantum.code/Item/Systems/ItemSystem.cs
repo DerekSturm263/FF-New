@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using System.Runtime;
 
 namespace Quantum
 {
@@ -18,14 +17,19 @@ namespace Quantum
         {
             if (filter.ItemInstance->Holder.IsValid)
             {
-                if (f.Unsafe.TryGetPointer(filter.ItemInstance->Holder, out Stats* stats))
-                {
-                    var dict = f.ResolveDictionary(stats->Hurtboxes);
+                HoldInHand(f, filter.ItemInstance->Holder, filter.Transform);
+            }
+        }
 
-                    if (f.Unsafe.TryGetPointer(dict[HurtboxType.RightHand], out Transform2D* transform))
-                    {
-                        filter.Transform->Position = transform->Position;
-                    }
+        private void HoldInHand(Frame f, EntityRef holder, Transform2D* transform)
+        {
+            if (f.Unsafe.TryGetPointer(holder, out Stats* stats))
+            {
+                var dict = f.ResolveDictionary(stats->Hurtboxes);
+
+                if (f.Unsafe.TryGetPointer(dict[HurtboxType.RightHand], out Transform2D* handTransform))
+                {
+                    transform->Position = handTransform->Position;
                 }
             }
         }

@@ -68,6 +68,12 @@ namespace Quantum
                         f.Events.OnMatchStart(teams[0], teams[1], teams[2], teams[3]);
                         break;
                 }
+
+                foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
+                {
+                    EntityRef newItem = ItemSpawnSystem.SpawnItem(f, matchInstance->Match.Ruleset.Items.StartingItem, FPVector2.Zero);
+                    ItemSystem.PickUp(f, stats.Entity, newItem);
+                }
             }
 
             matchInstance->IsMatchRunning = true;

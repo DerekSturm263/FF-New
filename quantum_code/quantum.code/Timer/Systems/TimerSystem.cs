@@ -1,11 +1,11 @@
 ﻿using Photon.Deterministic;
+using System;
+using System.ComponentModel;
 
 namespace Quantum
 {
-    public unsafe class TimerSystem : SystemMainThreadFilter<TimerSystem.Filter>
+    public unsafe class TimerSystem : SystemMainThreadFilter<TimerSystem.Filter>, ISignalOnComponentAdded<Timer>
     {
-        public override bool StartEnabled => false;
-
         public struct Filter
         {
             public EntityRef Entity;
@@ -16,61 +16,116 @@ namespace Quantum
         {
             if (!filter.Timer->IsCounting)
                 return;
-            
-            filter.Timer->Time += f.DeltaTime * filter.Timer->Multiplier;
-            FP remainder = filter.Timer->Time - filter.Timer->Time.AsInt;
-            
-            if (remainder <= (FP)1 / f.UpdateRate)
+
+            CountDown(f, filter.Timer);
+
+            if (filter.Timer->Time > filter.Timer->Start)
+                UpdatePlayerStats(f, filter.Timer);
+        }
+
+        private void CountDown(Frame f, Timer* timer)
+        {
+            timer->Time += timer->Step;
+
+            if (timer->Time % 60 == 0)
+                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
+        }
+
+        private static void CountDownOneSecond(Frame f, Timer* timer, int ticks, int seconds)
+        {
+            f.Events.OnTimerTick(seconds);
+
+            if (ticks >= timer->Start)
             {
-                f.Events.OnTimerTick(filter.Entity, filter.Timer->Time.AsInt);
+                f.Events.OnBeginningCountdown(seconds - (timer->Start / 60));
+            }
+            
+            if (ticks == timer->Start)
+            {
+                MatchSystem.StartOfMatch(f);
+            }
+            else if (ticks == timer->End)
+            {
+                timer->IsCounting = false;
 
-                if (filter.Timer->Time.AsInt == filter.Timer->End)
-                {
-                    filter.Timer->IsCounting = false;
-
-                    if (filter.Timer->TriggerStartOfMatch)
-                    {
-                        MatchSystem.StartOfMatch(f);
-                    }
-
-                    if (filter.Timer->TriggerEndOfMatch)
-                    {
-                        if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-                            matchInstance->IsTimerOver = true;
-                    }
-                }
-
-                if (filter.Timer->TriggerEndOfMatch && filter.Timer->Time.AsInt == 61)
-                    f.Events.OnOneMinuteLeft();
+                if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+                    matchInstance->IsTimerOver = true;
             }
 
-            if (filter.Timer->TriggerStartOfMatch)
+            if (seconds == 61)
             {
-                foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
+                f.Events.OnOneMinuteLeft();
+            }
+        }
+
+        private void UpdatePlayerStats(Frame f, Timer* timer)
+        {
+            foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
+            {
+                if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
                 {
-                    if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
-                    {
-                        FP lerpValue = filter.Timer->Time / filter.Timer->OriginalTime;
+                    FP lerpValue = (timer->Start - timer->Time) / timer->OriginalTime;
 
-                        FP health = FPMath.Lerp(stats->MaxHealth, 0, lerpValue);
-                        StatsSystem.SetHealth(f, playerLink.Component, stats, health);
+                    FP health = FPMath.Lerp(stats->MaxHealth, 0, lerpValue);
+                    StatsSystem.SetHealth(f, playerLink.Component, stats, health);
 
-                        FP energy = FPMath.Lerp(stats->MaxEnergy / 5, 0, lerpValue);
-                        StatsSystem.SetEnergy(f, playerLink.Component, stats, energy);
+                    FP energy = FPMath.Lerp(stats->MaxEnergy / 5, 0, lerpValue);
+                    StatsSystem.SetEnergy(f, playerLink.Component, stats, energy);
 
-                        int stocks = FPMath.Lerp(stats->MaxStocks, 0, lerpValue).AsInt;
-                        StatsSystem.SetStocks(f, playerLink.Component, stats, stocks);
-                    }
+                    int stocks = FPMath.Lerp(stats->MaxStocks, 0, lerpValue).AsInt;
+                    StatsSystem.SetStocks(f, playerLink.Component, stats, stocks);
                 }
             }
         }
 
-        public override void OnEnabled(Frame f)
+        public void OnAdded(Frame f, EntityRef entity, Timer* component)
         {
-            foreach (var timer in f.Unsafe.GetComponentBlockIterator<Timer>())
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+                SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time));
+
+            CountDownOneSecond(f, component, component->Time, component->Time / 60);
+        }
+
+        public static void StartCountdown(Frame f, TimeSpan time)
+        {
+            SetTime(f, time);
+            ResumeCountdown(f);
+        }
+
+        public static void PauseCountdown(Frame f)
+        {
+            f.Unsafe.GetPointerSingleton<Timer>()->IsCounting = false;
+        }
+
+        public static void ResumeCountdown(Frame f)
+        {
+            f.Unsafe.GetPointerSingleton<Timer>()->IsCounting = true;
+
+            if (f.Unsafe.TryGetPointerSingleton(out Timer* timer))
             {
-                timer.Component->Time = timer.Component->OriginalTime;
-                f.Events.OnTimerTick(timer.Entity, timer.Component->Time.AsInt);
+                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
+            }
+        }
+
+        public static void StopCountdown(Frame f)
+        {
+            PauseCountdown(f);
+
+            if (f.Unsafe.TryGetPointerSingleton(out Timer* timer))
+            {
+                timer->Time = timer->OriginalTime;
+                timer->Start = timer->OriginalTime - 180;
+            }
+        }
+
+        public static void SetTime(Frame f, TimeSpan time)
+        {
+            if (f.Unsafe.TryGetPointerSingleton(out Timer* timer))
+            {
+                timer->OriginalTime = Convert.ToInt32(time.TotalSeconds) * 60;
+
+                timer->Time = timer->OriginalTime;
+                timer->Start = timer->OriginalTime - 180;
             }
         }
     }

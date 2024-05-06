@@ -18,16 +18,6 @@ namespace Quantum
             {
                 playerRef = playerLink->Player;
                 input = *f.GetPlayerInput(playerRef);
-
-                if (input.Emote)
-                {
-                    ModifyHealth(f, playerLink, filter.Stats, -10);
-                }
-
-                if (input.Block)
-                {
-                    ModifyEnergy(f, playerLink, filter.Stats, 10);
-                }
             }
 
             if (f.TryFindAsset(filter.Stats->Build.Equipment.Badge.Id, out Badge badge))
@@ -35,18 +25,23 @@ namespace Quantum
                 badge.OnUpdate(f, filter.Entity);
             }
 
-            if (filter.Stats->StatusEffectTimeLeft > 0)
-            {
-                filter.Stats->StatusEffectTimeLeft--;
-                StatusEffect statusEffect = f.FindAsset<StatusEffect>(filter.Stats->StatusEffect.Id);
+            UpdateStatusEffect(f, filter.Entity, filter.Stats);
+        }
 
-                if (filter.Stats->StatusEffectTimeLeft == 0)
+        private void UpdateStatusEffect(Frame f, EntityRef entity, Stats* stats)
+        {
+            if (stats->StatusEffectTimeLeft > 0)
+            {
+                stats->StatusEffectTimeLeft--;
+                StatusEffect statusEffect = f.FindAsset<StatusEffect>(stats->StatusEffect.Id);
+
+                if (stats->StatusEffectTimeLeft == 0)
                 {
-                    statusEffect.OnRemove(f, filter.Entity);
+                    statusEffect.OnRemove(f, entity);
                 }
-                else if (filter.Stats->StatusEffectTimeLeft % statusEffect.TickRate == 0)
+                else if (stats->StatusEffectTimeLeft % statusEffect.TickRate == 0)
                 {
-                    statusEffect.OnTick(f, filter.Entity);
+                    statusEffect.OnTick(f, entity);
                 }
             }
         }
@@ -166,6 +161,18 @@ namespace Quantum
                 stats->CurrentStocks = 0;
 
             f.Events.OnPlayerModifyStocks(*playerLink, oldStocks, stats->CurrentStocks, stats->MaxStocks);
+        }
+
+        public static void GiveStatusEffect(Frame f, AssetRefStatusEffect statusEffectAsset, EntityRef entity, Stats* stats)
+        {
+            if (f.TryFindAsset(statusEffectAsset.Id, out StatusEffect statusEffect))
+            {
+                // Apply status effect.
+                stats->StatusEffect = statusEffect;
+                stats->StatusEffectTimeLeft = statusEffect.ActiveTime;
+
+                statusEffect.OnApply(f, entity);
+            }
         }
 
         public static void ApplyBuild(Frame f, EntityRef user, Stats* stats, Build build)

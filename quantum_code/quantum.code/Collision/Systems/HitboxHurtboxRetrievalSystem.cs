@@ -1,12 +1,4 @@
-﻿using Photon.Deterministic;
-using Quantum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe class HitboxHurtboxRetrievalSystem : SystemMainThread
     {
@@ -37,21 +29,25 @@ namespace Quantum
 
                         if (hurtbox->Settings.CanBeDamaged && f.Unsafe.TryGetPointer(ownerHit, out Stats* hitStats))
                         {
+                            // Grab the hit player's stats from their outfit.
+                            ApparelStats apparelStats = ApparelHelper.Default;
+                            {
+                                apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Headgear), apparelStats);
+                                apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Clothing), apparelStats);
+                                apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Legwear), apparelStats);
+                            }
+
                             if (f.Unsafe.TryGetPointer(ownerHit, out PlayerLink* hitPlayerLink))
                             {
-                                // Grab the hit player's stats from their outfit.
-                                ApparelStats apparelStats = ApparelHelper.Default;
-                                {
-                                    apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Headgear), apparelStats);
-                                    apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Clothing), apparelStats);
-                                    apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Legwear), apparelStats);
-                                }
-
                                 // Apply damage.
                                 if (StatsSystem.ModifyHealth(f, hitPlayerLink, hitStats, -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense)))
                                 {
                                     if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* stats))
                                         ++stats->Kills;
+                                }
+                                else
+                                {
+                                    StatsSystem.GiveStatusEffect(f, hitbox.Hitbox->Settings.StatusEffect, ownerHit, hitStats);
                                 }
                             }
 
@@ -62,15 +58,6 @@ namespace Quantum
                                     // Increase energy.
                                     StatsSystem.ModifyEnergy(f, ownerPlayerLink, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
                                 }
-                            }
-
-                            if (f.TryFindAsset(hitbox.Hitbox->Settings.StatusEffect.Id, out StatusEffect statusEffect))
-                            {
-                                // Apply status effect.
-                                hitStats->StatusEffect = statusEffect;
-                                hitStats->StatusEffectTimeLeft = statusEffect.ActiveTime;
-
-                                statusEffect.OnApply(f, ownerHit);
                             }
                         }
 

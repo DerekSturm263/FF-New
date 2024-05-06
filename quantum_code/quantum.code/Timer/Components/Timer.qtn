@@ -1,13 +1,11 @@
-component Timer
+singleton component Timer
 {
-	FP Multiplier;
-
+	int Step;
 	int OriginalTime;
+
+	int Start;
 	int End;
 	
-	FP Time;
+	int Time;
 	bool IsCounting;
-
-	bool TriggerStartOfMatch;
-	bool TriggerEndOfMatch;
 }

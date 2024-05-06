@@ -79,7 +79,12 @@ namespace Quantum
             f.Events.OnAllPlayersReady();
 
             f.SystemDisable<CharacterControllerSystem>();
-            f.SystemEnable<TimerSystem>();
+            TimerSystem.ResumeCountdown(f);
+
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            {
+                TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time + 3));
+            }
         }
 
         private void HandleAllPlayersCancel(Frame f)
@@ -87,7 +92,7 @@ namespace Quantum
             f.Events.OnAllPlayersCancel();
 
             f.SystemEnable<CharacterControllerSystem>();
-            f.SystemDisable<TimerSystem>();
+            TimerSystem.StopCountdown(f);
 
             foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
             {
