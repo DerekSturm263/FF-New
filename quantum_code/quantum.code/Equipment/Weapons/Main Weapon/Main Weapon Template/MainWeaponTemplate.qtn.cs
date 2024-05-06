@@ -14,6 +14,7 @@ namespace Quantum
         public MoveRef Dash;
         
         // Support
-        public DirectionalMoveRef GroundedSupports;
+        public DirectionalMoveRef GroundedSingles;
+        public DirectionalMoveRef GroundedDoubles;
     }
 }
