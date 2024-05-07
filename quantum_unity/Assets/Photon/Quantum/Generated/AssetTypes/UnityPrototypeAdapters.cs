@@ -50,6 +50,9 @@ namespace Quantum.Prototypes.Unity {
     public global::EntityPrototype Holder;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
+    public Quantum.QBoolean FallState;
+    public Photon.Deterministic.FP FallSpeed;
+    public Photon.Deterministic.FP FallY;
     public System.Int32 Uses;
 
     public sealed override Quantum.Prototypes.ItemInstance_Prototype Convert(EntityPrototypeConverter converter) {
@@ -57,6 +60,9 @@ namespace Quantum.Prototypes.Unity {
       result.Item = this.Item;
       converter.Convert(this.Holder, out result.Holder);
       converter.Convert(this.Owner, out result.Owner);
+      result.FallState = this.FallState;
+      result.FallSpeed = this.FallSpeed;
+      result.FallY = this.FallY;
       result.Uses = this.Uses;
       return result;
     }

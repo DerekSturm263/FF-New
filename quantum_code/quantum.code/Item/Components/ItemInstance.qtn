@@ -1,7 +1,13 @@
 ﻿component ItemInstance
 {
     asset_ref<Item> Item;
+
     entity_ref Holder;
     entity_ref Owner;
+    
+    bool FallState;
+    FP FallSpeed;
+    FP FallY;
+
     int Uses;
 }

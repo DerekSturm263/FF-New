@@ -64,7 +64,7 @@ namespace Quantum
             {
                 if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
                 {
-                    FP lerpValue = (timer->Start - timer->Time) / timer->OriginalTime;
+                    FP lerpValue = (FP)(timer->Time - timer->Start) / 180;
 
                     FP health = FPMath.Lerp(stats->MaxHealth, 0, lerpValue);
                     StatsSystem.SetHealth(f, playerLink.Component, stats, health);
@@ -100,11 +100,6 @@ namespace Quantum
         public static void ResumeCountdown(Frame f)
         {
             f.Unsafe.GetPointerSingleton<Timer>()->IsCounting = true;
-
-            if (f.Unsafe.TryGetPointerSingleton(out Timer* timer))
-            {
-                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
-            }
         }
 
         public static void StopCountdown(Frame f)
@@ -126,6 +121,8 @@ namespace Quantum
 
                 timer->Time = timer->OriginalTime;
                 timer->Start = timer->OriginalTime - 180;
+
+                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
             }
         }
     }

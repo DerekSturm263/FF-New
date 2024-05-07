@@ -2,7 +2,7 @@
 
 namespace Quantum
 {
-    public unsafe class ItemSpawnSystem : SystemMainThreadFilter<ItemSpawnSystem.Filter>, ISignalOnComponentAdded<ItemSpawner>
+    public unsafe class ItemSpawnSystem : SystemMainThreadFilter<ItemSpawnSystem.Filter>
     {
         public override bool StartEnabled => false;
 
@@ -29,15 +29,7 @@ namespace Quantum
                 filter.ItemSpawner->TimeSinceLastSpawned -= f.DeltaTime;
             }
         }
-
-        public void OnAdded(Frame f, EntityRef entity, ItemSpawner* component)
-        {
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                component->TimeSinceLastSpawned = f.Global->RngSession.Next(component->MinTimeToSpawn, component->MaxTimeToSpawn) * (1 / matchInstance->Match.Ruleset.Items.SpawnFrequency);
-            }
-        }
-
+        
         public static EntityRef SpawnItemRandom(Frame f)
         {
             MatchInstance* matchInstance = f.Unsafe.GetPointerSingleton<MatchInstance>();
@@ -60,9 +52,13 @@ namespace Quantum
                 newItem = f.Create(item.Prototype);
 
                 if (f.Unsafe.TryGetPointer(newItem, out Transform2D* transform))
-                {
-                    transform->Position = position;
-                }
+                    transform->Position = position + new FPVector2(0, 4);
+
+                if (f.Unsafe.TryGetPointer(newItem, out ItemInstance* itemInstance))
+                    itemInstance->FallY = position.Y;
+
+                if (f.Unsafe.TryGetPointer(newItem, out PhysicsBody2D* physicsBody))
+                    physicsBody->Enabled = false;
             }
 
             if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))

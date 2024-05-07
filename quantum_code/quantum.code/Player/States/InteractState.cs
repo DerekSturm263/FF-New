@@ -10,21 +10,25 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => 1;
 
+        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            return filter.Stats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform).Count > 0;
+        }
+
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             base.Enter(f, ref filter, ref input, settings, stats);
 
             if (!filter.Stats->HeldItem.IsValid)
             {
-                if (settings.InteractCast.TryGetCastResults(f, out Physics2D.HitCollection hitCollection, filter.Transform))
+                Physics2D.HitCollection hitCollection = settings.InteractCast.GetCastResults(f, filter.Transform);
+
+                for (int i = 0; i < hitCollection.Count; ++i)
                 {
-                    for (int i = 0; i  < hitCollection.Count; ++i)
+                    if (f.Unsafe.TryGetPointer(hitCollection[i].Entity, out ItemInstance* itemInstance))
                     {
-                        if (f.Unsafe.TryGetPointer(hitCollection[i].Entity, out ItemInstance* itemInstance))
-                        {
-                            ItemSystem.Use(f, filter.PlayerLink, hitCollection[i].Entity, itemInstance);
-                            break;
-                        }
+                        ItemSystem.Use(f, filter.PlayerLink, hitCollection[i].Entity, itemInstance);
+                        break;
                     }
                 }
             }

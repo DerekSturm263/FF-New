@@ -1,5 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Quantum
@@ -71,14 +72,21 @@ namespace Quantum
 
                 foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
                 {
-                    EntityRef newItem = ItemSpawnSystem.SpawnItem(f, matchInstance->Match.Ruleset.Items.StartingItem, FPVector2.Zero);
-                    ItemSystem.PickUp(f, stats.Entity, newItem);
+                    if (matchInstance->Match.Ruleset.Items.StartingItem.Id != AssetGuid.Invalid)
+                    {
+                        EntityRef newItem = ItemSpawnSystem.SpawnItem(f, matchInstance->Match.Ruleset.Items.StartingItem, FPVector2.Zero);
+                        ItemSystem.PickUp(f, stats.Entity, newItem);
+                    }
+                }
+
+                if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
+                {
+                    itemSpawner->TimeSinceLastSpawned = f.Global->RngSession.Next(itemSpawner->MinTimeToSpawn, itemSpawner->MaxTimeToSpawn) * (1 / matchInstance->Match.Ruleset.Items.SpawnFrequency);
                 }
             }
 
             matchInstance->IsMatchRunning = true;
         }
-
         public static void EndOfMatch(Frame f, QList<Team> teams, WinCondition winCondition)
         {
             f.Global->DeltaTime = (FP._1 / f.UpdateRate) * FP._0_25;

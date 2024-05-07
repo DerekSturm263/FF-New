@@ -19,6 +19,16 @@ namespace Quantum
             {
                 HoldInHand(f, filter.ItemInstance->Holder, filter.Transform);
             }
+            else if (filter.ItemInstance->FallState)
+            {
+                filter.Transform->Position.Y = FPMath.Lerp(filter.Transform->Position.Y, filter.ItemInstance->FallY, f.DeltaTime * filter.ItemInstance->FallSpeed);
+
+                if (filter.Transform->Position.Y - filter.ItemInstance->FallY < FP._0_01)
+                {
+                    filter.ItemInstance->FallState = false;
+                    filter.PhysicsBody->Enabled = true;
+                }
+            }
         }
 
         private void HoldInHand(Frame f, EntityRef holder, Transform2D* transform)
@@ -72,6 +82,8 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody))
                     physicsBody->GravityScale = 1;
+
+                itemInstance->FallState = false;
             }
         }
 
@@ -99,6 +111,8 @@ namespace Quantum
         {
             Item item = f.FindAsset<Item>(itemInstance->Item.Id);
             item.Invoke(f, user, itemEntity, itemInstance);
+
+            itemInstance->FallState = false;
         }
     }
 }

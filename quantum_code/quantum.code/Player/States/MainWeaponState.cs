@@ -33,6 +33,8 @@ namespace Quantum
         protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
         public override bool CanInterruptSelf => true;
 
+        public override States[] EntranceBlacklist => new States[] { States.IsInteracting };
+
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             base.Enter(f, ref filter, ref input, settings, stats);
