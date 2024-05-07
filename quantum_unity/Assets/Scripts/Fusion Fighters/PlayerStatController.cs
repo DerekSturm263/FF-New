@@ -8,6 +8,7 @@ public class PlayerStatController : MonoBehaviour
     public void Initialize(QuantumGame game, PlayerLink player)
     {
         _huds[player.Player._index - 1].gameObject.SetActive(true);
+        _huds[player.Player._index - 1].SetPlayerNumber(player.Player._index);
     }
 
     public void Destroy(QuantumGame game, PlayerLink player)

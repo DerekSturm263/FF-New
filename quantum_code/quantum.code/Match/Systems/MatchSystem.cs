@@ -34,21 +34,21 @@ namespace Quantum
                 playerCounter->CanPlayersEdit = false;
             }
 
-            foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
-            {
-                if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
-                {
-                    StatsSystem.SetHealth(f, playerLink.Component, stats, stats->MaxHealth);
-                    StatsSystem.SetEnergy(f, playerLink.Component, stats, stats->MaxEnergy / 5);
-                    StatsSystem.SetStocks(f, playerLink.Component, stats, stats->MaxStocks);
-                }
-            }
-
-            f.SystemEnable<CharacterControllerSystem>();
-            f.SystemEnable<ItemSpawnSystem>();
-
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
+                var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
+                var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
+
+                while (filter.Next(&playerLinkStats))
+                {
+                    StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, matchInstance->Match.Ruleset.Players.MaxHealth);
+                    StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, matchInstance->Match.Ruleset.Players.MaxEnergy / 5);
+                    StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, matchInstance->Match.Ruleset.Players.StockCount);
+                }
+
+                f.SystemEnable<CharacterControllerSystem>();
+                f.SystemEnable<ItemSpawnSystem>();
+
                 var teams = f.ResolveList(matchInstance->Match.Teams);
 
                 switch (teams.Count)

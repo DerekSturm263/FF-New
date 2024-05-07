@@ -5,19 +5,21 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class UnderdogBoostBadge : Badge
     {
-        public override void OnApply(Frame f, EntityRef user)
+        public override void OnUpdate(Frame f, EntityRef user)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
+            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-
-            }
-        }
-
-        public override void OnRemove(Frame f, EntityRef user)
-        {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
-            {
-
+                if (stats->CurrentStocks == 1 || stats->CurrentHealth < 50)
+                {
+                    stats->ApparelStatsMultiplier = new() { Agility = FP._1_25, Defense = 1, Dodge = 1, Jump = 1, Weight = FP._1_50 };
+                    stats->MainWeaponStatsMultiplier = new() { Damage = FP._1_50, Knockback = FP._1_25, Speed = FP._1_50 };
+                }
+                else
+                {
+                    // TODO: FIX BUG WHEN THIS IS USED WITH THE OVERCLOCK ULTIMATE THAT WILL JUST NOT WORK.
+                    stats->ApparelStatsMultiplier = ApparelHelper.Default;
+                    stats->MainWeaponStatsMultiplier = MainWeaponHelper.Default;
+                }
             }
         }
     }

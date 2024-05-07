@@ -10,6 +10,14 @@ namespace Quantum
             public Stats* Stats;
         }
 
+        public struct PlayerLinkStatsFilter
+        {
+            public EntityRef Entity;
+            
+            public PlayerLink* PlayerLink;
+            public Stats* Stats;
+        }
+
         public override void Update(Frame f, ref Filter filter)
         {
             Input input = default;
@@ -54,6 +62,7 @@ namespace Quantum
             for (int i = 0; i < 15; ++i)
             {
                 EntityRef hurtbox = f.Create(component->Hurtbox);
+
                 if (f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance))
                 {
                     SetHurtbox(f, entity, hurtboxInstance, hurtbox, i);
@@ -98,18 +107,21 @@ namespace Quantum
             FP oldHealth = stats->CurrentHealth;
             stats->CurrentHealth = amount;
 
-            if (stats->CurrentHealth > stats->MaxHealth)
-                stats->CurrentHealth = stats->MaxHealth;
-
-            f.Events.OnPlayerModifyHealth(*playerLink, oldHealth, stats->CurrentHealth, stats->MaxHealth);
-
-            if (stats->CurrentHealth <= 0)
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
-                ModifyStocks(f, playerLink, stats, -1);
-                stats->CurrentHealth = stats->MaxHealth;
+                if (stats->CurrentHealth > matchInstance->Match.Ruleset.Players.MaxHealth)
+                    stats->CurrentHealth = matchInstance->Match.Ruleset.Players.MaxHealth;
 
-                didDie = true;
-                ++stats->Deaths;
+                f.Events.OnPlayerModifyHealth(*playerLink, oldHealth, stats->CurrentHealth, matchInstance->Match.Ruleset.Players.MaxHealth);
+
+                if (stats->CurrentHealth <= 0)
+                {
+                    ModifyStocks(f, playerLink, stats, -1);
+                    stats->CurrentHealth = matchInstance->Match.Ruleset.Players.MaxHealth;
+
+                    didDie = true;
+                    ++stats->Deaths;
+                }
             }
 
             return didDie;
@@ -129,7 +141,10 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, PlayerLink* playerLink, Stats* stats, FP amount)
         {
-            SetEnergy(f, playerLink, stats, stats->CurrentEnergy + amount * stats->EnergyModifyMultiplier);
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            {
+                SetEnergy(f, playerLink, stats, stats->CurrentEnergy + amount * stats->EnergyModifyMultiplier * matchInstance->Match.Ruleset.Players.EnergyChargeRate);
+            }
         }
 
         public static void SetEnergy(Frame f, PlayerLink* playerLink, Stats* stats, FP amount)
@@ -137,12 +152,15 @@ namespace Quantum
             FP oldEnergy = stats->CurrentEnergy;
             stats->CurrentEnergy = amount;
 
-            if (stats->CurrentEnergy > stats->MaxEnergy)
-                stats->CurrentEnergy = stats->MaxEnergy;
-            else if (stats->CurrentEnergy < 0)
-                stats->CurrentEnergy = 0;
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            {
+                if (stats->CurrentEnergy > matchInstance->Match.Ruleset.Players.MaxEnergy)
+                    stats->CurrentEnergy = matchInstance->Match.Ruleset.Players.MaxEnergy;
+                else if (stats->CurrentEnergy < 0)
+                    stats->CurrentEnergy = 0;
 
-            f.Events.OnPlayerModifyEnergy(*playerLink, oldEnergy, stats->CurrentEnergy, stats->MaxEnergy);
+                f.Events.OnPlayerModifyEnergy(*playerLink, oldEnergy, stats->CurrentEnergy, matchInstance->Match.Ruleset.Players.MaxEnergy);
+            }
         }
 
         public static void ModifyStocks(Frame f, PlayerLink* playerLink, Stats* stats, int amount)
@@ -155,12 +173,15 @@ namespace Quantum
             int oldStocks = stats->CurrentStocks;
             stats->CurrentStocks = amount;
 
-            if (stats->CurrentStocks > stats->MaxStocks)
-                stats->CurrentStocks = stats->MaxStocks;
-            else if (stats->CurrentStocks < 0)
-                stats->CurrentStocks = 0;
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            {
+                if (stats->CurrentStocks > matchInstance->Match.Ruleset.Players.StockCount)
+                    stats->CurrentStocks = matchInstance->Match.Ruleset.Players.StockCount;
+                else if (stats->CurrentStocks < 0)
+                    stats->CurrentStocks = 0;
 
-            f.Events.OnPlayerModifyStocks(*playerLink, oldStocks, stats->CurrentStocks, stats->MaxStocks);
+                f.Events.OnPlayerModifyStocks(*playerLink, oldStocks, stats->CurrentStocks, matchInstance->Match.Ruleset.Players.StockCount);
+            }
         }
 
         public static void GiveStatusEffect(Frame f, AssetRefStatusEffect statusEffectAsset, EntityRef entity, Stats* stats)

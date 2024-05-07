@@ -36,9 +36,9 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
                 {
-                    f.Events.OnPlayerModifyHealth(playerLink, stats->CurrentHealth, stats->CurrentHealth, stats->MaxHealth);
-                    f.Events.OnPlayerModifyEnergy(playerLink, stats->CurrentEnergy, stats->CurrentEnergy, stats->MaxEnergy);
-                    f.Events.OnPlayerModifyStocks(playerLink, stats->CurrentStocks, stats->CurrentStocks, stats->MaxStocks);
+                    f.Events.OnPlayerModifyHealth(playerLink, stats->CurrentHealth, stats->CurrentHealth, matchInstance->Match.Ruleset.Players.MaxHealth);
+                    f.Events.OnPlayerModifyEnergy(playerLink, stats->CurrentEnergy, stats->CurrentEnergy, matchInstance->Match.Ruleset.Players.MaxEnergy);
+                    f.Events.OnPlayerModifyStocks(playerLink, stats->CurrentStocks, stats->CurrentStocks, matchInstance->Match.Ruleset.Players.StockCount);
                 }
 
                 if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))

@@ -23,12 +23,10 @@ namespace Quantum
                 physicsBody->Velocity = Settings.Angle;
             }
 
-            if (f.Unsafe.TryGetPointer(projectileEntity, out Transform2D* transform))
+            if (f.Unsafe.TryGetPointer(projectileEntity, out Transform2D* transform) &&
+                f.Unsafe.TryGetPointer(entity, out Transform2D* parentTransform))
             {
-                if (f.Unsafe.TryGetPointer(entity, out Transform2D* parentTransform))
-                {
-                    transform->Position = parentTransform->Position + Settings.Offset;
-                }
+                transform->Position = parentTransform->Position + Settings.Offset;
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-using Quantum.Custom.Animator;
-using Quantum.Types;
+﻿using Quantum.Custom.Animator;
 
 namespace Quantum
 {
@@ -24,7 +22,10 @@ namespace Quantum
         }
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= filter.Stats->MaxEnergy && filter.CharacterController->UltimateTime == 0;
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+                return f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= matchInstance->Match.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
+            else
+                return false;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)

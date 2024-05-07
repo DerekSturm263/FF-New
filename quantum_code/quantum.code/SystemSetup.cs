@@ -25,20 +25,21 @@
         new PlayerSpawnSystem(),
         new ConfirmationSystem(),
         new TimerSystem(),
-        new HurtboxSystem(),
         new StatsSystem(),
         new SubWeaponSystem(),
         new ItemSpawnSystem(),
         new ItemSystem(),
 
-        // physics resolution
-        new HitboxHurtboxRetrievalSystem(),
-
         // animation-related systems
         new CustomAnimatorSystem(),
         new CustomAnimatorStateSystem(),
-        new CustomAnimatorResetTriggersSystem()
-      ];
+        new CustomAnimatorResetTriggersSystem(),
+
+        new HurtboxSystem(),
+        
+        // physics resolution
+        new HitboxHurtboxRetrievalSystem()
+            ];
     }
   }
 }

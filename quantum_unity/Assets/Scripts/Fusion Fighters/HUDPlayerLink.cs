@@ -32,6 +32,11 @@ public class HUDPlayerLink : MonoBehaviour
         _energy.fillAmount = _energyFill;
     }
 
+    public void SetPlayerNumber(int number)
+    {
+        _playerNum.SetText($"P{number}");
+    }
+
     public void UpdateHealth(FP newHealth, FP maxHealth)
     {
         _healthFill = (newHealth / maxHealth).AsFloat;
@@ -92,9 +97,9 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateStocks(int newStocks, int maxStocks)
     {
-        if (newStocks > _stocks.transform.childCount)
+        if (maxStocks > _stocks.transform.childCount)
         {
-            int count = newStocks - _stocks.transform.childCount;
+            int count = maxStocks - _stocks.transform.childCount;
 
             for (int i = 0; i < count; ++i)
             {

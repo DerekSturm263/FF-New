@@ -97,14 +97,14 @@ namespace Quantum
                 TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time));
             }
 
-            foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
+            var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
+            var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
+
+            while (filter.Next(&playerLinkStats))
             {
-                if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
-                {
-                    StatsSystem.SetHealth(f, playerLink.Component, stats, 0);
-                    StatsSystem.SetEnergy(f, playerLink.Component, stats, 0);
-                    StatsSystem.SetStocks(f, playerLink.Component, stats, 0);
-                }
+                StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
+                StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
+                StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
             }
 
             f.Events.OnAllPlayersCancel();

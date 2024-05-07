@@ -146,7 +146,8 @@ namespace Quantum
                 }
 
                 // Set the user's energy to show how much time they have left.
-                StatsSystem.SetEnergy(f, filter.PlayerLink, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * filter.Stats->MaxEnergy);
+                if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+                    StatsSystem.SetEnergy(f, filter.PlayerLink, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * matchInstance->Match.Ruleset.Players.MaxEnergy);
             }
         }
     }

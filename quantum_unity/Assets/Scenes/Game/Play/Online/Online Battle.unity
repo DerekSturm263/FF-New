@@ -551,20 +551,6 @@ MonoBehaviour:
               m_StringArgument: Restart
               m_BoolArgument: 0
             m_CallState: 2
-          - m_Target: {fileID: 7737329991338470777, guid: f5db7276356dff34298365f30a301102,
-              type: 3}
-            m_TargetAssemblyTypeName: Extensions.Components.Miscellaneous.MiscellaneousController,
-              Extensions
-            m_MethodName: DebugLog
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: test
-              m_BoolArgument: 0
-            m_CallState: 2
     - _item1: 2
       _item2:
         m_PersistentCalls:
@@ -591,20 +577,6 @@ MonoBehaviour:
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: Restart
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 7737329991338470777, guid: f5db7276356dff34298365f30a301102,
-              type: 3}
-            m_TargetAssemblyTypeName: Extensions.Components.Miscellaneous.MiscellaneousController,
-              Extensions
-            m_MethodName: DebugLog
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: test 2
               m_BoolArgument: 0
             m_CallState: 2
     - _item1: 1
@@ -727,6 +699,30 @@ MonoBehaviour:
           - m_Target: {fileID: 288680293511525287}
             m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
             m_MethodName: set_enabled
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 1
+            m_CallState: 2
+          - m_Target: {fileID: 1742246626}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 1
+            m_CallState: 2
+          - m_Target: {fileID: 227315621}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
             m_Mode: 6
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -2836,7 +2832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &227315622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3564,7 +3560,7 @@ MonoBehaviour:
           WinCondition:
             Id:
               Value: 711006732672134493
-          Time: 120
+          Time: 480
           ShowTimer:
             Value: 1
           MatchCount: 1
@@ -3576,14 +3572,8 @@ MonoBehaviour:
             Value: 0
         Players:
           StockCount: 3
-          ShowStocks:
-            Value: 1
           MaxHealth: 100
-          ShowHealth:
-            Value: 1
           MaxEnergy: 100
-          ShowEnergy:
-            Value: 1
           EnergyChargeRate:
             RawValue: 65536
           RespawnTime:
@@ -7118,28 +7108,17 @@ MonoBehaviour:
   _onMatchEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950825870}
-        m_TargetAssemblyTypeName: MatchEventListener, FusionFighters
-        m_MethodName: ZoomInOnWinners
-        m_Mode: 0
+      - m_Target: {fileID: 7737329991338470777, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.Miscellaneous.MiscellaneousController,
+          Extensions
+        m_MethodName: SetTimeScale
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 164783832}
-        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
-        m_MethodName: SetCameraSettings
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: a10a89cb960f7b148976e33e37be1045,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: CameraSettingsAsset, PhotonQuantum
-          m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 0.25
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -8592,6 +8571,30 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
+          - m_Target: {fileID: 1742246626}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 227315621}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
   _onTick:
     m_PersistentCalls:
       m_Calls:
@@ -9205,7 +9208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1742246627
 RectTransform:
   m_ObjectHideFlags: 0

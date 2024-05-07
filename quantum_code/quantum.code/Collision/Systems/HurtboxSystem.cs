@@ -16,13 +16,11 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out CustomAnimator* customAnimator))
+            if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out CustomAnimator* customAnimator) &&
+                f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out Transform2D* parentTransform))
             {
-                if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out Transform2D* parentTransform))
-                {
-                    FPVector3 offset = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[filter.HurtboxInstance->Index];
-                    filter.Transform->Position = parentTransform->Position + offset.XY;
-                }
+                FPVector3 offset = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[filter.HurtboxInstance->Index];
+                filter.Transform->Position = parentTransform->Position + offset.XY;
             }
 
             DrawHurtbox(filter.Transform, filter.PhysicsCollider, filter.HurtboxInstance);

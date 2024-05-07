@@ -28,6 +28,7 @@ namespace Quantum.Editor {
 
     [System.Serializable]
     public partial class KnownObjectsContainer : QuantumEditorUtility.SerializableObjectsContainerBase {
+      public Quantum.EnergyConversionBadge[] EnergyConversionBadge = {};
       public Quantum.ExplodingItem[] ExplodingItem = {};
       public Quantum.HealingItem[] HealingItem = {};
       public Quantum.MatchAsset[] MatchAsset = {};

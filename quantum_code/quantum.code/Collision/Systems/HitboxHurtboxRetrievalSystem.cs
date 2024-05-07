@@ -51,13 +51,11 @@
                                 }
                             }
 
-                            if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out PlayerLink* ownerPlayerLink))
+                            if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out PlayerLink* ownerPlayerLink) &&
+                                f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
                             {
-                                if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
-                                {
-                                    // Increase energy.
-                                    StatsSystem.ModifyEnergy(f, ownerPlayerLink, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
-                                }
+                                // Increase energy.
+                                StatsSystem.ModifyEnergy(f, ownerPlayerLink, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
                             }
                         }
 

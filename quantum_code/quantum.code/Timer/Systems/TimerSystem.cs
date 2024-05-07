@@ -1,6 +1,5 @@
 ﻿using Photon.Deterministic;
 using System;
-using System.ComponentModel;
 
 namespace Quantum
 {
@@ -60,20 +59,23 @@ namespace Quantum
 
         private void UpdatePlayerStats(Frame f, Timer* timer)
         {
-            foreach (var playerLink in f.Unsafe.GetComponentBlockIterator<PlayerLink>())
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
-                if (f.Unsafe.TryGetPointer(playerLink.Entity, out Stats* stats))
+                var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
+                var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
+
+                while (filter.Next(&playerLinkStats))
                 {
                     FP lerpValue = (FP)(timer->Time - timer->Start) / 180;
 
-                    FP health = FPMath.Lerp(stats->MaxHealth, 0, lerpValue);
-                    StatsSystem.SetHealth(f, playerLink.Component, stats, health);
+                    FP health = FPMath.Lerp(matchInstance->Match.Ruleset.Players.MaxHealth, 0, lerpValue);
+                    StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, health);
 
-                    FP energy = FPMath.Lerp(stats->MaxEnergy / 5, 0, lerpValue);
-                    StatsSystem.SetEnergy(f, playerLink.Component, stats, energy);
+                    FP energy = FPMath.Lerp(matchInstance->Match.Ruleset.Players.MaxEnergy / 5, 0, lerpValue);
+                    StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, energy);
 
-                    int stocks = FPMath.Lerp(stats->MaxStocks, 0, lerpValue).AsInt;
-                    StatsSystem.SetStocks(f, playerLink.Component, stats, stocks);
+                    int stocks = FPMath.Lerp(matchInstance->Match.Ruleset.Players.StockCount, 0, lerpValue).AsInt;
+                    StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, stocks);
                 }
             }
         }

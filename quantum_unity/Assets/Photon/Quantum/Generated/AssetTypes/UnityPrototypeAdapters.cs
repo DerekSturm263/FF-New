@@ -135,12 +135,9 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
     public Quantum.AssetRefEntityPrototype Hurtbox;
-    public System.Int32 MaxStocks;
     public System.Int32 CurrentStocks;
-    public System.Int32 MaxHealth;
     public Photon.Deterministic.FP CurrentHealth;
     public Photon.Deterministic.FP HealthModifyMultiplier;
-    public System.Int32 MaxEnergy;
     public Photon.Deterministic.FP CurrentEnergy;
     public Photon.Deterministic.FP EnergyModifyMultiplier;
     public System.Int32 Kills;
@@ -159,12 +156,9 @@ namespace Quantum.Prototypes.Unity {
       result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
       result.Hurtbox = this.Hurtbox;
-      result.MaxStocks = this.MaxStocks;
       result.CurrentStocks = this.CurrentStocks;
-      result.MaxHealth = this.MaxHealth;
       result.CurrentHealth = this.CurrentHealth;
       result.HealthModifyMultiplier = this.HealthModifyMultiplier;
-      result.MaxEnergy = this.MaxEnergy;
       result.CurrentEnergy = this.CurrentEnergy;
       result.EnergyModifyMultiplier = this.EnergyModifyMultiplier;
       result.Kills = this.Kills;
