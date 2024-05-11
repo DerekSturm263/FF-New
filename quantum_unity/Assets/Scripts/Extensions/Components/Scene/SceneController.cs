@@ -1,5 +1,4 @@
 ﻿using Extensions.Components.Input;
-using Extensions.Components.Miscellaneous;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,10 +16,8 @@ namespace Extensions.Components.Scene
         private GameObject _transitionCanvas;
         private GameObject _transitionInstance;
 
-        public void SetTransition(GameObject transition)
-        {
-            _transition = transition;
-        }
+        public void SetTransition(GameObject transition) => _transition = transition;
+        public void ClearTransition() => _transition = null;
 
         public void LoadScene(string sceneName)
         {
@@ -39,12 +36,18 @@ namespace Extensions.Components.Scene
             EventSystem.current.enabled = false;
 
             if (!StartTransition())
-                LoadSceneNoTransition(sceneName);
+                Invoke(nameof(LoadSceneNoTransition), 1);
         }
 
-        private void LoadSceneNoTransition(string sceneName)
+        public void LoadSceneImmediate(string sceneName)
         {
-            SceneManager.LoadScene(sceneName);
+            _nextScene = sceneName;
+            LoadSceneNoTransition();
+        }
+
+        private void LoadSceneNoTransition()
+        {
+            SceneManager.LoadScene(_nextScene);
             _isTransitioning = false;
         }
 
