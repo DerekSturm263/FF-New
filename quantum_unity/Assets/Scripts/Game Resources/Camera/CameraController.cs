@@ -104,7 +104,7 @@ namespace GameResources.Camera
         private void CalculateShake()
         {
             if (_shakeTime > 0)
-                _shakeAmount = (Vector3)_shakeDirection * (float)(_settings.Settings.ShakeCurve.Evaluate(_shakeTime.ToFP()) * _settings.Settings.ShakeStrength);
+                _shakeAmount = (Vector3)_shakeDirection * (float)(_settings.Settings.ShakeCurve.Evaluate(_shakeTime.ToFP() * _settings.Settings.ShakeFrequency) * _settings.Settings.ShakeStrength);
             else
                 _shakeAmount = default;
         }
@@ -179,6 +179,11 @@ namespace GameResources.Camera
             _instance._shakeDirection = amount;
             _instance._shakeTime = time;
             _instance._shakeAmount = default;
+        }
+
+        public void ShakeRandom(float strength)
+        {
+            Shake(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * strength, 1);
         }
     }
 }

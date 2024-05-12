@@ -135,7 +135,7 @@ namespace Quantum.Types
             }
             else if (FPVector2.Dot(direction, FPVector2.Right) > DIRECTION_SUCCESS)
             {
-                result = Direction.Neutral;
+                result = Direction.Right;
             }
 
             return result;

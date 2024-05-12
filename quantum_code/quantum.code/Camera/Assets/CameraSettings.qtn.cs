@@ -22,5 +22,6 @@ namespace Quantum
 
         public FPAnimationCurve ShakeCurve;
         public FP ShakeStrength;
+        public FP ShakeFrequency;
     }
 }
