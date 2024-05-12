@@ -289,7 +289,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 8608766768675243870}
-    m_Position: {x: 710, y: 640, z: 0}
+    m_Position: {x: 690, y: 650, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2493267118131358487}
     m_Position: {x: 1080, y: 340, z: 0}
@@ -325,7 +325,7 @@ AnimatorStateMachine:
     m_Position: {x: 930, y: 470, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9218496902925743055}
-    m_Position: {x: 660, y: 510, z: 0}
+    m_Position: {x: 700, y: 490, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3959472540489522934}
     m_Position: {x: 200, y: 610, z: 0}
@@ -727,6 +727,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Turn Around
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -757,16 +763,16 @@ AnimatorState:
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
-  m_Mirror: 0
+  m_Mirror: 1
   m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
+  m_MirrorParameterActive: 1
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7510497850891442384, guid: 26630290cad189941963b4dd88cbd068,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: 
+  m_MirrorParameter: Turn Around
   m_CycleOffsetParameter: 
   m_TimeParameter: 
 --- !u!1101 &451594421366490641
@@ -929,16 +935,16 @@ AnimatorState:
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
-  m_Mirror: 0
+  m_Mirror: 1
   m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
+  m_MirrorParameterActive: 1
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 3378369946479616746, guid: 26630290cad189941963b4dd88cbd068,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: 
+  m_MirrorParameter: Turn Around
   m_CycleOffsetParameter: 
   m_TimeParameter: 
 --- !u!114 &2762408311907139063
@@ -1572,13 +1578,13 @@ AnimatorState:
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
+  m_MirrorParameterActive: 1
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 3378369946479616746, guid: 26630290cad189941963b4dd88cbd068,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: 
+  m_MirrorParameter: Turn Around
   m_CycleOffsetParameter: 
   m_TimeParameter: 

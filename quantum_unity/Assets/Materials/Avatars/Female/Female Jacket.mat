@@ -61,6 +61,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Height_Map:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -112,7 +116,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Ambient_Occlusion: 0.25
+    - _Ambient_Occlusion: 0.5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -124,9 +128,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Emission_Strength: 0.25
+    - _Emission_Strength: 0.05
+    - _Emission_Weight: 0
     - _EnvironmentReflections: 1
-    - _Fresnel_Strength: 0.5
+    - _Fresnel_Strength: 0.2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -136,8 +141,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Sky_Strength: 0.225
-    - _Smoothness: 0.25
+    - _Sky_Strength: 0.35
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

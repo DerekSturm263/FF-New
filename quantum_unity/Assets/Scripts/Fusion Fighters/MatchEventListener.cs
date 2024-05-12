@@ -8,6 +8,10 @@ public class MatchEventListener : MonoBehaviour
 {
     private EntityViewUpdater _entityView;
 
+    [SerializeField] private GameObject _transition;
+    [SerializeField] private float _delayTime;
+    [SerializeField] private CameraSettingsAsset _camSettings;
+
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>> _onMatchStart;
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>, bool> _onMatchEnd;
 
@@ -48,10 +52,29 @@ public class MatchEventListener : MonoBehaviour
         });
     }
 
+    private (QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited) matchResults;
+
     public void ZoomInOnWinners(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
     {
-        var firstPlaceTeam = game.Frames.Verified.ResolveList(teams[0].Players);
+        matchResults = (game, entityViewUpdater, teams, wasForfeited);
+    }
 
+    public void LoadWinner(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
+    {
+        Invoke(nameof(LoadWinnerDelayed), _delayTime);
+        Invoke(nameof(SetCameraDelayed), _delayTime + 1);
+    }
+
+    private void LoadWinnerDelayed()
+    {
+        _transition.SetActive(true);
+    }
+
+    private void SetCameraDelayed()
+    {
+        var firstPlaceTeam = matchResults.game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
         CameraController.Instance.FocusTarget(firstPlaceTeam[0].Player._index - 1);
+
+        CameraController.Instance.SetCameraSettings(_camSettings);
     }
 }

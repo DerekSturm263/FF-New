@@ -4,6 +4,7 @@ using Quantum;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace GameResources.Camera
 {
@@ -15,7 +16,10 @@ namespace GameResources.Camera
 
         [SerializeField] private CameraSettingsAsset _settings;
         public void SetCameraSettings(CameraSettingsAsset settings) => _settings = settings;
-        
+        public void SetVolume(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
+
+        private Volume _volume;
+
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
         private float _calculatedZoom;
@@ -36,6 +40,7 @@ namespace GameResources.Camera
             _targetRotation = transform.rotation;
 
             _cam = GetComponent<UnityEngine.Camera>();
+            _volume = GetComponent<Volume>();
         }
 
         private void LateUpdate()

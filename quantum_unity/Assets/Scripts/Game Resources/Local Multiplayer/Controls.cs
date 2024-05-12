@@ -1071,6 +1071,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Any"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""517911f8-5e02-4aea-83c8-13fc171ac383"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }

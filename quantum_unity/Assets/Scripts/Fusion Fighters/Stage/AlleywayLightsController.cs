@@ -5,12 +5,15 @@ public class AlleywayLightsController : PlayerTracker<Transform>
 {
     [SerializeField] private GameObject _spotlight;
     [SerializeField] private float _speed;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _followDistance;
 
     [SerializeField] private Transform[] _lights;
 
     protected override void Action(EntityView player, Transform t)
     {
         t.forward = Vector3.Lerp(t.transform.forward, (player.transform.position - t.transform.position).normalized, Time.deltaTime * _speed);
+        t.position = Vector3.Lerp(t.position, player.transform.position - t.forward * _followDistance, Time.deltaTime * _moveSpeed);
     }
 
     protected override Transform GetT(QuantumGame game, PlayerLink player)
