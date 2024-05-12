@@ -44,8 +44,7 @@ namespace Quantum
                 }
                 else
                 {
-                    if (filter.CharacterController->Direction == Direction.Up)
-                    ItemSystem.Throw(f, filter.Entity, entity, DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
+                    ItemSystem.Throw(f, filter.Entity, entity, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
                 }
             }
         }

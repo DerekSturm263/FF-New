@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Badge/EnergyConversionBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 30)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/EnergyConversionBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
 public partial class EnergyConversionBadgeAsset : BadgeAsset {
   public Quantum.EnergyConversionBadge Settings;
 

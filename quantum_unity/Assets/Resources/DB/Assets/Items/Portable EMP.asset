@@ -12,6 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5fcb0fed8ead4408ea8c48401832cf, type: 3}
   m_Name: Portable EMP
   m_EditorClassIdentifier: 
+  SFX: {fileID: 0}
+  VFX:
+    _kvps:
+    - _item1: Explosion
+      _item2: {fileID: 11400000, guid: 55d739b70a0f6a640afb0f457c30dbbe, type: 2}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 98af428dc52106244892ababdd6054df,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6943285021381643808, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.VFXController, GameResources
+        m_MethodName: SpawnItemVFX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Settings:
     Identifier:
       Path: Resources/DB/Assets/Items/Portable EMP
@@ -54,4 +89,4 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 0
       UserFreezeDuration: 0
-    Lifetime: 60
+    Lifetime: 30

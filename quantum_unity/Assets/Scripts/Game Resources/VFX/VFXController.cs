@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Photon.Deterministic;
+using Quantum;
+using UnityEngine;
 
 namespace GameResources
 {
@@ -6,12 +8,7 @@ namespace GameResources
     {
         private Transform _parent;
 
-        public void SetParent(Transform parent)
-        {
-            _parent = parent;
-        }
-
-        public void SpawnEffect(VFX settings)
+        public GameObject SpawnEffect(VFX settings)
         {
             GameObject effect = null;
             if (!_parent)
@@ -29,6 +26,14 @@ namespace GameResources
             effect.transform.right = settings.Direction.Normalized.ToUnityVector3();
             effect.transform.localScale *= settings.ScaleMultiplier.ToUnityVector2();
             effect.transform.localPosition += settings.Offset.ToUnityVector3();
+
+            return effect;
+        }
+
+        public void SpawnItemVFX(QuantumGame game, EntityView user, (EntityView itemObj, ItemAsset itemAsset, FPVector2 position) tuple)
+        {
+            GameObject effect = SpawnEffect(tuple.itemAsset.VFX["Explosion"]);
+            effect.transform.position = tuple.position.XYO.ToUnityVector3();
         }
     }
 }

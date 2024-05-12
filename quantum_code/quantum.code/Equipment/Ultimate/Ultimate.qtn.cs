@@ -1,13 +1,7 @@
-﻿using Photon.Deterministic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quantum
+﻿namespace Quantum
 {
-    public abstract unsafe partial class Ultimate
+    [System.Serializable]
+    public abstract unsafe partial class Ultimate : InfoAsset
     {
         public MoveRef Move;
         public int Length;

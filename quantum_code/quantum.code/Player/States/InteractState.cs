@@ -8,7 +8,8 @@ namespace Quantum
 
         public override bool GetInput(ref Input input) => input.Interact;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
-        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => 1;
+        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime + 2;
+        protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
@@ -18,6 +19,19 @@ namespace Quantum
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             base.Enter(f, ref filter, ref input, settings, stats);
+
+            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+        }
+
+        protected override void DelayedEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            base.DelayedEnter(f, ref filter, ref input, settings, stats);
+
+            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+            if (filter.CharacterController->Direction == Direction.Neutral)
+            {
+                filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(filter.CharacterController->MovementDirection);
+            }
 
             if (!filter.Stats->HeldItem.IsValid)
             {
@@ -34,7 +48,7 @@ namespace Quantum
             }
             else
             {
-                ItemSystem.Throw(f, filter.Entity, filter.Stats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
+                ItemSystem.Throw(f, filter.Entity, filter.Stats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
             }
         }
     }

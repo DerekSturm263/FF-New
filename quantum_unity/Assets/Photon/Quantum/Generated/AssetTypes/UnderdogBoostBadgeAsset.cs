@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Badge/UnderdogBoostBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 46)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/UnderdogBoostBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 228)]
 public partial class UnderdogBoostBadgeAsset : BadgeAsset {
   public Quantum.UnderdogBoostBadge Settings;
 

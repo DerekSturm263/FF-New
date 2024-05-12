@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Ultimate/OverclockUltimate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 534)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Ultimate/OverclockUltimate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 222)]
 public partial class OverclockUltimateAsset : UltimateAsset {
   public Quantum.OverclockUltimate Settings;
 

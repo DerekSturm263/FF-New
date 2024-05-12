@@ -10,8 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Emote", order = Quantum.EditorDefines.AssetMenuPriorityStart + 104)]
-public partial class EmoteAsset : AssetBase {
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Emote", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
+public partial class EmoteAsset : InfoAssetAsset {
   public Quantum.Emote Settings;
 
   public override Quantum.AssetObject AssetObject => Settings;

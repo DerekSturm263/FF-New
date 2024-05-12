@@ -1,4 +1,5 @@
-﻿using Quantum.Collections;
+﻿using Photon.Deterministic;
+using Quantum.Collections;
 using System.Diagnostics;
 
 namespace Quantum
@@ -41,45 +42,42 @@ namespace Quantum
             f.Destroy(hitbox);
         }
 
-        public static void SpawnHitbox(Frame f, HitboxSettings settings, int lifetime, EntityRef user)
+        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, int lifetime, EntityRef user)
         {
             Log.Debug("Spawning hitbox!");
 
             EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(settings.Prototype.Id);
             EntityRef hitboxEntity = f.Create(hitboxPrototype);
 
-            if (f.Unsafe.TryGetPointer(hitboxEntity, out HitboxInstance* hitbox))
+            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                if (settings.Parent == ParentType.MainWeapon)
+                if (f.Unsafe.TryGetPointer(hitboxEntity, out HitboxInstance* hitbox))
                 {
-                    if (f.Unsafe.TryGetPointer(user, out Stats* stats))
+                    if (settings.Parent == ParentType.MainWeapon)
                     {
                         settings.Damage *= stats->MainWeaponStatsMultiplier.Damage;
                         settings.Knockback *= stats->MainWeaponStatsMultiplier.Knockback;
                     }
+
+                    hitbox->Settings = settings;
+                    hitbox->Lifetime = lifetime;
+                    hitbox->Owner = user;
+
+                    hitbox->Parent = settings.Parent switch
+                    {
+                        ParentType.None => EntityRef.None,
+                        ParentType.User => user,
+                        ParentType.MainWeapon => user,
+                        ParentType.SubWeapon => user,
+                        _ => user
+                    };
                 }
 
-                hitbox->Settings = settings;
-                hitbox->Lifetime = lifetime;
-                hitbox->Owner = user;
-
-                hitbox->Parent = settings.Parent switch
-                {
-                    ParentType.None => EntityRef.None,
-                    ParentType.User => user,
-                    ParentType.MainWeapon => user,
-                    ParentType.SubWeapon => user,
-                    _ => user
-                };
+                QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
+                hitboxLists.Add(hitboxEntity);
             }
 
-            {
-                if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-                {
-                    QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
-                    hitboxLists.Add(hitboxEntity);
-                }
-            }
+            return hitboxEntity;
         }
     }
 }

@@ -10,8 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Eyes", order = Quantum.EditorDefines.AssetMenuPriorityStart + 104)]
-public partial class EyesAsset : AssetBase {
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Eyes", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
+public partial class EyesAsset : InfoAssetAsset {
   public Quantum.Eyes Settings;
 
   public override Quantum.AssetObject AssetObject => Settings;

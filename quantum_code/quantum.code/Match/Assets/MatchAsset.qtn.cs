@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Quantum
 {
-    public partial class MatchAsset
+    [System.Serializable]
+    public partial class MatchAsset : InfoAsset
     {
         public Match Match;
     }

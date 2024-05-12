@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-public abstract partial class BadgeAsset : AssetBase {
+public abstract partial class BadgeAsset : InfoAssetAsset {
 
 }
 

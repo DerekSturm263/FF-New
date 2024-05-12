@@ -2,7 +2,8 @@
 
 namespace Quantum
 {
-    public partial class Eyes
+    [System.Serializable]
+    public partial class Eyes : InfoAsset
     {
 
     }

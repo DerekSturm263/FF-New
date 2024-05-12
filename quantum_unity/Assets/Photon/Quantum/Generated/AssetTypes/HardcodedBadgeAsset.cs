@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Badge/HardcodedBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 33)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/HardcodedBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
 public partial class HardcodedBadgeAsset : BadgeAsset {
   public Quantum.HardcodedBadge Settings;
 

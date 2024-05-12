@@ -10,8 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/FFAvatar", order = Quantum.EditorDefines.AssetMenuPriorityStart + 130)]
-public partial class FFAvatarAsset : AssetBase {
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/FFAvatar", order = Quantum.EditorDefines.AssetMenuPriorityStart + 213)]
+public partial class FFAvatarAsset : InfoAssetAsset {
   public Quantum.FFAvatar Settings;
 
   public override Quantum.AssetObject AssetObject => Settings;

@@ -37,6 +37,7 @@ namespace Quantum
         public int BurstTime;
 
         [Header("Throw Settings")]
+        public DirectionalFPVector2 ThrowOffset;
         public DirectionalFPVector2 ThrowForce;
 
         [Header("Knockback Settings")]

@@ -10,8 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Hair", order = Quantum.EditorDefines.AssetMenuPriorityStart + 182)]
-public partial class HairAsset : AssetBase {
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Hair", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
+public partial class HairAsset : InfoAssetAsset {
   public Quantum.Hair Settings;
 
   public override Quantum.AssetObject AssetObject => Settings;

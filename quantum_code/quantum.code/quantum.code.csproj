@@ -75,10 +75,11 @@
     <None Include="Collision\Events\OnHitboxHurtboxCollision.qtn" />
     <None Include="Collision\Components\HitboxInstance.qtn" />
     <None Include="Collision\Components\HurtboxInstance.qtn" />
+    <None Include="Equipment\Weapons\Main Weapon\MainWeapon.qtn" />
+    <None Include="Equipment\Weapons\Sub-Weapon\SubWeapon.qtn" />
     <None Include="Item\Events\OnItemUse.qtn" />
     <None Include="Item\Assets\Item.qtn" />
     <None Include="Item\Components\ItemSpawner.qtn" />
-    <None Include="Match\Assets\MatchAsset.qtn" />
     <None Include="Player\Events\OnAllPlayersCancel.qtn" />
     <None Include="Player\Components\CharacterController.qtn" />
     <None Include="Player\Events\OnPlayerSpawn.qtn" />
@@ -96,6 +97,7 @@
     <None Include="Player\Events\OnPlayerModifyHealth.qtn" />
     <None Include="Player\Events\OnPlayerModifyEnergy.qtn" />
     <Compile Include="Equipment\Badge\Badges\EnergyConversionBadge.cs" />
+    <Compile Include="Info Asset\Assets\InfoAsset.qtn.cs" />
     <Compile Include="Item\Assets\Item.qtn.cs" />
     <None Include="Build\Structs\MoveRef.qtn" />
     <None Include="Item\Components\ItemInstance.qtn" />
@@ -135,15 +137,10 @@
     <Compile Include="Player\Assets\MovementSettings.qtn.cs" />
     <None Include="Collision\Structs\HitboxSettings.qtn" />
     <None Include="Build\Structs\Build.qtn" />
-    <None Include="Cosmetics\Avatar\FFAvatar.qtn" />
     <None Include="Build\Structs\CosmeticSettings.qtn" />
-    <None Include="Cosmetics\Emote\Emote.qtn" />
-    <None Include="Cosmetics\Eyes\Eyes.qtn" />
-    <None Include="Cosmetics\Hair\Hair.qtn" />
     <None Include="Equipment\Apparel\Apparel Modifier\ApparelModifier.qtn" />
     <None Include="Equipment\Apparel\Apparel Pattern\ApparelPattern.qtn" />
     <None Include="Equipment\Apparel\Apparel Template\ApparelTemplate.qtn" />
-    <None Include="Equipment\Badge\Badge.qtn" />
     <None Include="Build\Structs\EquipmentSettings.qtn" />
     <None Include="Equipment\Apparel\Apparel.qtn" />
     <None Include="Equipment\Apparel\Outfit.qtn" />
@@ -153,16 +150,12 @@
     <None Include="Equipment\Weapons\Main Weapon\Main Weapon Material\MainWeaponMaterial.qtn" />
     <None Include="Equipment\Weapons\Main Weapon\Main Weapon Stats\MainWeaponStats.qtn" />
     <None Include="Equipment\Weapons\Main Weapon\Main Weapon Template\MainWeaponTemplate.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\MainWeapon.qtn" />
     <None Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\SubWeaponEnhancer.qtn" />
     <None Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\SubWeaponEnhancerSet.qtn" />
     <None Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\SubWeaponTemplate.qtn" />
-    <None Include="Equipment\Weapons\Sub-Weapon\SubWeapon.qtn" />
-    <None Include="Equipment\Ultimate\Ultimate.qtn" />
     <None Include="Equipment\Weapons\Sub-Weapon\SubWeaponInstance.qtn" />
     <None Include="Equipment\Weapons\WeaponSet.qtn" />
     <None Include="Match\Events\OnMatchStart.qtn" />
-    <None Include="Build\Assets\BuildAsset.qtn" />
     <Compile Include="Build\Assets\BuildAsset.qtn.cs" />
     <Compile Include="Cosmetics\Avatar\FFAvatar.qtn.cs" />
     <Compile Include="Cosmetics\Emote\Emote.qtn.cs" />
@@ -199,6 +192,7 @@
     <Compile Include="Ruleset\Assets\Win Conditions\LeastDeathsWinCondition.cs" />
     <Compile Include="Ruleset\Assets\Win Conditions\MostKillsWinCondition.cs" />
     <Compile Include="Ruleset\Assets\WinCondition.qtn.cs" />
+    <None Include="Info Asset\Assets\InfoAsset.qtn" />
     <Compile Include="Serializable Item\Helpers\SerializationHelper.cs" />
     <Compile Include="Stage\Gizmo\Gizmo.qtn.cs" />
     <Compile Include="Stage\Assets\StageAsset.qtn.cs" />
@@ -223,7 +217,6 @@
     <None Include="Ruleset\Structs\MatchSettings.qtn" />
     <None Include="Ruleset\Structs\PlayerSettings.qtn" />
     <None Include="Ruleset\Structs\Ruleset.qtn" />
-    <None Include="Ruleset\Assets\RulesetAsset.qtn" />
     <None Include="Ruleset\Structs\StageSettings.qtn" />
     <None Include="Ruleset\Assets\WinCondition.qtn" />
     <None Include="Serializable Item\Structs\SerializableData.qtn" />
@@ -231,7 +224,6 @@
     <None Include="Stage\Structs\ObjectSettings.qtn" />
     <None Include="Stage\Structs\SpawnSettings.qtn" />
     <None Include="Stage\Structs\Stage.qtn" />
-    <None Include="Stage\Assets\StageAsset.qtn" />
     <None Include="Stage\Structs\ThemeSettings.qtn" />
     <None Include="Status Effect\Assets\StatusEffect.qtn" />
     <None Include="Timer\Events\OnBeginningCountdown.qtn" />

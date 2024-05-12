@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Photon.Deterministic;
+using Quantum;
+using UnityEngine;
 using UnityEngine.Audio;
 
 namespace GameResources.Audio
@@ -89,11 +91,13 @@ namespace GameResources.Audio
             PlayTrack();
         }
 
-        /// <summary>
-        /// Plays a random AudioClip from a given Clip.
-        /// </summary>
-        /// <param name="clip">The Clip to be used.</param>
-        public void PlayClip(Clip clip) => SFXSource.PlayOneShot(clip.Variants.Random);
+        public unsafe void PlayVoiceLine(QuantumGame game, EntityView user, (EntityView itemObj, ItemAsset itemAsset, FPVector2 position) tuple)
+        {
+            AudioClip clip = tuple.itemAsset.SFX.GetClip(game.Frames.Verified.Unsafe.GetPointer<Stats>(user.EntityRef)->Build.Cosmetics.Avatar);
+
+            if (clip)
+                user.GetComponentInChildren<AudioSource>().PlayOneShot(clip, tuple.itemAsset.SFX.Volume);
+        }
 
         /// <summary>
         /// Sets the Track to be played by the AudioController. Does not play the Track!

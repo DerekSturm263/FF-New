@@ -11,7 +11,8 @@ namespace Quantum
         {
             ++itemInstance->Uses;
 
-            f.Events.OnItemUse(*user, *itemInstance, this);
+            if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
+                f.Events.OnItemUse(*user, item, this, transform->Position);
 
             if (itemInstance->Uses == Uses)
             {

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Quantum
 {
-    public partial class BuildAsset
+    [System.Serializable]
+    public partial class BuildAsset : InfoAsset
     {
         public Build Build;
     }

@@ -1,8 +1,4 @@
-﻿using Photon.Deterministic;
-using Quantum.Collections;
-using System.Runtime;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class ExplodingItem : HoldableItem
@@ -12,9 +8,14 @@ namespace Quantum
 
         public override unsafe void OnHit(Frame f, PlayerLink* user, EntityRef target, EntityRef item, ItemInstance* itemInstance)
         {
-            base.OnHit(f, user, target, item, itemInstance);
+            EntityRef hitbox = HitboxSystem.SpawnHitbox(f, HitboxSettings, Lifetime, user->Entity);
+            if (f.Unsafe.TryGetPointer(hitbox, out Transform2D* transformHitbox) &&
+                f.Unsafe.TryGetPointer(item, out Transform2D* transformItem))
+            {
+                transformHitbox->Position = transformItem->Position;
+            }
 
-            HitboxSystem.SpawnHitbox(f, HitboxSettings, Lifetime, user->Entity);
+            base.OnHit(f, user, target, item, itemInstance);
         }
     }
 }

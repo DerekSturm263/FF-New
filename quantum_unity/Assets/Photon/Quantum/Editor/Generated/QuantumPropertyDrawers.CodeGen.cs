@@ -36,13 +36,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefBuildAsset))]
-  public class AssetRefBuildAssetPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(BuildAssetAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefCameraSettings))]
   public class AssetRefCameraSettingsPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -99,6 +92,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefInfoAsset))]
+  public class AssetRefInfoAssetPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(InfoAssetAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefItem))]
   public class AssetRefItemPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -127,13 +127,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefMatchAsset))]
-  public class AssetRefMatchAssetPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MatchAssetAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefMovementSettings))]
   public class AssetRefMovementSettingsPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -145,13 +138,6 @@ namespace Quantum.Editor {
   public class AssetRefQuantumAnimationEventPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(QuantumAnimationEventAsset));
-    }
-  }
-
-  [CustomPropertyDrawer(typeof(AssetRefRulesetAsset))]
-  public class AssetRefRulesetAssetPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(RulesetAssetAsset));
     }
   }
 

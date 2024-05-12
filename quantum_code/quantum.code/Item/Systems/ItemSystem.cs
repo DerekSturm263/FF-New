@@ -23,7 +23,7 @@ namespace Quantum
             {
                 filter.Transform->Position.Y = FPMath.Lerp(filter.Transform->Position.Y, filter.ItemInstance->FallY, f.DeltaTime * filter.ItemInstance->FallSpeed);
 
-                if (filter.Transform->Position.Y - filter.ItemInstance->FallY < FP._0_01)
+                if (filter.Transform->Position.Y - filter.ItemInstance->FallY < FP._0_05)
                 {
                     filter.ItemInstance->FallState = false;
                     filter.PhysicsBody->Enabled = true;
@@ -81,13 +81,16 @@ namespace Quantum
                     physicsCollider->Enabled = false;
 
                 if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody))
+                {
+                    physicsBody->Enabled = true;
                     physicsBody->GravityScale = 1;
+                }
 
                 itemInstance->FallState = false;
             }
         }
 
-        public static void Throw(Frame f, EntityRef user, EntityRef item, FPVector2 force)
+        public static void Throw(Frame f, EntityRef user, EntityRef item, FPVector2 offset, FPVector2 force)
         {
             if (f.Unsafe.TryGetPointer(item, out ItemInstance* itemInstance))
             {
@@ -103,7 +106,7 @@ namespace Quantum
                     physicsCollider->Enabled = true;
 
                 if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
-                    transform->Position += new FPVector2(2, 2);
+                    transform->Position += offset;
             }
         }
 

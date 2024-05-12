@@ -109,9 +109,15 @@ namespace Quantum
                 if (GetNearbyCollider(Colliders.Ground))
                 {
                     if (physicsBody->Velocity.X < 0)
+                    {
                         CustomAnimator.SetBoolean(f, customAnimator, "Turn Around", true);
+                        MovementDirection = FPVector2.Left;
+                    }
                     else if (physicsBody->Velocity.X > 0)
+                    {
                         CustomAnimator.SetBoolean(f, customAnimator, "Turn Around", false);
+                        MovementDirection = FPVector2.Right;
+                    }
                 }
 
                 MovingLerp = 1;

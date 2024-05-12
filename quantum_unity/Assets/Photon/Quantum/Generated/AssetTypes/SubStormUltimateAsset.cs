@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Ultimate/SubStormUltimate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 538)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Ultimate/SubStormUltimate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 226)]
 public partial class SubStormUltimateAsset : UltimateAsset {
   public Quantum.SubStormUltimate Settings;
 

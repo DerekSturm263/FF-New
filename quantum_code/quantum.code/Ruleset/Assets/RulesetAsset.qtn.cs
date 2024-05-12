@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Quantum
 {
-    public partial class RulesetAsset
+    [System.Serializable]
+    public partial class RulesetAsset : InfoAsset
     {
         public Ruleset Ruleset;
     }

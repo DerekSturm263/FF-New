@@ -21,6 +21,9 @@ namespace Quantum
 
         public virtual void OnHit(Frame f, PlayerLink* user, EntityRef target, EntityRef item, ItemInstance* itemInstance)
         {
+            if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
+                f.Events.OnItemUse(*user, item, this, transform->Position);
+
             if (DestroySelfOnHit)
             {
                 f.Destroy(item);
@@ -28,8 +31,6 @@ namespace Quantum
                 if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
                     --itemSpawner->CurrentSpawned;
             }
-
-            f.Events.OnItemUse(*user, *itemInstance, this);
         }
     }
 }

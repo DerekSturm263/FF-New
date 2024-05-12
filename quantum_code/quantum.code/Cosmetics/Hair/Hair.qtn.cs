@@ -2,7 +2,8 @@
 
 namespace Quantum
 {
-    public partial class Hair
+    [System.Serializable]
+    public partial class Hair : InfoAsset
     {
 
     }
