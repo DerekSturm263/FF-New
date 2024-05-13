@@ -37,6 +37,7 @@ Material:
   disabledShaderPasses:
   - DepthOnly
   - MOTIONVECTORS
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -74,15 +75,16 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
-    - _Brightness: 5
-    - _CastShadows: 1
+    - _Brightness: 3.59
+    - _CastShadows: 0
     - _Cull: 2
     - _DstBlend: 10
-    - _Mask_strength: 9.2
+    - _Mask_strength: 0.59
     - _Offset_Speed: 0.5
     - _Offset_Strength: 0.04
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Saturation: 3
     - _SrcBlend: 5
     - _Surface: 1
     - _TimeControle: 1
@@ -90,8 +92,8 @@ Material:
     - _ZTest: 8
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _multiply: 1.83
+    - _multiply: 9.4
     m_Colors:
-    - _Smooth_Step: {r: 0, g: 1, b: 0, a: 0}
+    - _Smooth_Step: {r: 0, g: 1.21, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
