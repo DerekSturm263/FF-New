@@ -12,7 +12,7 @@ namespace Quantum
         {
             Log.Debug("Spawning VFX!");
 
-            VFXController.Instance.SpawnEffect(Settings);
+            VFXController.Instance.SpawnEffectParented(Settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
         }
 
         public override void End(Frame f, EntityRef entity, int frame)

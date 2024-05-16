@@ -16,14 +16,17 @@ namespace Quantum
 
                 if (frame == frameEvent.StartingFrame)
                 {
+                    Log.Debug("Event Begin");
                     frameEvent.Begin(f, entity, frame);
                 }
                 else if (frame > frameEvent.StartingFrame && frame < frameEvent.EndingFrame)
                 {
+                    Log.Debug("Event Update");
                     frameEvent.Update(f, entity, frame);
                 }
                 else if (frame == frameEvent.EndingFrame)
                 {
+                    Log.Debug("Event End");
                     frameEvent.End(f, entity, frame);
                 }
             }

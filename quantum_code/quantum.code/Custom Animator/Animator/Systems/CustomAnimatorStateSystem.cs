@@ -21,10 +21,8 @@ namespace Quantum
 
             if (f.TryFindAsset(state.StateAsset.Id, out QuantumAnimationEvent asset))
             {
-                int frame = 0;
-
                 AnimatorMotion motion = state.motion;
-                frame = (int)(animator->normalized_time * motion.CalculateLength(f, animator, 1, state) * 60);
+                int frame = (animator->normalized_time * motion.CalculateLength(f, animator, 1, state) * 60).AsInt;
 
                 asset.InvokeEvents(f, entity, frame);
             }

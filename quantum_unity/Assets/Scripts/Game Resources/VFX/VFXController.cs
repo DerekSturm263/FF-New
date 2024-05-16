@@ -6,22 +6,29 @@ namespace GameResources
 {
     public class VFXController : Extensions.Components.Miscellaneous.Controller<VFXController>
     {
-        private Transform _parent;
-
-        public GameObject SpawnEffect(VFX settings)
+        public GameObject SpawnEffectParented(VFX settings, Transform parent)
         {
-            GameObject effect = null;
-            if (!_parent)
-                effect = Instantiate(settings.VFXObject, settings.Offset.ToUnityVector3(), Quaternion.identity);
+            GameObject effect;
 
             if (settings.DoesFollowParent)
             {
-                effect = Instantiate(settings.VFXObject, _parent);
+                effect = Instantiate(settings.VFXObject, parent);
             }
-            else if (_parent)
+            else
             {
-                effect = Instantiate(settings.VFXObject, _parent.transform.position, Quaternion.identity);
+                effect = Instantiate(settings.VFXObject, parent.transform.position, Quaternion.identity);
             }
+
+            effect.transform.right = settings.Direction.Normalized.ToUnityVector3();
+            effect.transform.localScale *= settings.ScaleMultiplier.ToUnityVector2();
+            effect.transform.localPosition += settings.Offset.ToUnityVector3();
+
+            return effect;
+        }
+
+        public GameObject SpawnEffect(VFX settings)
+        {
+            GameObject effect = Instantiate(settings.VFXObject, settings.Offset.ToUnityVector3(), Quaternion.identity);
 
             effect.transform.right = settings.Direction.Normalized.ToUnityVector3();
             effect.transform.localScale *= settings.ScaleMultiplier.ToUnityVector2();
