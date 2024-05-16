@@ -106,27 +106,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefMainWeaponEnhancer))]
-  public class AssetRefMainWeaponEnhancerPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponEnhancerAsset));
-    }
-  }
-
-  [CustomPropertyDrawer(typeof(AssetRefMainWeaponMaterial))]
-  public class AssetRefMainWeaponMaterialPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponMaterialAsset));
-    }
-  }
-
-  [CustomPropertyDrawer(typeof(AssetRefMainWeaponTemplate))]
-  public class AssetRefMainWeaponTemplatePropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(MainWeaponTemplateAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefMovementSettings))]
   public class AssetRefMovementSettingsPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -155,17 +134,24 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefSubWeaponEnhancer))]
-  public class AssetRefSubWeaponEnhancerPropertyDrawer : PropertyDrawer {
+  [CustomPropertyDrawer(typeof(AssetRefSubEnhancer))]
+  public class AssetRefSubEnhancerPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubWeaponEnhancerAsset));
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubEnhancerAsset));
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefSubWeaponTemplate))]
-  public class AssetRefSubWeaponTemplatePropertyDrawer : PropertyDrawer {
+  [CustomPropertyDrawer(typeof(AssetRefSubTemplate))]
+  public class AssetRefSubTemplatePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubWeaponTemplateAsset));
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubTemplateAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefTrackGraph))]
+  public class AssetRefTrackGraphPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(TrackGraphAsset));
     }
   }
 
@@ -173,6 +159,27 @@ namespace Quantum.Editor {
   public class AssetRefUltimatePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(UltimateAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefWeaponEnhancer))]
+  public class AssetRefWeaponEnhancerPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(WeaponEnhancerAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefWeaponMaterial))]
+  public class AssetRefWeaponMaterialPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(WeaponMaterialAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefWeaponTemplate))]
+  public class AssetRefWeaponTemplatePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(WeaponTemplateAsset));
     }
   }
 

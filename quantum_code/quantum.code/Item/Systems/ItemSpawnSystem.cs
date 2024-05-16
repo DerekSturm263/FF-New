@@ -55,7 +55,10 @@ namespace Quantum
                     transform->Position = position + new FPVector2(0, 4);
 
                 if (f.Unsafe.TryGetPointer(newItem, out ItemInstance* itemInstance))
+                {
                     itemInstance->FallY = position.Y;
+                    itemInstance->Item = item;
+                }
 
                 if (f.Unsafe.TryGetPointer(newItem, out PhysicsBody2D* physicsBody))
                     physicsBody->Enabled = false;

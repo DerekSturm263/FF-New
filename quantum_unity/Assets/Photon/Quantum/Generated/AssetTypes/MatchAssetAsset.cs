@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/MatchAsset", order = Quantum.EditorDefines.AssetMenuPriorityStart + 220)]
 public partial class MatchAssetAsset : InfoAssetAsset {
-  public Quantum.MatchAsset Settings;
+  public Quantum.MatchAsset Settings_MatchAsset;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_MatchAsset);
+  
+  public override Quantum.AssetObject AssetObject => Settings_MatchAsset;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.MatchAsset();
+    if (Settings_MatchAsset == null) {
+      Settings_MatchAsset = new Quantum.MatchAsset();
     }
     base.Reset();
   }

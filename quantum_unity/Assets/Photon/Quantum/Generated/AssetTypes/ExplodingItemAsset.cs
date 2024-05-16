@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Item/HoldableItem/ExplodingItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Item/HoldableItem/ExplodingItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
 public partial class ExplodingItemAsset : HoldableItemAsset {
-  public Quantum.ExplodingItem Settings;
+  public Quantum.ExplodingItem Settings_ExplodingItem;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_ExplodingItem);
+  
+  public override Quantum.AssetObject AssetObject => Settings_ExplodingItem;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.ExplodingItem();
+    if (Settings_ExplodingItem == null) {
+      Settings_ExplodingItem = new Quantum.ExplodingItem();
     }
     base.Reset();
   }

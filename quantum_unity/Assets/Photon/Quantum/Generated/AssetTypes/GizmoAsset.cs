@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Gizmo", order = Quantum.EditorDefines.AssetMenuPriorityStart + 156)]
-public partial class GizmoAsset : AssetBase {
-  public Quantum.Gizmo Settings;
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Gizmo", order = Quantum.EditorDefines.AssetMenuPriorityStart + 214)]
+public partial class GizmoAsset : InfoAssetAsset {
+  public Quantum.Gizmo Settings_Gizmo;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_Gizmo);
+  
+  public override Quantum.AssetObject AssetObject => Settings_Gizmo;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.Gizmo();
+    if (Settings_Gizmo == null) {
+      Settings_Gizmo = new Quantum.Gizmo();
     }
     base.Reset();
   }

@@ -1,7 +1,6 @@
 ﻿namespace Quantum
 {
-    public abstract partial class InfoAsset
+    public partial class InfoAsset
     {
-        public string Name;
     }
 }

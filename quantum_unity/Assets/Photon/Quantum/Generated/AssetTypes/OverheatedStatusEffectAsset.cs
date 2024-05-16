@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/StatusEffect/OverheatedStatusEffect", order = Quantum.EditorDefines.AssetMenuPriorityStart + 482)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/StatusEffect/OverheatedStatusEffect", order = Quantum.EditorDefines.AssetMenuPriorityStart + 222)]
 public partial class OverheatedStatusEffectAsset : StatusEffectAsset {
-  public Quantum.OverheatedStatusEffect Settings;
+  public Quantum.OverheatedStatusEffect Settings_OverheatedStatusEffect;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_OverheatedStatusEffect);
+  
+  public override Quantum.AssetObject AssetObject => Settings_OverheatedStatusEffect;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.OverheatedStatusEffect();
+    if (Settings_OverheatedStatusEffect == null) {
+      Settings_OverheatedStatusEffect = new Quantum.OverheatedStatusEffect();
     }
     base.Reset();
   }

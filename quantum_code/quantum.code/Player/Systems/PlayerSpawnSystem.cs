@@ -1,4 +1,5 @@
 ﻿using Quantum.Collections;
+using System.ComponentModel;
 
 namespace Quantum
 {
@@ -24,6 +25,11 @@ namespace Quantum
                 ++playerCounter->TotalPlayers;
             }
 
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
+                StatsSystem.SetBuild(f, entity, stats, stats->Build);
+            }
+
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
                 var teams = f.ResolveList(matchInstance->Match.Teams);
@@ -34,11 +40,11 @@ namespace Quantum
 
                 teams.Add(new() { Players = newTeam });
 
-                if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+                if (f.Unsafe.TryGetPointer(entity, out Stats* stats2))
                 {
-                    f.Events.OnPlayerModifyHealth(playerLink, stats->CurrentHealth, stats->CurrentHealth, matchInstance->Match.Ruleset.Players.MaxHealth);
-                    f.Events.OnPlayerModifyEnergy(playerLink, stats->CurrentEnergy, stats->CurrentEnergy, matchInstance->Match.Ruleset.Players.MaxEnergy);
-                    f.Events.OnPlayerModifyStocks(playerLink, stats->CurrentStocks, stats->CurrentStocks, matchInstance->Match.Ruleset.Players.StockCount);
+                    f.Events.OnPlayerModifyHealth(playerLink, stats2->CurrentHealth, stats2->CurrentHealth, matchInstance->Match.Ruleset.Players.MaxHealth);
+                    f.Events.OnPlayerModifyEnergy(playerLink, stats2->CurrentEnergy, stats2->CurrentEnergy, matchInstance->Match.Ruleset.Players.MaxEnergy);
+                    f.Events.OnPlayerModifyStocks(playerLink, stats2->CurrentStocks, stats2->CurrentStocks, matchInstance->Match.Ruleset.Players.StockCount);
                 }
 
                 if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))

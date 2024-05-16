@@ -143,7 +143,7 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 Kills;
     public System.Int32 Deaths;
     public Quantum.Prototypes.ApparelStats_Prototype ApparelStatsMultiplier;
-    public Quantum.Prototypes.MainWeaponStats_Prototype MainWeaponStatsMultiplier;
+    public Quantum.Prototypes.WeaponStats_Prototype WeaponStatsMultiplier;
     [Quantum.LocalReference]
     public global::EntityPrototype HeldItem;
     public Quantum.AssetRefStatusEffect StatusEffect;
@@ -164,7 +164,7 @@ namespace Quantum.Prototypes.Unity {
       result.Kills = this.Kills;
       result.Deaths = this.Deaths;
       result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
-      result.MainWeaponStatsMultiplier = this.MainWeaponStatsMultiplier;
+      result.WeaponStatsMultiplier = this.WeaponStatsMultiplier;
       converter.Convert(this.HeldItem, out result.HeldItem);
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
@@ -187,14 +187,14 @@ namespace Quantum.Prototypes.Unity {
     }
   }
   [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.SubWeaponInstance))]
-  public class SubWeaponInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.SubWeaponInstance_Prototype> {
-    public Quantum.Prototypes.SubWeapon_Prototype SubWeapon;
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.SubInstance))]
+  public class SubInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.SubInstance_Prototype> {
+    public Quantum.Prototypes.Sub_Prototype SubWeapon;
     [Quantum.LocalReference]
     public global::EntityPrototype Target;
 
-    public sealed override Quantum.Prototypes.SubWeaponInstance_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.SubWeaponInstance_Prototype();
+    public sealed override Quantum.Prototypes.SubInstance_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.SubInstance_Prototype();
       result.SubWeapon = this.SubWeapon;
       converter.Convert(this.Target, out result.Target);
       return result;

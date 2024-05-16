@@ -55,8 +55,8 @@ namespace Quantum
                 {
                     if (settings.Parent == ParentType.MainWeapon)
                     {
-                        settings.Damage *= stats->MainWeaponStatsMultiplier.Damage;
-                        settings.Knockback *= stats->MainWeaponStatsMultiplier.Knockback;
+                        settings.Damage *= stats->WeaponStatsMultiplier.Damage;
+                        settings.Knockback *= stats->WeaponStatsMultiplier.Knockback;
                     }
 
                     hitbox->Settings = settings;

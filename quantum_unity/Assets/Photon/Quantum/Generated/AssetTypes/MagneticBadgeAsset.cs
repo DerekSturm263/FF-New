@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/MagneticBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 220)]
 public partial class MagneticBadgeAsset : BadgeAsset {
-  public Quantum.MagneticBadge Settings;
+  public Quantum.MagneticBadge Settings_MagneticBadge;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_MagneticBadge);
+  
+  public override Quantum.AssetObject AssetObject => Settings_MagneticBadge;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.MagneticBadge();
+    if (Settings_MagneticBadge == null) {
+      Settings_MagneticBadge = new Quantum.MagneticBadge();
     }
     base.Reset();
   }

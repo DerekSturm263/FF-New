@@ -10,7 +10,7 @@
 using Quantum;
 using UnityEngine;
 
-public abstract partial class WinConditionAsset : AssetBase {
+public abstract partial class WinConditionAsset : InfoAssetAsset {
 
 }
 

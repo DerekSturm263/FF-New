@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/EnergyConversionBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
 public partial class EnergyConversionBadgeAsset : BadgeAsset {
-  public Quantum.EnergyConversionBadge Settings;
+  public Quantum.EnergyConversionBadge Settings_EnergyConversionBadge;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_EnergyConversionBadge);
+  
+  public override Quantum.AssetObject AssetObject => Settings_EnergyConversionBadge;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.EnergyConversionBadge();
+    if (Settings_EnergyConversionBadge == null) {
+      Settings_EnergyConversionBadge = new Quantum.EnergyConversionBadge();
     }
     base.Reset();
   }

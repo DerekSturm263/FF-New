@@ -1,6 +1,8 @@
 [Serializable]
 struct Apparel
 {
+    SerializableData SerializableData;
+
 	asset_ref<ApparelTemplate> Template;
 	asset_ref<ApparelPattern> Pattern;
 	ApparelModifierSet Modifiers;

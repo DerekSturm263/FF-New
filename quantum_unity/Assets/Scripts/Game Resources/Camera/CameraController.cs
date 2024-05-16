@@ -15,8 +15,24 @@ namespace GameResources.Camera
         [SerializeField] private List<Tuple<float, Transform>> _targets;
 
         [SerializeField] private CameraSettingsAsset _settings;
-        public void SetCameraSettings(CameraSettingsAsset settings) => _settings = settings;
-        public void SetVolume(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
+        public void SetCameraSettings(CameraSettingsAsset settings) => _instance._settings = settings;
+        public void SetCameraSettingsFromCurrentStageDefault(EntityView matchInstance)
+        {
+            AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Default.Id;
+            _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(guid);
+        }
+        public void SetCameraSettingsFromCurrentStageZoom(EntityView matchInstance)
+        {
+            AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Zoom.Id;
+            _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(guid);
+        }
+        public void SetCameraSettingsFromCurrentStageTension(EntityView matchInstance)
+        {
+            AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Tension.Id;
+            _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(guid);
+        }
+
+        public void SetVolume(VolumeProfile volumeProfile) => _instance._volume.sharedProfile = volumeProfile;
 
         private Volume _volume;
 
@@ -32,6 +48,8 @@ namespace GameResources.Camera
         private UnityEngine.Camera _cam;
         public UnityEngine.Camera Cam => _cam;
 
+        private UnityEngine.Camera[] _internalCams;
+
         private void Awake()
         {
             Initialize();
@@ -41,6 +59,8 @@ namespace GameResources.Camera
 
             _cam = GetComponent<UnityEngine.Camera>();
             _volume = GetComponent<Volume>();
+
+            _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
         }
 
         private void LateUpdate()
@@ -50,7 +70,10 @@ namespace GameResources.Camera
             CalculateTargetRotation();
             CalculateShake();
 
-            _cam.fieldOfView = Mathf.Lerp(_cam.fieldOfView, _settings.Settings.FOV, Time.deltaTime * _settings.Settings.TranslationSpeed.AsFloat);
+            foreach (UnityEngine.Camera cam in _internalCams)
+            {
+                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, _settings.Settings.FOV, Time.deltaTime * _settings.Settings.TranslationSpeed.AsFloat);
+            }
 
             ApplyPosition(Time.deltaTime);
             ApplyRotation(Time.deltaTime);

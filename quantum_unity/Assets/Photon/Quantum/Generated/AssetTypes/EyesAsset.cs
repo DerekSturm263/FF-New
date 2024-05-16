@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Eyes", order = Quantum.EditorDefines.AssetMenuPriorityStart + 212)]
 public partial class EyesAsset : InfoAssetAsset {
-  public Quantum.Eyes Settings;
+  public Quantum.Eyes Settings_Eyes;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_Eyes);
+  
+  public override Quantum.AssetObject AssetObject => Settings_Eyes;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.Eyes();
+    if (Settings_Eyes == null) {
+      Settings_Eyes = new Quantum.Eyes();
     }
     base.Reset();
   }

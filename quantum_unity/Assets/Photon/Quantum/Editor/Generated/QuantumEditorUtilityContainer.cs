@@ -28,7 +28,9 @@ namespace Quantum.Editor {
 
     [System.Serializable]
     public partial class KnownObjectsContainer : QuantumEditorUtility.SerializableObjectsContainerBase {
+      public Quantum.TrackGraph[] TrackGraph = {};
       public Quantum.EnergyConversionBadge[] EnergyConversionBadge = {};
+      public Quantum.InfoAsset[] InfoAsset = {};
       public Quantum.ExplodingItem[] ExplodingItem = {};
       public Quantum.HealingItem[] HealingItem = {};
       public Quantum.MatchAsset[] MatchAsset = {};
@@ -47,14 +49,14 @@ namespace Quantum.Editor {
       public Quantum.UnderdogBoostBadge[] UnderdogBoostBadge = {};
       public Quantum.OverclockUltimate[] OverclockUltimate = {};
       public Quantum.SubStormUltimate[] SubStormUltimate = {};
-      public Quantum.ChargingMainWeaponEnhancer[] ChargingMainWeaponEnhancer = {};
-      public Quantum.VampiricMainWeaponEnhancer[] VampiricMainWeaponEnhancer = {};
-      public Quantum.MainWeaponMaterial[] MainWeaponMaterial = {};
-      public Quantum.MainWeaponTemplate[] MainWeaponTemplate = {};
-      public Quantum.ElectrifiedSubWeaponEnhancer[] ElectrifiedSubWeaponEnhancer = {};
-      public Quantum.PiercingSubWeaponEnhancer[] PiercingSubWeaponEnhancer = {};
-      public Quantum.ExplodingSubWeaponTemplate[] ExplodingSubWeaponTemplate = {};
-      public Quantum.MissileSubWeaponTemplate[] MissileSubWeaponTemplate = {};
+      public Quantum.ChargingWeaponEnhancer[] ChargingWeaponEnhancer = {};
+      public Quantum.VampiricWeaponEnhancer[] VampiricWeaponEnhancer = {};
+      public Quantum.WeaponMaterial[] WeaponMaterial = {};
+      public Quantum.WeaponTemplate[] WeaponTemplate = {};
+      public Quantum.ElectrifiedSubEnhancer[] ElectrifiedSubEnhancer = {};
+      public Quantum.PiercingSubEnhancer[] PiercingSubEnhancer = {};
+      public Quantum.ExplodingSubTemplate[] ExplodingSubTemplate = {};
+      public Quantum.MissileSubTemplate[] MissileSubTemplate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};
       public Quantum.BestKillToDeathRatioWinCondition[] BestKillToDeathRatioWinCondition = {};
       public Quantum.LeastDeathsWinCondition[] LeastDeathsWinCondition = {};

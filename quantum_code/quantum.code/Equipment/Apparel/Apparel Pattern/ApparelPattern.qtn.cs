@@ -2,7 +2,8 @@
 
 namespace Quantum
 {
-    public partial class ApparelPattern
+    [System.Serializable]
+    public partial class ApparelPattern : InfoAsset
     {
 
     }

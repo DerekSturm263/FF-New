@@ -2,7 +2,8 @@
 
 namespace Quantum
 {
-    public abstract unsafe partial class StatusEffect
+    [System.Serializable]
+    public abstract unsafe partial class StatusEffect : InfoAsset
     {
         public int ActiveTime;
         public int TickRate;

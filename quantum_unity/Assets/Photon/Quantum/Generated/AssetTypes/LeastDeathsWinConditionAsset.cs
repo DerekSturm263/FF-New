@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/WinCondition/LeastDeathsWinCondition", order = Quantum.EditorDefines.AssetMenuPriorityStart + 583)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/WinCondition/LeastDeathsWinCondition", order = Quantum.EditorDefines.AssetMenuPriorityStart + 219)]
 public partial class LeastDeathsWinConditionAsset : WinConditionAsset {
-  public Quantum.LeastDeathsWinCondition Settings;
+  public Quantum.LeastDeathsWinCondition Settings_LeastDeathsWinCondition;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_LeastDeathsWinCondition);
+  
+  public override Quantum.AssetObject AssetObject => Settings_LeastDeathsWinCondition;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.LeastDeathsWinCondition();
+    if (Settings_LeastDeathsWinCondition == null) {
+      Settings_LeastDeathsWinCondition = new Quantum.LeastDeathsWinCondition();
     }
     base.Reset();
   }

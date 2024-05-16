@@ -123,7 +123,7 @@ namespace Quantum
 
             // Check to see if the user is crouching, and if they aren't, let them move.
             if (!filter.CharacterController->IsInState(States.IsCrouching))
-                filter.CharacterController->Move(f, input.Movement.X, filter.Transform, filter.PhysicsBody, filter.CustomAnimator, movementSettings, stats);
+                filter.CharacterController->Move(f, input.Movement.X, ref filter, movementSettings, stats);
         }
 
         private void HandleUltimate(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)

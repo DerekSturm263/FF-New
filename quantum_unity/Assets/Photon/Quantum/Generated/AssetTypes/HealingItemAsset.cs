@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/Item/UsableItem/HealingItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Item/UsableItem/HealingItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
 public partial class HealingItemAsset : UsableItemAsset {
-  public Quantum.HealingItem Settings;
+  public Quantum.HealingItem Settings_HealingItem;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_HealingItem);
+  
+  public override Quantum.AssetObject AssetObject => Settings_HealingItem;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.HealingItem();
+    if (Settings_HealingItem == null) {
+      Settings_HealingItem = new Quantum.HealingItem();
     }
     base.Reset();
   }

@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/RulesetAsset", order = Quantum.EditorDefines.AssetMenuPriorityStart + 225)]
 public partial class RulesetAssetAsset : InfoAssetAsset {
-  public Quantum.RulesetAsset Settings;
+  public Quantum.RulesetAsset Settings_RulesetAsset;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_RulesetAsset);
+  
+  public override Quantum.AssetObject AssetObject => Settings_RulesetAsset;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.RulesetAsset();
+    if (Settings_RulesetAsset == null) {
+      Settings_RulesetAsset = new Quantum.RulesetAsset();
     }
     base.Reset();
   }

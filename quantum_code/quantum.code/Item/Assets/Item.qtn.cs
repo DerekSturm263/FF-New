@@ -2,7 +2,8 @@
 
 namespace Quantum
 {
-    public abstract unsafe partial class Item
+    [System.Serializable]
+    public abstract unsafe partial class Item : InfoAsset
     {
         public AssetRefEntityPrototype Prototype;
 

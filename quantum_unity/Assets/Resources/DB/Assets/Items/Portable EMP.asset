@@ -12,7 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5fcb0fed8ead4408ea8c48401832cf, type: 3}
   m_Name: Portable EMP
   m_EditorClassIdentifier: 
-  SFX: {fileID: 0}
+  Settings:
+    Identifier:
+      Path: Resources/DB/Assets/Items/Portable EMP
+      Guid:
+        Value: 747311310536561844
+  Name: 
+  Description: 
+  Icon: {fileID: 0}
+  Background: {fileID: 0}
+  MainColor: {r: 0, g: 0, b: 0, a: 0}
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  DarkColor: {r: 0, g: 0, b: 0, a: 0}
+  SortingID: 0
+  SFX:
+    _kvps: []
   VFX:
     _kvps:
     - _item1: Explosion
@@ -60,11 +74,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Settings:
+  Settings_ExplodingItem:
     Identifier:
       Path: Resources/DB/Assets/Items/Portable EMP
       Guid:
-        Value: 747311310536561844
+        Value: 1995594277519082507
     Prototype:
       Id:
         Value: 1893760561789642782
@@ -72,16 +86,16 @@ MonoBehaviour:
     DestroySelfOnHit: 1
     HitboxSettings:
       CameraShakeIntensity:
-        RawValue: 0
+        RawValue: 1310720
       Damage:
         RawValue: 1310720
       Knockback:
         X:
-          RawValue: 0
+          RawValue: 327680
         Y:
-          RawValue: 0
+          RawValue: 327680
       Layer:
-        BitMask: 256
+        BitMask: 512
       Offset:
         X:
           RawValue: 0
@@ -92,12 +106,12 @@ MonoBehaviour:
       Parent: 0
       Prototype:
         Id:
-          Value: 3156569685704267981
+          Value: 3467847473562426331
       Radius:
         RawValue: 196608
       StatusEffect:
         Id:
-          Value: 4174207598048902248
+          Value: 1871826951402697938
       TargetFreezeDuration: 0
       TargetShakeIntensity:
         RawValue: 0

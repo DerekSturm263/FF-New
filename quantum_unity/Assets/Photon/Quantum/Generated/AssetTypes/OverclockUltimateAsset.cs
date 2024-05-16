@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Ultimate/OverclockUltimate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 222)]
 public partial class OverclockUltimateAsset : UltimateAsset {
-  public Quantum.OverclockUltimate Settings;
+  public Quantum.OverclockUltimate Settings_OverclockUltimate;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_OverclockUltimate);
+  
+  public override Quantum.AssetObject AssetObject => Settings_OverclockUltimate;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.OverclockUltimate();
+    if (Settings_OverclockUltimate == null) {
+      Settings_OverclockUltimate = new Quantum.OverclockUltimate();
     }
     base.Reset();
   }

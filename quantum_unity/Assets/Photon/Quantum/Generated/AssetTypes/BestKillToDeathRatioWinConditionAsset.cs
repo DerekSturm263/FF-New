@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/WinCondition/BestKillToDeathRatioWinCondition", order = Quantum.EditorDefines.AssetMenuPriorityStart + 573)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/WinCondition/BestKillToDeathRatioWinCondition", order = Quantum.EditorDefines.AssetMenuPriorityStart + 209)]
 public partial class BestKillToDeathRatioWinConditionAsset : WinConditionAsset {
-  public Quantum.BestKillToDeathRatioWinCondition Settings;
+  public Quantum.BestKillToDeathRatioWinCondition Settings_BestKillToDeathRatioWinCondition;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_BestKillToDeathRatioWinCondition);
+  
+  public override Quantum.AssetObject AssetObject => Settings_BestKillToDeathRatioWinCondition;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.BestKillToDeathRatioWinCondition();
+    if (Settings_BestKillToDeathRatioWinCondition == null) {
+      Settings_BestKillToDeathRatioWinCondition = new Quantum.BestKillToDeathRatioWinCondition();
     }
     base.Reset();
   }

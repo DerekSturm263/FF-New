@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/StatusEffect/FriedStatusEffect", order = Quantum.EditorDefines.AssetMenuPriorityStart + 473)]
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/StatusEffect/FriedStatusEffect", order = Quantum.EditorDefines.AssetMenuPriorityStart + 213)]
 public partial class FriedStatusEffectAsset : StatusEffectAsset {
-  public Quantum.FriedStatusEffect Settings;
+  public Quantum.FriedStatusEffect Settings_FriedStatusEffect;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_FriedStatusEffect);
+  
+  public override Quantum.AssetObject AssetObject => Settings_FriedStatusEffect;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.FriedStatusEffect();
+    if (Settings_FriedStatusEffect == null) {
+      Settings_FriedStatusEffect = new Quantum.FriedStatusEffect();
     }
     base.Reset();
   }

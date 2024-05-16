@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/FFAvatar", order = Quantum.EditorDefines.AssetMenuPriorityStart + 213)]
 public partial class FFAvatarAsset : InfoAssetAsset {
-  public Quantum.FFAvatar Settings;
+  public Quantum.FFAvatar Settings_FFAvatar;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_FFAvatar);
+  
+  public override Quantum.AssetObject AssetObject => Settings_FFAvatar;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.FFAvatar();
+    if (Settings_FFAvatar == null) {
+      Settings_FFAvatar = new Quantum.FFAvatar();
     }
     base.Reset();
   }

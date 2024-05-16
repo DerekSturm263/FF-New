@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/ApparelTemplate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 0)]
-public partial class ApparelTemplateAsset : AssetBase {
-  public Quantum.ApparelTemplate Settings;
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/ApparelTemplate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 208)]
+public partial class ApparelTemplateAsset : InfoAssetAsset {
+  public Quantum.ApparelTemplate Settings_ApparelTemplate;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_ApparelTemplate);
+  
+  public override Quantum.AssetObject AssetObject => Settings_ApparelTemplate;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.ApparelTemplate();
+    if (Settings_ApparelTemplate == null) {
+      Settings_ApparelTemplate = new Quantum.ApparelTemplate();
     }
     base.Reset();
   }

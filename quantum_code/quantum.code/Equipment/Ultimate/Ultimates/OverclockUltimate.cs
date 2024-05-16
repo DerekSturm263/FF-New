@@ -10,7 +10,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
                 stats->ApparelStatsMultiplier = new() { Agility = FP._1_50, Defense = 1, Dodge = 1, Jump = 1, Weight = 1 };
-                stats->MainWeaponStatsMultiplier = new() { Damage = 2, Knockback = 2, Speed = 1 };
+                stats->WeaponStatsMultiplier = new() { Damage = 2, Knockback = 2, Speed = 1 };
             }
         }
 
@@ -19,7 +19,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
                 stats->ApparelStatsMultiplier = ApparelHelper.Default;
-                stats->MainWeaponStatsMultiplier = MainWeaponHelper.Default;
+                stats->WeaponStatsMultiplier = WeaponHelper.Default;
             }
         }
     }

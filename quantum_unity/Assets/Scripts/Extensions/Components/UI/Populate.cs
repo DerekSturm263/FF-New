@@ -46,6 +46,8 @@ namespace Extensions.Components.UI
 
         protected override void Awake()
         {
+            _itemsToButtons = new();
+
             if (_loadingType == LoadStage.Lazy)
                 LoadAllItems();
 
@@ -65,12 +67,12 @@ namespace Extensions.Components.UI
 
         public void ResizeList()
         {
-            if (TryGetComponent(out HorizontalLayoutGroup horz))
+            /*if (TryGetComponent(out HorizontalLayoutGroup horz))
                 _containerRect.sizeDelta = new Vector2(_itemCount * (_button.GetComponent<RectTransform>().sizeDelta.x + horz.spacing) - horz.spacing + _sizeOffset, _containerRect.sizeDelta.y);
             else if (TryGetComponent(out VerticalLayoutGroup vert))
                 _containerRect.sizeDelta = new Vector2(_containerRect.sizeDelta.x, _itemCount * (_button.GetComponent<RectTransform>().sizeDelta.y + vert.spacing) - vert.spacing + _sizeOffset);
             else if (TryGetComponent(out GridLayoutGroup grid))
-                _containerRect.sizeDelta = new Vector2(_containerRect.sizeDelta.x, Mathf.Ceil(_itemCount / (float)grid.constraintCount) * (_button.GetComponent<RectTransform>().sizeDelta.y + grid.spacing.y) - grid.spacing.y + _sizeOffset);
+                _containerRect.sizeDelta = new Vector2(_containerRect.sizeDelta.x, Mathf.Ceil(_itemCount / (float)grid.constraintCount) * (_button.GetComponent<RectTransform>().sizeDelta.y + grid.spacing.y) - grid.spacing.y + _sizeOffset);*/
         }
 
         public void ScrollListBy(Vector2 amount)
@@ -85,7 +87,7 @@ namespace Extensions.Components.UI
     }
 
     [RequireComponent(typeof(LayoutGroup))]
-    public abstract class Populate<T, TSorter> : PopulateBase where T : class
+    public abstract class Populate<T, TSorter> : PopulateBase
     {
         public static GameObject ButtonFromItem(T item)
         {
@@ -140,12 +142,12 @@ namespace Extensions.Components.UI
         }
         protected override void EnableOrDisableItems()
         {
-            if (transform.childCount == 0)
+            if (transform.childCount == 0 || _itemsToButtons is null)
                 return;
 
             foreach (KeyValuePair<object, GameObject> itemToButton in _itemsToButtons[typeof(T)])
             {
-                bool enabled = Enabled(itemToButton.Key as T);
+                bool enabled = Enabled((T)(itemToButton.Key));
 
                 if (itemToButton.Value.TryGetComponent(out Button button))
                     button.interactable = enabled;

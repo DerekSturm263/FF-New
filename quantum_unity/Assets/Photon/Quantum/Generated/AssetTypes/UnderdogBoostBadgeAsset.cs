@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/UnderdogBoostBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 228)]
 public partial class UnderdogBoostBadgeAsset : BadgeAsset {
-  public Quantum.UnderdogBoostBadge Settings;
+  public Quantum.UnderdogBoostBadge Settings_UnderdogBoostBadge;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_UnderdogBoostBadge);
+  
+  public override Quantum.AssetObject AssetObject => Settings_UnderdogBoostBadge;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.UnderdogBoostBadge();
+    if (Settings_UnderdogBoostBadge == null) {
+      Settings_UnderdogBoostBadge = new Quantum.UnderdogBoostBadge();
     }
     base.Reset();
   }

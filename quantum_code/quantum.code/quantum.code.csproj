@@ -56,7 +56,13 @@
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -69,33 +75,72 @@
       <HintPath Condition="'$(Configuration)' == 'ReleaseProfiler'">..\..\assemblies\release-profiler\quantum.core.dll</HintPath>
       <HintPath Condition="'$(Configuration)' == 'Debug'">..\..\assemblies\debug\quantum.core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Camera\Assets\CameraSettings.qtn" />
     <None Include="Camera\Structs\CameraSettingsGroup.qtn" />
     <None Include="Collision\Events\OnHitboxHurtboxCollision.qtn" />
     <None Include="Collision\Components\HitboxInstance.qtn" />
     <None Include="Collision\Components\HurtboxInstance.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\MainWeapon.qtn" />
-    <None Include="Equipment\Weapons\Sub-Weapon\SubWeapon.qtn" />
+    <None Include="Equipment\Weapons\Weapon\Weapon.qtn" />
+    <None Include="Equipment\Weapons\Sub\Sub.qtn" />
     <None Include="Item\Events\OnItemUse.qtn" />
-    <None Include="Item\Assets\Item.qtn" />
     <None Include="Item\Components\ItemSpawner.qtn" />
-    <None Include="Player\Events\OnAllPlayersCancel.qtn" />
+    <None Include="packages.config" />
+    <None Include="Player\Events\Actions\OnPlayerChangeDirection.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetAltWeapon.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetEmoteRight.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetEmoteLeft.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetEmoteDown.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetEmoteUp.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetLegwear.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetHeadgear.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetClothing.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetHair.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetEyes.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetAvatar.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetUltimate.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetSub.qtn" />
+    <None Include="Player\Events\Build\OnPlayerSetMainWeapon.qtn" />
+    <None Include="Player\Events\Readiness\OnAllPlayersCancel.qtn" />
     <None Include="Player\Components\CharacterController.qtn" />
-    <None Include="Player\Events\OnPlayerSpawn.qtn" />
+    <None Include="Player\Events\Actions\OnPlayerSpawn.qtn" />
     <None Include="Player\Structs\MovementMoveSettings.qtn" />
     <None Include="Collision\Structs\HurtboxSettings.qtn" />
     <None Include="Player\Components\PlayerCounter.qtn" />
     <None Include="Player\Structs\Team.qtn" />
-    <None Include="Player\Events\OnPlayerBlockHit.qtn" />
-    <None Include="Player\Events\OnPlayerModifyStocks.qtn" />
-    <None Include="Player\Events\OnPlayerAttack.qtn" />
+    <None Include="Player\Events\Actions\OnPlayerBlockHit.qtn" />
+    <None Include="Player\Events\Stats\OnPlayerModifyStocks.qtn" />
+    <None Include="Player\Events\Actions\OnPlayerAttack.qtn" />
     <None Include="Player\Components\Stats.qtn" />
+    <Compile Include="Audio\Track\Assets\TrackGraph.qtn.cs" />
+    <Compile Include="Build\Helpers\BuildSerializationHelper.cs" />
+    <Compile Include="Player\Commands\CommandSetBuild.cs" />
     <Compile Include="Collision\Systems\HitboxSystem.cs" />
     <Compile Include="Collision\Systems\HurtboxSystem.cs" />
-    <None Include="Player\Events\OnPlayerLowHealth.qtn" />
-    <None Include="Player\Events\OnPlayerModifyHealth.qtn" />
-    <None Include="Player\Events\OnPlayerModifyEnergy.qtn" />
+    <None Include="Player\Events\Stats\OnPlayerLowHealth.qtn" />
+    <None Include="Player\Events\Stats\OnPlayerModifyHealth.qtn" />
+    <None Include="Player\Events\Stats\OnPlayerModifyEnergy.qtn" />
     <Compile Include="Equipment\Badge\Badges\EnergyConversionBadge.cs" />
     <Compile Include="Info Asset\Assets\InfoAsset.qtn.cs" />
     <Compile Include="Item\Assets\Item.qtn.cs" />
@@ -108,11 +153,13 @@
     <Compile Include="Item\Assets\Items\HoldableItem.cs" />
     <Compile Include="Item\Assets\Items\UsableItem.cs" />
     <Compile Include="Match\Assets\MatchAsset.qtn.cs" />
+    <None Include="Player\Events\Build\OnPlayerSetBadge.qtn" />
     <Compile Include="Player\States\AltWeaponState.cs" />
     <Compile Include="Player\States\MainWeaponState.cs" />
     <Compile Include="Player\States\SubWeaponState.cs" />
     <Compile Include="Player\States\UltimateState.cs" />
     <Compile Include="Player\Structs\PlayerStateDictionary.cs" />
+    <Compile Include="Player\Systems\PlayerCommandSystem.cs" />
     <Compile Include="Player\Systems\StatsSystem.cs" />
     <None Include="Projectile\Structs\ProjectileSettings.qtn" />
     <Compile Include="Collision\Systems\HitboxHurtboxQueryInjectionSystem.cs" />
@@ -126,9 +173,9 @@
     <Compile Include="Player\States\InteractState.cs" />
     <Compile Include="Player\States\JumpState.cs" />
     <Compile Include="Player\States\PlayerState.cs" />
-    <None Include="Player\Events\OnPlayerCancel.qtn" />
-    <None Include="Player\Events\OnPlayerReady.qtn" />
-    <None Include="Player\Events\OnAllPlayersReady.qtn" />
+    <None Include="Player\Events\Readiness\OnPlayerCancel.qtn" />
+    <None Include="Player\Events\Readiness\OnPlayerReady.qtn" />
+    <None Include="Player\Events\Readiness\OnAllPlayersReady.qtn" />
     <Compile Include="Player\Systems\ConfirmationSystem.cs" />
     <Compile Include="Custom Animator\Animator\Systems\CustomAnimatorStateSystem.cs" />
     <Compile Include="Custom Animator\Animation Events\Assets\QuantumAnimationEvent.qtn.cs" />
@@ -138,22 +185,14 @@
     <None Include="Collision\Structs\HitboxSettings.qtn" />
     <None Include="Build\Structs\Build.qtn" />
     <None Include="Build\Structs\CosmeticSettings.qtn" />
-    <None Include="Equipment\Apparel\Apparel Modifier\ApparelModifier.qtn" />
-    <None Include="Equipment\Apparel\Apparel Pattern\ApparelPattern.qtn" />
-    <None Include="Equipment\Apparel\Apparel Template\ApparelTemplate.qtn" />
     <None Include="Build\Structs\EquipmentSettings.qtn" />
     <None Include="Equipment\Apparel\Apparel.qtn" />
     <None Include="Equipment\Apparel\Outfit.qtn" />
     <None Include="Equipment\Apparel\Apparel Stats\ApparelStats.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\Main Weapon Enhancer\MainWeaponEnhancer.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\Main Weapon Enhancer\MainWeaponEnhancerSet.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\Main Weapon Material\MainWeaponMaterial.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\Main Weapon Stats\MainWeaponStats.qtn" />
-    <None Include="Equipment\Weapons\Main Weapon\Main Weapon Template\MainWeaponTemplate.qtn" />
-    <None Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\SubWeaponEnhancer.qtn" />
-    <None Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\SubWeaponEnhancerSet.qtn" />
-    <None Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\SubWeaponTemplate.qtn" />
-    <None Include="Equipment\Weapons\Sub-Weapon\SubWeaponInstance.qtn" />
+    <None Include="Equipment\Weapons\Weapon\Weapon Enhancer\WeaponEnhancerSet.qtn" />
+    <None Include="Equipment\Weapons\Weapon\Weapon Stats\WeaponStats.qtn" />
+    <None Include="Equipment\Weapons\Sub\Sub Enhancer\SubEnhancerSet.qtn" />
+    <None Include="Equipment\Weapons\Sub\SubInstance.qtn" />
     <None Include="Equipment\Weapons\WeaponSet.qtn" />
     <None Include="Match\Events\OnMatchStart.qtn" />
     <Compile Include="Build\Assets\BuildAsset.qtn.cs" />
@@ -173,19 +212,19 @@
     <Compile Include="Equipment\Ultimate\Ultimate.qtn.cs" />
     <Compile Include="Equipment\Ultimate\Ultimates\OverclockUltimate.cs" />
     <Compile Include="Equipment\Ultimate\Ultimates\SubStormUltimate.cs" />
-    <Compile Include="Equipment\Weapons\Main Weapon\Main Weapon Enhancer\Main Weapon Enhancers\ChargingMainWeaponEnhancer.cs" />
-    <Compile Include="Equipment\Weapons\Main Weapon\Main Weapon Enhancer\Main Weapon Enhancers\VampiricMainWeaponEnhancer.cs" />
-    <Compile Include="Equipment\Weapons\Main Weapon\Main Weapon Enhancer\MainWeaponEnhancer.qtn.cs" />
-    <Compile Include="Equipment\Weapons\Main Weapon\Main Weapon Material\MainWeaponMaterial.qtn.cs" />
-    <Compile Include="Equipment\Weapons\Main Weapon\Main Weapon Template\MainWeaponTemplate.qtn.cs" />
-    <Compile Include="Equipment\Weapons\MainWeaponHelper.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\Sub-Weapon Enhancers\ElectrifiedSubWeaponEnhancer.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\Sub-Weapon Enhancers\PiercingSubWeaponEnhancer.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Enhancer\SubWeaponEnhancer.qtn.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\Sub-Weapon Templates\ExplodingSubWeaponTemplate.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\Sub-Weapon Templates\MissileSubWeaponTemplate.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\Sub-Weapon Template\SubWeaponTemplate.qtn.cs" />
-    <Compile Include="Equipment\Weapons\Sub-Weapon\SubWeaponSystem.cs" />
+    <Compile Include="Equipment\Weapons\Weapon\Weapon Enhancer\Weapon Enhancers\ChargingWeaponEnhancer.cs" />
+    <Compile Include="Equipment\Weapons\Weapon\Weapon Enhancer\Weapon Enhancers\VampiricWeaponEnhancer.cs" />
+    <Compile Include="Equipment\Weapons\Weapon\Weapon Enhancer\WeaponEnhancer.qtn.cs" />
+    <Compile Include="Equipment\Weapons\Weapon\Weapon Material\WeaponMaterial.qtn.cs" />
+    <Compile Include="Equipment\Weapons\Weapon\Weapon Template\WeaponTemplate.qtn.cs" />
+    <Compile Include="Equipment\Weapons\WeaponHelper.cs" />
+    <Compile Include="Equipment\Weapons\Sub\Sub Enhancer\Sub Enhancers\ElectrifiedSubEnhancer.cs" />
+    <Compile Include="Equipment\Weapons\Sub\Sub Enhancer\Sub Enhancers\PiercingSubEnhancer.cs" />
+    <Compile Include="Equipment\Weapons\Sub\Sub Enhancer\SubEnhancer.qtn.cs" />
+    <Compile Include="Equipment\Weapons\Sub\Sub Template\Sub Templates\ExplodingSubTemplate.cs" />
+    <Compile Include="Equipment\Weapons\Sub\Sub Template\Sub Templates\MissileSubTemplate.cs" />
+    <Compile Include="Equipment\Weapons\Sub\Sub Template\SubTemplate.qtn.cs" />
+    <Compile Include="Equipment\Weapons\Sub\SubSystem.cs" />
     <Compile Include="Match\Systems\MatchSystem.cs" />
     <Compile Include="Ruleset\Assets\RulesetAsset.qtn.cs" />
     <Compile Include="Ruleset\Assets\Win Conditions\BestKillToDeathRatioWinCondition.cs" />
@@ -193,7 +232,6 @@
     <Compile Include="Ruleset\Assets\Win Conditions\MostKillsWinCondition.cs" />
     <Compile Include="Ruleset\Assets\WinCondition.qtn.cs" />
     <None Include="Info Asset\Assets\InfoAsset.qtn" />
-    <Compile Include="Serializable Item\Helpers\SerializationHelper.cs" />
     <Compile Include="Stage\Gizmo\Gizmo.qtn.cs" />
     <Compile Include="Stage\Assets\StageAsset.qtn.cs" />
     <Compile Include="Status Effect\Assets\Status Effects\FriedStatusEffect.cs" />
@@ -207,7 +245,6 @@
     <Compile Include="Custom Animator\Animation Events\Assets\Events\SpawnHitboxEvent.cs" />
     <Compile Include="Types\ShapeCastHelper\ShapeCastHelper.qtn.cs" />
     <Compile Include="Types\Directional\DirectionalAssetHelper.cs" />
-    <None Include="Camera\Assets\CameraSettings.qtn" />
     <None Include="Player\Assets\MovementSettings.qtn" />
     <None Include="Custom Animator\Animation Events\Assets\QuantumAnimationEvent.qtn" />
     <None Include="Match\Events\OnMatchEnd.qtn" />
@@ -218,14 +255,11 @@
     <None Include="Ruleset\Structs\PlayerSettings.qtn" />
     <None Include="Ruleset\Structs\Ruleset.qtn" />
     <None Include="Ruleset\Structs\StageSettings.qtn" />
-    <None Include="Ruleset\Assets\WinCondition.qtn" />
     <None Include="Serializable Item\Structs\SerializableData.qtn" />
-    <None Include="Stage\Gizmo\Gizmo.qtn" />
     <None Include="Stage\Structs\ObjectSettings.qtn" />
     <None Include="Stage\Structs\SpawnSettings.qtn" />
     <None Include="Stage\Structs\Stage.qtn" />
     <None Include="Stage\Structs\ThemeSettings.qtn" />
-    <None Include="Status Effect\Assets\StatusEffect.qtn" />
     <None Include="Timer\Events\OnBeginningCountdown.qtn" />
     <None Include="Timer\Events\OnOneMinuteLeft.qtn" />
     <None Include="Timer\Components\Timer.qtn" />
@@ -274,7 +308,6 @@
     <None Include="Player\Components\PlayerLink.qtn" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Audio\Track\" />
     <Folder Include="User Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

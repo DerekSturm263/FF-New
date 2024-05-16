@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Ultimate/SubStormUltimate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 226)]
 public partial class SubStormUltimateAsset : UltimateAsset {
-  public Quantum.SubStormUltimate Settings;
+  public Quantum.SubStormUltimate Settings_SubStormUltimate;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_SubStormUltimate);
+  
+  public override Quantum.AssetObject AssetObject => Settings_SubStormUltimate;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.SubStormUltimate();
+    if (Settings_SubStormUltimate == null) {
+      Settings_SubStormUltimate = new Quantum.SubStormUltimate();
     }
     base.Reset();
   }

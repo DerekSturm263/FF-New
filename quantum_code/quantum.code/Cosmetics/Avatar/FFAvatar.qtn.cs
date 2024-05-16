@@ -5,6 +5,6 @@ namespace Quantum
     [System.Serializable]
     public partial class FFAvatar : InfoAsset
     {
-        public AssetRefEntityPrototype Prototype;
+
     }
 }

@@ -11,9 +11,9 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            MainWeapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.AltWeapon;
+            Weapon altWeaponAsset = filter.Stats->Build.Equipment.Weapons.AltWeapon;
 
-            if (f.TryFindAsset(mainWeaponAsset.Template.Id, out MainWeaponTemplate mainWeapon))
+            if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
                 MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedSingles, filter.CharacterController->Direction);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);
@@ -40,8 +40,8 @@ namespace Quantum
 
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
 
-            MainWeapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.AltWeapon;
-            if (f.TryFindAsset(mainWeaponAsset.Template.Id, out MainWeaponTemplate mainWeapon))
+            Weapon altWeaponAsset = filter.Stats->Build.Equipment.Weapons.AltWeapon;
+            if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
                 MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedSingles, filter.CharacterController->Direction);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);

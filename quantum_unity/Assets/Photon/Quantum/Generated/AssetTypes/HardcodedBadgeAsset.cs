@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Badge/HardcodedBadge", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
 public partial class HardcodedBadgeAsset : BadgeAsset {
-  public Quantum.HardcodedBadge Settings;
+  public Quantum.HardcodedBadge Settings_HardcodedBadge;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_HardcodedBadge);
+  
+  public override Quantum.AssetObject AssetObject => Settings_HardcodedBadge;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.HardcodedBadge();
+    if (Settings_HardcodedBadge == null) {
+      Settings_HardcodedBadge = new Quantum.HardcodedBadge();
     }
     base.Reset();
   }

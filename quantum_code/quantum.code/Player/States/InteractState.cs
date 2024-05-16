@@ -30,7 +30,7 @@ namespace Quantum
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
             if (filter.CharacterController->Direction == Direction.Neutral)
             {
-                filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(filter.CharacterController->MovementDirection);
+                filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(new(filter.CharacterController->MovementDirection, 0));
             }
 
             if (!filter.Stats->HeldItem.IsValid)

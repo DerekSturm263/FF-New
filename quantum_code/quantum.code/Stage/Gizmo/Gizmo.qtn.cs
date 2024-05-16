@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Quantum
 {
-    public partial class Gizmo
+    [System.Serializable]
+    public partial class Gizmo : InfoAsset
     {
 
     }

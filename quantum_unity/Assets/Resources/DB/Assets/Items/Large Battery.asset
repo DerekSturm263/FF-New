@@ -12,7 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e34a2ce63032e49a213d5e7a4be294, type: 3}
   m_Name: Large Battery
   m_EditorClassIdentifier: 
-  SFX: {fileID: 11400000, guid: e73a24f8ad9eaea4fa20ba0155db1f55, type: 2}
+  Settings:
+    Identifier:
+      Path: Resources/DB/Assets/Items/Large Battery
+      Guid:
+        Value: 3592544740342144067
+  Name: 
+  Description: 
+  Icon: {fileID: 0}
+  Background: {fileID: 0}
+  MainColor: {r: 0, g: 0, b: 0, a: 0}
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  DarkColor: {r: 0, g: 0, b: 0, a: 0}
+  SortingID: 0
+  SFX:
+    _kvps:
+    - _item1: Voice Line
+      _item2: {fileID: 11400000, guid: e73a24f8ad9eaea4fa20ba0155db1f55, type: 2}
   VFX:
     _kvps: []
   OnUse:
@@ -45,11 +61,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Settings:
+  Settings_HealingItem:
     Identifier:
       Path: Resources/DB/Assets/Items/Large Battery
       Guid:
-        Value: 3592544740342144067
+        Value: 3824159520298710078
     Prototype:
       Id:
         Value: 1477229034196455168

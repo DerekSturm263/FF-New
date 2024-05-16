@@ -3,7 +3,8 @@ using System.Linq;
 
 namespace Quantum
 {
-    public abstract unsafe partial class WinCondition
+    [System.Serializable]
+    public abstract unsafe partial class WinCondition : InfoAsset
     {
         public virtual bool IsMatchOver(Frame f, QList<Team> teams)
         {

@@ -11,9 +11,9 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            MainWeapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.MainWeapon;
+            Weapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.MainWeapon;
 
-            if (f.TryFindAsset(mainWeaponAsset.Template.Id, out MainWeaponTemplate mainWeapon))
+            if (f.TryFindAsset(mainWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
                 MoveRef animRef;
 
@@ -48,8 +48,8 @@ namespace Quantum
 
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
 
-            MainWeapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.MainWeapon;
-            if (f.TryFindAsset(mainWeaponAsset.Template.Id, out MainWeaponTemplate mainWeapon))
+            Weapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.MainWeapon;
+            if (f.TryFindAsset(mainWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
                 MoveRef animRef;
 

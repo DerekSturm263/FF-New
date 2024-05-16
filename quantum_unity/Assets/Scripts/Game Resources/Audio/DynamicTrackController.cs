@@ -3,7 +3,6 @@ using GameResources.Audio;
 using Quantum;
 using System.Collections.Generic;
 using UnityEngine;
-using static System.Collections.Specialized.BitVector32;
 
 public class DynamicTrackController : Controller<DynamicTrackController>
 {
@@ -14,16 +13,21 @@ public class DynamicTrackController : Controller<DynamicTrackController>
         return new GameObject("Stage Music Player");
     }
 
-    private TrackGraph _trackGraph;
+    private TrackGraphAsset _trackGraph;
     private bool _isTransitioning;
     private float _transitionTime;
     private TrackSection _from;
 
     private Extensions.Types.Dictionary<TrackSection, List<AudioSource>> _trackSources;
 
-    private List<DispatcherSubscription> _events = new();
-
     [SerializeField] private float _endDelay = 0.5f + (17.0f / 60);
+
+    private EntityViewUpdater _entityViewUpdater;
+
+    private void Awake()
+    {
+        _entityViewUpdater = FindFirstObjectByType<EntityViewUpdater>();
+    }
 
     public override void Initialize()
     {
@@ -32,6 +36,7 @@ public class DynamicTrackController : Controller<DynamicTrackController>
         _isTransitioning = false;
         _transitionTime = 0;
         _trackSources = new();
+        _from = null;
 
         if (_trackGraph)
         {
@@ -40,31 +45,36 @@ public class DynamicTrackController : Controller<DynamicTrackController>
             _trackGraph.SetCurrentSection(null);
             _trackGraph.SetCurrentTransition(null);
 
-            _obj = CreateObj();
-
-            foreach (TrackSection trackSection in _trackGraph.Sections)
+            if (!_obj)
             {
-                GameObject section = new(trackSection.name);
-                section.transform.parent = _obj.transform;
-                _trackSources.Add(trackSection, new());
+                _obj = CreateObj();
 
-                foreach (AudioClip clip in trackSection.Clips)
+                foreach (TrackSection trackSection in _trackGraph.Sections)
                 {
-                    AudioSource source = section.AddComponent<AudioSource>();
+                    GameObject section = new(trackSection.name);
+                    section.transform.parent = _obj.transform;
+                    _trackSources.Add(trackSection, new());
 
-                    source.clip = clip;
-                    source.volume = 0;
-                    source.loop = true;
+                    int i = 0;
+                    foreach (AudioClip clip in trackSection.Clips)
+                    {
+                        AudioSource source = section.AddComponent<AudioSource>();
 
-                    _trackSources[trackSection].Add(source);
+                        source.clip = clip;
+                        source.volume = trackSection.DefaultWeights[i];
+                        source.loop = true;
+
+                        _trackSources[trackSection].Add(source);
+                        ++i;
+                    }
+
+                    section.SetActive(false);
                 }
-
-                section.SetActive(false);
             }
         }
 
-        _events.Add(QuantumEvent.Subscribe<EventOnPlayerLowHealth>(listener: this, handler: TensionTransition));
-        _events.Add(QuantumEvent.Subscribe<EventOnOneMinuteLeft>(listener: this, handler: LastMinuteTransition));
+        QuantumEvent.Subscribe<EventOnPlayerLowHealth>(listener: this, handler: TensionTransition);
+        QuantumEvent.Subscribe<EventOnOneMinuteLeft>(listener: this, handler: LastMinuteTransition);
     }
 
     private void TensionTransition(EventOnPlayerLowHealth e)
@@ -86,11 +96,10 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
     public override void UpdateDt(float dt)
     {
-        if (!_trackGraph)
+        if (!_trackGraph || _trackGraph.CurrentSection is null)
             return;
-        
-        List<float> weights = _trackGraph.CurrentSection.CalculateWeights(default);
 
+        List<float> weights = _trackGraph.CurrentSection.CalculateWeights(_entityViewUpdater);
         for (int i = 0; i < _trackSources[_trackGraph.CurrentSection].Count; ++i)
         {
             _trackSources[_trackGraph.CurrentSection][i].volume = weights[i];
@@ -116,15 +125,19 @@ public class DynamicTrackController : Controller<DynamicTrackController>
     {
         base.Shutdown();
 
-        foreach (DispatcherSubscription quantumEvent in _events)
-        {
-            QuantumEvent.Unsubscribe(quantumEvent);
-        }
+        _obj = null;
+        _trackGraph = null;
     }
 
-    public void Play(TrackGraph trackGraph)
+    public void Play(TrackGraphAsset trackGraph)
     {
         _trackGraph = trackGraph;
+    }
+
+    public void PlayFromCurrentStage(EntityView matchInstance)
+    {
+        AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.Track.Id;
+        _trackGraph = UnityDB.FindAsset<TrackGraphAsset>(guid);
     }
 
     private void BeginTransition(TrackSection from, TrackTransition transition)
@@ -158,9 +171,13 @@ public class DynamicTrackController : Controller<DynamicTrackController>
             source.volume = 1 - t * (1 / transition.Length);
         }
 
+        int i = 0;
+        List<float> weights = _trackGraph.CurrentSection.CalculateWeights(_entityViewUpdater);
+
         foreach (var source in _trackSources[_trackGraph.GetFromName(transition.To)])
         {
-            source.volume = t * (1 / transition.Length);
+            source.volume = t * (1 / transition.Length) * weights[i];
+            ++i;
         }
     }
 
@@ -201,11 +218,18 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
     public void ForceTransitionSmooth(string name)
     {
-        BeginTransition(_trackGraph.CurrentSection, _trackGraph.CurrentSection.Transitions.Find(item => item.To == name));
+        TrackTransition to = _trackGraph.CurrentSection.Transitions.Find(item => item.To == name);
+        if (to is null)
+            return;
+
+        BeginTransition(_trackGraph.CurrentSection, to);
     }
 
     public void GetBPM(Extensions.Types.ReturningUnityEvent<int>.Resolver resolver)
     {
-        resolver.SetReturnValue(_trackGraph.CurrentSection.BPM);
+        if (_trackGraph && _trackGraph.CurrentSection is not null)
+            resolver.SetReturnValue(_trackGraph.CurrentSection.BPM);
+        else
+            resolver.SetReturnValue(60);
     }
 }

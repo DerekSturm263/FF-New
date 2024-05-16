@@ -72,7 +72,7 @@ namespace Quantum
             };
         }
 
-        public void Move(Frame f, FP amount, Transform2D* transform, PhysicsBody2D* physicsBody, CustomAnimator* customAnimator, MovementSettings movementSettings, ApparelStats stats)
+        public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, ApparelStats stats)
         {
             MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
 
@@ -108,15 +108,15 @@ namespace Quantum
                 // Set the player's look direction.
                 if (GetNearbyCollider(Colliders.Ground))
                 {
-                    if (physicsBody->Velocity.X < 0)
+                    if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0)
                     {
-                        CustomAnimator.SetBoolean(f, customAnimator, "Turn Around", true);
-                        MovementDirection = FPVector2.Left;
+                        MovementDirection = -1;
+                        f.Events.OnPlayerChangeDirection(*filter.PlayerLink, MovementDirection);
                     }
-                    else if (physicsBody->Velocity.X > 0)
+                    else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0)
                     {
-                        CustomAnimator.SetBoolean(f, customAnimator, "Turn Around", false);
-                        MovementDirection = FPVector2.Right;
+                        MovementDirection = 1;
+                        f.Events.OnPlayerChangeDirection(*filter.PlayerLink, MovementDirection);
                     }
                 }
 
@@ -124,9 +124,9 @@ namespace Quantum
             }
 
             // Apply velocity to the player.
-            physicsBody->Velocity.X = Velocity * stats.Agility;
+            filter.PhysicsBody->Velocity.X = Velocity * stats.Agility;
 
-            CustomAnimator.SetFixedPoint(f, customAnimator, "Speed", FPMath.Abs(Velocity));
+            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity));
         }
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);

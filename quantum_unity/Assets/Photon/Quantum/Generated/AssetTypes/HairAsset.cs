@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/InfoAsset/Hair", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
 public partial class HairAsset : InfoAssetAsset {
-  public Quantum.Hair Settings;
+  public Quantum.Hair Settings_Hair;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_Hair);
+  
+  public override Quantum.AssetObject AssetObject => Settings_Hair;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.Hair();
+    if (Settings_Hair == null) {
+      Settings_Hair = new Quantum.Hair();
     }
     base.Reset();
   }
