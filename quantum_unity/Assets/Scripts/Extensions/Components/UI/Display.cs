@@ -39,6 +39,12 @@ namespace Extensions.Components.UI
         public override void UpdateDisplay(T item) => _component.Invoke(string.Format(_format, GetInfo(item)));
     }
 
+    public abstract class DisplayT<T> : Display<T, UnityEvent<T>>
+    {
+        protected abstract string GetInfo(T item);
+        public override void UpdateDisplay(T item) => _component.Invoke(item);
+    }
+
     public abstract class DisplayImage<T> : Display<T, UnityEvent<Sprite>>
     {
         protected abstract Sprite GetInfo(T item);

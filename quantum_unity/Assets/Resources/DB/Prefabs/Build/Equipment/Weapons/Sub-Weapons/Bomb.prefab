@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 833115213376629096}
   - component: {fileID: 4961953053630497690}
   - component: {fileID: -1021235288708050047}
-  - component: {fileID: 2338679246420454179}
   - component: {fileID: -6166161976002533024}
   m_Layer: 0
   m_Name: Bomb
@@ -202,29 +201,13 @@ MonoBehaviour:
         Value: 0
     Holder: {fileID: 0}
     Owner: {fileID: 0}
+    FallState:
+      Value: 0
+    FallSpeed:
+      RawValue: 0
+    FallY:
+      RawValue: 0
     Uses: 0
---- !u!114 &2338679246420454179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914034142178784249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fd529c2c1cd62d4282fa02e2f977cdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    SubWeapon:
-      Template:
-        Id:
-          Value: 0
-      Enhancers:
-        Enhancer1:
-          Id:
-            Value: 0
-    Target: {fileID: 0}
 --- !u!114 &-6166161976002533024
 MonoBehaviour:
   m_ObjectHideFlags: 0

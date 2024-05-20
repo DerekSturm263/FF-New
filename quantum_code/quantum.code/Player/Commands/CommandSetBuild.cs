@@ -16,9 +16,7 @@ namespace Quantum
         public void Execute(Frame f)
         {
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-            {
                 StatsSystem.ApplyBuild(f, entity, stats, build);
-            }
         }
     }
 }

@@ -123,6 +123,9 @@ namespace Quantum
 
         public void OnAdded(Frame f, EntityRef entity, MatchInstance* component)
         {
+            SetStage(f, component->Match.Stage);
+            SetRuleset(f, component->Match.Ruleset);
+
             component->Match.Teams = f.AllocateList<Team>();
         }
 
@@ -130,6 +133,30 @@ namespace Quantum
         {
             f.FreeList(component->Match.Teams);
             component->Match.Teams = default;
+        }
+
+        public static void SetStage(Frame f, Stage stage)
+        {
+            if (f.TryFindAsset(stage.Objects.Map.Id, out Map map))
+            {
+                if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+                {
+                    matchInstance->Match.Stage = stage;
+
+                    if (matchInstance->CurrentStage.IsValid)
+                        f.Destroy(matchInstance->CurrentStage);
+                    
+                    matchInstance->CurrentStage = f.Create(stage.Objects.Stage);
+                }
+
+                f.Map = map;
+            }
+        }
+
+        public static void SetRuleset(Frame f, Ruleset ruleset)
+        {
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+                matchInstance->Match.Ruleset = ruleset;
         }
     }
 }

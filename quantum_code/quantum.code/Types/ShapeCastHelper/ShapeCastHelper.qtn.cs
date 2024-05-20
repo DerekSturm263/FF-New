@@ -33,7 +33,7 @@ namespace Quantum
         }
         */
 
-        public readonly Physics2D.HitCollection GetCastResults(Frame f, Transform2D* parent = null)
+        public readonly Physics2D.HitCollection GetCastResults(Frame f, Transform2D* parent = null, FPVector2 offset = default)
         {
             if (parent is null)
             {

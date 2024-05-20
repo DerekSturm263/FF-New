@@ -190,7 +190,7 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(Quantum.QString16))]
+  [CustomPropertyDrawer(typeof(Quantum.QString32))]
   partial class QStringDrawer {}
 
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]

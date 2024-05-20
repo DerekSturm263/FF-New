@@ -10,6 +10,8 @@ namespace Quantum
         {
             // user commands go here
             factories.Add(new CommandSetBuild());
+            factories.Add(new CommandSetStage());
+            factories.Add(new CommandSetRuleset());
         }
     }
 }

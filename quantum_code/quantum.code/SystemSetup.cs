@@ -34,7 +34,7 @@
                 new ItemSystem(),
 
                 // command systems go here
-                new PlayerCommandSystem(),
+                new CommandSystem(),
 
                 // animation-related systems
                 new CustomAnimatorSystem(),

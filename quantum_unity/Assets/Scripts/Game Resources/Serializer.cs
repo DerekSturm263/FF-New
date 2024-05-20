@@ -43,7 +43,11 @@ public static class Serializer
     private static string ToJSON<T>(T item) => JsonUtility.ToJson(item, true);
     private static T FromJSON<T>(string json) => JsonUtility.FromJson<T>(json);
 
-    public static IEnumerable<T> LoadAllFromDirectory<T>(string directory) => Directory.EnumerateFiles(directory, "*.json").Select(filePath => LoadAs<T>(filePath, directory));
+    public static IEnumerable<T> LoadAllFromDirectory<T>(string directory)
+    {
+        CreateDirectory(directory);
+        return Directory.EnumerateFiles(directory, "*.json").Select(filePath => LoadAs<T>(filePath, directory));
+    }
 
     public static void CreateDirectory(string path)
     {

@@ -178,8 +178,6 @@ GameObject:
   - component: {fileID: 7785686115858357464}
   - component: {fileID: 5147066771759425867}
   - component: {fileID: 1346067911404691379}
-  - component: {fileID: 4386538602966371699}
-  - component: {fileID: 1778676937361110916}
   m_Layer: 5
   m_Name: Builds
   m_TagString: Untagged
@@ -246,7 +244,6 @@ MonoBehaviour:
   _color: {r: 1, g: 1, b: 1, a: 1}
   _loadingType: 0
   _sizeOffset: 0
-  _extendHeight: 1
   _onIfEmpty:
     m_PersistentCalls:
       m_Calls: []
@@ -258,76 +255,7 @@ MonoBehaviour:
       m_Calls: []
   _onButtonClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4386538602966371699}
-        m_TargetAssemblyTypeName: BuildManager, FusionFighters
-        m_MethodName: SetBuildOnPlayer
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _onButtonDeselect:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4386538602966371699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6466098865943393201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc4acc1e0a8d644ba2dbd226ce769ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1778676937361110916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6466098865943393201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2e76ce6688d664da9b4929015412c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onAwake:
-    m_PersistentCalls:
-      m_Calls: []
-  _onEnable:
-    m_PersistentCalls:
-      m_Calls: []
-  _onStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4386538602966371699}
-        m_TargetAssemblyTypeName: BuildManager, FusionFighters
-        m_MethodName: Initialize
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFixedUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDisable:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDestroy:
     m_PersistentCalls:
       m_Calls: []

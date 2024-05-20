@@ -33,7 +33,6 @@ namespace Extensions.Components.UI
         public LoadStage LoadingType => _loadingType;
 
         [SerializeField] protected float _sizeOffset;
-        [SerializeField] protected bool _extendHeight = true;
 
         [SerializeField] protected UnityEvent _onIfEmpty;
 
@@ -64,16 +63,6 @@ namespace Extensions.Components.UI
         }
 
         protected abstract void EnableOrDisableItems();
-
-        public void ResizeList()
-        {
-            /*if (TryGetComponent(out HorizontalLayoutGroup horz))
-                _containerRect.sizeDelta = new Vector2(_itemCount * (_button.GetComponent<RectTransform>().sizeDelta.x + horz.spacing) - horz.spacing + _sizeOffset, _containerRect.sizeDelta.y);
-            else if (TryGetComponent(out VerticalLayoutGroup vert))
-                _containerRect.sizeDelta = new Vector2(_containerRect.sizeDelta.x, _itemCount * (_button.GetComponent<RectTransform>().sizeDelta.y + vert.spacing) - vert.spacing + _sizeOffset);
-            else if (TryGetComponent(out GridLayoutGroup grid))
-                _containerRect.sizeDelta = new Vector2(_containerRect.sizeDelta.x, Mathf.Ceil(_itemCount / (float)grid.constraintCount) * (_button.GetComponent<RectTransform>().sizeDelta.y + grid.spacing.y) - grid.spacing.y + _sizeOffset);*/
-        }
 
         public void ScrollListBy(Vector2 amount)
         {
@@ -130,8 +119,6 @@ namespace Extensions.Components.UI
 
             if (_itemCount == 0)
                 _onIfEmpty.Invoke();
-            else if (_extendHeight)
-                ResizeList();
 
             _isInitialized = true;
         }
@@ -145,14 +132,17 @@ namespace Extensions.Components.UI
             if (transform.childCount == 0 || _itemsToButtons is null)
                 return;
 
-            foreach (KeyValuePair<object, GameObject> itemToButton in _itemsToButtons[typeof(T)])
+            if (_itemsToButtons.ContainsKey(typeof(T)))
             {
-                bool enabled = Enabled((T)(itemToButton.Key));
+                foreach (var kvp in _itemsToButtons[typeof(T)])
+                {
+                    bool enabled = Enabled((T)kvp.Key);
 
-                if (itemToButton.Value.TryGetComponent(out Button button))
-                    button.interactable = enabled;
-                else if (itemToButton.Value.TryGetComponent(out DragAndDropItem dragAndDrop))
-                    dragAndDrop.interactable = enabled;
+                    if (kvp.Value.TryGetComponent(out Button button))
+                        button.interactable = enabled;
+                    else if (kvp.Value.TryGetComponent(out DragAndDropItem dragAndDrop))
+                        dragAndDrop.interactable = enabled;
+                }
             }
         }
 
@@ -170,7 +160,7 @@ namespace Extensions.Components.UI
             
             Debug.Log($"Loaded {typeof(T).Name}: {Name(item)}");
             _onButtonSpawn.Invoke(item);
-            _itemsToButtons[typeof(T)].Add(item, buttonObj);
+            _itemsToButtons[typeof(T)].TryAdd(item, buttonObj);
             ++_itemCount;
 
             return buttonObj;
@@ -212,16 +202,22 @@ namespace Extensions.Components.UI
 
             Image icon = buttonObj.FindChildWithTag("Icon")?.GetComponent<Image>();
             if (icon)
+            {
                 icon.sprite = Icon(item);
+
+                if (!icon.sprite)
+                    icon.enabled = false;
+            }
 
             Color[] colorPalette = ColorPalette(item);
 
             Image background = buttonObj.FindChildWithTag("Background")?.GetComponent<Image>();
             if (background)
             {
-                background.sprite = Background(item);
-                if (background.sprite == null)
-                    background.gameObject.SetActive(false);
+                Sprite backgroundSprite = Background(item);
+
+                if (backgroundSprite)
+                    background.sprite = backgroundSprite;
 
                 background.color = colorPalette[2];
             }

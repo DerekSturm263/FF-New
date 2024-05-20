@@ -4,7 +4,6 @@ public abstract partial class InfoAssetAsset : AssetBase
 {
     [Header("Unity")]
 
-    public string Name;
     [Multiline] public string Description;
 
     public Sprite Icon;

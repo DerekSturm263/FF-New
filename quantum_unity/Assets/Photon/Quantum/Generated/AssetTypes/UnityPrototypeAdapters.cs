@@ -73,12 +73,15 @@ namespace Quantum.Prototypes.Unity {
     public Match_Prototype Match;
     public Quantum.QBoolean IsTimerOver;
     public Quantum.QBoolean IsMatchRunning;
+    [Quantum.LocalReference]
+    public global::EntityPrototype CurrentStage;
 
     public sealed override Quantum.Prototypes.MatchInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.MatchInstance_Prototype();
       result.Match = this.Match.Convert(converter);
       result.IsTimerOver = this.IsTimerOver;
       result.IsMatchRunning = this.IsMatchRunning;
+      converter.Convert(this.CurrentStage, out result.CurrentStage);
       return result;
     }
   }

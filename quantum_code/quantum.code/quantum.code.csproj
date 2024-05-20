@@ -134,7 +134,7 @@
     <None Include="Player\Events\Actions\OnPlayerAttack.qtn" />
     <None Include="Player\Components\Stats.qtn" />
     <Compile Include="Audio\Track\Assets\TrackGraph.qtn.cs" />
-    <Compile Include="Build\Helpers\BuildSerializationHelper.cs" />
+    <Compile Include="Commands\Helpers\BitStreamSerializationHelper.cs" />
     <Compile Include="Player\Commands\CommandSetBuild.cs" />
     <Compile Include="Collision\Systems\HitboxSystem.cs" />
     <Compile Include="Collision\Systems\HurtboxSystem.cs" />
@@ -159,7 +159,7 @@
     <Compile Include="Player\States\SubWeaponState.cs" />
     <Compile Include="Player\States\UltimateState.cs" />
     <Compile Include="Player\Structs\PlayerStateDictionary.cs" />
-    <Compile Include="Player\Systems\PlayerCommandSystem.cs" />
+    <Compile Include="Commands\Systems\CommandSystem.cs" />
     <Compile Include="Player\Systems\StatsSystem.cs" />
     <None Include="Projectile\Structs\ProjectileSettings.qtn" />
     <Compile Include="Collision\Systems\HitboxHurtboxQueryInjectionSystem.cs" />
@@ -232,6 +232,8 @@
     <Compile Include="Ruleset\Assets\Win Conditions\MostKillsWinCondition.cs" />
     <Compile Include="Ruleset\Assets\WinCondition.qtn.cs" />
     <None Include="Info Asset\Assets\InfoAsset.qtn" />
+    <Compile Include="Ruleset\Commands\CommandSetRuleset.cs" />
+    <Compile Include="Stage\Commands\CommandSetStage.cs" />
     <Compile Include="Stage\Gizmo\Gizmo.qtn.cs" />
     <Compile Include="Stage\Assets\StageAsset.qtn.cs" />
     <Compile Include="Status Effect\Assets\Status Effects\FriedStatusEffect.cs" />

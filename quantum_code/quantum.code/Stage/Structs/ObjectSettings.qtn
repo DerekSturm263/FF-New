@@ -2,5 +2,7 @@
 struct ObjectSettings
 {
 	asset_ref<EntityPrototype> Stage;
+	asset_ref<Map> Map;
+
 	array<PositionalGizmo>[64] Gizmos;
 }

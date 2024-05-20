@@ -53,8 +53,8 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
 
     var mapdata = FindObjectOfType<MapData>();
     if (mapdata) {
-      // set map to this maps asset
-      Config.Map = mapdata.Asset.Settings;
+            // set map to this maps asset
+            Config.Map = mapdata.Asset.Settings;
 
       var playerCount = Math.Max(1, Players.Length);
 

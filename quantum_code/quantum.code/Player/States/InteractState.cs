@@ -1,4 +1,5 @@
-﻿using Quantum.Types;
+﻿using Photon.Deterministic;
+using Quantum.Types;
 
 namespace Quantum
 {
@@ -13,7 +14,7 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return filter.Stats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform).Count > 0;
+            return filter.Stats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0)).Count > 0;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
@@ -35,7 +36,7 @@ namespace Quantum
 
             if (!filter.Stats->HeldItem.IsValid)
             {
-                Physics2D.HitCollection hitCollection = settings.InteractCast.GetCastResults(f, filter.Transform);
+                Physics2D.HitCollection hitCollection = settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0));
 
                 for (int i = 0; i < hitCollection.Count; ++i)
                 {

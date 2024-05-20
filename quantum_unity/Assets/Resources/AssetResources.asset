@@ -53,17 +53,17 @@ MonoBehaviour:
         Id:
           Value: 601596805594687669
       ResourcePath: DB/Prefabs/Items/Large Battery
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Sub-weapons/Templates/Missile
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Templates/Missile
       AssetRef:
         Id:
           Value: 606617556276558397
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Sub-weapons/Templates/Missile
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Templates/Missile
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         4
       AssetRef:
         Id:
           Value: 629877417507454797
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         4
     - Path: Resources/DB/Assets/Build/Equipment/Apparel/Templates/Jacket
       AssetRef:
@@ -80,16 +80,21 @@ MonoBehaviour:
         Id:
           Value: 690908184498729049
       ResourcePath: DB/Assets/Ruleset/Win Conditions/Best Kill to Death Ratio
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Sub-weapons/Enhancers/Electrified
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Enhancers/Electrified
       AssetRef:
         Id:
           Value: 708713444662166294
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Sub-weapons/Enhancers/Electrified
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Enhancers/Electrified
     - Path: Resources/DB/AnimationEvents/Close Block|Make Tangible
       AssetRef:
         Id:
           Value: 730254135483942762
       ResourcePath: DB/AnimationEvents/Close Block
+    - Path: Resources/DB/Maps/NexTech Arena Map
+      AssetRef:
+        Id:
+          Value: 862971787325630018
+      ResourcePath: DB/Maps/NexTech Arena Map
     - Path: Resources/DB/Assets/Player/DefaultMovementSettings
       AssetRef:
         Id:
@@ -100,11 +105,11 @@ MonoBehaviour:
         Id:
           Value: 891383649516256389
       ResourcePath: DB/Assets/Build/Equipment/Apparel/Templates/Pants
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Enhancers/Charging
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Enhancers/Charging
       AssetRef:
         Id:
           Value: 926683192902121334
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Enhancers/Charging
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Enhancers/Charging
     - Path: Resources/DB/Assets/Camera Settings/Stages/Alleyway/Alleyway Tension
       AssetRef:
         Id:
@@ -179,11 +184,11 @@ MonoBehaviour:
         Id:
           Value: 1477229034196455168
       ResourcePath: DB/Prefabs/Items/Large Battery
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Templates/Bow
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Blaster
       AssetRef:
         Id:
           Value: 1493138515856977896
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Templates/Bow
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Blaster
     - Path: Resources/DB/Assets/Camera Settings/Menus/Create Build/Data Focus
       AssetRef:
         Id:
@@ -249,6 +254,11 @@ MonoBehaviour:
         Id:
           Value: 1970433355911064215
       ResourcePath: DB/Configs/Custom Animator Graph Asset
+    - Path: Resources/DB/Prefabs/Stages/Alleyway/Alleyway|EntityView
+      AssetRef:
+        Id:
+          Value: 1984383716379066447
+      ResourcePath: DB/Prefabs/Stages/Alleyway/Alleyway
     - Path: Resources/DB/Assets/Items/Portable EMP
       AssetRef:
         Id:
@@ -285,28 +295,33 @@ MonoBehaviour:
         Id:
           Value: 2281221052891463383
       ResourcePath: DB/Assets/Camera Settings/Winning Cutaways/Winning Cutaway 1
-    - Path: Resources/DB/Online Battle Map
+    - Path: Resources/DB/Maps/Alleyway Map
       AssetRef:
         Id:
           Value: 2301540944961319450
-      ResourcePath: DB/Online Battle Map
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Maps/Alleyway Map
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         2
       AssetRef:
         Id:
           Value: 2346310419226999301
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         2
     - Path: Resources/DB/Assets/Build/Cosmetics/Hair/Hair 1
       AssetRef:
         Id:
           Value: 2401582579574677935
       ResourcePath: DB/Assets/Build/Cosmetics/Hair/Hair 1
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Enhancers/Vampiric
+    - Path: Resources/DB/Prefabs/Stages/Alleyway/Alleyway|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2456634248519729615
+      ResourcePath: DB/Prefabs/Stages/Alleyway/Alleyway
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Enhancers/Vampiric
       AssetRef:
         Id:
           Value: 2471047938944617157
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Enhancers/Vampiric
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Enhancers/Vampiric
     - Path: Resources/DB/Assets/Audio/Track Graphs/Stages/Alleyway
       AssetRef:
         Id:
@@ -317,6 +332,11 @@ MonoBehaviour:
         Id:
           Value: 2526857748189333574
       ResourcePath: DB/Assets/Camera Settings/Stages/Alleyway/Alleyway Zoom
+    - Path: Resources/DB/Prefabs/Stages/NexTech Arena/NexTech Arena|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2536985114742002661
+      ResourcePath: DB/Prefabs/Stages/NexTech Arena/NexTech Arena
     - Path: Resources/DB/AnimationEvents/Open Block
       AssetRef:
         Id:
@@ -327,21 +347,16 @@ MonoBehaviour:
         Id:
           Value: 2697187724191887445
       ResourcePath: DB/Assets/Build/Equipment/Ultimates/Overclock
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Sub-weapons/Templates/Bomb
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Templates/Bomb
       AssetRef:
         Id:
           Value: 2729734002430414842
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Sub-weapons/Templates/Bomb
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Templates/Bomb
     - Path: Resources/DB/Assets/Audio/Track Graphs/Stages/NexTech Arena
       AssetRef:
         Id:
           Value: 2789148970933197581
       ResourcePath: DB/Assets/Audio/Track Graphs/Stages/NexTech Arena
-    - Path: Resources/DB/AnimationEvents/Jump|Test
-      AssetRef:
-        Id:
-          Value: 2797572989707250654
-      ResourcePath: DB/AnimationEvents/Jump
     - Path: Resources/DB/Assets/Build/Builds/H1-R0
       AssetRef:
         Id:
@@ -367,35 +382,35 @@ MonoBehaviour:
         Id:
           Value: 3111148351275032290
       ResourcePath: DB/Prefabs/Items/Battery
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         5
       AssetRef:
         Id:
           Value: 3122041192524602740
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         5
     - Path: Resources/DB/Prefabs/Miscellaneous/Hitbox|EntityPrototype
       AssetRef:
         Id:
           Value: 3156569685704267981
       ResourcePath: DB/Prefabs/Miscellaneous/Hitbox
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         3
       AssetRef:
         Id:
           Value: 3197407333165618300
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         3
     - Path: Resources/DB/Assets/Build/Equipment/Badges/Underdog Boost
       AssetRef:
         Id:
           Value: 3228321424237006098
       ResourcePath: DB/Assets/Build/Equipment/Badges/Underdog Boost
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Templates/Sword
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Sword
       AssetRef:
         Id:
           Value: 3233801449374500001
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Templates/Sword
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Sword
     - Path: Resources/DB/AnimationEvents/Open Block|Make Intangible
       AssetRef:
         Id:
@@ -408,12 +423,12 @@ MonoBehaviour:
           Value: 3426430693189973381
       ResourcePath: DB/Assets/Camera Settings/Stages/NexTech Arena/NexTech Arena
         Default
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         1
       AssetRef:
         Id:
           Value: 3442718674901078516
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Main Weapons/Materials/Material
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         1
     - Path: Resources/DB/Prefabs/Miscellaneous/Hurtbox|EntityPrototype
       AssetRef:
@@ -449,16 +464,21 @@ MonoBehaviour:
         Id:
           Value: 3634879093177338223
       ResourcePath: DB/Assets/Build/Equipment/Apparel/Modifiers/Jump Up
+    - Path: Resources/DB/Maps/NexTech Arena Map_mesh
+      AssetRef:
+        Id:
+          Value: 3637949206249762353
+      ResourcePath: DB/Maps/NexTech Arena Map_mesh
     - Path: Resources/DB/Assets/Items/Battery
       AssetRef:
         Id:
           Value: 3638102391288734149
       ResourcePath: DB/Assets/Items/Battery
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Sub-weapons/Enhancers/Piercing
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Enhancers/Piercing
       AssetRef:
         Id:
           Value: 3705783788831071389
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Sub-weapons/Enhancers/Piercing
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Enhancers/Piercing
     - Path: Resources/DB/Prefabs/Player/Player|EntityPrototype
       AssetRef:
         Id:
@@ -529,13 +549,18 @@ MonoBehaviour:
         Id:
           Value: 4458424221256783051
       ResourcePath: DB/Prefabs/Player/Player
+    - Path: Resources/DB/Prefabs/Stages/NexTech Arena/NexTech Arena|EntityView
+      AssetRef:
+        Id:
+          Value: 4468139756189980099
+      ResourcePath: DB/Prefabs/Stages/NexTech Arena/NexTech Arena
     - Path: Resources/DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Bomb|EntityPrototype
       AssetRef:
         Id:
           Value: 4483199492598129514
       ResourcePath: DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Bomb
-    - Path: Resources/DB/Online Battle Map_mesh
+    - Path: Resources/DB/Maps/Alleyway Map_mesh
       AssetRef:
         Id:
           Value: 4588472460639547693
-      ResourcePath: DB/Online Battle Map_mesh
+      ResourcePath: DB/Maps/Alleyway Map_mesh
