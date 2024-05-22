@@ -44,7 +44,7 @@ namespace Quantum
                     ++playerCounter->PlayersReady;
                     f.Events.OnPlayerReady(*playerLink);
 
-                    if (playerCounter->PlayersReady == playerCounter->TotalPlayers)
+                    if (playerCounter->TotalPlayers > 1 && playerCounter->PlayersReady == playerCounter->TotalPlayers)
                     {
                         HandleAllPlayersReady(f);
                     }

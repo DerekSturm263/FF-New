@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
-    private Stage _stage;
-    public Stage Stage => _stage;
+    private Stage? _stage;
+    public Stage? Stage => _stage;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Stages";
 
@@ -31,13 +31,21 @@ public class StageController : Controller<StageController>
         _stage = stage;
     }
 
-    public void SendToSimulation(Stage stage)
+    public void ResetValue()
     {
+        _stage = null;
+    }
+
+    public void SendToSimulation(QuantumGame game)
+    {
+        if (!_stage.HasValue)
+            return;
+
         CommandSetStage setStage = new()
         {
-            stage = _stage
+            stage = _stage.Value
         };
 
-        QuantumRunner.Default.Game.SendCommand(setStage);
+        game.SendCommand(setStage);
     }
 }

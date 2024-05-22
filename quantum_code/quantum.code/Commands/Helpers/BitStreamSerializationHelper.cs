@@ -15,8 +15,17 @@ namespace Quantum
 
         public static unsafe void Serialize(this IBitStream stream, ref SerializableData value)
         {
+            fixed (ushort* count = &value.Name.ByteCount)
+                stream.Serialize(count);
+
             fixed (byte* bytes = value.Name.Bytes)
-                stream.SerializeBuffer(bytes, value.Name.Length);
+                stream.SerializeBuffer(&bytes[0], value.Name.ByteCount);
+
+            fixed (ushort* count = &value.Description.ByteCount)
+                stream.Serialize(count);
+
+            fixed (byte* bytes = value.Description.Bytes)
+                stream.SerializeBuffer(&bytes[0], value.Description.ByteCount);
 
             stream.Serialize(ref value.Guid);
             stream.Serialize(ref value.CreationDate);

@@ -157,6 +157,8 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
                 matchInstance->Match.Ruleset = ruleset;
+
+            TimerSystem.SetTime(f, new(0, 0, ruleset.Match.Time));
         }
     }
 }

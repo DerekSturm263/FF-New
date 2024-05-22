@@ -1,0 +1,10 @@
+[Serializable]
+struct SerializableData
+{
+    QString<32> Name;
+    QString<1024> Description;
+
+    AssetGuid Guid;
+    long CreationDate;
+    long LastEdittedDate;
+}

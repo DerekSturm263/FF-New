@@ -18,6 +18,7 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
   public DynamicAssetDBSettings DynamicAssetDB;
 
   bool _isReload;
+    public UnityEvent<QuantumGame> OnStart;
 
 #if (QUANTUM_ADDRESSABLES || QUANTUM_ENABLE_ADDRESSABLES) && !QUANTUM_DISABLE_ADDRESSABLES
   public async void Start()
@@ -91,6 +92,7 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
       for (Int32 i = 0; i < Players.Length; ++i) {
         game.SendPlayerData(i, Players[i]);
       }
+            OnStart.Invoke(game);
     }
   }
 
