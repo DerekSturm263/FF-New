@@ -49,7 +49,7 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
                 {
-                    transform->Position = matchInstance->Match.Stage.Spawn.PlayerSpawnPoints[player._index - 1];
+                    transform->Position = Types.ArrayHelper.Get(matchInstance->Match.Stage.Spawn.PlayerSpawnPoints, player._index - 1);
                 }
             }
         }

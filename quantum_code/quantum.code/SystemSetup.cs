@@ -18,23 +18,23 @@
 
                 Core.DebugCommand.CreateSystem(),
 
+                // command systems go here
+                new CommandSystem(),
+
                 // new Core.NavigationSystem(),
                 new Core.EntityPrototypeSystem(),
                 new Core.PlayerConnectedSystem(),
-                new MatchSystem(),
 
                 // user systems go here 
-                new CharacterControllerSystem(),
-                new PlayerSpawnSystem(),
-                new ConfirmationSystem(),
+                new MatchSystem(),
                 new TimerSystem(),
+                new PlayerSpawnSystem(),
+                new CharacterControllerSystem(),
+                new ConfirmationSystem(),
                 new StatsSystem(),
                 new SubSystem(),
                 new ItemSpawnSystem(),
                 new ItemSystem(),
-
-                // command systems go here
-                new CommandSystem(),
 
                 // animation-related systems
                 new CustomAnimatorSystem(),

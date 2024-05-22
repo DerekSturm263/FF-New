@@ -140,6 +140,11 @@ public class DynamicTrackController : Controller<DynamicTrackController>
         _trackGraph = UnityDB.FindAsset<TrackGraphAsset>(guid);
     }
 
+    public void PlayFromStage(Stage stage)
+    {
+        _trackGraph = UnityDB.FindAsset<TrackGraphAsset>(stage.Theme.Track.Id);
+    }
+
     private void BeginTransition(TrackSection from, TrackTransition transition)
     {
         _transitionTime = 0;

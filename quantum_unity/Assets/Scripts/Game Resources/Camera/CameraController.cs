@@ -16,6 +16,11 @@ namespace GameResources.Camera
 
         [SerializeField] private CameraSettingsAsset _settings;
         public void SetCameraSettings(CameraSettingsAsset settings) => _instance._settings = settings;
+        public void SetCameraSettingsFromStageDefault(Stage stage)
+        {
+            _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(stage.Theme.CameraSettings.Default.Id);
+        }
+
         public void SetCameraSettingsFromCurrentStageDefault(EntityView matchInstance)
         {
             AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Default.Id;

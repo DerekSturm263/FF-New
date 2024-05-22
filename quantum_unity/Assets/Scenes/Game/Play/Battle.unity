@@ -248,58 +248,7 @@ MonoBehaviour:
         m_CallState: 2
   _onStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
-        m_MethodName: PlayFromCurrentStage
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 399604886}
-          m_ObjectArgumentAssemblyTypeName: EntityView, PhotonQuantum
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
-        m_MethodName: Initialize
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Pre-Game
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
-        m_MethodName: ForceTransition
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Pre-Game
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 164783832}
-        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
-        m_MethodName: SetCameraSettingsFromCurrentStageDefault
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 399604886}
-          m_ObjectArgumentAssemblyTypeName: EntityView, PhotonQuantum
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Pre-Game
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _onUpdate:
     m_PersistentCalls:
       m_Calls: []
@@ -3676,7 +3625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &399604883
 Transform:
   m_ObjectHideFlags: 0
@@ -4357,22 +4306,26 @@ MonoBehaviour:
                 Value: 0
         Spawn:
           PlayerSpawnPoints:
-          - X:
-              RawValue: -393216
-            Y:
-              RawValue: 0
-          - X:
-              RawValue: 262144
-            Y:
-              RawValue: 0
-          - X:
-              RawValue: 524288
-            Y:
-              RawValue: 0
-          - X:
-              RawValue: 0
-            Y:
-              RawValue: 0
+            Item1:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+            Item2:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+            Item3:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
+            Item4:
+              X:
+                RawValue: 0
+              Y:
+                RawValue: 0
           ItemSpawnPoints:
           - X:
               RawValue: 262144
@@ -5261,6 +5214,9 @@ MonoBehaviour:
   - CharacterPrototype:
       Id:
         Value: 3736203406268466455
+  - CharacterPrototype:
+      Id:
+        Value: 3736203406268466455
   PreloadAddressables: 0
   DynamicAssetDB:
     OnInitialDynamicAssetsRequested:
@@ -5428,7 +5384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &555096603
 Transform:
   m_ObjectHideFlags: 0
@@ -6002,6 +5958,7 @@ Transform:
   - {fileID: 118852954}
   - {fileID: 950825869}
   - {fileID: 1517503870}
+  - {fileID: 1116161800}
   - {fileID: 399604883}
   - {fileID: 555096603}
   - {fileID: 2021771173}
@@ -7613,6 +7570,104 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 290cb46a74217ac438122de7b554477b, type: 3}
+--- !u!1 &1116161799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1116161800}
+  - component: {fileID: 1116161801}
+  m_Layer: 0
+  m_Name: Stage Event Listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1116161800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116161799}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 599783066}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116161801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116161799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839b7ab88ff680d49accbd82051e1c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onStageSwitch:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 164783832}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
+        m_MethodName: SetCameraSettingsFromStageDefault
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
+        m_MethodName: PlayFromStage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
+        m_MethodName: ForceTransition
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1123558576
 GameObject:
   m_ObjectHideFlags: 0
@@ -7631,7 +7686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1123558577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10016,21 +10071,13 @@ MonoBehaviour:
   Asset: {fileID: 11400000, guid: fdab76631be7a0841b04f0e6c3bef1a6, type: 2}
   DrawGridMode: 0
   BakeAllMode: -1
-  StaticCollider2DReferences:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  StaticCollider2DReferences: []
   StaticCollider3DReferences: []
   MapEntityReferences:
   - {fileID: 399604886}
   - {fileID: 555096604}
   - {fileID: 2021771174}
   - {fileID: 1123558578}
-  - {fileID: 0}
 --- !u!1 &1762998805
 GameObject:
   m_ObjectHideFlags: 0
@@ -11257,7 +11304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2021771173
 Transform:
   m_ObjectHideFlags: 0

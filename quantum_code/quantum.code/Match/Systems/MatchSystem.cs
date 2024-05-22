@@ -123,9 +123,6 @@ namespace Quantum
 
         public void OnAdded(Frame f, EntityRef entity, MatchInstance* component)
         {
-            SetStage(f, component->Match.Stage);
-            SetRuleset(f, component->Match.Ruleset);
-
             component->Match.Teams = f.AllocateList<Team>();
         }
 
@@ -151,6 +148,8 @@ namespace Quantum
 
                 f.Map = map;
             }
+
+            f.Events.OnStageSelect(stage);
         }
 
         public static void SetRuleset(Frame f, Ruleset ruleset)
