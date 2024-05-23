@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
 {
-    private Ruleset? _ruleset;
-    public Ruleset? Ruleset => _ruleset;
+    private SerializableWrapper<Ruleset> _ruleset;
+    public SerializableWrapper<Ruleset> Ruleset => _ruleset;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Rulesets";
 
-    public Ruleset New()
+    public SerializableWrapper<Ruleset> New()
     {
         Ruleset ruleset = new();
 
@@ -18,15 +18,15 @@ public class RulesetController : Controller<RulesetController>
         ruleset.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         ruleset.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
-        return ruleset;
+        return new(ruleset, null);
     }
 
-    public void Save(Ruleset ruleset)
+    public void Save(SerializableWrapper<Ruleset> ruleset)
     {
-        Serializer.Save(ruleset, ruleset.SerializableData.Guid, GetPath());
+        Serializer.Save(ruleset, ruleset.Value.SerializableData.Guid, GetPath());
     }
 
-    public void Select(Ruleset ruleset)
+    public void Select(SerializableWrapper<Ruleset> ruleset)
     {
         _ruleset = ruleset;
     }
@@ -38,12 +38,12 @@ public class RulesetController : Controller<RulesetController>
 
     public void SendToSimulation(QuantumGame game)
     {
-        if (!_ruleset.HasValue)
+        if (_ruleset is null)
             return;
 
         CommandSetRuleset setRuleset = new()
         {
-            ruleset = _ruleset.Value
+            ruleset = _ruleset
         };
 
         game.SendCommand(setRuleset);

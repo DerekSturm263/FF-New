@@ -9,6 +9,6 @@ namespace Quantum
     [System.Serializable]
     public partial class BuildAsset : InfoAsset
     {
-        public Build Build;
+
     }
 }

@@ -13,6 +13,8 @@ namespace Quantum
 
             // Get if the match timer hits 0.
             bool isMatchOver = matchInstance->IsTimerOver;
+            if (matchInstance->Match.Ruleset.Players.StockCount == -1)
+                return isMatchOver;
 
             // Get if 1 or fewer teams have any players left alive.
             bool isOneTeamLeft = teams.Count(team => {

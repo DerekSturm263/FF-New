@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
-    private Stage? _stage;
-    public Stage? Stage => _stage;
+    private SerializableWrapper<Stage> _stage;
+    public SerializableWrapper<Stage> Stage => _stage;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Stages";
 
-    public Stage New()
+    public SerializableWrapper<Stage> New()
     {
         Stage stage = new();
 
@@ -18,15 +18,15 @@ public class StageController : Controller<StageController>
         stage.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         stage.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
-        return stage;
+        return new(stage, null);
     }
 
-    public void Save(Stage stage)
+    public void Save(SerializableWrapper<Stage> stage)
     {
-        Serializer.Save(stage, stage.SerializableData.Guid, GetPath());
+        Serializer.Save(stage, stage.Value.SerializableData.Guid, GetPath());
     }
 
-    public void Select(Stage stage)
+    public void Select(SerializableWrapper<Stage> stage)
     {
         _stage = stage;
     }
@@ -38,12 +38,12 @@ public class StageController : Controller<StageController>
 
     public void SendToSimulation(QuantumGame game)
     {
-        if (!_stage.HasValue)
+        if (_stage is null)
             return;
 
         CommandSetStage setStage = new()
         {
-            stage = _stage.Value
+            stage = _stage
         };
 
         game.SendCommand(setStage);

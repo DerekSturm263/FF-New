@@ -16,7 +16,7 @@ public class BuildController : Controller<BuildController>
             return EntityRef.None;
     }
 
-    public Build New()
+    public SerializableWrapper<Build> New()
     {
         Build build = new();
 
@@ -25,12 +25,12 @@ public class BuildController : Controller<BuildController>
         build.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         build.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
-        return build;
+        return new(build, null);
     }
 
-    public void Save(Build build)
+    public void Save(SerializableWrapper<Build> build)
     {
-        Serializer.Save(build, build.SerializableData.Guid, GetPath());
+        Serializer.Save(build, build.Value.SerializableData.Guid, GetPath());
     }
 
     public void SaveOnPlayer(int playerIndex)
@@ -39,7 +39,7 @@ public class BuildController : Controller<BuildController>
             Serializer.Save(stats.Build, stats.Build.SerializableData.Guid, GetPath());
     }
 
-    public void SetOnPlayer(Build build, int playerIndex)
+    public void SetOnPlayer(SerializableWrapper<Build> build, int playerIndex)
     {
         CommandSetBuild setBuild = new()
         {
