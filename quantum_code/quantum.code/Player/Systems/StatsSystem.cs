@@ -89,8 +89,10 @@ namespace Quantum
                 hurtbox->Owner = owner;
                 hurtbox->Index = index;
 
+                HurtboxType type = (HurtboxType)(1 << index);
+
                 var hurtboxes = f.ResolveDictionary(stats->Hurtboxes);
-                hurtboxes[(HurtboxType)(1 << index)] = hurtboxEntity;
+                hurtboxes[type] = hurtboxEntity;
             }
         }
 

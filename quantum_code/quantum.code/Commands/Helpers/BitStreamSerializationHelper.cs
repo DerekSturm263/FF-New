@@ -134,7 +134,8 @@ namespace Quantum
         {
             stream.Serialize(ref value.CameraSettings);
             stream.Serialize(ref value.Track);
-            //stream.Serialize(ref value.Background);
+            stream.Serialize(ref value.FogColor);
+            stream.Serialize(ref value.FogDensity);
         }
 
         public static void Serialize(this IBitStream stream, ref CameraSettingsGroup value)

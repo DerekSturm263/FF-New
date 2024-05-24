@@ -1,8 +1,9 @@
 ﻿using Photon.Deterministic;
+using Quantum.Types;
 
 namespace Quantum
 {
-    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>
+    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>, ISignalOnMapChanged
     {
         public static PlayerStateDictionary AllStates =
         new(
@@ -48,6 +49,20 @@ namespace Quantum
             HandleStateSwitching(f, ref filter, ref input, settings, stats);
             HandleMovement(f, ref filter, ref input, settings, stats);
             HandleUltimate(f, ref filter, ref input, settings, stats);
+        }
+
+        public void OnMapChanged(Frame f, AssetRefMap previousMap)
+        {
+            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            {
+                var playerFilter = f.Unsafe.FilterStruct<Filter>();
+                var player = default(Filter);
+
+                while (playerFilter.Next(&player))
+                {
+                    player.Transform->Position = ArrayHelper.Get(matchInstance->Match.Stage.Spawn.PlayerSpawnPoints, player.PlayerLink->Player._index - 1);
+                }
+            }
         }
 
         private ApparelStats CalculateStats(Frame f, ref Filter filter, MovementSettings movementSettings)

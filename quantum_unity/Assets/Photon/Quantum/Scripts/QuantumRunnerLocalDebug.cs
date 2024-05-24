@@ -87,14 +87,18 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
     }
   }
 
-  public override void OnGameStart(QuantumGame game) {
-    if (_isReload == false) {
-      for (Int32 i = 0; i < Players.Length; ++i) {
-        game.SendPlayerData(i, Players[i]);
-      }
+    public override void OnGameStart(QuantumGame game)
+    {
+        if (_isReload == false)
+        {
+            for (Int32 i = 0; i < Players.Length; ++i)
+            {
+                game.SendPlayerData(i, Players[i]);
+            }
+
             OnStart.Invoke(game);
+        }
     }
-  }
 
   // Update is called once per frame
   public void OnGUI() {

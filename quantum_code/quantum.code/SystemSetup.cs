@@ -7,14 +7,12 @@
             return [
                 // pre-defined core systems
                 new Core.CullingSystem2D(),
-                //new Core.CullingSystem3D(),
 
                 // physics querying
                 new HitboxSystem(),
                 new HitboxHurtboxQueryInjectionSystem(),
 
                 new Core.PhysicsSystem2D(),
-                //new Core.PhysicsSystem3D(),
 
                 Core.DebugCommand.CreateSystem(),
 

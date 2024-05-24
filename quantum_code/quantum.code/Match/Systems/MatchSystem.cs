@@ -1,6 +1,5 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Quantum
@@ -79,14 +78,18 @@ namespace Quantum
                     }
                 }
 
-                if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
+                if (matchInstance->Match.Ruleset.Items.SpawnFrequency > 0)
                 {
-                    itemSpawner->TimeSinceLastSpawned = f.Global->RngSession.Next(itemSpawner->MinTimeToSpawn, itemSpawner->MaxTimeToSpawn) * (1 / matchInstance->Match.Ruleset.Items.SpawnFrequency);
+                    if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
+                    {
+                        itemSpawner->TimeSinceLastSpawned = f.Global->RngSession.Next(itemSpawner->MinTimeToSpawn, itemSpawner->MaxTimeToSpawn) * (1 / matchInstance->Match.Ruleset.Items.SpawnFrequency);
+                    }
                 }
             }
 
             matchInstance->IsMatchRunning = true;
         }
+
         public static void EndOfMatch(Frame f, QList<Team> teams, WinCondition winCondition)
         {
             f.Global->DeltaTime = (FP._1 / f.UpdateRate) * FP._0_25;

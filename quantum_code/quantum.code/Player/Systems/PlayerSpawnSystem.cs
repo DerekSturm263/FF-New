@@ -1,5 +1,4 @@
 ﻿using Quantum.Collections;
-using System.ComponentModel;
 
 namespace Quantum
 {
@@ -19,11 +18,6 @@ namespace Quantum
 
             f.Add(entity, playerLink);
             f.Events.OnPlayerSpawn(playerLink);
-
-            if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
-            {
-                ++playerCounter->TotalPlayers;
-            }
 
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {

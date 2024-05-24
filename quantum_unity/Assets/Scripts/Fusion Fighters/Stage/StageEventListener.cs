@@ -8,6 +8,12 @@ public class StageEventListener : MonoBehaviour
 
     private void Awake()
     {
-        QuantumEvent.Subscribe<EventOnStageSelect>(listener: this, handler: e => _onStageSwitch.Invoke(e.Stage));
+        QuantumEvent.Subscribe<EventOnStageSelect>(listener: this, handler: e =>
+        {
+            _onStageSwitch.Invoke(e.Stage);
+
+            RenderSettings.fogColor = e.Stage.Theme.FogColor.ToColor();
+            RenderSettings.fogDensity = e.Stage.Theme.FogDensity.AsFloat;
+        });
     }
 }

@@ -22,12 +22,11 @@
 
                     if (f.Unsafe.TryGetPointer(hurtboxes[hurtboxType], out HurtboxInstance* hurtbox))
                     {
-                        hurtbox->Settings.CanBeDamaged = Settings.CanBeDamaged;
-                        hurtbox->Settings.CanBeKnockedBack = Settings.CanBeKnockedBack;
-                        hurtbox->Settings.CanBeInterrupted = Settings.CanBeInterrupted;
-                        hurtbox->Settings.DisableHitbox = Settings.DisableHitbox;
+                        hurtbox->Settings = Settings;
                     }
                 }
+
+                f.Events.OnHurtboxStateChange(entity, Hurtboxes, Settings);
             }
         }
 
@@ -47,12 +46,23 @@
 
                     if (f.Unsafe.TryGetPointer(hurtboxes[hurtboxType], out HurtboxInstance* hurtbox))
                     {
-                        hurtbox->Settings.CanBeDamaged = true;
-                        hurtbox->Settings.CanBeKnockedBack = true;
-                        hurtbox->Settings.CanBeInterrupted = true;
-                        hurtbox->Settings.DisableHitbox = false;
+                        hurtbox->Settings = new HurtboxSettings()
+                        {
+                            CanBeDamaged = true,
+                            CanBeKnockedBack = true,
+                            CanBeInterrupted = true,
+                            DisableHitbox = true,
+                        };
                     }
                 }
+
+                f.Events.OnHurtboxStateChange(entity, Hurtboxes, new HurtboxSettings()
+                {
+                    CanBeDamaged = true,
+                    CanBeKnockedBack = true,
+                    CanBeInterrupted = true,
+                    DisableHitbox = true,
+                });
             }
         }
     }

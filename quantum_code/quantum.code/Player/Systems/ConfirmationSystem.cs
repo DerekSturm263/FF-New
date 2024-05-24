@@ -44,7 +44,7 @@ namespace Quantum
                     ++playerCounter->PlayersReady;
                     f.Events.OnPlayerReady(*playerLink);
 
-                    if (playerCounter->TotalPlayers > 1 && playerCounter->PlayersReady == playerCounter->TotalPlayers)
+                    if (f.PlayerCount > 1 && playerCounter->PlayersReady == f.PlayerCount)
                     {
                         HandleAllPlayersReady(f);
                     }
@@ -61,7 +61,7 @@ namespace Quantum
                     if (!playerCounter->CanPlayersEdit)
                         return;
 
-                    bool shouldCancelAll = playerCounter->PlayersReady == playerCounter->TotalPlayers;
+                    bool shouldCancelAll = playerCounter->PlayersReady == f.PlayerCount;
 
                     --playerCounter->PlayersReady;
 

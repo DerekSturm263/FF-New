@@ -410,7 +410,7 @@ public class CustomExportAnimations : MonoBehaviour
     FPQuaternion offsetRot = FPQuaternion.Inverse(startRot);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        HurtboxTracker tracker = player.GetComponent<HurtboxTracker>();
+        HurtboxTracker tracker = player.GetComponentInChildren<HurtboxTracker>();
 
     for (int i = 0; i < frameCount; i++)
     {
