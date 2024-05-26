@@ -115,7 +115,7 @@ namespace Quantum
             }
         }
 
-        public static void SetTime(Frame f, TimeSpan time)
+        public static void SetTime(Frame f, TimeSpan time, bool invokeEvent = true)
         {
             if (f.Unsafe.TryGetPointerSingleton(out Timer* timer))
             {
@@ -124,7 +124,8 @@ namespace Quantum
                 timer->Time = timer->OriginalTime;
                 timer->Start = timer->OriginalTime - 180;
 
-                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
+                if (invokeEvent)
+                    CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
             }
         }
     }

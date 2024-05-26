@@ -1,62 +1,108 @@
-﻿using Photon.Deterministic;
+using Photon.Deterministic;
+using Quantum;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem;
 
 public class LocalInputController : MonoBehaviour
 {
-    private Controls _controls;
+    [SerializeField] private RuntimePlayer _player;
 
-    private void OnEnable() => _controls.Enable();
-    private void OnDisable() => _controls.Disable();
+    private readonly Dictionary<int, Controls> _controls = new();
 
     private void Awake()
     {
-        _controls = new();
+        QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
     }
 
-    private void Start()
+    public void PollInput(CallbackPollInput callback)
     {
-        QuantumCallback.Subscribe(this, (Quantum.CallbackPollInput callback) => PollInput(callback));
-    }
+        if (!_controls.ContainsKey(callback.Player))
+        {
+            callback.SetInput(new(), DeterministicInputFlags.Repeatable);
+            return;
+        }
 
-    public void PollInput(Quantum.CallbackPollInput callback)
-    {
+        Controls controls = _controls[callback.Player];
+
         Quantum.Input input = new()
         {
-            Movement = _controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
+            Movement = controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
 
-            Jump = _controls.Player.Jump.IsPressed(),
-            FastFall = _controls.Player.FastFall.IsPressed(),
-            Crouch = _controls.Player.Crouch.IsPressed(),
-            Block1 = _controls.Player.Block1.IsPressed(),
-            Block2 = _controls.Player.Block2.IsPressed(),
+            Jump = controls.Player.Jump.IsPressed(),
+            FastFall = controls.Player.FastFall.IsPressed(),
+            Crouch = controls.Player.Crouch.IsPressed(),
+            Block1 = controls.Player.Block1.IsPressed(),
+            Block2 = controls.Player.Block2.IsPressed(),
 
-            MainWeapon = _controls.Player.MainWeapon.IsPressed(),
-            AlternateWeapon = _controls.Player.AlternateWeapon.IsPressed(),
-            SubWeapon = _controls.Player.Subweapon.IsPressed(),
+            MainWeapon = controls.Player.MainWeapon.IsPressed(),
+            AlternateWeapon = controls.Player.AlternateWeapon.IsPressed(),
+            SubWeapon = controls.Player.Subweapon.IsPressed(),
 
-            Emote = _controls.Player.Emote.IsPressed(),
-            Interact = _controls.Player.Interact.IsPressed(),
+            Emote = controls.Player.Emote.IsPressed(),
+            Interact = controls.Player.Interact.IsPressed(),
 
-            Ready = _controls.Player.Ready.IsPressed(),
-            Cancel = _controls.Player.Cancel.IsPressed()
+            Ready = controls.Player.Ready.IsPressed(),
+            Cancel = controls.Player.Cancel.IsPressed()
         };
 
         callback.SetInput(input, DeterministicInputFlags.Repeatable);
     }
 
-    public void BindControls(LocalPlayerInfo playerInfo)
+    public void SpawnAllPlayers(QuantumGame game)
     {
-        if (playerInfo is not null || playerInfo.User.id == InputUser.InvalidId)
+        foreach (var player in LocalPlayerController.Instance.AllPlayers)
+        {
+            AddController(game, player.Value);
+        }
+    }
+
+    public void SpawnPlayer(GamepadJoinCallbackContext ctx)
+    {
+        AddController(QuantumRunner.Default.Game, ctx.PlayerInfo);
+    }
+
+    public void AddController(QuantumGame game, LocalPlayerInfo player)
+    {
+        Controls controls = new();
+        controls.Enable();
+
+        BindControls(controls, player);
+
+        int playerNum = QuantumRunner.Default.Game.GetLocalPlayers()[player.User.index];
+        game.SendPlayerData(playerNum, _player);
+
+        _controls.Add(playerNum, controls);
+    }
+
+    public void BindControls(Controls controls, LocalPlayerInfo playerInfo)
+    {
+        if (playerInfo is null || playerInfo.User.id == InputUser.InvalidId)
             return;
 
-        playerInfo.User.AssociateActionsWithUser(_controls);
+        playerInfo.User.AssociateActionsWithUser(controls);
 
-        InputControlScheme? scheme = InputControlScheme.FindControlSchemeForDevice(playerInfo.Device, _controls.controlSchemes);
+        InputControlScheme? scheme = InputControlScheme.FindControlSchemeForDevice(playerInfo.Device, controls.controlSchemes);
         if (scheme.HasValue)
         {
             playerInfo.User.ActivateControlScheme(scheme.Value);
+        }
+    }
+
+    private void OnEnable()
+    {
+        foreach (Controls controls in _controls.Values)
+        {
+            controls.Enable();
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (Controls controls in _controls.Values)
+        {
+            controls.Disable();
         }
     }
 }

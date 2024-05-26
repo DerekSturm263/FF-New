@@ -210,6 +210,9 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
     public void ForceTransition(string name)
     {
+        if (!_trackGraph)
+            return;
+
         if (_trackGraph.CurrentSection is not null && _trackSources.TryGetValue(_trackGraph.CurrentSection, out List<AudioSource> audioSources))
         {
             audioSources[0].gameObject.SetActive(false);

@@ -7,22 +7,19 @@ namespace Quantum
         public struct Filter
         {
             public EntityRef Entity;
+
             public CharacterController* CharacterController;
+            public PlayerLink* PlayerLink;
         }
 
         public override void Update(Frame f, ref Filter filter)
         {
-            Input input = default;
-            PlayerRef playerRef = default;
+            // Get the player's input before we do anything with it.
+            Input input = *f.GetPlayerInput(filter.PlayerLink->Player);
 
-            if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
-            {
-                playerRef = playerLink->Player;
-                input = *f.GetPlayerInput(playerRef);
-
-                HandleReady(f, ref filter, ref input, playerLink);
-                HandleCancel(f, ref filter, ref input, playerLink);
-            }
+            // Set the player's readiness.
+            HandleReady(f, ref filter, ref input, filter.PlayerLink);
+            HandleCancel(f, ref filter, ref input, filter.PlayerLink);
         }
 
         private void HandleReady(Frame f, ref Filter filter, ref Input input, PlayerLink* playerLink)
@@ -44,7 +41,7 @@ namespace Quantum
                     ++playerCounter->PlayersReady;
                     f.Events.OnPlayerReady(*playerLink);
 
-                    if (f.PlayerCount > 1 && playerCounter->PlayersReady == f.PlayerCount)
+                    if (playerCounter->TotalPlayers > 1 && playerCounter->PlayersReady == playerCounter->TotalPlayers)
                     {
                         HandleAllPlayersReady(f);
                     }
@@ -61,7 +58,7 @@ namespace Quantum
                     if (!playerCounter->CanPlayersEdit)
                         return;
 
-                    bool shouldCancelAll = playerCounter->PlayersReady == f.PlayerCount;
+                    bool shouldCancelAll = playerCounter->PlayersReady == playerCounter->TotalPlayers;
 
                     --playerCounter->PlayersReady;
 
@@ -94,7 +91,7 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
-                TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time));
+                TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time), false);
             }
 
             var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();

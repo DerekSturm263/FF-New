@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class SelectAuto : UIBehaviour
@@ -18,6 +19,7 @@ public class SelectAuto : UIBehaviour
 
     [SerializeField] private SelectType _selectMethod;
     [SerializeField] private bool _resetIndexOnStart = true;
+    [SerializeField] private bool _executeOnSelect = true;
 
     private Selectable _oldSelected;
 
@@ -92,7 +94,7 @@ public class SelectAuto : UIBehaviour
         {
             EventSystem.current.SetSelectedGameObject(selected.gameObject);
 
-            if (selected.TryGetComponent(out EventTrigger eventTrigger))
+            if (_executeOnSelect && selected.TryGetComponent(out EventTrigger eventTrigger))
                 eventTrigger.OnSelect(new(EventSystem.current));
         }
     }

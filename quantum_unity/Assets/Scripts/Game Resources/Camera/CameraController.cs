@@ -1,5 +1,6 @@
 ﻿using Extensions.Components.Miscellaneous;
 using Extensions.Types;
+using Photon.Deterministic;
 using Quantum;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,9 @@ namespace GameResources.Camera
 
         private void LateUpdate()
         {
+            if (!_settings)
+                return;
+
             CalculateTargetZoom();
             CalculateTargetPosition();
             CalculateTargetRotation();
@@ -106,16 +110,22 @@ namespace GameResources.Camera
         private void CalculateTargetPosition()
         {
             Vector3 targetPosition = default;
-
-            float targetCountWeight = 0;
-            for (int i = 0; i < _targets.Count; ++i)
-            {
-                targetPosition += _targets[i].Item2.position * _targets[i].Item1;
-                targetCountWeight += _targets[i].Item1;
-            }
-
+            
             if (_targets.Count > 0)
+            {
+                float targetCountWeight = 0;
+                for (int i = 0; i < _targets.Count; ++i)
+                {
+                    targetPosition += _targets[i].Item2.position * _targets[i].Item1;
+                    targetCountWeight += _targets[i].Item1;
+                }
+
                 targetPosition /= targetCountWeight;
+            }
+            else
+            {
+                targetPosition = FPVector3.Lerp(_settings.Settings.TranslationMinClamp, _settings.Settings.TranslationMaxClamp, FP._0_50).ToUnityVector3();
+            }
 
             targetPosition.x = Mathf.Clamp(targetPosition.x, _settings.Settings.TranslationMinClamp.X.AsFloat, _settings.Settings.TranslationMaxClamp.X.AsFloat);
             targetPosition.y = Mathf.Clamp(targetPosition.y, _settings.Settings.TranslationMinClamp.Y.AsFloat, _settings.Settings.TranslationMaxClamp.Y.AsFloat);

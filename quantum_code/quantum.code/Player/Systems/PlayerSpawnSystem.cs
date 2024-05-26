@@ -24,6 +24,9 @@ namespace Quantum
                 StatsSystem.SetBuild(f, entity, stats, stats->Build);
             }
 
+            if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
+                ++playerCounter->TotalPlayers;
+
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
                 var teams = f.ResolveList(matchInstance->Match.Teams);

@@ -57,7 +57,7 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
             // set map to this maps asset
             Config.Map = mapdata.Asset.Settings;
 
-      var playerCount = Math.Max(1, Players.Length);
+      var playerCount = Math.Max(1, 4);
 
       var dynamicDB = new DynamicAssetDB();
       DynamicAssetDB.OnInitialDynamicAssetsRequested?.Invoke(dynamicDB);

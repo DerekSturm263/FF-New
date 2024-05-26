@@ -1,6 +1,4 @@
-﻿using System.Runtime;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe sealed class JumpState : PlayerState
     {
@@ -23,7 +21,6 @@ namespace Quantum
             if (!filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {
                 filter.CharacterController->JumpSettingsIndex = 2;
-                f.Events.OnPlayerDoubleJump(*filter.PlayerLink);
             }
             if (filter.CharacterController->GetNearbyCollider(Colliders.LeftWall | Colliders.RightWall))
             {
@@ -32,6 +29,7 @@ namespace Quantum
                 filter.CharacterController->JumpSettingsIndex = 7;
             }
 
+            f.Events.OnPlayerJump(*filter.PlayerLink, stats.Jump.AsInt - filter.CharacterController->JumpCount);
             --filter.CharacterController->JumpCount;
         }
 
