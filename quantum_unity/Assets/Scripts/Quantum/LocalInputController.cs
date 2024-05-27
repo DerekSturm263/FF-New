@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem;
+using Extensions.Components.Miscellaneous;
 
-public class LocalInputController : MonoBehaviour
+public class LocalInputController : Controller<LocalInputController>
 {
     [SerializeField] private RuntimePlayer _player;
 
@@ -13,6 +14,8 @@ public class LocalInputController : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
+        
         QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
     }
 
@@ -68,15 +71,15 @@ public class LocalInputController : MonoBehaviour
         Controls controls = new();
         controls.Enable();
 
-        BindControls(controls, player);
-
         int playerNum = QuantumRunner.Default.Game.GetLocalPlayers()[player.User.index];
+        BindControls(controls, player, playerNum);
+
         game.SendPlayerData(playerNum, _player);
 
         _controls.Add(playerNum, controls);
     }
 
-    public void BindControls(Controls controls, LocalPlayerInfo playerInfo)
+    public void BindControls(Controls controls, LocalPlayerInfo playerInfo, int playerNum)
     {
         if (playerInfo is null || playerInfo.User.id == InputUser.InvalidId)
             return;
@@ -88,6 +91,8 @@ public class LocalInputController : MonoBehaviour
         {
             playerInfo.User.ActivateControlScheme(scheme.Value);
         }
+
+        playerInfo.SetQuantumIndex(playerNum);
     }
 
     private void OnEnable()

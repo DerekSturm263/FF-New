@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Extensions.Types;
 using System.Linq;
-using UnityEngine.InputSystem.UI;
 
 public class LocalPlayerController : Extensions.Components.Miscellaneous.Controller<LocalPlayerController>
 {
@@ -14,7 +13,7 @@ public class LocalPlayerController : Extensions.Components.Miscellaneous.Control
     [SerializeField] private UnityEvent<GamepadJoinCallbackContext> _onPlayerLeave;
 
     [SerializeField] private RectTransform _canvas;
-    [SerializeField] private GameObject _css;
+    [SerializeField] private CharacterSelect _css;
 
     private Controls _controls;
 
@@ -51,8 +50,8 @@ public class LocalPlayerController : Extensions.Components.Miscellaneous.Control
         LocalPlayerInfo player = new(device);
         _allPlayers.Add(device, player);
 
-        GameObject eventSystem = Instantiate(_css, _canvas.transform);
-        eventSystem.GetComponentInChildren<UserUILink>().BindControls(player);
+        CharacterSelect css = Instantiate(_css, _canvas.transform);
+        css.Bind(player);
 
         Debug.Log($"Player has joined via {device?.displayName}");
 

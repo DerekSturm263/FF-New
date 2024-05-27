@@ -22,19 +22,19 @@ namespace GameResources.Camera
             _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(stage.Theme.CameraSettings.Default.Id);
         }
 
-        public void SetCameraSettingsFromCurrentStageDefault(EntityView matchInstance)
+        public void SetCameraSettingsFromCurrentStageDefault()
         {
-            AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Default.Id;
+            AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.GetSingleton<MatchInstance>().Match.Stage.Theme.CameraSettings.Default.Id;
             _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(guid);
         }
-        public void SetCameraSettingsFromCurrentStageZoom(EntityView matchInstance)
+        public void SetCameraSettingsFromCurrentStageZoom()
         {
-            AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Zoom.Id;
+            AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.GetSingleton<MatchInstance>().Match.Stage.Theme.CameraSettings.Zoom.Id;
             _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(guid);
         }
-        public void SetCameraSettingsFromCurrentStageTension(EntityView matchInstance)
+        public void SetCameraSettingsFromCurrentStageTension()
         {
-            AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.CameraSettings.Tension.Id;
+            AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.GetSingleton<MatchInstance>().Match.Stage.Theme.CameraSettings.Tension.Id;
             _instance._settings = UnityDB.FindAsset<CameraSettingsAsset>(guid);
         }
 

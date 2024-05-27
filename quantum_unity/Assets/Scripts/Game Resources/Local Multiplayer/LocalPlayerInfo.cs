@@ -10,6 +10,10 @@ public class LocalPlayerInfo
     private readonly InputUser _user;
     public InputUser User => _user;
 
+    private int _quantumIndex;
+    public int QuantumIndex => _quantumIndex;
+    public void SetQuantumIndex(int index) => _quantumIndex = index;
+
     public LocalPlayerInfo(InputDevice device)
     {
         if (device is not null)

@@ -14,6 +14,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Material _lowHealth;
     [SerializeField] private GameObject _lowHealthObj;
     [SerializeField] private Image _portrait;
+    [SerializeField] private TMPro.TMP_Text _ready;
 
     [Header("Settings")]
     [SerializeField] private float _lerpSpeed;
@@ -35,6 +36,21 @@ public class HUDPlayerLink : MonoBehaviour
     public void SetPlayerNumber(int number)
     {
         _playerNum.SetText($"P{number}");
+    }
+
+    public void SetPlayerIcon(Sprite icon)
+    {
+        _portrait.sprite = icon;
+    }
+
+    public void UpdateReadiness(bool isReady)
+    {
+        _ready.SetText(isReady ? "Ready!" : "Not Yet...");
+    }
+
+    public void ShowReadiness(bool show)
+    {
+        _ready.gameObject.SetActive(show);
     }
 
     public void UpdateHealth(FP newHealth, FP maxHealth)

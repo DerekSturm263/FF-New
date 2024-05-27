@@ -27,12 +27,12 @@ namespace Quantum
             timer->Time += timer->Step;
 
             if (timer->Time % 60 == 0)
-                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
+                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60, true);
         }
 
-        private static void CountDownOneSecond(Frame f, Timer* timer, int ticks, int seconds)
+        private static void CountDownOneSecond(Frame f, Timer* timer, int ticks, int seconds, bool invokeEvent)
         {
-            f.Events.OnTimerTick(seconds);
+            f.Events.OnTimerTick(seconds, invokeEvent);
 
             if (ticks >= timer->Start)
             {
@@ -85,7 +85,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
                 SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time));
 
-            CountDownOneSecond(f, component, component->Time, component->Time / 60);
+            CountDownOneSecond(f, component, component->Time, component->Time / 60, true);
         }
 
         public static void StartCountdown(Frame f, TimeSpan time)
@@ -124,8 +124,7 @@ namespace Quantum
                 timer->Time = timer->OriginalTime;
                 timer->Start = timer->OriginalTime - 180;
 
-                if (invokeEvent)
-                    CountDownOneSecond(f, timer, timer->Time, timer->Time / 60);
+                CountDownOneSecond(f, timer, timer->Time, timer->Time / 60, invokeEvent);
             }
         }
     }

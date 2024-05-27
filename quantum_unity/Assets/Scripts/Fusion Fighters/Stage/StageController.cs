@@ -18,7 +18,7 @@ public class StageController : Controller<StageController>
         stage.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         stage.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
-        return new(stage, null);
+        return new(stage);
     }
 
     public void Save(SerializableWrapper<Stage> stage)

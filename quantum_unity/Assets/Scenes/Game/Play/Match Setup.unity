@@ -1788,6 +1788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectMethod: 6
   _resetIndexOnStart: 1
+  _executeOnSelect: 1
 --- !u!114 &820680483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1854,6 +1855,9 @@ MonoBehaviour:
           m_StringArgument: Battle
           m_BoolArgument: 0
         m_CallState: 2
+  _onButtonClickMultiplayer:
+    m_PersistentCalls:
+      m_Calls: []
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
@@ -3559,6 +3563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectMethod: 6
   _resetIndexOnStart: 1
+  _executeOnSelect: 1
 --- !u!114 &1774574260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3571,7 +3576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6eb293cb49845742984d0eba82fb6bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 6066071934636821485, guid: 4f22e05a0d3b3254b84b1a99a32627eb, type: 3}
+  _button: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _loadingType: 0
   _sizeOffset: 0
@@ -3648,6 +3653,9 @@ MonoBehaviour:
           m_StringArgument: Stage Selection
           m_BoolArgument: 1
         m_CallState: 2
+  _onButtonClickMultiplayer:
+    m_PersistentCalls:
+      m_Calls: []
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []

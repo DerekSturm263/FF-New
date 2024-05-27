@@ -29,12 +29,12 @@ namespace Extensions.Components.UI
         protected override void Awake()
         {
             if (_useBeginningCountdown)
-                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time));
+                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time, true));
             else
-                QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e => UpdateTimer(e.Time));
+                QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e => UpdateTimer(e.Time, e.InvokeEvents));
         }
 
-        private void UpdateTimer(int time)
+        private void UpdateTimer(int time, bool invokeEvents)
         {
             _time = System.TimeSpan.FromSeconds(time);
 
@@ -45,7 +45,9 @@ namespace Extensions.Components.UI
                 text = text.TrimEnd('0');
 
             _onTick.Invoke(text);
-            InvokeTickEvent(time);
+
+            if (invokeEvents)
+                InvokeTickEvent(time);
         }
     }
 }

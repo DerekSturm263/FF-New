@@ -1,19 +1,32 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildController : Controller<BuildController>
 {
     public static string GetPath() => $"{Application.persistentDataPath}/Builds";
 
+    private readonly Dictionary<int, EntityRef> _indicesToPlayers = new();
+
     private EntityRef GetPlayer(int playerIndex)
     {
-        PlayerRef? playerRef = QuantumRunner.Default.Game.Frames.Verified.ActorIdToFirstPlayer(playerIndex);
-        
-        if (playerRef.HasValue)
-            return /*QuantumRunner.Default.Game.Frames.Verified.Value*/EntityRef.None;
-        else
-            return EntityRef.None;
+        if (!_indicesToPlayers.ContainsKey(playerIndex))
+        {
+            int i = 0;
+            foreach (var playerLink in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<PlayerLink>())
+            {
+                if (i == playerIndex)
+                {
+                    _indicesToPlayers[playerIndex] = playerLink.Component.Entity;
+                    break;
+                }
+
+                ++i;
+            }
+        }
+
+        return _indicesToPlayers[playerIndex];
     }
 
     public SerializableWrapper<Build> New()
@@ -25,7 +38,7 @@ public class BuildController : Controller<BuildController>
         build.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         build.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
-        return new(build, null);
+        return new(build);
     }
 
     public void Save(SerializableWrapper<Build> build)
@@ -48,5 +61,6 @@ public class BuildController : Controller<BuildController>
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
+        PlayerStatController.Instance.HUDS[playerIndex].SetPlayerIcon(build.Icon);
     }
 }

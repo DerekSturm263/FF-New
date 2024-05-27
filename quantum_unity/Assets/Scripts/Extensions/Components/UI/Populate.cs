@@ -101,6 +101,7 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T> _onButtonSpawn;
         [SerializeField] protected UnityEvent<T> _onButtonHover;
         [SerializeField] protected UnityEvent<T> _onButtonClick;
+        [SerializeField] protected UnityEvent<T, int> _onButtonClickMultiplayer;
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
 
         public override void LoadAllItems()
@@ -232,6 +233,10 @@ namespace Extensions.Components.UI
             Button button = buttonObj.GetComponentInChildren<Button>();
             if (button)
                 button.onClick.AddListener(() => _onButtonClick.Invoke(item));
+
+            MultiplayerButton multiplayerButton = buttonObj.GetComponentInChildren<MultiplayerButton>();
+            if (multiplayerButton)
+                multiplayerButton.onClick.AddListener((playerNum) => _onButtonClickMultiplayer.Invoke(item, playerNum));
 
             DragAndDropItem dragAndDrop = buttonObj.GetComponentInChildren<DragAndDropItem>();
             if (dragAndDrop)

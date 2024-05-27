@@ -18,7 +18,7 @@ public class RulesetController : Controller<RulesetController>
         ruleset.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         ruleset.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
-        return new(ruleset, null);
+        return new(ruleset);
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)

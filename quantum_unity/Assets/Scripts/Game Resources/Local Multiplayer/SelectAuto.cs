@@ -92,7 +92,14 @@ public class SelectAuto : UIBehaviour
 
         if (selected)
         {
-            EventSystem.current.SetSelectedGameObject(selected.gameObject);
+            MultiplayerEventSystem eventSystem = GetComponentInParent<MultiplayerEventSystem>();
+            if (eventSystem)
+            {
+                eventSystem.SetSelectedGameObject(selected.gameObject);
+                GetComponentInParent<CustomMultiplayerUIInputSystemModule>().Selector.ChildToSelected(selected.gameObject);
+            }
+            else
+                EventSystem.current.SetSelectedGameObject(selected.gameObject);
 
             if (_executeOnSelect && selected.TryGetComponent(out EventTrigger eventTrigger))
                 eventTrigger.OnSelect(new(EventSystem.current));

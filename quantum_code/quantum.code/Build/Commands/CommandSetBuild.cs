@@ -15,8 +15,10 @@ namespace Quantum
 
         public void Execute(Frame f)
         {
+            Log.Debug("Build applied!");
+
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.ApplyBuild(f, entity, stats, build);
+                StatsSystem.SetBuild(f, entity, stats, build);
         }
     }
 }

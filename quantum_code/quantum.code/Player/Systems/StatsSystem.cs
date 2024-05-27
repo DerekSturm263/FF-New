@@ -21,14 +21,6 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            Input input = default;
-            PlayerRef playerRef = default;
-            if (f.Unsafe.TryGetPointer(filter.Entity, out PlayerLink* playerLink))
-            {
-                playerRef = playerLink->Player;
-                input = *f.GetPlayerInput(playerRef);
-            }
-
             if (f.TryFindAsset(filter.Stats->Build.Equipment.Badge.Id, out Badge badge))
             {
                 badge.OnUpdate(f, filter.Entity);
@@ -381,14 +373,16 @@ namespace Quantum
             f.Events.OnPlayerSetUltimate(f.Get<PlayerLink>(user), oldUltimate, ultimate);
         }
 
-        public static void ApplyBadge(Frame f, EntityRef user, AssetRefBadge badge)
+        public static void ApplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
         {
-            f.FindAsset<Badge>(badge.Id).OnApply(f, user);
+            if (f.TryFindAsset(badgeAsset.Id, out Badge badge))
+                badge.OnApply(f, user);
         }
 
-        public static void UnapplyBadge(Frame f, EntityRef user, AssetRefBadge badge)
+        public static void UnapplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
         {
-            f.FindAsset<Badge>(badge.Id).OnRemove(f, user);
+            if (f.TryFindAsset(badgeAsset.Id, out Badge badge))
+                badge.OnRemove(f, user);
         }
 
         public static void RemoveBadge(Frame f, EntityRef user, Stats* stats)

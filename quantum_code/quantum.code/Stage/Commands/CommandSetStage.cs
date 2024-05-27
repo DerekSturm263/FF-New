@@ -13,6 +13,8 @@ namespace Quantum
 
         public void Execute(Frame f)
         {
+            Log.Debug("Stage applied!");
+
             MatchSystem.SetStage(f, stage);
         }
     }

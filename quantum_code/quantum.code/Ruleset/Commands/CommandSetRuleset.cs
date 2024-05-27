@@ -13,6 +13,8 @@ namespace Quantum
 
         public void Execute(Frame f)
         {
+            Log.Debug("Ruleset applied!");
+
             Log.Debug(ruleset.Match.Time);
             MatchSystem.SetRuleset(f, ruleset);
         }
