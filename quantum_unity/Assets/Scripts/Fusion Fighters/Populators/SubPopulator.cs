@@ -9,7 +9,7 @@ public class SubPopulator : Populate<Type, long>
 {
     protected override Sprite Icon(Type item) => null;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(SubManager.GetPath());
+    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(SubController.GetPath());
 
     protected override string Name(Type item) => item.SerializableData.Name;
 

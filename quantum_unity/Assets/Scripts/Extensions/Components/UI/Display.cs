@@ -58,7 +58,7 @@ namespace Extensions.Components.UI
         protected abstract Types.Tuple<string, Sprite> GetInfo(T item);
         public override void UpdateDisplay(T item)
         {
-            Types.Tuple<string, Sprite> values = GetInfo(GetValue());
+            Types.Tuple<string, Sprite> values = GetInfo(item);
 
             _component.Item1.Invoke(values.Item1);
             _component.Item2.Invoke(values.Item2);

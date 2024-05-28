@@ -9,7 +9,7 @@ public class ApparelPopulator : Populate<Type, long>
 {
     protected override Sprite Icon(Type item) => null;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(ApparelManager.GetPath());
+    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(ApparelController.GetPath());
 
     protected override string Name(Type item) => item.SerializableData.Name;
 
