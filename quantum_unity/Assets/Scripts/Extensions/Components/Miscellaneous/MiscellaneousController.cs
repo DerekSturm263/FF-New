@@ -29,5 +29,11 @@ namespace Extensions.Components.Miscellaneous
             GameObject canvas = GameObject.FindGameObjectWithTag("Main Menu Canvas");
             Object.Destroy(canvas);
         }
+
+        public void ResetTrigger(GameObject gameObj)
+        {
+            gameObj.GetComponent<Animator>().ResetTrigger("On");
+            gameObj.GetComponent<Animator>().ResetTrigger("Off");
+        }
     }
 }

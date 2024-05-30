@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
@@ -12,15 +13,26 @@ namespace Extensions.Components.Input
         protected ButtonPrompt[] _allButtonPrompts;
 
         private InputDevice _lastDevice;
+        private IDisposable _event;
 
         public override void Initialize()
         {
             base.Initialize();
 
             _allButtonPrompts = FindObjectsByType<ButtonPrompt>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            InputSystem.onAnyButtonPress.Call(ctx => SetAllInputDevices(ctx.device));
+            _event = InputSystem.onAnyButtonPress.Call(ctx => SetAllInputDevices(ctx.device));
 
             SetAllInputDevicesDefault();
+
+            Application.quitting += Shutdown;
+        }
+
+        public override void Shutdown()
+        {
+            _event.Dispose();
+            Application.quitting -= Shutdown;
+
+            base.Shutdown();
         }
 
         public void SetAllInputDevicesDefault() => SetAllInputDevices(_lastDevice ?? InputSystem.devices[0]);

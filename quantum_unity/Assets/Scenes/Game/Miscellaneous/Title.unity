@@ -1346,6 +1346,7 @@ GameObject:
   - component: {fileID: 1619613329}
   - component: {fileID: 1619613328}
   - component: {fileID: 1619613327}
+  - component: {fileID: 1619613331}
   - component: {fileID: 1619613326}
   - component: {fileID: 1619613325}
   - component: {fileID: 1619613330}
@@ -1562,6 +1563,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &1619613331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619613323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
+  _readContinuous: 0
+  _processWhenEmpty: 1
+  _onAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
+        m_MethodName: DisplayPopup
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 4d55abc6f5d9afa41b73777f6bb456e8,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Popup.Popup, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1692119448
 GameObject:
   m_ObjectHideFlags: 0

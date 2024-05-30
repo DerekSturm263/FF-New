@@ -14,6 +14,9 @@ namespace Extensions.Components.UI
 
         protected override void ModifyTextMesh(TMPro.TMP_TextInfo textInfo, TMPro.TMP_MeshInfo meshInfo, float deltaTime, float time)
         {
+            if (_allVertices.Count == 0)
+                return;
+
             for (int i = 0; i < textInfo.characterCount; ++i)
             {
                 TMPro.TMP_CharacterInfo charInfo = textInfo.characterInfo[i];

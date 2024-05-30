@@ -27,6 +27,7 @@ namespace Extensions.Components.UI
             base.OnEnable();
 
             SaveAllVertices(Text.textInfo);
+            _text.ForceMeshUpdate();
             TMPro.TMPro_EventManager.TEXT_CHANGED_EVENT.Add(TEXT_CHANGED);
         }
 
@@ -35,6 +36,9 @@ namespace Extensions.Components.UI
             base.OnDisable();
 
             TMPro.TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(TEXT_CHANGED);
+            _text.ForceMeshUpdate();
+            
+            _time = 0;
         }
 
         private void TEXT_CHANGED(object obj)

@@ -13,14 +13,15 @@ namespace Extensions.Components.UI
     {
         private static readonly Dictionary<string, int> _allIndices = new();
 
-        [SerializeField] private HorizontalLayoutGroup _tabButtons;
+        [SerializeField] private Button[] _tabButtons;
         [SerializeField] private Transform _tabLists;
         [SerializeField] private RectTransform _selectionMarker;
         [SerializeField] private float _selectionMarkerSpeed = 20;
 
         [SerializeField] private bool _rememberLastTab;
         [SerializeField] private bool _cycle = true;
-        [SerializeField] private string dictionaryIndex;
+        [SerializeField] private string _dictionaryIndex;
+        [SerializeField] private int _defaultTab;
 
         [SerializeField] private UnityEvent<Button> _onTabSelection;
         [SerializeField] private UnityEvent<Button> _onTabDeselection;
@@ -38,13 +39,13 @@ namespace Extensions.Components.UI
         {
             _tabs.Clear();
 
-            if (!_tabButtons || !_tabLists)
+            if (_tabButtons.Length == 0 || !_tabLists)
                 return;
 
-            _tabButtonsRect = _tabButtons.GetComponent<RectTransform>();
+            _tabButtonsRect = _tabButtons[0].GetComponent<RectTransform>();
 
             int i = 0;
-            foreach (Button button in _tabButtons.GetComponentsInChildren<Button>())
+            foreach (Button button in _tabButtons)
             {
                 GameObject tab = _tabLists.GetChild(i).gameObject;
 
@@ -55,14 +56,14 @@ namespace Extensions.Components.UI
             }
 
             if (_rememberLastTab)
-                _allIndices.TryAdd(dictionaryIndex, 0);
+                _allIndices.TryAdd(_dictionaryIndex, 0);
 
             Button selected;
 
-            if (dictionaryIndex is not null && _allIndices.TryGetValue(dictionaryIndex, out int index))
+            if (_dictionaryIndex is not null && _allIndices.TryGetValue(_dictionaryIndex, out int index))
                 selected = _tabs.ElementAt(index).Key;
             else
-                selected = _tabs.ElementAt(0).Key;
+                selected = _tabs.ElementAt(_defaultTab).Key;
 
             _currentTabIndex = _tabs[selected].index;
         }
@@ -99,7 +100,7 @@ namespace Extensions.Components.UI
             _tabs[tab].gameObject.SetActive(true);
 
             if (_rememberLastTab)
-                _allIndices[dictionaryIndex] = _currentTabIndex;
+                _allIndices[_dictionaryIndex] = _currentTabIndex;
 
             _onTabSelection.Invoke(tab);
         }
