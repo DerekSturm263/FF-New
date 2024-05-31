@@ -9,6 +9,8 @@ namespace Extensions.Components.UI
     [DisallowMultipleComponent]
     public abstract class TMPTextEffect : UIBehaviour
     {
+        [SerializeField] private bool _resetOnTextChange;
+
         private TMPro.TMP_Text _text;
         private TMPro.TMP_Text Text => _text = _text ? _text : GetComponent<TMPro.TMP_Text>();
 
@@ -29,6 +31,8 @@ namespace Extensions.Components.UI
             SaveAllVertices(Text.textInfo);
             _text.ForceMeshUpdate();
             TMPro.TMPro_EventManager.TEXT_CHANGED_EVENT.Add(TEXT_CHANGED);
+
+            _time = 0;
         }
 
         protected override void OnDisable()
@@ -45,7 +49,12 @@ namespace Extensions.Components.UI
         {
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
             if (Text && (obj == _text))
+            {
                 SaveAllVertices((obj as TMPro.TMP_Text).textInfo);
+
+                if (_resetOnTextChange)
+                    _time = 0;
+            }
 #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
         }
 
@@ -71,7 +80,7 @@ namespace Extensions.Components.UI
 
             ModifyTextMesh(textInfo, meshInfo, deltaTime, _time);
 
-            textInfo.textComponent.UpdateVertexData(TMPro.TMP_VertexDataUpdateFlags.Vertices);
+            textInfo.textComponent.UpdateVertexData(TMPro.TMP_VertexDataUpdateFlags.Vertices | TMPro.TMP_VertexDataUpdateFlags.Colors32);
 
             _time += deltaTime;
         }
