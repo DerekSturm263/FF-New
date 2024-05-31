@@ -150,6 +150,14 @@ public class PlayerEventListener : MonoBehaviour
         head.SetBlendShapeWeight(15, weight * 0.4f);
     }
 
+    public void SetPlayerExpressionNeutral(EntityRef owner, float weight)
+    {
+        SkinnedMeshRenderer head = GetHead(owner);
+
+        head.SetBlendShapeWeight(0, weight * 0.4f);
+        head.SetBlendShapeWeight(1, weight * 0.4f);
+    }
+
     private void InitList(EntityRef owner)
     {
         if (!_meshRenderers.ContainsKey(owner))

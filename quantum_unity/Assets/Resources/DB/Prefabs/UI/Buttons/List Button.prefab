@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3608654466753550210}
   - component: {fileID: 5179643293042799752}
   - component: {fileID: 2821585272560543864}
-  m_Layer: 14
+  m_Layer: 5
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2714826721035922683}
   - component: {fileID: 3834483519236278541}
   - component: {fileID: 6713394782460862692}
-  m_Layer: 14
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,12 +191,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5582590176198170808}
-  - component: {fileID: 4345032460397013792}
+  - component: {fileID: 6215476458184869422}
   - component: {fileID: 6365299160766047030}
   - component: {fileID: 1049859210423023737}
-  - component: {fileID: 5941548146914095112}
-  m_Layer: 14
-  m_Name: Multiplayer Vertical List Button
+  m_Layer: 5
+  m_Name: List Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +221,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 750, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4345032460397013792
+--- !u!114 &6215476458184869422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,7 +230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6066071934636821485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9ee28521842194d8c2087ea3086cb0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -319,18 +318,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 5941548146914095112}
-          m_TargetAssemblyTypeName: UnityEngine.Canvas, UnityEngine
-          m_MethodName: set_sortingOrder
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 20
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - eventID: 15
     callback:
       m_PersistentCalls:
@@ -367,45 +354,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 10
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5941548146914095112}
-          m_TargetAssemblyTypeName: UnityEngine.Canvas, UnityEngine
-          m_MethodName: set_sortingOrder
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 15
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!223 &5941548146914095112
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6066071934636821485}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 17
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 15
-  m_TargetDisplay: 0
 --- !u!1 &6675701815097171685
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +366,7 @@ GameObject:
   - component: {fileID: 798215025221916903}
   - component: {fileID: 1568244744761471430}
   - component: {fileID: 4703357216344484567}
-  m_Layer: 14
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Label
   m_Icon: {fileID: 0}
@@ -568,7 +516,7 @@ GameObject:
   - component: {fileID: 376312294669396299}
   - component: {fileID: 4371295379031082727}
   - component: {fileID: 6603862086068437411}
-  m_Layer: 14
+  m_Layer: 5
   m_Name: Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +575,7 @@ GameObject:
   - component: {fileID: 8869318130431272821}
   - component: {fileID: 8740524212723104022}
   - component: {fileID: 1800708004657891334}
-  m_Layer: 14
+  m_Layer: 5
   m_Name: Background
   m_TagString: Background
   m_Icon: {fileID: 0}

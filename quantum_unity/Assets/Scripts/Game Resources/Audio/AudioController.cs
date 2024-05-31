@@ -81,6 +81,11 @@ namespace GameResources.Audio
         public void PlayAudioClip(AudioClip clip) => SFXSource.PlayOneShot(clip);
 
         /// <summary>
+        /// Stops an AudioClip.
+        /// </summary>
+        public void StopAudioClip() => SFXSource.Stop();
+
+        /// <summary>
         /// Plays an AudioClip in the Music Source.
         /// </summary>
         /// <param name="clip">The clip to be played.</param>

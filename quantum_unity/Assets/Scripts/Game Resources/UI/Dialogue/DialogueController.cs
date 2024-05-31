@@ -1,3 +1,4 @@
+using GameResources.Audio;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -9,7 +10,6 @@ namespace GameResources.UI.Dialogue
 {
     public class DialogueController : MonoBehaviour
     {
-        [SerializeField] private CameraSettingsAsset _cameraSettings;
         [SerializeField] private bool _hideSpeaker;
 
         private TMPro.TMP_Text _speakerText;
@@ -18,7 +18,7 @@ namespace GameResources.UI.Dialogue
         [SerializeField] private Dialogue _dialogue;
         private DialoguePiece CurrentDialoguePiece => _dialogue.Dialogues[_dialogueIndex];
 
-        private StringBuilder _currentText;
+        private StringBuilder _currentText = new();
         private float _currentDialogueTime;
         private int _dialogueCharIndex;
 
@@ -27,7 +27,7 @@ namespace GameResources.UI.Dialogue
         [SerializeField] private Transform _buttonParent;
         [SerializeField] private GameObject _buttonTemplate;
 
-        private void Awake()
+        private void Start()
         {
             TMPro.TMP_Text[] tmps = GetComponentsInChildren<TMPro.TMP_Text>();
 
@@ -38,17 +38,15 @@ namespace GameResources.UI.Dialogue
                 _speakerText.SetText("???");
             else
                 RevealSpeaker();
-        }
 
-        private void OnEnable()
-        {
-            Camera.CameraController.Instance?.SetCameraSettings(_cameraSettings);
-            //Player.Multiplayer.PlayerController.SetAllPlayersActive(false);
+            CurrentDialoguePiece.PlayVoiceLines(this);
+            CurrentDialoguePiece.InvokeEvent();
         }
 
         private void Update()
         {
             _currentDialogueTime += Time.deltaTime * CurrentDialoguePiece.Speed;
+
             if (_currentText.ToString() != CurrentDialoguePiece.Text && _currentDialogueTime > 0.1f)
             {
                 _currentText.Append(CurrentDialoguePiece.Text[_dialogueCharIndex]);
@@ -75,23 +73,26 @@ namespace GameResources.UI.Dialogue
 
         public void NextDialogue()
         {
-            _currentDialogueTime = 0;
-            _currentText.Clear();
-            _dialogueCharIndex = 0;
-
             if (_dialogueIndex + 1 >= _dialogue.Dialogues.Count)
             {
                 EndDialogue();
                 return;
             }
 
+            _currentDialogueTime = 0;
+            _currentText.Clear();
+            _dialogueCharIndex = 0;
+
             foreach (Transform buttonTransform in _buttonParent.GetComponentInChildren<Transform>())
             {
                 Destroy(buttonTransform.gameObject);
             }
 
-            CurrentDialoguePiece.InvokeEvent();
             ++_dialogueIndex;
+
+            StopAllCoroutines();
+            CurrentDialoguePiece.PlayVoiceLines(this);
+            CurrentDialoguePiece.InvokeEvent();
         }
 
         public void SetDialogueIndex(int index)
@@ -111,7 +112,7 @@ namespace GameResources.UI.Dialogue
 
         private void EndDialogue()
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             _dialogue.InvokeOnDialogueEnd();
         }
 

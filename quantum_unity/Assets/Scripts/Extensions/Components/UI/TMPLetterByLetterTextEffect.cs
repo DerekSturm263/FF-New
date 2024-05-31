@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extensions.Components.UI
 {
+    [AddComponentMenu("UI/Effects/TextMeshPro - Letter By Letter Text", 79)]
     public class TMPLetterByLetterTextEffect : TMPTextEffect
     {
         [SerializeField] private AnimationCurve _curve;

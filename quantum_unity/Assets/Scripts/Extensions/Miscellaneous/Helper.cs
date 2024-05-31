@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Extensions.Miscellaneous
@@ -103,15 +104,15 @@ namespace Extensions.Miscellaneous
             b = (U)(object)c;
         }
 
-        public static async void Delay(float seconds, System.Action action)
+        public static async Task Delay(float seconds, System.Action action)
         {
-            await System.Threading.Tasks.Task.Delay((int)(seconds * 1000));
+            await Task.Delay((int)(seconds * 1000));
             action.Invoke();
         }
 
-        public static async void Delay<T>(float seconds, System.Action<T> action, T t)
+        public static async Task Delay<T>(float seconds, System.Action<T> action, T t)
         {
-            await System.Threading.Tasks.Task.Delay((int)(seconds * 1000));
+            await Task.Delay((int)(seconds * 1000));
             action.Invoke(t);
         }
 
