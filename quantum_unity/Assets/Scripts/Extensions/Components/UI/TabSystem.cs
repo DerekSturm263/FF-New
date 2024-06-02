@@ -32,17 +32,12 @@ namespace Extensions.Components.UI
         private int _currentTabIndex;
         private readonly Dictionary<Button, (GameObject gameObject, int index)> _tabs = new();
 
-        private RectTransform _tabButtonsRect;
-        private Vector2 _targetTabButtonsAnchoredPosition;
-
         protected override void Awake()
         {
             _tabs.Clear();
 
             if (_tabButtons.Length == 0 || !_tabLists)
                 return;
-
-            _tabButtonsRect = _tabButtons[0].GetComponent<RectTransform>();
 
             int i = 0;
             foreach (Button button in _tabButtons)
@@ -81,10 +76,6 @@ namespace Extensions.Components.UI
 
                 _selectionMarker.position = Vector3.Lerp(_selectionMarker.position, rect.position, Time.deltaTime * _selectionMarkerSpeed);
                 _selectionMarker.sizeDelta = Vector3.Lerp(_selectionMarker.sizeDelta, rect.sizeDelta, Time.deltaTime * _selectionMarkerSpeed);
-            }
-            else if (_tabButtonsRect)
-            {
-                _tabButtonsRect.anchoredPosition = Vector2.Lerp(_tabButtonsRect.anchoredPosition, _targetTabButtonsAnchoredPosition, Time.deltaTime * _selectionMarkerSpeed);
             }
         }
 
@@ -145,11 +136,6 @@ namespace Extensions.Components.UI
                 _currentTabIndex = 0;
 
             SelectTab(_tabs.ElementAt(_currentTabIndex).Key);
-        }
-
-        public void MoveTab(Button tab)
-        {
-            _targetTabButtonsAnchoredPosition = new(_positions[_tabs[tab].index], _tabButtonsRect.anchoredPosition.y);
         }
 
 #if UNITY_EDITOR
