@@ -1273,8 +1273,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.36804, y: -198.92758}
-  m_SizeDelta: {x: 640.24536, y: 397.85516}
+  m_AnchoredPosition: {x: 960, y: -199}
+  m_SizeDelta: {x: 640, y: 398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &195650443
 PrefabInstance:
@@ -2040,8 +2040,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 320.12268, y: -198.92758}
-  m_SizeDelta: {x: 640.24536, y: 397.85516}
+  m_AnchoredPosition: {x: 320, y: -199}
+  m_SizeDelta: {x: 640, y: 398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &358661642
 GameObject:
@@ -3196,6 +3196,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Forge a Sub
       objectReference: {fileID: 0}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8063195549492202044, guid: 23425f8c211515d45a89d2640826c282,
+        type: 3}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c,
+        type: 3}
     - target: {fileID: 6658445798477072092, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Controller
@@ -3593,28 +3605,40 @@ PrefabInstance:
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.50980395
+      value: 0.3773585
       objectReference: {fileID: 0}
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.39215687
+      value: 0.24801238
       objectReference: {fileID: 0}
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.33333334
+      value: 0.18333928
       objectReference: {fileID: 0}
     - target: {fileID: 6482070003171691707, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Name
       value: Sub Collection
       objectReference: {fileID: 0}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7633087121112899585, guid: 6ca2b2589b3244349969e08b709a68c4,
+        type: 3}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c,
+        type: 3}
     - target: {fileID: 6658445798477072092, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: bcf857446d565e24e95aceb22a7f93db, type: 2}
+      objectReference: {fileID: 9100000, guid: 02a88585071ac344296e866356a85b00, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5173,6 +5197,8 @@ GameObject:
   - component: {fileID: 942233240}
   - component: {fileID: 942233242}
   - component: {fileID: 942233241}
+  - component: {fileID: 942233244}
+  - component: {fileID: 942233243}
   m_Layer: 5
   m_Name: Create Apparel
   m_TagString: Untagged
@@ -5257,6 +5283,40 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &942233243
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942233239}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &942233244
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942233239}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee375207fa276d949b7b0a8a773715c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &950962311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6482070003171691707, guid: f78383ff365f2ee43946e3ff1be94daa,
@@ -6391,28 +6451,40 @@ PrefabInstance:
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.50980395
+      value: 0.3773585
       objectReference: {fileID: 0}
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.39215687
+      value: 0.24801238
       objectReference: {fileID: 0}
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.33333334
+      value: 0.18333928
       objectReference: {fileID: 0}
     - target: {fileID: 6482070003171691707, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Name
       value: Weapon Collection
       objectReference: {fileID: 0}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7236837309196240129, guid: 37c50b10b573e404eae974b2a7f5477d,
+        type: 3}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c,
+        type: 3}
     - target: {fileID: 6658445798477072092, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: bcf857446d565e24e95aceb22a7f93db, type: 2}
+      objectReference: {fileID: 9100000, guid: 02a88585071ac344296e866356a85b00, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7044,6 +7116,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Forge a Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3578694616236982060, guid: 09f0c857670b85a4c82526cd1f4d57f2,
+        type: 3}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c,
+        type: 3}
     - target: {fileID: 6658445798477072092, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Controller
@@ -8690,6 +8774,8 @@ GameObject:
   - component: {fileID: 1646513808}
   - component: {fileID: 1646513810}
   - component: {fileID: 1646513809}
+  - component: {fileID: 1646513812}
+  - component: {fileID: 1646513811}
   m_Layer: 5
   m_Name: Forge a Sub
   m_TagString: Untagged
@@ -8774,6 +8860,40 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1646513811
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646513807}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1646513812
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646513807}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee375207fa276d949b7b0a8a773715c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1647825718
 GameObject:
   m_ObjectHideFlags: 0
@@ -10222,28 +10342,40 @@ PrefabInstance:
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.50980395
+      value: 0.3773585
       objectReference: {fileID: 0}
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.39215687
+      value: 0.24801238
       objectReference: {fileID: 0}
     - target: {fileID: 6005306808376022356, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.33333334
+      value: 0.18333928
       objectReference: {fileID: 0}
     - target: {fileID: 6482070003171691707, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Name
       value: Apparel Collection
       objectReference: {fileID: 0}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3102973179360859532, guid: 55d79812c8dc9764e8aadf09139d6cec,
+        type: 3}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c,
+        type: 3}
     - target: {fileID: 6658445798477072092, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: bcf857446d565e24e95aceb22a7f93db, type: 2}
+      objectReference: {fileID: 9100000, guid: 02a88585071ac344296e866356a85b00, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10893,6 +11025,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Create Apparel
       objectReference: {fileID: 0}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8301669352310886218, guid: cfc1f0e830b48ab488ddd3b57a8d7ec8,
+        type: 3}
+    - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c,
+        type: 3}
     - target: {fileID: 6658445798477072092, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
       propertyPath: m_Controller
@@ -11267,6 +11411,8 @@ GameObject:
   - component: {fileID: 1975446407}
   - component: {fileID: 1975446408}
   - component: {fileID: 1975446409}
+  - component: {fileID: 1975446411}
+  - component: {fileID: 1975446410}
   m_Layer: 5
   m_Name: Forge a Weapon
   m_TagString: Untagged
@@ -11351,6 +11497,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12affbc40044d304d8f955f3d6f9c86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &1975446410
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975446406}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1975446411
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975446406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee375207fa276d949b7b0a8a773715c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1985975945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12331,8 +12511,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1600.6134, y: -198.92758}
-  m_SizeDelta: {x: 640.24536, y: 397.85516}
+  m_AnchoredPosition: {x: 1600, y: -199}
+  m_SizeDelta: {x: 640, y: 398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2119548426
 GameObject:
