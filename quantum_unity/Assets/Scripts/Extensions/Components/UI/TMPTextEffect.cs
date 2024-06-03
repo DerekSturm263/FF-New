@@ -28,11 +28,12 @@ namespace Extensions.Components.UI
         {
             base.OnEnable();
 
-            SaveAllVertices(Text.textInfo);
+            _time = 0;
+
             _text.ForceMeshUpdate();
             TMPro.TMPro_EventManager.TEXT_CHANGED_EVENT.Add(TEXT_CHANGED);
 
-            _time = 0;
+            SaveAllVertices(Text.textInfo);
         }
 
         protected override void OnDisable()

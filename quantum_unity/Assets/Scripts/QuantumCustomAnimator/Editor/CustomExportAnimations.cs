@@ -106,7 +106,7 @@ public class CustomExportAnimations : MonoBehaviour
             clips.Add(clip);
             AnimatorClip newClip = new AnimatorClip();
             newClip.name = state.motion.name;
-            newClip.data = Extract(clip);
+            newClip.data = Extract(clip, state.speed < 0);
             newState.motion = newClip;
 
           }
@@ -162,7 +162,7 @@ public class CustomExportAnimations : MonoBehaviour
                 {
                   clips.Add(cClip);
                   AnimatorClip newClip = new AnimatorClip();
-                  newClip.data = Extract(cClip);
+                  newClip.data = Extract(cClip, state.speed < 0);
                   newClip.name = newClip.clipName;
                   newBlendTree.motions[c] = newClip;
                 }
@@ -321,7 +321,7 @@ public class CustomExportAnimations : MonoBehaviour
     EditorUtility.SetDirty(dataAsset);
   }
 
-  public static AnimatorData Extract(AnimationClip clip)
+  public static AnimatorData Extract(AnimationClip clip, bool isReversed)
   {
     AnimatorData animationData = new AnimatorData();
     animationData.clipName = clip.name;
@@ -337,6 +337,7 @@ public class CustomExportAnimations : MonoBehaviour
     animationData.frames = new AnimatorFrame[animationData.frameCount];
     animationData.looped = clip.isLooping && settings.loopTime;
     animationData.mirror = settings.mirror;
+        animationData.isReversed = isReversed;
 
     //Read the curves of animation
     int frameCount = animationData.frameCount;

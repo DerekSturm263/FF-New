@@ -724,6 +724,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Negative Controller"",
+                    ""type"": ""Button"",
+                    ""id"": ""663ec680-2d2c-48a9-9d85-1070d23729a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Info"",
                     ""type"": ""Button"",
                     ""id"": ""56888cbe-0259-4f74-bb7a-3bf278551318"",
@@ -817,6 +826,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""98181ca1-cbad-4fc7-bf88-390d6e57bd31"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""d60402cc-7ef4-490c-b53c-59476a39455a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1450,6 +1468,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Any"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a93b9ad-3671-4c64-8d64-1223304f3afa"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2510f7f8-7244-4602-b682-197805f9f6b9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f90bbd79-8898-4780-bd26-a36f50a961e0"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Negative Controller"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1502,6 +1553,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Menu_TabRight = m_Menu.FindAction("Tab Right", throwIfNotFound: true);
         m_Menu_Affirmative = m_Menu.FindAction("Affirmative", throwIfNotFound: true);
         m_Menu_Negative = m_Menu.FindAction("Negative", throwIfNotFound: true);
+        m_Menu_NegativeController = m_Menu.FindAction("Negative Controller", throwIfNotFound: true);
         m_Menu_Info = m_Menu.FindAction("Info", throwIfNotFound: true);
         m_Menu_Toggle = m_Menu.FindAction("Toggle", throwIfNotFound: true);
         m_Menu_Scroll = m_Menu.FindAction("Scroll", throwIfNotFound: true);
@@ -1513,6 +1565,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Menu_Navigate = m_Menu.FindAction("Navigate", throwIfNotFound: true);
         m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
         m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
+        m_Menu_Quit = m_Menu.FindAction("Quit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1736,6 +1789,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_TabRight;
     private readonly InputAction m_Menu_Affirmative;
     private readonly InputAction m_Menu_Negative;
+    private readonly InputAction m_Menu_NegativeController;
     private readonly InputAction m_Menu_Info;
     private readonly InputAction m_Menu_Toggle;
     private readonly InputAction m_Menu_Scroll;
@@ -1747,6 +1801,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Navigate;
     private readonly InputAction m_Menu_Submit;
     private readonly InputAction m_Menu_Cancel;
+    private readonly InputAction m_Menu_Quit;
     public struct MenuActions
     {
         private @Controls m_Wrapper;
@@ -1755,6 +1810,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @TabRight => m_Wrapper.m_Menu_TabRight;
         public InputAction @Affirmative => m_Wrapper.m_Menu_Affirmative;
         public InputAction @Negative => m_Wrapper.m_Menu_Negative;
+        public InputAction @NegativeController => m_Wrapper.m_Menu_NegativeController;
         public InputAction @Info => m_Wrapper.m_Menu_Info;
         public InputAction @Toggle => m_Wrapper.m_Menu_Toggle;
         public InputAction @Scroll => m_Wrapper.m_Menu_Scroll;
@@ -1766,6 +1822,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Navigate => m_Wrapper.m_Menu_Navigate;
         public InputAction @Submit => m_Wrapper.m_Menu_Submit;
         public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
+        public InputAction @Quit => m_Wrapper.m_Menu_Quit;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1787,6 +1844,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Negative.started += instance.OnNegative;
             @Negative.performed += instance.OnNegative;
             @Negative.canceled += instance.OnNegative;
+            @NegativeController.started += instance.OnNegativeController;
+            @NegativeController.performed += instance.OnNegativeController;
+            @NegativeController.canceled += instance.OnNegativeController;
             @Info.started += instance.OnInfo;
             @Info.performed += instance.OnInfo;
             @Info.canceled += instance.OnInfo;
@@ -1820,6 +1880,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @Quit.started += instance.OnQuit;
+            @Quit.performed += instance.OnQuit;
+            @Quit.canceled += instance.OnQuit;
         }
 
         private void UnregisterCallbacks(IMenuActions instance)
@@ -1836,6 +1899,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Negative.started -= instance.OnNegative;
             @Negative.performed -= instance.OnNegative;
             @Negative.canceled -= instance.OnNegative;
+            @NegativeController.started -= instance.OnNegativeController;
+            @NegativeController.performed -= instance.OnNegativeController;
+            @NegativeController.canceled -= instance.OnNegativeController;
             @Info.started -= instance.OnInfo;
             @Info.performed -= instance.OnInfo;
             @Info.canceled -= instance.OnInfo;
@@ -1869,6 +1935,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @Quit.started -= instance.OnQuit;
+            @Quit.performed -= instance.OnQuit;
+            @Quit.canceled -= instance.OnQuit;
         }
 
         public void RemoveCallbacks(IMenuActions instance)
@@ -1928,6 +1997,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnTabRight(InputAction.CallbackContext context);
         void OnAffirmative(InputAction.CallbackContext context);
         void OnNegative(InputAction.CallbackContext context);
+        void OnNegativeController(InputAction.CallbackContext context);
         void OnInfo(InputAction.CallbackContext context);
         void OnToggle(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
@@ -1939,5 +2009,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnNavigate(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
     }
 }

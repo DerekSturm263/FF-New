@@ -14,6 +14,7 @@ namespace Quantum.Custom.Animator
 
     public bool looped;
     public bool mirror;
+    public bool isReversed;
 
     public AnimatorFrame CalculateDelta(FP lastTime, FP currentTime) {
       return GetFrameAtTime(lastTime) - GetFrameAtTime(currentTime);
@@ -23,29 +24,68 @@ namespace Quantum.Custom.Animator
       AnimatorFrame output = new AnimatorFrame();
             output.hurtboxPositions = new FPVector3[15];
 
-      if (length == FP._0)
-        return frames[0];
+            int timeIndex;
 
-      while (time > length) {
-        time -= length;
-        output += frames[frameCount - 1];
-      }
+            if (isReversed)
+            {
+                time = length - time;
 
-      int timeIndex = frameCount - 1;
-      for (int f = 1; f < frameCount; f++) {
-        if (frames[f].time > time) {
-          timeIndex = f;
-          break;
-        }
-      }
+                if (length == FP._0)
+                    return frames[0];
 
-      AnimatorFrame frameA = frames[timeIndex - 1];
-      AnimatorFrame frameB = frames[timeIndex];
-      FP currentTime = time - frameA.time;
-      FP frameTime = frameB.time - frameA.time;
-      FP lerp = currentTime / frameTime;
-      //      Log.Info(clipName+" "+time.AsFloat()+" "+ frame_a + " "+ frame_b + " "+lerp.AsFloat());
-      return output + AnimatorFrame.Lerp(frameA, frameB, lerp);
+                while (time < length)
+                {
+                    time += length;
+                    output -= frames[frameCount - 1];
+                }
+
+                timeIndex = 0;
+                for (int f = frameCount - 1; f >= 1; f--)
+                {
+                    if (frames[f].time < time)
+                    {
+                        timeIndex = f;
+                        break;
+                    }
+                }
+
+                AnimatorFrame frameA = frames[timeIndex - 1];
+                AnimatorFrame frameB = frames[timeIndex];
+                FP currentTime = time - frameA.time;
+                FP frameTime = frameB.time - frameA.time;
+                FP lerp = currentTime / frameTime;
+                //      Log.Info(clipName+" "+time.AsFloat()+" "+ frame_a + " "+ frame_b + " "+lerp.AsFloat());
+                return output + AnimatorFrame.Lerp(frameB, frameA, lerp);
+            }
+            else
+            {
+                if (length == FP._0)
+                    return frames[0];
+
+                while (time > length)
+                {
+                    time -= length;
+                    output += frames[frameCount - 1];
+                }
+
+                timeIndex = frameCount - 1;
+                for (int f = 1; f < frameCount; f++)
+                {
+                    if (frames[f].time > time)
+                    {
+                        timeIndex = f;
+                        break;
+                    }
+                }
+
+                AnimatorFrame frameA = frames[timeIndex - 1];
+                AnimatorFrame frameB = frames[timeIndex];
+                FP currentTime = time - frameA.time;
+                FP frameTime = frameB.time - frameA.time;
+                FP lerp = currentTime / frameTime;
+                //      Log.Info(clipName+" "+time.AsFloat()+" "+ frame_a + " "+ frame_b + " "+lerp.AsFloat());
+                return output + AnimatorFrame.Lerp(frameA, frameB, lerp);
+            }
     }
   }
 }

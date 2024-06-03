@@ -702,6 +702,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Negative Controller",
+                    "type": "Button",
+                    "id": "663ec680-2d2c-48a9-9d85-1070d23729a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Info",
                     "type": "Button",
                     "id": "56888cbe-0259-4f74-bb7a-3bf278551318",
@@ -795,6 +804,15 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "98181ca1-cbad-4fc7-bf88-390d6e57bd31",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "d60402cc-7ef4-490c-b53c-59476a39455a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -1426,6 +1444,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Any",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a93b9ad-3671-4c64-8d64-1223304f3afa",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + Mouse",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2510f7f8-7244-4602-b682-197805f9f6b9",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f90bbd79-8898-4780-bd26-a36f50a961e0",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Negative Controller",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
