@@ -29,6 +29,12 @@ namespace Quantum
                     filter.PhysicsBody->Enabled = true;
                 }
             }
+
+            if (f.TryFindAsset(filter.ItemInstance->Item.Id, out Item item))
+            {
+                if (item is UpdateableItem updateableItem)
+                    updateableItem.OnUpdate(f, filter.ItemInstance->Owner, filter.ItemInstance->Target, filter.Entity, filter.ItemInstance);
+            }
         }
 
         private void HoldInHand(Frame f, EntityRef holder, Transform2D* transform)
@@ -58,11 +64,19 @@ namespace Quantum
                 {
                     if (item is HoldableItem holdableItem)
                     {
-                        if (f.Unsafe.TryGetPointer(itemInstance->Owner, out PlayerLink* playerLink))
-                        {
-                            holdableItem.OnHit(f, playerLink, info.Other, info.Entity, itemInstance);
-                        }
+                        holdableItem.OnHit(f, itemInstance->Owner, info.Other, info.Entity, itemInstance);
                     }
+                }
+            }
+
+            if (f.Unsafe.TryGetPointer(info.Entity, out SubInstance* subWeaponInstance))
+            {
+                if (f.TryFindAsset(subWeaponInstance->SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
+                {
+                    if (f.TryFindAsset(subWeaponInstance->SubWeapon.Enhancers.Enhancer1.Id, out SubEnhancer enhancer))
+                        enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, subWeaponInstance);
+
+                    subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, subWeaponInstance);
                 }
             }
         }
@@ -110,7 +124,7 @@ namespace Quantum
             }
         }
 
-        public static void Use(Frame f, PlayerLink* user, EntityRef itemEntity, ItemInstance* itemInstance)
+        public static void Use(Frame f, EntityRef user, EntityRef itemEntity, ItemInstance* itemInstance)
         {
             Item item = f.FindAsset<Item>(itemInstance->Item.Id);
             item.Invoke(f, user, itemEntity, itemInstance);

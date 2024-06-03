@@ -30,7 +30,7 @@ public class CustomAnimatorGraphAssetEditor : Editor
       EditorUtility.SetDirty(asset);
       AssetDatabase.Refresh();
     }
-
+    /*
     if (graph != null && graph.layers != null)
     {
       Quantum.CustomAnimatorGraph.Deserialize(graph);
@@ -167,7 +167,7 @@ public class CustomAnimatorGraphAssetEditor : Editor
 
 
     base.OnInspectorGUI();
-
+        */
   }
 
   private void AnimationClipGui(AnimatorClip clip)

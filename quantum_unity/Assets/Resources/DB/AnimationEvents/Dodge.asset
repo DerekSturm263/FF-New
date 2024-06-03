@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5667123822210226792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9b6f8ee2265754b9da7862f1b73379, type: 3}
+  m_Name: Modify
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Dodge|Modify
+      Guid:
+        Value: 2932090767847774367
+    StartingFrame: 3
+    EndingFrame: 33
+    Hurtboxes: -1
+    Settings:
+      CanBeDamaged:
+        Value: 0
+      CanBeInterrupted:
+        Value: 0
+      CanBeKnockedBack:
+        Value: 0
+      DisableHitbox:
+        Value: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Dodge
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Dodge
+      Guid:
+        Value: 3753986526358420857
+    AnimID: 671115163
+    Events:
+    - Id:
+        Value: 2932090767847774367

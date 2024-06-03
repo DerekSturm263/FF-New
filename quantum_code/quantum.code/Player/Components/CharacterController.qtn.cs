@@ -13,6 +13,14 @@ namespace Quantum
         }
 
         public readonly bool IsInState(States state) => States.IsSet((int)state);
+        public readonly bool IsInState(params States[] states)
+        {
+            for (int i = 0; i < states.Length; ++i)
+                if (States.IsSet((int)states[i]))
+                    return true;
+
+            return false;
+        }
 
         public void SetIsHolding(States state, bool isHolding)
         {
@@ -23,6 +31,14 @@ namespace Quantum
         }
 
         public readonly bool IsHolding(States state) => Holding.IsSet((int)state);
+        public readonly bool IsHolding(params States[] states)
+        {
+            for (int i = 0; i < states.Length; ++i)
+                if (Holding.IsSet((int)states[i]))
+                    return true;
+
+            return false;
+        }
 
         public readonly Colliders GetNearbyColliders(Frame f, MovementSettings movementSettings, Transform2D* parent)
         {
@@ -84,6 +100,8 @@ namespace Quantum
                 // Set the player to stop moving.
                 Velocity = LerpSpeed(moveSettings, f.DeltaTime, 0, Velocity, moveSettings.Deceleration);
                 MovingLerp = FPMath.Lerp(MovingLerp, 0, f.DeltaTime * 10);
+
+                CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsMoving", false);
             }
             else
             {
@@ -121,12 +139,10 @@ namespace Quantum
                 }
 
                 MovingLerp = 1;
+                CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsMoving", true);
             }
 
-            // Apply velocity to the player.
-            filter.PhysicsBody->Velocity.X = Velocity * stats.Agility;
-
-            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity));
+            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity / 10));
         }
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);

@@ -1,4 +1,6 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     public unsafe sealed class JumpState : PlayerState
     {
@@ -7,7 +9,10 @@
         public override bool GetInput(ref Input input) => input.Jump;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => filter.CharacterController->GetJumpSettings(settings).Frames;
+        protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
         public override bool CanInterruptSelf => true;
+
+        public override States[] EntranceBlacklist => new States[] { States.IsBlocking, States.IsDodging, States.IsInteracting, States.IsUsingUltimate };
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
@@ -16,47 +21,39 @@
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
+            if (filter.CharacterController->IsInState(States.IsJumping))
+                CustomAnimator.SetTrigger(f, filter.CustomAnimator, "Double Jump");
+
             base.Enter(f, ref filter, ref input, settings, stats);
 
-            if (!filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-            {
-                filter.CharacterController->JumpSettingsIndex = 2;
-            }
-            if (filter.CharacterController->GetNearbyCollider(Colliders.LeftWall | Colliders.RightWall))
-            {
-                // 6 -> Left Wall Jump
-                // 8 -> Right Wall Jump
-                filter.CharacterController->JumpSettingsIndex = 7;
-            }
+            filter.CharacterController->GroundedJump = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
 
             f.Events.OnPlayerJump(*filter.PlayerLink, stats.Jump.AsInt - filter.CharacterController->JumpCount);
+
             --filter.CharacterController->JumpCount;
+            filter.CharacterController->JumpTime = 0;
+        }
+
+        protected override void DelayedEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            base.DelayedEnter(f, ref filter, ref input, settings, stats);
+
+            if (filter.CharacterController->GroundedJump && (!input.Jump || input.MovementDown))
+                filter.CharacterController->JumpSettingsIndex = 0;
+            else
+                filter.CharacterController->JumpSettingsIndex = 1;
         }
 
         public override void Update(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             base.Update(f, ref filter, ref input, settings, stats);
 
-            if (filter.CharacterController->StateTime < settings.FullHopFrameMin && filter.CharacterController->JumpSettingsIndex < 2)
-            {
-                if (!input.Jump)
-                {
-                    filter.CharacterController->JumpSettingsIndex = 0;
-                    filter.CharacterController->StateTime = settings.FullHopFrameMin; // TODO: CHANGE
+            filter.CharacterController->JumpTime++;
 
-                    CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "JumpStrength", (Photon.Deterministic.FP)1 / 2);
-                }
-                else
-                {
-                    filter.CharacterController->JumpSettingsIndex = 1;
-
-                    CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "JumpStrength", 1);
-                }
-            }
-            else
+            if (filter.CharacterController->JumpTime > DelayedEntranceTime(f, ref filter, ref input, settings, stats))
             {
                 MovementCurveSettings jumpSettings = filter.CharacterController->GetJumpSettings(settings);
-                filter.PhysicsBody->Velocity.Y = jumpSettings.Curve.Evaluate(filter.CharacterController->StateTime) * (jumpSettings.Force * (1 / stats.Weight));
+                filter.PhysicsBody->Velocity.Y = jumpSettings.Curve.Evaluate(filter.CharacterController->JumpTime) * (jumpSettings.Force * (1 / stats.Weight));
             }
         }
 
@@ -65,6 +62,7 @@
             base.Exit(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->JumpSettingsIndex = 0;
+            filter.CharacterController->JumpTime = 0;
         }
     }
 }

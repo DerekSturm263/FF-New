@@ -10,18 +10,18 @@ namespace Quantum
         public override bool GetInput(ref Input input) => input.Interact;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime + 2;
-        protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
+        protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime * 2;
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return filter.Stats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0)).Count > 0;
+            return filter.Stats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0) * settings.InteractCastDistanceMultiplier).Count > 0;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             base.Enter(f, ref filter, ref input, settings, stats);
 
-            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+            filter.CharacterController->Velocity = 0;
         }
 
         protected override void DelayedEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
@@ -31,7 +31,7 @@ namespace Quantum
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
             if (filter.CharacterController->Direction == Direction.Neutral)
             {
-                filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(new(filter.CharacterController->MovementDirection, 0));
+                filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(new FPVector2(filter.CharacterController->MovementDirection, 0) * settings.InteractCastDistanceMultiplier);
             }
 
             if (!filter.Stats->HeldItem.IsValid)
@@ -42,7 +42,7 @@ namespace Quantum
                 {
                     if (f.Unsafe.TryGetPointer(hitCollection[i].Entity, out ItemInstance* itemInstance))
                     {
-                        ItemSystem.Use(f, filter.PlayerLink, hitCollection[i].Entity, itemInstance);
+                        ItemSystem.Use(f, filter.Entity, hitCollection[i].Entity, itemInstance);
                         break;
                     }
                 }

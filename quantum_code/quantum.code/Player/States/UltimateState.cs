@@ -20,6 +20,10 @@ namespace Quantum
 
             return 1;
         }
+        public override bool CanInterruptSelf => true;
+
+        public override States[] EntranceBlacklist => new States[] { States.IsInteracting, States.IsBlocking, States.IsDodging, States.IsBursting };
+
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))

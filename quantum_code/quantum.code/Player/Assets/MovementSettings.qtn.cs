@@ -43,14 +43,16 @@ namespace Quantum
         [Header("Knockback Settings")]
         public FP DirectionalInfluenceForce;
 
-        [Header("Direction Settings")]
+        [Header("Input Settings")]
         public int DirectionChangeTime;
+        public int SubUseTime;
 
         [Header("Wall Slide Settings")]
         public FP SlideForce;
 
         [Header("ShapeCast Settings")]
         public ShapeCastHelper InteractCast;
+        public FP InteractCastDistanceMultiplier;
         public ShapeCastHelper GroundedCast;
         public ShapeCastHelper WallCastLeft;
         public ShapeCastHelper WallCastRight;

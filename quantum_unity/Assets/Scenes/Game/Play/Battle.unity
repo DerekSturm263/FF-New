@@ -2321,9 +2321,6 @@ MonoBehaviour:
   _onPlayerBlockHit:
     m_PersistentCalls:
       m_Calls: []
-  _onPlayerChangeDirection:
-    m_PersistentCalls:
-      m_Calls: []
   _onPlayerJump:
     m_PersistentCalls:
       m_Calls:
@@ -2359,6 +2356,39 @@ MonoBehaviour:
       m_Calls: []
   _jump: {fileID: 11400000, guid: 84eacee2f8ceea1448192c447005e00e, type: 2}
   _doubleJump: {fileID: 11400000, guid: ed34fc49ce1e6224c85ae77df0d75786, type: 2}
+  _pingPongSpeed: 10
+  _default:
+  - _item1: _Fresnel_Strength
+    _item2: 0.2
+  - _item1: _Emission_Strength
+    _item2: 0.05
+  _invincible:
+  - _item1: _Fresnel_Strength
+    _item2:
+      _item1: 1
+      _item2: 1
+  - _item1: _Emission_Strength
+    _item2:
+      _item1: 0.1
+      _item2: 0.1
+  _intangible:
+  - _item1: _Fresnel_Strength
+    _item2:
+      _item1: 1
+      _item2: 1
+  - _item1: _Emission_Strength
+    _item2:
+      _item1: 0.1
+      _item2: 0.3
+  _superArmor:
+  - _item1: _Fresnel_Strength
+    _item2:
+      _item1: 0
+      _item2: 0
+  - _item1: _Emission_Strength
+    _item2:
+      _item1: 0
+      _item2: 0
 --- !u!114 &164783832 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,

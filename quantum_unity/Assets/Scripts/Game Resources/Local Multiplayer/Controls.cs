@@ -64,18 +64,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Block 1"",
+                    ""name"": ""Block"",
                     ""type"": ""Button"",
                     ""id"": ""735af238-c85f-4628-abe3-f221aeb5d05c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Block 2"",
-                    ""type"": ""Button"",
-                    ""id"": ""be0eb9f4-c8b8-4b65-a886-008166661310"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -100,9 +91,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sub-weapon"",
+                    ""name"": ""Sub-weapon 1"",
                     ""type"": ""Button"",
                     ""id"": ""13102845-4bbd-43a9-a7ed-fb4fd863af37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sub-weapon 2"",
+                    ""type"": ""Button"",
+                    ""id"": ""be0eb9f4-c8b8-4b65-a886-008166661310"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -193,7 +193,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Sub-weapon"",
+                    ""action"": ""Sub-weapon 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -204,18 +204,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Sub-weapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c4d9e19c-4e8c-47b9-a80e-bf6cac21d65a"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Sub-weapon"",
+                    ""action"": ""Sub-weapon 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -567,7 +556,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Block 1"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""653775eb-17bf-4cbf-8d97-ea21ee2bf2f6"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Block"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -578,7 +578,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Block 1"",
+                    ""action"": ""Block"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -628,28 +628,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""653775eb-17bf-4cbf-8d97-ea21ee2bf2f6"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Block 2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8fa2a80e-84bc-4aa9-a2ec-dfdbeb08dcfa"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Block 2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""81a273fe-c160-4750-aa3c-847325596ff4"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
@@ -667,6 +645,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Alternate Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fa2a80e-84bc-4aa9-a2ec-dfdbeb08dcfa"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7054d23f-aa51-4ed3-9890-055b2ed858fb"",
+                    ""path"": ""<Keyboard>/semicolon"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Sub-weapon 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8a235eb-d4c5-4cb1-828c-f1ae03f319fa"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sub-weapon 2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1474,11 +1485,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_FastFall = m_Player.FindAction("Fast Fall", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
-        m_Player_Block1 = m_Player.FindAction("Block 1", throwIfNotFound: true);
-        m_Player_Block2 = m_Player.FindAction("Block 2", throwIfNotFound: true);
+        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_MainWeapon = m_Player.FindAction("Main Weapon", throwIfNotFound: true);
         m_Player_AlternateWeapon = m_Player.FindAction("Alternate Weapon", throwIfNotFound: true);
-        m_Player_Subweapon = m_Player.FindAction("Sub-weapon", throwIfNotFound: true);
+        m_Player_Subweapon1 = m_Player.FindAction("Sub-weapon 1", throwIfNotFound: true);
+        m_Player_Subweapon2 = m_Player.FindAction("Sub-weapon 2", throwIfNotFound: true);
         m_Player_Emote = m_Player.FindAction("Emote", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
@@ -1567,11 +1578,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_FastFall;
     private readonly InputAction m_Player_Crouch;
-    private readonly InputAction m_Player_Block1;
-    private readonly InputAction m_Player_Block2;
+    private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_MainWeapon;
     private readonly InputAction m_Player_AlternateWeapon;
-    private readonly InputAction m_Player_Subweapon;
+    private readonly InputAction m_Player_Subweapon1;
+    private readonly InputAction m_Player_Subweapon2;
     private readonly InputAction m_Player_Emote;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Join;
@@ -1586,11 +1597,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @FastFall => m_Wrapper.m_Player_FastFall;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
-        public InputAction @Block1 => m_Wrapper.m_Player_Block1;
-        public InputAction @Block2 => m_Wrapper.m_Player_Block2;
+        public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @MainWeapon => m_Wrapper.m_Player_MainWeapon;
         public InputAction @AlternateWeapon => m_Wrapper.m_Player_AlternateWeapon;
-        public InputAction @Subweapon => m_Wrapper.m_Player_Subweapon;
+        public InputAction @Subweapon1 => m_Wrapper.m_Player_Subweapon1;
+        public InputAction @Subweapon2 => m_Wrapper.m_Player_Subweapon2;
         public InputAction @Emote => m_Wrapper.m_Player_Emote;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Join => m_Wrapper.m_Player_Join;
@@ -1618,21 +1629,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
-            @Block1.started += instance.OnBlock1;
-            @Block1.performed += instance.OnBlock1;
-            @Block1.canceled += instance.OnBlock1;
-            @Block2.started += instance.OnBlock2;
-            @Block2.performed += instance.OnBlock2;
-            @Block2.canceled += instance.OnBlock2;
+            @Block.started += instance.OnBlock;
+            @Block.performed += instance.OnBlock;
+            @Block.canceled += instance.OnBlock;
             @MainWeapon.started += instance.OnMainWeapon;
             @MainWeapon.performed += instance.OnMainWeapon;
             @MainWeapon.canceled += instance.OnMainWeapon;
             @AlternateWeapon.started += instance.OnAlternateWeapon;
             @AlternateWeapon.performed += instance.OnAlternateWeapon;
             @AlternateWeapon.canceled += instance.OnAlternateWeapon;
-            @Subweapon.started += instance.OnSubweapon;
-            @Subweapon.performed += instance.OnSubweapon;
-            @Subweapon.canceled += instance.OnSubweapon;
+            @Subweapon1.started += instance.OnSubweapon1;
+            @Subweapon1.performed += instance.OnSubweapon1;
+            @Subweapon1.canceled += instance.OnSubweapon1;
+            @Subweapon2.started += instance.OnSubweapon2;
+            @Subweapon2.performed += instance.OnSubweapon2;
+            @Subweapon2.canceled += instance.OnSubweapon2;
             @Emote.started += instance.OnEmote;
             @Emote.performed += instance.OnEmote;
             @Emote.canceled += instance.OnEmote;
@@ -1667,21 +1678,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
-            @Block1.started -= instance.OnBlock1;
-            @Block1.performed -= instance.OnBlock1;
-            @Block1.canceled -= instance.OnBlock1;
-            @Block2.started -= instance.OnBlock2;
-            @Block2.performed -= instance.OnBlock2;
-            @Block2.canceled -= instance.OnBlock2;
+            @Block.started -= instance.OnBlock;
+            @Block.performed -= instance.OnBlock;
+            @Block.canceled -= instance.OnBlock;
             @MainWeapon.started -= instance.OnMainWeapon;
             @MainWeapon.performed -= instance.OnMainWeapon;
             @MainWeapon.canceled -= instance.OnMainWeapon;
             @AlternateWeapon.started -= instance.OnAlternateWeapon;
             @AlternateWeapon.performed -= instance.OnAlternateWeapon;
             @AlternateWeapon.canceled -= instance.OnAlternateWeapon;
-            @Subweapon.started -= instance.OnSubweapon;
-            @Subweapon.performed -= instance.OnSubweapon;
-            @Subweapon.canceled -= instance.OnSubweapon;
+            @Subweapon1.started -= instance.OnSubweapon1;
+            @Subweapon1.performed -= instance.OnSubweapon1;
+            @Subweapon1.canceled -= instance.OnSubweapon1;
+            @Subweapon2.started -= instance.OnSubweapon2;
+            @Subweapon2.performed -= instance.OnSubweapon2;
+            @Subweapon2.canceled -= instance.OnSubweapon2;
             @Emote.started -= instance.OnEmote;
             @Emote.performed -= instance.OnEmote;
             @Emote.canceled -= instance.OnEmote;
@@ -1899,11 +1910,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnFastFall(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
-        void OnBlock1(InputAction.CallbackContext context);
-        void OnBlock2(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
         void OnMainWeapon(InputAction.CallbackContext context);
         void OnAlternateWeapon(InputAction.CallbackContext context);
-        void OnSubweapon(InputAction.CallbackContext context);
+        void OnSubweapon1(InputAction.CallbackContext context);
+        void OnSubweapon2(InputAction.CallbackContext context);
         void OnEmote(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnJoin(InputAction.CallbackContext context);

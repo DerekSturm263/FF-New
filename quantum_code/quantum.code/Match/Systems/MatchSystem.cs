@@ -73,8 +73,7 @@ namespace Quantum
                 {
                     if (matchInstance->Match.Ruleset.Items.StartingItem.Id != AssetGuid.Invalid)
                     {
-                        EntityRef newItem = ItemSpawnSystem.SpawnItem(f, matchInstance->Match.Ruleset.Items.StartingItem, FPVector2.Zero);
-                        ItemSystem.PickUp(f, stats.Entity, newItem);
+                        EntityRef newItem = ItemSpawnSystem.SpawnInHand(f, matchInstance->Match.Ruleset.Items.StartingItem, stats.Entity);
                     }
                 }
 

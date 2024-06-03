@@ -17,5 +17,12 @@
         {
             return !input.Crouch;
         }
+
+        protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            base.Enter(f, ref filter, ref input, settings, stats);
+
+            filter.CharacterController->Velocity = 0;
+        }
     }
 }

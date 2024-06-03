@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5fcb0fed8ead4408ea8c48401832cf, type: 3}
+  m_Name: Bomb
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Description: 
+  Icon: {fileID: 0}
+  Background: {fileID: 0}
+  MainColor: {r: 0, g: 0, b: 0, a: 0}
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  DarkColor: {r: 0, g: 0, b: 0, a: 0}
+  SortingID: 0
+  SFX:
+    _kvps: []
+  VFX:
+    _kvps:
+    - _item1: Explosion
+      _item2: {fileID: 11400000, guid: 55d739b70a0f6a640afb0f457c30dbbe, type: 2}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 98af428dc52106244892ababdd6054df,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6943285021381643808, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.VFXController, GameResources
+        m_MethodName: SpawnItemVFX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
+        m_MethodName: ShakeRandom
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Settings_ExplodingItem:
+    Identifier:
+      Path: Resources/DB/Assets/Items/Bomb
+      Guid:
+        Value: 970741987260007549
+    Prototype:
+      Id:
+        Value: 4483199492598129514
+    DestroySelfOnHit: 1
+    HandednessType: 0
+    HitboxSettings:
+      CameraShakeIntensity:
+        RawValue: 1310720
+      Damage:
+        RawValue: 1310720
+      Knockback:
+        X:
+          RawValue: 327680
+        Y:
+          RawValue: 327680
+      Layer:
+        BitMask: 512
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      OnlyHitOnce:
+        Value: 0
+      Parent: 0
+      Prototype:
+        Id:
+          Value: 3467847473562426331
+      Radius:
+        RawValue: 196608
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
+    Lifetime: 20

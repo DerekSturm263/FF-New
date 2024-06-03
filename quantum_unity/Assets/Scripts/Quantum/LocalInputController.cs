@@ -36,12 +36,12 @@ public class LocalInputController : Controller<LocalInputController>
             Jump = controls.Player.Jump.IsPressed(),
             FastFall = controls.Player.FastFall.IsPressed(),
             Crouch = controls.Player.Crouch.IsPressed(),
-            Block1 = controls.Player.Block1.IsPressed(),
-            Block2 = controls.Player.Block2.IsPressed(),
+            Block = controls.Player.Block.IsPressed(),
 
             MainWeapon = controls.Player.MainWeapon.IsPressed(),
             AlternateWeapon = controls.Player.AlternateWeapon.IsPressed(),
-            SubWeapon = controls.Player.Subweapon.IsPressed(),
+            SubWeapon1 = controls.Player.Subweapon1.IsPressed(),
+            SubWeapon2 = controls.Player.Subweapon2.IsPressed(),
 
             Emote = controls.Player.Emote.IsPressed(),
             Interact = controls.Player.Interact.IsPressed(),

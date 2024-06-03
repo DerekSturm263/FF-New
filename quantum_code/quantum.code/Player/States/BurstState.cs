@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using static Quantum.Navigation.FindPathResult;
 
 namespace Quantum
 {
@@ -10,7 +11,7 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.BurstTime;
 
-        public override States[] KillStateList => new States[] { States.IsBlocking, States.IsDodging };
+        public override States[] KillStateList => new States[] { States.IsUsingSubWeapon };
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
@@ -22,6 +23,9 @@ namespace Quantum
             base.Enter(f, ref filter, ref input, settings, stats);
 
             filter.PhysicsBody->GravityScale = 0;
+            filter.PhysicsBody->Velocity = FPVector2.Zero;
+            filter.CharacterController->Velocity = 0;
+
             StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -settings.BurstCost);
         }
 
@@ -29,6 +33,7 @@ namespace Quantum
         {
             base.Exit(f, ref filter, ref input, settings, stats);
 
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DisableHitbox = false });
             filter.PhysicsBody->GravityScale = 1;
         }
     }

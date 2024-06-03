@@ -50,6 +50,8 @@ namespace Quantum.Prototypes.Unity {
     public global::EntityPrototype Holder;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Target;
     public Quantum.QBoolean FallState;
     public Photon.Deterministic.FP FallSpeed;
     public Photon.Deterministic.FP FallY;
@@ -60,6 +62,7 @@ namespace Quantum.Prototypes.Unity {
       result.Item = this.Item;
       converter.Convert(this.Holder, out result.Holder);
       converter.Convert(this.Owner, out result.Owner);
+      converter.Convert(this.Target, out result.Target);
       result.FallState = this.FallState;
       result.FallSpeed = this.FallSpeed;
       result.FallY = this.FallY;
@@ -186,20 +189,6 @@ namespace Quantum.Prototypes.Unity {
       var result = new Quantum.Prototypes.DictionaryEntry_HurtboxType_EntityRef_Prototype();
       result.Key = this.Key;
       converter.Convert(this.Value, out result.Value);
-      return result;
-    }
-  }
-  [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.SubInstance))]
-  public class SubInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.SubInstance_Prototype> {
-    public Quantum.Prototypes.Sub_Prototype SubWeapon;
-    [Quantum.LocalReference]
-    public global::EntityPrototype Target;
-
-    public sealed override Quantum.Prototypes.SubInstance_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.SubInstance_Prototype();
-      result.SubWeapon = this.SubWeapon;
-      converter.Convert(this.Target, out result.Target);
       return result;
     }
   }

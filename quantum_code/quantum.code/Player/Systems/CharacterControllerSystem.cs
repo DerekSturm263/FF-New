@@ -14,7 +14,7 @@ namespace Quantum
             new DodgeState(),
             new BlockState(),
             new EmoteState(),
-            new SubWeaponState(),
+            new SubState(),
             new UltimateState(),
             new InteractState()
             //new MainWeaponState(),
@@ -96,8 +96,13 @@ namespace Quantum
             }
 
             // Update any miscellaneous CustomAnimator values.
-            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", filter.CharacterController->GetNearbyCollider(Colliders.Ground));
-            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", filter.PhysicsBody->Velocity.Y);
+            bool isGrounded = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", isGrounded);
+
+            if (isGrounded)
+                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", 0);
+            else
+                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", filter.PhysicsBody->Velocity.Y);
         }
 
         private void HandleStateSwitching(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)
@@ -136,9 +141,12 @@ namespace Quantum
             if (!filter.CharacterController->CanInput)
                 return;
 
-            // Check to see if the user is crouching, and if they aren't, let them move.
-            if (!filter.CharacterController->IsInState(States.IsCrouching))
+            // Check to see if the user is in any non-moving state, and if they aren't, let them move.
+            if (!filter.CharacterController->IsInState(States.IsCrouching, States.IsInteracting, States.IsBlocking, States.IsBursting, States.IsDodging))
                 filter.CharacterController->Move(f, input.Movement.X, ref filter, movementSettings, stats);
+
+            // Apply velocity to the player.
+            filter.PhysicsBody->Velocity.X = filter.CharacterController->Velocity * stats.Agility;
         }
 
         private void HandleUltimate(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)

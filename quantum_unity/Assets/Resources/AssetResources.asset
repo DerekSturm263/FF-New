@@ -43,6 +43,11 @@ MonoBehaviour:
         Id:
           Value: 5
       ResourcePath: DB/Configs/SimulationConfig
+    - Path: Resources/DB/AnimationEvents/Burst|VFX
+      AssetRef:
+        Id:
+          Value: 258623156459692848
+      ResourcePath: DB/AnimationEvents/Burst
     - Path: Resources/DB/Maps/Setup Map
       AssetRef:
         Id:
@@ -63,11 +68,6 @@ MonoBehaviour:
         Id:
           Value: 601596805594687669
       ResourcePath: DB/Prefabs/Items/Large Battery
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Templates/Missile
-      AssetRef:
-        Id:
-          Value: 606617556276558397
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Templates/Missile
     - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Materials/Material
         4
       AssetRef:
@@ -80,11 +80,6 @@ MonoBehaviour:
         Id:
           Value: 646432423482747649
       ResourcePath: DB/Assets/Build/Equipment/Apparel/Templates/Jacket
-    - Path: Resources/DB/AnimationEvents/Air Dodge
-      AssetRef:
-        Id:
-          Value: 647223305432263096
-      ResourcePath: DB/AnimationEvents/Air Dodge
     - Path: Resources/DB/Assets/Ruleset/Win Conditions/Best Kill to Death Ratio
       AssetRef:
         Id:
@@ -125,6 +120,11 @@ MonoBehaviour:
         Id:
           Value: 960710081893920387
       ResourcePath: DB/Assets/Camera Settings/Stages/Alleyway/Alleyway Tension
+    - Path: Resources/DB/Assets/Items/Bomb
+      AssetRef:
+        Id:
+          Value: 970741987260007549
+      ResourcePath: DB/Assets/Items/Bomb
     - Path: Resources/DB/Assets/Build/Builds/LU-C1
       AssetRef:
         Id:
@@ -227,11 +227,11 @@ MonoBehaviour:
         Id:
           Value: 1661997301976249809
       ResourcePath: DB/Prefabs/Items/Battery
-    - Path: Resources/DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Missile|EntityView
+    - Path: Resources/DB/Prefabs/Items/Missile|EntityView
       AssetRef:
         Id:
           Value: 1712820334589902651
-      ResourcePath: DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Missile
+      ResourcePath: DB/Prefabs/Items/Missile
     - Path: Resources/DB/Assets/Build/Builds/T0-B1
       AssetRef:
         Id:
@@ -242,11 +242,11 @@ MonoBehaviour:
         Id:
           Value: 1836854270651606989
       ResourcePath: DB/Prefabs/Items/Portable EMP
-    - Path: Resources/DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Bomb|EntityView
+    - Path: Resources/DB/Prefabs/Items/Bomb|EntityView
       AssetRef:
         Id:
           Value: 1871773853777723834
-      ResourcePath: DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Bomb
+      ResourcePath: DB/Prefabs/Items/Bomb
     - Path: Resources/DB/Assets/Player/Status Effects/Fried
       AssetRef:
         Id:
@@ -257,6 +257,11 @@ MonoBehaviour:
         Id:
           Value: 1893760561789642782
       ResourcePath: DB/Prefabs/Items/Portable EMP
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Templates/Missile
+      AssetRef:
+        Id:
+          Value: 1913744593178982571
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Templates/Missile
     - Path: Resources/DB/Assets/Build/Cosmetics/Eyes/Minuses
       AssetRef:
         Id:
@@ -337,11 +342,6 @@ MonoBehaviour:
         Id:
           Value: 2456634248519729615
       ResourcePath: DB/Prefabs/Stages/Alleyway/Alleyway
-    - Path: Resources/DB/AnimationEvents/Air Dodge|Invulnerable
-      AssetRef:
-        Id:
-          Value: 2463609726385371253
-      ResourcePath: DB/AnimationEvents/Air Dodge
     - Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Enhancers/Vampire
       AssetRef:
         Id:
@@ -372,11 +372,6 @@ MonoBehaviour:
         Id:
           Value: 2697187724191887445
       ResourcePath: DB/Assets/Build/Equipment/Ultimates/Overclock
-    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Templates/Bomb
-      AssetRef:
-        Id:
-          Value: 2729734002430414842
-      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Templates/Bomb
     - Path: Resources/DB/Assets/Audio/Track Graphs/Stages/NexTech Arena
       AssetRef:
         Id:
@@ -387,6 +382,11 @@ MonoBehaviour:
         Id:
           Value: 2858109205954402603
       ResourcePath: DB/Assets/Build/Builds/H1-R0
+    - Path: Resources/DB/AnimationEvents/Dodge|Modify
+      AssetRef:
+        Id:
+          Value: 2932090767847774367
+      ResourcePath: DB/AnimationEvents/Dodge
     - Path: Resources/DB/Assets/Stage/Stages/Alleyway
       AssetRef:
         Id:
@@ -509,11 +509,11 @@ MonoBehaviour:
         Id:
           Value: 3736203406268466455
       ResourcePath: DB/Prefabs/Player/Player
-    - Path: Resources/DB/AnimationEvents/Ground Dodge
+    - Path: Resources/DB/AnimationEvents/Dodge
       AssetRef:
         Id:
           Value: 3753986526358420857
-      ResourcePath: DB/AnimationEvents/Ground Dodge
+      ResourcePath: DB/AnimationEvents/Dodge
     - Path: Resources/DB/AnimationEvents/Land
       AssetRef:
         Id:
@@ -529,16 +529,26 @@ MonoBehaviour:
         Id:
           Value: 3829497505950195207
       ResourcePath: DB/AnimationEvents/Close Block
-    - Path: Resources/DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Missile|EntityPrototype
+    - Path: Resources/DB/Prefabs/Items/Missile|EntityPrototype
       AssetRef:
         Id:
           Value: 3923951510283189538
-      ResourcePath: DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Missile
+      ResourcePath: DB/Prefabs/Items/Missile
+    - Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Templates/Bomb
+      AssetRef:
+        Id:
+          Value: 3998083542428612409
+      ResourcePath: DB/Assets/Build/Equipment/Weapons/Subs/Templates/Bomb
     - Path: Resources/DB/AnimationEvents/Burst|New Event
       AssetRef:
         Id:
           Value: 4132347426701160259
       ResourcePath: DB/AnimationEvents/Burst
+    - Path: Resources/DB/Assets/Items/Missile
+      AssetRef:
+        Id:
+          Value: 4154195492321033345
+      ResourcePath: DB/Assets/Items/Missile
     - Path: Resources/DB/Assets/Build/Cosmetics/Eyes/Plusses
       AssetRef:
         Id:
@@ -584,11 +594,11 @@ MonoBehaviour:
         Id:
           Value: 4479235590312819742
       ResourcePath: DB/Maps/Setup Map_mesh
-    - Path: Resources/DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Bomb|EntityPrototype
+    - Path: Resources/DB/Prefabs/Items/Bomb|EntityPrototype
       AssetRef:
         Id:
           Value: 4483199492598129514
-      ResourcePath: DB/Prefabs/Build/Equipment/Weapons/Sub-Weapons/Bomb
+      ResourcePath: DB/Prefabs/Items/Bomb
     - Path: Resources/DB/Maps/Alleyway Map_mesh
       AssetRef:
         Id:

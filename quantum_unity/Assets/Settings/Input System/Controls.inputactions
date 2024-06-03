@@ -42,18 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Block 1",
+                    "name": "Block",
                     "type": "Button",
                     "id": "735af238-c85f-4628-abe3-f221aeb5d05c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Block 2",
-                    "type": "Button",
-                    "id": "be0eb9f4-c8b8-4b65-a886-008166661310",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -78,9 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sub-weapon",
+                    "name": "Sub-weapon 1",
                     "type": "Button",
                     "id": "13102845-4bbd-43a9-a7ed-fb4fd863af37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sub-weapon 2",
+                    "type": "Button",
+                    "id": "be0eb9f4-c8b8-4b65-a886-008166661310",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -171,7 +171,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + Mouse",
-                    "action": "Sub-weapon",
+                    "action": "Sub-weapon 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -182,18 +182,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Sub-weapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c4d9e19c-4e8c-47b9-a80e-bf6cac21d65a",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Sub-weapon",
+                    "action": "Sub-weapon 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -545,7 +534,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + Mouse",
-                    "action": "Block 1",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "653775eb-17bf-4cbf-8d97-ea21ee2bf2f6",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + Mouse",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -556,7 +556,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Block 1",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -606,28 +606,6 @@
                 },
                 {
                     "name": "",
-                    "id": "653775eb-17bf-4cbf-8d97-ea21ee2bf2f6",
-                    "path": "<Keyboard>/rightShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block 2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8fa2a80e-84bc-4aa9-a2ec-dfdbeb08dcfa",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Block 2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "81a273fe-c160-4750-aa3c-847325596ff4",
                     "path": "<Keyboard>/k",
                     "interactions": "",
@@ -645,6 +623,39 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Alternate Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fa2a80e-84bc-4aa9-a2ec-dfdbeb08dcfa",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7054d23f-aa51-4ed3-9890-055b2ed858fb",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + Mouse",
+                    "action": "Sub-weapon 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8a235eb-d4c5-4cb1-828c-f1ae03f319fa",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sub-weapon 2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

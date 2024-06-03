@@ -8,7 +8,6 @@ public class PlayerEventListener : MonoBehaviour
 {
     [SerializeField] private UnityEvent<QuantumGame, PlayerLink> _onPlayerAttack;
     [SerializeField] private UnityEvent<QuantumGame, PlayerLink> _onPlayerBlockHit;
-    [SerializeField] private UnityEvent<QuantumGame, PlayerLink> _onPlayerChangeDirection;
     [SerializeField] private UnityEvent<QuantumGame, PlayerLink> _onPlayerJump;
     [SerializeField] private UnityEvent<QuantumGame, PlayerLink> _onPlayerDoubleJump;
     [SerializeField] private UnityEvent<QuantumGame, PlayerLink> _onPlayerSpawn;
@@ -17,7 +16,16 @@ public class PlayerEventListener : MonoBehaviour
     [SerializeField] private VFX _doubleJump;
 
     private EntityViewUpdater _entityViewUpdater;
+
     private readonly Dictionary<EntityRef, SkinnedMeshRenderer[]> _meshRenderers = new();
+    private readonly Dictionary<EntityRef, HurtboxSettings> _hurtboxSettings = new();
+
+    [SerializeField] private float _pingPongSpeed;
+    [SerializeField] private List<Extensions.Types.Tuple<string, float>> _default;
+
+    [SerializeField] private List<Extensions.Types.Tuple<string, Extensions.Types.Tuple<float, float>>> _invincible;
+    [SerializeField] private List<Extensions.Types.Tuple<string, Extensions.Types.Tuple<float, float>>> _intangible;
+    [SerializeField] private List<Extensions.Types.Tuple<string, Extensions.Types.Tuple<float, float>>> _superArmor;
 
     private void Awake()
     {
@@ -25,7 +33,7 @@ public class PlayerEventListener : MonoBehaviour
 
         QuantumEvent.Subscribe<EventOnPlayerAttack>(listener: this, handler: e => _onPlayerAttack.Invoke(e.Game, e.Player));
         QuantumEvent.Subscribe<EventOnPlayerBlockHit>(listener: this, handler: e => _onPlayerBlockHit.Invoke(e.Game, e.Player));
-        QuantumEvent.Subscribe<EventOnPlayerChangeDirection>(listener: this, handler: e => _onPlayerChangeDirection.Invoke(e.Game, e.Player));
+        QuantumEvent.Subscribe<EventOnPlayerChangeDirection>(listener: this, handler: ChangeDirection);
         QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
         {
             if (e.Count == 0)
@@ -37,28 +45,67 @@ public class PlayerEventListener : MonoBehaviour
         QuantumEvent.Subscribe<EventOnHurtboxStateChange>(listener: this, handler: UpdateHurtbox);
     }
 
-    private void UpdateHurtbox(EventOnHurtboxStateChange e)
+    private void FixedUpdate()
     {
-        InitList(e.Owner);
+        foreach (var kvp in _hurtboxSettings)
+        {
+            UpdateHurtboxVisuals(kvp.Key, kvp.Value, Mathf.PingPong(Time.time * _pingPongSpeed, 1));
+        }
+    }
 
-        foreach (SkinnedMeshRenderer renderer in _meshRenderers[e.Owner])
+    private void UpdateHurtboxVisuals(EntityRef owner, HurtboxSettings settings, float lerpValue)
+    {
+        foreach (SkinnedMeshRenderer renderer in _meshRenderers[owner])
         {
             Material[] materials = renderer.materials;
 
             for (int i = 0; i < materials.Length; ++i)
             {
-                if (!e.Settings.CanBeDamaged)
+                if (!settings.CanBeInterrupted && !settings.CanBeDamaged && !settings.CanBeKnockedBack)
                 {
-                    materials[i].SetFloat("_Emission_Weight", 0.075f);
-                    materials[i].SetFloat("_Fresnal_Strength", 1);
+                    for (int j = 0; j < _intangible.Count; ++j)
+                    {
+                        materials[i].SetFloat(_intangible[j].Item1, Mathf.Lerp(_intangible[j].Item2.Item1, _intangible[j].Item2.Item2, lerpValue));
+                    }
+                }
+                else if (!settings.CanBeInterrupted && !settings.CanBeDamaged && settings.CanBeKnockedBack)
+                {
+                    for (int j = 0; j < _invincible.Count; ++j)
+                    {
+                        materials[i].SetFloat(_invincible[j].Item1, Mathf.Lerp(_invincible[j].Item2.Item1, _invincible[j].Item2.Item2, lerpValue));
+                    }
+                }
+                else if (!settings.CanBeInterrupted && settings.CanBeDamaged && !settings.CanBeKnockedBack)
+                {
+                    for (int j = 0; j < _superArmor.Count; ++j)
+                    {
+                        materials[i].SetFloat(_superArmor[j].Item1, Mathf.Lerp(_superArmor[j].Item2.Item1, _superArmor[j].Item2.Item2, lerpValue));
+                    }
                 }
                 else
                 {
-                    materials[i].SetFloat("_Emission_Weight", 0);
-                    materials[i].SetFloat("_Fresnal_Strength", 0.2f);
+                    for (int j = 0; j < _default.Count; ++j)
+                    {
+                        materials[i].SetFloat(_default[j].Item1, _default[j].Item2);
+                    }
                 }
             }
         }
+    }
+
+    private void UpdateHurtbox(EventOnHurtboxStateChange e)
+    {
+        InitList(e.Owner);
+
+        if (!_hurtboxSettings.ContainsKey(e.Owner))
+            _hurtboxSettings.Add(e.Owner, default);
+
+        _hurtboxSettings[e.Owner] = e.Settings;
+    }
+
+    private void ChangeDirection(EventOnPlayerChangeDirection e)
+    {
+        _entityViewUpdater.GetView(e.Player.Entity).transform.GetChild(0).localScale = new(1, 1, e.Direction);
     }
 
     public void SpawnPlayerJumpVFX(QuantumGame game, PlayerLink player)
@@ -154,8 +201,22 @@ public class PlayerEventListener : MonoBehaviour
     {
         SkinnedMeshRenderer head = GetHead(owner);
 
-        head.SetBlendShapeWeight(0, weight * 0.4f);
-        head.SetBlendShapeWeight(1, weight * 0.4f);
+        head.SetBlendShapeWeight(0, weight * 0.3f);
+        head.SetBlendShapeWeight(1, weight * 0.3f);
+        head.SetBlendShapeWeight(2, 0);
+        head.SetBlendShapeWeight(3, 0);
+        head.SetBlendShapeWeight(4, 0);
+        head.SetBlendShapeWeight(5, 0);
+        head.SetBlendShapeWeight(6, 0);
+        head.SetBlendShapeWeight(7, 0);
+        head.SetBlendShapeWeight(8, 0);
+        head.SetBlendShapeWeight(9, 0);
+        head.SetBlendShapeWeight(10, 0);
+        head.SetBlendShapeWeight(11, 0);
+        head.SetBlendShapeWeight(12, 0);
+        head.SetBlendShapeWeight(13, 0);
+        head.SetBlendShapeWeight(14, 0);
+        head.SetBlendShapeWeight(15, 0);
     }
 
     private void InitList(EntityRef owner)

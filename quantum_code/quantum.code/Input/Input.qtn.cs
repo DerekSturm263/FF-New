@@ -7,24 +7,24 @@ namespace Quantum
         [System.Flags]
         public enum Buttons : ushort
         {
-            None = 1 << 0,          // Player is not pressing any buttons
-            Jump = 1 << 1,          // Player pressed the “jump” button this tick
-            FastFall = 1 << 2,      // Player pressed the “fast fall” button this tick
-            Crouch = 1 << 3,        // Player pressed the “crouch” button this tick
-            Block1 = 1 << 4,         // Player pressed the “block” button this tick
-            Block2 = 1 << 5,         // Player pressed the “block” button this tick
+            None = 1 << 0,           // Player is not pressing any buttons
+            Jump = 1 << 1,           // Player pressed the “jump” button this tick
+            FastFall = 1 << 2,       // Player pressed the “fast fall” button this tick
+            Crouch = 1 << 3,         // Player pressed the “crouch” button this tick
+            Block = 1 << 4,          // Player pressed the “block” button this tick
 
-            MainWeapon = 1 << 6,    // Player pressed the “main weapon” button this tick
-            AlternateWeapon = 1 << 7,         // Player pressed the “skill” button this tick
-            SubWeapon = 1 << 8,     // Player pressed the “sub-weapon” button this tick
+            MainWeapon = 1 << 5,     // Player pressed the “main weapon” button this tick
+            AlternateWeapon = 1 << 6,// Player pressed the “skill” button this tick
+            SubWeapon1 = 1 << 7,     // Player pressed the “sub-weapon” button this tick
+            SubWeapon2 = 1 << 8,     // Player pressed the “sub-weapon” button this tick
 
-            Emote = 1 << 9,         // Player pressed the “emote” button this tick
-            Interact = 1 << 10,     // Player pressed the “interact” button this tick
+            Emote = 1 << 9,          // Player pressed the “emote” button this tick
+            Interact = 1 << 10,      // Player pressed the “interact” button this tick
 
-            Join = 1 << 11,         // Player pressed the “join” button this tick
-            Leave = 1 << 12,        // Player pressed the “leave” button this tick
-            Ready = 1 << 13,        // Player pressed the “ready” button this tick
-            Cancel = 1 << 14        // Player pressed the “cancel” button this tick
+            Join = 1 << 11,          // Player pressed the “join” button this tick
+            Leave = 1 << 12,         // Player pressed the “leave” button this tick
+            Ready = 1 << 13,         // Player pressed the “ready” button this tick
+            Cancel = 1 << 14         // Player pressed the “cancel” button this tick
         }
 
         #region Internal Values
@@ -85,6 +85,34 @@ namespace Quantum
             }
         }
 
+        private static FP DOT_SUCCESS = FP._0_50;
+
+        public FPVector2 SnapMovementTo8Directions
+        {
+            get
+            {
+                FPVector2 movement = Movement;
+                FPVector2 dir = FPVector2.Zero;
+
+                if (FPVector2.Dot(movement, FPVector2.Up) > DOT_SUCCESS)
+                    dir += FPVector2.Up;
+                else if (FPVector2.Dot(movement, FPVector2.Down) > DOT_SUCCESS)
+                    dir += FPVector2.Down;
+
+                if (FPVector2.Dot(movement, FPVector2.Left) > DOT_SUCCESS)
+                    dir += FPVector2.Left;
+                else if (FPVector2.Dot(movement, FPVector2.Right) > DOT_SUCCESS)
+                    dir += FPVector2.Right;
+
+                return dir.Normalized;
+            }
+        }
+
+        public bool MovementUp => SnapMovementTo8Directions == FPVector2.Up;
+        public bool MovementDown => SnapMovementTo8Directions == FPVector2.Down;
+        public bool MovementLeft => SnapMovementTo8Directions == FPVector2.Left;
+        public bool MovementRight => SnapMovementTo8Directions == FPVector2.Right;
+
         public bool Jump
         {
             readonly get
@@ -130,37 +158,22 @@ namespace Quantum
             }
         }
 
-        public bool Block1
+        public bool Block
         {
-            private readonly get
+            readonly get
             {
-                return (InputButtons & Buttons.Block1) != 0;
+                return (InputButtons & Buttons.Block) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.Block1;
+                    InputButtons |= Buttons.Block;
                 else
-                    InputButtons &= ~Buttons.Block1;
+                    InputButtons &= ~Buttons.Block;
             }
         }
 
-        public bool Block2
-        {
-            private readonly get
-            {
-                return (InputButtons & Buttons.Block2) != 0;
-            }
-            set
-            {
-                if (value == true)
-                    InputButtons |= Buttons.Block2;
-                else
-                    InputButtons &= ~Buttons.Block2;
-            }
-        }
-
-        public readonly bool Block => Block1 ^ Block2;
+        public readonly bool Dodge => Block && Magnitude > FP._0_05;
 
         public bool MainWeapon
         {
@@ -192,24 +205,41 @@ namespace Quantum
             }
         }
 
-        public bool SubWeapon
+        public bool SubWeapon1
         {
-            readonly get
+            private readonly get
             {
-                return (InputButtons & Buttons.SubWeapon) != 0;
+                return (InputButtons & Buttons.SubWeapon1) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.SubWeapon;
+                    InputButtons |= Buttons.SubWeapon1;
                 else
-                    InputButtons &= ~Buttons.SubWeapon;
+                    InputButtons &= ~Buttons.SubWeapon1;
             }
         }
 
+        public bool SubWeapon2
+        {
+            private readonly get
+            {
+                return (InputButtons & Buttons.SubWeapon2) != 0;
+            }
+            set
+            {
+                if (value == true)
+                    InputButtons |= Buttons.SubWeapon2;
+                else
+                    InputButtons &= ~Buttons.SubWeapon2;
+            }
+        }
+
+        public readonly bool SubWeapon => SubWeapon1 || SubWeapon2;
+
         public readonly bool Ultimate => MainWeapon && AlternateWeapon;
 
-        public readonly bool Burst => Block1 && Block2;
+        public readonly bool Burst => SubWeapon1 && SubWeapon2;
 
         public bool Emote
         {

@@ -10,8 +10,20 @@
 using Quantum;
 using UnityEngine;
 
-public abstract partial class SubTemplateAsset : InfoAssetAsset {
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/SubTemplate", order = Quantum.EditorDefines.AssetMenuPriorityStart + 226)]
+public partial class SubTemplateAsset : InfoAssetAsset {
+  public Quantum.SubTemplate Settings_SubTemplate;
 
+  public override string AssetObjectPropertyPath => nameof(Settings_SubTemplate);
+  
+  public override Quantum.AssetObject AssetObject => Settings_SubTemplate;
+  
+  public override void Reset() {
+    if (Settings_SubTemplate == null) {
+      Settings_SubTemplate = new Quantum.SubTemplate();
+    }
+    base.Reset();
+  }
 }
 
 public static partial class SubTemplateAssetExts {

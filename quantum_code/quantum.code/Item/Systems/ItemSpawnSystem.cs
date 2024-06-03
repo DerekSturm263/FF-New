@@ -19,7 +19,7 @@ namespace Quantum
                 if (filter.ItemSpawner->CurrentSpawned == filter.ItemSpawner->MaxAllowed)
                     return;
 
-                SpawnItemRandom(f);
+                SpawnRandom(f);
 
                 MatchInstance* matchInstance = f.Unsafe.GetPointerSingleton<MatchInstance>();
                 filter.ItemSpawner->TimeSinceLastSpawned = f.Global->RngSession.Next(filter.ItemSpawner->MinTimeToSpawn, filter.ItemSpawner->MaxTimeToSpawn) * (1 / matchInstance->Match.Ruleset.Items.SpawnFrequency);
@@ -30,7 +30,7 @@ namespace Quantum
             }
         }
         
-        public static EntityRef SpawnItemRandom(Frame f)
+        public static EntityRef SpawnRandom(Frame f)
         {
             MatchInstance* matchInstance = f.Unsafe.GetPointerSingleton<MatchInstance>();
             
@@ -39,35 +39,40 @@ namespace Quantum
             
             FPVector2 spawnPosition = matchInstance->Match.Stage.Spawn.ItemSpawnPoints[f.Global->RngSession.Next(0, matchInstance->Match.Stage.Spawn.ItemSpawnPoints.Length)];
             
-            return SpawnItem(f, itemAsset, spawnPosition);
+            return Spawn(f, itemAsset, spawnPosition);
         }
 
-        public static EntityRef SpawnItem(Frame f, AssetRefItem toSpawn, FPVector2 position)
+        public static EntityRef Spawn(Frame f, AssetRefItem toSpawn, FPVector2 position)
         {
             EntityRef newItem = default;
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            Item item = f.FindAsset<Item>(toSpawn.Id);
+            newItem = f.Create(item.Prototype);
+
+            if (f.Unsafe.TryGetPointer(newItem, out Transform2D* transform))
+                transform->Position = position + new FPVector2(0, 4);
+
+            if (f.Unsafe.TryGetPointer(newItem, out ItemInstance* itemInstance))
             {
-                Item item = f.FindAsset<Item>(toSpawn.Id);
-                newItem = f.Create(item.Prototype);
-
-                if (f.Unsafe.TryGetPointer(newItem, out Transform2D* transform))
-                    transform->Position = position + new FPVector2(0, 4);
-
-                if (f.Unsafe.TryGetPointer(newItem, out ItemInstance* itemInstance))
-                {
-                    itemInstance->FallY = position.Y;
-                    itemInstance->Item = item;
-                }
-
-                if (f.Unsafe.TryGetPointer(newItem, out PhysicsBody2D* physicsBody))
-                    physicsBody->Enabled = false;
+                itemInstance->FallY = position.Y;
+                itemInstance->Item = item;
             }
+
+            if (f.Unsafe.TryGetPointer(newItem, out PhysicsBody2D* physicsBody))
+                physicsBody->Enabled = false;
 
             if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
                 ++itemSpawner->CurrentSpawned;
 
             return newItem;
+        }
+
+        public static EntityRef SpawnInHand(Frame f, AssetRefItem toSpawn, EntityRef owner)
+        {
+            EntityRef item = Spawn(f, toSpawn, FPVector2.Zero);
+            ItemSystem.PickUp(f, owner, item);
+
+            return item;
         }
     }
 }

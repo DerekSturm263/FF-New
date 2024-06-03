@@ -41,7 +41,7 @@ namespace Quantum.Custom.Animator
         if (motion != null && !motion.isEmpty)
         {
           motion.CalculateWeights(f, a, id);
-          FP deltaTimeSpeed = deltaTime * speed;
+          FP deltaTimeSpeed = deltaTime * FPMath.Abs(speed);
 
           //advance time - current state
           if (id == a->current_state_id && a->to_state_id == 0)

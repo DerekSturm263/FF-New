@@ -148,6 +148,9 @@
     <Compile Include="Item\Assets\Item.qtn.cs" />
     <None Include="Build\Structs\MoveRef.qtn" />
     <None Include="Item\Components\ItemInstance.qtn" />
+    <Compile Include="Item\Assets\Items\SeekingExplodingItem.cs" />
+    <Compile Include="Item\Assets\Items\SeekingItem.cs" />
+    <Compile Include="Item\Assets\Items\UpdateableItem.cs" />
     <Compile Include="Item\Systems\ItemSpawnSystem.cs" />
     <Compile Include="Item\Systems\ItemSystem.cs" />
     <Compile Include="Item\Assets\Items\ExplodingItem.cs" />
@@ -158,7 +161,7 @@
     <None Include="Player\Events\Build\OnPlayerSetBadge.qtn" />
     <Compile Include="Player\States\AltWeaponState.cs" />
     <Compile Include="Player\States\MainWeaponState.cs" />
-    <Compile Include="Player\States\SubWeaponState.cs" />
+    <Compile Include="Player\States\SubState.cs" />
     <Compile Include="Player\States\UltimateState.cs" />
     <Compile Include="Player\Structs\PlayerStateDictionary.cs" />
     <Compile Include="Commands\Systems\CommandSystem.cs" />
@@ -223,10 +226,7 @@
     <Compile Include="Equipment\Weapons\Sub\Sub Enhancer\Sub Enhancers\ElectrifiedSubEnhancer.cs" />
     <Compile Include="Equipment\Weapons\Sub\Sub Enhancer\Sub Enhancers\PiercingSubEnhancer.cs" />
     <Compile Include="Equipment\Weapons\Sub\Sub Enhancer\SubEnhancer.qtn.cs" />
-    <Compile Include="Equipment\Weapons\Sub\Sub Template\Sub Templates\ExplodingSubTemplate.cs" />
-    <Compile Include="Equipment\Weapons\Sub\Sub Template\Sub Templates\MissileSubTemplate.cs" />
     <Compile Include="Equipment\Weapons\Sub\Sub Template\SubTemplate.qtn.cs" />
-    <Compile Include="Equipment\Weapons\Sub\SubSystem.cs" />
     <Compile Include="Match\Systems\MatchSystem.cs" />
     <Compile Include="Ruleset\Assets\RulesetAsset.qtn.cs" />
     <Compile Include="Ruleset\Assets\Win Conditions\BestKillToDeathRatioWinCondition.cs" />

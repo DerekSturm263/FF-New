@@ -30,7 +30,6 @@
                 new CharacterControllerSystem(),
                 new ConfirmationSystem(),
                 new StatsSystem(),
-                new SubSystem(),
                 new ItemSpawnSystem(),
                 new ItemSystem(),
 

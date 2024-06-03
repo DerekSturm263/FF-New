@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb9c7a4350546342b33d78ab31f4432, type: 3}
+  m_Name: Missile
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Description: 
+  Icon: {fileID: 0}
+  Background: {fileID: 0}
+  MainColor: {r: 0, g: 0, b: 0, a: 0}
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  DarkColor: {r: 0, g: 0, b: 0, a: 0}
+  SortingID: 0
+  SFX:
+    _kvps: []
+  VFX:
+    _kvps: []
+  OnUse:
+    m_PersistentCalls:
+      m_Calls: []
+  Settings_SeekingItem:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+    Prototype:
+      Id:
+        Value: 0
+    DestroySelfOnHit: 0
+    Speed:
+      RawValue: 0
+    LerpTime:
+      RawValue: 0
+  Settings_SeekingExplodingItem:
+    Identifier:
+      Path: Resources/DB/Assets/Items/Missile
+      Guid:
+        Value: 4154195492321033345
+    Prototype:
+      Id:
+        Value: 3923951510283189538
+    DestroySelfOnHit: 1
+    Speed:
+      RawValue: 327680
+    LerpTime:
+      RawValue: 327680
+    HitboxSettings:
+      CameraShakeIntensity:
+        RawValue: 1310720
+      Damage:
+        RawValue: 1310720
+      Knockback:
+        X:
+          RawValue: 327680
+        Y:
+          RawValue: 327680
+      Layer:
+        BitMask: 512
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      OnlyHitOnce:
+        Value: 0
+      Parent: 0
+      Prototype:
+        Id:
+          Value: 3467847473562426331
+      Radius:
+        RawValue: 196608
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
+    Lifetime: 20

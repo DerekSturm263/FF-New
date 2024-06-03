@@ -3,9 +3,9 @@
 namespace Quantum
 {
     [System.Serializable]
-    public unsafe abstract partial class SubTemplate : InfoAsset
+    public unsafe partial class SubTemplate : InfoAsset
     {
-        public AssetRefEntityPrototype Prototype;
+        public AssetRefItem Prototype;
         public FP EnergyAmount;
 
         public virtual void OnSpawn(Frame f, EntityRef user, EntityRef subWeapon, SubInstance* subWeaponInstance) { }

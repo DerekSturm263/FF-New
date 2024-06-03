@@ -31,6 +31,8 @@ namespace Quantum.Editor {
       public Quantum.TrackGraph[] TrackGraph = {};
       public Quantum.EnergyConversionBadge[] EnergyConversionBadge = {};
       public Quantum.InfoAsset[] InfoAsset = {};
+      public Quantum.SeekingExplodingItem[] SeekingExplodingItem = {};
+      public Quantum.SeekingItem[] SeekingItem = {};
       public Quantum.ExplodingItem[] ExplodingItem = {};
       public Quantum.HealingItem[] HealingItem = {};
       public Quantum.MatchAsset[] MatchAsset = {};
@@ -55,8 +57,7 @@ namespace Quantum.Editor {
       public Quantum.WeaponTemplate[] WeaponTemplate = {};
       public Quantum.ElectrifiedSubEnhancer[] ElectrifiedSubEnhancer = {};
       public Quantum.PiercingSubEnhancer[] PiercingSubEnhancer = {};
-      public Quantum.ExplodingSubTemplate[] ExplodingSubTemplate = {};
-      public Quantum.MissileSubTemplate[] MissileSubTemplate = {};
+      public Quantum.SubTemplate[] SubTemplate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};
       public Quantum.BestKillToDeathRatioWinCondition[] BestKillToDeathRatioWinCondition = {};
       public Quantum.LeastDeathsWinCondition[] LeastDeathsWinCondition = {};

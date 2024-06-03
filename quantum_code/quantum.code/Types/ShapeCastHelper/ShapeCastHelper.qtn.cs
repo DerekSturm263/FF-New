@@ -42,7 +42,7 @@ namespace Quantum
                 else
                     Draw.Circle(Shape.PositionOffset, Shape.CircleRadius);
 
-                return f.Physics2D.OverlapShape(FPVector2.Zero, 0, Shape.CreateShape(f), LayerMask);
+                return f.Physics2D.OverlapShape(offset, 0, Shape.CreateShape(f), LayerMask);
             }
             else
             {
@@ -51,13 +51,13 @@ namespace Quantum
                 else
                     Draw.Circle(parent->Position + Shape.PositionOffset, Shape.CircleRadius);
 
-                return f.Physics2D.OverlapShape(parent->Position, 0, Shape.CreateShape(f), LayerMask);
+                return f.Physics2D.OverlapShape(parent->Position + offset, 0, Shape.CreateShape(f), LayerMask);
             }
         }
 
-        public readonly bool TryGetCastResults(Frame f, out Physics2D.HitCollection hitCollection, Transform2D* parent = null)
+        public readonly bool TryGetCastResults(Frame f, out Physics2D.HitCollection hitCollection, Transform2D* parent = null, FPVector2 offset = default)
         {
-            hitCollection = GetCastResults(f, parent);
+            hitCollection = GetCastResults(f, parent, offset);
             return hitCollection.Count > 0;
         }
     }

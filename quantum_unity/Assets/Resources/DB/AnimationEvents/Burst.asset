@@ -37,6 +37,7 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Burst
       Guid:
         Value: 1131542861135584775
+    AnimID: -1124102220
     Events:
     - Id:
         Value: 4132347426701160259
@@ -44,6 +45,8 @@ MonoBehaviour:
         Value: 4353448811302768375
     - Id:
         Value: 1126665172000336546
+    - Id:
+        Value: 258623156459692848
 --- !u!114 &3672677731246183076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +65,7 @@ MonoBehaviour:
       Guid:
         Value: 1126665172000336546
     StartingFrame: 1
-    EndingFrame: 2
+    EndingFrame: 24
     Hurtboxes: -1
     Settings:
       CanBeDamaged:
@@ -73,6 +76,26 @@ MonoBehaviour:
         Value: 0
       DisableHitbox:
         Value: 1
+--- !u!114 &4718132377580673384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1151a94cd33eef4a9d1092594af1376, type: 3}
+  m_Name: VFX
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Burst|VFX
+      Guid:
+        Value: 258623156459692848
+    StartingFrame: 2
+    EndingFrame: 14
+    Settings: {fileID: 11400000, guid: 5f24571e6e3aa7344acbacb4de391a83, type: 2}
 --- !u!114 &5080887121173982603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,8 +113,8 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Burst|New Event
       Guid:
         Value: 4132347426701160259
-    StartingFrame: 1
-    EndingFrame: 24
+    StartingFrame: 2
+    EndingFrame: 14
     Settings:
       CameraShakeIntensity:
         RawValue: 0
@@ -99,9 +122,9 @@ MonoBehaviour:
         RawValue: 655360
       Knockback:
         X:
-          RawValue: -6553600
+          RawValue: -655360
         Y:
-          RawValue: 6553600
+          RawValue: 655360
       Layer:
         BitMask: 512
       Offset:
@@ -111,12 +134,15 @@ MonoBehaviour:
           RawValue: 65536
       OnlyHitOnce:
         Value: 0
-      Parent: 0
+      Parent: 1
       Prototype:
         Id:
           Value: 3156569685704267981
       Radius:
         RawValue: 114688
+      StatusEffect:
+        Id:
+          Value: 0
       TargetFreezeDuration: 0
       TargetShakeIntensity:
         RawValue: 0

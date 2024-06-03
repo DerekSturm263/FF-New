@@ -1,5 +1,7 @@
 using Photon.Deterministic;
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime;
 
 namespace Quantum
 {
@@ -393,6 +395,45 @@ namespace Quantum
             stats->Build.Equipment.Badge = default;
 
             f.Events.OnPlayerSetBadge(f.Get<PlayerLink>(user), oldBadge, default);
+        }
+
+        public static EntityRef FindNearestOtherPlayer(Frame f, EntityRef user)
+        {
+            List<EntityRef> players = [];
+
+            foreach (var player in f.GetComponentIterator<PlayerLink>())
+            {
+                players.Add(player.Entity);
+            }
+
+            players.Remove(user);
+
+            Transform2D userTransform = f.Get<Transform2D>(user);
+            players.OrderBy(item => FPVector2.DistanceSquared(userTransform.Position, f.Get<Transform2D>(item).Position));
+
+            return players[0];
+        }
+
+        public static void ModifyHurtboxes(Frame f, EntityRef entity, HurtboxType hurtboxesType, HurtboxSettings settings)
+        {
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
+                var hurtboxes = f.ResolveDictionary(stats->Hurtboxes);
+
+                for (int i = 0; i < 15; ++i)
+                {
+                    HurtboxType hurtboxType = (HurtboxType)(1 << i);
+                    if (!hurtboxesType.HasFlag(hurtboxType))
+                        continue;
+
+                    if (f.Unsafe.TryGetPointer(hurtboxes[hurtboxType], out HurtboxInstance* hurtbox))
+                    {
+                        hurtbox->Settings = settings;
+                    }
+                }
+
+                f.Events.OnHurtboxStateChange(entity, hurtboxesType, settings);
+            }
         }
     }
 }
