@@ -27,6 +27,8 @@ public class PlayerEventListener : MonoBehaviour
     [SerializeField] private List<Extensions.Types.Tuple<string, Extensions.Types.Tuple<float, float>>> _intangible;
     [SerializeField] private List<Extensions.Types.Tuple<string, Extensions.Types.Tuple<float, float>>> _superArmor;
 
+    private bool _unblink;
+
     private void Awake()
     {
         _entityViewUpdater = FindFirstObjectByType<EntityViewUpdater>();
@@ -45,12 +47,35 @@ public class PlayerEventListener : MonoBehaviour
         QuantumEvent.Subscribe<EventOnHurtboxStateChange>(listener: this, handler: UpdateHurtbox);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         foreach (var kvp in _hurtboxSettings)
         {
             UpdateHurtboxVisuals(kvp.Key, kvp.Value, Mathf.PingPong(Time.time * _pingPongSpeed, 1));
         }
+    }
+
+    private void FixedUpdate()
+    {
+        /*if (_unblink)
+        {
+            foreach (var player in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<PlayerLink>())
+            {
+                Blink(player.Entity, 0);
+                _unblink = false;
+            }
+        }
+        else
+        {
+            foreach (var player in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<PlayerLink>())
+            {
+                if (Random.Range(0, 10) == 1)
+                {
+                    Blink(player.Entity, 100);
+                    _unblink = true;
+                }
+            }
+        }*/
     }
 
     private void UpdateHurtboxVisuals(EntityRef owner, HurtboxSettings settings, float lerpValue)
@@ -217,6 +242,14 @@ public class PlayerEventListener : MonoBehaviour
         head.SetBlendShapeWeight(13, 0);
         head.SetBlendShapeWeight(14, 0);
         head.SetBlendShapeWeight(15, 0);
+    }
+
+    public void Blink(EntityRef owner, float weight)
+    {
+        SkinnedMeshRenderer head = GetHead(owner);
+
+        head.SetBlendShapeWeight(0, weight);
+        head.SetBlendShapeWeight(1, weight);
     }
 
     private void InitList(EntityRef owner)
