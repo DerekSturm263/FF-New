@@ -3,6 +3,7 @@ using GameResources.Audio;
 using Quantum;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class DynamicTrackController : Controller<DynamicTrackController>
 {
@@ -21,6 +22,7 @@ public class DynamicTrackController : Controller<DynamicTrackController>
     private Extensions.Types.Dictionary<TrackSection, List<AudioSource>> _trackSources;
 
     [SerializeField] private float _endDelay = 0.5f + (17.0f / 60);
+    [SerializeField] AudioMixerGroup _musicGroup;
 
     private EntityViewUpdater _entityViewUpdater;
 
@@ -61,6 +63,7 @@ public class DynamicTrackController : Controller<DynamicTrackController>
                         AudioSource source = section.AddComponent<AudioSource>();
 
                         source.clip = clip;
+                        source.outputAudioMixerGroup = _musicGroup;
                         source.volume = trackSection.DefaultWeights[i];
                         source.loop = true;
 

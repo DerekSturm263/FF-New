@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 1278303187033888724}
   - component: {fileID: 2365314213801081531}
   - component: {fileID: -9217173508759806490}
+  - component: {fileID: 7259386362456708021}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -215,6 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _endDelay: 0.7
+  _musicGroup: {fileID: 7431221819818348180, guid: df8e81d8ae2e38f45960c330754d4911,
+    type: 2}
 --- !u!114 &1278303187033888724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,3 +254,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc4acc1e0a8d644ba2dbd226ce769ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7259386362456708021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247dc2ac4ae85194e84dfe6c002b2de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _master: {fileID: 24300002, guid: 3d79f15d7e6bf1f48b3fd8f50fc51231, type: 2}
+  _playerMaster: {fileID: 24300002, guid: a4704c5dd4fad3946a8e83ef4d0d9890, type: 2}
+  _playerSFX: {fileID: -4132150874975322781, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
+    type: 2}
+  _playerVoiceLines: {fileID: 7326994074086932327, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
+    type: 2}
+  _environmentMaster: {fileID: 24300002, guid: 5aa9b6bb1c947ec44a9736ed2f15a561, type: 2}
+  _environmentAmbience: {fileID: -4460488163968950564, guid: 5aa9b6bb1c947ec44a9736ed2f15a561,
+    type: 2}
+  _environmentSFX: {fileID: 4087645444386880349, guid: 5aa9b6bb1c947ec44a9736ed2f15a561,
+    type: 2}
+  _uiMaster: {fileID: 24300002, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
+  _uiMusic: {fileID: 7431221819818348180, guid: df8e81d8ae2e38f45960c330754d4911,
+    type: 2}
+  _uiSFX: {fileID: 2532865869901439158, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
