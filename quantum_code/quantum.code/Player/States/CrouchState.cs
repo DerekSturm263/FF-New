@@ -1,4 +1,6 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     public unsafe sealed class CrouchState : PlayerState
     {
@@ -10,7 +12,7 @@
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return input.Movement.X == 0;
+            return FPMath.Abs(input.Movement.X) < FP._0_01;
         }
 
         protected override bool CanExit(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)

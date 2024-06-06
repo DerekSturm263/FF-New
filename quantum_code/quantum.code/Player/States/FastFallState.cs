@@ -8,6 +8,8 @@
         public override StateType GetStateType() => StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => -1;
 
+        public override States[] KillStateList => new States[] { States.IsJumping };
+
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             return filter.PhysicsBody->Velocity.Y < settings.MinimumYVelocity;

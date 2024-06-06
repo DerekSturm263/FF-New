@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using Quantum.Types;
 
 namespace Quantum
 {
@@ -12,7 +11,7 @@ namespace Quantum
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => filter.CharacterController->GetDodgeSettings(settings).Frames;
         protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
 
-        public override States[] EntranceBlacklist => new States[] { States.IsBursting };
+        public override States[] EntranceBlacklist => new States[] { States.IsBursting, States.IsCrouching, States.IsUsingAltWeapon, States.IsInteracting, States.IsUsingMainWeapon, States.IsUsingUltimate };
         public override States[] KillStateList => new States[] { States.IsJumping };
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)

@@ -6,9 +6,9 @@ using Quantum;
 [CreateAssetMenu(menuName = "Quantum/ClientAsset/Clip")]
 public class Clip : ScriptableObject
 {
-    [SerializeField] private Dictionary<AssetRefFFAvatar, RandomList<AudioClip>> Variants;
+    [SerializeField] private Dictionary<AssetRefVoice, RandomList<AudioClip>> Variants;
     
-    public AudioClip GetClip(AssetRefFFAvatar avatar) => Variants[avatar].Random;
+    public AudioClip GetClip(AssetRefVoice voice) => Variants[voice].Random;
 
     public AudioMixerGroup Mixer;
     public float Volume;

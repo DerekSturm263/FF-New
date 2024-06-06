@@ -11,7 +11,7 @@ namespace Quantum
         {
             Log.Debug("Playing clip!");
 
-            AudioSource.PlayClipAtPoint(Settings.GetClip(f.Unsafe.GetPointer<Stats>(entity)->Build.Cosmetics.Avatar), Vector3.zero, Settings.Volume);
+            AudioSource.PlayClipAtPoint(Settings.GetClip(f.Unsafe.GetPointer<Stats>(entity)->Build.Cosmetics.Voice), Vector3.zero, Settings.Volume);
         }
 
         public override void End(Frame f, EntityRef entity, int frame)

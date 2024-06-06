@@ -108,6 +108,7 @@
     <None Include="Item\Events\OnItemUse.qtn" />
     <None Include="Item\Components\ItemSpawner.qtn" />
     <None Include="packages.config" />
+    <None Include="Player\Components\AIData.qtn" />
     <None Include="Player\Events\Actions\OnPlayerChangeDirection.qtn" />
     <None Include="Player\Events\Actions\OnPlayerJump.qtn" />
     <None Include="Player\Events\Build\OnPlayerSetAltWeapon.qtn" />
@@ -135,6 +136,10 @@
     <None Include="Player\Events\Stats\OnPlayerModifyStocks.qtn" />
     <None Include="Player\Events\Actions\OnPlayerAttack.qtn" />
     <None Include="Player\Components\Stats.qtn" />
+    <Compile Include="Cosmetics\Voice\Voice.qtn.cs" />
+    <Compile Include="Match\Commands\CommandResetMatch.cs" />
+    <Compile Include="Player\Assets\Behavior.qtn.cs" />
+    <Compile Include="Player\Commands\CommandSpawnAI.cs" />
     <Compile Include="Audio\Track\Assets\TrackGraph.qtn.cs" />
     <Compile Include="Commands\Helpers\BitStreamSerializationHelper.cs" />
     <Compile Include="Build\Commands\CommandSetBuild.cs" />
@@ -159,6 +164,7 @@
     <Compile Include="Item\Assets\Items\UsableItem.cs" />
     <Compile Include="Match\Assets\MatchAsset.qtn.cs" />
     <None Include="Player\Events\Build\OnPlayerSetBadge.qtn" />
+    <Compile Include="Player\Components\AIData.qtn.cs" />
     <Compile Include="Player\States\AltWeaponState.cs" />
     <Compile Include="Player\States\MainWeaponState.cs" />
     <Compile Include="Player\States\SubState.cs" />

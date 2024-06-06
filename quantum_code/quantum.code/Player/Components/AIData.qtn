@@ -1,0 +1,30 @@
+enum Goal
+{
+	// Movement
+	CloseGap = 1,
+	IncreaseGap = 2,
+	MaintainGap = 4,
+
+	// Offensive
+	StartCombo = 8,
+	DealHeavyDamage = 16,
+
+	// Defensive
+	Block = 32,
+	Avoid = 64,
+
+	// Miscellaneous
+	TryGetItem = 128,
+	Taunt = 256,
+	TryNewStrategy = 512,
+	ContinueStrategy = 1024
+}
+
+component AIData
+{
+	asset_ref<Behavior> Behavior;
+
+	entity_ref Target;
+	Goal CurrentGoal;
+	FP TimeSinceAction;
+}

@@ -136,13 +136,17 @@ public class PlayerEventListener : MonoBehaviour
     public void SpawnPlayerJumpVFX(QuantumGame game, PlayerLink player)
     {
         GameObject effect = VFXController.Instance.SpawnEffect(_jump);
-        effect.transform.position = _entityViewUpdater.GetView(player.Entity).transform.position;
+
+        if (effect)
+            effect.transform.position = _entityViewUpdater.GetView(player.Entity).transform.position;
     }
 
     public void SpawnPlayerDoubleJumpVFX(QuantumGame game, PlayerLink player)
     {
         GameObject effect = VFXController.Instance.SpawnEffect(_doubleJump);
-        effect.transform.position = _entityViewUpdater.GetView(player.Entity).transform.position;
+
+        if (effect)
+            effect.transform.position = _entityViewUpdater.GetView(player.Entity).transform.position;
     }
 
     public void SetPlayerExpressionAngry(EntityRef owner, float weight)

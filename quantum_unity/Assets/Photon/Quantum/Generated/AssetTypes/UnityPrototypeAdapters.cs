@@ -6,6 +6,24 @@
 using System;
 namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.AIData))]
+  public class AIData_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.AIData_Prototype> {
+    public Quantum.AssetRefBehavior Behavior;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Target;
+    public Quantum.Prototypes.Goal_Prototype CurrentGoal;
+    public Photon.Deterministic.FP TimeSinceAction;
+
+    public sealed override Quantum.Prototypes.AIData_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.AIData_Prototype();
+      result.Behavior = this.Behavior;
+      converter.Convert(this.Target, out result.Target);
+      result.CurrentGoal = this.CurrentGoal;
+      result.TimeSinceAction = this.TimeSinceAction;
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.HitboxInstance))]
   public class HitboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.HitboxInstance_Prototype> {
     public System.Int32 PathQueryIndex;

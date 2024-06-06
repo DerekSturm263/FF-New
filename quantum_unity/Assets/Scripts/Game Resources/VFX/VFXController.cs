@@ -6,8 +6,23 @@ namespace GameResources
 {
     public class VFXController : Extensions.Components.Miscellaneous.Controller<VFXController>
     {
+        private bool _isEnabled = true;
+        public bool IsEnabled => _isEnabled;
+        public void SetIsEnabled(bool isEnabled)
+        {
+            _isEnabled = isEnabled;
+
+            foreach (ConditionalEnable component in FindObjectsByType<ConditionalEnable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                component.enabled = _isEnabled;
+            }
+        }
+
         public GameObject SpawnEffectParented(VFX settings, Transform parent)
         {
+            if (!_isEnabled)
+                return null;
+
             GameObject effect;
 
             if (settings.DoesFollowParent)
@@ -28,6 +43,9 @@ namespace GameResources
 
         public GameObject SpawnEffect(VFX settings)
         {
+            if (!_isEnabled)
+                return null;
+
             GameObject effect = Instantiate(settings.VFXObject, settings.Offset.ToUnityVector3(), Quaternion.identity);
 
             effect.transform.right = settings.Direction.Normalized.ToUnityVector3();
@@ -40,7 +58,9 @@ namespace GameResources
         public void SpawnItemVFX(QuantumGame game, EntityView user, (EntityView itemObj, ItemAsset itemAsset, FPVector2 position) tuple)
         {
             GameObject effect = SpawnEffect(tuple.itemAsset.VFX["Explosion"]);
-            effect.transform.position = tuple.position.XYO.ToUnityVector3();
+            
+            if (effect)
+                effect.transform.position = tuple.position.XYO.ToUnityVector3();
         }
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using Extensions.Components.Miscellaneous;
 using UnityEngine.Audio;
 using GameResources.Camera;
+using GameResources;
 
 public class SettingsController : Controller<SettingsController>
 {
@@ -16,6 +17,8 @@ public class SettingsController : Controller<SettingsController>
     [SerializeField] private AudioMixerGroup _uiMusic;
     [SerializeField] private AudioMixerGroup _uiSFX;
 
+    [SerializeField] private UnityEngine.Rendering.VolumeProfile _volume;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -26,12 +29,12 @@ public class SettingsController : Controller<SettingsController>
         base.Shutdown();
     }
 
-    public void SetGameplayLanguageText()
+    public void SetGameplayLanguageText(int index)
     {
 
     }
 
-    public void SetGameplayLanguageVoice()
+    public void SetGameplayLanguageVoice(int index)
     {
 
     }
@@ -41,62 +44,65 @@ public class SettingsController : Controller<SettingsController>
         QualitySettings.SetQualityLevel(index);
     }
 
-    public void SetGraphicsQualityPostProcessing()
+    public void SetGraphicsQualityPostProcessing(bool isEnabled)
     {
-        //CameraController.Instance.Cam.
+        if (isEnabled)
+            CameraController.Instance.SetVolume(_volume);
+        else
+            CameraController.Instance.SetVolume(null);
     }
 
-    public void SetGraphicsQualityVSync()
+    public void SetGraphicsQualityVSync(bool isEnabled)
     {
-
+        QualitySettings.vSyncCount = isEnabled ? 1 : 0;
     }
 
-    public void SetGraphicsQualityLights()
+    public void SetGraphicsQualityLights(float value)
     {
-
+        QualitySettings.pixelLightCount = (int)value;
     }
 
-    public void SetGraphicsQualityShadows()
+    public void SetGraphicsQualityShadows(float value)
     {
-
+        QualitySettings.shadowDistance = value;
     }
 
-    public void SetGraphicsQualityHDR()
+    public void SetGraphicsQualityRealtimeReflections(bool isEnabled)
     {
-
+        QualitySettings.realtimeReflectionProbes = isEnabled;
     }
 
-    public void SetGraphicsQualityVFX()
+    public void SetGraphicsQualityVFX(bool isEnabled)
     {
-
+        VFXController.Instance.SetIsEnabled(isEnabled);
     }
 
-    public void SetGraphicsQualityTextureQuality()
+    public void SetGraphicsQualityAnisotropicFiltering(bool isEnabled)
     {
-
+        QualitySettings.anisotropicFiltering = isEnabled ? AnisotropicFiltering.Enable : AnisotropicFiltering.Disable;
     }
 
-    public void SetGraphicsQualityAntiAliasing()
+    public void SetGraphicsQualityAntiAliasing(float value)
     {
-
+        QualitySettings.antiAliasing = (int)(value * value);
     }
 
-    public void SetGraphicsColorPreset()
-    {
-
-    }
-
-    public void SetGraphicsColorRed()
+    public void SetGraphicsColorPreset(int index)
     {
 
     }
 
-    public void SetGraphicsColorGreen()
+    public void SetGraphicsColorRed(Color red)
     {
 
     }
 
-    public void SetGraphicsColorBlue()
+    public void SetGraphicsColorGreen(Color green)
+    {
+
+    }
+
+    public void SetGraphicsColorBlue(Color blue)
     {
 
     }

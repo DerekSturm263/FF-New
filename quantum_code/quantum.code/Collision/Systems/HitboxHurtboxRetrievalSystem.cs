@@ -77,7 +77,7 @@
                             }
                         }
 
-                        f.Events.OnHitboxHurtboxCollection(f.Get<PlayerLink>(hitbox.Hitbox->Owner), f.Get<PlayerLink>(ownerHit), hitbox.Hitbox->Settings);
+                        f.Events.OnHitboxHurtboxCollection(hitbox.Hitbox->Owner, ownerHit, hitbox.Hitbox->Settings);
                     }
                 }
             }

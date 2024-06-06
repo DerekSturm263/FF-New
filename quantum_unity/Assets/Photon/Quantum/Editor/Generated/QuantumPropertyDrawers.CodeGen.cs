@@ -36,6 +36,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefBehavior))]
+  public class AssetRefBehaviorPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(BehaviorAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefCameraSettings))]
   public class AssetRefCameraSettingsPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -162,6 +169,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefVoice))]
+  public class AssetRefVoicePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(VoiceAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefWeaponEnhancer))]
   public class AssetRefWeaponEnhancerPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -196,6 +210,7 @@ namespace Quantum.Editor {
 
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Direction_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.Goal_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.ParentType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StagePickerType_Prototype))]

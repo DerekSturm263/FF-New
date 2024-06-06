@@ -107,6 +107,7 @@ namespace Quantum
             stream.Serialize(ref value.Avatar);
             stream.Serialize(ref value.Eyes);
             stream.Serialize(ref value.Hair);
+            stream.Serialize(ref value.Voice);
             stream.Serialize(ref value.Emotes);
         }
 

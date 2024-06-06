@@ -28,6 +28,8 @@ namespace Quantum.Editor {
 
     [System.Serializable]
     public partial class KnownObjectsContainer : QuantumEditorUtility.SerializableObjectsContainerBase {
+      public Quantum.Voice[] Voice = {};
+      public Quantum.Behavior[] Behavior = {};
       public Quantum.TrackGraph[] TrackGraph = {};
       public Quantum.EnergyConversionBadge[] EnergyConversionBadge = {};
       public Quantum.InfoAsset[] InfoAsset = {};

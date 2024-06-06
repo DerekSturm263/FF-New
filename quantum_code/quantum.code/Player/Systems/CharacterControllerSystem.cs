@@ -38,8 +38,13 @@ namespace Quantum
             // Grab the player's movement settings.
             MovementSettings settings = f.FindAsset<MovementSettings>(filter.CharacterController->Settings.Id);
 
-            // Get the player's input before we do anything with it.
-            Input input = *f.GetPlayerInput(filter.PlayerLink->Player);
+            // Get the entity's input before we do anything with it.
+            Input input;
+            if (f.Unsafe.TryGetPointer(filter.Entity, out AIData* aiData) &&
+                f.TryFindAsset(aiData->Behavior.Id, out Behavior behavior))
+                input = behavior.GetInput(f, filter);
+            else
+                input = *f.GetPlayerInput(filter.PlayerLink->Player);
 
             // Calculate the player's stats.
             ApparelStats stats = CalculateStats(f, ref filter, settings);
