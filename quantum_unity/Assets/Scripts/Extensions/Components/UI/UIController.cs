@@ -82,5 +82,15 @@ namespace Extensions.Components.UI
                 populater.RemoveFromList();
             }
         }
+
+        public void SetAnimBoolOn(Animator anim)
+        {
+            anim.SetBool("On", true);
+        }
+
+        public void SetAnimBoolOff(Animator anim)
+        {
+            anim.SetBool("On", false);
+        }
     }
 }
