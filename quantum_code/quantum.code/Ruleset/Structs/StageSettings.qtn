@@ -12,7 +12,7 @@ enum StagePickerType
 [Serializable]
 struct StageSettings
 {
-	array<asset_ref<StageAsset>>[12] Stages;
+	ArrayStage Stages;
 	StagePickerType StagePicker;
 	bool AllowGizmos;
 	bool AllowCustomStages;
