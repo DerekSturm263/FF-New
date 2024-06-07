@@ -18,11 +18,19 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
     private Selector _selector;
     public Selector Selector => _selector;
 
+    [SerializeField] private float _cooldownTime;
     private float _cooldown = 0;
+    private Quantum.Direction _lastDirection = Quantum.Direction.Neutral;
 
     private void Awake()
     {
         _eventSystem = GetComponent<MultiplayerEventSystem>();
+    }
+
+    private void Update()
+    {
+        if (_cooldown > 0)
+            _cooldown -= Time.deltaTime;
     }
 
     public void MapControls()
@@ -44,6 +52,15 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         Selectable navigationTarget = null;
 
         Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(ctx.ReadValue<Vector2>().ToFPVector2());
+        if (direction == _lastDirection)
+            if (_cooldown == 0)
+                _cooldown = _cooldownTime;
+        else
+            _cooldown = 0;
+
+        if (_cooldown > 0)
+            return;
+        
         switch (direction)
         {
             case Quantum.Direction.Right:
@@ -62,6 +79,8 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
                 navigationTarget = selectable.FindSelectableOnDown();
                 break;
         }
+
+        _lastDirection = direction;
 
         if (!navigationTarget || !navigationTarget.transform.IsChildOf(transform.GetChild(0)))
             return;
