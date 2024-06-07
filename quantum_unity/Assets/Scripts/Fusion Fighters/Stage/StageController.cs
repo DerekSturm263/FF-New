@@ -26,7 +26,7 @@ public class StageController : Controller<StageController>
         Serializer.Save(stage, stage.Value.SerializableData.Guid, GetPath());
     }
 
-    public void Select(SerializableWrapper<Stage> stage)
+    public void Select(SerializableWrapper<Stage> stage, int playerIndex)
     {
         _stage = stage;
     }
@@ -36,7 +36,7 @@ public class StageController : Controller<StageController>
         _stage = null;
     }
 
-    public void SendToSimulation(QuantumGame game)
+    public void SendToSimulation()
     {
         if (_stage is null)
             return;
@@ -46,6 +46,6 @@ public class StageController : Controller<StageController>
             stage = _stage
         };
 
-        game.SendCommand(setStage);
+        QuantumRunner.Default.Game.SendCommand(setStage);
     }
 }

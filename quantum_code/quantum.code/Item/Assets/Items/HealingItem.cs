@@ -17,20 +17,20 @@ namespace Quantum
 
         public override void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats) && f.Unsafe.TryGetPointer(user, out PlayerLink* playerLink))
+            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
                 switch (HealingStat)
                 {
                     case Stat.Health:
-                        StatsSystem.ModifyHealth(f, playerLink, stats, Amount);
+                        StatsSystem.ModifyHealth(f, user, stats, Amount);
                         break;
 
                     case Stat.Energy:
-                        StatsSystem.ModifyEnergy(f, playerLink, stats, Amount);
+                        StatsSystem.ModifyEnergy(f, user, stats, Amount);
                         break;
 
                     case Stat.Stocks:
-                        StatsSystem.ModifyStocks(f, playerLink, stats, Amount);
+                        StatsSystem.ModifyStocks(f, user, stats, Amount);
                         break;
                 }
             }

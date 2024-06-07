@@ -8,26 +8,27 @@ public class PlayerStatController : MonoBehaviour
 
     public static PlayerStatController Instance;
 
-    public void Initialize(QuantumGame game, PlayerLink player)
+    public void Initialize(QuantumGame game, EntityRef player, int index)
     {
-        _huds[player.Player._index - 1].gameObject.SetActive(true);
-        _huds[player.Player._index - 1].SetPlayerNumber(player.Player._index);
+        _huds[index].gameObject.SetActive(true);
+        _huds[index].SetPlayerNumber(index + 1);
     }
 
-    public void Destroy(QuantumGame game, PlayerLink player)
+    public void Destroy(QuantumGame game, EntityRef player, int index)
     {
-        _huds[player.Player._index - 1].gameObject.SetActive(false);
+        _huds[index].gameObject.SetActive(false);
     }
 
     private void Awake()
     {
         Instance = this;
 
-        QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds[e.Player.Player._index - 1].UpdateReadiness(true));
-        QuantumEvent.Subscribe<EventOnPlayerCancel>(listener: this, handler: (e) => _huds[e.Player.Player._index - 1].UpdateReadiness(false));
-        QuantumEvent.Subscribe<EventOnPlayerModifyHealth>(listener: this, handler: (e) => _huds[e.Player.Player._index - 1].UpdateHealth(e.NewHealth, e.MaxHealth));
-        QuantumEvent.Subscribe<EventOnPlayerModifyEnergy>(listener: this, handler: (e) => _huds[e.Player.Player._index - 1].UpdateEnergy(e.NewEnergy, e.MaxEnergy));
-        QuantumEvent.Subscribe<EventOnPlayerModifyStocks>(listener: this, handler: (e) => _huds[e.Player.Player._index - 1].UpdateStocks(e.NewStocks, e.MaxStocks));
+        QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds[e.Index].UpdateReadiness(true));
+        QuantumEvent.Subscribe<EventOnPlayerCancel>(listener: this, handler: (e) => _huds[e.Index].UpdateReadiness(false));
+        QuantumEvent.Subscribe<EventOnPlayerUpdateReady>(listener: this, handler: (e) => _huds[e.Index].UpdateReadinessValue(e.Readiness.AsFloat));
+        QuantumEvent.Subscribe<EventOnPlayerModifyHealth>(listener: this, handler: (e) => _huds[e.Index].UpdateHealth(e.NewHealth, e.MaxHealth));
+        QuantumEvent.Subscribe<EventOnPlayerModifyEnergy>(listener: this, handler: (e) => _huds[e.Index].UpdateEnergy(e.NewEnergy, e.MaxEnergy));
+        QuantumEvent.Subscribe<EventOnPlayerModifyStocks>(listener: this, handler: (e) => _huds[e.Index].UpdateStocks(e.NewStocks, e.MaxStocks));
     }
 
     public void ShowAllReadies(bool show)

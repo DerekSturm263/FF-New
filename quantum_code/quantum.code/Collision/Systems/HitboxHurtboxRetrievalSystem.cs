@@ -1,4 +1,6 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     public unsafe class HitboxHurtboxRetrievalSystem : SystemMainThread
     {
@@ -37,31 +39,30 @@
                                 apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Legwear), apparelStats);
                             }
 
-                            if (f.Unsafe.TryGetPointer(ownerHit, out PlayerLink* hitPlayerLink))
+                            // Apply damage.
+                            FP damage = -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense);
+                            f.Events.OnPlayerHit(ownerHit, hitStats->PlayerIndex, damage);
+
+                            if (StatsSystem.ModifyHealth(f, ownerHit, hitStats, damage))
                             {
-                                // Apply damage.
-                                if (StatsSystem.ModifyHealth(f, hitPlayerLink, hitStats, -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense)))
-                                {
-                                    if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* stats))
-                                        ++stats->Kills;
-                                }
-                                else
-                                {
-                                    StatsSystem.GiveStatusEffect(f, hitbox.Hitbox->Settings.StatusEffect, ownerHit, hitStats);
-                                }
+                                if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* stats))
+                                    ++stats->Kills;
+                            }
+                            else
+                            {
+                                StatsSystem.GiveStatusEffect(f, hitbox.Hitbox->Settings.StatusEffect, ownerHit, hitStats);
                             }
 
-                            if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out PlayerLink* ownerPlayerLink) &&
-                                f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
+                            // Increase energy.
+                            if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
                             {
-                                // Increase energy.
-                                StatsSystem.ModifyEnergy(f, ownerPlayerLink, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
+                                StatsSystem.ModifyEnergy(f, hitbox.Hitbox->Owner, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
                             }
                         }
 
+                        // Apply knockback.
                         if (hurtbox->Settings.CanBeKnockedBack && f.Unsafe.TryGetPointer(ownerHit, out PhysicsBody2D* physicsBody))
                         {
-                            // Apply knockback.
                             physicsBody->Velocity = hitbox.Hitbox->Settings.Knockback;
                         }
 

@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 2365314213801081531}
   - component: {fileID: -9217173508759806490}
   - component: {fileID: 7259386362456708021}
+  - component: {fileID: 6933864354253067885}
+  - component: {fileID: 3938291804223525914}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -281,3 +283,38 @@ MonoBehaviour:
   _uiMusic: {fileID: 7431221819818348180, guid: df8e81d8ae2e38f45960c330754d4911,
     type: 2}
   _uiSFX: {fileID: 2532865869901439158, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
+  _volume: {fileID: 0}
+--- !u!114 &6933864354253067885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a198d6ae5a7acf4b9738a15da9483e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3938291804223525914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56809c6d4fbdd048bc0db854d5f7fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onPlayerJoin:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPlayerLeave:
+    m_PersistentCalls:
+      m_Calls: []
+  _characterSelectParent: {fileID: 0}
+  _stageSelectParent: {fileID: 0}
+  _characterSelectMenu: {fileID: 0}
+  _stageSelectMenu: {fileID: 0}

@@ -32,7 +32,7 @@ namespace Quantum
             AssetRefSubTemplate itemAsset = filter.Stats->Build.Equipment.Weapons.SubWeapon.Template;
             if (f.TryFindAsset(itemAsset.Id, out SubTemplate subTemplate))
             {
-                StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -subTemplate.EnergyAmount);
+                StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -subTemplate.EnergyAmount);
 
                 EntityRef instance = ItemSpawnSystem.SpawnInHand(f, subTemplate.Prototype, filter.Entity);
                 if (f.Unsafe.TryGetPointer(instance, out SubInstance* subInstance))

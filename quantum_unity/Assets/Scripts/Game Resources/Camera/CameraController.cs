@@ -196,9 +196,9 @@ namespace GameResources.Camera
             _instance._targets.Add(new(1, target));
         }
 
-        public void AddTargetEntity(QuantumGame game, PlayerLink player)
+        public void AddTargetEntity(QuantumGame game, EntityRef player)
         {
-            GameObject playerObj = _entityView.GetView(player.Entity).gameObject;
+            GameObject playerObj = _entityView.GetView(player).gameObject;
             AddTarget(playerObj.transform);
         }
 

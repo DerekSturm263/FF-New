@@ -45,7 +45,7 @@ public class SelectAuto : UIBehaviour
             _selectedIndex = -1;
     }
 
-    private void SetSelectedItem()
+    public void SetSelectedItem()
     {
         if (transform.childCount == 0)
             return;
@@ -96,7 +96,10 @@ public class SelectAuto : UIBehaviour
             if (eventSystem)
             {
                 eventSystem.SetSelectedGameObject(selected.gameObject);
-                GetComponentInParent<CustomMultiplayerUIInputSystemModule>().Selector.ChildToSelected(selected.gameObject);
+
+                Selector selector = GetComponentInParent<CustomMultiplayerUIInputSystemModule>().Selector;
+                if (selector)
+                    selector.ChildToSelected(selected.gameObject);
             }
             else
                 EventSystem.current.SetSelectedGameObject(selected.gameObject);
@@ -105,5 +108,4 @@ public class SelectAuto : UIBehaviour
                 eventTrigger.OnSelect(new(EventSystem.current));
         }
     }
-
 }

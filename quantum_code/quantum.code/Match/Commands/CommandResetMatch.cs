@@ -21,15 +21,9 @@ namespace Quantum
                 TimerSystem.StopCountdown(f);
             }
 
-            var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
-            var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
-
-            while (filter.Next(&playerLinkStats))
-            {
-                StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
-                StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
-                StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
-            }
+            StatsSystem.SetAllHealth(f, 0);
+            StatsSystem.SetAllEnergy(f, 0);
+            StatsSystem.SetAllStocks(f, 0);
 
             if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
             {

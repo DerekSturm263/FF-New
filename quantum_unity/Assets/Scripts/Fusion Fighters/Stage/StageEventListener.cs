@@ -4,16 +4,19 @@ using UnityEngine.Events;
 
 public class StageEventListener : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<Stage> _onStageSwitch;
+    [SerializeField] private UnityEvent<Stage> _onSwitch;
 
     private void Awake()
     {
         QuantumEvent.Subscribe<EventOnStageSelect>(listener: this, handler: e =>
         {
-            _onStageSwitch.Invoke(e.Stage);
-
-            RenderSettings.fogColor = e.Stage.Theme.FogColor.ToColor();
-            RenderSettings.fogDensity = e.Stage.Theme.FogDensity.AsFloat;
+            _onSwitch.Invoke(e.New);
         });
+    }
+
+    public void SetFogSettings(Stage stage)
+    {
+        RenderSettings.fogColor = stage.Theme.FogColor.ToColor();
+        RenderSettings.fogDensity = stage.Theme.FogDensity.AsFloat;
     }
 }

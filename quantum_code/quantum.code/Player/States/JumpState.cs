@@ -28,7 +28,7 @@ namespace Quantum
 
             filter.CharacterController->GroundedJump = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
 
-            f.Events.OnPlayerJump(*filter.PlayerLink, stats.Jump.AsInt - filter.CharacterController->JumpCount);
+            f.Events.OnPlayerJump(filter.Entity, filter.Stats->PlayerIndex, stats.Jump.AsInt - filter.CharacterController->JumpCount);
 
             --filter.CharacterController->JumpCount;
             filter.CharacterController->JumpTime = 0;

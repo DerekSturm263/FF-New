@@ -17,7 +17,7 @@ public class PlayerBuildController : MonoBehaviour
 
     private void SetBuild(EventOnPlayerSetAvatar e)
     {
-        if (e.Player.Entity != _entityView.EntityRef)
+        if (e.Player != _entityView.EntityRef)
             return;
 
         if (e.New == _female)

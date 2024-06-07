@@ -36,7 +36,6 @@ namespace Quantum
                 Transform = f.Unsafe.GetPointer<Transform2D>(aiData->Target),
                 PhysicsBody = f.Unsafe.GetPointer<PhysicsBody2D>(aiData->Target),
                 CustomAnimator = f.Unsafe.GetPointer<CustomAnimator>(aiData->Target),
-                PlayerLink = f.Unsafe.GetPointer<PlayerLink>(aiData->Target),
                 Stats = f.Unsafe.GetPointer<Stats>(aiData->Target)
             };
 

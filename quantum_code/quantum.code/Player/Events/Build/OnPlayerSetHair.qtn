@@ -1,6 +1,7 @@
 ﻿synced event OnPlayerSetHair
 {
-    local PlayerLink Player;
+    EntityRef Player;
+    int Index;
     
     asset_ref<Hair> Old;
     asset_ref<Hair> New;

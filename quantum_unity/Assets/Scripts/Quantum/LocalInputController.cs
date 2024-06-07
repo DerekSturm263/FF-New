@@ -53,17 +53,27 @@ public class LocalInputController : Controller<LocalInputController>
         callback.SetInput(input, DeterministicInputFlags.Repeatable);
     }
 
-    public void SpawnAllPlayers(QuantumGame game)
+    public void SpawnAllPlayers()
     {
-        foreach (var player in LocalPlayerController.Instance.AllPlayers)
+        foreach (var player in PlayerJoinController.Instance.AllPlayers)
         {
-            AddController(game, player.Value);
+            AddController(QuantumRunner.Default.Game, player.Value);
         }
     }
 
-    public void SpawnPlayer(GamepadJoinCallbackContext ctx)
+    public void SpawnPlayer(LocalPlayerInfo player)
     {
-        AddController(QuantumRunner.Default.Game, ctx.PlayerInfo);
+        AddController(QuantumRunner.Default.Game, player);
+    }
+
+    public void DespawnPlayer(LocalPlayerInfo player)
+    {
+        /*CommandDespawnPlayer commandDespawnPlayer = new()
+        {
+            entity = 
+        };
+
+        QuantumRunner.Default.Game.SendCommand(commandDespawnPlayer);*/
     }
 
     public void AddController(QuantumGame game, LocalPlayerInfo player)

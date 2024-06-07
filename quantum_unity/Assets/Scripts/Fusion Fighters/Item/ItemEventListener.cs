@@ -11,7 +11,7 @@ public class ItemEventListener : MonoBehaviour
 
         QuantumEvent.Subscribe<EventOnItemUse>(listener: this, handler: e =>
         {
-            e.ItemAsset.GetUnityAsset().OnUse.Invoke(e.Game, _entityViewUpdater.GetView(e.Player.Entity), (_entityViewUpdater.GetView(e.ItemEntity), e.ItemAsset.GetUnityAsset(), e.Position));
+            e.ItemAsset.GetUnityAsset().OnUse.Invoke(e.Game, _entityViewUpdater.GetView(e.Player), (_entityViewUpdater.GetView(e.ItemEntity), e.ItemAsset.GetUnityAsset(), e.Position));
         });
     }
 }

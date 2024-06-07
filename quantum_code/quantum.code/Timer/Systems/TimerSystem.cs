@@ -61,21 +61,18 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
-                var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
-                var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
-
-                while (filter.Next(&playerLinkStats))
+                foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
                 {
                     FP lerpValue = (FP)(timer->Time - timer->Start) / 180;
 
                     FP health = FPMath.Lerp(matchInstance->Match.Ruleset.Players.MaxHealth, 0, lerpValue);
-                    StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, health);
+                    StatsSystem.SetHealth(f, stats.Entity, stats.Component, health);
 
                     FP energy = FPMath.Lerp(matchInstance->Match.Ruleset.Players.MaxEnergy / 5, 0, lerpValue);
-                    StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, energy);
+                    StatsSystem.SetEnergy(f, stats.Entity, stats.Component, energy);
 
                     int stocks = FPMath.Lerp(matchInstance->Match.Ruleset.Players.StockCount, 0, lerpValue).AsInt;
-                    StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, stocks);
+                    StatsSystem.SetStocks(f, stats.Entity, stats.Component, stocks);
                 }
             }
         }

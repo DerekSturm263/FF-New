@@ -10,6 +10,7 @@ namespace Quantum
 
             public CharacterController* CharacterController;
             public PlayerLink* PlayerLink;
+            public Stats* Stats;
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -29,6 +30,8 @@ namespace Quantum
             else
                 filter.CharacterController->ReadyTime = 0;
 
+            f.Events.OnPlayerUpdateReady(filter.Entity, filter.Stats->PlayerIndex, filter.CharacterController->ReadyTime / FP._0_50);
+
             if (filter.CharacterController->ReadyTime > FP._0_50)
             {
                 filter.CharacterController->IsReady = true;
@@ -39,7 +42,7 @@ namespace Quantum
                         return;
 
                     ++playerCounter->PlayersReady;
-                    f.Events.OnPlayerReady(*playerLink);
+                    f.Events.OnPlayerReady(filter.Entity, filter.Stats->PlayerIndex);
 
                     if (playerCounter->TotalPlayers > 1 && playerCounter->PlayersReady == playerCounter->TotalPlayers)
                     {
@@ -63,7 +66,7 @@ namespace Quantum
                     --playerCounter->PlayersReady;
 
                     filter.CharacterController->IsReady = false;
-                    f.Events.OnPlayerCancel(*playerLink);
+                    f.Events.OnPlayerCancel(filter.Entity, filter.Stats->PlayerIndex);
                     
                     if (shouldCancelAll)
                         HandleAllPlayersCancel(f);
@@ -94,15 +97,9 @@ namespace Quantum
                 TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time), false);
             }
 
-            var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
-            var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
-
-            while (filter.Next(&playerLinkStats))
-            {
-                StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
-                StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
-                StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, 0);
-            }
+            StatsSystem.SetAllHealth(f, 0);
+            StatsSystem.SetAllEnergy(f, 0);
+            StatsSystem.SetAllStocks(f, 0);
 
             f.Events.OnAllPlayersCancel();
         }

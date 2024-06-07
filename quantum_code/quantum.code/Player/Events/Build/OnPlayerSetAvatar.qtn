@@ -1,6 +1,7 @@
 ﻿synced event OnPlayerSetAvatar
 {
-    local PlayerLink Player;
+    EntityRef Player;
+    int Index;
 
     asset_ref<FFAvatar> Old;
     asset_ref<FFAvatar> New;

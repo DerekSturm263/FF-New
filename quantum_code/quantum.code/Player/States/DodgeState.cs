@@ -54,7 +54,7 @@ namespace Quantum
             if (filter.CharacterController->DodgeDirection.X != 0)
             {
                 filter.CharacterController->MovementDirection = FPMath.Sign(filter.CharacterController->DodgeDirection.X).AsInt;
-                f.Events.OnPlayerChangeDirection(*filter.PlayerLink, -filter.CharacterController->MovementDirection);
+                f.Events.OnPlayerChangeDirection(filter.Entity, filter.Stats->PlayerIndex, -filter.CharacterController->MovementDirection);
             }
         }
 

@@ -29,7 +29,6 @@ namespace Quantum
             public Transform2D* Transform;
             public PhysicsBody2D* PhysicsBody;
             public CustomAnimator* CustomAnimator;
-            public PlayerLink* PlayerLink;
             public Stats* Stats;
         }
 
@@ -44,7 +43,7 @@ namespace Quantum
                 f.TryFindAsset(aiData->Behavior.Id, out Behavior behavior))
                 input = behavior.GetInput(f, filter);
             else
-                input = *f.GetPlayerInput(filter.PlayerLink->Player);
+                input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
 
             // Calculate the player's stats.
             ApparelStats stats = CalculateStats(f, ref filter, settings);
@@ -65,7 +64,7 @@ namespace Quantum
 
                 while (playerFilter.Next(&player))
                 {
-                    player.Transform->Position = ArrayHelper.Get(matchInstance->Match.Stage.Spawn.PlayerSpawnPoints, player.PlayerLink->Player._index - 1);
+                    player.Transform->Position = ArrayHelper.Get(matchInstance->Match.Stage.Spawn.PlayerSpawnPoints, player.Stats->PlayerIndex);
                 }
             }
         }
@@ -175,7 +174,7 @@ namespace Quantum
 
                 // Set the user's energy to show how much time they have left.
                 if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-                    StatsSystem.SetEnergy(f, filter.PlayerLink, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * matchInstance->Match.Ruleset.Players.MaxEnergy);
+                    StatsSystem.SetEnergy(f, filter.Entity, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * matchInstance->Match.Ruleset.Players.MaxEnergy);
             }
         }
     }

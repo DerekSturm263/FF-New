@@ -1,7 +1,10 @@
 synced event OnItemUse
 {
-    local PlayerLink Player;
-    local EntityRef ItemEntity;
+    EntityRef Player;
+    int Index;
+
+    EntityRef ItemEntity;
+
     Item ItemAsset;
     FPVector2 Position;
 }

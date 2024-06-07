@@ -15,7 +15,6 @@ namespace Quantum
         {
             Log.Debug("Ruleset applied!");
 
-            Log.Debug(ruleset.Match.Time);
             MatchSystem.SetRuleset(f, ruleset);
         }
     }

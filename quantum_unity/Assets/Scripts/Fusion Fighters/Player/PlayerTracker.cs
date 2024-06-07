@@ -21,20 +21,20 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 
     protected abstract void Action(EntityView player, T t);
 
-    public void TrackPlayer(QuantumGame game, PlayerLink player)
+    public void TrackPlayer(QuantumGame game, EntityRef player, int index)
     {
-        EntityView entity = _entityView.GetView(player.Entity);
-        _playersToTs.Add(entity, GetT(game, player));
+        EntityView entity = _entityView.GetView(player);
+        _playersToTs.Add(entity, GetT(game, player, index));
     }
 
-    public void UntrackPlayer(QuantumGame game, PlayerLink player)
+    public void UntrackPlayer(QuantumGame game, EntityRef player, int index)
     {
-        EntityView entity = _entityView.GetView(player.Entity);
-        CleanUp(_playersToTs[_entityView.GetView(player.Entity)]);
+        EntityView entity = _entityView.GetView(player);
+        CleanUp(_playersToTs[_entityView.GetView(player)]);
 
         _playersToTs.Remove(entity);
     }
 
-    protected abstract T GetT(QuantumGame game, PlayerLink player);
+    protected abstract T GetT(QuantumGame game, EntityRef player, int index);
     protected abstract void CleanUp(T t);
 }

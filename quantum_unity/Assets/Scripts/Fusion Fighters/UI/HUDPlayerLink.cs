@@ -15,6 +15,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private GameObject _lowHealthObj;
     [SerializeField] private Image _portrait;
     [SerializeField] private TMPro.TMP_Text _ready;
+    [SerializeField] private Image _readyFill;
 
     [Header("Settings")]
     [SerializeField] private float _lerpSpeed;
@@ -46,6 +47,11 @@ public class HUDPlayerLink : MonoBehaviour
     public void UpdateReadiness(bool isReady)
     {
         _ready.SetText(isReady ? "Ready!" : "Not Yet...");
+    }
+
+    public void UpdateReadinessValue(float value)
+    {
+        _readyFill.fillAmount = value;
     }
 
     public void ShowReadiness(bool show)

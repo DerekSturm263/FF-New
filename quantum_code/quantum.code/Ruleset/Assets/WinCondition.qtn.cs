@@ -19,7 +19,7 @@ namespace Quantum
             // Get if 1 or fewer teams have any players left alive.
             bool isOneTeamLeft = teams.Count(team => {
                 var players = f.ResolveList(team.Players);
-                return players.Any(item => f.Unsafe.GetPointer<Stats>(item.Entity)->CurrentStocks > 0);
+                return players.Any(item => f.Unsafe.GetPointer<Stats>(item)->CurrentStocks > 0);
             }) < 2;
 
             // Return true (match is over) if the match timer hits 0 OR if 1 or fewer teams have any players left alive.

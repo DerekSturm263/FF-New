@@ -52,11 +52,11 @@ public class MatchEventListener : MonoBehaviour
         });
     }
 
-    private (QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited) matchResults;
+    private (EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited) matchResults;
 
     public void ZoomInOnWinners(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
     {
-        matchResults = (game, entityViewUpdater, teams, wasForfeited);
+        matchResults = (entityViewUpdater, teams, wasForfeited);
     }
 
     public void LoadWinner(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
@@ -72,9 +72,9 @@ public class MatchEventListener : MonoBehaviour
 
     private void SetCameraDelayed()
     {
-        var firstPlaceTeam = matchResults.game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
-        CameraController.Instance.FocusTarget(firstPlaceTeam[0].Player._index - 1);
+        var firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
 
+        CameraController.Instance.FocusTarget(firstPlaceTeam[0].Index);
         CameraController.Instance.SetCameraSettings(_camSettings);
     }
 }

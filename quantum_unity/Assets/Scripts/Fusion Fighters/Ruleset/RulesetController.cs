@@ -36,7 +36,7 @@ public class RulesetController : Controller<RulesetController>
         _ruleset = null;
     }
 
-    public void SendToSimulation(QuantumGame game)
+    public void SendToSimulation()
     {
         if (_ruleset is null)
             return;
@@ -46,6 +46,6 @@ public class RulesetController : Controller<RulesetController>
             ruleset = _ruleset
         };
 
-        game.SendCommand(setRuleset);
+        QuantumRunner.Default.Game.SendCommand(setRuleset);
     }
 }

@@ -129,12 +129,12 @@ namespace Quantum
                     if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0)
                     {
                         MovementDirection = -1;
-                        f.Events.OnPlayerChangeDirection(*filter.PlayerLink, MovementDirection);
+                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.Stats->PlayerIndex, MovementDirection);
                     }
                     else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0)
                     {
                         MovementDirection = 1;
-                        f.Events.OnPlayerChangeDirection(*filter.PlayerLink, MovementDirection);
+                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.Stats->PlayerIndex, MovementDirection);
                     }
                 }
 

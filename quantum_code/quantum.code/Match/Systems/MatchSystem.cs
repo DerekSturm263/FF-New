@@ -35,15 +35,9 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
             {
-                var filter = f.Unsafe.FilterStruct<StatsSystem.PlayerLinkStatsFilter>();
-                var playerLinkStats = default(StatsSystem.PlayerLinkStatsFilter);
-
-                while (filter.Next(&playerLinkStats))
-                {
-                    StatsSystem.SetHealth(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, matchInstance->Match.Ruleset.Players.MaxHealth);
-                    StatsSystem.SetEnergy(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, matchInstance->Match.Ruleset.Players.MaxEnergy / 5);
-                    StatsSystem.SetStocks(f, playerLinkStats.PlayerLink, playerLinkStats.Stats, matchInstance->Match.Ruleset.Players.StockCount);
-                }
+                StatsSystem.SetAllHealth(f, matchInstance->Match.Ruleset.Players.MaxHealth);
+                StatsSystem.SetAllEnergy(f, matchInstance->Match.Ruleset.Players.MaxEnergy / 5);
+                StatsSystem.SetAllStocks(f, matchInstance->Match.Ruleset.Players.StockCount);
 
                 f.SystemEnable<CharacterControllerSystem>();
                 f.SystemEnable<ItemSpawnSystem>();
@@ -136,10 +130,13 @@ namespace Quantum
 
         public static void SetStage(Frame f, Stage stage)
         {
+            Stage old = default;
+
             if (f.TryFindAsset(stage.Objects.Map.Id, out Map map))
             {
                 if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
                 {
+                    old = matchInstance->Match.Stage;
                     matchInstance->Match.Stage = stage;
 
                     if (matchInstance->CurrentStage.IsValid)
@@ -151,15 +148,21 @@ namespace Quantum
                 f.Map = map;
             }
 
-            f.Events.OnStageSelect(stage);
+            f.Events.OnStageSelect(old, stage);
         }
 
         public static void SetRuleset(Frame f, Ruleset ruleset)
         {
+            Ruleset old = default;
+
             if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            {
+                old = matchInstance->Match.Ruleset;
                 matchInstance->Match.Ruleset = ruleset;
+            }
 
             TimerSystem.SetTime(f, new(0, 0, ruleset.Match.Time));
+            f.Events.OnRulesetSelect(old, ruleset);
         }
     }
 }

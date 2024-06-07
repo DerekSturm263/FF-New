@@ -26,7 +26,7 @@ namespace Quantum
             filter.PhysicsBody->Velocity = FPVector2.Zero;
             filter.CharacterController->Velocity = 0;
 
-            StatsSystem.ModifyEnergy(f, filter.PlayerLink, filter.Stats, -settings.BurstCost);
+            StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -settings.BurstCost);
         }
 
         protected override void Exit(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)

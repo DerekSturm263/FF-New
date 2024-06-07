@@ -1,4 +1,3 @@
-using Quantum;
 using Quantum.Types;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,10 +18,15 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
     private Selector _selector;
     public Selector Selector => _selector;
 
+    private float _cooldown = 0;
+
     private void Awake()
     {
         _eventSystem = GetComponent<MultiplayerEventSystem>();
+    }
 
+    public void MapControls()
+    {
         _controls.Menu.Navigate.performed += Navigate;
         _controls.Menu.Submit.performed += Submit;
         _controls.Menu.Cancel.performed += Cancel;
@@ -109,8 +113,13 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
 
         _playerInfo = player;
         _selector.Initialize(_playerInfo.User.index);
+
+        MapControls();
+
+        if (gameObject.activeInHierarchy)
+            _controls.Enable();
     }
 
-    private void OnEnable() => _controls.Enable();
-    private void OnDisable() => _controls.Disable();
+    private void OnEnable() => _controls?.Enable();
+    private void OnDisable() => _controls?.Disable();
 }
