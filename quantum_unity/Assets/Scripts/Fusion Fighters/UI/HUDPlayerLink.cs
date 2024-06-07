@@ -16,6 +16,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Image _portrait;
     [SerializeField] private TMPro.TMP_Text _ready;
     [SerializeField] private Image _readyFill;
+    [SerializeField] private Image _infiniteLives;
 
     [Header("Settings")]
     [SerializeField] private float _lerpSpeed;
@@ -119,8 +120,14 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateStocks(int newStocks, int maxStocks)
     {
-        if (maxStocks > _stocks.transform.childCount)
+        if (maxStocks == -1)
         {
+            _infiniteLives.SetActive(true);
+        }
+        else if (maxStocks > _stocks.transform.childCount)
+        {
+            _infiniteLives.SetActive(false);
+            
             int count = maxStocks - _stocks.transform.childCount;
 
             for (int i = 0; i < count; ++i)
