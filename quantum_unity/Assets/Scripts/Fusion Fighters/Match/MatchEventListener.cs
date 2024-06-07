@@ -15,6 +15,10 @@ public class MatchEventListener : MonoBehaviour
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>> _onMatchStart;
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>, bool> _onMatchEnd;
 
+    [SerializeField] private UnityEvent _onChangeFighters;
+    [SerializeField] private UnityEvent _onChangeStage;
+    [SerializeField] private UnityEvent _onQuit;
+
     [SerializeField] private List<Camera> _runnerUpCams;
 
     private void Awake()
@@ -87,5 +91,29 @@ public class MatchEventListener : MonoBehaviour
         // TODO: UPDATE FROM PLAYER LINK TO STATS.PLAYERINDEX!!!
         CameraController.Instance.FocusTarget(firstPlaceTeam[0].Index);
         CameraController.Instance.SetCameraSettings(_camSettings);
+    }
+
+    public void ChangeFighters()
+    {
+        CommandResetMatch command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
+
+        _onChangeFighters.Invoke();
+    }
+
+    public void ChangeStage()
+    {
+        CommandResetMatch command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
+
+        _onChangeStage.Invoke();
+    }
+
+    public void Quit()
+    {
+        CommandResetMatch command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
+
+        _onQuit.Invoke();
     }
 }
