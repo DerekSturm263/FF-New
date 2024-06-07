@@ -15,6 +15,8 @@ public class MatchEventListener : MonoBehaviour
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>> _onMatchStart;
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>, bool> _onMatchEnd;
 
+    [SerializeField] private List<Camera> _runnerUpCams;
+
     private void Awake()
     {
         _entityView = FindFirstObjectByType<EntityViewUpdater>();
@@ -63,6 +65,14 @@ public class MatchEventListener : MonoBehaviour
     {
         Invoke(nameof(LoadWinnerDelayed), _delayTime);
         Invoke(nameof(SetCameraDelayed), _delayTime + 1);
+
+        for (int i = 1; i < teams.Count; ++i)
+        {
+            //var team = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[i].Players);
+
+            //Transform entityTransform = _entityView.GetEntity(team[0]).transform;
+            //_runnerUpCams[i - 1].transform.SetParent(entityTransform);
+        }
     }
 
     private void LoadWinnerDelayed()
@@ -74,6 +84,7 @@ public class MatchEventListener : MonoBehaviour
     {
         var firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
 
+        // TODO: UPDATE FROM PLAYER LINK TO STATS.PLAYERINDEX!!!
         CameraController.Instance.FocusTarget(firstPlaceTeam[0].Index);
         CameraController.Instance.SetCameraSettings(_camSettings);
     }
