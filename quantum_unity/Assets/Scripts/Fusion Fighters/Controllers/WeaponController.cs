@@ -1,4 +1,5 @@
 using Extensions.Components.Miscellaneous;
+using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
@@ -16,10 +17,19 @@ public class WeaponController : Controller<WeaponController>
     private WeaponEnhancerAsset _enhancer2;
     public void SetEnhancer2(WeaponEnhancerAsset enhancer2) => _enhancer2 = enhancer2;
 
+    [SerializeField] private Popup _onSuccess;
+    [SerializeField] private Popup _onFail;
+
     public static string GetPath() => $"{Application.persistentDataPath}/Weapons";
 
     public void SaveNew()
     {
+        if (!_template || !_material)
+        {
+            PopupController.Instance.DisplayPopup(_onFail);
+            return;
+        }
+
         Weapon weapon = new();
 
         //weapon.SerializableData.Name = "New Weapon";
@@ -29,10 +39,14 @@ public class WeaponController : Controller<WeaponController>
 
         weapon.Template = new AssetRefWeaponTemplate() { Id = _template.AssetObject.Guid };
         weapon.Material = new AssetRefWeaponMaterial() { Id = _material.AssetObject.Guid };
-        weapon.Enhancers.Enhancer1 = new AssetRefWeaponEnhancer() { Id = _enhancer1.AssetObject.Guid };
-        weapon.Enhancers.Enhancer2 = new AssetRefWeaponEnhancer() { Id = _enhancer2.AssetObject.Guid };
+        weapon.Enhancers.Enhancer1 = new AssetRefWeaponEnhancer() { Id = _enhancer1 ? _enhancer1.AssetObject.Guid : AssetGuid.Invalid };
+        weapon.Enhancers.Enhancer2 = new AssetRefWeaponEnhancer() { Id = _enhancer2 ? _enhancer2.AssetObject.Guid : AssetGuid.Invalid };
 
         SerializableWrapper<Weapon> serializable = new(weapon);
+        serializable.SetIcon(_template.Icon.texture);
+
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
+
+        PopupController.Instance.DisplayPopup(_onSuccess);
     }
 }

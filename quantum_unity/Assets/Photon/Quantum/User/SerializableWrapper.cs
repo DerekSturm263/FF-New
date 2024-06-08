@@ -17,6 +17,7 @@ public class SerializableWrapper<T>
                 return null;
         }
     }
+    public void SetIcon(Texture2D icon) => _icon = icon;
 
     [SerializeField] private Texture2D _preview;
     public Sprite Preview
@@ -29,6 +30,7 @@ public class SerializableWrapper<T>
                 return null;
         }
     }
+    public void SetPreview(Texture2D preview) => _preview = preview;
 
     [SerializeField] private T _value;
     public T Value => _value;

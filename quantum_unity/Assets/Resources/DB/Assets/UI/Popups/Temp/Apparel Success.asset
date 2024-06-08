@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119913672a2c78f43be62b25b2180ea2, type: 3}
+  m_Name: Apparel Success
+  m_EditorClassIdentifier: 
+  _title: New Apparel!
+  _description: <align=center>You've just created new Apparel! Check it out in the
+    Apparel Collection or go to the Create Build menu to test it out!</align>
+  _responses:
+    _kvps:
+    - _item1: Test Out
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController,
+              Extensions
+            m_MethodName: SetTransition
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 6398944209038441729, guid: d4aaf131aa8661646a896cfd55c1fc45,
+                type: 3}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+            m_MethodName: PlayAudioClip
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 8300000, guid: 0d54e80697ccff941860538f7193329e,
+                type: 3}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 6933864354253067885, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: SceneParametersController, GameResources
+            m_MethodName: SetParameter
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: Builds
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController,
+              Extensions
+            m_MethodName: LoadScene
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: Battle
+              m_BoolArgument: 0
+            m_CallState: 2
+    - _item1: Back
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
+            m_MethodName: ClosePopup
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2

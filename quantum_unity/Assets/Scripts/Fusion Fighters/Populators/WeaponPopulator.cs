@@ -7,7 +7,7 @@ using Type = SerializableWrapper<Quantum.Weapon>;
 
 public class WeaponPopulator : Populate<Type, long>
 {
-    protected override Sprite Icon(Type item) => null;
+    protected override Sprite Icon(Type item) => item.Icon;
 
     protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(WeaponController.GetPath());
 
