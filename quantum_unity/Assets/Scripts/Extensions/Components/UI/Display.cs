@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 namespace Extensions.Components.UI
 {
     [AddComponentMenu("UI/Display", 80)]
-    [DisallowMultipleComponent]
     public abstract class DisplayBase : UIBehaviour
     {
         [SerializeField] private bool _evaluateOnEnable;

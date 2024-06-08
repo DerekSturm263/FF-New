@@ -6,15 +6,15 @@ namespace Quantum
     {
         public void OnPlayerDataSet(Frame f, PlayerRef player)
         {
-            SpawnPlayer(f, player);
+            RuntimePlayer data = f.GetPlayerData(player);
+            EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
+            SpawnPlayer(f, player, prototype);
 
             ++f.Global->TotalPlayers;
         }
 
-        public static EntityRef SpawnPlayer(Frame f, PlayerRef player)
+        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype)
         {
-            RuntimePlayer data = f.GetPlayerData(player);
-            EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
             EntityRef entity = f.Create(prototype);
 
             PlayerLink playerLink = new()

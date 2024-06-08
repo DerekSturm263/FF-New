@@ -1273,8 +1273,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -199}
-  m_SizeDelta: {x: 640, y: 398}
+  m_AnchoredPosition: {x: 959.906, y: -199.01852}
+  m_SizeDelta: {x: 639.9373, y: 398.03705}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &195650443
 PrefabInstance:
@@ -2040,8 +2040,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 320, y: -199}
-  m_SizeDelta: {x: 640, y: 398}
+  m_AnchoredPosition: {x: 319.96866, y: -199.01852}
+  m_SizeDelta: {x: 639.9373, y: 398.03705}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &358661642
 GameObject:
@@ -2762,6 +2762,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2017715814}
     m_Modifications:
+    - target: {fileID: 324129855711399874, guid: 52ebf406992cd8a4ba347187ee9408c1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5582590176198170808, guid: 52ebf406992cd8a4ba347187ee9408c1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6492,7 +6497,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7236837309196240129, guid: 37c50b10b573e404eae974b2a7f5477d,
+      objectReference: {fileID: 3578694616236982060, guid: 09f0c857670b85a4c82526cd1f4d57f2,
         type: 3}
     - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
@@ -7002,6 +7007,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1364146706776026432, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -7.2299805
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364146706776026432, guid: f78383ff365f2ee43946e3ff1be94daa,
+        type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 6.5999756
       objectReference: {fileID: 0}
@@ -7145,7 +7155,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3578694616236982060, guid: 09f0c857670b85a4c82526cd1f4d57f2,
+      objectReference: {fileID: 21300000, guid: d69f962dca728db4aad0d238cbb54698,
         type: 3}
     - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
@@ -9322,6 +9332,54 @@ MonoBehaviour:
   _onAction:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 865553826}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1027331494}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1379825403}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 223520930}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1178607028}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -11064,7 +11122,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8301669352310886218, guid: cfc1f0e830b48ab488ddd3b57a8d7ec8,
+      objectReference: {fileID: 21300000, guid: 3524b2cdc83ae6d42bb6ffe90e42b98c,
         type: 3}
     - target: {fileID: 6638621585700983156, guid: f78383ff365f2ee43946e3ff1be94daa,
         type: 3}
@@ -12546,8 +12604,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1600, y: -199}
-  m_SizeDelta: {x: 640, y: 398}
+  m_AnchoredPosition: {x: 1599.8433, y: -199.01852}
+  m_SizeDelta: {x: 639.9373, y: 398.03705}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2119548426
 GameObject:

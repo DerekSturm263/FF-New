@@ -85,9 +85,8 @@ public class LocalInputController : Controller<LocalInputController>
         int playerNum = QuantumRunner.Default.Game.GetLocalPlayers()[player.User.index];
         BindControls(controls, player, playerNum);
 
-        game.SendPlayerData(playerNum, _player);
-
-        _controls.Add(playerNum, controls);
+        if (_controls.TryAdd(playerNum, controls))
+            game.SendPlayerData(playerNum, _player);
     }
 
     public void RemoveController(QuantumGame game, LocalPlayerInfo player)
