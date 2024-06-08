@@ -93,21 +93,18 @@ namespace Quantum
             FP oldHealth = stats->CurrentHealth;
             stats->CurrentHealth = amount;
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            if (stats->CurrentHealth > f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
+                stats->CurrentHealth = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
+
+            f.Events.OnPlayerModifyHealth(entityRef, stats->GlobalIndex, oldHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
+
+            if (stats->CurrentHealth <= 0)
             {
-                if (stats->CurrentHealth > matchInstance->Match.Ruleset.Players.MaxHealth)
-                    stats->CurrentHealth = matchInstance->Match.Ruleset.Players.MaxHealth;
+                ModifyStocks(f, entityRef, stats, -1);
+                stats->CurrentHealth = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
 
-                f.Events.OnPlayerModifyHealth(entityRef, stats->PlayerIndex, oldHealth, stats->CurrentHealth, matchInstance->Match.Ruleset.Players.MaxHealth);
-
-                if (stats->CurrentHealth <= 0)
-                {
-                    ModifyStocks(f, entityRef, stats, -1);
-                    stats->CurrentHealth = matchInstance->Match.Ruleset.Players.MaxHealth;
-
-                    didDie = true;
-                    ++stats->Deaths;
-                }
+                didDie = true;
+                ++stats->Deaths;
             }
 
             return didDie;
@@ -135,10 +132,7 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
         {
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                SetEnergy(f, entityRef, stats, stats->CurrentEnergy + amount * stats->EnergyModifyMultiplier * matchInstance->Match.Ruleset.Players.EnergyChargeRate);
-            }
+            SetEnergy(f, entityRef, stats, stats->CurrentEnergy + amount * stats->EnergyModifyMultiplier * f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate);
         }
 
         public static void SetEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
@@ -146,15 +140,12 @@ namespace Quantum
             FP oldEnergy = stats->CurrentEnergy;
             stats->CurrentEnergy = amount;
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                if (stats->CurrentEnergy > matchInstance->Match.Ruleset.Players.MaxEnergy)
-                    stats->CurrentEnergy = matchInstance->Match.Ruleset.Players.MaxEnergy;
-                else if (stats->CurrentEnergy < 0)
-                    stats->CurrentEnergy = 0;
+            if (stats->CurrentEnergy > f.Global->CurrentMatch.Ruleset.Players.MaxEnergy)
+                stats->CurrentEnergy = f.Global->CurrentMatch.Ruleset.Players.MaxEnergy;
+            else if (stats->CurrentEnergy < 0)
+                stats->CurrentEnergy = 0;
 
-                f.Events.OnPlayerModifyEnergy(entityRef, stats->PlayerIndex, oldEnergy, stats->CurrentEnergy, matchInstance->Match.Ruleset.Players.MaxEnergy);
-            }
+            f.Events.OnPlayerModifyEnergy(entityRef, stats->GlobalIndex, oldEnergy, stats->CurrentEnergy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
         }
 
         public static void SetAllEnergy(Frame f, FP amount)
@@ -175,15 +166,12 @@ namespace Quantum
             int oldStocks = stats->CurrentStocks;
             stats->CurrentStocks = amount;
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                if (stats->CurrentStocks > matchInstance->Match.Ruleset.Players.StockCount)
-                    stats->CurrentStocks = matchInstance->Match.Ruleset.Players.StockCount;
-                else if (stats->CurrentStocks < 0)
-                    stats->CurrentStocks = 0;
+            if (stats->CurrentStocks > f.Global->CurrentMatch.Ruleset.Players.StockCount)
+                stats->CurrentStocks = f.Global->CurrentMatch.Ruleset.Players.StockCount;
+            else if (stats->CurrentStocks < 0)
+                stats->CurrentStocks = 0;
 
-                f.Events.OnPlayerModifyStocks(entityRef, stats->PlayerIndex, oldStocks, stats->CurrentStocks, matchInstance->Match.Ruleset.Players.StockCount);
-            }
+            f.Events.OnPlayerModifyStocks(entityRef, stats->GlobalIndex, oldStocks, stats->CurrentStocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
         }
 
         public static void SetAllStocks(Frame f, int amount)
@@ -212,22 +200,22 @@ namespace Quantum
 
             ApplyBuild(f, user, stats, build);
 
-            f.Events.OnPlayerSetAltWeapon(user, stats->PlayerIndex, oldBuild.Equipment.Weapons.AltWeapon, build.Equipment.Weapons.AltWeapon);
-            f.Events.OnPlayerSetAvatar(user, stats->PlayerIndex, oldBuild.Cosmetics.Avatar, build.Cosmetics.Avatar);
-            f.Events.OnPlayerSetVoice(user, stats->PlayerIndex, oldBuild.Cosmetics.Voice, build.Cosmetics.Voice);
-            f.Events.OnPlayerSetBadge(user, stats->PlayerIndex, oldBuild.Equipment.Badge, build.Equipment.Badge);
-            f.Events.OnPlayerSetClothing(user, stats->PlayerIndex, oldBuild.Equipment.Outfit.Clothing, build.Equipment.Outfit.Clothing);
-            f.Events.OnPlayerSetEmoteDown(user, stats->PlayerIndex, oldBuild.Cosmetics.Emotes.Down, build.Cosmetics.Emotes.Down);
-            f.Events.OnPlayerSetEmoteLeft(user, stats->PlayerIndex, oldBuild.Cosmetics.Emotes.Left, build.Cosmetics.Emotes.Left);
-            f.Events.OnPlayerSetEmoteRight(user, stats->PlayerIndex, oldBuild.Cosmetics.Emotes.Right, build.Cosmetics.Emotes.Right);
-            f.Events.OnPlayerSetEmoteUp(user, stats->PlayerIndex, oldBuild.Cosmetics.Emotes.Right, build.Cosmetics.Emotes.Up);
-            f.Events.OnPlayerSetEyes(user, stats->PlayerIndex, oldBuild.Cosmetics.Eyes, build.Cosmetics.Eyes);
-            f.Events.OnPlayerSetHair(user, stats->PlayerIndex, oldBuild.Cosmetics.Hair, build.Cosmetics.Hair);
-            f.Events.OnPlayerSetHeadgear(user, stats->PlayerIndex, oldBuild.Equipment.Outfit.Headgear, build.Equipment.Outfit.Headgear);
-            f.Events.OnPlayerSetLegwear(user, stats->PlayerIndex, oldBuild.Equipment.Outfit.Legwear, build.Equipment.Outfit.Legwear);
-            f.Events.OnPlayerSetMainWeapon(user, stats->PlayerIndex, oldBuild.Equipment.Weapons.MainWeapon, build.Equipment.Weapons.MainWeapon);
-            f.Events.OnPlayerSetSub(user, stats->PlayerIndex, oldBuild.Equipment.Weapons.SubWeapon, build.Equipment.Weapons.SubWeapon);
-            f.Events.OnPlayerSetUltimate(user, stats->PlayerIndex, oldBuild.Equipment.Ultimate, build.Equipment.Ultimate);
+            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.AltWeapon, build.Equipment.Weapons.AltWeapon);
+            f.Events.OnPlayerSetAvatar(user, stats->GlobalIndex, oldBuild.Cosmetics.Avatar, build.Cosmetics.Avatar);
+            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, oldBuild.Cosmetics.Voice, build.Cosmetics.Voice);
+            f.Events.OnPlayerSetBadge(user, stats->GlobalIndex, oldBuild.Equipment.Badge, build.Equipment.Badge);
+            f.Events.OnPlayerSetClothing(user, stats->GlobalIndex, oldBuild.Equipment.Outfit.Clothing, build.Equipment.Outfit.Clothing);
+            f.Events.OnPlayerSetEmoteDown(user, stats->GlobalIndex, oldBuild.Cosmetics.Emotes.Down, build.Cosmetics.Emotes.Down);
+            f.Events.OnPlayerSetEmoteLeft(user, stats->GlobalIndex, oldBuild.Cosmetics.Emotes.Left, build.Cosmetics.Emotes.Left);
+            f.Events.OnPlayerSetEmoteRight(user, stats->GlobalIndex, oldBuild.Cosmetics.Emotes.Right, build.Cosmetics.Emotes.Right);
+            f.Events.OnPlayerSetEmoteUp(user, stats->GlobalIndex, oldBuild.Cosmetics.Emotes.Right, build.Cosmetics.Emotes.Up);
+            f.Events.OnPlayerSetEyes(user, stats->GlobalIndex, oldBuild.Cosmetics.Eyes, build.Cosmetics.Eyes);
+            f.Events.OnPlayerSetHair(user, stats->GlobalIndex, oldBuild.Cosmetics.Hair, build.Cosmetics.Hair);
+            f.Events.OnPlayerSetHeadgear(user, stats->GlobalIndex, oldBuild.Equipment.Outfit.Headgear, build.Equipment.Outfit.Headgear);
+            f.Events.OnPlayerSetLegwear(user, stats->GlobalIndex, oldBuild.Equipment.Outfit.Legwear, build.Equipment.Outfit.Legwear);
+            f.Events.OnPlayerSetMainWeapon(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.MainWeapon, build.Equipment.Weapons.MainWeapon);
+            f.Events.OnPlayerSetSub(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.SubWeapon, build.Equipment.Weapons.SubWeapon);
+            f.Events.OnPlayerSetUltimate(user, stats->GlobalIndex, oldBuild.Equipment.Ultimate, build.Equipment.Ultimate);
         }
 
         public static void ApplyBuild(Frame f, EntityRef user, Stats* stats, Build build)
@@ -244,22 +232,22 @@ namespace Quantum
         {
             UnapplyBuild(f, user, stats);
 
-            f.Events.OnPlayerSetAltWeapon(user, stats->PlayerIndex, stats->Build.Equipment.Weapons.AltWeapon, default);
-            f.Events.OnPlayerSetAvatar(user, stats->PlayerIndex, stats->Build.Cosmetics.Avatar, default);
-            f.Events.OnPlayerSetVoice(user, stats->PlayerIndex, stats->Build.Cosmetics.Voice, default);
-            f.Events.OnPlayerSetBadge(user, stats->PlayerIndex, stats->Build.Equipment.Badge, default);
-            f.Events.OnPlayerSetClothing(user, stats->PlayerIndex, stats->Build.Equipment.Outfit.Clothing, default);
-            f.Events.OnPlayerSetEmoteDown(user, stats->PlayerIndex, stats->Build.Cosmetics.Emotes.Down, default);
-            f.Events.OnPlayerSetEmoteLeft(user, stats->PlayerIndex, stats->Build.Cosmetics.Emotes.Left, default);
-            f.Events.OnPlayerSetEmoteRight(user, stats->PlayerIndex, stats->Build.Cosmetics.Emotes.Right, default);
-            f.Events.OnPlayerSetEmoteUp(user, stats->PlayerIndex, stats->Build.Cosmetics.Emotes.Up, default);
-            f.Events.OnPlayerSetEyes(user, stats->PlayerIndex, stats->Build.Cosmetics.Eyes, default);
-            f.Events.OnPlayerSetHair(user, stats->PlayerIndex, stats->Build.Cosmetics.Hair, default);
-            f.Events.OnPlayerSetHeadgear(user, stats->PlayerIndex, stats->Build.Equipment.Outfit.Headgear, default);
-            f.Events.OnPlayerSetLegwear(user, stats->PlayerIndex, stats->Build.Equipment.Outfit.Legwear, default);
-            f.Events.OnPlayerSetMainWeapon(user, stats->PlayerIndex, stats->Build.Equipment.Weapons.MainWeapon, default);
-            f.Events.OnPlayerSetSub(user, stats->PlayerIndex, stats->Build.Equipment.Weapons.SubWeapon, default);
-            f.Events.OnPlayerSetUltimate(user, stats->PlayerIndex, stats->Build.Equipment.Ultimate, default);
+            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.AltWeapon, default);
+            f.Events.OnPlayerSetAvatar(user, stats->GlobalIndex, stats->Build.Cosmetics.Avatar, default);
+            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, stats->Build.Cosmetics.Voice, default);
+            f.Events.OnPlayerSetBadge(user, stats->GlobalIndex, stats->Build.Equipment.Badge, default);
+            f.Events.OnPlayerSetClothing(user, stats->GlobalIndex, stats->Build.Equipment.Outfit.Clothing, default);
+            f.Events.OnPlayerSetEmoteDown(user, stats->GlobalIndex, stats->Build.Cosmetics.Emotes.Down, default);
+            f.Events.OnPlayerSetEmoteLeft(user, stats->GlobalIndex, stats->Build.Cosmetics.Emotes.Left, default);
+            f.Events.OnPlayerSetEmoteRight(user, stats->GlobalIndex, stats->Build.Cosmetics.Emotes.Right, default);
+            f.Events.OnPlayerSetEmoteUp(user, stats->GlobalIndex, stats->Build.Cosmetics.Emotes.Up, default);
+            f.Events.OnPlayerSetEyes(user, stats->GlobalIndex, stats->Build.Cosmetics.Eyes, default);
+            f.Events.OnPlayerSetHair(user, stats->GlobalIndex, stats->Build.Cosmetics.Hair, default);
+            f.Events.OnPlayerSetHeadgear(user, stats->GlobalIndex, stats->Build.Equipment.Outfit.Headgear, default);
+            f.Events.OnPlayerSetLegwear(user, stats->GlobalIndex, stats->Build.Equipment.Outfit.Legwear, default);
+            f.Events.OnPlayerSetMainWeapon(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.MainWeapon, default);
+            f.Events.OnPlayerSetSub(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.SubWeapon, default);
+            f.Events.OnPlayerSetUltimate(user, stats->GlobalIndex, stats->Build.Equipment.Ultimate, default);
 
             stats->Build = default;
         }
@@ -269,7 +257,7 @@ namespace Quantum
             Weapon oldAltWeapon = stats->Build.Equipment.Weapons.AltWeapon;
             stats->Build.Equipment.Weapons.AltWeapon = altWeapon;
 
-            f.Events.OnPlayerSetAltWeapon(user, stats->PlayerIndex, oldAltWeapon, altWeapon);
+            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, oldAltWeapon, altWeapon);
         }
 
         public static void SetAvatar(Frame f, EntityRef user, Stats* stats, AssetRefFFAvatar avatar)
@@ -277,7 +265,7 @@ namespace Quantum
             AssetRefFFAvatar oldAvatar = stats->Build.Cosmetics.Avatar;
             stats->Build.Cosmetics.Avatar = avatar;
 
-            f.Events.OnPlayerSetAvatar(user, stats->PlayerIndex, oldAvatar, avatar);
+            f.Events.OnPlayerSetAvatar(user, stats->GlobalIndex, oldAvatar, avatar);
         }
 
         public static void SetVoice(Frame f, EntityRef user, Stats* stats, AssetRefVoice voice)
@@ -285,7 +273,7 @@ namespace Quantum
             AssetRefVoice oldVoice = stats->Build.Cosmetics.Voice;
             stats->Build.Cosmetics.Voice = voice;
 
-            f.Events.OnPlayerSetVoice(user, stats->PlayerIndex, oldVoice, voice);
+            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, oldVoice, voice);
         }
 
         public static void SetBadge(Frame f, EntityRef user, Stats* stats, AssetRefBadge badge)
@@ -295,7 +283,7 @@ namespace Quantum
 
             ApplyBadge(f, user, badge);
 
-            f.Events.OnPlayerSetBadge(user, stats->PlayerIndex, oldBadge, badge);
+            f.Events.OnPlayerSetBadge(user, stats->GlobalIndex, oldBadge, badge);
         }
 
         public static void SetClothing(Frame f, EntityRef user, Stats* stats, Apparel clothing)
@@ -303,7 +291,7 @@ namespace Quantum
             Apparel oldClothing = stats->Build.Equipment.Outfit.Clothing;
             stats->Build.Equipment.Outfit.Clothing = clothing;
 
-            f.Events.OnPlayerSetClothing(user, stats->PlayerIndex, oldClothing, clothing);
+            f.Events.OnPlayerSetClothing(user, stats->GlobalIndex, oldClothing, clothing);
         }
 
         public static void SetEmoteDown(Frame f, EntityRef user, Stats* stats, AssetRefEmote emote)
@@ -311,7 +299,7 @@ namespace Quantum
             AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Down;
             stats->Build.Cosmetics.Emotes.Down = emote;
 
-            f.Events.OnPlayerSetEmoteDown(user, stats->PlayerIndex, oldEmote, emote);
+            f.Events.OnPlayerSetEmoteDown(user, stats->GlobalIndex, oldEmote, emote);
         }
 
         public static void SetEmoteLeft(Frame f, EntityRef user, Stats* stats, AssetRefEmote emote)
@@ -319,7 +307,7 @@ namespace Quantum
             AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Left;
             stats->Build.Cosmetics.Emotes.Left = emote;
 
-            f.Events.OnPlayerSetEmoteLeft(user, stats->PlayerIndex, oldEmote, emote);
+            f.Events.OnPlayerSetEmoteLeft(user, stats->GlobalIndex, oldEmote, emote);
         }
 
         public static void SetEmoteRight(Frame f, EntityRef user, Stats* stats, AssetRefEmote emote)
@@ -327,7 +315,7 @@ namespace Quantum
             AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Right;
             stats->Build.Cosmetics.Emotes.Right = emote;
 
-            f.Events.OnPlayerSetEmoteRight(user, stats->PlayerIndex, oldEmote, emote);
+            f.Events.OnPlayerSetEmoteRight(user, stats->GlobalIndex, oldEmote, emote);
         }
 
         public static void SetEmoteUp(Frame f, EntityRef user, Stats* stats, AssetRefEmote emote)
@@ -335,7 +323,7 @@ namespace Quantum
             AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Up;
             stats->Build.Cosmetics.Emotes.Up = emote;
 
-            f.Events.OnPlayerSetEmoteUp(user, stats->PlayerIndex, oldEmote, emote);
+            f.Events.OnPlayerSetEmoteUp(user, stats->GlobalIndex, oldEmote, emote);
         }
 
         public static void SetEyes(Frame f, EntityRef user, Stats* stats, AssetRefEyes eyes)
@@ -343,7 +331,7 @@ namespace Quantum
             AssetRefEyes oldEyes = stats->Build.Cosmetics.Eyes;
             stats->Build.Cosmetics.Eyes = eyes;
 
-            f.Events.OnPlayerSetEyes(user, stats->PlayerIndex, oldEyes, eyes);
+            f.Events.OnPlayerSetEyes(user, stats->GlobalIndex, oldEyes, eyes);
         }
 
         public static void SetHair(Frame f, EntityRef user, Stats* stats, AssetRefHair hair)
@@ -351,7 +339,7 @@ namespace Quantum
             AssetRefHair oldHair = stats->Build.Cosmetics.Hair;
             stats->Build.Cosmetics.Hair = oldHair;
 
-            f.Events.OnPlayerSetHair(user, stats->PlayerIndex, oldHair, hair);
+            f.Events.OnPlayerSetHair(user, stats->GlobalIndex, oldHair, hair);
         }
 
         public static void SetHeadgear(Frame f, EntityRef user, Stats* stats, Apparel headgear)
@@ -359,7 +347,7 @@ namespace Quantum
             Apparel oldHeadgear = stats->Build.Equipment.Outfit.Headgear;
             stats->Build.Equipment.Outfit.Headgear = headgear;
 
-            f.Events.OnPlayerSetHeadgear(user, stats->PlayerIndex, oldHeadgear, headgear);
+            f.Events.OnPlayerSetHeadgear(user, stats->GlobalIndex, oldHeadgear, headgear);
         }
 
         public static void SetLegwear(Frame f, EntityRef user, Stats* stats, Apparel legwear)
@@ -367,7 +355,7 @@ namespace Quantum
             Apparel oldOutfit = stats->Build.Equipment.Outfit.Legwear;
             stats->Build.Equipment.Outfit.Legwear = legwear;
 
-            f.Events.OnPlayerSetLegwear(user, stats->PlayerIndex, oldOutfit, legwear);
+            f.Events.OnPlayerSetLegwear(user, stats->GlobalIndex, oldOutfit, legwear);
         }
 
         public static void SetMainWeapon(Frame f, EntityRef user, Stats* stats, Weapon mainWeapon)
@@ -375,7 +363,7 @@ namespace Quantum
             Weapon oldMainWeapon = stats->Build.Equipment.Weapons.MainWeapon;
             stats->Build.Equipment.Weapons.MainWeapon = mainWeapon;
 
-            f.Events.OnPlayerSetMainWeapon(user, stats->PlayerIndex, oldMainWeapon, mainWeapon);
+            f.Events.OnPlayerSetMainWeapon(user, stats->GlobalIndex, oldMainWeapon, mainWeapon);
         }
 
         public static void SetSub(Frame f, EntityRef user, Stats* stats, Sub sub)
@@ -383,7 +371,7 @@ namespace Quantum
             Sub oldSub = stats->Build.Equipment.Weapons.SubWeapon;
             stats->Build.Equipment.Weapons.SubWeapon = sub;
 
-            f.Events.OnPlayerSetSub(user, stats->PlayerIndex, oldSub, sub);
+            f.Events.OnPlayerSetSub(user, stats->GlobalIndex, oldSub, sub);
         }
 
         public static void SetUltimate(Frame f, EntityRef user, Stats* stats, AssetRefUltimate ultimate)
@@ -391,7 +379,7 @@ namespace Quantum
             AssetRefUltimate oldUltimate = stats->Build.Equipment.Ultimate;
             stats->Build.Equipment.Ultimate = ultimate;
 
-            f.Events.OnPlayerSetUltimate(user, stats->PlayerIndex, oldUltimate, ultimate);
+            f.Events.OnPlayerSetUltimate(user, stats->GlobalIndex, oldUltimate, ultimate);
         }
 
         public static void ApplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
@@ -413,7 +401,7 @@ namespace Quantum
             AssetRefBadge oldBadge = stats->Build.Equipment.Badge;
             stats->Build.Equipment.Badge = default;
 
-            f.Events.OnPlayerSetBadge(user, stats->PlayerIndex, oldBadge, default);
+            f.Events.OnPlayerSetBadge(user, stats->GlobalIndex, oldBadge, default);
         }
 
         public static EntityRef FindNearestOtherPlayer(Frame f, EntityRef user)

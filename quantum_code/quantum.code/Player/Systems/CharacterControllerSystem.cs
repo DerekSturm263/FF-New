@@ -57,15 +57,12 @@ namespace Quantum
 
         public void OnMapChanged(Frame f, AssetRefMap previousMap)
         {
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                var playerFilter = f.Unsafe.FilterStruct<Filter>();
-                var player = default(Filter);
+            var playerFilter = f.Unsafe.FilterStruct<Filter>();
+            var player = default(Filter);
 
-                while (playerFilter.Next(&player))
-                {
-                    player.Transform->Position = ArrayHelper.Get(matchInstance->Match.Stage.Spawn.PlayerSpawnPoints, player.Stats->PlayerIndex);
-                }
+            while (playerFilter.Next(&player))
+            {
+                player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.Stats->GlobalIndex);
             }
         }
 
@@ -173,8 +170,7 @@ namespace Quantum
                 }
 
                 // Set the user's energy to show how much time they have left.
-                if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-                    StatsSystem.SetEnergy(f, filter.Entity, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * matchInstance->Match.Ruleset.Players.MaxEnergy);
+                StatsSystem.SetEnergy(f, filter.Entity, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
             }
         }
     }

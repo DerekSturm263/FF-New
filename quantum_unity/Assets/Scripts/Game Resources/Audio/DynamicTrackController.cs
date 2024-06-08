@@ -35,49 +35,50 @@ public class DynamicTrackController : Controller<DynamicTrackController>
     {
         base.Initialize();
 
-        _isTransitioning = false;
-        _transitionTime = 0;
-        _trackSources = new();
-        _from = null;
-
-        if (_trackGraph)
-        {
-            _trackGraph.InitializeSectionsDictionary();
-
-            _trackGraph.SetCurrentSection(null);
-            _trackGraph.SetCurrentTransition(null);
-
-            if (!_obj)
-            {
-                _obj = CreateObj();
-
-                foreach (TrackSection trackSection in _trackGraph.Sections)
-                {
-                    GameObject section = new(trackSection.name);
-                    section.transform.parent = _obj.transform;
-                    _trackSources.Add(trackSection, new());
-
-                    int i = 0;
-                    foreach (AudioClip clip in trackSection.Clips)
-                    {
-                        AudioSource source = section.AddComponent<AudioSource>();
-
-                        source.clip = clip;
-                        source.outputAudioMixerGroup = _musicGroup;
-                        source.volume = trackSection.DefaultWeights[i];
-                        source.loop = true;
-
-                        _trackSources[trackSection].Add(source);
-                        ++i;
-                    }
-
-                    section.SetActive(false);
-                }
-            }
-        }
-
         QuantumEvent.Subscribe<EventOnPlayerLowHealth>(listener: this, handler: TensionTransition);
         QuantumEvent.Subscribe<EventOnOneMinuteLeft>(listener: this, handler: LastMinuteTransition);
+    }
+
+    public void SetupTrack(TrackGraphAsset trackGraph)
+    {
+        _trackGraph = trackGraph;
+
+        _isTransitioning = false;
+        _transitionTime = 0;
+        _from = null;
+
+        _trackGraph.InitializeSectionsDictionary();
+        _trackGraph.SetCurrentSection(null);
+        _trackGraph.SetCurrentTransition(null);
+
+        if (!_obj)
+        {
+            _trackSources = new();
+            _obj = CreateObj();
+
+            foreach (TrackSection trackSection in _trackGraph.Sections)
+            {
+                GameObject section = new(trackSection.name);
+                section.transform.parent = _obj.transform;
+                _trackSources.Add(trackSection, new());
+
+                int i = 0;
+                foreach (AudioClip clip in trackSection.Clips)
+                {
+                    AudioSource source = section.AddComponent<AudioSource>();
+
+                    source.clip = clip;
+                    source.outputAudioMixerGroup = _musicGroup;
+                    source.volume = trackSection.DefaultWeights[i];
+                    source.loop = true;
+
+                    _trackSources[trackSection].Add(source);
+                    ++i;
+                }
+
+                section.SetActive(false);
+            }
+        }
     }
 
     private void TensionTransition(EventOnPlayerLowHealth e)
@@ -134,18 +135,18 @@ public class DynamicTrackController : Controller<DynamicTrackController>
 
     public void Play(TrackGraphAsset trackGraph)
     {
-        _trackGraph = trackGraph;
+        SetupTrack(trackGraph);
     }
 
-    public void PlayFromCurrentStage(EntityView matchInstance)
+    public unsafe void PlayFromCurrentStage(EntityView matchInstance)
     {
-        AssetGuid guid = matchInstance.GetComponent<EntityComponentMatchInstance>().Prototype.Match.Stage.Theme.Track.Id;
-        _trackGraph = UnityDB.FindAsset<TrackGraphAsset>(guid);
+        AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.Track.Id;
+        SetupTrack(UnityDB.FindAsset<TrackGraphAsset>(guid));
     }
 
     public void PlayFromStage(Stage stage)
     {
-        _trackGraph = UnityDB.FindAsset<TrackGraphAsset>(stage.Theme.Track.Id);
+        SetupTrack(UnityDB.FindAsset<TrackGraphAsset>(stage.Theme.Track.Id));
     }
 
     private void BeginTransition(TrackSection from, TrackTransition transition)
@@ -221,7 +222,11 @@ public class DynamicTrackController : Controller<DynamicTrackController>
             audioSources[0].gameObject.SetActive(false);
         }
 
-        _trackGraph.SetCurrentSection(_trackGraph.GetFromName(name));
+        TrackSection section = _trackGraph.GetFromName(name);
+        if (section is null)
+            return;
+
+        _trackGraph.SetCurrentSection(section);
         _trackSources[_trackGraph.CurrentSection][0].gameObject.SetActive(true);
 
         TrackEventController.Instance.ResetFrame();

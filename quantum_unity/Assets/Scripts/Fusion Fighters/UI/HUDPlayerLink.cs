@@ -16,7 +16,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Image _portrait;
     [SerializeField] private TMPro.TMP_Text _ready;
     [SerializeField] private Image _readyFill;
-    [SerializeField] private Image _infiniteLives;
+    [SerializeField] private GameObject _infiniteLives;
 
     [Header("Settings")]
     [SerializeField] private float _lerpSpeed;
@@ -62,7 +62,11 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateHealth(FP newHealth, FP maxHealth)
     {
-        _healthFill = (newHealth / maxHealth).AsFloat;
+        if (maxHealth != 0)
+            _healthFill = (newHealth / maxHealth).AsFloat;
+        else
+            _healthFill = 0;
+
         _health.color = Color.Lerp(_emptyHealth, _fullHealth, _health.fillAmount);
 
         if (_portrait.material != _activateUltimate)
@@ -89,7 +93,11 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateEnergy(FP newEnergy, FP maxEnergy)
     {
-        _energyFill = (newEnergy / maxEnergy).AsFloat;
+        if (maxEnergy != 0)
+            _energyFill = (newEnergy / maxEnergy).AsFloat;
+        else
+            _energyFill = 0;
+
         _energy.color = Color.Lerp(_emptyEnergy, _fullEnergy, _energy.fillAmount);
 
         if (newEnergy == maxEnergy)
@@ -120,14 +128,10 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateStocks(int newStocks, int maxStocks)
     {
-        if (maxStocks == -1)
+        _infiniteLives.SetActive(maxStocks == -1);
+
+        if (maxStocks > _stocks.transform.childCount)
         {
-            _infiniteLives.SetActive(true);
-        }
-        else if (maxStocks > _stocks.transform.childCount)
-        {
-            _infiniteLives.SetActive(false);
-            
             int count = maxStocks - _stocks.transform.childCount;
 
             for (int i = 0; i < count; ++i)
@@ -137,8 +141,6 @@ public class HUDPlayerLink : MonoBehaviour
         }
 
         for (int i = 0; i < maxStocks; ++i)
-        {
             _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
-        }
     }
 }

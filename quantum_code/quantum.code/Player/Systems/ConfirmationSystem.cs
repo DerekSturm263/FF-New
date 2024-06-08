@@ -30,24 +30,21 @@ namespace Quantum
             else
                 filter.CharacterController->ReadyTime = 0;
 
-            f.Events.OnPlayerUpdateReady(filter.Entity, filter.Stats->PlayerIndex, filter.CharacterController->ReadyTime / FP._0_50);
+            f.Events.OnPlayerUpdateReady(filter.Entity, filter.Stats->GlobalIndex, filter.CharacterController->ReadyTime / FP._0_50);
 
             if (filter.CharacterController->ReadyTime > FP._0_50)
             {
                 filter.CharacterController->IsReady = true;
 
-                if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
+                if (!f.Global->CanPlayersEdit)
+                    return;
+
+                ++f.Global->PlayersReady;
+                f.Events.OnPlayerReady(filter.Entity, filter.Stats->GlobalIndex);
+
+                if (f.Global->TotalPlayers > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
                 {
-                    if (!playerCounter->CanPlayersEdit)
-                        return;
-
-                    ++playerCounter->PlayersReady;
-                    f.Events.OnPlayerReady(filter.Entity, filter.Stats->PlayerIndex);
-
-                    if (playerCounter->TotalPlayers > 1 && playerCounter->PlayersReady == playerCounter->TotalPlayers)
-                    {
-                        HandleAllPlayersReady(f);
-                    }
+                    HandleAllPlayersReady(f);
                 }
             }
         }
@@ -56,21 +53,18 @@ namespace Quantum
         {
             if (input.Cancel && filter.CharacterController->IsReady)
             {
-                if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
-                {
-                    if (!playerCounter->CanPlayersEdit)
-                        return;
+                if (!f.Global->CanPlayersEdit)
+                    return;
 
-                    bool shouldCancelAll = playerCounter->PlayersReady == playerCounter->TotalPlayers;
+                bool shouldCancelAll = f.Global->PlayersReady == f.Global->TotalPlayers && f.Global->TotalPlayers != 1;
 
-                    --playerCounter->PlayersReady;
+                --f.Global->PlayersReady;
 
-                    filter.CharacterController->IsReady = false;
-                    f.Events.OnPlayerCancel(filter.Entity, filter.Stats->PlayerIndex);
-                    
-                    if (shouldCancelAll)
-                        HandleAllPlayersCancel(f);
-                }
+                filter.CharacterController->IsReady = false;
+                f.Events.OnPlayerCancel(filter.Entity, filter.Stats->GlobalIndex);
+
+                if (shouldCancelAll)
+                    HandleAllPlayersCancel(f);
             }
         }
 
@@ -81,10 +75,7 @@ namespace Quantum
             f.SystemDisable<CharacterControllerSystem>();
             TimerSystem.ResumeCountdown(f);
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time + 3));
-            }
+            TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time + 3));
         }
 
         private void HandleAllPlayersCancel(Frame f)
@@ -92,10 +83,7 @@ namespace Quantum
             f.SystemEnable<CharacterControllerSystem>();
             TimerSystem.StopCountdown(f);
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time), false);
-            }
+            TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), false);
 
             StatsSystem.SetAllHealth(f, 0);
             StatsSystem.SetAllEnergy(f, 0);

@@ -458,6 +458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 308499026}
   - component: {fileID: 308499027}
+  - component: {fileID: 308499028}
   m_Layer: 0
   m_Name: Canvases
   m_TagString: Untagged
@@ -513,6 +514,71 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &308499028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308499025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: 8b7c380435628284aad05cf4fe8cad61, type: 2}
+  _readContinuous: 0
+  _processWhenEmpty: 1
+  _onAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 0d54e80697ccff941860538f7193329e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
+        m_MethodName: SetTransition
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6398944209038441729, guid: fc93758d55ec3214897f3f08a8eb1f99,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Credits
           m_BoolArgument: 0
         m_CallState: 2
   _onAxisAction:
@@ -1513,6 +1579,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: End
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1619613326}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   _onAxisAction:

@@ -89,53 +89,6 @@ namespace Quantum.Prototypes.Unity {
     }
   }
   [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.MatchInstance))]
-  public class MatchInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.MatchInstance_Prototype> {
-    public Match_Prototype Match;
-    public Quantum.QBoolean IsTimerOver;
-    public Quantum.QBoolean IsMatchRunning;
-    [Quantum.LocalReference]
-    public global::EntityPrototype CurrentStage;
-
-    public sealed override Quantum.Prototypes.MatchInstance_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.MatchInstance_Prototype();
-      result.Match = this.Match.Convert(converter);
-      result.IsTimerOver = this.IsTimerOver;
-      result.IsMatchRunning = this.IsMatchRunning;
-      converter.Convert(this.CurrentStage, out result.CurrentStage);
-      return result;
-    }
-  }
-  [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.Match))]
-  public class Match_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.Match_Prototype> {
-    public Quantum.Prototypes.Ruleset_Prototype Ruleset;
-    public Quantum.Prototypes.Stage_Prototype Stage;
-    [Quantum.Inspector.DynamicCollectionAttribute()]
-    public Team_Prototype[] Teams = System.Array.Empty<Team_Prototype>();
-
-    public sealed override Quantum.Prototypes.Match_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.Match_Prototype();
-      result.Ruleset = this.Ruleset;
-      result.Stage = this.Stage;
-      result.Teams = System.Array.ConvertAll(this.Teams, x => x.Convert(converter));
-      return result;
-    }
-  }
-  [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.Team))]
-  public class Team_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.Team_Prototype> {
-    [Quantum.Inspector.DynamicCollectionAttribute()]
-    [Quantum.LocalReference]
-    public global::EntityPrototype[] Players = System.Array.Empty<global::EntityPrototype>();
-
-    public sealed override Quantum.Prototypes.Team_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.Team_Prototype();
-      result.Players = System.Array.ConvertAll(this.Players, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
-      return result;
-    }
-  }
-  [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.PlayerLink))]
   public class PlayerLink_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.PlayerLink_Prototype> {
     public Quantum.PlayerRef Player;
@@ -160,7 +113,8 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
     public Quantum.AssetRefEntityPrototype Hurtbox;
-    public System.Int32 PlayerIndex;
+    public System.Int32 LocalIndex;
+    public System.Int32 GlobalIndex;
     public System.Int32 CurrentStocks;
     public Photon.Deterministic.FP CurrentHealth;
     public Photon.Deterministic.FP HealthModifyMultiplier;
@@ -182,7 +136,8 @@ namespace Quantum.Prototypes.Unity {
       result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
       result.Hurtbox = this.Hurtbox;
-      result.PlayerIndex = this.PlayerIndex;
+      result.LocalIndex = this.LocalIndex;
+      result.GlobalIndex = this.GlobalIndex;
       result.CurrentStocks = this.CurrentStocks;
       result.CurrentHealth = this.CurrentHealth;
       result.HealthModifyMultiplier = this.HealthModifyMultiplier;

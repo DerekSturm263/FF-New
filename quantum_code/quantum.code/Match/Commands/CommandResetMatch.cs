@@ -15,20 +15,14 @@ namespace Quantum
 
             f.SystemEnable<CharacterControllerSystem>();
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-            {
-                TimerSystem.SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time), false);
-                TimerSystem.StopCountdown(f);
-            }
+            TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), false);
+            TimerSystem.StopCountdown(f);
 
             StatsSystem.SetAllHealth(f, 0);
             StatsSystem.SetAllEnergy(f, 0);
             StatsSystem.SetAllStocks(f, 0);
 
-            if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
-            {
-                playerCounter->CanPlayersEdit = true;
-            }
+            f.Global->CanPlayersEdit = true;
         }
     }
 }

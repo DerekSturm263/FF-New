@@ -68,12 +68,13 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void DespawnPlayer(LocalPlayerInfo player)
     {
-        /*CommandDespawnPlayer commandDespawnPlayer = new()
+        CommandDespawnPlayer commandDespawnPlayer = new()
         {
-            entity = 
+            entity = BuildController.Instance.GetPlayerLocalIndex(player.LocalIndex)
         };
 
-        QuantumRunner.Default.Game.SendCommand(commandDespawnPlayer);*/
+        RemoveController(QuantumRunner.Default.Game, player);
+        QuantumRunner.Default.Game.SendCommand(commandDespawnPlayer);
     }
 
     public void AddController(QuantumGame game, LocalPlayerInfo player)
@@ -89,6 +90,11 @@ public class LocalInputController : Controller<LocalInputController>
         _controls.Add(playerNum, controls);
     }
 
+    public void RemoveController(QuantumGame game, LocalPlayerInfo player)
+    {
+        _controls.Remove(game.GetLocalPlayers()[player.User.index]);
+    }
+
     public void BindControls(Controls controls, LocalPlayerInfo playerInfo, int playerNum)
     {
         if (playerInfo is null || playerInfo.User.id == InputUser.InvalidId)
@@ -102,7 +108,8 @@ public class LocalInputController : Controller<LocalInputController>
             playerInfo.User.ActivateControlScheme(scheme.Value);
         }
 
-        playerInfo.SetQuantumIndex(playerNum);
+        playerInfo.SetLocalIndex(playerNum);
+        //playerInfo.SetGlobalIndex(playerNum);
     }
 
     private void OnEnable()

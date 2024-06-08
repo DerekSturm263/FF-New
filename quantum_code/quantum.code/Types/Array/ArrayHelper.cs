@@ -40,7 +40,7 @@ namespace Quantum.Types
             };
         }
         
-        public static FPVector2 Get(ArrayItem array, int index)
+        public static AssetRefItem Get(ArrayItems array, int index)
         {
             return index switch
             {
@@ -64,7 +64,7 @@ namespace Quantum.Types
             };
         }
         
-        public static FPVector2 Get(ArrayStage array, int index)
+        public static AssetRefStageAsset Get(ArrayStages array, int index)
         {
             return index switch
             {

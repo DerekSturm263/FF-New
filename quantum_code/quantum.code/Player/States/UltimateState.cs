@@ -26,10 +26,7 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-                return f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= matchInstance->Match.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
-            else
-                return false;
+            return f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= f.Global->CurrentMatch.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)

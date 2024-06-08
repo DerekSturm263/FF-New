@@ -7,6 +7,8 @@ namespace Quantum
         public void OnPlayerDataSet(Frame f, PlayerRef player)
         {
             SpawnPlayer(f, player);
+
+            ++f.Global->TotalPlayers;
         }
 
         public static EntityRef SpawnPlayer(Frame f, PlayerRef player)
@@ -21,39 +23,28 @@ namespace Quantum
                 Entity = entity
             };
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-            {
-                stats->PlayerIndex = player._index - 1;
-                StatsSystem.SetBuild(f, entity, stats, stats->Build);
-            }
+            Stats* stats = f.Unsafe.GetPointer<Stats>(entity);
+            stats->GlobalIndex = player._index - 1;
+            StatsSystem.SetBuild(f, entity, stats, stats->Build);
 
             f.Add(entity, playerLink);
-            f.Events.OnPlayerSpawn(entity, stats->PlayerIndex);
+            f.Events.OnPlayerSpawn(entity, stats->GlobalIndex);
 
-            if (f.Unsafe.TryGetPointerSingleton(out PlayerCounter* playerCounter))
-                ++playerCounter->TotalPlayers;
+            var teams = f.ResolveList(f.Global->CurrentMatch.Teams);
 
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            QListPtr<EntityRef> newTeamPtr = f.AllocateList<EntityRef>();
+            var newTeam = f.ResolveList(newTeamPtr);
+            newTeam.Add(entity);
+
+            teams.Add(new() { Players = newTeam });
+
+            f.Events.OnPlayerModifyHealth(entity, stats->GlobalIndex, stats->CurrentHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
+            f.Events.OnPlayerModifyEnergy(entity, stats->GlobalIndex, stats->CurrentEnergy, stats->CurrentEnergy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
+            f.Events.OnPlayerModifyStocks(entity, stats->GlobalIndex, stats->CurrentStocks, stats->CurrentStocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
+
+            if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
-                var teams = f.ResolveList(matchInstance->Match.Teams);
-
-                QListPtr<EntityRef> newTeamPtr = f.AllocateList<EntityRef>();
-                var newTeam = f.ResolveList(newTeamPtr);
-                newTeam.Add(entity);
-
-                teams.Add(new() { Players = newTeam });
-
-                if (f.Unsafe.TryGetPointer(entity, out Stats* stats2))
-                {
-                    f.Events.OnPlayerModifyHealth(entity, stats->PlayerIndex, stats2->CurrentHealth, stats2->CurrentHealth, matchInstance->Match.Ruleset.Players.MaxHealth);
-                    f.Events.OnPlayerModifyEnergy(entity, stats->PlayerIndex, stats2->CurrentEnergy, stats2->CurrentEnergy, matchInstance->Match.Ruleset.Players.MaxEnergy);
-                    f.Events.OnPlayerModifyStocks(entity, stats->PlayerIndex, stats2->CurrentStocks, stats2->CurrentStocks, matchInstance->Match.Ruleset.Players.StockCount);
-                }
-
-                if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
-                {
-                    transform->Position = Types.ArrayHelper.Get(matchInstance->Match.Stage.Spawn.PlayerSpawnPoints, player._index - 1);
-                }
+                transform->Position = Types.ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, stats->GlobalIndex);
             }
 
             return entity;
@@ -61,8 +52,10 @@ namespace Quantum
 
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
+            f.Events.OnPlayerDespawn(player, f.Get<Stats>(player).GlobalIndex);
             f.Destroy(player);
-            f.Events.OnPlayerDespawn(player, f.Get<Stats>(player).PlayerIndex);
+
+            --f.Global->TotalPlayers;
         }
     }
 }

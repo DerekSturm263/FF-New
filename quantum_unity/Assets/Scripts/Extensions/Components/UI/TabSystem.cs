@@ -51,7 +51,7 @@ namespace Extensions.Components.UI
             }
 
             if (_rememberLastTab)
-                _allIndices.TryAdd(_dictionaryIndex, 0);
+                _allIndices.TryAdd(_dictionaryIndex, _defaultTab);
 
             Button selected;
 

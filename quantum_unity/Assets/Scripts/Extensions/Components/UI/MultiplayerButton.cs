@@ -35,7 +35,7 @@ public class MultiplayerButton : Selectable, ISubmitHandler
             return;
 
         UISystemProfilerApi.AddMarker("Button.onClick", this);
-        m_OnClick.Invoke(playerNum);
+        //m_OnClick.Invoke(playerNum);
     }
 
     public virtual void OnSubmit(BaseEventData eventData)

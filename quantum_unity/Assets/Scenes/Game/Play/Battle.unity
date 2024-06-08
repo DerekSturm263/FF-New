@@ -2194,6 +2194,43 @@ MonoBehaviour:
           m_StringArgument: Countdown
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: Enable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Countdown
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 970748889}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Countdown
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 391401473}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Countdown
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAllPlayersCancel:
     m_PersistentCalls:
       m_Calls:
@@ -2297,6 +2334,43 @@ MonoBehaviour:
       - m_Target: {fileID: 1931528012}
         m_TargetAssemblyTypeName: PlayerStatController, FusionFighters
         m_MethodName: ShowAllReadies
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: Enable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 970748889}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 391401473}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2940,982 +3014,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6470099435644111185}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &399604882
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 399604883}
-  - component: {fileID: 399604885}
-  - component: {fileID: 399604884}
-  - component: {fileID: 399604886}
-  m_Layer: 0
-  m_Name: Match Instance
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &399604883
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399604882}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 599783066}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &399604884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399604882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 987359c91806ced4889fd72494fa8810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    Match:
-      Ruleset:
-        SerializableData:
-          Name: 
-          Description: 
-          Guid:
-            Value: 0
-          CreationDate: 0
-          LastEdittedDate: 0
-        Match:
-          WinCondition:
-            Id:
-              Value: 1114986184651973532
-          Time: 360
-          ShowTimer:
-            Value: 1
-          MatchCount: 1
-          EndMatchesWhenWinnerClear:
-            Value: 0
-          ShowScores:
-            Value: 1
-          ShowCurrentWinner:
-            Value: 0
-        Players:
-          StockCount: 3
-          MaxHealth: 100
-          MaxEnergy: 100
-          EnergyChargeRate:
-            RawValue: 65536
-          RespawnTime:
-            RawValue: 196608
-          FriendlyFire:
-            Value: 0
-          DisallowDuplicateSelection:
-            Value: 0
-        Stage:
-          Stages:
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          - Id:
-              Value: 0
-          StagePicker:
-            Value: 0
-          AllowGizmos:
-            Value: 1
-          AllowCustomStages:
-            Value: 0
-          DisallowDuplicateSelection:
-            Value: 0
-        Items:
-          StartingItem:
-            Id:
-              Value: 0
-          Items:
-          - Id:
-              Value: 3638102391288734149
-          - Id:
-              Value: 3824159520298710078
-          - Id:
-              Value: 1995594277519082507
-          - Id:
-              Value: 3638102391288734149
-          - Id:
-              Value: 3824159520298710078
-          - Id:
-              Value: 1995594277519082507
-          - Id:
-              Value: 3638102391288734149
-          - Id:
-              Value: 3824159520298710078
-          - Id:
-              Value: 1995594277519082507
-          - Id:
-              Value: 3638102391288734149
-          - Id:
-              Value: 3824159520298710078
-          - Id:
-              Value: 1995594277519082507
-          - Id:
-              Value: 3638102391288734149
-          - Id:
-              Value: 3824159520298710078
-          - Id:
-              Value: 1995594277519082507
-          - Id:
-              Value: 3638102391288734149
-          SpawnFrequency:
-            RawValue: 65536
-      Stage:
-        SerializableData:
-          Name: 
-          Description: 
-          Guid:
-            Value: 0
-          CreationDate: 0
-          LastEdittedDate: 0
-        Theme:
-          CameraSettings:
-            Default:
-              Id:
-                Value: 4362728067382804579
-            Zoom:
-              Id:
-                Value: 2526857748189333574
-            Tension:
-              Id:
-                Value: 960710081893920387
-          Track:
-            Id:
-              Value: 2472609101534953334
-          FogColor:
-            R: 0
-            G: 0
-            B: 0
-            A: 0
-          FogDensity:
-            RawValue: 0
-        Objects:
-          Stage:
-            Id:
-              Value: 2456634248519729615
-          Map:
-            Id:
-              Value: 2301540944961319450
-          Gizmos:
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-          - Position:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Gizmo:
-              Id:
-                Value: 0
-        Spawn:
-          PlayerSpawnPoints:
-            Item1:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Item2:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Item3:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-            Item4:
-              X:
-                RawValue: 0
-              Y:
-                RawValue: 0
-          ItemSpawnPoints:
-          - X:
-              RawValue: 262144
-            Y:
-              RawValue: 58982
-          - X:
-              RawValue: 131072
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 0
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: -131072
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: -262144
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 262144
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 131072
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 0
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: -131072
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: -262144
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 262144
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 131072
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 0
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: -131072
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: -262144
-            Y:
-              RawValue: 58981
-          - X:
-              RawValue: 0
-            Y:
-              RawValue: 42597
-      Teams: []
-    IsTimerOver:
-      Value: 0
-    IsMatchRunning:
-      Value: 0
-    CurrentStage: {fileID: 0}
---- !u!114 &399604885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399604882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransformMode: 2
-  Transform2DVertical:
-    IsEnabled: 0
-    Height:
-      RawValue: 0
-    PositionOffset:
-      RawValue: 0
-  PhysicsCollider:
-    IsTrigger: 0
-    Material:
-      Id:
-        Value: 0
-    SourceCollider: {fileID: 0}
-    IsEnabled: 0
-    Shape2D:
-      ShapeType: 0
-      PolygonCollider:
-        Id:
-          Value: 0
-      CircleRadius:
-        RawValue: 0
-      EdgeExtent:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      RotationOffset:
-        RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-      IsSetFromSourceCollider: 0
-    Shape3D:
-      ShapeType: 0
-      SphereRadius:
-        RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      RotationOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-      IsSetFromSourceCollider: 0
-    Layer: 0
-    CallbackFlags:
-      Value: 0
-  PhysicsBody:
-    IsEnabled: 0
-    Version2D: 0
-    Version3D: 0
-    Config2D: 116
-    Config3D: 58
-    RotationFreeze: 0
-    Mass:
-      RawValue: 65536
-    Drag:
-      RawValue: 32768
-    AngularDrag:
-      RawValue: 32768
-    CenterOfMass2D:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-    CenterOfMass3D:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    GravityScale:
-      _hasValue: 0
-      _value:
-        RawValue: 65536
-  NavMeshPathfinder:
-    IsEnabled: 0
-    NavMeshAgentConfig:
-      Id:
-        Value: 0
-    InitialTarget:
-      IsEnabled: 0
-      Target: {fileID: 0}
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      NavMesh:
-        Reference: {fileID: 0}
-        Asset:
-          Id:
-            Value: 0
-        Name: 
-  NavMeshSteeringAgent:
-    IsEnabled: 0
-    MaxSpeed:
-      IsEnabled: 0
-      Value:
-        RawValue: 0
-    Acceleration:
-      IsEnabled: 0
-      Value:
-        RawValue: 0
-  NavMeshAvoidanceAgent:
-    IsEnabled: 0
-  View:
-    Id:
-      Value: 0
---- !u!114 &399604886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399604882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BindBehaviour: 0
-  CustomQuantumAnimator: {fileID: 0}
-  ManualDisposal: 0
-  GameObjectNameIsEntityRef: 1
-  ErrorCorrectionRateMin: 3.3
-  ErrorCorrectionRateMax: 10
-  ErrorPositionBlendStart: 0.25
-  ErrorPositionBlendEnd: 1
-  ErrorRotationBlendStart: 0.1
-  ErrorRotationBlendEnd: 0.5
-  ErrorPositionMinCorrection: 0.025
-  ErrorPositionTeleportDistance: 2
-  ErrorRotationTeleportDistance: 0.5
-  OnEntityInstantiated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEntityDestroyed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &434108027
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,7 +3165,19 @@ MonoBehaviour:
   OnStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 643316110}
+      - m_Target: {fileID: 4321563326137910935}
+        m_TargetAssemblyTypeName: HostClientEvents, FusionFighters
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 922534762}
         m_TargetAssemblyTypeName: PlayerJoinEventListener, GameResources
         m_MethodName: Invoke
         m_Mode: 1
@@ -4358,13 +3468,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 643316109}
+  - {fileID: 922534763}
   - {fileID: 154704205}
   - {fileID: 118852954}
   - {fileID: 950825869}
   - {fileID: 1517503870}
-  - {fileID: 399604883}
   - {fileID: 555096603}
-  - {fileID: 2021771173}
   - {fileID: 1123558580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4485,9 +3594,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643316109}
-  - component: {fileID: 643316110}
+  - component: {fileID: 643316111}
   m_Layer: 0
-  m_Name: Player Join Event Listener
+  m_Name: Spawn Players
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4508,7 +3617,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 599783066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &643316110
+--- !u!114 &643316111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4523,18 +3632,6 @@ MonoBehaviour:
   _onPlayerJoin:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 643316110}
-        m_TargetAssemblyTypeName: PlayerJoinEventListener, GameResources
-        m_MethodName: BindSelectScreens
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 773928766}
         m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
         m_MethodName: SpawnPlayer
@@ -4550,18 +3647,6 @@ MonoBehaviour:
   _onPlayerLeave:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 643316110}
-        m_TargetAssemblyTypeName: PlayerJoinEventListener, GameResources
-        m_MethodName: UnbindSelectScreens
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 773928766}
         m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
         m_MethodName: DespawnPlayer
@@ -4869,6 +3954,86 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &922534761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922534763}
+  - component: {fileID: 922534762}
+  m_Layer: 0
+  m_Name: Map Player HUD Controls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &922534762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922534761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f2819bd8a2b8e74f8d09de95af7fc2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onPlayerJoin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922534762}
+        m_TargetAssemblyTypeName: PlayerJoinEventListener, GameResources
+        m_MethodName: BindSelectScreens
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onPlayerLeave:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922534762}
+        m_TargetAssemblyTypeName: PlayerJoinEventListener, GameResources
+        m_MethodName: UnbindSelectScreens
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _characterSelectParent: {fileID: 273938454}
+  _stageSelectParent: {fileID: 2051875955}
+  _characterSelectMenu: {fileID: 6950579337331524626, guid: 6de9e3ffed3a738499381cd5bdab3096,
+    type: 3}
+  _stageSelectMenu: {fileID: 7273706455359597470, guid: 7eb30867a443941429fa7dc6eb7f7b5b,
+    type: 3}
+--- !u!4 &922534763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922534761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 599783066}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &948269625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5070,7 +4235,7 @@ MonoBehaviour:
   _onMatchStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 391401473}
+      - m_Target: {fileID: 970748889}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -5080,7 +4245,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   _onMatchEnd:
     m_PersistentCalls:
@@ -5135,6 +4300,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 391401473}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _onChangeFighters:
+    m_PersistentCalls:
+      m_Calls: []
+  _onChangeStage:
+    m_PersistentCalls:
+      m_Calls: []
+  _onQuit:
+    m_PersistentCalls:
+      m_Calls: []
+  _runnerUpCams: []
 --- !u!114 &950825871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5301,19 +4488,6 @@ MonoBehaviour:
       - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: DynamicTrackController, GameResources
-        m_MethodName: Initialize
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Pre-Game
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: -2915420392140613590, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: DynamicTrackController, GameResources
         m_MethodName: ForceTransition
         m_Mode: 5
         m_Arguments:
@@ -5328,6 +4502,18 @@ MonoBehaviour:
           type: 3}
         m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
         m_MethodName: StopTrack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 643316111}
+        m_TargetAssemblyTypeName: PlayerJoinEventListener, GameResources
+        m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6831,12 +6017,13 @@ MonoBehaviour:
   Asset: {fileID: 11400000, guid: 044038715c3972346a2d983b7c2bccf0, type: 2}
   DrawGridMode: 0
   BakeAllMode: -1
-  StaticCollider2DReferences: []
+  StaticCollider2DReferences:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   StaticCollider3DReferences: []
   MapEntityReferences:
-  - {fileID: 399604886}
   - {fileID: 555096604}
-  - {fileID: 2021771174}
   - {fileID: 1123558578}
 --- !u!1 &1756879416
 GameObject:
@@ -7398,236 +6585,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5023754801440757121}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2021771172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2021771173}
-  - component: {fileID: 2021771175}
-  - component: {fileID: 2021771174}
-  - component: {fileID: 2021771176}
-  m_Layer: 0
-  m_Name: Player Counter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2021771173
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021771172}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35431314, y: -0.9921869, z: 0.8208971}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 599783066}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2021771174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021771172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BindBehaviour: 0
-  CustomQuantumAnimator: {fileID: 0}
-  ManualDisposal: 0
-  GameObjectNameIsEntityRef: 1
-  ErrorCorrectionRateMin: 3.3
-  ErrorCorrectionRateMax: 10
-  ErrorPositionBlendStart: 0.25
-  ErrorPositionBlendEnd: 1
-  ErrorRotationBlendStart: 0.1
-  ErrorRotationBlendEnd: 0.5
-  ErrorPositionMinCorrection: 0.025
-  ErrorPositionTeleportDistance: 2
-  ErrorRotationTeleportDistance: 0.5
-  OnEntityInstantiated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEntityDestroyed:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &2021771175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021771172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransformMode: 2
-  Transform2DVertical:
-    IsEnabled: 0
-    Height:
-      RawValue: 0
-    PositionOffset:
-      RawValue: 0
-  PhysicsCollider:
-    IsTrigger: 0
-    Material:
-      Id:
-        Value: 0
-    SourceCollider: {fileID: 0}
-    IsEnabled: 0
-    Shape2D:
-      ShapeType: 0
-      PolygonCollider:
-        Id:
-          Value: 0
-      CircleRadius:
-        RawValue: 0
-      EdgeExtent:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      RotationOffset:
-        RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-      IsSetFromSourceCollider: 0
-    Shape3D:
-      ShapeType: 0
-      SphereRadius:
-        RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      RotationOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-      IsSetFromSourceCollider: 0
-    Layer: 0
-    CallbackFlags:
-      Value: 0
-  PhysicsBody:
-    IsEnabled: 0
-    Version2D: 0
-    Version3D: 0
-    Config2D: 116
-    Config3D: 58
-    RotationFreeze: 0
-    Mass:
-      RawValue: 65536
-    Drag:
-      RawValue: 32768
-    AngularDrag:
-      RawValue: 32768
-    CenterOfMass2D:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-    CenterOfMass3D:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    GravityScale:
-      _hasValue: 0
-      _value:
-        RawValue: 65536
-  NavMeshPathfinder:
-    IsEnabled: 0
-    NavMeshAgentConfig:
-      Id:
-        Value: 0
-    InitialTarget:
-      IsEnabled: 0
-      Target: {fileID: 0}
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      NavMesh:
-        Reference: {fileID: 0}
-        Asset:
-          Id:
-            Value: 0
-        Name: 
-  NavMeshSteeringAgent:
-    IsEnabled: 0
-    MaxSpeed:
-      IsEnabled: 0
-      Value:
-        RawValue: 0
-    Acceleration:
-      IsEnabled: 0
-      Value:
-        RawValue: 0
-  NavMeshAvoidanceAgent:
-    IsEnabled: 0
-  View:
-    Id:
-      Value: 0
---- !u!114 &2021771176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021771172}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0536c3b7207dd68429f5febb2e1c3854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    PlayersReady: 0
-    TotalPlayers: 0
-    CanPlayersEdit:
-      Value: 1
 --- !u!224 &2051875955 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3126898175408384160, guid: e9342a1bccf731a4da405c66a98ff230,
@@ -9364,6 +8321,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ruleset
       objectReference: {fileID: 0}
+    - target: {fileID: 7466522456307142725, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466522456307142725, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466522456307142725, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466522456307142725, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466522456307142725, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8653013343114085546, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -9389,11 +8371,48 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8875528975880163931, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875528975880163931, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875528975880163931, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875528975880163931, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875528975880163931, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3b80fd92abae0a4ca5f1eec31ec0254, type: 3}
+--- !u!114 &4321563326137910935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7862637134911461592, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
+    type: 3}
+  m_PrefabInstance: {fileID: 4321563326137910934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012757000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f5f1a7d3e8afd4f8b97bcfafaafd4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5023754801440757121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9432,11 +8451,21 @@ PrefabInstance:
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
       objectReference: {fileID: 288680293511525287}
+    - target: {fileID: 334529519784570739, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1821625250235569558, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _canvas
       value: 
       objectReference: {fileID: 853013127}
+    - target: {fileID: 3231059982650515274, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: m_text
+      value: Press Any Button to Join
+      objectReference: {fileID: 0}
     - target: {fileID: 4273153122110599909, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -9486,6 +8515,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -24.999512
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063251700946101408, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7139938141443738245, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}

@@ -10,9 +10,13 @@ public class LocalPlayerInfo
     private readonly InputUser _user;
     public InputUser User => _user;
 
-    private int _quantumIndex;
-    public int QuantumIndex => _quantumIndex;
-    public void SetQuantumIndex(int index) => _quantumIndex = index;
+    private int _localIndex;
+    public int LocalIndex => _localIndex;
+    public void SetLocalIndex(int index) => _localIndex = index;
+
+    private int _globalIndex;
+    public int GlobalIndex => _globalIndex;
+    public void SetGlobalIndex(int index) => _globalIndex = index;
 
     public LocalPlayerInfo(InputDevice device)
     {

@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using Quantum.Types;
 
 namespace Quantum
 {
@@ -21,8 +22,7 @@ namespace Quantum
 
                 SpawnRandom(f);
 
-                MatchInstance* matchInstance = f.Unsafe.GetPointerSingleton<MatchInstance>();
-                filter.ItemSpawner->TimeSinceLastSpawned = f.Global->RngSession.Next(filter.ItemSpawner->MinTimeToSpawn, filter.ItemSpawner->MaxTimeToSpawn) * (1 / matchInstance->Match.Ruleset.Items.SpawnFrequency);
+                filter.ItemSpawner->TimeSinceLastSpawned = f.Global->RngSession.Next(filter.ItemSpawner->MinTimeToSpawn, filter.ItemSpawner->MaxTimeToSpawn) * (1 / f.Global->CurrentMatch.Ruleset.Items.SpawnFrequency);
             }
             else
             {
@@ -32,12 +32,10 @@ namespace Quantum
         
         public static EntityRef SpawnRandom(Frame f)
         {
-            MatchInstance* matchInstance = f.Unsafe.GetPointerSingleton<MatchInstance>();
-            
             AssetRefItem itemAsset = default;
-            itemAsset = matchInstance->Match.Ruleset.Items.Items[f.Global->RngSession.Next(0, matchInstance->Match.Ruleset.Items.Items.Length)];
+            itemAsset = ArrayHelper.Get(f.Global->CurrentMatch.Ruleset.Items.Items, f.Global->RngSession.Next(0, 16));
             
-            FPVector2 spawnPosition = matchInstance->Match.Stage.Spawn.ItemSpawnPoints[f.Global->RngSession.Next(0, matchInstance->Match.Stage.Spawn.ItemSpawnPoints.Length)];
+            FPVector2 spawnPosition = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.ItemSpawnPoints, f.Global->RngSession.Next(0, 16));
             
             return Spawn(f, itemAsset, spawnPosition);
         }

@@ -7,26 +7,41 @@ public class BuildController : Controller<BuildController>
 {
     public static string GetPath() => $"{Application.persistentDataPath}/Builds";
 
-    private readonly Dictionary<int, EntityRef> _indicesToPlayers = new();
+    private readonly Dictionary<int, EntityRef> _localIndicesToPlayers = new();
+    private readonly Dictionary<int, EntityRef> _globalIndicesToPlayers = new();
 
-    private EntityRef GetPlayer(int playerIndex)
+    public EntityRef GetPlayerLocalIndex(int playerIndex)
     {
-        if (!_indicesToPlayers.ContainsKey(playerIndex))
+        if (!_localIndicesToPlayers.ContainsKey(playerIndex))
         {
-            int i = 0;
-            foreach (var playerLink in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<PlayerLink>())
+            foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<Stats>())
             {
-                if (i == playerIndex)
+                if (stats.Component.LocalIndex == playerIndex)
                 {
-                    _indicesToPlayers[playerIndex] = playerLink.Component.Entity;
+                    _localIndicesToPlayers[playerIndex] = stats.Entity;
                     break;
                 }
-
-                ++i;
             }
         }
 
-        return _indicesToPlayers[playerIndex];
+        return _localIndicesToPlayers[playerIndex];
+    }
+
+    public EntityRef GetPlayerGlobalIndex(int playerIndex)
+    {
+        if (!_globalIndicesToPlayers.ContainsKey(playerIndex))
+        {
+            foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<Stats>())
+            {
+                if (stats.Component.GlobalIndex == playerIndex)
+                {
+                    _globalIndicesToPlayers[playerIndex] = stats.Entity;
+                    break;
+                }
+            }
+        }
+
+        return _globalIndicesToPlayers[playerIndex];
     }
 
     public SerializableWrapper<Build> New()
@@ -48,7 +63,7 @@ public class BuildController : Controller<BuildController>
 
     public void SaveOnPlayer(int playerIndex)
     {
-        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(GetPlayer(playerIndex), out Stats stats))
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(GetPlayerLocalIndex(playerIndex), out Stats stats))
             Serializer.Save(stats.Build, stats.Build.SerializableData.Guid, GetPath());
     }
 
@@ -56,7 +71,7 @@ public class BuildController : Controller<BuildController>
     {
         CommandSetBuild setBuild = new()
         {
-            entity = GetPlayer(playerIndex),
+            entity = GetPlayerLocalIndex(playerIndex),
             build = build
         };
 

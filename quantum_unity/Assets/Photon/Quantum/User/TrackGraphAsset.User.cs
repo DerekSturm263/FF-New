@@ -7,7 +7,13 @@ public partial class TrackGraphAsset : InfoAssetAsset
 
     private Dictionary<string, TrackSection> _sectionsByName;
     public void InitializeSectionsDictionary() => _sectionsByName = Sections.ToDictionary(item => item.name);
-    public TrackSection GetFromName(string name) => _sectionsByName[name];
+    public TrackSection GetFromName(string name)
+    {
+        if (_sectionsByName.TryGetValue(name, out TrackSection value))
+            return value;
+        else
+            return null;
+    }
 
     private TrackSection _currentSection;
     public TrackSection CurrentSection => _currentSection;

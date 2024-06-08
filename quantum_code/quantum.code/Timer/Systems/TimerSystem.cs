@@ -47,8 +47,7 @@ namespace Quantum
             {
                 timer->IsCounting = false;
 
-                if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-                    matchInstance->IsTimerOver = true;
+                f.Global->IsTimerOver = true;
             }
 
             if (seconds == 61)
@@ -59,29 +58,24 @@ namespace Quantum
 
         private void UpdatePlayerStats(Frame f, Timer* timer)
         {
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
             {
-                foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
-                {
-                    FP lerpValue = (FP)(timer->Time - timer->Start) / 180;
+                FP lerpValue = (FP)(timer->Time - timer->Start) / 180;
 
-                    FP health = FPMath.Lerp(matchInstance->Match.Ruleset.Players.MaxHealth, 0, lerpValue);
-                    StatsSystem.SetHealth(f, stats.Entity, stats.Component, health);
+                FP health = FPMath.Lerp(f.Global->CurrentMatch.Ruleset.Players.MaxHealth, 0, lerpValue);
+                StatsSystem.SetHealth(f, stats.Entity, stats.Component, health);
 
-                    FP energy = FPMath.Lerp(matchInstance->Match.Ruleset.Players.MaxEnergy / 5, 0, lerpValue);
-                    StatsSystem.SetEnergy(f, stats.Entity, stats.Component, energy);
+                FP energy = FPMath.Lerp(f.Global->CurrentMatch.Ruleset.Players.MaxEnergy / 5, 0, lerpValue);
+                StatsSystem.SetEnergy(f, stats.Entity, stats.Component, energy);
 
-                    int stocks = FPMath.Lerp(matchInstance->Match.Ruleset.Players.StockCount, 0, lerpValue).AsInt;
-                    StatsSystem.SetStocks(f, stats.Entity, stats.Component, stocks);
-                }
+                int stocks = FPMath.Lerp(f.Global->CurrentMatch.Ruleset.Players.StockCount, 0, lerpValue).AsInt;
+                StatsSystem.SetStocks(f, stats.Entity, stats.Component, stocks);
             }
         }
 
         public void OnAdded(Frame f, EntityRef entity, Timer* component)
         {
-            if (f.Unsafe.TryGetPointerSingleton(out MatchInstance* matchInstance))
-                SetTime(f, new(0, 0, matchInstance->Match.Ruleset.Match.Time));
-
+            SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time));
             CountDownOneSecond(f, component, component->Time, component->Time / 60, true);
         }
 

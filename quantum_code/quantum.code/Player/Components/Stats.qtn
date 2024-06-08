@@ -5,7 +5,9 @@ component Stats
 	dictionary<HurtboxType, entity_ref> Hurtboxes;
 	asset_ref<EntityPrototype> Hurtbox;
 
-	int PlayerIndex;
+	int LocalIndex;
+	int GlobalIndex;
+
 	int CurrentStocks;
 
 	FP CurrentHealth;

@@ -10,9 +10,14 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private Controls _controls;
 
+    private bool _isEnabled = true;
+    public void Enable(bool isEnabled) => _isEnabled = isEnabled;
+
     public override void Initialize()
     {
         base.Initialize();
+
+        _isEnabled = true;
 
         Subscribe();
         Application.quitting += Shutdown;
@@ -22,6 +27,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     {
         Application.quitting -= Shutdown;
         _allPlayers.Clear();
+        _controls = null;
 
         base.Shutdown();
     }
@@ -41,20 +47,24 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private void TryPlayerJoin(InputAction.CallbackContext ctx)
     {
-        if (GetPlayer(ctx.control.device) != null)
+        if (!_isEnabled || GetPlayer(ctx.control.device) != null)
             return;
 
         LocalPlayerInfo player = AddPlayer(ctx.control.device);
-        FindFirstObjectByType<PlayerJoinEventListener>()?.InvokeOnPlayerJoin(player);
+
+        foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            listener.InvokeOnPlayerJoin(player);
     }
 
     private void TryPlayerLeave(InputAction.CallbackContext ctx)
     {
-        if (GetPlayer(ctx.control.device) == null)
+        if (!_isEnabled || GetPlayer(ctx.control.device) == null)
             return;
 
         LocalPlayerInfo player = RemovePlayer(ctx.control.device);
-        FindFirstObjectByType<PlayerJoinEventListener>()?.InvokeOnPlayerLeave(player);
+
+        foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            listener.InvokeOnPlayerLeave(player);
     }
 
     public LocalPlayerInfo AddPlayer(InputDevice device)

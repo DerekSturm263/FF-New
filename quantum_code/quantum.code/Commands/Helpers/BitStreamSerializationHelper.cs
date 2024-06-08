@@ -156,15 +156,35 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref SpawnSettings value)
         {
             stream.Serialize(ref value.PlayerSpawnPoints);
-            //stream.SerializeBuffer(value.ItemSpawnPoints.Buffer, value.ItemSpawnPoints.Length);
+            stream.Serialize(ref value.ItemSpawnPoints);
         }
 
-        public static unsafe void Serialize(this IBitStream stream, ref Array4FPVector2 value)
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayPlayerSpawnPoints value)
         {
             stream.Serialize(ref value.Item1);
             stream.Serialize(ref value.Item2);
             stream.Serialize(ref value.Item3);
             stream.Serialize(ref value.Item4);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayItemSpawnPoints value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
+            stream.Serialize(ref value.Item5);
+            stream.Serialize(ref value.Item6);
+            stream.Serialize(ref value.Item7);
+            stream.Serialize(ref value.Item8);
+            stream.Serialize(ref value.Item9);
+            stream.Serialize(ref value.Item10);
+            stream.Serialize(ref value.Item11);
+            stream.Serialize(ref value.Item12);
+            stream.Serialize(ref value.Item13);
+            stream.Serialize(ref value.Item14);
+            stream.Serialize(ref value.Item15);
+            stream.Serialize(ref value.Item16);
         }
 
         #endregion
@@ -204,18 +224,54 @@ namespace Quantum
 
         public static unsafe void Serialize(this IBitStream stream, ref StageSettings value)
         {
-            stream.SerializeBuffer(value.Stages.Buffer, value.Stages.Length);
+            stream.Serialize(ref value.Stages);
             stream.Serialize(ref value.StagePicker);
             stream.Serialize(ref value.AllowGizmos);
             stream.Serialize(ref value.AllowCustomStages);
             stream.Serialize(ref value.DisallowDuplicateSelection);
         }
 
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayStages value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
+            stream.Serialize(ref value.Item5);
+            stream.Serialize(ref value.Item6);
+            stream.Serialize(ref value.Item7);
+            stream.Serialize(ref value.Item8);
+            stream.Serialize(ref value.Item9);
+            stream.Serialize(ref value.Item10);
+            stream.Serialize(ref value.Item11);
+            stream.Serialize(ref value.Item12);
+        }
+
         public static unsafe void Serialize(this IBitStream stream, ref ItemSettings value)
         {
             stream.Serialize(ref value.StartingItem);
-            stream.SerializeBuffer(value.Items.Buffer, value.Items.Length);
+            stream.Serialize(ref value.Items);
             stream.Serialize(ref value.SpawnFrequency);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayItems value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
+            stream.Serialize(ref value.Item5);
+            stream.Serialize(ref value.Item6);
+            stream.Serialize(ref value.Item7);
+            stream.Serialize(ref value.Item8);
+            stream.Serialize(ref value.Item9);
+            stream.Serialize(ref value.Item10);
+            stream.Serialize(ref value.Item11);
+            stream.Serialize(ref value.Item12);
+            stream.Serialize(ref value.Item13);
+            stream.Serialize(ref value.Item14);
+            stream.Serialize(ref value.Item15);
+            stream.Serialize(ref value.Item16);
         }
 
         public static void Serialize(this IBitStream stream, ref StagePickerType value)
