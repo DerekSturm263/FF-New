@@ -281,8 +281,11 @@ public class PlayerEventListener : MonoBehaviour
     {
         SkinnedMeshRenderer head = GetHead(owner);
 
-        head.SetBlendShapeWeight(0, weight);
-        head.SetBlendShapeWeight(1, weight);
+        if (head)
+        {
+            head.SetBlendShapeWeight(0, weight);
+            head.SetBlendShapeWeight(1, weight);
+        }
     }
 
     private void InitList(EntityRef owner)

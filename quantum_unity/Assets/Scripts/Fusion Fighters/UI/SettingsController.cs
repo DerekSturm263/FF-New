@@ -186,4 +186,9 @@ public class SettingsController : Controller<SettingsController>
         else
             _uiMusic.audioMixer.SetFloat("VolumeMusic", Mathf.Log(volume) * 20);
     }
+
+    public void Quit()
+    {
+        QuantumRunner.Default.Shutdown();
+    }
 }
