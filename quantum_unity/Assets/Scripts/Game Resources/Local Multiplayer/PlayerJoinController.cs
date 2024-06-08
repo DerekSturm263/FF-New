@@ -2,6 +2,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Extensions.Types;
 using System.Linq;
+using FusionFighters.Profile;
 
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
@@ -28,6 +29,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         Application.quitting -= Shutdown;
         _allPlayers.Clear();
         _controls = null;
+
+        Serializer.Save(Profile.Instance, "Profile", $"{Application.persistentDataPath}");
 
         base.Shutdown();
     }

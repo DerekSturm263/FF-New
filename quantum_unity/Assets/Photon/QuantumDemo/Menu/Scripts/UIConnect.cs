@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using FusionFighters.Profile;
+using System.Linq;
 using UnityEngine;
 
 namespace Quantum.Demo
@@ -9,13 +10,10 @@ namespace Quantum.Demo
         public PhotonAppVersions SelectableAppVersion;
 
         public string Region;
-        public string Username;
 
         protected new void Awake()
         {
             base.Awake();
-
-            Username = "Placeholder";
         }
 
         public override void OnShowScreen(bool first)
@@ -25,7 +23,7 @@ namespace Quantum.Demo
 
         public void OnConnectClicked()
         {
-            if (string.IsNullOrEmpty(Username.Trim()))
+            if (string.IsNullOrEmpty(Profile.Instance.Username.Trim()))
             {
                 UIDialog.Show("Error", "User name not set.");
                 return;
@@ -55,7 +53,7 @@ namespace Quantum.Demo
             // Append selected app version
             appSettings.AppVersion += PhotonAppVersions.AppendAppVersion(PhotonAppVersions.Type.UsePhotonAppVersion, SelectableAppVersion);
 
-            if (UIMain.Client.ConnectUsingSettings(appSettings, Username))
+            if (UIMain.Client.ConnectUsingSettings(appSettings, Profile.Instance.Username))
             {
                 HideScreen();
                 UIConnecting.ShowScreen();

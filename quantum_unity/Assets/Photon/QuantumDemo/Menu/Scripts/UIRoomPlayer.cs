@@ -2,6 +2,6 @@
 
 namespace Quantum.Demo {
   public class UIRoomPlayer : MonoBehaviour {
-    public UnityEngine.UI.Text Name;
+    public TMPro.TMP_Text Name;
   }
 }
