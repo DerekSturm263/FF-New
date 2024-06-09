@@ -33,6 +33,7 @@ namespace Extensions.Components.UI
         public LoadStage LoadingType => _loadingType;
 
         [SerializeField] protected float _sizeOffset;
+        [SerializeField] protected bool _reloadOnEachEnable;
 
         [SerializeField] protected UnityEvent _onIfEmpty;
 
@@ -47,7 +48,7 @@ namespace Extensions.Components.UI
         {
             _itemsToButtons = new();
 
-            if (_loadingType == LoadStage.Lazy)
+            if (!_reloadOnEachEnable && _loadingType == LoadStage.Lazy)
                 LoadAllItems();
 
             _containerRect = GetComponent<RectTransform>();
@@ -59,7 +60,25 @@ namespace Extensions.Components.UI
 
         protected override void OnEnable()
         {
+            if (_reloadOnEachEnable && _loadingType == LoadStage.Lazy)
+            {
+                _itemsToButtons = new();
+                LoadAllItems();
+            }
+
             EnableOrDisableItems();
+        }
+
+        protected override void OnDisable()
+        {
+            if (_reloadOnEachEnable)
+            {
+                foreach (Selectable t in GetComponentsInChildren<Selectable>())
+                {
+                    Destroy(t.gameObject);
+                    _isInitialized = false;
+                }
+            }
         }
 
         protected abstract void EnableOrDisableItems();

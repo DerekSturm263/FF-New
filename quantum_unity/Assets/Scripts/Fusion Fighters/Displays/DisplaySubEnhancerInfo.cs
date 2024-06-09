@@ -1,13 +1,14 @@
 using Extensions.Components.UI;
+using Extensions.Types;
 using UnityEngine;
 
 using Type = SubEnhancerAsset;
 
-public class DisplaySubEnhancerInfo : DisplayImage<Type>
+public class DisplaySubEnhancerInfo : DisplayTextAndImage<Type>
 {
-    protected override Sprite GetInfo(Type item)
+    protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        return item.Icon;
+        return new($"<font=\"KeaniaOne-Title SDF\"><size=50>{item.name}</size></font>\n\n{item.Description}", item.Icon);
     }
 
     protected override Type GetValue() => default;

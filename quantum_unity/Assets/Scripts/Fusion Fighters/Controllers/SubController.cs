@@ -1,4 +1,5 @@
 using Extensions.Components.Miscellaneous;
+using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
@@ -14,7 +15,14 @@ public class SubController : Controller<SubController>
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
 
+    [SerializeField] private PopulateBase _populator;
+
     public static string GetPath() => $"{Application.persistentDataPath}/Subs";
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     public void SaveNew()
     {
@@ -26,7 +34,7 @@ public class SubController : Controller<SubController>
 
         Sub sub = new();
 
-        sub.SerializableData.Name = "New Sub";
+        //sub.SerializableData.Name = "New Sub";
         sub.SerializableData.Guid = AssetGuid.NewGuid();
         sub.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         sub.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
@@ -40,5 +48,19 @@ public class SubController : Controller<SubController>
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
+    }
+
+    private SerializableWrapper<Sub> _currentlySelected;
+    public void SetCurrentlySelected(SerializableWrapper<Sub> sub) => _currentlySelected = sub;
+
+    public void InstanceDelete() => Instance.Delete();
+
+    private void Delete()
+    {
+        string path = GetPath();
+        Serializer.Delete($"{path}/{_currentlySelected.Value.SerializableData.Guid}.json", path);
+
+        Destroy(SubPopulator.ButtonFromItem(_currentlySelected));
+        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 }

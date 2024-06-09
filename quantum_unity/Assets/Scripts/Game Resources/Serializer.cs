@@ -21,7 +21,7 @@ public static class Serializer
         writer.Write(json);
         writer.Flush();
 
-        Debug.Log($"{nameof(T)} has been successfully saved as: {item}");
+        Debug.Log($"{nameof(T)} has been successfully saved as: {json}");
     }
 
     public static T LoadAs<T>(string filePath, string directory)
@@ -43,13 +43,28 @@ public static class Serializer
             string json = reader.ReadToEnd();
             item = FromJSON<T>(json);
 
-            Debug.Log($"{nameof(T)} has been successfully loaded as: {item}");
+            Debug.Log($"{nameof(T)} has been successfully loaded as: {json}");
             return true;
         }
         else
         {
-            Debug.Log($"{nameof(T)} could not be loaded. Returning the default: {item}");
+            Debug.Log($"{nameof(T)} could not be loaded. Returning the default: {ToJSON(default(T))}");
             return false;
+        }
+    }
+
+    public static void Delete(string filePath, string directory)
+    {
+        CreateDirectory(directory);
+
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log($"Item was successfully deleted");
+        }
+        else
+        {
+            Debug.Log($"Item could not be deleted, as it was not found");
         }
     }
 

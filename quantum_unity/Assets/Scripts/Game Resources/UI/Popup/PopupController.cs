@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -14,6 +15,8 @@ namespace GameResources.UI.Popup
         private GameObject _popupInstance;
         private GameObject _oldSelected;
 
+        private List<(Selectable, bool)> _allSelectables;
+
         public void DisplayPopup(Popup popup)
         {
             GameObject parent = GameObject.FindGameObjectWithTag("Popup Canvas");
@@ -25,6 +28,12 @@ namespace GameResources.UI.Popup
             texts[1].SetText(popup.Description);
 
             RememberOldSelected();
+            _allSelectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select<Selectable, (Selectable, bool)>(item => new(item, item.interactable)).ToList();
+            foreach (var selectable in _allSelectables)
+            {
+                selectable.Item1.interactable = false;
+            }
+
             Transform buttonParent = newPopup.GetComponentInChildren<LayoutGroup>().transform;
 
             foreach (KeyValuePair<string, UnityEvent<PopupContinueContext>> response in popup.Responses)
@@ -45,6 +54,11 @@ namespace GameResources.UI.Popup
             _popupInstance.GetComponent<PopupInstance>().InvokeOnAnimationEndStart();
             _popupInstance.GetComponent<Animator>().SetTrigger("Exit");
 
+            foreach (var selectable in _allSelectables)
+            {
+                selectable.Item1.interactable = selectable.Item2;
+            }
+
             SetOldSelected();
         }
 
@@ -56,7 +70,7 @@ namespace GameResources.UI.Popup
 
         public void SetOldSelected()
         {
-            if (EventSystem.current)
+            if (EventSystem.current && _oldSelected)
                 EventSystem.current.SetSelectedGameObject(_oldSelected);
         }
 

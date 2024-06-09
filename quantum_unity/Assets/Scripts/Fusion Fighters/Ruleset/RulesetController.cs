@@ -31,6 +31,12 @@ public class RulesetController : Controller<RulesetController>
         _ruleset = ruleset;
     }
 
+    public void LoadFromAsset(RulesetAssetAsset ruleset)
+    {
+        _ruleset = ruleset.Ruleset;
+        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+    }
+
     public void ResetValue()
     {
         _ruleset = null;

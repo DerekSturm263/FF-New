@@ -1,4 +1,5 @@
 using Extensions.Components.Miscellaneous;
+using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
@@ -20,7 +21,14 @@ public class WeaponController : Controller<WeaponController>
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
 
+    [SerializeField] private PopulateBase _populator;
+
     public static string GetPath() => $"{Application.persistentDataPath}/Weapons";
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     public void SaveNew()
     {
@@ -48,5 +56,19 @@ public class WeaponController : Controller<WeaponController>
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
+    }
+
+    private SerializableWrapper<Weapon> _currentlySelected;
+    public void SetCurrentlySelected(SerializableWrapper<Weapon> weapon) => _currentlySelected = weapon;
+
+    public void InstanceDelete() => Instance.Delete();
+
+    private void Delete()
+    {
+        string path = GetPath();
+        Serializer.Delete($"{path}/{_currentlySelected.Value.SerializableData.Guid}.json", path);
+
+        Destroy(WeaponPopulator.ButtonFromItem(_currentlySelected));
+        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 }

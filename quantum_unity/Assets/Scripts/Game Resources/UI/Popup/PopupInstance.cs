@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace GameResources.UI.Popup
 {
@@ -12,6 +13,13 @@ namespace GameResources.UI.Popup
 
         private IEnumerable<Extensions.Components.Input.InputEvent> _inputEvents;
         private Dictionary<Extensions.Components.Input.InputEvent, bool> _wasEnabled;
+
+        private Button[] _popupButtons;
+
+        private void Start()
+        {
+            _popupButtons = GetComponentsInChildren<Button>();
+        }
 
         private void OnEnable()
         {
@@ -30,6 +38,14 @@ namespace GameResources.UI.Popup
             foreach (Extensions.Components.Input.InputEvent inputEvent in _inputEvents)
             {
                 inputEvent.enabled = _wasEnabled[inputEvent];
+            }
+        }
+
+        public void DisableButtons()
+        {
+            foreach (Button button in _popupButtons)
+            {
+                button.interactable = false;
             }
         }
     }

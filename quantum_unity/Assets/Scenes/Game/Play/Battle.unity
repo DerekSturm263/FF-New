@@ -3076,7 +3076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271d8bf0437fdb148b74d7ebfa5e49d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _default: Local
+  _default: Builds
   _parameters:
     _kvps:
     - _item1: Local
@@ -3104,7 +3104,71 @@ MonoBehaviour:
     - _item1: Builds
       _item2:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 1278303187033888724, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: StageController, FusionFighters
+            m_MethodName: LoadFromAsset
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 11400000, guid: a3c3bf868450a474e970d13cbcd740f6,
+                type: 2}
+              m_ObjectArgumentAssemblyTypeName: StageAssetAsset, PhotonQuantum
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 2365314213801081531, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: RulesetController, FusionFighters
+            m_MethodName: LoadFromAsset
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 11400000, guid: 80c1e4414c544144aaba0e4d1c8a5c37,
+                type: 2}
+              m_ObjectArgumentAssemblyTypeName: RulesetAssetAsset, PhotonQuantum
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 1735167229}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 601975121}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 465894257}
+            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_MethodName: SetActive
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 1
+            m_CallState: 2
     - _item1: Tutorial
       _item2:
         m_PersistentCalls:
@@ -3124,6 +3188,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 434108028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &465894257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1403797016308374115, guid: 2c69c63db2631f945954d106381a127e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6470099435644111185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &504817949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3201,6 +3271,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnStartDeferred:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &504817951
 Transform:
   m_ObjectHideFlags: 0
@@ -3874,6 +3947,7 @@ GameObject:
   - component: {fileID: 853013127}
   - component: {fileID: 853013126}
   - component: {fileID: 853013125}
+  - component: {fileID: 853013129}
   m_Layer: 5
   m_Name: Game Canvas
   m_TagString: Untagged
@@ -3966,6 +4040,72 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &853013129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853013124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31844226b376b74bb9b04d75ab76213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onSpawn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 996006274}
+        m_TargetAssemblyTypeName: PlayerTracker`1[[UnityEngine.RectTransform, UnityEngine
+        m_MethodName: TrackPlayer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1931528012}
+        m_TargetAssemblyTypeName: PlayerStatController, FusionFighters
+        m_MethodName: Initialize
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onDespawn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 996006274}
+        m_TargetAssemblyTypeName: PlayerTracker`1[[UnityEngine.RectTransform, UnityEngine
+        m_MethodName: UntrackPlayer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1931528012}
+        m_TargetAssemblyTypeName: PlayerStatController, FusionFighters
+        m_MethodName: Destroy
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &922534761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4577,6 +4717,18 @@ RectTransform:
   m_AnchoredPosition: {x: 383.99994, y: -162.18428}
   m_SizeDelta: {x: 255.99998, y: 324.36856}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &996006274 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1821625250235569558, guid: c414bf125161ce1409de4374f7af879c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5023754801440757121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1820e715a805449b7d8d12e2662f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1012757000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6352971812702320808, guid: b3b80fd92abae0a4ca5f1eec31ec0254,

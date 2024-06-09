@@ -99,7 +99,6 @@ namespace Quantum
             stream.Serialize(ref value.Modifier1);
             stream.Serialize(ref value.Modifier2);
             stream.Serialize(ref value.Modifier3);
-            stream.Serialize(ref value.Modifier4);
         }
 
         public static void Serialize(this IBitStream stream, ref CosmeticSettings value)

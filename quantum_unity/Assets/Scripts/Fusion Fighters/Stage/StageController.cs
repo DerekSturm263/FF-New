@@ -31,6 +31,12 @@ public class StageController : Controller<StageController>
         _stage = stage;
     }
 
+    public void LoadFromAsset(StageAssetAsset stage)
+    {
+        _stage = stage.Stage;
+        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+    }
+
     public void ResetValue()
     {
         _stage = null;

@@ -1,4 +1,5 @@
 using Extensions.Components.Miscellaneous;
+using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
@@ -9,12 +10,28 @@ public class ApparelController : Controller<ApparelController>
     public void SetTemplate(ApparelTemplateAsset template) => _template = template;
 
     private ApparelPatternAsset _pattern;
-    public void SetEnhancer(ApparelPatternAsset pattern) => _pattern = pattern;
+    public void SetPattern(ApparelPatternAsset pattern) => _pattern = pattern;
+
+    private ApparelModifierAsset _modifier1;
+    public void SetModifier1(ApparelModifierAsset modifier1) => _modifier1 = modifier1;
+
+    private ApparelModifierAsset _modifier2;
+    public void SetModifier2(ApparelModifierAsset modifier2) => _modifier2 = modifier2;
+
+    private ApparelModifierAsset _modifier3;
+    public void SetModifier3(ApparelModifierAsset modifier3) => _modifier3 = modifier3;
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
 
+    [SerializeField] private PopulateBase _populator;
+
     public static string GetPath() => $"{Application.persistentDataPath}/Apparel";
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     public void SaveNew()
     {
@@ -26,13 +43,16 @@ public class ApparelController : Controller<ApparelController>
 
         Apparel apparel = new();
 
-        apparel.SerializableData.Name = "New Apparel";
+        //apparel.SerializableData.Name = "New Apparel";
         apparel.SerializableData.Guid = AssetGuid.NewGuid();
         apparel.SerializableData.CreationDate = System.DateTime.Now.Ticks;
         apparel.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
 
         apparel.Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid };
         apparel.Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid };
+        apparel.Modifiers.Modifier1 = new AssetRefApparelModifier() { Id = _modifier1 ? _modifier1.AssetObject.Guid : AssetGuid.Invalid };
+        apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = _modifier2 ? _modifier2.AssetObject.Guid : AssetGuid.Invalid };
+        apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = _modifier3 ? _modifier3.AssetObject.Guid : AssetGuid.Invalid };
 
         SerializableWrapper<Apparel> serializable = new(apparel);
         serializable.SetIcon(_template.Icon.texture);
@@ -40,5 +60,19 @@ public class ApparelController : Controller<ApparelController>
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
+    }
+
+    private SerializableWrapper<Apparel> _currentlySelected;
+    public void SetCurrentlySelected(SerializableWrapper<Apparel> apparel) => _currentlySelected = apparel;
+
+    public void InstanceDelete() => Instance.Delete();
+
+    private void Delete()
+    {
+        string path = GetPath();
+        Serializer.Delete($"{path}/{_currentlySelected.Value.SerializableData.Guid}.json", path);
+
+        Destroy(ApparelPopulator.ButtonFromItem(_currentlySelected));
+        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 }

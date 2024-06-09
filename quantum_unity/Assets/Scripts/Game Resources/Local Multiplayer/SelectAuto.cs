@@ -31,7 +31,7 @@ public class SelectAuto : UIBehaviour
 
     protected override void OnEnable()
     {
-        SetSelectedItem();
+        SetSelectedItem(_selectMethod);
     }
 
     protected override void OnDisable()
@@ -45,28 +45,30 @@ public class SelectAuto : UIBehaviour
             _selectedIndex = -1;
     }
 
-    public void SetSelectedItem()
+    public void SetSelectedItem() => SetSelectedItem(_selectMethod);
+
+    public void SetSelectedItem(SelectType selectMethod)
     {
         if (transform.childCount == 0)
             return;
 
         Selectable selected = null;
 
-        if (_selectMethod.HasFlag(SelectType.Index) && _selectedIndex != -1)
+        if (selectMethod.HasFlag(SelectType.Index) && _selectedIndex != -1)
         {
             if (_selectedIndex >= transform.childCount)
                 selected = transform.GetChild(transform.childCount - 1).GetComponentInChildren<Selectable>();
             else
                 selected = transform.GetChild(_selectedIndex).GetComponentInChildren<Selectable>();
         }
-        else if (_selectMethod.HasFlag(SelectType.Old) && _oldSelected && _oldSelected.interactable)
+        else if (selectMethod.HasFlag(SelectType.Old) && _oldSelected && _oldSelected.interactable)
         {
             selected = _oldSelected;
         }
 
         if (!selected || !selected.GetComponentInChildren<Selectable>().interactable)
         {
-            if (_selectMethod.HasFlag(SelectType.First))
+            if (selectMethod.HasFlag(SelectType.First))
             {
                 foreach (Selectable selectable in transform.GetComponentsInChildren<Selectable>())
                 {
@@ -77,7 +79,7 @@ public class SelectAuto : UIBehaviour
                     }
                 }
             }
-            else if (_selectMethod.HasFlag(SelectType.Last))
+            else if (selectMethod.HasFlag(SelectType.Last))
             {
                 foreach (Selectable selectable in transform.GetComponentsInChildren<Selectable>().Reverse())
                 {

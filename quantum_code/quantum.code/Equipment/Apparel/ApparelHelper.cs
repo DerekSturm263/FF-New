@@ -40,9 +40,6 @@ namespace Quantum
             
             if (f.TryFindAsset(apparel.Modifiers.Modifier3.Id, out ApparelModifier modifier3))
                 result = Add(result, modifier3.Stats);
-            
-            if (f.TryFindAsset(apparel.Modifiers.Modifier4.Id, out ApparelModifier modifier4))
-                result = Add(result, modifier4.Stats);
 
             return result;
         }

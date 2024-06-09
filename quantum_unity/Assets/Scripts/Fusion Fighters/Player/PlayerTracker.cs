@@ -6,11 +6,12 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 {
     private EntityViewUpdater _entityView;
 
-    protected Dictionary<EntityView, T> _playersToTs = new();
+    protected Dictionary<EntityView, T> _playersToTs;
 
     private void Awake()
     {
         _entityView = FindFirstObjectByType<EntityViewUpdater>();
+        _playersToTs = new();
     }
 
     private void Update()
