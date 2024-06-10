@@ -13,6 +13,8 @@ public class PlayerBuildController : MonoBehaviour
     [SerializeField] private Transform _clothingSlot;
     [SerializeField] private Transform _legwearSlot;
 
+    [SerializeField] private SkinnedMeshRenderer _head;
+
     private GameObject _currentAltWeapon;
     private GameObject _currentSubWeapon;
     private GameObject _currentMainWeapon;
@@ -87,7 +89,7 @@ public class PlayerBuildController : MonoBehaviour
 
     private void SetEyes(EventOnPlayerSetEyes e)
     {
-
+        _head.materials[2].SetTexture("_Base_Map", UnityDB.FindAsset<EyesAsset>(e.New.Id).Texture);
     }
 
     private void SetHair(EventOnPlayerSetHair e)

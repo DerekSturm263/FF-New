@@ -17,7 +17,6 @@ namespace Quantum
             factories.Add(new CommandSetAltWeapon());
             factories.Add(new CommandSetAvatar());
             factories.Add(new CommandSetBadge());
-            factories.Add(new CommandSetBuild());
             factories.Add(new CommandSetClothing());
             factories.Add(new CommandSetEmoteDown());
             factories.Add(new CommandSetEmoteLeft());
