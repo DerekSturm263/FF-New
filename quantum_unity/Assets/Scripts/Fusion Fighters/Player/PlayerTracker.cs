@@ -25,7 +25,7 @@ public abstract class PlayerTracker<T> : MonoBehaviour
     public void TrackPlayer(QuantumGame game, EntityRef player, int index)
     {
         EntityView entity = _entityView.GetView(player);
-        _playersToTs.Add(entity, GetT(game, player, index));
+        _playersToTs.TryAdd(entity, GetT(game, player, index));
     }
 
     public void UntrackPlayer(QuantumGame game, EntityRef player, int index)

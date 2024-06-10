@@ -1,8 +1,9 @@
 using Extensions.Components.Miscellaneous;
+using System;
 
 public class SceneParametersController : Controller<SceneParametersController>
 {
-    private string _parameter;
+    [NonSerialized] private string _parameter;
     public string Parameter => _parameter;
     public void SetParameter(string parameter) => _parameter = parameter;
 }

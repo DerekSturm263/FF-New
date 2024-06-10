@@ -15,7 +15,7 @@ namespace Quantum
 
             if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
-                MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedSingles, filter.CharacterController->Direction);
+                MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);
 
                 if (animEvent.AnimID != 0)
@@ -43,7 +43,7 @@ namespace Quantum
             Weapon altWeaponAsset = filter.Stats->Build.Equipment.Weapons.AltWeapon;
             if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
-                MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedSingles, filter.CharacterController->Direction);
+                MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);
 
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);

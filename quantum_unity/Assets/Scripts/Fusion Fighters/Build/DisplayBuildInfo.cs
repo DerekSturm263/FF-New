@@ -1,18 +1,21 @@
-using System.Collections;
+using Extensions.Components.UI;
+using Quantum;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisplayBuildInfo : MonoBehaviour
+public class DisplayBuildInfo : Display<SerializableWrapper<Build>, List<MonoBehaviour>>
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override SerializableWrapper<Build> GetValue()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateDisplay(SerializableWrapper<Build> item)
     {
-        
+        (_component[0] as TMPro.TMP_InputField).SetTextWithoutNotify(item.Value.SerializableData.Name);
+        (_component[1] as TMPro.TMP_InputField).SetTextWithoutNotify(item.Value.SerializableData.Description);
+        (_component[2] as TMPro.TMP_Text).SetText(new DateTime(item.Value.SerializableData.LastEdittedDate).ToString("'Last Editted 'MM':'dd':'yyyy' at' hh':'mm':'ss' 'tt"));
+        (_component[3] as TMPro.TMP_Text).SetText(new DateTime(item.Value.SerializableData.CreationDate).ToString("'Created 'MM':'dd':'yyyy' at' hh':'mm':'ss' 'tt"));
     }
 }

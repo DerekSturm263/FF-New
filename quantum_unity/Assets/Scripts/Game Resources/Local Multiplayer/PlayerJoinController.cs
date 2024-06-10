@@ -14,6 +14,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     private bool _isEnabled = true;
     public void Enable(bool isEnabled) => _isEnabled = isEnabled;
 
+    private bool _executeEvents = true;
+    public void SetExecuteEvents(bool isEnabled) => _executeEvents = isEnabled;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -55,8 +58,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         LocalPlayerInfo player = AddPlayer(ctx.control.device);
 
-        foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-            listener.InvokeOnPlayerJoin(player);
+        if (_executeEvents)
+            foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                listener.InvokeOnPlayerJoin(player);
     }
 
     private void TryPlayerLeave(InputAction.CallbackContext ctx)
@@ -66,7 +70,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         LocalPlayerInfo player = RemovePlayer(ctx.control.device);
 
-        foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        if (_executeEvents)
+            foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             listener.InvokeOnPlayerLeave(player);
     }
 
@@ -78,7 +83,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         LocalPlayerInfo player = new(device);
         _allPlayers.Add(device, player);
 
-        Debug.Log($"Player has joined via {device?.displayName}");
+        player.SetLocalIndex(player.User.index);
+        Debug.Log($"Player {player.LocalIndex} has joined via {device?.displayName}");
 
         return player;
     }

@@ -18,7 +18,7 @@ namespace Quantum
                 MoveRef animRef;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedHeavies, filter.CharacterController->Direction);
+                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Primaries, filter.CharacterController->Direction);
                 else
                     animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
@@ -54,7 +54,7 @@ namespace Quantum
                 MoveRef animRef;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.GroundedHeavies, filter.CharacterController->Direction);
+                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Primaries, filter.CharacterController->Direction);
                 else
                     animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 

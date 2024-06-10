@@ -18,7 +18,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
     private Selector _selector;
     public Selector Selector => _selector;
 
-    [SerializeField] private float _cooldownTime;
+    private static float _cooldownTime = 0.5f;
     private float _cooldown = 0;
     private Quantum.Direction _lastDirection = Quantum.Direction.Neutral;
 
@@ -52,11 +52,15 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         Selectable navigationTarget = null;
 
         Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(ctx.ReadValue<Vector2>().ToFPVector2());
-        if (direction == _lastDirection)
+        if (direction != Quantum.Direction.Neutral && direction == _lastDirection)
+        {
             if (_cooldown == 0)
                 _cooldown = _cooldownTime;
+        }
         else
+        {
             _cooldown = 0;
+        }
 
         if (_cooldown > 0)
             return;

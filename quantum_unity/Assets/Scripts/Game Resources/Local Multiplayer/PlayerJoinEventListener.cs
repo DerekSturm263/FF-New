@@ -5,10 +5,22 @@ using System.Collections.Generic;
 public class PlayerJoinEventListener :  MonoBehaviour
 {
     [SerializeField] private UnityEvent<LocalPlayerInfo> _onPlayerJoin;
-    public void InvokeOnPlayerJoin(LocalPlayerInfo player) => _onPlayerJoin?.Invoke(player);
+    public void InvokeOnPlayerJoin(LocalPlayerInfo player)
+    {
+        if (!_isEnabled)
+            return;
+
+        _onPlayerJoin?.Invoke(player);
+    }
 
     [SerializeField] private UnityEvent<LocalPlayerInfo> _onPlayerLeave;
-    public void InvokeOnPlayerLeave(LocalPlayerInfo player) => _onPlayerLeave?.Invoke(player);
+    public void InvokeOnPlayerLeave(LocalPlayerInfo player)
+    {
+        if (!_isEnabled)
+            return;
+
+        _onPlayerLeave?.Invoke(player);
+    }
 
     [SerializeField] private RectTransform _characterSelectParent;
     [SerializeField] private RectTransform _stageSelectParent;
@@ -18,12 +30,16 @@ public class PlayerJoinEventListener :  MonoBehaviour
 
     private Dictionary<LocalPlayerInfo, List<BindParent>> _menus = new();
 
+    [SerializeField] private bool _isEnabled;
+    public bool IsEnabled => _isEnabled;
+    public void SetEnabled(bool isEnabled) => _isEnabled = isEnabled;
+
     public void Invoke()
     {
+        _isEnabled = true;
+
         foreach (var player in PlayerJoinController.Instance.AllPlayers.Values)
-        {
             InvokeOnPlayerJoin(player);
-        }
     }
 
     public void BindSelectScreens(LocalPlayerInfo player)
@@ -41,6 +57,8 @@ public class PlayerJoinEventListener :  MonoBehaviour
             ss.GetComponentInChildren<SelectAuto>().SetSelectedItem();
 
         _menus.Add(player, new() { css, ss });
+     
+        Debug.Log($"Created HUD controls for local player {player.LocalIndex}");
     }
 
     public void UnbindSelectScreens(LocalPlayerInfo player)

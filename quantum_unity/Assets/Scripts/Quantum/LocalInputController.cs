@@ -57,13 +57,15 @@ public class LocalInputController : Controller<LocalInputController>
     {
         foreach (var player in PlayerJoinController.Instance.AllPlayers)
         {
-            AddController(QuantumRunner.Default.Game, player.Value);
+            SpawnPlayer(player.Value);
         }
     }
 
     public void SpawnPlayer(LocalPlayerInfo player)
     {
-        AddController(QuantumRunner.Default.Game, player);
+        QuantumRunner.Default.Game.SendPlayerData(player.LocalIndex, _player);
+
+        Debug.Log($"Spawned player {player.LocalIndex}");
     }
 
     public void DespawnPlayer(LocalPlayerInfo player)
@@ -73,28 +75,29 @@ public class LocalInputController : Controller<LocalInputController>
             entity = BuildController.Instance.GetPlayerLocalIndex(player.LocalIndex)
         };
 
-        RemoveController(QuantumRunner.Default.Game, player);
+        UnbindPlayerControls(player);
         QuantumRunner.Default.Game.SendCommand(commandDespawnPlayer);
     }
 
-    public void AddController(QuantumGame game, LocalPlayerInfo player)
+    public void BindPlayerControls(LocalPlayerInfo player)
     {
         Controls controls = new();
-        controls.Enable();
 
-        int playerNum = QuantumRunner.Default.Game.GetLocalPlayers()[player.User.index];
-        BindControls(controls, player, playerNum);
+        if (gameObject.activeInHierarchy)
+            controls.Enable();
 
-        if (_controls.TryAdd(playerNum, controls))
-            game.SendPlayerData(playerNum, _player);
+        BindControls(controls, player, player.LocalIndex);
+        _controls.TryAdd(player.LocalIndex, controls);
+
+        Debug.Log($"Created movement controls for local player {player.LocalIndex}");
     }
 
-    public void RemoveController(QuantumGame game, LocalPlayerInfo player)
+    public void UnbindPlayerControls(LocalPlayerInfo player)
     {
-        _controls.Remove(game.GetLocalPlayers()[player.User.index]);
+        _controls.Remove(player.LocalIndex);
     }
 
-    public void BindControls(Controls controls, LocalPlayerInfo playerInfo, int playerNum)
+    private void BindControls(Controls controls, LocalPlayerInfo playerInfo, int playerNum)
     {
         if (playerInfo is null || playerInfo.User.id == InputUser.InvalidId)
             return;

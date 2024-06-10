@@ -9,9 +9,10 @@ public class SceneParameters : MonoBehaviour
 
     public void Invoke()
     {
-        if (_parameters.TryGetValue(SceneParametersController.Instance.Parameter, out UnityEvent unityEvent))
+        if (SceneParametersController.Instance.Parameter is not null && _parameters.TryGetValue(SceneParametersController.Instance.Parameter, out UnityEvent unityEvent))
             unityEvent.Invoke();
         else
-            _parameters[_default].Invoke();
+            if (_parameters.TryGetValue(_default, out UnityEvent value))
+                value.Invoke();
     }
 }

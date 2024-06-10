@@ -78,4 +78,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
         PlayerStatController.Instance.HUDS[playerIndex].SetPlayerIcon(build.Icon);
     }
+
+    public void SetOnPlayerDefault(SerializableWrapper<Build> build)
+    {
+        SetOnPlayer(build, 0);
+    }
 }
