@@ -223,5 +223,24 @@ namespace GameResources.Camera
         {
             Shake(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * strength, 1);
         }
+
+        #if UNITY_EDITOR
+
+        [MenuItem("Testing/Shake Test Up", false)]
+        public static void ShakeTest() => Shake(Vector2.up, 0.5f);
+
+        [MenuItem("Testing/Shake Test Down", false)]
+        public static void ShakeTest() => Shake(Vector2.down, 0.5f);
+
+        [MenuItem("Testing/Shake Test Left", false)]
+        public static void ShakeTest() => Shake(Vector2.left, 0.5f);
+
+        [MenuItem("Testing/Shake Test Right", false)]
+        public static void ShakeTest() => Shake(Vector2.right, 0.5f);
+
+        [MenuItem("Testing/Shake Test Random", false)]
+        public static void ShakeTest() => ShakeRandom(0.5f);
+
+        #endif
     }
 }
