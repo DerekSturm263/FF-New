@@ -112,7 +112,7 @@ public class PlayerBuildController : MonoBehaviour
         if (_currentSubWeapon)
             Destroy(_currentSubWeapon);
 
-        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(e.New.Template.Id);
+        SubTemplateAsset template = UnityDB.FindAsset<SubTemplateAsset>(e.New.Template.Id);
         if (template)
         {
             _currentSubWeapon = Instantiate(template.Weapon, _subWeaponSlot);

@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 0
   Description: The blaster makes use of long-ranged attacks that can be used to start
     combos if you equip a close-range weapon in your other slot.
-  Icon: {fileID: 7236837309196240129, guid: 37c50b10b573e404eae974b2a7f5477d, type: 3}
+  Icon: {fileID: 21300000, guid: 37c50b10b573e404eae974b2a7f5477d, type: 3}
   Background: {fileID: 0}
   MainColor: {r: 0, g: 0, b: 0, a: 0}
   LightColor: {r: 0, g: 0, b: 0, a: 0}
@@ -30,24 +30,7 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Blaster
       Guid:
         Value: 1493138515856977896
-    GroundedHeavies:
-      Down:
-        MoveAnim:
-          Id:
-            Value: 0
-      Horizontal:
-        MoveAnim:
-          Id:
-            Value: 0
-      Neutral:
-        MoveAnim:
-          Id:
-            Value: 0
-      Up:
-        MoveAnim:
-          Id:
-            Value: 0
-    GroundedLights:
+    Primaries:
       Down:
         MoveAnim:
           Id:
@@ -81,15 +64,7 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
-    GetUp:
-      MoveAnim:
-        Id:
-          Value: 0
-    Dash:
-      MoveAnim:
-        Id:
-          Value: 0
-    GroundedSingles:
+    Secondaries:
       Down:
         MoveAnim:
           Id:
@@ -106,7 +81,7 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
-    GroundedDoubles:
+    EnergySecondaries:
       Down:
         MoveAnim:
           Id:
@@ -123,3 +98,4 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
+  Weapon: {fileID: 0}
