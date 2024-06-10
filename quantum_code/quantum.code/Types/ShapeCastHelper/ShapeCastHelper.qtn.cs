@@ -38,18 +38,18 @@ namespace Quantum
             if (parent is null)
             {
                 if (Shape.ShapeType == Shape2DType.Box)
-                    Draw.Rectangle(Shape.PositionOffset, Shape.BoxExtents, 0);
+                    Draw.Rectangle(Shape.PositionOffset + offset, Shape.BoxExtents, 0);
                 else
-                    Draw.Circle(Shape.PositionOffset, Shape.CircleRadius);
+                    Draw.Circle(Shape.PositionOffset + offset, Shape.CircleRadius);
 
                 return f.Physics2D.OverlapShape(offset, 0, Shape.CreateShape(f), LayerMask);
             }
             else
             {
                 if (Shape.ShapeType == Shape2DType.Box)
-                    Draw.Rectangle(parent->Position + Shape.PositionOffset, Shape.BoxExtents, 0);
+                    Draw.Rectangle(parent->Position + Shape.PositionOffset + offset, Shape.BoxExtents, 0);
                 else
-                    Draw.Circle(parent->Position + Shape.PositionOffset, Shape.CircleRadius);
+                    Draw.Circle(parent->Position + Shape.PositionOffset + offset, Shape.CircleRadius);
 
                 return f.Physics2D.OverlapShape(parent->Position + offset, 0, Shape.CreateShape(f), LayerMask);
             }
