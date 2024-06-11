@@ -47,13 +47,7 @@ public class BuildController : Controller<BuildController>
     public SerializableWrapper<Build> New()
     {
         Build build = new();
-
-        build.SerializableData.Name = "Untitled";
-        build.SerializableData.Guid = AssetGuid.NewGuid();
-        build.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        build.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
-        return new(build);
+        return new(build, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
     }
 
     public void Save(SerializableWrapper<Build> build)
