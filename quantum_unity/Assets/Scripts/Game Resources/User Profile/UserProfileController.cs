@@ -21,9 +21,9 @@ public class UserProfileController : Controller<UserProfileController>
         return new(profile);
     }
 
-    public void Save(SerializableWrapper<UserProfile> build)
+    public void Save(SerializableWrapper<UserProfile> profile)
     {
-        Serializer.Save(build, build.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(profile, profile.Value.SerializableData.Guid, GetPath());
     }
 
     private SerializableWrapper<UserProfile> _currentlySelected;
@@ -38,5 +38,10 @@ public class UserProfileController : Controller<UserProfileController>
 
         Destroy(UserProfilePopulator.ButtonFromItem(_currentlySelected));
         _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+    }
+    
+    public void SetOnPlayer(SerializableWrapper<UserProfile> profile, int localIndex)
+    {
+        PlayerJoinController.Instance.AllPlayers.ElementAt(localIndex).Value.SetProfile(profile.Value);
     }
 }
