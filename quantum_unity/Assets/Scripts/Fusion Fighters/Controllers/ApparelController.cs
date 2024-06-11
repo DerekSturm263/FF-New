@@ -69,18 +69,31 @@ public class ApparelController : Controller<ApparelController>
         apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = _modifier3 ? _modifier3.AssetObject.Guid : AssetGuid.Invalid };
 
         InventoryController.Instance.UseCountableItem(_template);
+        InventoryController.Instance.LoseCurrency(_template.Price);
 
         if (_pattern && _pattern.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_pattern);
+            InventoryController.Instance.LoseCurrency(_pattern.Price);
+        }
 
         if (_modifier1 && _modifier1.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_modifier1);
+            InventoryController.Instance.LoseCurrency(_modifier1.Price);
+        }
 
         if (_modifier2 && _modifier2.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_modifier2);
+            InventoryController.Instance.LoseCurrency(_modifier2.Price);
+        }
 
         if (_modifier3 && _modifier3.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_modifier3);
+            InventoryController.Instance.LoseCurrency(_modifier3.Price);
+        }
 
         SerializableWrapper<Apparel> serializable = new(apparel);
         serializable.SetIcon(_template.Icon.texture);
