@@ -60,7 +60,7 @@ public class SubController : Controller<SubController>
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
         
-        SerializableWrapper<Sub> serializable = new(sub, "New Sub", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        SerializableWrapper<Sub> serializable = new(sub, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
