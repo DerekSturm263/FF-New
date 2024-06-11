@@ -66,10 +66,18 @@ public class WeaponController : Controller<WeaponController>
         InventoryController.Instance.UseCountableItem(_material);
 
         if (_enhancer1 && _enhancer1.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_enhancer1);
+            InventoryController.Instance.LoseCurrency(_enhancer1.Price);
+        }
 
         if (_enhancer2 && _enhancer2.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_enhancer2);
+            InventoryController.Instance.LoseCurrency(_enhancer2.Price);
+        }
+        
+        InventoryController.Instance.LoseCurrency(_template.Price + _material.Price);
 
         SerializableWrapper<Weapon> serializable = new(weapon);
         serializable.SetIcon(_template.Icon.texture);
