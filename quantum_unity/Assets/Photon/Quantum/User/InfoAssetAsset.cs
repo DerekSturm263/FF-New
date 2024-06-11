@@ -5,6 +5,7 @@ public abstract partial class InfoAssetAsset : AssetBase
     [Header("Unity")]
 
     [Multiline] public string Description;
+    public int Price;
 
     public Sprite Icon;
     public Sprite Background;
