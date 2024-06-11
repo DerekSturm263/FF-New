@@ -13,13 +13,7 @@ public class RulesetController : Controller<RulesetController>
     public SerializableWrapper<Ruleset> New()
     {
         Ruleset ruleset = new();
-
-        ruleset.SerializableData.Name = "Untitled";
-        ruleset.SerializableData.Guid = AssetGuid.NewGuid();
-        ruleset.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        ruleset.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
-        return new(ruleset);
+        return new(ruleset, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)
