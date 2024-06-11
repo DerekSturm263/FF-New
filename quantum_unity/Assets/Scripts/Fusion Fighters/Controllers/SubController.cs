@@ -22,6 +22,7 @@ public class SubController : Controller<SubController>
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
+    [SerializeField] private Popup _onNotEnoughCurrency;
 
     [SerializeField] private PopulateBase _populator;
 
@@ -37,6 +38,12 @@ public class SubController : Controller<SubController>
         if (!_template)
         {
             PopupController.Instance.DisplayPopup(_onFail);
+            return;
+        }
+
+        if (!Inventory.Instance.HasEnoughCurrency(_template.Price, _enhancer?.Price))
+        {
+            PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
             return;
         }
 
