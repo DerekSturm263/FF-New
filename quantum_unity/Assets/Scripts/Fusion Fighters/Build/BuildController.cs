@@ -10,6 +10,9 @@ public class BuildController : Controller<BuildController>
     private readonly Dictionary<int, EntityRef> _localIndicesToPlayers = new();
     private readonly Dictionary<int, EntityRef> _globalIndicesToPlayers = new();
 
+    private SerializableWrapper<Build> _currentlySelected;
+    public void SetCurrentlySelected(SerializableWrapper<Build> build) => _currentlySelected = build;
+
     public EntityRef GetPlayerLocalIndex(int playerIndex)
     {
         if (!_localIndicesToPlayers.ContainsKey(playerIndex))
@@ -52,13 +55,12 @@ public class BuildController : Controller<BuildController>
 
     public void Save(SerializableWrapper<Build> build)
     {
-        Serializer.Save(build, build.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(build, build.Guid, GetPath());
     }
 
-    public void SaveOnPlayer(int playerIndex)
+    public void SaveCurrent()
     {
-        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(GetPlayerLocalIndex(playerIndex), out Stats stats))
-            Serializer.Save(stats.Build, stats.Build.SerializableData.Guid, GetPath());
+        Serializer.Save(_currentlySelected.Value, _currentlySelected.Guid, GetPath());
     }
 
     public void SetAltWeaponOnPlayer(SerializableWrapper<Weapon> weapon)

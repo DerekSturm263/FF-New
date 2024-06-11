@@ -51,7 +51,7 @@ public class WeaponController : Controller<WeaponController>
             return;
         }
 
-        if (!Inventory.Instance.HasEnoughCurrency(_template.Price, _material.Price, _enhancer1?.Price, _enhancer2?.Price))
+        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _material.Price, _enhancer1?.Price, _enhancer2?.Price))
         {
             PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
             return;
@@ -83,7 +83,7 @@ public class WeaponController : Controller<WeaponController>
         SerializableWrapper<Weapon> serializable = new(weapon, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
-        Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(serializable, serializable.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
         Clear();
@@ -97,7 +97,7 @@ public class WeaponController : Controller<WeaponController>
     private void Delete()
     {
         string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Value.SerializableData.Guid}.json", path);
+        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(WeaponPopulator.ButtonFromItem(_currentlySelected));
         _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);

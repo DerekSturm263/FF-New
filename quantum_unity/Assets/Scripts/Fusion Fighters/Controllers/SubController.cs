@@ -41,7 +41,7 @@ public class SubController : Controller<SubController>
             return;
         }
 
-        if (!Inventory.Instance.HasEnoughCurrency(_template.Price, _enhancer?.Price))
+        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _enhancer?.Price))
         {
             PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
             return;
@@ -63,7 +63,7 @@ public class SubController : Controller<SubController>
         SerializableWrapper<Sub> serializable = new(sub, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
-        Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(serializable, serializable.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
         Clear();
@@ -77,7 +77,7 @@ public class SubController : Controller<SubController>
     private void Delete()
     {
         string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Value.SerializableData.Guid}.json", path);
+        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(SubPopulator.ButtonFromItem(_currentlySelected));
         _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);

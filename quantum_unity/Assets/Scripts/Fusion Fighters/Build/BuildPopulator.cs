@@ -14,7 +14,7 @@ public class BuildPopulator : Populate<Type, long>
 
     protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(BuildController.GetPath()).Concat(Resources.LoadAll<BuildAssetAsset>(FILE_PATH).Select(item => item.Build));
 
-    protected override string Name(Type item) => item.Value.SerializableData.Name;
+    protected override string Name(Type item) => item.Name;
 
-    protected override Func<Type, long> Sort() => (build) => build.Value.SerializableData.LastEdittedDate;
+    protected override Func<Type, long> Sort() => (build) => build.LastEditedDate;
 }

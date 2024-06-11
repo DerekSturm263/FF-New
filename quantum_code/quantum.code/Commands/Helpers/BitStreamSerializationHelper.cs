@@ -8,18 +8,8 @@ namespace Quantum
 
         public static void Serialize(this IBitStream stream, ref Build value)
         {
-            stream.Serialize(ref value.SerializableData);
             stream.Serialize(ref value.Equipment);
             stream.Serialize(ref value.Cosmetics);
-        }
-
-        public static unsafe void Serialize(this IBitStream stream, ref SerializableData value)
-        {
-            stream.Serialize(ref value.Name);
-            stream.Serialize(ref value.Description);
-            stream.Serialize(ref value.Guid);
-            stream.Serialize(ref value.CreationDate);
-            stream.Serialize(ref value.LastEdittedDate);
         }
 
         public static void Serialize(this IBitStream stream, ref EquipmentSettings value)
@@ -114,7 +104,6 @@ namespace Quantum
 
         public static void Serialize(this IBitStream stream, ref Stage value)
         {
-            stream.Serialize(ref value.SerializableData);
             stream.Serialize(ref value.Theme);
             stream.Serialize(ref value.Objects);
             stream.Serialize(ref value.Spawn);
@@ -182,7 +171,6 @@ namespace Quantum
 
         public static void Serialize(this IBitStream stream, ref Ruleset value)
         {
-            stream.Serialize(ref value.SerializableData);
             stream.Serialize(ref value.Match);
             stream.Serialize(ref value.Players);
             stream.Serialize(ref value.Stage);
@@ -286,15 +274,6 @@ namespace Quantum
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref QString32 value)
-        {
-            fixed (ushort* count = &value.ByteCount)
-                stream.Serialize(count);
-
-            fixed (byte* bytes = value.Bytes)
-                stream.SerializeBuffer(&bytes[0], value.ByteCount);
-        }
-
-        public static unsafe void Serialize(this IBitStream stream, ref QString1024 value)
         {
             fixed (ushort* count = &value.ByteCount)
                 stream.Serialize(count);

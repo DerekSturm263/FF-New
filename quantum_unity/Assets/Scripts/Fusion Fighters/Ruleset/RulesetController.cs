@@ -18,7 +18,7 @@ public class RulesetController : Controller<RulesetController>
 
     public void Save(SerializableWrapper<Ruleset> ruleset)
     {
-        Serializer.Save(ruleset, ruleset.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(ruleset, ruleset.Guid, GetPath());
     }
 
     public void Select(SerializableWrapper<Ruleset> ruleset)
@@ -34,7 +34,7 @@ public class RulesetController : Controller<RulesetController>
 
     public void Load(Ruleset ruleset)
     {
-        _ruleset = new(ruleset);
+        _ruleset = new(ruleset, "", "", AssetGuid.NewGuid(), 0, 0);
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
     }
 

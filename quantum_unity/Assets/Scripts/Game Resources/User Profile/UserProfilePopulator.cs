@@ -11,7 +11,7 @@ public class UserProfilePopulator : Populate<Type, long>
 
     protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(UserProfileController.GetPath());
 
-    protected override string Name(Type item) => item.Value.SerializableData.Name;
+    protected override string Name(Type item) => item.Name;
 
-    protected override Func<Type, long> Sort() => (build) => build.Value.SerializableData.LastEdittedDate;
+    protected override Func<Type, long> Sort() => (profile) => profile.LastEditedDate;
 }

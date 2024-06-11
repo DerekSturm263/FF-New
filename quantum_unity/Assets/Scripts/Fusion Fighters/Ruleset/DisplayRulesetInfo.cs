@@ -8,7 +8,7 @@ public class DisplayRulesetInfo : Display<Type, Extensions.Types.Tuple<UnityEven
 {
     [SerializeField] protected string _format = "{0}";
 
-    protected (string[], Sprite) GetInfo(Type item) => (new string[] { item.Value.SerializableData.Name, item.Value.SerializableData.Description }, item.Preview);
+    protected (string[], Sprite) GetInfo(Type item) => (new string[] { item.Name, item.Description }, item.Preview);
     protected override Type GetValue() => default;
     public override void UpdateDisplay(Type item)
     {

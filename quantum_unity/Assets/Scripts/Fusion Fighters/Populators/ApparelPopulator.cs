@@ -14,7 +14,7 @@ public class ApparelPopulator : Populate<Type, long>
 
     protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(ApparelController.GetPath()).Where(item => UnityDB.FindAsset<ApparelTemplateAsset>(item.Value.Template.Id).Settings_ApparelTemplate.Type.HasFlag(_type));
 
-    protected override string Name(Type item) => item.Value.SerializableData.Name;
+    protected override string Name(Type item) => item.Name;
 
-    protected override Func<Type, long> Sort() => (build) => build.Value.SerializableData.LastEdittedDate;
+    protected override Func<Type, long> Sort() => (build) => build.LastEditedDate;
 }

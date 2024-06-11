@@ -204,7 +204,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(Quantum.QString1024))]
   [CustomPropertyDrawer(typeof(Quantum.QString32))]
   partial class QStringDrawer {}
 

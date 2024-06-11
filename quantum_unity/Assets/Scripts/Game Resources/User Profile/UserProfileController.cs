@@ -1,6 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using Quantum;
+using System.Linq;
 using UnityEngine;
 
 public class UserProfileController : Controller<UserProfileController>
@@ -17,7 +18,7 @@ public class UserProfileController : Controller<UserProfileController>
 
     public void Save(SerializableWrapper<UserProfile> profile)
     {
-        Serializer.Save(profile, profile.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(profile, profile.Guid, GetPath());
     }
 
     private SerializableWrapper<UserProfile> _currentlySelected;
@@ -28,7 +29,7 @@ public class UserProfileController : Controller<UserProfileController>
     private void Delete()
     {
         string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Value.SerializableData.Guid}.json", path);
+        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(UserProfilePopulator.ButtonFromItem(_currentlySelected));
         _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);

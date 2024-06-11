@@ -17,7 +17,7 @@ public class StageController : Controller<StageController>
 
     public void Save(SerializableWrapper<Stage> stage)
     {
-        Serializer.Save(stage, stage.Value.SerializableData.Guid, GetPath());
+        Serializer.Save(stage, stage.Guid, GetPath());
     }
 
     public void Select(SerializableWrapper<Stage> stage, int playerIndex)
@@ -33,7 +33,7 @@ public class StageController : Controller<StageController>
 
     public void Load(Stage stage)
     {
-        _stage = new(stage);
+        _stage = new(stage, "", "", AssetGuid.NewGuid(), 0, 0);
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
     }
 

@@ -8,11 +8,11 @@ public class DisplayBuildInfo : Display<SerializableWrapper<Build>, List<MonoBeh
 {
     public override void UpdateDisplay(SerializableWrapper<Build> item)
     {
-        (_component[0] as TMPro.TMP_InputField).SetTextWithoutNotify(item.Value.SerializableData.Name);
-        (_component[1] as TMPro.TMP_InputField).SetTextWithoutNotify(item.Value.SerializableData.Description);
-        (_component[2] as TMPro.TMP_Text).SetText(new DateTime(item.Value.SerializableData.LastEdittedDate).ToString("'Last Edited 'MM':'dd':'yyyy' at' hh':'mm':'ss' 'tt"));
-        (_component[3] as TMPro.TMP_Text).SetText(new DateTime(item.Value.SerializableData.CreationDate).ToString("'Created 'MM':'dd':'yyyy' at' hh':'mm':'ss' 'tt"));
+        (_component[0] as TMPro.TMP_InputField).SetTextWithoutNotify(item.Name);
+        (_component[1] as TMPro.TMP_InputField).SetTextWithoutNotify(item.Description);
+        (_component[2] as TMPro.TMP_Text).SetText(new DateTime(item.LastEditedDate).ToString("'Last Edited 'MM':'dd':'yyyy' at' hh':'mm':'ss' 'tt"));
+        (_component[3] as TMPro.TMP_Text).SetText(new DateTime(item.CreationDate).ToString("'Created 'MM':'dd':'yyyy' at' hh':'mm':'ss' 'tt"));
     }
 
-    protected override SerializableWrapper<Build> GetValue() => new(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build);
+    protected override SerializableWrapper<Build> GetValue() => new(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build, "", "", AssetGuid.NewGuid(), 0, 0);
 }
