@@ -32,6 +32,7 @@ public class WeaponController : Controller<WeaponController>
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
+    [SerializeField] private Popup _onNotEnoughCurrency;
 
     [SerializeField] private PopulateBase _populator;
 
@@ -47,6 +48,12 @@ public class WeaponController : Controller<WeaponController>
         if (!_template || !_material)
         {
             PopupController.Instance.DisplayPopup(_onFail);
+            return;
+        }
+
+        if (!Inventory.Instance.HasEnoughCurrency(_template.Price, _material.Price, _enhancer1?.Price, _enhancer2?.Price))
+        {
+            PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
             return;
         }
 
