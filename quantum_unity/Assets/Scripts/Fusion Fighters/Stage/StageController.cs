@@ -12,13 +12,7 @@ public class StageController : Controller<StageController>
     public SerializableWrapper<Stage> New()
     {
         Stage stage = new();
-
-        stage.SerializableData.Name = "Untitled";
-        stage.SerializableData.Guid = AssetGuid.NewGuid();
-        stage.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        stage.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
-        return new(stage);
+        return new(stage, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
     }
 
     public void Save(SerializableWrapper<Stage> stage)
