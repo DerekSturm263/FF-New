@@ -3,6 +3,21 @@ using UnityEngine;
 [System.Serializable]
 public class SerializableWrapper<T>
 {
+    [SerializeField] private string _name;
+    public string Name => _name;
+    
+    [SerializeField] private string _description;
+    public string Description => _description;
+    
+    [SerializeField] private AssetGuid _guid;
+    public AssetGuid Guid => _guid;
+    
+    [SerializeField] private long _creationDate;
+    public long CreationDate => _creationDate;
+    
+    [SerializeField] private long _lastEditedDate;
+    public long LastEditedDate => _lastEditedDate;
+
     [SerializeField] private Texture2D _icon;
     public Sprite Icon
     {
@@ -35,9 +50,14 @@ public class SerializableWrapper<T>
     [SerializeField] private T _value;
     public T Value => _value;
 
-    public SerializableWrapper(T value, Texture2D icon = null, Texture2D preview = null)
+    public SerializableWrapper(T value, string name, string description, AssetGuid guid, long creationDate, long lastEditedDate, Texture2D icon = null, Texture2D preview = null)
     {
         _value = value;
+        _name = name;
+        _description = description;
+        _guid = guid;
+        _creationDate = creationDate;
+        _lastEditedDate = lastEditedDate;
         _icon = icon;
         _preview = preview;
     }
