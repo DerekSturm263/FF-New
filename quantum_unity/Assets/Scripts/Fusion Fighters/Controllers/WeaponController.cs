@@ -58,12 +58,6 @@ public class WeaponController : Controller<WeaponController>
         }
 
         Weapon weapon = new();
-
-        //weapon.SerializableData.Name = "New Weapon";
-        weapon.SerializableData.Guid = AssetGuid.NewGuid();
-        weapon.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        weapon.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
         weapon.Template = new AssetRefWeaponTemplate() { Id = _template.AssetObject.Guid };
         weapon.Material = new AssetRefWeaponMaterial() { Id = _material.AssetObject.Guid };
         weapon.Enhancers.Enhancer1 = new AssetRefWeaponEnhancer() { Id = _enhancer1 ? _enhancer1.AssetObject.Guid : AssetGuid.Invalid };
@@ -86,7 +80,7 @@ public class WeaponController : Controller<WeaponController>
         
         InventoryController.Instance.LoseCurrency(_template.Price + _material.Price);
 
-        SerializableWrapper<Weapon> serializable = new(weapon);
+        SerializableWrapper<Weapon> serializable = new(weapon, "New Weapon", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
