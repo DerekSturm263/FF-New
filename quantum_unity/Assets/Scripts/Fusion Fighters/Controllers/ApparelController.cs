@@ -96,7 +96,7 @@ public class ApparelController : Controller<ApparelController>
             InventoryController.Instance.LoseCurrency(_modifier3.Price);
         }
 
-        SerializableWrapper<Apparel> serializable = new(apparel, "New Apparel", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        SerializableWrapper<Apparel> serializable = new(apparel, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
