@@ -72,4 +72,14 @@ public class InventoryController : Controller<InventoryController>
         AssetRefInfoAsset assetRef = new() { Id = asset.AssetObject.Guid };
         --_inventory.CountItemCollection[assetRef];
     }
+
+    public void GainCurrency(int amount)
+    {
+        _inventory.Currency += amount;
+    }
+
+    public void LoseCurrency(int amount)
+    {
+        _inventory.Currency -= amount;
+    }
 }
