@@ -82,4 +82,9 @@ public class InventoryController : Controller<InventoryController>
     {
         _inventory.Currency -= amount;
     }
+
+    public bool HasEnoughCurrency(int amount)
+    {
+        return _inventory.Currency >= amount;
+    }
 }
