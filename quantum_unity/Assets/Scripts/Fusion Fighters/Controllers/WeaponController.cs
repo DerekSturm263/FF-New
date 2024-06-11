@@ -80,7 +80,7 @@ public class WeaponController : Controller<WeaponController>
         
         InventoryController.Instance.LoseCurrency(_template.Price + _material.Price);
 
-        SerializableWrapper<Weapon> serializable = new(weapon, "New Weapon", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        SerializableWrapper<Weapon> serializable = new(weapon, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
