@@ -10,6 +10,10 @@ public class LocalPlayerInfo
     private readonly InputUser _user;
     public InputUser User => _user;
 
+    private UserProfile _profile;
+    public UserProfile Profile => _profile;
+    public void SetProfile(UserProfile profile) => _profile = profile;
+
     private int _localIndex;
     public int LocalIndex => _localIndex;
     public void SetLocalIndex(int index) => _localIndex = index;

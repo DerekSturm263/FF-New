@@ -1,5 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
+using System.Linq;
 using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
@@ -34,6 +35,12 @@ public class RulesetController : Controller<RulesetController>
     public void LoadFromAsset(RulesetAssetAsset ruleset)
     {
         _ruleset = ruleset.Ruleset;
+        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+    }
+
+    public void Load(Ruleset ruleset)
+    {
+        _ruleset = new(ruleset);
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
     }
 

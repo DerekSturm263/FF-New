@@ -55,7 +55,7 @@ namespace Editor.Extensions.Types
             {
                 for (int i = 0; i < kvpsProperty.arraySize; ++i)
                 {
-                    size += EditorGUI.GetPropertyHeight(kvpsProperty.GetArrayElementAtIndex(i));
+                    size += EditorGUI.GetPropertyHeight(kvpsProperty.GetArrayElementAtIndex(i)) + 4;
                 }
             }
             else

@@ -15,18 +15,8 @@ namespace Quantum
 
         public static unsafe void Serialize(this IBitStream stream, ref SerializableData value)
         {
-            fixed (ushort* count = &value.Name.ByteCount)
-                stream.Serialize(count);
-
-            fixed (byte* bytes = value.Name.Bytes)
-                stream.SerializeBuffer(&bytes[0], value.Name.ByteCount);
-
-            fixed (ushort* count = &value.Description.ByteCount)
-                stream.Serialize(count);
-
-            fixed (byte* bytes = value.Description.Bytes)
-                stream.SerializeBuffer(&bytes[0], value.Description.ByteCount);
-
+            stream.Serialize(ref value.Name);
+            stream.Serialize(ref value.Description);
             stream.Serialize(ref value.Guid);
             stream.Serialize(ref value.CreationDate);
             stream.Serialize(ref value.LastEdittedDate);
@@ -287,6 +277,30 @@ namespace Quantum
         public static void Serialize(this IBitStream stream, ref QBoolean value)
         {
             stream.Serialize(ref value.Value);
+        }
+
+        public static void Serialize(this IBitStream stream, ref Bot value)
+        {
+            stream.Serialize(ref value.Build);
+            stream.Serialize(ref value.Behavior);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref QString32 value)
+        {
+            fixed (ushort* count = &value.ByteCount)
+                stream.Serialize(count);
+
+            fixed (byte* bytes = value.Bytes)
+                stream.SerializeBuffer(&bytes[0], value.ByteCount);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref QString1024 value)
+        {
+            fixed (ushort* count = &value.ByteCount)
+                stream.Serialize(count);
+
+            fixed (byte* bytes = value.Bytes)
+                stream.SerializeBuffer(&bytes[0], value.ByteCount);
         }
 
         #endregion

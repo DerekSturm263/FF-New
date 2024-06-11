@@ -83,5 +83,15 @@ namespace Quantum.Types
                 _ => default
             };
         }
+
+        public static Bot Get(ArrayBots array, int index)
+        {
+            return index switch
+            {
+                0 => array.Item1,
+                1 => array.Item2,
+                _ => default
+            };
+        }
     }
 }

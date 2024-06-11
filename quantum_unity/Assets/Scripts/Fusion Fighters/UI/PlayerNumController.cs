@@ -17,7 +17,7 @@ public class PlayerNumController : PlayerTracker<RectTransform>
             t.anchoredPosition = (CameraController.Instance.Cam.WorldToScreenPoint(player.transform.position + (Vector3)_offset) - (new Vector3(Screen.width, Screen.height) / 2)) / _canvas.scaleFactor;
     }
 
-    protected override RectTransform GetT(QuantumGame game, EntityRef player, int index)
+    protected override RectTransform GetT(QuantumGame game, EntityRef player, QString32 name, int index)
     {
         _numbers[index].SetActive(true);
         _numbers[index].GetComponentInChildren<TMPro.TMP_Text>().SetText($"P{index + 1}");

@@ -28,7 +28,8 @@ namespace Quantum
             StatsSystem.SetBuild(f, entity, stats, stats->Build);
 
             f.Add(entity, playerLink);
-            f.Events.OnPlayerSpawn(entity, stats->GlobalIndex);
+
+            f.Events.OnPlayerSpawn(entity, stats->LocalIndex, stats->GlobalIndex, stats->Name);
 
             var teams = f.ResolveList(f.Global->CurrentMatch.Teams);
 
@@ -52,7 +53,8 @@ namespace Quantum
 
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
-            f.Events.OnPlayerDespawn(player, f.Get<Stats>(player).GlobalIndex);
+            Stats stats = f.Get<Stats>(player);
+            f.Events.OnPlayerDespawn(player, stats.LocalIndex, stats.GlobalIndex, stats.Name);
             f.Destroy(player);
 
             --f.Global->TotalPlayers;

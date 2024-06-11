@@ -8,13 +8,15 @@ public class PlayerStatController : MonoBehaviour
 
     public static PlayerStatController Instance;
 
-    public void Initialize(QuantumGame game, EntityRef player, int index)
+    public void Initialize(QuantumGame game, EntityRef player, QString32 name, int globalIndex)
     {
-        _huds[index].gameObject.SetActive(true);
-        _huds[index].SetPlayerNumber(index + 1);
+        _huds[globalIndex].gameObject.SetActive(true);
+
+        _huds[globalIndex].SetPlayerNumber(globalIndex + 1);
+        _huds[globalIndex].SetPlayerName(name);
     }
 
-    public void Destroy(QuantumGame game, EntityRef player, int index)
+    public void Destroy(QuantumGame game, EntityRef player, QString32 name, int index)
     {
         _huds[index].gameObject.SetActive(false);
     }

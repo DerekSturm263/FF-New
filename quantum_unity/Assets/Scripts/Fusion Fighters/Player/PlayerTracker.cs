@@ -22,13 +22,13 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 
     protected abstract void Action(EntityView player, T t);
 
-    public void TrackPlayer(QuantumGame game, EntityRef player, int index)
+    public void TrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
     {
         EntityView entity = _entityView.GetView(player);
-        _playersToTs.TryAdd(entity, GetT(game, player, index));
+        _playersToTs.TryAdd(entity, GetT(game, player, name, index));
     }
 
-    public void UntrackPlayer(QuantumGame game, EntityRef player, int index)
+    public void UntrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
     {
         EntityView entity = _entityView.GetView(player);
         CleanUp(_playersToTs[_entityView.GetView(player)]);
@@ -36,6 +36,6 @@ public abstract class PlayerTracker<T> : MonoBehaviour
         _playersToTs.Remove(entity);
     }
 
-    protected abstract T GetT(QuantumGame game, EntityRef player, int index);
+    protected abstract T GetT(QuantumGame game, EntityRef player, QString32 name, int index);
     protected abstract void CleanUp(T t);
 }

@@ -15,7 +15,7 @@ public class ReadyHUDController : PlayerTracker<RectTransform>
             t.anchoredPosition = (CameraController.Instance.Cam.WorldToScreenPoint(player.transform.position + (Vector3)_offset) - (new Vector3(Screen.width, Screen.height) / 2)) / _canvas.scaleFactor;
     }
 
-    protected override RectTransform GetT(QuantumGame game, EntityRef player, int index)
+    protected override RectTransform GetT(QuantumGame game, EntityRef player, QString32 name, int index)
     {
         _readies[index].SetActive(true);
         return _readies[index].GetComponent<RectTransform>();

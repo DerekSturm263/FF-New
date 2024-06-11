@@ -8,15 +8,27 @@ public class WeaponController : Controller<WeaponController>
 {
     private WeaponTemplateAsset _template;
     public void SetTemplate(WeaponTemplateAsset template) => _template = template;
+    public void ClearTemplate() => _template = null;
 
     private WeaponMaterialAsset _material;
     public void SetMaterial(WeaponMaterialAsset material) => _material = material;
+    public void ClearMaterial() => _material = null;
 
     private WeaponEnhancerAsset _enhancer1;
     public void SetEnhancer1(WeaponEnhancerAsset enhancer1) => _enhancer1 = enhancer1;
+    public void ClearEnhancer1() => _enhancer1 = null;
 
     private WeaponEnhancerAsset _enhancer2;
     public void SetEnhancer2(WeaponEnhancerAsset enhancer2) => _enhancer2 = enhancer2;
+    public void ClearEnhancer2() => _enhancer2 = null;
+
+    public void Clear()
+    {
+        ClearTemplate();
+        ClearMaterial();
+        ClearEnhancer1();
+        ClearEnhancer2();
+    }
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
@@ -50,12 +62,22 @@ public class WeaponController : Controller<WeaponController>
         weapon.Enhancers.Enhancer1 = new AssetRefWeaponEnhancer() { Id = _enhancer1 ? _enhancer1.AssetObject.Guid : AssetGuid.Invalid };
         weapon.Enhancers.Enhancer2 = new AssetRefWeaponEnhancer() { Id = _enhancer2 ? _enhancer2.AssetObject.Guid : AssetGuid.Invalid };
 
+        InventoryController.Instance.UseCountableItem(_template);
+        InventoryController.Instance.UseCountableItem(_material);
+
+        if (_enhancer1 && _enhancer1.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_enhancer1);
+
+        if (_enhancer2 && _enhancer2.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_enhancer2);
+
         SerializableWrapper<Weapon> serializable = new(weapon);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
+        Clear();
     }
 
     private SerializableWrapper<Weapon> _currentlySelected;

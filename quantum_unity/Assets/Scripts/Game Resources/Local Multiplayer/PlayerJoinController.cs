@@ -72,7 +72,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         if (_executeEvents)
             foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-            listener.InvokeOnPlayerLeave(player);
+                listener.InvokeOnPlayerLeave(player);
     }
 
     public LocalPlayerInfo AddPlayer(InputDevice device)

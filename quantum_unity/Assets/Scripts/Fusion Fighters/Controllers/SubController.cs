@@ -8,9 +8,17 @@ public class SubController : Controller<SubController>
 {
     private SubTemplateAsset _template;
     public void SetTemplate(SubTemplateAsset template) => _template = template;
+    public void ClearTemplate() => _template = null;
 
     private SubEnhancerAsset _enhancer;
     public void SetEnhancer(SubEnhancerAsset enhancer) => _enhancer = enhancer;
+    public void ClearEnhancer() => _enhancer = null;
+
+    public void Clear()
+    {
+        ClearTemplate();
+        ClearEnhancer();
+    }
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
@@ -42,12 +50,18 @@ public class SubController : Controller<SubController>
         sub.Template = new AssetRefSubTemplate() { Id = _template.AssetObject.Guid };
         sub.Enhancers.Enhancer1 = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid };
 
+        InventoryController.Instance.UseCountableItem(_template);
+
+        if (_enhancer && _enhancer.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_enhancer);
+
         SerializableWrapper<Sub> serializable = new(sub);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
+        Clear();
     }
 
     private SerializableWrapper<Sub> _currentlySelected;

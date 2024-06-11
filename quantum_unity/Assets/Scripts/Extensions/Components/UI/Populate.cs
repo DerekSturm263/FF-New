@@ -120,6 +120,7 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T> _onButtonSpawn;
         [SerializeField] protected UnityEvent<T> _onButtonHover;
         [SerializeField] protected UnityEvent<T> _onButtonClick;
+        [SerializeField] protected UnityEvent<T> _onButtonClickError;
         [SerializeField] protected UnityEvent<T, int> _onButtonClickMultiplayer;
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
 
@@ -205,6 +206,7 @@ namespace Extensions.Components.UI
 
         protected virtual bool Enabled(T item) => true;
         protected virtual bool DoSpawn(T item) => true;
+        protected virtual bool GiveEvents(T item) => true;
 
         protected virtual void Decorate(GameObject buttonObj, T item)
         {
@@ -249,17 +251,27 @@ namespace Extensions.Components.UI
 
         protected virtual void SetEvents(GameObject buttonObj, T item)
         {
+            bool giveEvents = GiveEvents(item);
+
             Button button = buttonObj.GetComponentInChildren<Button>();
-            if (button)
-                button.onClick.AddListener(() => _onButtonClick.Invoke(item));
-
             MultiplayerButton multiplayerButton = buttonObj.GetComponentInChildren<MultiplayerButton>();
-            if (multiplayerButton)
-                multiplayerButton.onClick.AddListener((playerNum) => _onButtonClickMultiplayer.Invoke(item, playerNum));
-
             DragAndDropItem dragAndDrop = buttonObj.GetComponentInChildren<DragAndDropItem>();
-            if (dragAndDrop)
-                dragAndDrop.SetValue(item);
+
+            if (giveEvents)
+            {
+                if (button)
+                    button.onClick.AddListener(() => _onButtonClick.Invoke(item));
+
+                if (multiplayerButton)
+                    multiplayerButton.onClick.AddListener((playerNum) => _onButtonClickMultiplayer.Invoke(item, playerNum));
+
+                if (dragAndDrop)
+                    dragAndDrop.SetValue(item);
+            }
+            else if (button)
+            {
+                button.onClick.AddListener(() => _onButtonClickError.Invoke(item));
+            }
 
             EventTrigger eventTrigger = buttonObj.GetComponentInChildren<EventTrigger>();
             if (eventTrigger)

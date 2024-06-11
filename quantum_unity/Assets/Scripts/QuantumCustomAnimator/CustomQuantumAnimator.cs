@@ -9,7 +9,7 @@ using UE = UnityEngine;
 
 public unsafe class CustomQuantumAnimator : MonoBehaviour
 {
-  UE.Animator _animator;
+  UE.Animator[] _animator;
   Dictionary<String, KeyValuePair<int, AnimationClipPlayable>> _clips = new Dictionary<String, KeyValuePair<int, AnimationClipPlayable>>();
 
   PlayableGraph _graph;
@@ -22,21 +22,24 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
 
   void Awake()
   {
-    _animator = GetComponentInChildren<UE.Animator>();
+    _animator = GetComponentsInChildren<UE.Animator>();
   }
 
   void OnEnable()
   {
-    if (_animator)
-    {
-      _graph = PlayableGraph.Create();
-      _graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
-      _mixerPlayable = AnimationMixerPlayable.Create(_graph);
-      var output = AnimationPlayableOutput.Create(_graph, "Animation", _animator);
-      output.SetSourcePlayable(_mixerPlayable);
+        foreach (Animator animator in _animator)
+        {
+            if (animator)
+            {
+                _graph = PlayableGraph.Create();
+                _graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+                _mixerPlayable = AnimationMixerPlayable.Create(_graph);
+                var output = AnimationPlayableOutput.Create(_graph, "Animation", animator);
+                output.SetSourcePlayable(_mixerPlayable);
 
-      _graph.Play();
-    }
+                _graph.Play();
+            }
+        }
   }
 
   void OnDisable()
@@ -47,26 +50,29 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
   }
 
   public void Animate(Quantum.Frame frame, Quantum.CustomAnimator* a)
-  {
-    if (!_animator.enabled)
     {
-      return;
-    }
-    var asset = UnityDB.FindAsset<CustomAnimatorGraphAsset>(a->animatorGraph.Id);
-    if (asset)
-    {
-      // load clips
-      LoadClips(asset.clips);
+        foreach (Animator animator in _animator)
+        {
+            if (!animator.enabled)
+            {
+                return;
+            }
+            var asset = UnityDB.FindAsset<CustomAnimatorGraphAsset>(a->animatorGraph.Id);
+            if (asset)
+            {
+                // load clips
+                LoadClips(asset.clips);
 
-      // calculate blend data
-      asset.Settings.GenerateBlendList(frame, a, _blendData);
+                // calculate blend data
+                asset.Settings.GenerateBlendList(frame, a, _blendData);
 
-      // update animation state
-      SetAnimationData(asset.Settings, _blendData);
+                // update animation state
+                SetAnimationData(asset.Settings, _blendData);
 
-      // clear old blend data
-      _blendData.Clear();
-    }
+                // clear old blend data
+                _blendData.Clear();
+            }
+        }
   }
 
   void LoadClips(List<AnimationClip> clipList)

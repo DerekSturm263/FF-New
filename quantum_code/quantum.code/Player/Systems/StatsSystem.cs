@@ -200,9 +200,8 @@ namespace Quantum
 
             ApplyBuild(f, user, stats, build);
 
-            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.AltWeapon, build.Equipment.Weapons.AltWeapon);
             f.Events.OnPlayerSetAvatar(user, stats->GlobalIndex, oldBuild.Cosmetics.Avatar, build.Cosmetics.Avatar);
-            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, oldBuild.Cosmetics.Voice, build.Cosmetics.Voice);
+            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.AltWeapon, build.Equipment.Weapons.AltWeapon);
             f.Events.OnPlayerSetBadge(user, stats->GlobalIndex, oldBuild.Equipment.Badge, build.Equipment.Badge);
             f.Events.OnPlayerSetClothing(user, stats->GlobalIndex, oldBuild.Equipment.Outfit.Clothing, build.Equipment.Outfit.Clothing);
             f.Events.OnPlayerSetEmoteDown(user, stats->GlobalIndex, oldBuild.Cosmetics.Emotes.Down, build.Cosmetics.Emotes.Down);
@@ -216,6 +215,7 @@ namespace Quantum
             f.Events.OnPlayerSetMainWeapon(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.MainWeapon, build.Equipment.Weapons.MainWeapon);
             f.Events.OnPlayerSetSub(user, stats->GlobalIndex, oldBuild.Equipment.Weapons.SubWeapon, build.Equipment.Weapons.SubWeapon);
             f.Events.OnPlayerSetUltimate(user, stats->GlobalIndex, oldBuild.Equipment.Ultimate, build.Equipment.Ultimate);
+            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, oldBuild.Cosmetics.Voice, build.Cosmetics.Voice);
         }
 
         public static void ApplyBuild(Frame f, EntityRef user, Stats* stats, Build build)
@@ -232,9 +232,8 @@ namespace Quantum
         {
             UnapplyBuild(f, user, stats);
 
-            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.AltWeapon, default);
             f.Events.OnPlayerSetAvatar(user, stats->GlobalIndex, stats->Build.Cosmetics.Avatar, default);
-            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, stats->Build.Cosmetics.Voice, default);
+            f.Events.OnPlayerSetAltWeapon(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.AltWeapon, default);
             f.Events.OnPlayerSetBadge(user, stats->GlobalIndex, stats->Build.Equipment.Badge, default);
             f.Events.OnPlayerSetClothing(user, stats->GlobalIndex, stats->Build.Equipment.Outfit.Clothing, default);
             f.Events.OnPlayerSetEmoteDown(user, stats->GlobalIndex, stats->Build.Cosmetics.Emotes.Down, default);
@@ -248,6 +247,7 @@ namespace Quantum
             f.Events.OnPlayerSetMainWeapon(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.MainWeapon, default);
             f.Events.OnPlayerSetSub(user, stats->GlobalIndex, stats->Build.Equipment.Weapons.SubWeapon, default);
             f.Events.OnPlayerSetUltimate(user, stats->GlobalIndex, stats->Build.Equipment.Ultimate, default);
+            f.Events.OnPlayerSetVoice(user, stats->GlobalIndex, stats->Build.Cosmetics.Voice, default);
 
             stats->Build = default;
         }

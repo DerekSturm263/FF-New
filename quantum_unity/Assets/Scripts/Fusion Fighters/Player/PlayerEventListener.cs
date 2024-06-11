@@ -67,7 +67,7 @@ public class PlayerEventListener : MonoBehaviour
             SetPlayerExpressionFocused(e.Player, 1);
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
-        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: e => _onPlayerSpawn.Invoke(e.Game, e.Player, e.Index));
+        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: e => _onPlayerSpawn.Invoke(e.Game, e.Player, e.GlobalIndex));
         QuantumEvent.Subscribe<EventOnHurtboxStateChange>(listener: this, handler: UpdateHurtbox);
     }
 

@@ -8,18 +8,32 @@ public class ApparelController : Controller<ApparelController>
 {
     private ApparelTemplateAsset _template;
     public void SetTemplate(ApparelTemplateAsset template) => _template = template;
+    public void ClearTemplate() => _template = null;
 
     private ApparelPatternAsset _pattern;
     public void SetPattern(ApparelPatternAsset pattern) => _pattern = pattern;
+    public void ClearPattern() => _pattern = null;
 
     private ApparelModifierAsset _modifier1;
     public void SetModifier1(ApparelModifierAsset modifier1) => _modifier1 = modifier1;
+    public void ClearModifier1() => _modifier1 = null;
 
     private ApparelModifierAsset _modifier2;
     public void SetModifier2(ApparelModifierAsset modifier2) => _modifier2 = modifier2;
+    public void ClearModifier2() => _modifier2 = null;
 
     private ApparelModifierAsset _modifier3;
     public void SetModifier3(ApparelModifierAsset modifier3) => _modifier3 = modifier3;
+    public void ClearModifier3() => _modifier3 = null;
+
+    public void Clear()
+    {
+        ClearTemplate();
+        ClearPattern();
+        ClearModifier1();
+        ClearModifier2();
+        ClearModifier3();
+    }
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
@@ -54,12 +68,27 @@ public class ApparelController : Controller<ApparelController>
         apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = _modifier2 ? _modifier2.AssetObject.Guid : AssetGuid.Invalid };
         apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = _modifier3 ? _modifier3.AssetObject.Guid : AssetGuid.Invalid };
 
+        InventoryController.Instance.UseCountableItem(_template);
+
+        if (_pattern && _pattern.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_pattern);
+
+        if (_modifier1 && _modifier1.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_modifier1);
+
+        if (_modifier2 && _modifier2.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_modifier2);
+
+        if (_modifier3 && _modifier3.AssetObject.Guid != AssetGuid.Invalid)
+            InventoryController.Instance.UseCountableItem(_modifier3);
+
         SerializableWrapper<Apparel> serializable = new(apparel);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
+        Clear();
     }
 
     private SerializableWrapper<Apparel> _currentlySelected;

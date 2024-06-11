@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,9 +36,14 @@ public class HUDPlayerLink : MonoBehaviour
         _energy.fillAmount = _energyFill;
     }
 
-    public void SetPlayerNumber(int number)
+    public void SetPlayerNumber(int globalIndex)
     {
-        _playerNum.SetText($"P{number}");
+        _playerNum.SetText($"P{globalIndex}");
+    }
+
+    public void SetPlayerName(string name)
+    {
+        _name.SetText(name);
     }
 
     public void SetPlayerIcon(Sprite icon)

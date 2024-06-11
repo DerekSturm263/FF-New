@@ -226,20 +226,20 @@ namespace GameResources.Camera
 
         #if UNITY_EDITOR
 
-        [MenuItem("Testing/Shake Test Up", false)]
-        public static void ShakeTest() => Shake(Vector2.up, 0.5f);
+        [UnityEditor.MenuItem("Testing/Shake Test Up", false)]
+        public static void ShakeTest1() => _instance.Shake(Vector2.up, 0.5f);
 
-        [MenuItem("Testing/Shake Test Down", false)]
-        public static void ShakeTest() => Shake(Vector2.down, 0.5f);
+        [UnityEditor.MenuItem("Testing/Shake Test Down", false)]
+        public static void ShakeTest2() => _instance.Shake(Vector2.down, 0.5f);
 
-        [MenuItem("Testing/Shake Test Left", false)]
-        public static void ShakeTest() => Shake(Vector2.left, 0.5f);
+        [UnityEditor.MenuItem("Testing/Shake Test Left", false)]
+        public static void ShakeTest3() => _instance.Shake(Vector2.left, 0.5f);
 
-        [MenuItem("Testing/Shake Test Right", false)]
-        public static void ShakeTest() => Shake(Vector2.right, 0.5f);
+        [UnityEditor.MenuItem("Testing/Shake Test Right", false)]
+        public static void ShakeTest4() => _instance.Shake(Vector2.right, 0.5f);
 
-        [MenuItem("Testing/Shake Test Random", false)]
-        public static void ShakeTest() => ShakeRandom(0.5f);
+        [UnityEditor.MenuItem("Testing/Shake Test Random", false)]
+        public static void ShakeTest5() => _instance.ShakeRandom(0.5f);
 
         #endif
     }

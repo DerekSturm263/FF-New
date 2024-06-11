@@ -113,6 +113,8 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
     public Quantum.AssetRefEntityPrototype Hurtbox;
+    [Quantum.Inspector.MaxStringByteCountAttribute((Int32)30, "Unicode")]
+    public System.String Name;
     public System.Int32 LocalIndex;
     public System.Int32 GlobalIndex;
     public System.Int32 CurrentStocks;
@@ -136,6 +138,7 @@ namespace Quantum.Prototypes.Unity {
       result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
       result.Hurtbox = this.Hurtbox;
+      result.Name = this.Name;
       result.LocalIndex = this.LocalIndex;
       result.GlobalIndex = this.GlobalIndex;
       result.CurrentStocks = this.CurrentStocks;
