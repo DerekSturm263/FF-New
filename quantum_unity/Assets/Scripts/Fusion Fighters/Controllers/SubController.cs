@@ -48,12 +48,6 @@ public class SubController : Controller<SubController>
         }
 
         Sub sub = new();
-
-        //sub.SerializableData.Name = "New Sub";
-        sub.SerializableData.Guid = AssetGuid.NewGuid();
-        sub.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        sub.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
         sub.Template = new AssetRefSubTemplate() { Id = _template.AssetObject.Guid };
         sub.Enhancers.Enhancer1 = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid };
 
@@ -66,7 +60,7 @@ public class SubController : Controller<SubController>
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
         
-        SerializableWrapper<Sub> serializable = new(sub);
+        SerializableWrapper<Sub> serializable = new(sub, "New Sub", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
