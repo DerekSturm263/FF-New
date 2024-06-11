@@ -37,6 +37,7 @@ public class ApparelController : Controller<ApparelController>
 
     [SerializeField] private Popup _onSuccess;
     [SerializeField] private Popup _onFail;
+    [SerializeField] private Popup _onNotEnoughCurrency;
 
     [SerializeField] private PopulateBase _populator;
 
@@ -52,6 +53,12 @@ public class ApparelController : Controller<ApparelController>
         if (!_template)
         {
             PopupController.Instance.DisplayPopup(_onFail);
+            return;
+        }
+
+        if (!Inventory.Instance.HasEnoughCurrency(_template.Price, _pattern?.Price, _modifier1?.Price, _modifier2?.Price, _modifier3?.Price))
+        {
+            PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
             return;
         }
 
