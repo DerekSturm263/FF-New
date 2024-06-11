@@ -12,13 +12,7 @@ public class UserProfileController : Controller<UserProfileController>
     public SerializableWrapper<UserProfile> New()
     {
         UserProfile profile = new();
-
-        profile.SerializableData.Name = "Untitled";
-        profile.SerializableData.Guid = AssetGuid.NewGuid();
-        profile.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        profile.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
-        return new(profile);
+        return new(profile, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
     }
 
     public void Save(SerializableWrapper<UserProfile> profile)
