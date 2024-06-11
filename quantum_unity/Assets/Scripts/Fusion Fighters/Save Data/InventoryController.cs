@@ -87,4 +87,15 @@ public class InventoryController : Controller<InventoryController>
     {
         return _inventory.Currency >= amount;
     }
+
+    public bool HasEnoughCurrency(params int[] amount)
+    {
+        for (int i = 0; i < amount.Length; ++i)
+        {
+            if (!HasEnoughCurrency(amount[i]))
+                return false;
+        }
+
+        return true;
+    }
 }
