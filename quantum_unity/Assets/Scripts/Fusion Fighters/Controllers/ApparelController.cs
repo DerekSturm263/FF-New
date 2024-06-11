@@ -63,12 +63,6 @@ public class ApparelController : Controller<ApparelController>
         }
 
         Apparel apparel = new();
-
-        //apparel.SerializableData.Name = "New Apparel";
-        apparel.SerializableData.Guid = AssetGuid.NewGuid();
-        apparel.SerializableData.CreationDate = System.DateTime.Now.Ticks;
-        apparel.SerializableData.LastEdittedDate = System.DateTime.Now.Ticks;
-
         apparel.Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid };
         apparel.Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid };
         apparel.Modifiers.Modifier1 = new AssetRefApparelModifier() { Id = _modifier1 ? _modifier1.AssetObject.Guid : AssetGuid.Invalid };
@@ -102,7 +96,7 @@ public class ApparelController : Controller<ApparelController>
             InventoryController.Instance.LoseCurrency(_modifier3.Price);
         }
 
-        SerializableWrapper<Apparel> serializable = new(apparel);
+        SerializableWrapper<Apparel> serializable = new(apparel, "New Apparel", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Value.SerializableData.Guid, GetPath());
