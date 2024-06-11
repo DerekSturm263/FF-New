@@ -51,10 +51,14 @@ public class SubController : Controller<SubController>
         sub.Enhancers.Enhancer1 = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid };
 
         InventoryController.Instance.UseCountableItem(_template);
+        InventoryController.Instance.LoseCurrency(_template.Price);
 
         if (_enhancer && _enhancer.AssetObject.Guid != AssetGuid.Invalid)
+        {
             InventoryController.Instance.UseCountableItem(_enhancer);
-
+            InventoryController.Instance.LoseCurrency(_enhancer.Price);
+        }
+        
         SerializableWrapper<Sub> serializable = new(sub);
         serializable.SetIcon(_template.Icon.texture);
 
