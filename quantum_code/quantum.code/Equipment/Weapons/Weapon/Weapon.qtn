@@ -1,8 +1,6 @@
 [Serializable]
 struct Weapon
 {
-    SerializableData SerializableData;
-
 	asset_ref<WeaponTemplate> Template;
 	asset_ref<WeaponMaterial> Material;
 	WeaponEnhancerSet Enhancers;
