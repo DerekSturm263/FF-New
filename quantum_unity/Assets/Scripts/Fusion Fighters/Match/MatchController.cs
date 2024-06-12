@@ -12,7 +12,8 @@ public class MatchController : Controller<MatchController>
 
     public void LoadFromAsset(MatchAssetAsset match)
     {
-        _match = match.Settings_MatchAsset.Match;
+        Match newMatch = Variate(match.Settings_MatchAsset.Match);
+        _match = newMatch;
 
         RulesetController.Instance.Load(_match.Ruleset);
         StageController.Instance.Load(_match.Stage);
@@ -29,12 +30,53 @@ public class MatchController : Controller<MatchController>
 
     public void SpawnAI(Bot bot)
     {
+        Bot newBot = Variate(bot);
+        
         CommandSpawnAI commandSpawnAI = new()
         {
             prototype = _ai.CharacterPrototype,
-            bot = bot
+            bot = newBot
         };
 
         QuantumRunner.Default.Game.SendCommand(commandSpawnAI);
+    }
+
+    private Match Variate(Match match)
+    {
+        return new()
+        {
+            Ruleset = Variate(match.Ruleset),
+            Stage = Variate(match.Stage)
+        };
+    }
+
+    private Ruleset Variate(Ruleset ruleset)
+    {
+        return new()
+        {
+            Match = ruleset.Match,
+            Players = ruleset.Players,
+            Stage = ruleset.Stage,
+            Items = ruleset.Items
+        };
+    }
+
+    private Stage Variate(Stage stage)
+    {
+        return new()
+        {
+            Theme = stage.Theme,
+            Objects = stage.Objects,
+            Spawn = stage.Spawn
+        };
+    }
+
+    private Bot Variate(Bot bot)
+    {
+        return new()
+        {
+            Build = bot.Build,
+            Behavior = bot.Behavior
+        };
     }
 }
