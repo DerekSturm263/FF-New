@@ -74,6 +74,17 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearAltWeaponOnPlayer()
+    {
+        CommandSetAltWeapon setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            weapon = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetAvatarOnPlayer(FFAvatarAsset avatar)
     {
         CommandSetAvatar setBuild = new()
@@ -96,12 +107,34 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearBadgeOnPlayer()
+    {
+        CommandSetBadge setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            badge = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetClothingOnPlayer(SerializableWrapper<Apparel> clothing)
     {
         CommandSetClothing setBuild = new()
         {
             entity = GetPlayerLocalIndex(0),
             clothing = clothing
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
+    public void ClearClothingOnPlayer()
+    {
+        CommandSetClothing setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            clothing = default
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -118,12 +151,34 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearHeadgearOnPlayer()
+    {
+        CommandSetHeadgear setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            headgear = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetLegwearOnPlayer(SerializableWrapper<Apparel> legwear)
     {
         CommandSetLegwear setBuild = new()
         {
             entity = GetPlayerLocalIndex(0),
             legwear = legwear
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
+    public void ClearLegwearOnPlayer()
+    {
+        CommandSetLegwear setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            legwear = default
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -140,12 +195,34 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearEmoteUpOnPlayer()
+    {
+        CommandSetEmoteUp setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            emote = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetEmoteDownOnPlayer(EmoteAsset emote)
     {
         CommandSetEmoteDown setBuild = new()
         {
             entity = GetPlayerLocalIndex(0),
             emote = new() { Id = emote.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
+    public void ClearEmoteDownOnPlayer()
+    {
+        CommandSetEmoteDown setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            emote = default
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -162,12 +239,34 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearEmoteLeftOnPlayer()
+    {
+        CommandSetEmoteLeft setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            emote = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetEmoteRightOnPlayer(EmoteAsset emote)
     {
         CommandSetEmoteRight setBuild = new()
         {
             entity = GetPlayerLocalIndex(0),
             emote = new() { Id = emote.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
+    public void ClearEmoteRightOnPlayer()
+    {
+        CommandSetEmoteRight setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            emote = default
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -206,6 +305,17 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearMainWeaponOnPlayer()
+    {
+        CommandSetMainWeapon setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            weapon = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetSubOnPlayer(SerializableWrapper<Sub> sub)
     {
         CommandSetSub setBuild = new()
@@ -217,12 +327,34 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public void ClearSubOnPlayer()
+    {
+        CommandSetSub setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            sub = default
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public void SetUltimateOnPlayer(UltimateAsset ultimate)
     {
         CommandSetUltimate setBuild = new()
         {
             entity = GetPlayerLocalIndex(0),
             ultimate = new() { Id = ultimate.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
+    public void ClearUltimateOnPlayer()
+    {
+        CommandSetUltimate setBuild = new()
+        {
+            entity = GetPlayerLocalIndex(0),
+            ultimate = default
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
