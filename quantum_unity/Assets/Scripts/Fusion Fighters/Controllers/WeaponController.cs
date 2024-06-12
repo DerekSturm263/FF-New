@@ -36,6 +36,9 @@ public class WeaponController : Controller<WeaponController>
 
     [SerializeField] private PopulateBase _populator;
 
+    [SerializeField] private Transform _objParent;
+    private GameObject _templateObj;
+
     public static string GetPath() => $"{Application.persistentDataPath}/Weapons";
 
     private void Awake()
@@ -101,5 +104,14 @@ public class WeaponController : Controller<WeaponController>
 
         Destroy(WeaponPopulator.ButtonFromItem(_currentlySelected));
         _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+    }
+
+    public void PreviewTemplate(WeaponTemplateAsset template)
+    {
+        if (_templateObj)
+            Destroy(_templateObj);
+
+        if (template.Weapon)
+            _templateObj = Instantiate(template.Weapon, _objParent);
     }
 }

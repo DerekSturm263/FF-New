@@ -10,9 +10,9 @@ public class LocalPlayerInfo
     private readonly InputUser _user;
     public InputUser User => _user;
 
-    private UserProfile _profile;
-    public UserProfile Profile => _profile;
-    public void SetProfile(UserProfile profile) => _profile = profile;
+    private SerializableWrapper<UserProfile> _profile;
+    public SerializableWrapper<UserProfile> Profile => _profile;
+    public void SetProfile(SerializableWrapper<UserProfile> profile) => _profile = profile;
 
     private int _localIndex;
     public int LocalIndex => _localIndex;

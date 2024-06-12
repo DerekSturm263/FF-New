@@ -110,7 +110,6 @@ public class LocalInputController : Controller<LocalInputController>
             playerInfo.User.ActivateControlScheme(scheme.Value);
         }
 
-        playerInfo.SetLocalIndex(playerNum);
         //playerInfo.SetGlobalIndex(playerNum);
     }
 

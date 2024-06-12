@@ -53,14 +53,20 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private void TryPlayerJoin(InputAction.CallbackContext ctx)
     {
-        if (!_isEnabled || GetPlayer(ctx.control.device) != null)
+        if (!_isEnabled || UserProfileController.Instance.IsSpawningPlayer || GetPlayer(ctx.control.device) != null)
             return;
 
         LocalPlayerInfo player = AddPlayer(ctx.control.device);
 
-        if (_executeEvents)
-            foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-                listener.InvokeOnPlayerJoin(player);
+        UserProfileController.Instance.SetPlayer(player);
+
+        UserProfileController.Instance.Spawn();
+        UserProfileController.Instance.DeferEvents(() =>
+        {
+            if (_executeEvents)
+                foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                    listener.InvokeOnPlayerJoin(player);
+        });
     }
 
     private void TryPlayerLeave(InputAction.CallbackContext ctx)
@@ -69,6 +75,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             return;
 
         LocalPlayerInfo player = RemovePlayer(ctx.control.device);
+        FindFirstObjectByType<DisplayUsers>()?.UpdateDisplay();
 
         if (_executeEvents)
             foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -80,10 +87,11 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         if (_allPlayers.ContainsKey(device))
             return _allPlayers[device];
 
+        int index = NextIndex();
         LocalPlayerInfo player = new(device);
         _allPlayers.Add(device, player);
 
-        player.SetLocalIndex(player.User.index);
+        player.SetLocalIndex(index);
         Debug.Log($"Player {player.LocalIndex} has joined via {device?.displayName}");
 
         return player;
@@ -107,12 +115,25 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         }
     }
 
-    private LocalPlayerInfo RemovePlayer(LocalPlayerInfo player)
+    public LocalPlayerInfo RemovePlayer(LocalPlayerInfo player)
     {
         if (player is not null)
             _allPlayers.Remove(player.Device);
 
         Debug.Log($"Player has left the game");
         return player;
+    }
+
+    public int NextIndex()
+    {
+        int[] indicesInUse = _allPlayers.Values.Select(item => item.LocalIndex).ToArray();
+        
+        for (int i = 0; i < 4; ++i)
+        {
+            if (!indicesInUse.Contains(i))
+                return i;
+        }
+
+        return -1;
     }
 }

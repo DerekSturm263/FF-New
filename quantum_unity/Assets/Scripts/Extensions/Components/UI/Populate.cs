@@ -41,11 +41,14 @@ namespace Extensions.Components.UI
         protected ScrollRect _scrollRect;
         protected int _itemCount;
 
+        private Selectable[] _originals;
+
         protected bool _isInitialized;
         public bool IsInitialized => _isInitialized;
 
         protected override void Awake()
         {
+            _originals = GetComponentsInChildren<Selectable>();
             _itemsToButtons = new();
 
             if (!_reloadOnEachEnable && _loadingType == LoadStage.Lazy)
@@ -75,6 +78,9 @@ namespace Extensions.Components.UI
             {
                 foreach (Selectable t in GetComponentsInChildren<Selectable>())
                 {
+                    if (_originals.Contains(t))
+                        continue;
+
                     Destroy(t.gameObject);
                     _isInitialized = false;
                 }

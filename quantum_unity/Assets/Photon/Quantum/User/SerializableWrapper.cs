@@ -6,9 +6,11 @@ public class SerializableWrapper<T>
 {
     [SerializeField] private string _name;
     public string Name => _name;
-    
+    public void SetName(string name) => _name = name;
+
     [SerializeField] private string _description;
     public string Description => _description;
+    public void SetDescription(string description) => _description = description;
     
     [SerializeField] private AssetGuid _guid;
     public AssetGuid Guid => _guid;
@@ -18,6 +20,7 @@ public class SerializableWrapper<T>
     
     [SerializeField] private long _lastEditedDate;
     public long LastEditedDate => _lastEditedDate;
+    public void SetLastEditedDate(long lastEditedDate) => _lastEditedDate = lastEditedDate;
 
     [SerializeField] private Texture2D _icon;
     public Sprite Icon
