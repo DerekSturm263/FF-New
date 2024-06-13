@@ -33,6 +33,8 @@ namespace Quantum.Editor {
       public Quantum.UpgradeUltimate[] UpgradeUltimate = {};
       public Quantum.LongRangedSubEnhancer[] LongRangedSubEnhancer = {};
       public Quantum.BouncySubEnhancer[] BouncySubEnhancer = {};
+      public Quantum.NoneSubEnhancer[] NoneSubEnhancer = {};
+      public Quantum.NoneWeaponEnhancer[] NoneWeaponEnhancer = {};
       public Quantum.EnergyBeamWeaponEnhancer[] EnergyBeamWeaponEnhancer = {};
       public Quantum.ShockwaveWeaponEnhancer[] ShockwaveWeaponEnhancer = {};
       public Quantum.Behavior[] Behavior = {};

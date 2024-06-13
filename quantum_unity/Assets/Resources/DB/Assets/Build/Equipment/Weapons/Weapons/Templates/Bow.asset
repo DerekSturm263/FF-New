@@ -19,6 +19,7 @@ MonoBehaviour:
         Value: 0
   Description: The bow makes use of long-ranged attacks that take a bit to charge,
     but deal heavy damage. It can also be used to extend combos if used correctly.
+  Price: 120
   Icon: {fileID: 21300000, guid: c490bb40b8bdc0c40a583dde6f2acb1d, type: 3}
   Background: {fileID: 0}
   MainColor: {r: 0, g: 0, b: 0, a: 0}
@@ -30,24 +31,7 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Bow
       Guid:
         Value: 2528293008370829028
-    GroundedHeavies:
-      Down:
-        MoveAnim:
-          Id:
-            Value: 0
-      Horizontal:
-        MoveAnim:
-          Id:
-            Value: 0
-      Neutral:
-        MoveAnim:
-          Id:
-            Value: 0
-      Up:
-        MoveAnim:
-          Id:
-            Value: 0
-    GroundedLights:
+    Primaries:
       Down:
         MoveAnim:
           Id:
@@ -81,15 +65,7 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
-    GetUp:
-      MoveAnim:
-        Id:
-          Value: 0
-    Dash:
-      MoveAnim:
-        Id:
-          Value: 0
-    GroundedSingles:
+    Secondaries:
       Down:
         MoveAnim:
           Id:
@@ -106,7 +82,7 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
-    GroundedDoubles:
+    EnergySecondaries:
       Down:
         MoveAnim:
           Id:
@@ -123,3 +99,4 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
+  Weapon: {fileID: 0}

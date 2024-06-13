@@ -4,7 +4,10 @@ public abstract partial class InfoAssetAsset : AssetBase
 {
     [Header("Unity")]
 
-    [Multiline] public string Description;
+    [TextArea] public string Description;
+
+    [Space(10)]
+
     public int Price;
 
     public Sprite Icon;

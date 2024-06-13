@@ -3,6 +3,7 @@ using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ApparelController : Controller<ApparelController>
 {
@@ -26,6 +27,14 @@ public class ApparelController : Controller<ApparelController>
     public void SetModifier3(ApparelModifierAsset modifier3) => _modifier3 = modifier3;
     public void ClearModifier3() => _modifier3 = null;
 
+    private string _name = "Untitled";
+    public void SetName(string name) => _name = name;
+    public void ClearName() => _name = string.Empty;
+
+    private string _description = string.Empty;
+    public void SetDescription(string description) => _description = description;
+    public void ClearDescription() => _description = string.Empty;
+
     public void Clear()
     {
         ClearTemplate();
@@ -33,6 +42,8 @@ public class ApparelController : Controller<ApparelController>
         ClearModifier1();
         ClearModifier2();
         ClearModifier3();
+        ClearName();
+        ClearDescription();
     }
 
     [SerializeField] private Popup _onSuccess;
@@ -40,6 +51,12 @@ public class ApparelController : Controller<ApparelController>
     [SerializeField] private Popup _onNotEnoughCurrency;
 
     [SerializeField] private PopulateBase _populator;
+    [SerializeField] private TMPro.TMP_Text _price;
+
+    [SerializeField] private Transform _objParent;
+    private GameObject _templateObj;
+
+    [SerializeField] private UnityEvent _onSuccessEvent;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Apparel";
 
@@ -62,9 +79,11 @@ public class ApparelController : Controller<ApparelController>
             return;
         }
 
-        Apparel apparel = new();
-        apparel.Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid };
-        apparel.Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid };
+        Apparel apparel = new()
+        {
+            Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid },
+            Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid }
+        };
         apparel.Modifiers.Modifier1 = new AssetRefApparelModifier() { Id = _modifier1 ? _modifier1.AssetObject.Guid : AssetGuid.Invalid };
         apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = _modifier2 ? _modifier2.AssetObject.Guid : AssetGuid.Invalid };
         apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = _modifier3 ? _modifier3.AssetObject.Guid : AssetGuid.Invalid };
@@ -96,13 +115,15 @@ public class ApparelController : Controller<ApparelController>
             InventoryController.Instance.LoseCurrency(_modifier3.Price);
         }
 
-        SerializableWrapper<Apparel> serializable = new(apparel, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Guid, GetPath());
 
         PopupController.Instance.DisplayPopup(_onSuccess);
         Clear();
+
+        _onSuccessEvent.Invoke();
     }
 
     private SerializableWrapper<Apparel> _currentlySelected;
@@ -117,5 +138,39 @@ public class ApparelController : Controller<ApparelController>
 
         Destroy(ApparelPopulator.ButtonFromItem(_currentlySelected));
         _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+    }
+
+    public void PreviewApparel(SerializableWrapper<Apparel> apparel)
+    {
+        PreviewTemplate(UnityDB.FindAsset<ApparelTemplateAsset>(apparel.Value.Template.Id));
+        PreviewPattern(UnityDB.FindAsset<ApparelPatternAsset>(apparel.Value.Pattern.Id));
+    }
+
+    public void PreviewTemplate(ApparelTemplateAsset template)
+    {
+        if (_templateObj)
+            Destroy(_templateObj);
+
+        if (template.Preview)
+            _templateObj = Instantiate(template.Preview, _objParent);
+
+        int price = template.Price;
+        _price.SetText($"${price}");
+
+        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+    }
+
+    public void PreviewPattern(ApparelPatternAsset material)
+    {
+        /*if (_templateObj)
+            Destroy(_templateObj);
+
+        if (template.Weapon)
+            _templateObj = Instantiate(template.Weapon, _objParent);*/
+
+        int price = _template.Price + material.Price;
+        _price.SetText($"${price}");
+
+        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
     }
 }

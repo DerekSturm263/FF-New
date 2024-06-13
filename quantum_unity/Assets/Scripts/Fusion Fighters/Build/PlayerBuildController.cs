@@ -56,7 +56,7 @@ public class PlayerBuildController : MonoBehaviour
         WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(e.New.Template.Id);
         if (template)
         {
-            _currentAltWeapon = Instantiate(template.Weapon, _altWeapon);
+            _currentAltWeapon = Instantiate(template.Instance, _altWeapon);
         }
     }
 
@@ -97,7 +97,7 @@ public class PlayerBuildController : MonoBehaviour
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
         if (template)
         {
-            _currentClothing = Instantiate(template.Apparel, _clothing);
+            _currentClothing = Instantiate(template.Instance, _clothing);
         }
     }
 
@@ -112,7 +112,7 @@ public class PlayerBuildController : MonoBehaviour
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
         if (template)
         {
-            _currentHeadgear = Instantiate(template.Apparel, _headgear);
+            _currentHeadgear = Instantiate(template.Instance, _headgear);
         }
     }
 
@@ -127,7 +127,7 @@ public class PlayerBuildController : MonoBehaviour
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
         if (template)
         {
-            _currentLegwear = Instantiate(template.Apparel, _legwear);
+            _currentLegwear = Instantiate(template.Instance, _legwear);
         }
     }
 
@@ -165,7 +165,7 @@ public class PlayerBuildController : MonoBehaviour
         WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(e.New.Template.Id);
         if (template)
         {
-            _currentMainWeapon = Instantiate(template.Weapon, _mainWeapon);
+            _currentMainWeapon = Instantiate(template.Instance, _mainWeapon);
         }
     }
 
@@ -180,7 +180,7 @@ public class PlayerBuildController : MonoBehaviour
         SubTemplateAsset template = UnityDB.FindAsset<SubTemplateAsset>(e.New.Template.Id);
         if (template)
         {
-            _currentSubWeapon = Instantiate(template.Weapon, _subWeapon);
+            _currentSubWeapon = Instantiate(template.Instance, _subWeapon);
         }
     }
 }

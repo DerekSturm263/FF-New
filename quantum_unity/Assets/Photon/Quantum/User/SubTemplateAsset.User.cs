@@ -2,5 +2,8 @@ using UnityEngine;
 
 public partial class SubTemplateAsset : InfoAssetAsset
 {
-    public GameObject Weapon;
+    [Header("In-Game")]
+
+    public GameObject Instance;
+    public GameObject Preview;
 }

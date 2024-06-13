@@ -1,4 +1,5 @@
 using Quantum;
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,7 +9,7 @@ public class SerializableWrapper<T>
     public string Name => _name;
     public void SetName(string name) => _name = name;
 
-    [SerializeField] private string _description;
+    [SerializeField][TextArea] private string _description;
     public string Description => _description;
     public void SetDescription(string description) => _description = description;
     
@@ -69,5 +70,37 @@ public class SerializableWrapper<T>
     public static implicit operator T(SerializableWrapper<T> lhs)
     {
         return lhs._value;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is null || obj is not SerializableWrapper<T>)
+            return false;
+
+        return (obj as SerializableWrapper<T>)._guid == _guid;
+    }
+
+    public override int GetHashCode()
+    {
+        HashCode hash = new();
+
+        hash.Add(_name);
+        hash.Add(Name);
+        hash.Add(_description);
+        hash.Add(Description);
+        hash.Add(_guid);
+        hash.Add(Guid);
+        hash.Add(_creationDate);
+        hash.Add(CreationDate);
+        hash.Add(_lastEditedDate);
+        hash.Add(LastEditedDate);
+        hash.Add(_icon);
+        hash.Add(Icon);
+        hash.Add(_preview);
+        hash.Add(Preview);
+        hash.Add(_value);
+        hash.Add(Value);
+
+        return hash.ToHashCode();
     }
 }

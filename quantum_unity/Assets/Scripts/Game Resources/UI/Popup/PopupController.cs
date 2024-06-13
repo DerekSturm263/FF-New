@@ -56,7 +56,8 @@ namespace GameResources.UI.Popup
 
             foreach (var selectable in _allSelectables)
             {
-                selectable.Item1.interactable = selectable.Item2;
+                if (selectable.Item1)
+                    selectable.Item1.interactable = selectable.Item2;
             }
 
             SetOldSelected();

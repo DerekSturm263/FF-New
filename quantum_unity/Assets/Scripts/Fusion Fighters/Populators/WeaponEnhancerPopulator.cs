@@ -19,7 +19,9 @@ public class WeaponEnhancerPopulator : PopulateAsset<WeaponEnhancerAsset>
 
         if (countNum == 0)
             count.color = Color.red;
+        else if (countNum == -1)
+            count.gameObject.SetActive(false);
     }
 
-    protected override bool GiveEvents(WeaponEnhancerAsset item) => InventoryController.Instance.GetItemCount(item) > 0;
+    protected override bool GiveEvents(WeaponEnhancerAsset item) => InventoryController.Instance.GetItemCount(item) == -1 || InventoryController.Instance.GetItemCount(item) > 0;
 }

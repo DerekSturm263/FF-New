@@ -7,7 +7,6 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using static Codice.CM.Common.CmCallContext;
 using System.Linq;
 using UnityEngine.EventSystems;
 

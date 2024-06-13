@@ -79,4 +79,13 @@ public class MatchController : Controller<MatchController>
             Behavior = bot.Behavior
         };
     }
+
+    public void GainCurrency()
+    {
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGetSingleton(out Timer timer))
+        {
+            int diference = timer.OriginalTime - timer.Time;
+            InventoryController.Instance.GainCurrency(diference / 2);
+        }
+    }
 }

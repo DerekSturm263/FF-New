@@ -51,7 +51,7 @@ public class InventoryController : Controller<InventoryController>
         return _inventory.ConditionalItemCollection[assetRef];
     }
 
-    public void GetCountableItem(InfoAssetAsset asset, int count)
+    public void GainCountableItem(InfoAssetAsset asset, int count)
     {
         AssetRefInfoAsset assetRef = new() { Id = asset.AssetObject.Guid };
         _inventory.ConditionalItemCollection.TryAdd(assetRef, true);
@@ -62,7 +62,7 @@ public class InventoryController : Controller<InventoryController>
         _inventory.CountItemCollection[assetRef] += count;
     }
 
-    public void GetConditionalItem(InfoAssetAsset asset)
+    public void GainConditionalItem(InfoAssetAsset asset)
     {
         AssetRefInfoAsset assetRef = new() { Id = asset.AssetObject.Guid };
         _inventory.ConditionalItemCollection.TryAdd(assetRef, true);
@@ -71,17 +71,22 @@ public class InventoryController : Controller<InventoryController>
     public void UseCountableItem(InfoAssetAsset asset)
     {
         AssetRefInfoAsset assetRef = new() { Id = asset.AssetObject.Guid };
+        if (_inventory.CountItemCollection[assetRef] == -1)
+            return;
+
         --_inventory.CountItemCollection[assetRef];
     }
 
     public void GainCurrency(int amount)
     {
         _inventory.Currency += amount;
+        FindFirstObjectByType<DisplayCurrency>()?.UpdateDisplay(_inventory.Currency);
     }
 
     public void LoseCurrency(int amount)
     {
         _inventory.Currency -= amount;
+        FindFirstObjectByType<DisplayCurrency>()?.UpdateDisplay(_inventory.Currency);
     }
 
     public bool HasEnoughCurrency(int amount)

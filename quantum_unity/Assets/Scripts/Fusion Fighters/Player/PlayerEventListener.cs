@@ -52,6 +52,7 @@ public class PlayerEventListener : MonoBehaviour
         QuantumEvent.Subscribe<EventOnPlayerHit>(listener: this, handler: e =>
         {
             _onPlayerHit.Invoke(e.Game, e.Player, e.Index);
+            //PlayerJoinController.Instance.GetPlayer(e.Index)
 
             SetPlayerExpressionShocked(e.Player, 1);
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));

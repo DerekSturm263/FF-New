@@ -31,7 +31,7 @@ namespace Quantum
 
             f.Events.OnPlayerSpawn(entity, stats->LocalIndex, stats->GlobalIndex, stats->Name);
 
-            var teams = f.ResolveList(f.Global->CurrentMatch.Teams);
+            var teams = f.ResolveList(f.Global->Teams);
 
             QListPtr<EntityRef> newTeamPtr = f.AllocateList<EntityRef>();
             var newTeam = f.ResolveList(newTeamPtr);

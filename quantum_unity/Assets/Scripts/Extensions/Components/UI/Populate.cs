@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 using static Extensions.Miscellaneous.Helper;
 
 namespace Extensions.Components.UI
@@ -48,10 +49,15 @@ namespace Extensions.Components.UI
 
         protected override void Awake()
         {
+            Init(false);
+        }
+
+        private void Init(bool doLoad)
+        {
             _originals = GetComponentsInChildren<Selectable>();
             _itemsToButtons = new();
 
-            if (!_reloadOnEachEnable && _loadingType == LoadStage.Lazy)
+            if ((!_reloadOnEachEnable && _loadingType == LoadStage.Lazy) || doLoad)
                 LoadAllItems();
 
             _containerRect = GetComponent<RectTransform>();
@@ -76,15 +82,27 @@ namespace Extensions.Components.UI
         {
             if (_reloadOnEachEnable)
             {
-                foreach (Selectable t in GetComponentsInChildren<Selectable>())
-                {
-                    if (_originals.Contains(t))
-                        continue;
-
-                    Destroy(t.gameObject);
-                    _isInitialized = false;
-                }
+                ClearAllItems(true);
             }
+        }
+
+        public void ClearAllItems(bool excludeOriginals)
+        {
+            foreach (Selectable t in GetComponentsInChildren<Selectable>())
+            {
+                if (excludeOriginals && _originals.Contains(t))
+                    continue;
+
+                Destroy(t.gameObject);
+            }
+
+            _isInitialized = false;
+        }
+
+        public void Refresh()
+        {
+            ClearAllItems(false);
+            Init(true);
         }
 
         protected abstract void EnableOrDisableItems();

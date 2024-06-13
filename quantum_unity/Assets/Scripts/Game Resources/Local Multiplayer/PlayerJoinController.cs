@@ -57,16 +57,19 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             return;
 
         LocalPlayerInfo player = AddPlayer(ctx.control.device);
-
-        UserProfileController.Instance.SetPlayer(player);
-
-        UserProfileController.Instance.Spawn();
-        UserProfileController.Instance.DeferEvents(() =>
+        
+        if (player is not null)
         {
-            if (_executeEvents)
-                foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-                    listener.InvokeOnPlayerJoin(player);
-        });
+            UserProfileController.Instance.SetPlayer(player);
+
+            UserProfileController.Instance.Spawn();
+            UserProfileController.Instance.DeferEvents(() =>
+            {
+                if (_executeEvents)
+                    foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                        listener.InvokeOnPlayerJoin(player);
+            });
+        }
     }
 
     private void TryPlayerLeave(InputAction.CallbackContext ctx)
@@ -88,6 +91,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             return _allPlayers[device];
 
         int index = NextIndex();
+        if (index == -1)
+            return null;
+
         LocalPlayerInfo player = new(device);
         _allPlayers.Add(device, player);
 
@@ -103,6 +109,11 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             return player;
 
         return null;
+    }
+
+    public LocalPlayerInfo GetPlayer(int localIndex)
+    {
+        return _allPlayers.ElementAt(localIndex).Value;
     }
 
     public LocalPlayerInfo RemovePlayer(InputDevice device) => RemovePlayer(GetPlayer(device));

@@ -13,7 +13,7 @@ namespace Quantum
             {
                 if (f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.WinCondition.Id, out WinCondition winCondition))
                 {
-                    var teams = f.ResolveList(f.Global->CurrentMatch.Teams);
+                    var teams = f.ResolveList(f.Global->Teams);
 
                     if (winCondition.IsMatchOver(f, teams))
                         EndOfMatch(f, teams, winCondition);
@@ -24,7 +24,7 @@ namespace Quantum
         public override void OnEnabled(Frame f)
         {
             f.Global->CurrentMatch = default;
-            f.Global->CurrentMatch.Teams = f.AllocateList<Team>();
+            f.Global->Teams = f.AllocateList<Team>();
             f.Global->IsTimerOver = false;
             f.Global->IsMatchRunning = false;
             f.Global->CurrentStage = default;
@@ -36,8 +36,8 @@ namespace Quantum
 
         public override void OnDisabled(Frame f)
         {
-            f.FreeList(f.Global->CurrentMatch.Teams);
-            f.Global->CurrentMatch.Teams = default;
+            f.FreeList(f.Global->Teams);
+            f.Global->Teams = default;
         }
 
         public static void StartOfMatch(Frame f)
@@ -51,7 +51,7 @@ namespace Quantum
             f.SystemEnable<CharacterControllerSystem>();
             f.SystemEnable<ItemSpawnSystem>();
 
-            var teams = f.ResolveList(f.Global->CurrentMatch.Teams);
+            var teams = f.ResolveList(f.Global->Teams);
 
             switch (teams.Count)
             {

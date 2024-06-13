@@ -68,6 +68,17 @@ public class LocalInputController : Controller<LocalInputController>
         Debug.Log($"Spawned player {player.LocalIndex}");
     }
 
+    public void ApplyProfile(LocalPlayerInfo player)
+    {
+        CommandPlayerApplyProfile command = new()
+        {
+            entity = BuildController.Instance.GetPlayerLocalIndex(player.LocalIndex),
+            name = player.Profile.Name
+        };
+
+        QuantumRunner.Default.Game.SendCommand(command);
+    }
+
     public void DespawnPlayer(LocalPlayerInfo player)
     {
         CommandDespawnPlayer commandDespawnPlayer = new()

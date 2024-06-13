@@ -5,7 +5,7 @@ namespace Quantum
     public unsafe class CommandPlayerApplyProfile : DeterministicCommand
     {
         public EntityRef entity;
-        public QString32 name;
+        public string name;
 
         public override void Serialize(BitStream stream)
         {

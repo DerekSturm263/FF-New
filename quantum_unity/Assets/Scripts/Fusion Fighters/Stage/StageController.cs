@@ -54,4 +54,9 @@ public class StageController : Controller<StageController>
 
         QuantumRunner.Default.Game.SendCommand(setStage);
     }
+
+    public void UpdateDisplay(SerializableWrapper<Stage> stage)
+    {
+        FindFirstObjectByType<DisplayStageInfo>().UpdateDisplay(stage);
+    }
 }

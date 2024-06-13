@@ -2,5 +2,8 @@ using UnityEngine;
 
 public partial class ApparelTemplateAsset : InfoAssetAsset
 {
-    public GameObject Apparel;
+    [Header("In-Game")]
+
+    public GameObject Instance;
+    public GameObject Preview;
 }

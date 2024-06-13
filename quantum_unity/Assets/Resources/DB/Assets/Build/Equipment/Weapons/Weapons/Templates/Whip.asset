@@ -19,6 +19,7 @@ MonoBehaviour:
         Value: 0
   Description: The whip uses mid-ranged attacks with wide hitboxes to juggle and
     out-range opponents. It can be good for starting certain combos as well.
+  Price: 100
   Icon: {fileID: 21300000, guid: 48ef04daed08f5048b4dabd1f8c494b9, type: 3}
   Background: {fileID: 0}
   MainColor: {r: 0, g: 0, b: 0, a: 0}
@@ -30,24 +31,7 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Whip
       Guid:
         Value: 1758598225545607314
-    GroundedHeavies:
-      Down:
-        MoveAnim:
-          Id:
-            Value: 0
-      Horizontal:
-        MoveAnim:
-          Id:
-            Value: 0
-      Neutral:
-        MoveAnim:
-          Id:
-            Value: 0
-      Up:
-        MoveAnim:
-          Id:
-            Value: 0
-    GroundedLights:
+    Primaries:
       Down:
         MoveAnim:
           Id:
@@ -81,15 +65,7 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
-    GetUp:
-      MoveAnim:
-        Id:
-          Value: 0
-    Dash:
-      MoveAnim:
-        Id:
-          Value: 0
-    GroundedSingles:
+    Secondaries:
       Down:
         MoveAnim:
           Id:
@@ -106,7 +82,7 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
-    GroundedDoubles:
+    EnergySecondaries:
       Down:
         MoveAnim:
           Id:
@@ -123,3 +99,4 @@ MonoBehaviour:
         MoveAnim:
           Id:
             Value: 0
+  Weapon: {fileID: 0}
