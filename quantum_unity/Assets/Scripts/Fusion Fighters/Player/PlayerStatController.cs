@@ -25,6 +25,7 @@ public class PlayerStatController : MonoBehaviour
     {
         Instance = this;
 
+        QuantumEvent.Subscribe<EventOnPlayerSetName>(listener: this, handler: (e) => _huds[e.Index].SetPlayerName(e.Name));
         QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds[e.Index].UpdateReadiness(true));
         QuantumEvent.Subscribe<EventOnPlayerCancel>(listener: this, handler: (e) => _huds[e.Index].UpdateReadiness(false));
         QuantumEvent.Subscribe<EventOnPlayerUpdateReady>(listener: this, handler: (e) => _huds[e.Index].UpdateReadinessValue(e.Readiness.AsFloat));

@@ -18,7 +18,10 @@ namespace Quantum
             Log.Debug("Profile applied!");
 
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
                 stats->Name = name;
+                f.Events.OnPlayerSetName(entity, stats->GlobalIndex, stats->Name);
+            }
         }
     }
 }

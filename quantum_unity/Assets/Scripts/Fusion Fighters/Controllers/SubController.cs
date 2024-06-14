@@ -39,7 +39,6 @@ public class SubController : Controller<SubController>
     [SerializeField] private TMPro.TMP_Text _price;
 
     [SerializeField] private Transform _objParent;
-    private GameObject _templateObj;
 
     [SerializeField] private UnityEvent _onSuccessEvent;
 
@@ -97,6 +96,11 @@ public class SubController : Controller<SubController>
 
     private void Delete()
     {
+        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Template.Id, 1);
+
+        if (_currentlySelected.Value.Enhancers.Enhancer1.Id.IsValid)
+            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Enhancers.Enhancer1.Id, 1);
+
         string path = GetPath();
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
@@ -112,16 +116,19 @@ public class SubController : Controller<SubController>
 
     public void PreviewTemplate(SubTemplateAsset template)
     {
-        if (_templateObj)
-            Destroy(_templateObj);
+        if (WeaponController.TemplateObj)
+            Destroy(WeaponController.TemplateObj);
 
         if (template.Preview)
-            _templateObj = Instantiate(template.Preview, _objParent);
+            WeaponController.TemplateObj = Instantiate(template.Preview, _objParent);
 
-        int price = template.Price;
-        _price.SetText($"${price}");
+        if (_price.isActiveAndEnabled)
+        {
+            int price = template.Price;
+            _price.SetText($"${price}");
 
-        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+            _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+        }
     }
 
     public void PreviewEnhancer(SubEnhancerAsset enhancer)
@@ -132,9 +139,12 @@ public class SubController : Controller<SubController>
         if (template.Weapon)
             _templateObj = Instantiate(template.Weapon, _objParent);*/
 
-        int price = _template.Price + enhancer.Price;
-        _price.SetText($"${price}");
+        if (_price.isActiveAndEnabled)
+        {
+            int price = _template.Price + enhancer.Price;
+            _price.SetText($"${price}");
 
-        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+            _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+        }
     }
 }

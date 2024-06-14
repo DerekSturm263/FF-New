@@ -27,7 +27,7 @@ namespace Extensions.Components.UI
 
         private void Update()
         {
-            if (transform.hasChanged)
+            if (rectTransform.hasChanged)
             {
                 Vector2 sizeDelta = rectTransform.sizeDelta;
 

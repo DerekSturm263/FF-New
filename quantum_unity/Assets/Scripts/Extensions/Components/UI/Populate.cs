@@ -37,6 +37,7 @@ namespace Extensions.Components.UI
         [SerializeField] protected bool _reloadOnEachEnable;
 
         [SerializeField] protected UnityEvent _onIfEmpty;
+        [SerializeField] protected UnityEvent _onIfNotEmpty;
 
         protected RectTransform _containerRect;
         protected ScrollRect _scrollRect;
@@ -162,8 +163,10 @@ namespace Extensions.Components.UI
             foreach (T item in items)
                 AddItem(item);
 
-            if (_itemCount == 0)
+            if (_itemsToButtons[typeof(T)].Count == 0)
                 _onIfEmpty.Invoke();
+            else
+                _onIfNotEmpty.Invoke();
 
             _isInitialized = true;
         }

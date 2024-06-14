@@ -27,7 +27,10 @@ public class BuildController : Controller<BuildController>
             }
         }
 
-        return _localIndicesToPlayers[playerIndex];
+        if (_localIndicesToPlayers.ContainsKey(playerIndex))
+            return _localIndicesToPlayers[playerIndex];
+
+        return EntityRef.None;
     }
 
     public EntityRef GetPlayerGlobalIndex(int playerIndex)

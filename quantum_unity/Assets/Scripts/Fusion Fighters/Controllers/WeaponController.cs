@@ -1,4 +1,3 @@
-using Codice.Utils;
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using GameResources.UI.Popup;
@@ -8,6 +7,8 @@ using UnityEngine.Events;
 
 public class WeaponController : Controller<WeaponController>
 {
+    public static GameObject TemplateObj;
+
     private WeaponTemplateAsset _template;
     public void SetTemplate(WeaponTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
@@ -45,7 +46,6 @@ public class WeaponController : Controller<WeaponController>
     [SerializeField] private TMPro.TMP_Text _price;
 
     [SerializeField] private Transform _objParent;
-    private GameObject _templateObj;
 
     [SerializeField] private UnityEvent _onSuccessEvent;
     [SerializeField] private UnityEvent _onSuccessEventDelayed;
@@ -97,7 +97,12 @@ public class WeaponController : Controller<WeaponController>
         Clear();
 
         _onSuccessEvent.Invoke();
-        Extensions.Miscellaneous.Helper.Delay(7, () => PopupController.Instance.DisplayPopup(_onSuccess));
+        Invoke(nameof(InvokeEventDelay), 8);
+    }
+
+    private void InvokeEventDelay()
+    {
+        PopupController.Instance.DisplayPopup(_onSuccess);
     }
 
     private SerializableWrapper<Weapon> _currentlySelected;
@@ -107,6 +112,12 @@ public class WeaponController : Controller<WeaponController>
 
     private void Delete()
     {
+        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Template.Id, 1);
+        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Material.Id, 1);
+
+        if (_currentlySelected.Value.Enhancers.Enhancer1.Id.IsValid)
+            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Enhancers.Enhancer1.Id, 1);
+
         string path = GetPath();
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
@@ -123,16 +134,19 @@ public class WeaponController : Controller<WeaponController>
 
     public void PreviewTemplate(WeaponTemplateAsset template)
     {
-        if (_templateObj)
-            Destroy(_templateObj);
+        if (TemplateObj)
+            Destroy(TemplateObj);
 
         if (template.Preview)
-            _templateObj = Instantiate(template.Preview, _objParent);
+            TemplateObj = Instantiate(template.Preview, _objParent);
 
-        int price = template.Price;
-        _price.SetText($"${price}");
+        if (_price.isActiveAndEnabled)
+        {
+            int price = template.Price;
+            _price.SetText($"${price}");
 
-        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+            _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+        }
     }
 
     public void PreviewMaterial(WeaponMaterialAsset material)
@@ -143,10 +157,13 @@ public class WeaponController : Controller<WeaponController>
         if (template.Weapon)
             _templateObj = Instantiate(template.Weapon, _objParent);*/
 
-        int price = _template.Price + material.Price;
-        _price.SetText($"${price}");
+        if (_price.isActiveAndEnabled)
+        {
+            int price = _template.Price + material.Price;
+            _price.SetText($"${price}");
 
-        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+            _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+        }
     }
 
     public void PreviewEnhancer(WeaponEnhancerAsset enhancer)
@@ -157,9 +174,12 @@ public class WeaponController : Controller<WeaponController>
         if (template.Weapon)
             _templateObj = Instantiate(template.Weapon, _objParent);*/
 
-        int price = _template.Price + _material.Price + enhancer.Price;
-        _price.SetText($"${price}");
+        if (_price.isActiveAndEnabled)
+        {
+            int price = _template.Price + _material.Price + enhancer.Price;
+            _price.SetText($"${price}");
 
-        _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+            _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
+        }
     }
 }

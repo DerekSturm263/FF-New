@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 119913672a2c78f43be62b25b2180ea2, type: 3}
-  m_Name: Destroy Apparel
+  m_Name: Scrap Weapon
   m_EditorClassIdentifier: 
-  _title: Destroy Apparel?
-  _description: <align=center>Are you sure you want to destroy this apparel?</align>
+  _title: Scrap Weapon?
+  _description: <align=center>Are you sure you want to scrap this weapon? You'll
+    get the materials back, but not any money.</align>
   _responses:
     _kvps:
     - _item1: Yes
@@ -33,9 +34,9 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-          - m_Target: {fileID: 6050474710582076369, guid: 974c41a9988a0da49a7b19055e8f3dea,
+          - m_Target: {fileID: 4169850038472308340, guid: 974c41a9988a0da49a7b19055e8f3dea,
               type: 3}
-            m_TargetAssemblyTypeName: ApparelController, FusionFighters
+            m_TargetAssemblyTypeName: WeaponController, FusionFighters
             m_MethodName: InstanceDelete
             m_Mode: 1
             m_Arguments:
