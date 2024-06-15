@@ -44,6 +44,7 @@ namespace Extensions.Components.UI
                     _selectedElement[key] = EventSystem.current.currentSelectedGameObject;
             }
         }
+
         public void RestoreSelectedElement(GameObject key)
         {
             if (EventSystem.current && _selectedElement.ContainsKey(key))

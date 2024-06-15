@@ -48,7 +48,6 @@ public class WeaponController : Controller<WeaponController>
     [SerializeField] private Transform _objParent;
 
     [SerializeField] private UnityEvent _onSuccessEvent;
-    [SerializeField] private UnityEvent _onSuccessEventDelayed;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Weapons";
 

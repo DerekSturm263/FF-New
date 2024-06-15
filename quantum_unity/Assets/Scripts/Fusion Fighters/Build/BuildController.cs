@@ -19,7 +19,8 @@ public class BuildController : Controller<BuildController>
         {
             foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<Stats>())
             {
-                if (stats.Component.LocalIndex == playerIndex)
+                // TODO: Fix this!
+                if (QuantumRunner.Default.Game.GetLocalPlayers()[0] == playerIndex)
                 {
                     _localIndicesToPlayers[playerIndex] = stats.Entity;
                     break;

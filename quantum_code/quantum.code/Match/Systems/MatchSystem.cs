@@ -52,25 +52,16 @@ namespace Quantum
             f.SystemEnable<ItemSpawnSystem>();
 
             var teams = f.ResolveList(f.Global->Teams);
-
-            switch (teams.Count)
+            ArrayTeams teamsArray = teams.Count switch
             {
-                case 1:
-                    f.Events.OnMatchStart(teams[0], default, default, default);
-                    break;
+                1 => new() { Item1 = teams[0] },
+                2 => new() { Item1 = teams[0], Item2 = teams[1] },
+                3 => new() { Item1 = teams[0], Item2 = teams[1], Item3 = teams[2] },
+                4 => new() { Item1 = teams[0], Item2 = teams[1], Item3 = teams[2], Item4 = teams[3] },
+                _ => default
+            };
 
-                case 2:
-                    f.Events.OnMatchStart(teams[0], teams[1], default, default);
-                    break;
-
-                case 3:
-                    f.Events.OnMatchStart(teams[0], teams[1], teams[2], default);
-                    break;
-
-                case 4:
-                    f.Events.OnMatchStart(teams[0], teams[1], teams[2], teams[3]);
-                    break;
-            }
+            f.Events.OnMatchStart(new() { Count = teams.Count, Teams = teamsArray });
 
             foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
             {
@@ -100,25 +91,23 @@ namespace Quantum
             f.SystemDisable<ItemSpawnSystem>();
 
             IOrderedEnumerable<Team> winners = teams.OrderBy(winCondition.SortTeams(f, teams));
-
-            switch (teams.Count)
+            ArrayTeams teamsArray = teams.Count switch
             {
-                case 1:
-                    f.Events.OnMatchEnd(winners.ElementAt(0), default, default, default, false);
-                    break;
+                1 => new() { Item1 = winners.ElementAt(0) },
+                2 => new() { Item1 = winners.ElementAt(0), Item2 = winners.ElementAt(1) },
+                3 => new() { Item1 = winners.ElementAt(0), Item2 = winners.ElementAt(1), Item3 = winners.ElementAt(2) },
+                4 => new() { Item1 = winners.ElementAt(0), Item2 = winners.ElementAt(1), Item3 = winners.ElementAt(2), Item4 = winners.ElementAt(3) },
+                _ => default
+            };
 
-                case 2:
-                    f.Events.OnMatchEnd(winners.ElementAt(0), winners.ElementAt(1), default, default, false);
-                    break;
+            MatchResults results = new()
+            {
+                Count = teams.Count,
+                Teams = teamsArray
+            };
 
-                case 3:
-                    f.Events.OnMatchEnd(winners.ElementAt(0), winners.ElementAt(1), winners.ElementAt(2), default, false);
-                    break;
-
-                case 4:
-                    f.Events.OnMatchEnd(winners.ElementAt(0), winners.ElementAt(1), winners.ElementAt(2), winners.ElementAt(3), false);
-                    break;
-            }
+            f.Global->Results = results;
+            f.Events.OnMatchEnd(results);
         }
 
         public static void SetStage(Frame f, Stage stage)

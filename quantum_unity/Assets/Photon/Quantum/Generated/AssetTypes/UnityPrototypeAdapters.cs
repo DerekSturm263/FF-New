@@ -115,7 +115,6 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.AssetRefEntityPrototype Hurtbox;
     [Quantum.Inspector.MaxStringByteCountAttribute((Int32)30, "Unicode")]
     public System.String Name;
-    public System.Int32 LocalIndex;
     public System.Int32 GlobalIndex;
     public System.Int32 CurrentStocks;
     public Photon.Deterministic.FP CurrentHealth;
@@ -139,7 +138,6 @@ namespace Quantum.Prototypes.Unity {
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
       result.Hurtbox = this.Hurtbox;
       result.Name = this.Name;
-      result.LocalIndex = this.LocalIndex;
       result.GlobalIndex = this.GlobalIndex;
       result.CurrentStocks = this.CurrentStocks;
       result.CurrentHealth = this.CurrentHealth;

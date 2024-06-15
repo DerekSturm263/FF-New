@@ -29,14 +29,14 @@ public class MatchEventListener : MonoBehaviour
         {
             List<Team> teams = new();
 
-            if (!e.Team1.Equals(default))
-                teams.Add(e.Team1);
-            if (!e.Team2.Equals(default))
-                teams.Add(e.Team2);
-            if (!e.Team3.Equals(default))
-                teams.Add(e.Team3);
-            if (!e.Team4.Equals(default))
-                teams.Add(e.Team4);
+            if (!e.Setup.Teams.Item1.Equals(default))
+                teams.Add(e.Setup.Teams.Item1);
+            if (!e.Setup.Teams.Item2.Equals(default))
+                teams.Add(e.Setup.Teams.Item2);
+            if (!e.Setup.Teams.Item3.Equals(default))
+                teams.Add(e.Setup.Teams.Item3);
+            if (!e.Setup.Teams.Item4.Equals(default))
+                teams.Add(e.Setup.Teams.Item4);
 
             _onMatchStart.Invoke(e.Game, _entityView, teams);
         });
@@ -45,16 +45,16 @@ public class MatchEventListener : MonoBehaviour
         {
             List<Team> teams = new();
 
-            if (!e.FirstPlace.Equals(default))
-                teams.Add(e.FirstPlace);
-            if (!e.SecondPlace.Equals(default))
-                teams.Add(e.SecondPlace);
-            if (!e.ThirdPlace.Equals(default))
-                teams.Add(e.ThirdPlace);
-            if (!e.LastPlace.Equals(default))
-                teams.Add(e.LastPlace);
+            if (!e.Results.Teams.Item1.Equals(default))
+                teams.Add(e.Results.Teams.Item1);
+            if (!e.Results.Teams.Item2.Equals(default))
+                teams.Add(e.Results.Teams.Item2);
+            if (!e.Results.Teams.Item3.Equals(default))
+                teams.Add(e.Results.Teams.Item3);
+            if (!e.Results.Teams.Item4.Equals(default))
+                teams.Add(e.Results.Teams.Item4);
 
-            _onMatchEnd.Invoke(e.Game, _entityView, teams, e.WasForfeited);
+            _onMatchEnd.Invoke(e.Game, _entityView, teams, e.Results.WasForfeited);
         });
     }
 

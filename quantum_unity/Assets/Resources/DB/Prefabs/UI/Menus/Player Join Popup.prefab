@@ -1106,7 +1106,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.95
+  m_fontSize: 65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1388,6 +1388,9 @@ MonoBehaviour:
   _onIfEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _onIfNotEmpty:
+    m_PersistentCalls:
+      m_Calls: []
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -1460,6 +1463,7 @@ MonoBehaviour:
   _selectMethod: 4
   _resetIndexOnStart: 0
   _executeOnSelect: 1
+  _delay: 0.1
 --- !u!114 &8804546887243744577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1662,8 +1666,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7803476223173886833}
   m_HandleRect: {fileID: 583316105924824761}
   m_Direction: 2
-  m_Value: 0.5
-  m_Size: 0
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2755,7 +2759,7 @@ PrefabInstance:
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
       propertyPath: m_fontSize
-      value: 34.4
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5582590176198170808, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}

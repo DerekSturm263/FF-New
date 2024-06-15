@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using Quantum.Types;
 
 namespace Quantum
 {
@@ -16,6 +17,34 @@ namespace Quantum
             Log.Debug("Ruleset applied!");
 
             MatchSystem.SetRuleset(f, ruleset);
+
+            Team selectingTeam = GetSelectingTeam(f.Global->LastSelector, f.Global->RngSession, f.Global->Results, ruleset);
+            int index = -1;
+
+            if (!selectingTeam.Equals(default(Team)))
+            {
+                var players = f.ResolveList(selectingTeam.Players);
+                
+                if (f.Unsafe.TryGetPointer(players[0], out Stats* stats))
+                {
+                    index = stats->GlobalIndex;
+                }
+            }
+
+            f.Events.OnStageSetSelector(index, ruleset.Stage.StagePicker == StagePickerType.Vote);
+            f.Global->LastSelector = index;
+        }
+
+        private Team GetSelectingTeam(int lastSelector, RNGSession rng, MatchResults results, Ruleset ruleset)
+        {
+            return ruleset.Stage.StagePicker switch
+            {
+                StagePickerType.Turns => ArrayHelper.Get(results.Teams, (lastSelector + 1) % results.Count),
+                StagePickerType.Loser => ArrayHelper.Get(results.Teams, results.Count - 1),
+                StagePickerType.Winner => ArrayHelper.Get(results.Teams, 0),
+                StagePickerType.Random => ArrayHelper.Get(results.Teams, rng.Next(0, results.Count)),
+                _ => default,
+            };
         }
     }
 }

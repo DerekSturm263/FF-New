@@ -20,6 +20,7 @@ public class SelectAuto : UIBehaviour
     [SerializeField] private SelectType _selectMethod;
     [SerializeField] private bool _resetIndexOnStart = true;
     [SerializeField] private bool _executeOnSelect = true;
+    [SerializeField] private float _delay;
 
     private Selectable _oldSelected;
 
@@ -31,7 +32,7 @@ public class SelectAuto : UIBehaviour
 
     protected override void OnEnable()
     {
-        SetSelectedItem(_selectMethod);
+        Invoke(nameof(SetSelectedItem), _delay);
     }
 
     protected override void OnDisable()

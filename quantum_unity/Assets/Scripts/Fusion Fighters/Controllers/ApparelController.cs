@@ -123,6 +123,12 @@ public class ApparelController : Controller<ApparelController>
         Clear();
 
         _onSuccessEvent.Invoke();
+        Invoke(nameof(InvokeEventDelay), 8);
+    }
+
+    private void InvokeEventDelay()
+    {
+        PopupController.Instance.DisplayPopup(_onSuccess);
     }
 
     private SerializableWrapper<Apparel> _currentlySelected;
