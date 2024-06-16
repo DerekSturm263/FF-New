@@ -79,28 +79,4 @@ public class SerializableWrapper<T>
 
         return (obj as SerializableWrapper<T>)._guid == _guid;
     }
-
-    public override int GetHashCode()
-    {
-        HashCode hash = new();
-
-        hash.Add(_name);
-        hash.Add(Name);
-        hash.Add(_description);
-        hash.Add(Description);
-        hash.Add(_guid);
-        hash.Add(Guid);
-        hash.Add(_creationDate);
-        hash.Add(CreationDate);
-        hash.Add(_lastEditedDate);
-        hash.Add(LastEditedDate);
-        hash.Add(_icon);
-        hash.Add(Icon);
-        hash.Add(_preview);
-        hash.Add(Preview);
-        hash.Add(_value);
-        hash.Add(Value);
-
-        return hash.ToHashCode();
-    }
 }

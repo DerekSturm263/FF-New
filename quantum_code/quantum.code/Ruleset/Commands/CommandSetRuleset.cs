@@ -16,8 +16,6 @@ namespace Quantum
         {
             Log.Debug("Ruleset applied!");
 
-            MatchSystem.SetRuleset(f, ruleset);
-
             Team selectingTeam = GetSelectingTeam(f.Global->LastSelector, f.Global->RngSession, f.Global->Results, ruleset);
             int index = -1;
 
@@ -33,6 +31,8 @@ namespace Quantum
 
             f.Events.OnStageSetSelector(index, ruleset.Stage.StagePicker == StagePickerType.Vote);
             f.Global->LastSelector = index;
+
+            MatchSystem.SetRuleset(f, ruleset);
         }
 
         private Team GetSelectingTeam(int lastSelector, RNGSession rng, MatchResults results, Ruleset ruleset)

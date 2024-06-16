@@ -48,6 +48,12 @@ public class WeaponController : Controller<WeaponController>
     [SerializeField] private Transform _objParent;
 
     [SerializeField] private UnityEvent _onSuccessEvent;
+    [SerializeField] private float _delayTime = 8;
+
+    private bool _doAction;
+
+    private SerializableWrapper<Weapon> _lastWeapon;
+    [SerializeField] private UnityEvent<SerializableWrapper<Weapon>> _onSuccessEventDelayed;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Weapons";
 
@@ -92,16 +98,28 @@ public class WeaponController : Controller<WeaponController>
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Guid, GetPath());
+        _lastWeapon = serializable;
 
         Clear();
-
         _onSuccessEvent.Invoke();
-        Invoke(nameof(InvokeEventDelay), 8);
+
+        _doAction = true;
+        Invoke(nameof(InvokeEventDelay), _delayTime);
+    }
+
+    public void InvokeEventNoDelay()
+    {
+        InvokeEventDelay();
+        _doAction = false;
     }
 
     private void InvokeEventDelay()
     {
+        if (!_doAction)
+            return;
+
         PopupController.Instance.DisplayPopup(_onSuccess);
+        _onSuccessEventDelayed.Invoke(_lastWeapon);
     }
 
     private SerializableWrapper<Weapon> _currentlySelected;
@@ -121,7 +139,7 @@ public class WeaponController : Controller<WeaponController>
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(WeaponPopulator.ButtonFromItem(_currentlySelected));
-        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }
 
     public void PreviewWeapon(SerializableWrapper<Weapon> weapon)
@@ -180,5 +198,11 @@ public class WeaponController : Controller<WeaponController>
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
         }
+    }
+
+    public void ClearPreview()
+    {
+        if (TemplateObj)
+            Destroy(TemplateObj);
     }
 }

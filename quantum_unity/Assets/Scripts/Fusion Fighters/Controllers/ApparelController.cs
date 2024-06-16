@@ -56,6 +56,12 @@ public class ApparelController : Controller<ApparelController>
     [SerializeField] private Transform _objParent;
 
     [SerializeField] private UnityEvent _onSuccessEvent;
+    [SerializeField] private float _delayTime = 8;
+
+    private bool _doAction;
+
+    private SerializableWrapper<Apparel> _lastApparel;
+    [SerializeField] private UnityEvent<SerializableWrapper<Apparel>> _onSuccessEventDelayed;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Apparel";
 
@@ -118,17 +124,28 @@ public class ApparelController : Controller<ApparelController>
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Guid, GetPath());
+        _lastApparel = serializable;
 
-        PopupController.Instance.DisplayPopup(_onSuccess);
         Clear();
-
         _onSuccessEvent.Invoke();
-        Invoke(nameof(InvokeEventDelay), 8);
+
+        _doAction = true;
+        Invoke(nameof(InvokeEventDelay), _delayTime);
+    }
+
+    public void InvokeEventNoDelay()
+    {
+        InvokeEventDelay();
+        _doAction = false;
     }
 
     private void InvokeEventDelay()
     {
+        if (!_doAction)
+            return;
+
         PopupController.Instance.DisplayPopup(_onSuccess);
+        _onSuccessEventDelayed.Invoke(_lastApparel);
     }
 
     private SerializableWrapper<Apparel> _currentlySelected;
@@ -154,7 +171,7 @@ public class ApparelController : Controller<ApparelController>
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(ApparelPopulator.ButtonFromItem(_currentlySelected));
-        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }
 
     public void PreviewApparel(SerializableWrapper<Apparel> apparel)
@@ -212,5 +229,11 @@ public class ApparelController : Controller<ApparelController>
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
         }
+    }
+
+    public void ClearPreview()
+    {
+        if (WeaponController.TemplateObj)
+            Destroy(WeaponController.TemplateObj);
     }
 }

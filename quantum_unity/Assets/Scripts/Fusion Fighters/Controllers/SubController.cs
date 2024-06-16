@@ -41,6 +41,12 @@ public class SubController : Controller<SubController>
     [SerializeField] private Transform _objParent;
 
     [SerializeField] private UnityEvent _onSuccessEvent;
+    [SerializeField] private float _delayTime = 8;
+
+    private bool _doAction;
+
+    private SerializableWrapper<Sub> _lastSub;
+    [SerializeField] private UnityEvent<SerializableWrapper<Sub>> _onSuccessEventDelayed;
 
     public static string GetPath() => $"{Application.persistentDataPath}/Subs";
 
@@ -82,17 +88,28 @@ public class SubController : Controller<SubController>
         serializable.SetIcon(_template.Icon.texture);
 
         Serializer.Save(serializable, serializable.Guid, GetPath());
+        _lastSub = serializable;
 
-        PopupController.Instance.DisplayPopup(_onSuccess);
         Clear();
-
         _onSuccessEvent.Invoke();
-        Invoke(nameof(InvokeEventDelay), 8);
+
+        _doAction = true;
+        Invoke(nameof(InvokeEventDelay), _delayTime);
+    }
+
+    public void InvokeEventNoDelay()
+    {
+        InvokeEventDelay();
+        _doAction = false;
     }
 
     private void InvokeEventDelay()
     {
+        if (!_doAction)
+            return;
+            
         PopupController.Instance.DisplayPopup(_onSuccess);
+        _onSuccessEventDelayed.Invoke(_lastSub);
     }
 
     private SerializableWrapper<Sub> _currentlySelected;
@@ -111,7 +128,7 @@ public class SubController : Controller<SubController>
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(SubPopulator.ButtonFromItem(_currentlySelected));
-        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }
 
     public void PreviewSub(SerializableWrapper<Sub> sub)
@@ -152,5 +169,11 @@ public class SubController : Controller<SubController>
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
         }
+    }
+
+    public void ClearPreview()
+    {
+        if (WeaponController.TemplateObj)
+            Destroy(WeaponController.TemplateObj);
     }
 }
