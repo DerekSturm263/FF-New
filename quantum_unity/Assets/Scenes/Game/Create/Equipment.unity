@@ -2954,6 +2954,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 279040207}
+        m_TargetAssemblyTypeName: ApparelController, FusionFighters
+        m_MethodName: ClearModifiers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -5226,7 +5238,7 @@ GameObject:
   - component: {fileID: 263962871}
   - component: {fileID: 263962870}
   m_Layer: 5
-  m_Name: Select
+  m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5263,7 +5275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78771b8b690ac4c4a94c54505ead9a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _format: '{0} Select'
+  _format: '{0} Next'
   _inputEvent: {fileID: 263962871}
 --- !u!114 &263962871
 MonoBehaviour:
@@ -5282,7 +5294,44 @@ MonoBehaviour:
   _processWhenEmpty: 1
   _onAction:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133465216}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Exit
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1175511851}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2055435061}
+        m_TargetAssemblyTypeName: Extensions.Components.UI.Populate`2[[ApparelModifierAsset,
+          PhotonQuantum
+        m_MethodName: EnableAllButtonNavigation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAxisAction:
     m_PersistentCalls:
       m_Calls: []
@@ -5353,7 +5402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite=32> Select
+  m_text: <sprite=32> Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 296db103289837244af1815506372cb8, type: 2}
   m_sharedMaterial: {fileID: -8968303483333786063, guid: 296db103289837244af1815506372cb8,
@@ -11216,6 +11265,9 @@ MonoBehaviour:
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &639245901
 GameObject:
   m_ObjectHideFlags: 0
@@ -12830,6 +12882,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &726188574
@@ -15647,6 +15702,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &880580235
@@ -21496,6 +21554,9 @@ MonoBehaviour:
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1209599830
 GameObject:
   m_ObjectHideFlags: 0
@@ -23038,6 +23099,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1366698591
@@ -29125,6 +29189,9 @@ MonoBehaviour:
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1425599922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30235,6 +30302,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
   _type: 0
@@ -31679,6 +31749,9 @@ MonoBehaviour:
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1552864553
 GameObject:
   m_ObjectHideFlags: 0
@@ -32447,6 +32520,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1585149562 stripped
@@ -36646,6 +36722,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &1856907422
@@ -51267,7 +51346,7 @@ MonoBehaviour:
   _selectMethod: 4
   _resetIndexOnStart: 1
   _executeOnSelect: 0
-  _delay: 0
+  _delay: 0.05
 --- !u!114 &2055435058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51343,7 +51422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572b2bb18f883b348aed061bd0c8c91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 6066071934636821485, guid: 29eb26353de5a70428d70c3ec5678e88, type: 3}
+  _button: {fileID: 6066071934636821485, guid: 8e45b5247f1641247974d9cd3fe69032, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _loadingType: 1
   _sizeOffset: 0
@@ -51360,18 +51439,6 @@ MonoBehaviour:
   _onButtonHover:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 279040207}
-        m_TargetAssemblyTypeName: ApparelController, FusionFighters
-        m_MethodName: PreviewModifier
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2030390619}
         m_TargetAssemblyTypeName: Extensions.Components.UI.DisplayTextAndImage`1[[ApparelModifierAsset,
           PhotonQuantum
@@ -51387,10 +51454,22 @@ MonoBehaviour:
         m_CallState: 2
   _onButtonClick:
     m_PersistentCalls:
+      m_Calls: []
+  _onButtonClickError:
+    m_PersistentCalls:
+      m_Calls: []
+  _onButtonClickMultiplayer:
+    m_PersistentCalls:
+      m_Calls: []
+  _onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 279040207}
         m_TargetAssemblyTypeName: ApparelController, FusionFighters
-        m_MethodName: SetModifier1
+        m_MethodName: AdjustModifiers
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -51400,35 +51479,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 133465216}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Exit
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1175511851}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2055435061}
-        m_TargetAssemblyTypeName: Extensions.Components.UI.Populate`2[[ApparelModifierAsset,
-          PhotonQuantum
-        m_MethodName: EnableAllButtonNavigation
-        m_Mode: 6
+      - m_Target: {fileID: 279040207}
+        m_TargetAssemblyTypeName: ApparelController, FusionFighters
+        m_MethodName: PreviewModifier
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -51437,29 +51491,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onButtonClickError:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-        m_MethodName: PlayAudioClip
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 077e6f9df7ae37744b5c365db5afd1ad,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onButtonClickMultiplayer:
-    m_PersistentCalls:
-      m_Calls: []
-  _onButtonDeselect:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2056194856
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,8 @@ using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,17 +17,41 @@ public class ApparelController : Controller<ApparelController>
     public void SetPattern(ApparelPatternAsset pattern) => _pattern = pattern;
     public void ClearPattern() => _pattern = null;
 
-    private ApparelModifierAsset _modifier1;
-    public void SetModifier1(ApparelModifierAsset modifier1) => _modifier1 = modifier1;
-    public void ClearModifier1() => _modifier1 = null;
+    private Extensions.Types.Dictionary<ApparelModifierAsset, int> _modifiers = new();
+    public void AdjustModifiers(ApparelModifierAsset modifier, int increment)
+    {
+        if ((increment > 0 && _modifiers.Sum(item => item.Value) == 3))
+            return;
 
-    private ApparelModifierAsset _modifier2;
-    public void SetModifier2(ApparelModifierAsset modifier2) => _modifier2 = modifier2;
-    public void ClearModifier2() => _modifier2 = null;
+        if (!_modifiers.ContainsKey(modifier))
+            _modifiers.Add(modifier, 0);
 
-    private ApparelModifierAsset _modifier3;
-    public void SetModifier3(ApparelModifierAsset modifier3) => _modifier3 = modifier3;
-    public void ClearModifier3() => _modifier3 = null;
+        if (_modifiers[modifier] + increment > InventoryController.Instance.GetItemCount(modifier))
+            return;
+
+        _modifiers[modifier] += increment;
+
+        if (_modifiers[modifier] >= 0 && ApparelModifierPopulator.TryButtonFromItem(modifier, out GameObject button))
+        {
+            TMPro.TMP_Text[] texts = button.GetComponentsInChildren<TMPro.TMP_Text>();
+            int newCount = InventoryController.Instance.GetItemCount(modifier) - _modifiers[modifier];
+
+            texts[0].SetText(newCount.ToString());
+            texts[0].color = newCount == 0 ? Color.red : Color.white;
+
+            texts[1].SetText(_modifiers[modifier].ToString());
+            texts[1].color = _modifiers[modifier] == 0 ? new(0.7f, 0.7f, 0.7f) : Color.white;
+        }
+        else if (_modifiers[modifier] <= 0)
+        {
+            _modifiers.Remove(modifier);
+        }
+    }
+
+    public void ClearModifiers()
+    {
+        _modifiers.Clear();
+    }
 
     private string _name = "Untitled";
     public void SetName(string name) => _name = name;
@@ -39,9 +65,7 @@ public class ApparelController : Controller<ApparelController>
     {
         ClearTemplate();
         ClearPattern();
-        ClearModifier1();
-        ClearModifier2();
-        ClearModifier3();
+        ClearModifiers();
         ClearName();
         ClearDescription();
     }
@@ -78,7 +102,18 @@ public class ApparelController : Controller<ApparelController>
             return;
         }
 
-        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _pattern?.Price, _modifier1?.Price, _modifier2?.Price, _modifier3?.Price))
+        List<ApparelModifierAsset> modifiers = new();
+        foreach (var kvp in _modifiers)
+        {
+            for (int i = 0; i < kvp.Value; ++i)
+                modifiers.Add(kvp.Key);
+        }
+
+        ApparelModifierAsset modifier1 = modifiers.ElementAtOrDefault(0);
+        ApparelModifierAsset modifier2 = modifiers.ElementAtOrDefault(1);
+        ApparelModifierAsset modifier3 = modifiers.ElementAtOrDefault(2);
+
+        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _pattern?.Price, modifier1?.Price, modifier2?.Price, modifier3?.Price))
         {
             PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
             return;
@@ -89,9 +124,9 @@ public class ApparelController : Controller<ApparelController>
             Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid },
             Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid }
         };
-        apparel.Modifiers.Modifier1 = new AssetRefApparelModifier() { Id = _modifier1 ? _modifier1.AssetObject.Guid : AssetGuid.Invalid };
-        apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = _modifier2 ? _modifier2.AssetObject.Guid : AssetGuid.Invalid };
-        apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = _modifier3 ? _modifier3.AssetObject.Guid : AssetGuid.Invalid };
+        apparel.Modifiers.Modifier1 = new AssetRefApparelModifier() { Id = modifier1 ? modifier1.AssetObject.Guid : AssetGuid.Invalid };
+        apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = modifier2 ? modifier2.AssetObject.Guid : AssetGuid.Invalid };
+        apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = modifier3 ? modifier3.AssetObject.Guid : AssetGuid.Invalid };
 
         InventoryController.Instance.UseCountableItem(_template);
         InventoryController.Instance.LoseCurrency(_template.Price);
@@ -102,22 +137,22 @@ public class ApparelController : Controller<ApparelController>
             InventoryController.Instance.LoseCurrency(_pattern.Price);
         }
 
-        if (_modifier1 && _modifier1.AssetObject.Guid != AssetGuid.Invalid)
+        if (modifier1 && modifier1.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(_modifier1);
-            InventoryController.Instance.LoseCurrency(_modifier1.Price);
+            InventoryController.Instance.UseCountableItem(modifier1);
+            InventoryController.Instance.LoseCurrency(modifier1.Price);
         }
 
-        if (_modifier2 && _modifier2.AssetObject.Guid != AssetGuid.Invalid)
+        if (modifier2 && modifier2.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(_modifier2);
-            InventoryController.Instance.LoseCurrency(_modifier2.Price);
+            InventoryController.Instance.UseCountableItem(modifier2);
+            InventoryController.Instance.LoseCurrency(modifier2.Price);
         }
 
-        if (_modifier3 && _modifier3.AssetObject.Guid != AssetGuid.Invalid)
+        if (modifier3 && modifier3.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(_modifier3);
-            InventoryController.Instance.LoseCurrency(_modifier3.Price);
+            InventoryController.Instance.UseCountableItem(modifier3);
+            InventoryController.Instance.LoseCurrency(modifier3.Price);
         }
 
         SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
@@ -214,7 +249,7 @@ public class ApparelController : Controller<ApparelController>
         }
     }
 
-    public void PreviewModifier(ApparelModifierAsset modifier)
+    public void PreviewModifier()
     {
         /*if (_templateObj)
             Destroy(_templateObj);
@@ -224,7 +259,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = _template.Price + _pattern.Price + modifier.Price;
+            int price = _template.Price + _pattern.Price + _modifiers.Sum(item => item.Key.Price * item.Value);
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

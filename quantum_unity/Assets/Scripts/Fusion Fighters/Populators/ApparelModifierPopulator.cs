@@ -21,6 +21,9 @@ public class ApparelModifierPopulator : PopulateAsset<ApparelModifierAsset>
             count.color = Color.red;
         else if (countNum == -1)
             count.gameObject.SetActive(false);
+
+        TMPro.TMP_Text current = buttonObj.FindChildWithTag("Current")?.GetComponent<TMPro.TMP_Text>();
+        current.color = new(0.7f, 0.7f, 0.7f);
     }
 
     protected override bool GiveEvents(ApparelModifierAsset item) => InventoryController.Instance.GetItemCount(item) == -1 || InventoryController.Instance.GetItemCount(item) > 0;

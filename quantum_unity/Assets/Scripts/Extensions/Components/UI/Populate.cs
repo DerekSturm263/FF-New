@@ -148,6 +148,7 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T> _onButtonClickError;
         [SerializeField] protected UnityEvent<T, int> _onButtonClickMultiplayer;
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
+        [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
 
         public override void LoadAllItems()
         {
@@ -283,6 +284,7 @@ namespace Extensions.Components.UI
             Button button = buttonObj.GetComponentInChildren<Button>();
             MultiplayerButton multiplayerButton = buttonObj.GetComponentInChildren<MultiplayerButton>();
             DragAndDropItem dragAndDrop = buttonObj.GetComponentInChildren<DragAndDropItem>();
+            Incremental incremental = buttonObj.GetComponentInChildren<Incremental>();
 
             if (giveEvents)
             {
@@ -294,6 +296,9 @@ namespace Extensions.Components.UI
 
                 if (dragAndDrop)
                     dragAndDrop.SetValue(item);
+
+                if (incremental)
+                    incremental.OnIncrementDecrement.AddListener((amount) => _onIncrementalIncrementDecrement.Invoke(item, amount));
             }
             else if (button)
             {
