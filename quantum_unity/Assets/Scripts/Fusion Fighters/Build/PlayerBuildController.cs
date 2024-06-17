@@ -16,8 +16,10 @@ public class PlayerBuildController : MonoBehaviour
     [SerializeField] private Dictionary<AssetRefFFAvatar, Transform> _hairSlot;
 
     [SerializeField] private Dictionary<AssetRefFFAvatar, SkinnedMeshRenderer> _headSlot;
+    [SerializeField] private Dictionary<AssetRefFFAvatar, ParentClothing> _parentClothingSlot;
 
     private Transform _altWeapon, _mainWeapon, _subWeapon, _headgear, _clothing, _legwear, _hair;
+    private ParentClothing _parentClothing;
 
     private GameObject _currentAltWeapon;
     private GameObject _currentSubWeapon;
@@ -84,6 +86,18 @@ public class PlayerBuildController : MonoBehaviour
         _legwear = _legwearSlot[e.New];
         _hair = _hairSlot[e.New];
         _head = _headSlot[e.New];
+        _parentClothing = _parentClothingSlot[e.New];
+
+        _currentAltWeapon.transform.SetParent(_altWeapon, false);
+        _currentMainWeapon.transform.SetParent(_mainWeapon, false);
+        _currentSubWeapon.transform.SetParent(_subWeapon, false);
+        _currentHeadgear.transform.SetParent(_headgear, false);
+        _currentHeadgear.GetComponent<ParentClothing>().SetParent(_parentClothing);
+        _currentClothing.transform.SetParent(_clothing, false);
+        _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
+        _currentLegwear.transform.SetParent(_legwear, false);
+        _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
+        //_currentHair.transform.SetParent(_hair, false);
     }
 
     private void SetClothing(EventOnPlayerSetClothing e)
@@ -98,6 +112,7 @@ public class PlayerBuildController : MonoBehaviour
         if (template)
         {
             _currentClothing = Instantiate(template.Instance, _clothing);
+            _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
         }
     }
 
@@ -113,6 +128,7 @@ public class PlayerBuildController : MonoBehaviour
         if (template)
         {
             _currentHeadgear = Instantiate(template.Instance, _headgear);
+            _currentHeadgear.GetComponent<ParentClothing>().SetParent(_parentClothing);
         }
     }
 
@@ -128,6 +144,7 @@ public class PlayerBuildController : MonoBehaviour
         if (template)
         {
             _currentLegwear = Instantiate(template.Instance, _legwear);
+            _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
         }
     }
 

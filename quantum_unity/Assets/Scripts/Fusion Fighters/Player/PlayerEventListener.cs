@@ -2,6 +2,7 @@ using GameResources;
 using Quantum;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,6 +23,7 @@ public class PlayerEventListener : MonoBehaviour
     private EntityViewUpdater _entityViewUpdater;
 
     private readonly Dictionary<EntityRef, SkinnedMeshRenderer[]> _meshRenderers = new();
+    private readonly Dictionary<EntityRef, SkinnedMeshRenderer> _heads = new();
     private readonly Dictionary<EntityRef, HurtboxSettings> _hurtboxSettings = new();
 
     [SerializeField] private float _pingPongSpeed;
@@ -94,13 +96,13 @@ public class PlayerEventListener : MonoBehaviour
     {
         for (int i = 0; i <= 10; ++i)
         {
-            Blink(player, i * 10);
+            Blink(player, i * (1.0f / 10));
             yield return new WaitForEndOfFrame();
         }
 
         for (int i = 10; i >= 0; --i)
         {
-            Blink(player, i * 10);
+            Blink(player, i * (1.0f / 10));
             yield return new WaitForEndOfFrame();
         }
 
@@ -260,8 +262,8 @@ public class PlayerEventListener : MonoBehaviour
     {
         SkinnedMeshRenderer head = GetHead(owner);
 
-        head.SetBlendShapeWeight(0, weight * 0.3f);
-        head.SetBlendShapeWeight(1, weight * 0.3f);
+        head.SetBlendShapeWeight(0, weight * 0.2f);
+        head.SetBlendShapeWeight(1, weight * 0.2f);
         head.SetBlendShapeWeight(2, 0);
         head.SetBlendShapeWeight(3, 0);
         head.SetBlendShapeWeight(4, 0);
@@ -284,20 +286,23 @@ public class PlayerEventListener : MonoBehaviour
 
         if (head)
         {
-            head.SetBlendShapeWeight(0, weight);
-            head.SetBlendShapeWeight(1, weight);
+            head.SetBlendShapeWeight(0, Mathf.Lerp(20, 100, weight));
+            head.SetBlendShapeWeight(1, Mathf.Lerp(20, 100, weight));
         }
     }
 
     private void InitList(EntityRef owner)
     {
         if (!_meshRenderers.ContainsKey(owner))
+        {
             _meshRenderers.Add(owner, _entityViewUpdater.GetView(owner).GetComponentsInChildren<SkinnedMeshRenderer>());
+            _heads.Add(owner, _meshRenderers[owner].First(item => item.name == "OBJ_head"));
+        }
     }
 
     private SkinnedMeshRenderer GetHead(EntityRef owner)
     {
         InitList(owner);
-        return _meshRenderers[owner][4];
+        return _heads[owner];
     }
 }

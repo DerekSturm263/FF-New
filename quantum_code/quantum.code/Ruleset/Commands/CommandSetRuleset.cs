@@ -16,16 +16,24 @@ namespace Quantum
         {
             Log.Debug("Ruleset applied!");
 
-            Team selectingTeam = GetSelectingTeam(f.Global->LastSelector, f.Global->RngSession, f.Global->Results, ruleset);
             int index = -1;
 
-            if (!selectingTeam.Equals(default(Team)))
+            if (f.Global->LastSelector == -1 && (ruleset.Stage.StagePicker != StagePickerType.Anyone || ruleset.Stage.StagePicker != StagePickerType.Vote))
             {
-                var players = f.ResolveList(selectingTeam.Players);
-                
-                if (f.Unsafe.TryGetPointer(players[0], out Stats* stats))
+                index = 0;
+            }
+            else
+            {
+                Team selectingTeam = GetSelectingTeam(f.Global->LastSelector, f.Global->RngSession, f.Global->Results, ruleset);
+
+                if (!selectingTeam.Equals(default(Team)))
                 {
-                    index = stats->GlobalIndex;
+                    var players = f.ResolveList(selectingTeam.Players);
+
+                    if (f.Unsafe.TryGetPointer(players[0], out Stats* stats))
+                    {
+                        index = stats->GlobalIndex;
+                    }
                 }
             }
 

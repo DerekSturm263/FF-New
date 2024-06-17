@@ -82,6 +82,9 @@ MonoBehaviour:
   _onIfEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _onIfNotEmpty:
+    m_PersistentCalls:
+      m_Calls: []
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -139,6 +142,9 @@ MonoBehaviour:
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1921163039228476754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +160,7 @@ MonoBehaviour:
   _selectMethod: 6
   _resetIndexOnStart: 1
   _executeOnSelect: 1
+  _delay: 0
 --- !u!1 &8845337175935215122
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +173,7 @@ GameObject:
   - component: {fileID: 7273706455359597470}
   - component: {fileID: 7794293382433758708}
   - component: {fileID: 8402060783422193300}
+  - component: {fileID: 1403580153662476166}
   m_Layer: 5
   m_Name: Stage Select Menu
   m_TagString: Untagged
@@ -236,3 +244,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectorAsset: {fileID: -1621118010388834983, guid: 010ce9b8a544a50449c0d9c8c76dd626,
     type: 3}
+--- !u!114 &1403580153662476166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845337175935215122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876f972589373f74baafe567c8e5dcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stages: {fileID: 7051374468021888189}

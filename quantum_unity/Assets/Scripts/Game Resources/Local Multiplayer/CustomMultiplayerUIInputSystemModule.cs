@@ -11,7 +11,9 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
     private Controls _controls;
 
     private MultiplayerEventSystem _eventSystem;
+
     private LocalPlayerInfo _playerInfo;
+    public LocalPlayerInfo PlayerInfo => _playerInfo;
 
     [SerializeField] private Selector _selectorAsset;
 

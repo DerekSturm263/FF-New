@@ -23,6 +23,7 @@ namespace Quantum
 
         public override void OnEnabled(Frame f)
         {
+            f.Global->LastSelector = -1;
             f.Global->CurrentMatch = default;
             f.Global->Teams = f.AllocateList<Team>();
             f.Global->IsTimerOver = false;
