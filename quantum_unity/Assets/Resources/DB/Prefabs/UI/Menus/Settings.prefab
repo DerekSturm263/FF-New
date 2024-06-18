@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -842,7 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.05
+  m_fontSize: 15.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1161,6 +1161,7 @@ MonoBehaviour:
   _selectMethod: 7
   _resetIndexOnStart: 1
   _executeOnSelect: 1
+  _delay: 0
 --- !u!1 &1777105593110774429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,6 +1352,7 @@ MonoBehaviour:
   _selectMethod: 7
   _resetIndexOnStart: 1
   _executeOnSelect: 1
+  _delay: 0
 --- !u!1 &2022904514240644392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2475,7 +2477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2649,7 +2651,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.1
+  m_fontSize: 23.1
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2788,7 +2790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2909,7 +2911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3110,7 +3112,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.85
+  m_fontSize: 25.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3744,7 +3746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3946,7 +3948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -4235,6 +4237,7 @@ MonoBehaviour:
   _selectMethod: 7
   _resetIndexOnStart: 1
   _executeOnSelect: 1
+  _delay: 0
 --- !u!1 &6365662497718498713
 GameObject:
   m_ObjectHideFlags: 0
@@ -6209,6 +6212,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: Enable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -6245,6 +6261,19 @@ MonoBehaviour:
             type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Audio.AudioMixerSnapshot,
             UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: Enable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6446,7 +6475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -7828,6 +7857,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
         type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 4222527408160703638}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3944858369377547978}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -8210,6 +8254,21 @@ PrefabInstance:
       propertyPath: m_WholeNumbers
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 5482015562578103765}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 8875400879678106173}
     - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -8864,6 +8923,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
         type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 3956932694430167960}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -9044,6 +9113,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toggle
       objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 2647945562517623054}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3956932694430167960}
     - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -9810,6 +9894,11 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7240240870188153711, guid: bda7fa3be4b78b746871ed44320d9509,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.255005
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9939,6 +10028,16 @@ PrefabInstance:
       propertyPath: m_text
       value: Preset
       objectReference: {fileID: 0}
+    - target: {fileID: 8578770606011230265, guid: bda7fa3be4b78b746871ed44320d9509,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578770606011230265, guid: bda7fa3be4b78b746871ed44320d9509,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 4222527408160703638}
     - target: {fileID: 8578770606011230265, guid: bda7fa3be4b78b746871ed44320d9509,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
@@ -10918,6 +11017,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
         type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 3944858369377547978}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 2647945562517623054}
+    - target: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+        type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -11108,6 +11222,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toggle
       objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 2307477739215150041}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 5482015562578103765}
     - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -11414,6 +11543,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toggle
       objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 7157278005964066872}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3300111664505017506}
     - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -11793,6 +11937,11 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7240240870188153711, guid: bda7fa3be4b78b746871ed44320d9509,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.255005
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11917,6 +12066,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toggle
       objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 8875400879678106173}
+    - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 7157278005964066872}
     - target: {fileID: 6483837993911475260, guid: 80a57c728c53a8f4ebf64019fbcb6e94,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size

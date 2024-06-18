@@ -14,11 +14,12 @@ public class PlayerBuildController : MonoBehaviour
     [SerializeField] private Dictionary<AssetRefFFAvatar, Transform> _clothingSlot;
     [SerializeField] private Dictionary<AssetRefFFAvatar, Transform> _legwearSlot;
     [SerializeField] private Dictionary<AssetRefFFAvatar, Transform> _hairSlot;
+    [SerializeField] private Dictionary<AssetRefFFAvatar, Transform> _rootSlot;
 
     [SerializeField] private Dictionary<AssetRefFFAvatar, SkinnedMeshRenderer> _headSlot;
     [SerializeField] private Dictionary<AssetRefFFAvatar, ParentClothing> _parentClothingSlot;
 
-    private Transform _altWeapon, _mainWeapon, _subWeapon, _headgear, _clothing, _legwear, _hair;
+    private Transform _altWeapon, _mainWeapon, _subWeapon, _headgear, _clothing, _legwear, _hair, _root;
     private ParentClothing _parentClothing;
 
     private GameObject _currentAltWeapon;
@@ -87,6 +88,7 @@ public class PlayerBuildController : MonoBehaviour
         _hair = _hairSlot[e.New];
         _head = _headSlot[e.New];
         _parentClothing = _parentClothingSlot[e.New];
+        _root = _rootSlot[e.New];
 
         _currentAltWeapon.transform.SetParent(_altWeapon, false);
         _currentMainWeapon.transform.SetParent(_mainWeapon, false);
@@ -97,7 +99,8 @@ public class PlayerBuildController : MonoBehaviour
         _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
         _currentLegwear.transform.SetParent(_legwear, false);
         _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
-        //_currentHair.transform.SetParent(_hair, false);
+        _currentHair.transform.SetParent(_hair, false);
+        //_currentHair.GetComponent<SkinnedMeshRenderer>().rootBone = _root;
     }
 
     private void SetClothing(EventOnPlayerSetClothing e)
@@ -168,6 +171,7 @@ public class PlayerBuildController : MonoBehaviour
         if (template)
         {
             _currentHair = Instantiate(template.Hair, _hair);
+            //_currentHair.GetComponent<SkinnedMeshRenderer>().rootBone = _root;
         }
     }
 

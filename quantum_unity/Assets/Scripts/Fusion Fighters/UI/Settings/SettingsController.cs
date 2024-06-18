@@ -26,7 +26,7 @@ public class SettingsController : Controller<SettingsController>
     [SerializeField] private AudioMixerGroup _uiMusic;
     [SerializeField] private AudioMixerGroup _uiSFX;
 
-    private Settings _settings;
+    [System.NonSerialized] private Settings _settings;
     public Settings Settings => _settings;
 
     [System.NonSerialized] private bool _isInitialized = false;
@@ -41,10 +41,13 @@ public class SettingsController : Controller<SettingsController>
     {
         base.Initialize();
 
-        if (Serializer.TryLoadAs($"{Application.persistentDataPath}/ApplicationSettings.json", $"{Application.persistentDataPath}", out Settings settings))
-            _settings = settings;
-        else
-            _settings = Settings.Default;
+        if (_settings.Equals(default(Settings)))
+        {
+            if (Serializer.TryLoadAs($"{Application.persistentDataPath}/ApplicationSettings.json", $"{Application.persistentDataPath}", out Settings settings))
+                _settings = settings;
+            else
+                _settings = Settings.Default;
+        }
 
         SetGraphicsQualityPresetNoSet(_settings.GraphicsQualityPreset);
         SetGraphicsQualityPostProcessing(_settings.Graphics.UsePostProcessing);

@@ -720,7 +720,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""id"": ""982362bf-6469-4251-b5f6-8e71d1903fa8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -729,7 +729,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""id"": ""663ec680-2d2c-48a9-9d85-1070d23729a3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 },
                 {

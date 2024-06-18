@@ -1,7 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
 using System.Linq;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class InventoryController : Controller<InventoryController>

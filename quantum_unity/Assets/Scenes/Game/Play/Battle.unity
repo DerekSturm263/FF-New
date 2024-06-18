@@ -37063,6 +37063,116 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &16038568460381038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0936fd3d63c44a84a93126aaa72a6c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _female:
+    Id:
+      Value: 482559385480558028
+  _male:
+    Id:
+      Value: 1621980965895008522
+  _altWeaponSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _mainWeaponSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _subWeaponSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _headgearSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _clothingSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _legwearSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _hairSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _rootSlot:
+    _kvps: []
+  _headSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
+  _parentClothingSlot:
+    _kvps:
+    - _item1:
+        Id:
+          Value: 482559385480558028
+      _item2: {fileID: 0}
+    - _item1:
+        Id:
+          Value: 1621980965895008522
+      _item2: {fileID: 0}
 --- !u!224 &90788163901483801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38123,6 +38233,29 @@ RectTransform:
   m_AnchoredPosition: {x: 570.5, y: -125.814445}
   m_SizeDelta: {x: 367, y: 251.62889}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &511237086262085860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4141532158544286873}
+  - component: {fileID: 4572743875595978493}
+  - component: {fileID: 8118899254596463303}
+  - component: {fileID: 1208526906707118852}
+  - component: {fileID: 5117779087068543471}
+  - component: {fileID: 7350934614331215825}
+  - component: {fileID: 6720572243169096087}
+  - component: {fileID: 16038568460381038}
+  m_Layer: 3
+  m_Name: Player
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!95 &565347548456557944
 Animator:
   serializedVersion: 7
@@ -38506,6 +38639,61 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1208526906707118852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24a774ea30d3af489b5c9acab58afa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    animatorGraph:
+      Id:
+        Value: 1970433355911064215
+    time:
+      RawValue: 0
+    normalized_time:
+      RawValue: 0
+    last_time:
+      RawValue: 0
+    length:
+      RawValue: 0
+    current_state_id: 0
+    freeze:
+      Value: 0
+    speed:
+      RawValue: 0
+    from_state_id: 0
+    from_state_time:
+      RawValue: 0
+    from_state_last_time:
+      RawValue: 0
+    from_state_normalized_time:
+      RawValue: 0
+    from_length:
+      RawValue: 0
+    to_state_id: 0
+    to_state_time:
+      RawValue: 0
+    to_state_last_time:
+      RawValue: 0
+    to_state_normalized_time:
+      RawValue: 0
+    to_length:
+      RawValue: 0
+    transition_index: 0
+    transition_time:
+      RawValue: 0
+    transition_duration:
+      RawValue: 0
+    animator_blend_count: 0
+    AnimatorVariables: []
+    BlendTreeWeights: []
 --- !u!114 &1229368276888167985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40454,6 +40642,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -16, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &4141532158544286873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4218675059413468804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41127,6 +41330,320 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4572743875595978493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransformMode: 0
+  Transform2DVertical:
+    IsEnabled: 0
+    Height:
+      RawValue: 129105
+    PositionOffset:
+      RawValue: 0
+  PhysicsCollider:
+    IsTrigger: 0
+    Material:
+      Id:
+        Value: 0
+    SourceCollider: {fileID: 0}
+    IsEnabled: 1
+    Shape2D:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 11796
+        Y:
+          RawValue: 45875
+      PositionOffset:
+        X:
+          RawValue: 5898
+        Y:
+          RawValue: 45875
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 4
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 0
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 6553
+          Y:
+            RawValue: 6553
+        PositionOffset:
+          X:
+            RawValue: -4587
+          Y:
+            RawValue: 9175
+        RotationOffset:
+          RawValue: 2949120
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 4
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 0
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 6552
+          Y:
+            RawValue: 6552
+        PositionOffset:
+          X:
+            RawValue: 4587
+          Y:
+            RawValue: 9175
+        RotationOffset:
+          RawValue: 2949120
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 4
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 0
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 4587
+          Y:
+            RawValue: 6553
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 6422
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 4
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 0
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 13893
+          Y:
+            RawValue: 46530
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 55705
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    Shape3D:
+      ShapeType: 16
+      SphereRadius:
+        RawValue: 32768
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 65536
+        Z:
+          RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 13107
+        Y:
+          RawValue: 62259
+        Z:
+          RawValue: 13107
+      RotationOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 22937
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 16384
+          Y:
+            RawValue: 11468
+          Z:
+            RawValue: 11468
+        RotationOffset:
+          X:
+            RawValue: 2949120
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 89128
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 16384
+          Y:
+            RawValue: 11468
+          Z:
+            RawValue: 11468
+        RotationOffset:
+          X:
+            RawValue: 2949120
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 56033
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 16384
+          Y:
+            RawValue: 33423
+          Z:
+            RawValue: 16056
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    Layer: 3
+    CallbackFlags:
+      Value: 0
+  PhysicsBody:
+    IsEnabled: 1
+    Version2D: 2
+    Version3D: 2
+    Config2D: 178
+    Config3D: 122
+    RotationFreeze: 7
+    Mass:
+      RawValue: 65536
+    Drag:
+      RawValue: 32768
+    AngularDrag:
+      RawValue: 32768
+    CenterOfMass2D:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    CenterOfMass3D:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    GravityScale:
+      _hasValue: 0
+      _value:
+        RawValue: 65536
+  NavMeshPathfinder:
+    IsEnabled: 0
+    NavMeshAgentConfig:
+      Id:
+        Value: 0
+    InitialTarget:
+      IsEnabled: 0
+      Target: {fileID: 0}
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      NavMesh:
+        Reference: {fileID: 0}
+        Asset:
+          Id:
+            Value: 0
+        Name: 
+  NavMeshSteeringAgent:
+    IsEnabled: 0
+    MaxSpeed:
+      IsEnabled: 0
+      Value:
+        RawValue: 0
+    Acceleration:
+      IsEnabled: 0
+      Value:
+        RawValue: 0
+  NavMeshAvoidanceAgent:
+    IsEnabled: 0
+  View:
+    Id:
+      Value: 0
 --- !u!224 &4579619597124645831
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41791,6 +42308,18 @@ RectTransform:
   m_AnchoredPosition: {x: 367, y: -440.35052}
   m_SizeDelta: {x: 734, y: 125.81444}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5117779087068543471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb827ab91614ad148869518cf60e7034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5230718841232265777
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43266,6 +43795,200 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931931733106496003}
   m_CullTransparentMesh: 1
+--- !u!114 &6720572243169096087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1c1c813b8b7cb4da79d008ddad1586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Build:
+      Equipment:
+        Weapons:
+          MainWeapon:
+            Template:
+              Id:
+                Value: 3233801449374500001
+            Material:
+              Id:
+                Value: 2346310419226999301
+            Enhancers:
+              Enhancer1:
+                Id:
+                  Value: 2471047938944617157
+              Enhancer2:
+                Id:
+                  Value: 926683192902121334
+          AltWeapon:
+            Template:
+              Id:
+                Value: 0
+            Material:
+              Id:
+                Value: 629877417507454797
+            Enhancers:
+              Enhancer1:
+                Id:
+                  Value: 0
+              Enhancer2:
+                Id:
+                  Value: 0
+          SubWeapon:
+            Template:
+              Id:
+                Value: 3998083542428612409
+            Enhancers:
+              Enhancer1:
+                Id:
+                  Value: 3705783788831071389
+        Ultimate:
+          Id:
+            Value: 2265124633159878377
+        Badge:
+          Id:
+            Value: 1594082326817976033
+        Outfit:
+          Headgear:
+            Template:
+              Id:
+                Value: 0
+            Pattern:
+              Id:
+                Value: 0
+            Modifiers:
+              Modifier1:
+                Id:
+                  Value: 0
+              Modifier2:
+                Id:
+                  Value: 0
+              Modifier3:
+                Id:
+                  Value: 0
+            Color:
+              R: 0
+              G: 0
+              B: 0
+              A: 0
+          Clothing:
+            Template:
+              Id:
+                Value: 0
+            Pattern:
+              Id:
+                Value: 0
+            Modifiers:
+              Modifier1:
+                Id:
+                  Value: 0
+              Modifier2:
+                Id:
+                  Value: 0
+              Modifier3:
+                Id:
+                  Value: 0
+            Color:
+              R: 0
+              G: 0
+              B: 0
+              A: 0
+          Legwear:
+            Template:
+              Id:
+                Value: 0
+            Pattern:
+              Id:
+                Value: 0
+            Modifiers:
+              Modifier1:
+                Id:
+                  Value: 0
+              Modifier2:
+                Id:
+                  Value: 0
+              Modifier3:
+                Id:
+                  Value: 0
+            Color:
+              R: 0
+              G: 0
+              B: 0
+              A: 0
+      Cosmetics:
+        Avatar:
+          Id:
+            Value: 482559385480558028
+        Voice:
+          Id:
+            Value: 167286258291661986
+        Eyes:
+          Id:
+            Value: 4193926059399940068
+        Hair:
+          Id:
+            Value: 2083421263834322423
+        Emotes:
+          Up:
+            Id:
+              Value: 0
+          Down:
+            Id:
+              Value: 0
+          Left:
+            Id:
+              Value: 0
+          Right:
+            Id:
+              Value: 0
+    Hitboxes: []
+    Hurtboxes: []
+    Hurtbox:
+      Id:
+        Value: 3467847473562426331
+    Name: 
+    GlobalIndex: 0
+    CurrentStocks: 0
+    CurrentHealth:
+      RawValue: 0
+    HealthModifyMultiplier:
+      RawValue: 65536
+    CurrentEnergy:
+      RawValue: 0
+    EnergyModifyMultiplier:
+      RawValue: 65536
+    Kills: 0
+    Deaths: 0
+    ApparelStatsMultiplier:
+      Agility:
+        RawValue: 65536
+      Jump:
+        RawValue: 65536
+      Weight:
+        RawValue: 65536
+      Dodge:
+        RawValue: 65536
+      Defense:
+        RawValue: 65536
+    WeaponStatsMultiplier:
+      Damage:
+        RawValue: 0
+      Knockback:
+        RawValue: 0
+      Speed:
+        RawValue: 0
+    HeldItem: {fileID: 0}
+    StatusEffect:
+      Id:
+        Value: 0
+    StatusEffectTimeLeft: 0
+    StatusEffectMultiplier:
+      RawValue: 0
 --- !u!1 &6733074901758375365
 GameObject:
   m_ObjectHideFlags: 0
@@ -43916,6 +44639,56 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 5
+--- !u!114 &7350934614331215825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb134f1b85be5a64ea68c3607ac6f0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    CanInput:
+      Value: 1
+    Settings:
+      Id:
+        Value: 887067288549751597
+    States: 0000000000000000
+    Holding: 0000000000000000
+    StateTime: 0
+    NearbyColliders:
+      Value: 0
+    Velocity:
+      RawValue: 0
+    MovingLerp:
+      RawValue: 0
+    GroundedJump:
+      Value: 0
+    JumpCount: 0
+    JumpSettingsIndex: 0
+    JumpTime: 0
+    GroundedDodge:
+      Value: 0
+    DodgeDirection:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    DodgeCount: 0
+    DodgeSettingsIndex: 0
+    DodgeTime: 0
+    Direction:
+      Value: 4
+    MovementDirection: 1
+    IsReady:
+      Value: 0
+    ReadyTime:
+      RawValue: 0
+    UltimateTime: 0
 --- !u!222 &7393858882121533887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44104,6 +44877,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8118899254596463303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511237086262085860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BindBehaviour: 1
+  CustomQuantumAnimator: {fileID: 5117779087068543471}
+  ManualDisposal: 0
+  GameObjectNameIsEntityRef: 1
+  ErrorCorrectionRateMin: 3.3
+  ErrorCorrectionRateMax: 10
+  ErrorPositionBlendStart: 0.25
+  ErrorPositionBlendEnd: 1
+  ErrorRotationBlendStart: 0.1
+  ErrorRotationBlendEnd: 0.5
+  ErrorPositionMinCorrection: 0.025
+  ErrorPositionTeleportDistance: 2
+  ErrorRotationTeleportDistance: 0.5
+  OnEntityInstantiated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, Assembly-CSharp
+        m_MethodName: AddTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4141532158544286873}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEntityDestroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, Assembly-CSharp
+        m_MethodName: RemoveTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4141532158544286873}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &8208786866013747530
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44807,3 +45637,4 @@ SceneRoots:
   - {fileID: 836444854}
   - {fileID: 599783066}
   - {fileID: 2088600005}
+  - {fileID: 4141532158544286873}

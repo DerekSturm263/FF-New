@@ -25,6 +25,7 @@ namespace Quantum.Demo {
 
     public void OnDisconnectClicked() {
       UIMain.Client.Disconnect();
+            UIMain.Client = null;
     }
 
     #endregion

@@ -166,7 +166,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -268,6 +268,7 @@ MonoBehaviour:
     - _text: "Hello, and welcome to NexTech Industries\u2019 Fusion Fighting Lab!
         I\u2019m Diane, and I work at NexTech as a programmer and field operator."
       _speed: 5
+      _voiceLines: []
       _event:
         m_PersistentCalls:
           m_Calls:
@@ -290,6 +291,7 @@ MonoBehaviour:
     - _text: "That being said, I\u2019ve only been here for a couple of months, so\u2026
         you are actually my first trainee."
       _speed: 5
+      _voiceLines: []
       _event:
         m_PersistentCalls:
           m_Calls:
@@ -344,7 +346,20 @@ MonoBehaviour:
       m_Calls: []
   _onEnable:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: Enable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -356,7 +371,20 @@ MonoBehaviour:
       m_Calls: []
   _onDisable:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: Enable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []

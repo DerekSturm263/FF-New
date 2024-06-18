@@ -11,24 +11,24 @@ GameObject:
   - component: {fileID: 8319768471973749114}
   - component: {fileID: -6737470939936094246}
   - component: {fileID: 8863819846853489486}
-  - component: {fileID: -7661239446362814834}
-  - component: {fileID: -9129029297175262258}
-  - component: {fileID: 7737329991338470777}
+  - component: {fileID: 6943285021381643808}
+  - component: {fileID: 7259386362456708021}
+  - component: {fileID: 373650367842606867}
   - component: {fileID: -5538812888440427866}
+  - component: {fileID: -9129029297175262258}
+  - component: {fileID: -7661239446362814834}
+  - component: {fileID: 7737329991338470777}
   - component: {fileID: 5449440467717962511}
   - component: {fileID: 1120758393002057612}
   - component: {fileID: -3955458227170572233}
-  - component: {fileID: 6943285021381643808}
   - component: {fileID: -2846974123142394300}
   - component: {fileID: -2915420392140613590}
   - component: {fileID: 1278303187033888724}
   - component: {fileID: 2365314213801081531}
   - component: {fileID: -9217173508759806490}
-  - component: {fileID: 7259386362456708021}
   - component: {fileID: 6933864354253067885}
   - component: {fileID: 3938291804223525914}
   - component: {fileID: 3267107267905655839}
-  - component: {fileID: 373650367842606867}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MonoBehaviour:
     type: 2}
   _uiSFXGroup: {fileID: 2532865869901439158, guid: df8e81d8ae2e38f45960c330754d4911,
     type: 2}
---- !u!114 &-7661239446362814834
+--- !u!114 &6943285021381643808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,11 +89,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3370688451139883899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c2621121fe17404d946bf32331ca142, type: 3}
+  m_Script: {fileID: 11500000, guid: 43efbe319542f1b4e87a82b189f80430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _challenges: []
---- !u!114 &-9129029297175262258
+--- !u!114 &7259386362456708021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,20 +101,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 3370688451139883899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35851472c60b46d4baf7988cd5a9d788, type: 3}
+  m_Script: {fileID: 11500000, guid: 247dc2ac4ae85194e84dfe6c002b2de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlSchemesToSpriteAssets:
-    _kvps:
-    - _item1: Keyboard
-      _item2: {fileID: 11400000, guid: bf633a733396f0f4d8e96aa839664fe7, type: 2}
-    - _item1: PS Gamepad
-      _item2: {fileID: 11400000, guid: db0861fa25d64e2418c08f5e9738857c, type: 2}
-    - _item1: Switch Gamepad
-      _item2: {fileID: 11400000, guid: 7d8ddee8d69191642a64af1c2ff09cdc, type: 2}
-    - _item1: XInputControllerWindows
-      _item2: {fileID: 11400000, guid: f5b54fad65406364eb1304a8060d6de7, type: 2}
---- !u!114 &7737329991338470777
+  _popup: {fileID: 8061645974274241428, guid: 38f022e4edd608c44ae4ed08531329f3, type: 3}
+  _master: {fileID: 24300002, guid: 3d79f15d7e6bf1f48b3fd8f50fc51231, type: 2}
+  _playerMaster: {fileID: 24300002, guid: a4704c5dd4fad3946a8e83ef4d0d9890, type: 2}
+  _playerSFX: {fileID: -4132150874975322781, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
+    type: 2}
+  _playerVoiceLines: {fileID: 7326994074086932327, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
+    type: 2}
+  _environmentMaster: {fileID: 24300002, guid: 5aa9b6bb1c947ec44a9736ed2f15a561, type: 2}
+  _environmentAmbience: {fileID: -4460488163968950564, guid: 5aa9b6bb1c947ec44a9736ed2f15a561,
+    type: 2}
+  _environmentSFX: {fileID: 4087645444386880349, guid: 5aa9b6bb1c947ec44a9736ed2f15a561,
+    type: 2}
+  _uiMaster: {fileID: 24300002, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
+  _uiMusic: {fileID: 7431221819818348180, guid: df8e81d8ae2e38f45960c330754d4911,
+    type: 2}
+  _uiSFX: {fileID: 2532865869901439158, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
+--- !u!114 &373650367842606867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,9 +129,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3370688451139883899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb6a687db87b9f24b954015f345bd5b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d860ea25ee290e4f8f0c09586354dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _asset: {fileID: 6816177689871241227, guid: 1cd4f0ae750bf13498ed15ea162307af, type: 3}
+  _populator: {fileID: 0}
 --- !u!114 &-5538812888440427866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +584,53 @@ MonoBehaviour:
           Id:
             Value: 2265124633159878377
         _item2: 1
+--- !u!114 &-9129029297175262258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35851472c60b46d4baf7988cd5a9d788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlSchemesToSpriteAssets:
+    _kvps:
+    - _item1: Keyboard
+      _item2: {fileID: 11400000, guid: bf633a733396f0f4d8e96aa839664fe7, type: 2}
+    - _item1: PS Gamepad
+      _item2: {fileID: 11400000, guid: db0861fa25d64e2418c08f5e9738857c, type: 2}
+    - _item1: Switch Gamepad
+      _item2: {fileID: 11400000, guid: 7d8ddee8d69191642a64af1c2ff09cdc, type: 2}
+    - _item1: XInputControllerWindows
+      _item2: {fileID: 11400000, guid: f5b54fad65406364eb1304a8060d6de7, type: 2}
+--- !u!114 &-7661239446362814834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2621121fe17404d946bf32331ca142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _challenges: []
+--- !u!114 &7737329991338470777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6a687db87b9f24b954015f345bd5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5449440467717962511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,18 +684,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _glow: {fileID: -876546973899608171, guid: ee2c1da59ee72ea45ad1416b94d8506c, type: 3}
---- !u!114 &6943285021381643808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370688451139883899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43efbe319542f1b4e87a82b189f80430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-2846974123142394300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,34 +751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc4acc1e0a8d644ba2dbd226ce769ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7259386362456708021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370688451139883899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247dc2ac4ae85194e84dfe6c002b2de1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _popup: {fileID: 8061645974274241428, guid: 38f022e4edd608c44ae4ed08531329f3, type: 3}
-  _master: {fileID: 24300002, guid: 3d79f15d7e6bf1f48b3fd8f50fc51231, type: 2}
-  _playerMaster: {fileID: 24300002, guid: a4704c5dd4fad3946a8e83ef4d0d9890, type: 2}
-  _playerSFX: {fileID: -4132150874975322781, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
-    type: 2}
-  _playerVoiceLines: {fileID: 7326994074086932327, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
-    type: 2}
-  _environmentMaster: {fileID: 24300002, guid: 5aa9b6bb1c947ec44a9736ed2f15a561, type: 2}
-  _environmentAmbience: {fileID: -4460488163968950564, guid: 5aa9b6bb1c947ec44a9736ed2f15a561,
-    type: 2}
-  _environmentSFX: {fileID: 4087645444386880349, guid: 5aa9b6bb1c947ec44a9736ed2f15a561,
-    type: 2}
-  _uiMaster: {fileID: 24300002, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
-  _uiMusic: {fileID: 7431221819818348180, guid: df8e81d8ae2e38f45960c330754d4911,
-    type: 2}
-  _uiSFX: {fileID: 2532865869901439158, guid: df8e81d8ae2e38f45960c330754d4911, type: 2}
 --- !u!114 &6933864354253067885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,17 +791,3 @@ MonoBehaviour:
     CharacterPrototype:
       Id:
         Value: 2996345552445967076
---- !u!114 &373650367842606867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370688451139883899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d860ea25ee290e4f8f0c09586354dcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _asset: {fileID: 6816177689871241227, guid: 1cd4f0ae750bf13498ed15ea162307af, type: 3}
-  _populator: {fileID: 0}
