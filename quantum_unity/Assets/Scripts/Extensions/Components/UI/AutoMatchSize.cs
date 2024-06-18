@@ -15,35 +15,74 @@ namespace Extensions.Components.UI
             Vertical = 1 << 1
         }
 
-        [SerializeField] private RectOffset _padding;
         [SerializeField] private Direction _direction;
 
-        private RectTransform rectTransform;
+        private RectTransform _rectTransform;
+        private RectTransform _parentTransform;
 
         protected override void Awake()
         {
-            rectTransform = GetComponent<RectTransform>();
+            _rectTransform = GetComponent<RectTransform>();
+            _parentTransform = transform.parent.GetComponent<RectTransform>();
         }
 
         private void Update()
         {
-            if (rectTransform.hasChanged)
+            if (_rectTransform.hasChanged)
             {
-                Vector2 sizeDelta = rectTransform.sizeDelta;
+                Vector2 sizeDelta = _rectTransform.sizeDelta;
 
                 if (_direction.HasFlag(Direction.Horizontal))
                 {
-                    RectTransform child = transform.GetChild(transform.childCount - 1).GetComponent<RectTransform>();
-                    sizeDelta.x = Mathf.Abs(child.anchoredPosition.x) + child.sizeDelta.x;
+                    float biggestX = 0;
+                    float width = 0;
+
+                    for (int i = transform.childCount - 1; i >= 0; --i)
+                    {
+                        RectTransform rect = transform.GetChild(i).GetComponent<RectTransform>();
+                        if (!rect.gameObject.activeSelf)
+                            continue;
+
+                        float newX = Mathf.Abs(rect.anchoredPosition.x);
+                        if (newX > biggestX)
+                        {
+                            biggestX = newX;
+                            width = rect.sizeDelta.x;
+
+                            break;
+                        }
+                    }
+
+                    float newSize = biggestX - width / 2 + width;
+                    sizeDelta.x = Mathf.Max(newSize, _parentTransform.rect.width);
                 }
 
                 if (_direction.HasFlag(Direction.Vertical))
                 {
-                    RectTransform child = transform.GetChild(transform.childCount - 1).GetComponent<RectTransform>();
-                    sizeDelta.y = Mathf.Abs(child.anchoredPosition.y) + child.sizeDelta.y;
+                    float biggestY = 0;
+                    float height = 0;
+
+                    for (int i = transform.childCount - 1; i >= 0; --i)
+                    {
+                        RectTransform rect = transform.GetChild(i).GetComponent<RectTransform>();
+                        if (!rect.gameObject.activeSelf)
+                            continue;
+
+                        float newY = Mathf.Abs(rect.anchoredPosition.y);
+                        if (newY > biggestY)
+                        {
+                            biggestY = newY;
+                            height = rect.sizeDelta.y;
+
+                            break;
+                        }
+                    }
+
+                    float newSize = biggestY - height / 2 + height;
+                    sizeDelta.y = Mathf.Max(newSize, _parentTransform.rect.height);
                 }
 
-                rectTransform.sizeDelta = sizeDelta + new Vector2(_padding.left + _padding.right, _padding.bottom + _padding.top);
+                _rectTransform.sizeDelta = sizeDelta;
             }
         }
     }
