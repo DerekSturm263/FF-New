@@ -54,6 +54,10 @@
                     commandSetUltimate.Execute(f);
                 else if (command is CommandSetVoice commandSetVoice)
                     commandSetVoice.Execute(f);
+                else if (command is CommandPause commandPause)
+                    commandPause.Execute(f);
+                else if (command is CommandPlay commandPlay)
+                    commandPlay.Execute(f);
             }
         }
     }

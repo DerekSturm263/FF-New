@@ -96,6 +96,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\Commands\CommandPause.cs" />
+    <Compile Include="UI\Commands\CommandPlay.cs" />
     <None Include="app.config" />
     <None Include="Camera\Assets\CameraSettings.qtn" />
     <None Include="Camera\Structs\CameraSettingsGroup.qtn" />
@@ -357,9 +359,7 @@
     <None Include="Input\Input.qtn" />
     <None Include="Player\Components\PlayerLink.qtn" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="User Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)\quantum.code.dll" "$(ProjectDir)..\..\quantum_unity\Assets"</PostBuildEvent>
