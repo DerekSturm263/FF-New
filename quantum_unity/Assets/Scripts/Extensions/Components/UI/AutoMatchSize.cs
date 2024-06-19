@@ -16,6 +16,7 @@ namespace Extensions.Components.UI
         }
 
         [SerializeField] private Direction _direction;
+        [SerializeField] private Vector2 _padding;
 
         private RectTransform _rectTransform;
         private RectTransform _parentTransform;
@@ -54,7 +55,7 @@ namespace Extensions.Components.UI
                     }
 
                     float newSize = biggestX - width / 2 + width;
-                    sizeDelta.x = Mathf.Max(newSize, _parentTransform.rect.width);
+                    sizeDelta.x = Mathf.Max(newSize + _padding.x, _parentTransform.rect.width);
                 }
 
                 if (_direction.HasFlag(Direction.Vertical))
@@ -79,7 +80,7 @@ namespace Extensions.Components.UI
                     }
 
                     float newSize = biggestY - height / 2 + height;
-                    sizeDelta.y = Mathf.Max(newSize, _parentTransform.rect.height);
+                    sizeDelta.y = Mathf.Max(newSize + _padding.y, _parentTransform.rect.height);
                 }
 
                 _rectTransform.sizeDelta = sizeDelta;
