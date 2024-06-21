@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0efa4af7c4585548af37a09469154bf, type: 3}
+  m_Name: Training Lab
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Description: 
+  Price: 0
+  Icon: {fileID: 0}
+  Background: {fileID: 0}
+  MainColor: {r: 0, g: 0, b: 0, a: 0}
+  LightColor: {r: 0, g: 0, b: 0, a: 0}
+  DarkColor: {r: 0, g: 0, b: 0, a: 0}
+  SortingID: 0
+  Settings_TrackGraph:
+    Identifier:
+      Path: Resources/DB/Assets/Audio/Track Graphs/Stages/Training Lab
+      Guid:
+        Value: 3375635954853514190
+  Sections:
+  - name: Pre-Game
+    BPM: 170
+    ExitTime: 0
+    KeepActive: 0
+    Clips:
+    - {fileID: 8300000, guid: 6b96b024447c619408edaf95121bd509, type: 3}
+    _defaultWeights:
+    - 1
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraphAsset, PhotonQuantum
+            m_MethodName: SetWeightOne
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions: []
+  - name: Countdown
+    BPM: 60
+    ExitTime: 2.5
+    KeepActive: 0
+    Clips:
+    - {fileID: 8300000, guid: 0f7eda3ed99016c498654e53a265b8cf, type: 3}
+    _defaultWeights:
+    - 1
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraphAsset, PhotonQuantum
+            m_MethodName: SetWeightOne
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions:
+    - To: Tension
+      Clip: {fileID: 0}
+      Length: 4
+  - name: Normal
+    BPM: 150
+    ExitTime: 0
+    KeepActive: 1
+    Clips:
+    - {fileID: 8300000, guid: 220c9e4f23c29d84d89d185ae3d79c8b, type: 3}
+    - {fileID: 8300000, guid: ce0bf80cae58c774292b6f64b636b6dc, type: 3}
+    _defaultWeights:
+    - 1
+    - 0
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraphAsset, PhotonQuantum
+            m_MethodName: SetWeightsOneZero
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions:
+    - To: Last Minute
+      Clip: {fileID: 8300000, guid: e633d29cf0b48054a964a3840ee3d35e, type: 3}
+      Length: 1
+  - name: Tension
+    BPM: 150
+    ExitTime: 0
+    KeepActive: 1
+    Clips:
+    - {fileID: 8300000, guid: 957ce687eeb59524ab24f2832b0908d8, type: 3}
+    - {fileID: 8300000, guid: 2c0ad9ce86c40474dbdb16203c56f668, type: 3}
+    _defaultWeights:
+    - 1
+    - 0
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraphAsset, PhotonQuantum
+            m_MethodName: SetWeightsOneZero
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions:
+    - To: Last Minute
+      Clip: {fileID: 8300000, guid: e633d29cf0b48054a964a3840ee3d35e, type: 3}
+      Length: 1
+  - name: Last Minute
+    BPM: 150
+    ExitTime: 0
+    KeepActive: 0
+    Clips:
+    - {fileID: 8300000, guid: 75096c6b090bb92498d50641f379ded0, type: 3}
+    - {fileID: 8300000, guid: 76801a752a68d9245be2a1d5f2768a5d, type: 3}
+    _defaultWeights:
+    - 1
+    - 0
+    _calculateWeights:
+      _event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: TrackGraphAsset, PhotonQuantum
+            m_MethodName: SetWeightsOneZero
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    Transitions: []
