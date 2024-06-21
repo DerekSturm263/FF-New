@@ -156,7 +156,8 @@ public class ApparelController : Controller<ApparelController>
         }
 
         SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
-        serializable.SetIcon(_template.Icon.texture);
+        serializable.Value.FileGuid = serializable.Guid;
+        serializable.SetIcon(_template.Icon);
 
         Serializer.Save(serializable, serializable.Guid, GetPath());
         _lastApparel = serializable;

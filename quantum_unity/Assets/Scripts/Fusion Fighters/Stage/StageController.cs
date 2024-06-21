@@ -27,8 +27,7 @@ public class StageController : Controller<StageController>
 
     public void LoadFromAsset(StageAssetAsset stage)
     {
-        _stage = stage.Stage;
-        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+        Load(stage.Stage);
     }
 
     public void Load(Stage stage)

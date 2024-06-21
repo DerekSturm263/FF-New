@@ -26,6 +26,14 @@ namespace Extensions.Components.UI
             base.Shutdown();
         }
 
+        public void SelectElement(GameObject obj)
+        {
+            if (EventSystem.current)
+            {
+                EventSystem.current.SetSelectedGameObject(obj);
+            }
+        }
+
         public void DeselectAllElements()
         {
             if (EventSystem.current)

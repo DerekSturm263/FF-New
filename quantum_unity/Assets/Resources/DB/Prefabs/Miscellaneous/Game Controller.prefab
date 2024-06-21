@@ -29,13 +29,15 @@ GameObject:
   - component: {fileID: 6933864354253067885}
   - component: {fileID: 3938291804223525914}
   - component: {fileID: 3267107267905655839}
+  - component: {fileID: -7092123073383150721}
+  - component: {fileID: -8979094445783090270}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8319768471973749114
 Transform:
   m_ObjectHideFlags: 0
@@ -751,6 +753,144 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc4acc1e0a8d644ba2dbd226ce769ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _default:
+    Cosmetics:
+      Avatar:
+        Id:
+          Value: 482559385480558028
+      Emotes:
+        Down:
+          Id:
+            Value: 0
+        Left:
+          Id:
+            Value: 0
+        Right:
+          Id:
+            Value: 0
+        Up:
+          Id:
+            Value: 0
+      Eyes:
+        Id:
+          Value: 4193926059399940068
+      Hair:
+        Id:
+          Value: 2083421263834322423
+      Voice:
+        Id:
+          Value: 167286258291661986
+    Equipment:
+      Badge:
+        Id:
+          Value: 0
+      Outfit:
+        Clothing:
+          Color:
+            R: 0
+            G: 0
+            B: 0
+            A: 0
+          Modifiers:
+            Modifier1:
+              Id:
+                Value: 0
+            Modifier2:
+              Id:
+                Value: 0
+            Modifier3:
+              Id:
+                Value: 0
+          Pattern:
+            Id:
+              Value: 0
+          Template:
+            Id:
+              Value: 0
+        Headgear:
+          Color:
+            R: 0
+            G: 0
+            B: 0
+            A: 0
+          Modifiers:
+            Modifier1:
+              Id:
+                Value: 0
+            Modifier2:
+              Id:
+                Value: 0
+            Modifier3:
+              Id:
+                Value: 0
+          Pattern:
+            Id:
+              Value: 0
+          Template:
+            Id:
+              Value: 0
+        Legwear:
+          Color:
+            R: 0
+            G: 0
+            B: 0
+            A: 0
+          Modifiers:
+            Modifier1:
+              Id:
+                Value: 0
+            Modifier2:
+              Id:
+                Value: 0
+            Modifier3:
+              Id:
+                Value: 0
+          Pattern:
+            Id:
+              Value: 0
+          Template:
+            Id:
+              Value: 0
+      Ultimate:
+        Id:
+          Value: 0
+      Weapons:
+        AltWeapon:
+          Enhancers:
+            Enhancer1:
+              Id:
+                Value: 0
+            Enhancer2:
+              Id:
+                Value: 0
+          Material:
+            Id:
+              Value: 0
+          Template:
+            Id:
+              Value: 0
+        MainWeapon:
+          Enhancers:
+            Enhancer1:
+              Id:
+                Value: 0
+            Enhancer2:
+              Id:
+                Value: 0
+          Material:
+            Id:
+              Value: 0
+          Template:
+            Id:
+              Value: 0
+        SubWeapon:
+          Enhancers:
+            Enhancer1:
+              Id:
+                Value: 0
+          Template:
+            Id:
+              Value: 0
 --- !u!114 &6933864354253067885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,3 +931,31 @@ MonoBehaviour:
     CharacterPrototype:
       Id:
         Value: 2996345552445967076
+--- !u!114 &-7092123073383150721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71c354a8fb5fa1439d3ad64c8f2940e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8979094445783090270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604b9ca1fdc3bb148b69d1e27b7df543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player:
+    CharacterPrototype:
+      Id:
+        Value: 0

@@ -28,8 +28,7 @@ public class RulesetController : Controller<RulesetController>
 
     public void LoadFromAsset(RulesetAssetAsset ruleset)
     {
-        _ruleset = ruleset.Ruleset;
-        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+        Load(ruleset.Ruleset);
     }
 
     public void Load(Ruleset ruleset)

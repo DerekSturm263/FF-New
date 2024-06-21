@@ -11,6 +11,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private Controls _controls;
 
+    private int _playerLimit;
+    public void SetPlayerLimit(int playerLimit) => _playerLimit = playerLimit;
+
     private bool _isEnabled = true;
     public void Enable(bool isEnabled) => _isEnabled = isEnabled;
 
@@ -22,6 +25,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         base.Initialize();
 
         _isEnabled = true;
+        _playerLimit = 4;
 
         Subscribe();
         Application.quitting += Shutdown;
@@ -54,6 +58,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     private void TryPlayerJoin(InputAction.CallbackContext ctx)
     {
         if (!_isEnabled || UserProfileController.Instance.IsSpawningPlayer || GetPlayer(ctx.control.device) != null)
+            return;
+
+        if (_allPlayers.Count == _playerLimit)
             return;
 
         LocalPlayerInfo player = AddPlayer(ctx.control.device);

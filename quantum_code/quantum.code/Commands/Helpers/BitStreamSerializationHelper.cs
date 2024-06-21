@@ -32,6 +32,7 @@ namespace Quantum
             stream.Serialize(ref value.Template);
             stream.Serialize(ref value.Material);
             stream.Serialize(ref value.Enhancers);
+            stream.Serialize(ref value.FileGuid);
         }
 
         public static void Serialize(this IBitStream stream, ref WeaponEnhancerSet value)
@@ -44,6 +45,7 @@ namespace Quantum
         {
             stream.Serialize(ref value.Template);
             stream.Serialize(ref value.Enhancers);
+            stream.Serialize(ref value.FileGuid);
         }
 
         public static void Serialize(this IBitStream stream, ref SubEnhancerSet value)
@@ -64,6 +66,7 @@ namespace Quantum
             stream.Serialize(ref value.Pattern);
             stream.Serialize(ref value.Modifiers);
             stream.Serialize(ref value.Color);
+            stream.Serialize(ref value.FileGuid);
         }
 
         public static void Serialize(this IBitStream stream, ref ColorRGBA value)
@@ -127,8 +130,34 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref ObjectSettings value)
         {
             stream.Serialize(ref value.Stage);
-            stream.Serialize(ref value.Map);
+            stream.Serialize(ref value.SourceMap);
+            stream.Serialize(ref value.Colliders);
             stream.SerializeBuffer(value.Gizmos.Buffer, value.Gizmos.Length);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayStaticColliderInfo value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
+            stream.Serialize(ref value.Item5);
+            stream.Serialize(ref value.Item6);
+            stream.Serialize(ref value.Item7);
+            stream.Serialize(ref value.Item8);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref StaticColliderInfo value)
+        {
+            stream.Serialize(ref value.Rotation);
+            stream.Serialize(ref value.Position);
+            stream.Serialize(ref value.Height);
+            stream.Serialize(ref value.VerticalOffset);
+            stream.Serialize(ref value.PhysicsMaterial);
+            stream.Serialize(ref value.Layer);
+            stream.Serialize(ref value.CircleRadius);
+            stream.Serialize(ref value.BoxExtents);
+            stream.Serialize(ref value.EdgeExtent);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref SpawnSettings value)

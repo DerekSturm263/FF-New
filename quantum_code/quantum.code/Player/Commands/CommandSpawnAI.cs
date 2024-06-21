@@ -17,7 +17,7 @@ namespace Quantum
         {
             Log.Debug("AI spawned!");
 
-            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype);
+            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype, false);
 
             if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
                 aiData->Behavior = bot.Behavior;

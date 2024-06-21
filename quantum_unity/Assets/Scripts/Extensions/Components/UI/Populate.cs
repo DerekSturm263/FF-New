@@ -72,6 +72,7 @@ namespace Extensions.Components.UI
         {
             if (_reloadOnEachEnable && _loadingType == LoadStage.Lazy)
             {
+                // TODO: FIX BY REMOVING
                 _itemsToButtons = new();
                 LoadAllItems();
             }

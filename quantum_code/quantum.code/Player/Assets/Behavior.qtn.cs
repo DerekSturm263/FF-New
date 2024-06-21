@@ -28,6 +28,9 @@ namespace Quantum
         public Input GetInput(Frame f, CharacterControllerSystem.Filter userFilter)
         {
             AIData* aiData = f.Unsafe.GetPointer<AIData>(userFilter.Entity);
+            if (!aiData->Target.IsValid)
+                return default;
+
             CharacterControllerSystem.Filter targetFilter = new()
             {
                 Entity = aiData->Target,

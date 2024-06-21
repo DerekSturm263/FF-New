@@ -90,16 +90,36 @@ public class PlayerBuildController : MonoBehaviour
         _parentClothing = _parentClothingSlot[e.New];
         _root = _rootSlot[e.New];
 
-        _currentAltWeapon.transform.SetParent(_altWeapon, false);
-        _currentMainWeapon.transform.SetParent(_mainWeapon, false);
-        _currentSubWeapon.transform.SetParent(_subWeapon, false);
-        _currentHeadgear.transform.SetParent(_headgear, false);
-        _currentHeadgear.GetComponent<ParentClothing>().SetParent(_parentClothing);
-        _currentClothing.transform.SetParent(_clothing, false);
-        _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
-        _currentLegwear.transform.SetParent(_legwear, false);
-        _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
-        _currentHair.transform.SetParent(_hair, false);
+        if (_currentAltWeapon)
+            _currentAltWeapon.transform.SetParent(_altWeapon, false);
+        
+        if (_currentMainWeapon)
+            _currentMainWeapon.transform.SetParent(_mainWeapon, false);
+
+        if (_currentSubWeapon)
+            _currentSubWeapon.transform.SetParent(_subWeapon, false);
+
+        if (_currentHeadgear)
+        {
+            _currentHeadgear.transform.SetParent(_headgear, false);
+            _currentHeadgear.GetComponent<ParentClothing>().SetParent(_parentClothing);
+        }
+
+        if (_currentClothing)
+        {
+            _currentClothing.transform.SetParent(_clothing, false);
+            _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
+        }
+
+        if (_currentLegwear)
+        {
+            _currentLegwear.transform.SetParent(_legwear, false);
+            _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
+        }
+
+        if (_currentHair)
+            _currentHair.transform.SetParent(_hair, false);
+
         //_currentHair.GetComponent<SkinnedMeshRenderer>().rootBone = _root;
     }
 

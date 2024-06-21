@@ -57,10 +57,17 @@ namespace GameResources
 
         public void SpawnItemVFX(QuantumGame game, EntityView user, (EntityView itemObj, ItemAsset itemAsset, FPVector2 position) tuple)
         {
-            GameObject effect = SpawnEffect(tuple.itemAsset.VFX["Explosion"]);
-            
-            if (effect)
-                effect.transform.position = tuple.position.XYO.ToUnityVector3();
+            if (tuple.itemAsset.ItemVFX)
+            {
+                GameObject effect = SpawnEffect(tuple.itemAsset.ItemVFX);
+
+                if (effect)
+                    effect.transform.position = tuple.position.XYO.ToUnityVector3();
+            }
+            if (tuple.itemAsset.UserVFX)
+            {
+                SpawnEffectParented(tuple.itemAsset.ItemVFX, user.transform);
+            }
         }
     }
 }

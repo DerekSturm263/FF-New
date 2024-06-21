@@ -10,6 +10,6 @@ namespace Quantum
     public partial class MatchAsset : InfoAsset
     {
         public Match Match;
-        public ArrayBots Opponents;
+        public Bot[] Opponents;
     }
 }

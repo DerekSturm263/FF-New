@@ -4,19 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerEventListener : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerAttack;
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerBlockHit;
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerJump;
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerHit;
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerDoubleJump;
-
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerSpawn;
-    [SerializeField] private UnityEvent<QuantumGame, EntityRef, int> _onPlayerDespawn;
-
     [SerializeField] private VFX _jump;
     [SerializeField] private VFX _doubleJump;
 
@@ -39,38 +29,39 @@ public class PlayerEventListener : MonoBehaviour
 
         QuantumEvent.Subscribe<EventOnPlayerAttack>(listener: this, handler: e =>
         {
-            _onPlayerAttack.Invoke(e.Game, e.Player, e.Index);
-
             SetPlayerExpressionYell(e.Player, 1);
+
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
         QuantumEvent.Subscribe<EventOnPlayerBlockHit>(listener: this, handler: e =>
         {
-            _onPlayerBlockHit.Invoke(e.Game, e.Player, e.Index);
-
             SetPlayerExpressionFocused(e.Player, 1);
+
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
         QuantumEvent.Subscribe<EventOnPlayerHit>(listener: this, handler: e =>
         {
-            _onPlayerHit.Invoke(e.Game, e.Player, e.Index);
-            //PlayerJoinController.Instance.GetPlayer(e.Index)
-
             SetPlayerExpressionShocked(e.Player, 1);
+
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
         QuantumEvent.Subscribe<EventOnPlayerChangeDirection>(listener: this, handler: ChangeDirection);
         QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
         {
-            if (e.Count == 0)
-                _onPlayerJump.Invoke(e.Game, e.Player, e.Index);
-            else
-                _onPlayerDoubleJump.Invoke(e.Game, e.Player, e.Index);
-
             SetPlayerExpressionFocused(e.Player, 1);
+            SpawnPlayerJumpVFX(e.Game, e.Player, e.Index);
+
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
-        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: e => _onPlayerSpawn.Invoke(e.Game, e.Player, e.GlobalIndex));
+        QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
+        {
+            SetPlayerExpressionFocused(e.Player, 1);
+            SpawnPlayerDoubleJumpVFX(e.Game, e.Player, e.Index);
+
+            Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
+        });
+        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: StartBlinking);
+        QuantumEvent.Subscribe<EventOnPlayerDespawn>(listener: this, handler: StopBlinking);
         QuantumEvent.Subscribe<EventOnHurtboxStateChange>(listener: this, handler: UpdateHurtbox);
     }
 
@@ -82,14 +73,14 @@ public class PlayerEventListener : MonoBehaviour
         }
     }
     
-    public void StartBlinking(QuantumGame game, EntityRef player, int index)
+    public void StartBlinking(EventOnPlayerSpawn e)
     {
-        StartCoroutine(Blink(player));
+        StartCoroutine(Blink(e.Player));
     }
 
-    public void StopBlinking(QuantumGame game, EntityRef player, int index)
+    public void StopBlinking(EventOnPlayerDespawn e)
     {
-        StopCoroutine(Blink(player));
+        StopCoroutine(Blink(e.Player));
     }
 
     private IEnumerator Blink(EntityRef player)

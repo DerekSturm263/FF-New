@@ -8,12 +8,12 @@ namespace Quantum
         {
             RuntimePlayer data = f.GetPlayerData(player);
             EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
-            SpawnPlayer(f, player, prototype);
+            SpawnPlayer(f, player, prototype, true);
 
             ++f.Global->TotalPlayers;
         }
 
-        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype)
+        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink)
         {
             EntityRef entity = f.Create(prototype);
 
@@ -27,7 +27,10 @@ namespace Quantum
             stats->GlobalIndex = player._index - 1;
             StatsSystem.SetBuild(f, entity, stats, stats->Build);
 
-            f.Add(entity, playerLink);
+            if (assignLink)
+            {
+                f.Add(entity, playerLink);
+            }
 
             f.Events.OnPlayerSpawn(entity, stats->GlobalIndex, stats->Name);
 

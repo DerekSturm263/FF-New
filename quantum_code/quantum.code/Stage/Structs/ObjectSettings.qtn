@@ -2,7 +2,8 @@
 struct ObjectSettings
 {
 	asset_ref<EntityPrototype> Stage;
-	asset_ref<Map> Map;
+	asset_ref<Map> SourceMap;
 
+	ArrayStaticColliderInfo Colliders;
 	array<PositionalGizmo>[64] Gizmos;
 }

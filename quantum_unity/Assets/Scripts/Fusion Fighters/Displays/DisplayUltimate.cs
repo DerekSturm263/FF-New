@@ -8,9 +8,11 @@ public class DisplayUltimate : DisplayTextAndImage<Type>
 {
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        return new($"<font=\"KeaniaOne-Title SDF\"><size=50>{item.name}</size></font>\n\n{item.Description}", item.Icon);
+        if (item)
+            return new($"<font=\"KeaniaOne-Title SDF\"><size=50>{item.name}</size></font>\n\n{item.Description}", item.Icon);
+        else
+            return new("", null);
     }
 
-    //protected override Type GetValue() => new() { Settings = new Ultimate() { Guid = QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Equipment.Ultimate.Id } };
-    protected override Type GetValue() => default;
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Equipment.Ultimate.Id);
 }

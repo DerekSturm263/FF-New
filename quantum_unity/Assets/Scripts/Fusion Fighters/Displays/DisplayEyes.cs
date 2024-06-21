@@ -12,5 +12,5 @@ public class DisplayEyes : DisplayTextAndImage<Type>
         return new($"<font=\"KeaniaOne-Title SDF\"><size=50>{item.name}</size></font>\n\n{item.Description}", item.Icon);
     }
 
-    protected override Type GetValue() => new() { Settings_Eyes = new Eyes() { Guid = QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Cosmetics.Eyes.Id } };
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Cosmetics.Eyes.Id);
 }

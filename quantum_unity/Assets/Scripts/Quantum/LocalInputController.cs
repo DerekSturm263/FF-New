@@ -12,6 +12,9 @@ public class LocalInputController : Controller<LocalInputController>
 
     private readonly Dictionary<int, Controls> _controls = new();
 
+    private static bool _canInput;
+    public void SetCanInput(bool canInput) => _canInput = canInput;
+
     private void Awake()
     {
         Initialize();
@@ -21,6 +24,9 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void PollInput(CallbackPollInput callback)
     {
+        if (!_canInput)
+            return;
+
         if (!_controls.ContainsKey(callback.Player))
         {
             callback.SetInput(new(), DeterministicInputFlags.Repeatable);

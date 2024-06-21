@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using Quantum.Prototypes;
 
 namespace Quantum.Types
 {
@@ -96,12 +97,18 @@ namespace Quantum.Types
             };
         }
 
-        public static Bot Get(ArrayBots array, int index)
+        public static StaticColliderInfo Get(ArrayStaticColliderInfo array, int index)
         {
             return index switch
             {
                 0 => array.Item1,
                 1 => array.Item2,
+                2 => array.Item3,
+                3 => array.Item4,
+                4 => array.Item5,
+                5 => array.Item6,
+                6 => array.Item7,
+                7 => array.Item8,
                 _ => default
             };
         }

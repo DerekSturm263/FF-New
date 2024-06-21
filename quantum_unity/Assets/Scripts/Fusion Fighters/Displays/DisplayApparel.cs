@@ -12,20 +12,37 @@ public class DisplayApparel : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        return new($"<font=\"KeaniaOne-Title SDF\"><size={_fontSize}>{item.Name}</size></font>\n\n{item.Description}", item.Icon);
+        if (item is not null)
+            return new($"<font=\"KeaniaOne-Title SDF\"><size={_fontSize}>{item.Name}</size></font>\n\n{item.Description}", item.Icon);
+        else
+            return new("", null);
     }
 
-    protected override Type GetValue() => _type switch
+    protected override Type GetValue()
     {
-        ApparelTemplate.ApparelType.Headgear => new(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Equipment.Outfit.Headgear, "", "", AssetGuid.NewGuid(), 0, 0),
-        ApparelTemplate.ApparelType.Clothing => new(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Equipment.Outfit.Clothing, "", "", AssetGuid.NewGuid(), 0, 0),
-        ApparelTemplate.ApparelType.Legwear => new(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Equipment.Outfit.Legwear, "", "", AssetGuid.NewGuid(), 0, 0),
-        _ => default,
-    };
+        AssetGuid id = _type switch
+        {
+            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentlySelected.Value.Equipment.Outfit.Headgear.FileGuid,
+            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentlySelected.Value.Equipment.Outfit.Clothing.FileGuid,
+            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentlySelected.Value.Equipment.Outfit.Legwear.FileGuid,
+            _ => default
+        };
+
+        if (id.IsValid)
+            return Serializer.LoadAs<Type>($"{ApparelController.GetPath()}/{id}.json", ApparelController.GetPath());
+        else
+            return null;
+    }
 
     public void Clear()
     {
         _component.Item1.Invoke("(Empty)");
+        _component.Item2.Invoke(null);
+    }
+
+    public void DisplayEmpty()
+    {
+        _component.Item1.Invoke($"<font=\"KeaniaOne-Title SDF\"><size={_fontSize}>None</size></font>");
         _component.Item2.Invoke(null);
     }
 }

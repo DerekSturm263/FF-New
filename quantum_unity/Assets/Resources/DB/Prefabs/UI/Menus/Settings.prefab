@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.85
+  m_fontSize: 26.3
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1092,7 +1092,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8798410916809183457}
   - component: {fileID: 2141760508337921264}
-  - component: {fileID: 5834806733585310652}
   - component: {fileID: 9073787910789438514}
   m_Layer: 5
   m_Name: Content
@@ -1147,22 +1146,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5834806733585310652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724279602012446946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b46cf269cf59564bba08aa2b9b531bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectMethod: 7
-  _resetIndexOnStart: 1
-  _executeOnSelect: 1
-  _delay: 0
 --- !u!114 &9073787910789438514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,12 +1158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53af21b9fa61f04d91c75da75986a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
   _direction: 2
+  _padding: {x: 0, y: 0}
 --- !u!1 &1777105593110774429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,7 +1280,6 @@ GameObject:
   m_Component:
   - component: {fileID: 70376775217333993}
   - component: {fileID: 5650992512332988753}
-  - component: {fileID: 1253262863652753276}
   - component: {fileID: 4296620324148305668}
   m_Layer: 5
   m_Name: Content
@@ -1357,22 +1335,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1253262863652753276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018095323686207420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b46cf269cf59564bba08aa2b9b531bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectMethod: 7
-  _resetIndexOnStart: 1
-  _executeOnSelect: 1
-  _delay: 0
 --- !u!114 &4296620324148305668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1385,12 +1347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53af21b9fa61f04d91c75da75986a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
   _direction: 2
+  _padding: {x: 0, y: 0}
 --- !u!1 &2022904514240644392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,6 +1783,19 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 6050ce9e7c6d26f4aa275df93a9c0ab8,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3955458227170572233, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.UI.UIController, Extensions
+        m_MethodName: SelectElement
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 158215159663206403}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3150,7 +3121,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.8
+  m_fontSize: 29.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4205,7 +4176,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9095612308796014950}
   - component: {fileID: 4164942196927376903}
-  - component: {fileID: 1018354900887187560}
   - component: {fileID: 8346292674736583221}
   m_Layer: 5
   m_Name: Content
@@ -4261,22 +4231,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1018354900887187560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6286899522414391815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b46cf269cf59564bba08aa2b9b531bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectMethod: 7
-  _resetIndexOnStart: 1
-  _executeOnSelect: 1
-  _delay: 0
 --- !u!114 &8346292674736583221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4289,12 +4243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53af21b9fa61f04d91c75da75986a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
   _direction: 2
+  _padding: {x: 0, y: 0}
 --- !u!1 &6365662497718498713
 GameObject:
   m_ObjectHideFlags: 0
@@ -5123,6 +5073,19 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 6050ce9e7c6d26f4aa275df93a9c0ab8,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3955458227170572233, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.UI.UIController, Extensions
+        m_MethodName: SelectElement
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2164046468483402648}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8975,13 +8938,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21b805601bd3bdb4e8daf4deee9ec1dd, type: 3}
+--- !u!1 &158215159663206403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3544343688369656112, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 3675533331076051251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3098686735896289390 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1730122486163788125, guid: 21b805601bd3bdb4e8daf4deee9ec1dd,
     type: 3}
   m_PrefabInstance: {fileID: 3675533331076051251}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 158215159663206403}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -10508,13 +10477,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bda7fa3be4b78b746871ed44320d9509, type: 3}
+--- !u!1 &2164046468483402648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5260231177959291000, guid: bda7fa3be4b78b746871ed44320d9509,
+    type: 3}
+  m_PrefabInstance: {fileID: 6271302814242632672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2307477739215150041 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8578770606011230265, guid: bda7fa3be4b78b746871ed44320d9509,
     type: 3}
   m_PrefabInstance: {fileID: 6271302814242632672}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2164046468483402648}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}

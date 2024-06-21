@@ -16,10 +16,10 @@ public class DisplayEmote : DisplayTextAndImage<Type>
 
     protected override Type GetValue() => _direction switch
     {
-        0 => new() { Settings_Emote = new Emote() { Guid = QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Cosmetics.Emotes.Up.Id } },
-        1 => new() { Settings_Emote = new Emote() { Guid = QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Cosmetics.Emotes.Down.Id } },
-        2 => new() { Settings_Emote = new Emote() { Guid = QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Cosmetics.Emotes.Left.Id } },
-        3 => new() { Settings_Emote = new Emote() { Guid = QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(BuildController.Instance.GetPlayerLocalIndex(0)).Build.Cosmetics.Emotes.Right.Id } },
+        0 => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Cosmetics.Emotes.Up.Id),
+        1 => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Cosmetics.Emotes.Down.Id),
+        2 => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Cosmetics.Emotes.Left.Id),
+        3 => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Cosmetics.Emotes.Right.Id),
         _ => default,
     };
 }

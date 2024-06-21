@@ -1,31 +1,38 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
-using Quantum.Types;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MatchController : Controller<MatchController>
 {
     [SerializeField] private RuntimePlayer _ai;
 
     private Match _match;
-    public Match Match => _match;
+    private Bot[] _opponents;
 
     public void LoadFromAsset(MatchAssetAsset match)
     {
         Match newMatch = Variate(match.Settings_MatchAsset.Match);
-        _match = newMatch;
 
+        _match = newMatch;
+        _opponents = match.Settings_MatchAsset.Opponents;
+
+        SceneManager.LoadScene("Gameplay", LoadSceneMode.Additive);
+        SceneManager.sceneLoaded += LoadScene;
+    }
+
+    private void LoadScene(Scene scene, LoadSceneMode loadMode)
+    {
         RulesetController.Instance.Load(_match.Ruleset);
         StageController.Instance.Load(_match.Stage);
 
         QuantumRunnerLocalDebug runner = FindFirstObjectByType<QuantumRunnerLocalDebug>();
-        for (int i = 0; i < 2; ++i)
+        foreach (Bot bot in _opponents)
         {
-            Bot bot = ArrayHelper.Get(match.Settings_MatchAsset.Opponents, i);
-
-            if (!bot.Equals(default))
-                runner.OnStartDeferred.AddListener(_ => SpawnAI(bot));
+            runner.OnStartDeferred.AddListener(_ => SpawnAI(bot));
         }
+
+        SceneManager.sceneLoaded -= LoadScene;
     }
 
     public void SpawnAI(Bot bot)
@@ -85,7 +92,7 @@ public class MatchController : Controller<MatchController>
         if (QuantumRunner.Default.Game.Frames.Verified.TryGetSingleton(out Timer timer))
         {
             int diference = timer.OriginalTime - timer.Time;
-            InventoryController.Instance.GainCurrency(diference / 2);
+            InventoryController.Instance.GainCurrency((int)(diference * 0.75f));
         }
     }
 }

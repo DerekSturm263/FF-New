@@ -5,7 +5,8 @@ using UnityEngine.Events;
 public abstract partial class ItemAsset : InfoAssetAsset
 {
     public Extensions.Types.Dictionary<string, Clip> SFX;
-    public Extensions.Types.Dictionary<string, VFX> VFX;
+    public VFX ItemVFX;
+    public VFX UserVFX;
 
     public UnityEvent<QuantumGame, EntityView, (EntityView, ItemAsset, FPVector2)> OnUse;
 }

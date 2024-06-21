@@ -4,13 +4,10 @@ using UnityEngine;
 
 public abstract class PlayerTracker<T> : MonoBehaviour
 {
-    private EntityViewUpdater _entityView;
-
     protected Dictionary<EntityView, T> _playersToTs;
 
     private void Awake()
     {
-        _entityView = FindFirstObjectByType<EntityViewUpdater>();
         _playersToTs = new();
     }
 
@@ -24,14 +21,14 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 
     public void TrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
     {
-        EntityView entity = _entityView.GetView(player);
+        EntityView entity = FindFirstObjectByType<EntityViewUpdater>().GetView(player);
         _playersToTs.TryAdd(entity, GetT(game, player, name, index));
     }
 
     public void UntrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
     {
-        EntityView entity = _entityView.GetView(player);
-        CleanUp(_playersToTs[_entityView.GetView(player)]);
+        EntityView entity = FindFirstObjectByType<EntityViewUpdater>().GetView(player);
+        CleanUp(_playersToTs[FindFirstObjectByType<EntityViewUpdater>().GetView(player)]);
 
         _playersToTs.Remove(entity);
     }
