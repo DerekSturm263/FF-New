@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1576,7 +1576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7725,7 +7725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8282,7 +8282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9443,7 +9443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10617,7 +10617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14839,12 +14839,17 @@ PrefabInstance:
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
@@ -14854,7 +14859,17 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 134083512}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
@@ -14864,13 +14879,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetSelectedGameObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: BuildController, FusionFighters
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.EventSystems.EventSystem, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1936665004}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16119,7 +16154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -16639,7 +16674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19467,7 +19502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21327,12 +21362,17 @@ PrefabInstance:
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
@@ -21342,7 +21382,17 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 134083512}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
@@ -21352,13 +21402,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetSelectedGameObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: BuildController, FusionFighters
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.EventSystems.EventSystem, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 532651966}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22695,7 +22765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22874,7 +22944,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 994956082}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1936665004}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
@@ -24794,7 +24864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -25593,7 +25663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -28028,7 +28098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -36967,7 +37037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -41220,7 +41290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -42472,7 +42542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a7885f3aaf797b74594b284023300155, type: 2}
-  m_Color: {r: 0.01935742, g: 0.021151766, b: 0.047169805, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -42984,6 +43054,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927061399}
   m_CullTransparentMesh: 1
+--- !u!1 &1936665004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7824493393898879684, guid: 7997ae1f09596ec41a0587c5273ee108,
+    type: 3}
+  m_PrefabInstance: {fileID: 994956082}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1942604733
 GameObject:
   m_ObjectHideFlags: 0

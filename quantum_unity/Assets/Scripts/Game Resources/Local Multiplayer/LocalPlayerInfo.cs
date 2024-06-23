@@ -10,17 +10,16 @@ public class LocalPlayerInfo
     private readonly InputUser _user;
     public InputUser User => _user;
 
+    private Controls _controls;
+    public Controls Controls => _controls;
+
     private SerializableWrapper<UserProfile> _profile;
     public SerializableWrapper<UserProfile> Profile => _profile;
     public void SetProfile(SerializableWrapper<UserProfile> profile) => _profile = profile;
 
-    private int _localIndex;
-    public int LocalIndex => _localIndex;
-    public void SetLocalIndex(int index) => _localIndex = index;
-
-    private int _globalIndex;
-    public int GlobalIndex => _globalIndex;
-    public void SetGlobalIndex(int index) => _globalIndex = index;
+    private int _index;
+    public int Index => _index;
+    public void SetIndex(int index) => _index = index;
 
     public LocalPlayerInfo(InputDevice device)
     {
@@ -28,12 +27,23 @@ public class LocalPlayerInfo
         {
             _device = device;
             _user = InputUser.PerformPairingWithDevice(device);
+
+            BindControls();
+            Enable();
         }
     }
 
-    ~LocalPlayerInfo()
+    public void BindControls()
     {
-        if (_user.id != InputUser.InvalidId && _device is not null)
-            _user.UnpairDevice(_device);
+        _controls = new();
+        _user.AssociateActionsWithUser(_controls);
+
+        InputControlScheme? scheme = InputControlScheme.FindControlSchemeForDevice(_device, _controls.controlSchemes);
+        if (scheme.HasValue)
+        {
+            _user.ActivateControlScheme(scheme.Value);
+        }
     }
+    public void Enable() => _controls.Enable();
+    public void Disable() => _controls.Disable();
 }

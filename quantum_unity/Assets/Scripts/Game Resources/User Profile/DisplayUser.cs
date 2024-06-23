@@ -9,7 +9,7 @@ public class DisplayUser : MonoBehaviour
 
     public void SetUser(LocalPlayerInfo playerInfo)
     {
-        _playerNum.SetText($"P{playerInfo.LocalIndex + 1}");
+        _playerNum.SetText($"P{playerInfo.Index + 1}");
         //_controllerIcon.sprite = ;
         _playerName.SetText(playerInfo.Profile.Name);
     }

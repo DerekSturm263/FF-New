@@ -9,6 +9,6 @@ public class PlayerSpawnEventListener : MonoBehaviour
 
     private void Awake()
     {
-        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: e => _onSpawn.Invoke(e.Game, e.Player, e.Name, e.GlobalIndex));
+        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: e => _onSpawn.Invoke(e.Game, e.Player, e.Name, e.Index.Global));
     }
 }

@@ -49,14 +49,14 @@ public class PlayerEventListener : MonoBehaviour
         QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
         {
             SetPlayerExpressionFocused(e.Player, 1);
-            SpawnPlayerJumpVFX(e.Game, e.Player, e.Index);
+            SpawnPlayerJumpVFX(e.Game, e.Player, e.Index.Global);
 
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
         QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
         {
             SetPlayerExpressionFocused(e.Player, 1);
-            SpawnPlayerDoubleJumpVFX(e.Game, e.Player, e.Index);
+            SpawnPlayerDoubleJumpVFX(e.Game, e.Player, e.Index.Global);
 
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });

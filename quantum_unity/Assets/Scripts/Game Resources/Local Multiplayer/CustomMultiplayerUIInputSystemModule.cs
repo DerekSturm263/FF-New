@@ -1,15 +1,12 @@
 using Quantum.Types;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.UI;
 
 public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
 {
-    private Controls _controls;
-
     private MultiplayerEventSystem _eventSystem;
 
     private LocalPlayerInfo _playerInfo;
@@ -20,7 +17,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
     private Selector _selector;
     public Selector Selector => _selector;
 
-    private static float _cooldownTime = 0.5f;
+    private static readonly float _cooldownTime = 0.35f;
     private float _cooldown = 0;
     private Quantum.Direction _lastDirection = Quantum.Direction.Neutral;
 
@@ -33,91 +30,94 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
     {
         if (_cooldown > 0)
             _cooldown -= Time.deltaTime;
+
+        if (_playerInfo.Controls.Menu.Submit.WasPerformedThisFrame())
+            Submit();
+
+        if (_playerInfo.Controls.Menu.Cancel.WasPerformedThisFrame())
+            Cancel();
+
+        Navigate(_playerInfo.Controls.Menu.Navigate.ReadValue<Vector2>());
     }
 
-    public void MapControls()
+    private void Navigate(Vector2 dir)
     {
-        _controls.Menu.Navigate.performed += Navigate;
-        _controls.Menu.Submit.performed += Submit;
-        _controls.Menu.Cancel.performed += Cancel;
-    }
-
-    private void Navigate(InputAction.CallbackContext ctx)
-    {
-        if (ctx.control.device != _playerInfo.Device)
-            return;
-
         Selectable selectable = _eventSystem.currentSelectedGameObject.GetComponent<Selectable>();
         if (!selectable)
             return;
 
         Selectable navigationTarget = null;
+        bool canMove = false;
 
-        Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(ctx.ReadValue<Vector2>().ToFPVector2());
-        if (direction != Quantum.Direction.Neutral && direction == _lastDirection)
+        Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(dir.ToFPVector2());
+        if (direction != Quantum.Direction.Neutral)
         {
-            if (_cooldown == 0)
+            if (direction == _lastDirection && _cooldown <= 0)
+            {
                 _cooldown = _cooldownTime;
+                canMove = true;
+
+                Debug.Log("Cooldown = 0.5");
+            }
         }
         else
         {
             _cooldown = 0;
-        }
 
-        if (_cooldown > 0)
-            return;
-        
-        switch (direction)
-        {
-            case Quantum.Direction.Right:
-                navigationTarget = selectable.FindSelectableOnRight();
-                break;
-
-            case Quantum.Direction.Up:
-                navigationTarget = selectable.FindSelectableOnUp();
-                break;
-
-            case Quantum.Direction.Left:
-                navigationTarget = selectable.FindSelectableOnLeft();
-                break;
-
-            case Quantum.Direction.Down:
-                navigationTarget = selectable.FindSelectableOnDown();
-                break;
+            Debug.Log("Cooldown = 0");
+            canMove = true;
         }
 
         _lastDirection = direction;
 
-        if (!navigationTarget || !navigationTarget.transform.IsChildOf(transform.GetChild(0)))
-            return;
+        if (canMove)
+        {
+            switch (direction)
+            {
+                case Quantum.Direction.Right:
+                    navigationTarget = selectable.FindSelectableOnRight();
+                    break;
 
-        _eventSystem.SetSelectedGameObject(navigationTarget.gameObject);
-        _selector.ChildToSelected(_eventSystem.currentSelectedGameObject);
+                case Quantum.Direction.Up:
+                    navigationTarget = selectable.FindSelectableOnUp();
+                    break;
+
+                case Quantum.Direction.Left:
+                    navigationTarget = selectable.FindSelectableOnLeft();
+                    break;
+
+                case Quantum.Direction.Down:
+                    navigationTarget = selectable.FindSelectableOnDown();
+                    break;
+            }
+
+            if (!navigationTarget || !navigationTarget.transform.IsChildOf(transform.GetChild(0)))
+                return;
+
+            Debug.Log("Select");
+
+            _eventSystem.SetSelectedGameObject(navigationTarget.gameObject);
+            _selector.ChildToSelected(_eventSystem.currentSelectedGameObject);
+        }
     }
 
-    private void Submit(InputAction.CallbackContext ctx)
+    private void Submit()
     {
-        if (ctx.control.device != _playerInfo.Device)
-            return;
-
         if (!_eventSystem.currentSelectedGameObject)
             return;
 
-        PlayerEventData data = new(_eventSystem) { PlayerNum = _playerInfo.User.index };
+        PlayerEventData data = new(_eventSystem) { PlayerNum = _playerInfo.Index };
         ExecuteEvents.Execute(_eventSystem.currentSelectedGameObject, data, ExecuteEvents.submitHandler);
 
         if (_eventSystem.currentSelectedGameObject.TryGetComponent(out MultiplayerButton button))
         {
-            button.onClick.Invoke(_playerInfo.User.index);
+            button.onClick.Invoke(_playerInfo.Index);
         }
     }
 
-    private void Cancel(InputAction.CallbackContext ctx)
+    private void Cancel()
     {
-        if (ctx.control.device != _playerInfo.Device)
-            return;
-
-        PlayerEventData data = new(_eventSystem) { PlayerNum = _playerInfo.User.index };
+        PlayerEventData data = new(_eventSystem) { PlayerNum = _playerInfo.Index };
         ExecuteEvents.Execute(_eventSystem.currentSelectedGameObject, data, ExecuteEvents.cancelHandler);
     }
 
@@ -126,25 +126,15 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         if (player is null || player.User.id == InputUser.InvalidId)
             return;
 
-        _controls = new();
-        _selector = Instantiate(_selectorAsset, transform);
-
-        player.User.AssociateActionsWithUser(_controls);
-        InputControlScheme? scheme = InputControlScheme.FindControlSchemeForDevice(player.Device, _controls.controlSchemes);
-        if (scheme.HasValue)
-        {
-            player.User.ActivateControlScheme(scheme.Value);
-        }
-
         _playerInfo = player;
-        _selector.Initialize(_playerInfo.User.index);
 
-        MapControls();
+        _selector = Instantiate(_selectorAsset, transform);
+        _selector.Initialize(_playerInfo.Index);
 
-        if (gameObject.activeInHierarchy)
-            _controls.Enable();
+        if (!gameObject.activeInHierarchy)
+            _playerInfo?.Controls?.Menu.Disable();
     }
 
-    private void OnEnable() => _controls?.Enable();
-    private void OnDisable() => _controls?.Disable();
+    private void OnEnable() => _playerInfo?.Controls?.Menu.Enable();
+    private void OnDisable() => _playerInfo?.Controls?.Menu.Disable();
 }

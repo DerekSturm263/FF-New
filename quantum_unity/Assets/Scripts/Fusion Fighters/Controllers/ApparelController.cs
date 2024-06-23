@@ -87,7 +87,7 @@ public class ApparelController : Controller<ApparelController>
     private SerializableWrapper<Apparel> _lastApparel;
     [SerializeField] private UnityEvent<SerializableWrapper<Apparel>> _onSuccessEventDelayed;
 
-    public static string GetPath() => $"{Application.persistentDataPath}/Apparel";
+    public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Equipment/Apparel";
 
     private void Awake()
     {

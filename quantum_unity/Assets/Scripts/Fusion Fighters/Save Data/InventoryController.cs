@@ -17,13 +17,13 @@ public class InventoryController : Controller<InventoryController>
     {
         base.Initialize();
 
-        if (Serializer.TryLoadAs($"{Application.persistentDataPath}/Inventory.json", $"{Application.persistentDataPath}", out Inventory inventory))
-            _inventory = inventory;
-        else
-            _inventory = _default;
-
         if (!_isInitialized)
         {
+            if (Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Inventory.json", $"{Application.persistentDataPath}/SaveData/Misc", out Inventory inventory))
+                _inventory = inventory;
+            else
+                _inventory = _default;
+
             Application.quitting += Shutdown;
             _isInitialized = true;
         }
@@ -34,7 +34,7 @@ public class InventoryController : Controller<InventoryController>
         Application.quitting -= Shutdown;
         _isInitialized = false;
 
-        Serializer.Save(_inventory, "Inventory", $"{Application.persistentDataPath}");
+        Serializer.Save(_inventory, "Inventory", $"{Application.persistentDataPath}/SaveData/Misc");
 
         base.Shutdown();
     }

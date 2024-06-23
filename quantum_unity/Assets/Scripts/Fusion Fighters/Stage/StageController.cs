@@ -7,7 +7,7 @@ public class StageController : Controller<StageController>
     private SerializableWrapper<Stage> _stage;
     public SerializableWrapper<Stage> Stage => _stage;
 
-    public static string GetPath() => $"{Application.persistentDataPath}/Stages";
+    public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Stages";
 
     public SerializableWrapper<Stage> New()
     {

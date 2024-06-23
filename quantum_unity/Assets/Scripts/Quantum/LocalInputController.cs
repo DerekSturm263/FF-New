@@ -1,16 +1,11 @@
 using Photon.Deterministic;
 using Quantum;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.InputSystem;
 using Extensions.Components.Miscellaneous;
 
 public class LocalInputController : Controller<LocalInputController>
 {
     [SerializeField] private RuntimePlayer _player;
-
-    private readonly Dictionary<int, Controls> _controls = new();
 
     private static bool _canInput;
     public void SetCanInput(bool canInput) => _canInput = canInput;
@@ -18,8 +13,9 @@ public class LocalInputController : Controller<LocalInputController>
     private void Awake()
     {
         Initialize();
+        _canInput = false;
         
-        QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
+        QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
     }
 
     public void PollInput(CallbackPollInput callback)
@@ -27,33 +23,32 @@ public class LocalInputController : Controller<LocalInputController>
         if (!_canInput)
             return;
 
-        if (!_controls.ContainsKey(callback.Player))
+        LocalPlayerInfo player = PlayerJoinController.Instance.GetPlayer(callback.Player);
+        if (player is null)
         {
             callback.SetInput(new(), DeterministicInputFlags.Repeatable);
             return;
         }
 
-        Controls controls = _controls[callback.Player];
-
         Quantum.Input input = new()
         {
-            Movement = controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
+            Movement = player.Controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
 
-            Jump = controls.Player.Jump.IsPressed(),
-            FastFall = controls.Player.FastFall.IsPressed(),
-            Crouch = controls.Player.Crouch.IsPressed(),
-            Block = controls.Player.Block.IsPressed(),
+            Jump = player.Controls.Player.Jump.IsPressed(),
+            FastFall = player.Controls.Player.FastFall.IsPressed(),
+            Crouch = player.Controls.Player.Crouch.IsPressed(),
+            Block = player.Controls.Player.Block.IsPressed(),
 
-            MainWeapon = controls.Player.MainWeapon.IsPressed(),
-            AlternateWeapon = controls.Player.AlternateWeapon.IsPressed(),
-            SubWeapon1 = controls.Player.Subweapon1.IsPressed(),
-            SubWeapon2 = controls.Player.Subweapon2.IsPressed(),
+            MainWeapon = player.Controls.Player.MainWeapon.IsPressed(),
+            AlternateWeapon = player.Controls.Player.AlternateWeapon.IsPressed(),
+            SubWeapon1 = player.Controls.Player.Subweapon1.IsPressed(),
+            SubWeapon2 = player.Controls.Player.Subweapon2.IsPressed(),
 
-            Emote = controls.Player.Emote.IsPressed(),
-            Interact = controls.Player.Interact.IsPressed(),
+            Emote = player.Controls.Player.Emote.IsPressed(),
+            Interact = player.Controls.Player.Interact.IsPressed(),
 
-            Ready = controls.Player.Ready.IsPressed(),
-            Cancel = controls.Player.Cancel.IsPressed()
+            Ready = player.Controls.Player.Ready.IsPressed(),
+            Cancel = player.Controls.Player.Cancel.IsPressed()
         };
 
         callback.SetInput(input, DeterministicInputFlags.Repeatable);
@@ -69,16 +64,20 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void SpawnPlayer(LocalPlayerInfo player)
     {
-        QuantumRunner.Default.Game.SendPlayerData(player.LocalIndex, _player);
+        QuantumRunner.Default.Game.SendPlayerData(player.Index, new() { CharacterPrototype = _player.CharacterPrototype, DeviceIndex = HostClientEvents.DeviceIndex, Name = player.Profile.Name });
 
-        Debug.Log($"Spawned player {player.LocalIndex}");
+        if (!gameObject.activeInHierarchy)
+            player?.Controls?.Menu.Disable();
+
+        Debug.Log($"Spawned player {player.Index}");
     }
 
     public void ApplyProfile(LocalPlayerInfo player)
     {
+        // TODO: FIX THE BELOW. IT WILL NOT WORK WHEN BOTS ARE IN.
         CommandPlayerApplyProfile command = new()
         {
-            entity = BuildController.Instance.GetPlayerLocalIndex(player.LocalIndex),
+            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index, HostClientEvents.DeviceIndex),
             name = player.Profile.Name
         };
 
@@ -87,62 +86,28 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void DespawnPlayer(LocalPlayerInfo player)
     {
+        // TODO: FIX THE BELOW. IT WILL NOT WORK WHEN BOTS ARE IN.
         CommandDespawnPlayer commandDespawnPlayer = new()
         {
-            entity = BuildController.Instance.GetPlayerLocalIndex(player.LocalIndex)
+            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index, HostClientEvents.DeviceIndex)
         };
 
-        UnbindPlayerControls(player);
         QuantumRunner.Default.Game.SendCommand(commandDespawnPlayer);
-    }
-
-    public void BindPlayerControls(LocalPlayerInfo player)
-    {
-        Controls controls = new();
-
-        if (gameObject.activeInHierarchy)
-            controls.Enable();
-
-        BindControls(controls, player, player.LocalIndex);
-        _controls.TryAdd(player.LocalIndex, controls);
-
-        Debug.Log($"Created movement controls for local player {player.LocalIndex}");
-    }
-
-    public void UnbindPlayerControls(LocalPlayerInfo player)
-    {
-        _controls.Remove(player.LocalIndex);
-    }
-
-    private void BindControls(Controls controls, LocalPlayerInfo playerInfo, int playerNum)
-    {
-        if (playerInfo is null || playerInfo.User.id == InputUser.InvalidId)
-            return;
-
-        playerInfo.User.AssociateActionsWithUser(controls);
-
-        InputControlScheme? scheme = InputControlScheme.FindControlSchemeForDevice(playerInfo.Device, controls.controlSchemes);
-        if (scheme.HasValue)
-        {
-            playerInfo.User.ActivateControlScheme(scheme.Value);
-        }
-
-        //playerInfo.SetGlobalIndex(playerNum);
     }
 
     private void OnEnable()
     {
-        foreach (Controls controls in _controls.Values)
+        foreach (var player in PlayerJoinController.Instance.AllPlayers.Values)
         {
-            controls.Enable();
+            player.Controls?.Player.Enable();
         }
     }
 
     private void OnDisable()
     {
-        foreach (Controls controls in _controls.Values)
+        foreach (var player in PlayerJoinController.Instance.AllPlayers.Values)
         {
-            controls.Disable();
+            player.Controls?.Player.Disable();
         }
     }
 }

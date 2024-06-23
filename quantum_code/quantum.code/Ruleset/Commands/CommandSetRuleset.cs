@@ -16,11 +16,11 @@ namespace Quantum
         {
             Log.Debug("Ruleset applied!");
 
-            int index = -1;
+            FighterIndex index = FighterIndex.Invalid;
 
-            if (f.Global->LastSelector == -1 && (ruleset.Stage.StagePicker != StagePickerType.Anyone || ruleset.Stage.StagePicker != StagePickerType.Vote))
+            if (!f.Global->LastSelector.Equals(FighterIndex.Invalid) && (ruleset.Stage.StagePicker != StagePickerType.Anyone || ruleset.Stage.StagePicker != StagePickerType.Vote))
             {
-                index = 0;
+                index = new() { Local = 0, Global = 0 };
             }
             else
             {
@@ -32,7 +32,7 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(players[0], out Stats* stats))
                     {
-                        index = stats->GlobalIndex;
+                        index = stats->GetIndex(f, players[0]);
                     }
                 }
             }
@@ -43,11 +43,11 @@ namespace Quantum
             MatchSystem.SetRuleset(f, ruleset);
         }
 
-        private Team GetSelectingTeam(int lastSelector, RNGSession rng, MatchResults results, Ruleset ruleset)
+        private Team GetSelectingTeam(FighterIndex lastSelector, RNGSession rng, MatchResults results, Ruleset ruleset)
         {
             return ruleset.Stage.StagePicker switch
             {
-                StagePickerType.Turns => ArrayHelper.Get(results.Teams, (lastSelector + 1) % results.Count),
+                StagePickerType.Turns => ArrayHelper.Get(results.Teams, (lastSelector.Global + 1) % results.Count),
                 StagePickerType.Loser => ArrayHelper.Get(results.Teams, results.Count - 1),
                 StagePickerType.Winner => ArrayHelper.Get(results.Teams, 0),
                 StagePickerType.Random => ArrayHelper.Get(results.Teams, rng.Next(0, results.Count)),

@@ -18,7 +18,7 @@ namespace FusionFighters.Profile
         {
             get
             {
-                if (Serializer.TryLoadAs($"{Application.persistentDataPath}/Profile.json", $"{Application.persistentDataPath}", out Profile profile))
+                if (Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Profile.json", $"{Application.persistentDataPath}/SaveData/Misc", out Profile profile))
                     _instance = profile;
                 else
                     _instance = Default;

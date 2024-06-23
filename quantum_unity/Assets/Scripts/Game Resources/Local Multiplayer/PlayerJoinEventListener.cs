@@ -58,7 +58,7 @@ public class PlayerJoinEventListener :  MonoBehaviour
 
         _menus.Add(player, new() { css, ss });
      
-        Debug.Log($"Created HUD controls for local player {player.LocalIndex}");
+        Debug.Log($"Created HUD controls for player {player.Index}");
     }
 
     public void UnbindSelectScreens(LocalPlayerInfo player)

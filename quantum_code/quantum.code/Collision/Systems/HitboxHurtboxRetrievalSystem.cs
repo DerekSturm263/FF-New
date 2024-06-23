@@ -41,7 +41,7 @@ namespace Quantum
 
                             // Apply damage.
                             FP damage = -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense);
-                            f.Events.OnPlayerHit(ownerHit, hitStats->GlobalIndex, damage);
+                            f.Events.OnPlayerHit(ownerHit, hitStats->GetIndex(f, ownerHit), damage);
 
                             if (StatsSystem.ModifyHealth(f, ownerHit, hitStats, damage))
                             {

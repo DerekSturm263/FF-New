@@ -1,5 +1,12 @@
 global
 {
+	// Tracks all players across all devices
+	// D1 [ P1(00) P2(01) P3(02) P4(03) ]
+	// D2 [ P1(04) P2(05) P3(06) P4(07) ]
+	// D3 [ P1(08) P2(09) P3(10) P4(11) ]
+	// D4 [ P1(12) P2(13) P3(14) P4(15) ]
+	array<EntityRef>[16] AllPlayers;
+
 	int PlayersReady;
 	int TotalPlayers;
 

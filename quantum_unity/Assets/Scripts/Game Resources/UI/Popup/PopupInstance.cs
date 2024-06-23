@@ -33,7 +33,7 @@ namespace GameResources.UI.Popup
             }
         }
 
-        private void OnDisable()
+        public void ReenableInputEvents()
         {
             foreach (Extensions.Components.Input.InputEvent inputEvent in _inputEvents)
             {

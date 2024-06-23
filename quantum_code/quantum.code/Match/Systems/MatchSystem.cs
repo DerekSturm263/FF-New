@@ -23,7 +23,7 @@ namespace Quantum
 
         public override void OnEnabled(Frame f)
         {
-            f.Global->LastSelector = -1;
+            f.Global->LastSelector = FighterIndex.Invalid;
             f.Global->CurrentMatch = default;
             f.Global->Teams = f.AllocateList<Team>();
             f.Global->IsTimerOver = false;
@@ -129,12 +129,6 @@ namespace Quantum
 
                 f.AddAsset(newMap);
                 f.Map = newMap;
-            }
-
-            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
-            {
-                Transform2D* transform = f.Unsafe.GetPointer<Transform2D>(stats.Entity);
-                transform->Position = ArrayHelper.Get(stage.Spawn.PlayerSpawnPoints, stats.Component->GlobalIndex);
             }
 
             f.Events.OnStageSelect(old, stage);

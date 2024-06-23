@@ -69,7 +69,7 @@ public class UserProfileController : Controller<UserProfileController>
             EventSystem.current.SetSelectedGameObject(_oldSelected);
     }
 
-    public static string GetPath() => $"{Application.persistentDataPath}/Profiles";
+    public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Profiles";
 
     public SerializableWrapper<UserProfile> New()
     {

@@ -55,7 +55,7 @@ public class WeaponController : Controller<WeaponController>
     private SerializableWrapper<Weapon> _lastWeapon;
     [SerializeField] private UnityEvent<SerializableWrapper<Weapon>> _onSuccessEventDelayed;
 
-    public static string GetPath() => $"{Application.persistentDataPath}/Weapons";
+    public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Equipment/Weapons";
 
     private void Awake()
     {

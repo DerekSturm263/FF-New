@@ -6,7 +6,7 @@ using FusionFighters.Profile;
 
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
-    private readonly Dictionary<InputDevice, LocalPlayerInfo> _allPlayers = new();
+    [System.NonSerialized] private Dictionary<InputDevice, LocalPlayerInfo> _allPlayers;
     public Dictionary<InputDevice, LocalPlayerInfo> AllPlayers => _allPlayers;
 
     private Controls _controls;
@@ -20,6 +20,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     private bool _executeEvents = true;
     public void SetExecuteEvents(bool isEnabled) => _executeEvents = isEnabled;
 
+    [System.NonSerialized] private bool _isInitialized = false;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -28,16 +30,25 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         _playerLimit = 4;
 
         Subscribe();
-        Application.quitting += Shutdown;
+
+        if (!_isInitialized)
+        {
+            _allPlayers = new();
+
+            Application.quitting += Shutdown;
+            _isInitialized = true;
+        }
     }
 
     public override void Shutdown()
     {
         Application.quitting -= Shutdown;
+        _isInitialized = false;
+
         _allPlayers.Clear();
         _controls = null;
 
-        Serializer.Save(Profile.Instance, "Profile", $"{Application.persistentDataPath}");
+        Serializer.Save(Profile.Instance, "Profile", $"{Application.persistentDataPath}/SaveData/Misc");
 
         base.Shutdown();
     }
@@ -73,7 +84,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             UserProfileController.Instance.DeferEvents(() =>
             {
                 if (_executeEvents)
-                    foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                    foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).Reverse())
                         listener.InvokeOnPlayerJoin(player);
             });
         }
@@ -104,8 +115,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         LocalPlayerInfo player = new(device);
         _allPlayers.Add(device, player);
 
-        player.SetLocalIndex(index);
-        Debug.Log($"Player {player.LocalIndex} has joined via {device?.displayName}");
+        player.SetIndex(index);
+        Debug.Log($"Player {player.Index} has joined via {device?.displayName}");
 
         return player;
     }
@@ -120,6 +131,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     public LocalPlayerInfo GetPlayer(int localIndex)
     {
+        if (localIndex < 0 || localIndex >= _allPlayers.Count)
+            return null;
+
         return _allPlayers.ElementAt(localIndex).Value;
     }
 
@@ -144,7 +158,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     public int NextIndex()
     {
-        int[] indicesInUse = _allPlayers.Values.Select(item => item.LocalIndex).ToArray();
+        int[] indicesInUse = _allPlayers.Values.Select(item => item.Index).ToArray();
         
         for (int i = 0; i < 4; ++i)
         {

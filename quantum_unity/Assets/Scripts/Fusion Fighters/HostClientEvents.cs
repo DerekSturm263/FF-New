@@ -9,6 +9,17 @@ public class HostClientEvents : MonoBehaviour
 
     [SerializeField] private UnityEvent _load;
 
+    public static int DeviceIndex
+    {
+        get
+        {
+            if (UIMain.Client is not null)
+                return UIMain.Client.LocalPlayer.ActorNumber;
+            else
+                return 0;
+        }
+    }
+
     private void Awake()
     {
         if (UIMain.Client is not null)

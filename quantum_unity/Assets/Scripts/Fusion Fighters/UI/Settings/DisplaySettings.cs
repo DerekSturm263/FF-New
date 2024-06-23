@@ -6,6 +6,6 @@ public class DisplaySettings : Display<Settings, TMPro.TMP_Dropdown>
 
     public override void UpdateDisplay(Settings item)
     {
-        _component.value = item.GraphicsQualityPreset;
+        _component.value = item.Graphics.QualityPreset;
     }
 }

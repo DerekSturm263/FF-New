@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119913672a2c78f43be62b25b2180ea2, type: 3}
+  m_Name: Erase All Save Data
+  m_EditorClassIdentifier: 
+  _title: Erase All Save Data?
+  _description: <align=center>Are you sure you want to erase all save data? This
+    will completely reset the game and you will have to start from the beginning.</align>
+  _responses:
+    _kvps:
+    - _item1: Yes, Erase Everything
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7259386362456708021, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: SettingsController, FusionFighters
+            m_MethodName: EraseAllSaveData
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
+            m_MethodName: ClosePopup
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
+            m_MethodName: DisplayPopup
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 11400000, guid: 894954e66b3b8524e9a579aabdbe683a,
+                type: 2}
+              m_ObjectArgumentAssemblyTypeName: GameResources.UI.Popup.Popup, GameResources
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - _item1: Nevermind!
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
+            m_MethodName: ClosePopup
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2

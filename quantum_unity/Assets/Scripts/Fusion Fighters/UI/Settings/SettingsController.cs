@@ -41,40 +41,39 @@ public class SettingsController : Controller<SettingsController>
     {
         base.Initialize();
 
-        if (_settings.Equals(default(Settings)))
+        if (!_isInitialized)
         {
-            if (Serializer.TryLoadAs($"{Application.persistentDataPath}/ApplicationSettings.json", $"{Application.persistentDataPath}", out Settings settings))
+            if (Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Settings.json", $"{Application.persistentDataPath}/SaveData/Misc", out Settings settings))
                 _settings = settings;
             else
                 _settings = Settings.Default;
-        }
 
-        SetGraphicsQualityPresetNoSet(_settings.GraphicsQualityPreset);
-        SetGraphicsQualityPostProcessing(_settings.Graphics.UsePostProcessing);
-        SetGraphicsQualityVSync(_settings.Graphics.UseVSync);
-        SetGraphicsQualityLights(_settings.Graphics.LightCount);
-        SetGraphicsQualityShadows(_settings.Graphics.ShadowDistance);
-        SetGraphicsQualityRealtimeReflections(_settings.Graphics.RealtimeReflections);
-        SetGraphicsQualityVFX(_settings.Graphics.UseVFX);
-        SetGraphicsQualityAnisotropicFiltering(_settings.Graphics.UseAnisotropicFiltering);
-        SetGraphicsQualityAntiAliasing(_settings.Graphics.AntiAliasing);
-
-        SetAudioVolumeMaster(_settings.Audio.MasterVolume);
-        SetAudioVolumePlayerMaster(_settings.Audio.PlayerMasterVolume);
-        SetAudioVolumePlayerSFX(_settings.Audio.PlayerSFXVolume);
-        SetAudioVolumePlayerVoiceLines(_settings.Audio.PlayerVoiceLineVolume);
-        SetAudioVolumeEnvironmentMaster(_settings.Audio.EnvironmentMasterVolume);
-        SetAudioVolumeEnvironmentAmbience(_settings.Audio.EnvironmentAmbienceVolume);
-        SetAudioVolumeEnvironmentSFX(_settings.Audio.EnvironmentSFXVolume);
-        SetAudioVolumeUIMaster(_settings.Audio.UIMasterVolume);
-        SetAudioVolumeUISFX(_settings.Audio.UISFXVolume);
-        SetAudioVolumeUIMusic(_settings.Audio.UIMusicVolume);
-
-        if (!_isInitialized)
-        {
             Application.quitting += Shutdown;
             _isInitialized = true;
         }
+
+        SetGraphicsPreferencesFullscreen(_settings.Graphics.Preferences.UseFullscreen);
+
+        SetGraphicsQualityPresetNoSet(_settings.Graphics.QualityPreset);
+        SetGraphicsQualityPostProcessing(_settings.Graphics.Quality.UsePostProcessing);
+        SetGraphicsQualityVSync(_settings.Graphics.Quality.UseVSync);
+        SetGraphicsQualityLights(_settings.Graphics.Quality.LightCount);
+        SetGraphicsQualityShadows(_settings.Graphics.Quality.ShadowDistance);
+        SetGraphicsQualityRealtimeReflections(_settings.Graphics.Quality.RealtimeReflections);
+        SetGraphicsQualityVFX(_settings.Graphics.Quality.UseVFX);
+        SetGraphicsQualityAnisotropicFiltering(_settings.Graphics.Quality.UseAnisotropicFiltering);
+        SetGraphicsQualityAntiAliasing(_settings.Graphics.Quality.AntiAliasing);
+
+        SetAudioVolumeMaster(_settings.Audio.Volume.Master);
+        SetAudioVolumePlayerMaster(_settings.Audio.Volume.PlayerMaster);
+        SetAudioVolumePlayerSFX(_settings.Audio.Volume.PlayerSFX);
+        SetAudioVolumePlayerVoiceLines(_settings.Audio.Volume.PlayerVoiceLines);
+        SetAudioVolumeEnvironmentMaster(_settings.Audio.Volume.EnvironmentMaster);
+        SetAudioVolumeEnvironmentAmbience(_settings.Audio.Volume.EnvironmentAmbience);
+        SetAudioVolumeEnvironmentSFX(_settings.Audio.Volume.EnvironmentSFX);
+        SetAudioVolumeUIMaster(_settings.Audio.Volume.UIMaster);
+        SetAudioVolumeUISFX(_settings.Audio.Volume.UISFX);
+        SetAudioVolumeUIMusic(_settings.Audio.Volume.UIMusic);
     }
 
     public override void Shutdown()
@@ -82,7 +81,7 @@ public class SettingsController : Controller<SettingsController>
         Application.quitting -= Shutdown;
         _isInitialized = false;
 
-        Serializer.Save(_settings, "ApplicationSettings", $"{Application.persistentDataPath}");
+        Serializer.Save(_settings, "Settings", $"{Application.persistentDataPath}/SaveData/Misc");
         
         base.Shutdown();
     }
@@ -148,38 +147,45 @@ public class SettingsController : Controller<SettingsController>
 
     }
 
+    public void SetGraphicsPreferencesFullscreen(bool isEnabled)
+    {
+        Screen.fullScreenMode = isEnabled ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
+
+        _settings.Graphics.Preferences.UseFullscreen = isEnabled;
+    }
+
     public void SetGraphicsQualityPresetNoSet(int index)
     {
         QualitySettings.SetQualityLevel(index);
 
-        _settings.GraphicsQualityPreset = index;
+        _settings.Graphics.QualityPreset = index;
     }
 
     public void SetGraphicsQualityPreset(int index)
     {
         QualitySettings.SetQualityLevel(index);
 
-        _settings.GraphicsQualityPreset = index;
-        switch (_settings.GraphicsQualityPreset)
+        _settings.Graphics.QualityPreset = index;
+        switch (_settings.Graphics.QualityPreset)
         {
             case 0:
-                _settings.Graphics = GraphicsSettings.Max;
+                _settings.Graphics.Quality = GraphicsQualitySettings.Max;
                 break;
 
             case 1:
-                _settings.Graphics = GraphicsSettings.High;
+                _settings.Graphics.Quality = GraphicsQualitySettings.High;
                 break;
 
             case 2:
-                _settings.Graphics = GraphicsSettings.Medium;
+                _settings.Graphics.Quality = GraphicsQualitySettings.Medium;
                 break;
 
             case 3:
-                _settings.Graphics = GraphicsSettings.Low;
+                _settings.Graphics.Quality = GraphicsQualitySettings.Low;
                 break;
 
             case 4:
-                _settings.Graphics = GraphicsSettings.Min;
+                _settings.Graphics.Quality = GraphicsQualitySettings.Min;
                 break;
         }
     }
@@ -189,35 +195,35 @@ public class SettingsController : Controller<SettingsController>
         if (CameraController.Instance)
             CameraController.Instance.GetComponent<UniversalAdditionalCameraData>().renderPostProcessing = isEnabled;
 
-        _settings.Graphics.UsePostProcessing = isEnabled;
+        _settings.Graphics.Quality.UsePostProcessing = isEnabled;
     }
 
     public void SetGraphicsQualityVSync(bool isEnabled)
     {
         QualitySettings.vSyncCount = isEnabled ? 1 : 0;
 
-        _settings.Graphics.UseVSync = isEnabled;
+        _settings.Graphics.Quality.UseVSync = isEnabled;
     }
 
     public void SetGraphicsQualityLights(float value)
     {
         QualitySettings.pixelLightCount = (int)value;
 
-        _settings.Graphics.LightCount = (int)value;
+        _settings.Graphics.Quality.LightCount = (int)value;
     }
 
     public void SetGraphicsQualityShadows(float value)
     {
         QualitySettings.shadowDistance = value;
 
-        _settings.Graphics.ShadowDistance = value;
+        _settings.Graphics.Quality.ShadowDistance = value;
     }
 
     public void SetGraphicsQualityRealtimeReflections(bool isEnabled)
     {
         QualitySettings.realtimeReflectionProbes = isEnabled;
 
-        _settings.Graphics.RealtimeReflections = isEnabled;
+        _settings.Graphics.Quality.RealtimeReflections = isEnabled;
     }
 
     public void SetGraphicsQualityVFX(bool isEnabled)
@@ -228,14 +234,14 @@ public class SettingsController : Controller<SettingsController>
         if (vfx)
             vfx.enabled = isEnabled;
 
-        _settings.Graphics.UseVFX = isEnabled;
+        _settings.Graphics.Quality.UseVFX = isEnabled;
     }
 
     public void SetGraphicsQualityAnisotropicFiltering(bool isEnabled)
     {
         QualitySettings.anisotropicFiltering = isEnabled ? AnisotropicFiltering.Enable : AnisotropicFiltering.Disable;
 
-        _settings.Graphics.UseAnisotropicFiltering = isEnabled;
+        _settings.Graphics.Quality.UseAnisotropicFiltering = isEnabled;
     }
 
     public void SetGraphicsQualityAntiAliasing(float value)
@@ -245,12 +251,26 @@ public class SettingsController : Controller<SettingsController>
         else
             QualitySettings.antiAliasing = (int)Mathf.Pow(2, value);
 
-        _settings.Graphics.AntiAliasing = (int)value;
+        _settings.Graphics.Quality.AntiAliasing = (int)value;
     }
 
     public void SetGraphicsColorPreset(int index)
     {
+        _settings.Graphics.ColorsPreset = index;
+        switch (_settings.Graphics.ColorsPreset)
+        {
+            case 0:
+                _settings.Graphics.Colors = GraphicsColorSettings.Default;
+                break;
 
+            case 1:
+                _settings.Graphics.Colors = GraphicsColorSettings.ColorBlindRedGreen;
+                break;
+
+            case 2:
+                _settings.Graphics.Colors = GraphicsColorSettings.ColorBlindBlueYellow;
+                break;
+        }
     }
 
     public void SetGraphicsColorRed(Color red)
@@ -275,7 +295,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _master.audioMixer.SetFloat("Volume", Mathf.Log(volume) * 20);
 
-        _settings.Audio.MasterVolume = volume;
+        _settings.Audio.Volume.Master = volume;
     }
 
     public void SetAudioVolumePlayerMaster(float volume)
@@ -285,7 +305,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _playerMaster.audioMixer.SetFloat("VolumeMaster", Mathf.Log(volume) * 20);
 
-        _settings.Audio.PlayerMasterVolume = volume;
+        _settings.Audio.Volume.PlayerMaster = volume;
     }
 
     public void SetAudioVolumePlayerSFX(float volume)
@@ -295,7 +315,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _playerSFX.audioMixer.SetFloat("VolumeSFX", Mathf.Log(volume) * 20);
 
-        _settings.Audio.PlayerSFXVolume = volume;
+        _settings.Audio.Volume.PlayerSFX = volume;
     }
 
     public void SetAudioVolumePlayerVoiceLines(float volume)
@@ -305,7 +325,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _playerVoiceLines.audioMixer.SetFloat("VolumeVoiceLines", Mathf.Log(volume) * 20);
 
-        _settings.Audio.PlayerVoiceLineVolume = volume;
+        _settings.Audio.Volume.PlayerVoiceLines = volume;
     }
 
     public void SetAudioVolumeEnvironmentMaster(float volume)
@@ -315,7 +335,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _environmentMaster.audioMixer.SetFloat("VolumeMaster", Mathf.Log(volume) * 20);
 
-        _settings.Audio.EnvironmentMasterVolume = volume;
+        _settings.Audio.Volume.EnvironmentMaster = volume;
     }
 
     public void SetAudioVolumeEnvironmentAmbience(float volume)
@@ -325,7 +345,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _environmentAmbience.audioMixer.SetFloat("VolumeAmbience", Mathf.Log(volume) * 20);
 
-        _settings.Audio.EnvironmentAmbienceVolume = volume;
+        _settings.Audio.Volume.EnvironmentAmbience = volume;
     }
 
     public void SetAudioVolumeEnvironmentSFX(float volume)
@@ -335,7 +355,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _environmentSFX.audioMixer.SetFloat("VolumeSFX", Mathf.Log(volume) * 20);
 
-        _settings.Audio.EnvironmentSFXVolume = volume;
+        _settings.Audio.Volume.EnvironmentSFX = volume;
     }
 
     public void SetAudioVolumeUIMaster(float volume)
@@ -345,7 +365,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _uiMaster.audioMixer.SetFloat("VolumeMaster", Mathf.Log(volume) * 20);
 
-        _settings.Audio.UIMasterVolume = volume;
+        _settings.Audio.Volume.UIMaster = volume;
     }
 
     public void SetAudioVolumeUISFX(float volume)
@@ -355,7 +375,7 @@ public class SettingsController : Controller<SettingsController>
         else
             _uiSFX.audioMixer.SetFloat("VolumeSFX", Mathf.Log(volume) * 20);
 
-        _settings.Audio.UISFXVolume = volume;
+        _settings.Audio.Volume.UISFX = volume;
     }
 
     public void SetAudioVolumeUIMusic(float volume)
@@ -365,11 +385,16 @@ public class SettingsController : Controller<SettingsController>
         else
             _uiMusic.audioMixer.SetFloat("VolumeMusic", Mathf.Log(volume) * 20);
 
-        _settings.Audio.UIMusicVolume = volume;
+        _settings.Audio.Volume.UIMusic = volume;
     }
 
     public void Quit()
     {
         QuantumRunner.Default.Shutdown();
+    }
+
+    public void EraseAllSaveData()
+    {
+        System.IO.Directory.Delete($"{Application.persistentDataPath}/SaveData", true);
     }
 }

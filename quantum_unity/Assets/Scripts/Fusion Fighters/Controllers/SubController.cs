@@ -48,7 +48,7 @@ public class SubController : Controller<SubController>
     private SerializableWrapper<Sub> _lastSub;
     [SerializeField] private UnityEvent<SerializableWrapper<Sub>> _onSuccessEventDelayed;
 
-    public static string GetPath() => $"{Application.persistentDataPath}/Subs";
+    public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Equipment/Subs";
 
     private void Awake()
     {

@@ -8,7 +8,7 @@ public class RulesetController : Controller<RulesetController>
     private SerializableWrapper<Ruleset> _ruleset;
     public SerializableWrapper<Ruleset> Ruleset => _ruleset;
 
-    public static string GetPath() => $"{Application.persistentDataPath}/Rulesets";
+    public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Rulesets";
 
     public SerializableWrapper<Ruleset> New()
     {

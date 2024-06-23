@@ -30,7 +30,7 @@ namespace Quantum
             else
                 filter.CharacterController->ReadyTime = 0;
 
-            f.Events.OnPlayerUpdateReady(filter.Entity, filter.Stats->GlobalIndex, filter.CharacterController->ReadyTime / FP._0_50);
+            f.Events.OnPlayerUpdateReady(filter.Entity, filter.Stats->GetIndex(f, filter.Entity), filter.CharacterController->ReadyTime / FP._0_50);
 
             if (filter.CharacterController->ReadyTime > FP._0_50)
             {
@@ -40,7 +40,7 @@ namespace Quantum
                     return;
 
                 ++f.Global->PlayersReady;
-                f.Events.OnPlayerReady(filter.Entity, filter.Stats->GlobalIndex);
+                f.Events.OnPlayerReady(filter.Entity, filter.Stats->GetIndex(f, filter.Entity));
 
                 if (f.Global->TotalPlayers > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
                 {
@@ -61,7 +61,7 @@ namespace Quantum
                 --f.Global->PlayersReady;
 
                 filter.CharacterController->IsReady = false;
-                f.Events.OnPlayerCancel(filter.Entity, filter.Stats->GlobalIndex);
+                f.Events.OnPlayerCancel(filter.Entity, filter.Stats->GetIndex(f, filter.Entity));
 
                 if (shouldCancelAll)
                     HandleAllPlayersCancel(f);

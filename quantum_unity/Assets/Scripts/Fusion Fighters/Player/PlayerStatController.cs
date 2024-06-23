@@ -25,13 +25,13 @@ public class PlayerStatController : MonoBehaviour
     {
         Instance = this;
 
-        QuantumEvent.Subscribe<EventOnPlayerSetName>(listener: this, handler: (e) => _huds[e.Index].SetPlayerName(e.Name));
-        QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds[e.Index].UpdateReadiness(true));
-        QuantumEvent.Subscribe<EventOnPlayerCancel>(listener: this, handler: (e) => _huds[e.Index].UpdateReadiness(false));
-        QuantumEvent.Subscribe<EventOnPlayerUpdateReady>(listener: this, handler: (e) => _huds[e.Index].UpdateReadinessValue(e.Readiness.AsFloat));
-        QuantumEvent.Subscribe<EventOnPlayerModifyHealth>(listener: this, handler: (e) => _huds[e.Index].UpdateHealth(e.NewHealth, e.MaxHealth));
-        QuantumEvent.Subscribe<EventOnPlayerModifyEnergy>(listener: this, handler: (e) => _huds[e.Index].UpdateEnergy(e.NewEnergy, e.MaxEnergy));
-        QuantumEvent.Subscribe<EventOnPlayerModifyStocks>(listener: this, handler: (e) => _huds[e.Index].UpdateStocks(e.NewStocks, e.MaxStocks));
+        QuantumEvent.Subscribe<EventOnPlayerSetName>(listener: this, handler: (e) => _huds[e.Index.Global].SetPlayerName(e.Name));
+        QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateReadiness(true));
+        QuantumEvent.Subscribe<EventOnPlayerCancel>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateReadiness(false));
+        QuantumEvent.Subscribe<EventOnPlayerUpdateReady>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateReadinessValue(e.Readiness.AsFloat));
+        QuantumEvent.Subscribe<EventOnPlayerModifyHealth>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateHealth(e.NewHealth, e.MaxHealth));
+        QuantumEvent.Subscribe<EventOnPlayerModifyEnergy>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateEnergy(e.NewEnergy, e.MaxEnergy));
+        QuantumEvent.Subscribe<EventOnPlayerModifyStocks>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateStocks(e.NewStocks, e.MaxStocks));
     }
 
     public void ShowAllReadies(bool show)

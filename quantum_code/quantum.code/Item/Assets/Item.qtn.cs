@@ -12,7 +12,7 @@ namespace Quantum
         public virtual void OnHit(Frame f, EntityRef user, EntityRef target, EntityRef item, ItemInstance* itemInstance)
         {
             if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
-                f.Events.OnItemUse(user, f.Get<Stats>(user).GlobalIndex, item, this, transform->Position);
+                f.Events.OnItemUse(user, item, this, transform->Position);
 
             if (DestroySelfOnHit)
             {
