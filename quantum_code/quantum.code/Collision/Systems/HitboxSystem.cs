@@ -46,8 +46,10 @@ namespace Quantum
         {
             Log.Debug("Spawning hitbox!");
 
-            EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(settings.Prototype.Id);
+            EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(f.RuntimeConfig.Hitbox.Id);
             EntityRef hitboxEntity = f.Create(hitboxPrototype);
+
+            f.Events.OnCameraShake(settings.SpawnShake, new FPVector2(f.Global->RngSession.Next(-FP._1, FP._1), f.Global->RngSession.Next(-FP._1, FP._1)));
 
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {

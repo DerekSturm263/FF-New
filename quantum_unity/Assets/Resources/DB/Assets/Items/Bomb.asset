@@ -59,19 +59,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
-        m_MethodName: ShakeRandom
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 2
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   Settings_ExplodingItem:
     Identifier:
       Path: Resources/DB/Assets/Items/Bomb
@@ -83,17 +70,16 @@ MonoBehaviour:
     DestroySelfOnHit: 1
     HandednessType: 0
     HitboxSettings:
-      CameraShakeIntensity:
-        RawValue: 1310720
       Damage:
         RawValue: 1310720
+      HitShake:
+        Id:
+          Value: 0
       Knockback:
         X:
           RawValue: 327680
         Y:
           RawValue: 327680
-      Layer:
-        BitMask: 512
       Offset:
         X:
           RawValue: 0
@@ -102,11 +88,11 @@ MonoBehaviour:
       OnlyHitOnce:
         Value: 0
       Parent: 0
-      Prototype:
-        Id:
-          Value: 3467847473562426331
       Radius:
         RawValue: 196608
+      SpawnShake:
+        Id:
+          Value: 2339117124231534448
       StatusEffect:
         Id:
           Value: 0

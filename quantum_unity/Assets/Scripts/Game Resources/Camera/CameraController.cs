@@ -19,7 +19,7 @@ namespace GameResources.Camera
         [SerializeField] private CameraSettingsAsset _settings;
         public void SetCameraSettings(CameraSettingsAsset settings)
         {
-            if (_uninteruptables.Any(item => item.Id == _settings.AssetObject.Guid))
+            if (_uninteruptables.Any(item => item.Id == _settings.Settings.Guid))
                 return;
 
             _instance._settings = settings;
@@ -35,11 +35,13 @@ namespace GameResources.Camera
             AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.CameraSettings.Default.Id;
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
         }
+
         public unsafe void SetCameraSettingsFromCurrentStageZoom()
         {
             AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.CameraSettings.Zoom.Id;
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
         }
+
         public unsafe void SetCameraSettingsFromCurrentStageTension()
         {
             AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.CameraSettings.Tension.Id;
@@ -56,10 +58,11 @@ namespace GameResources.Camera
         private float _calculatedZoom;
         private float _targetZoom;
 
+        private ShakeSettings _shakeSettings;
         private Vector2 _shakeDirection;
-        private Vector3 _shakeAmount;
+
         private float _shakeTime;
-        private float _shakeMaxTime;
+        private Vector2 _shakeAmount;
 
         private UnityEngine.Camera _cam;
         public UnityEngine.Camera Cam => _cam;
@@ -78,11 +81,13 @@ namespace GameResources.Camera
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
             _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
+
+            QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Angle.ToUnityVector2()));
         }
 
         private void LateUpdate()
         {
-            if (!_settings)
+            if (_settings is null)
                 return;
 
             CalculateTargetZoom();
@@ -153,14 +158,21 @@ namespace GameResources.Camera
         private void CalculateShake()
         {
             if (_shakeTime > 0)
-                _shakeAmount = (Vector3)_shakeDirection * (float)(_settings.Settings.ShakeCurve.Evaluate((_shakeMaxTime.ToFP() - _shakeTime.ToFP()) * _settings.Settings.ShakeFrequency) * _settings.Settings.ShakeStrength);
+            {
+                float x = (_shakeSettings.RelativeHorizontalCurve.Evaluate((_shakeSettings.Length - _shakeTime.ToFP()) * _shakeSettings.Frequency) * _shakeSettings.Strength).AsFloat;
+                float y = (_shakeSettings.RelativeVerticalCurve.Evaluate((_shakeSettings.Length - _shakeTime.ToFP()) * _shakeSettings.Frequency) * _shakeSettings.Strength).AsFloat;
+
+                _shakeAmount = (_shakeDirection * y) + (new Vector2(_shakeDirection.y, -_shakeDirection.x) * x);
+            }
             else
+            {
                 _shakeAmount = default;
+            }
         }
 
         private void ApplyPosition(float dt)
         {
-            transform.position = Vector3.Lerp(transform.position, _targetPosition, dt * _settings.Settings.TranslationSpeed.AsFloat) + _shakeAmount;
+            transform.position = Vector3.Lerp(transform.position, _targetPosition, dt * _settings.Settings.TranslationSpeed.AsFloat) + (Vector3)_shakeAmount;
         }
 
         private void ApplyRotation(float dt)
@@ -223,36 +235,17 @@ namespace GameResources.Camera
             _instance._targets.Clear();
         }
 
-        public void Shake(Vector2 amount, float time)
+        private void Shake(AssetRefShakeSettings settings, Vector2 direction)
         {
-            _instance._shakeDirection = amount;
-            _instance._shakeTime = time;
-            _instance._shakeMaxTime = time;
-            _instance._shakeAmount = default;
+            Shake(UnityDB.FindAsset<ShakeSettingsAsset>(settings.Id).Settings, direction);
         }
 
-        public void ShakeRandom(float strength)
+        private void Shake(ShakeSettings settings, Vector2 direction)
         {
-            Shake(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * strength, 1);
+            _shakeSettings = settings;
+
+            _instance._shakeTime = _shakeSettings.Length.AsFloat;
+            _instance._shakeDirection = direction;
         }
-
-        #if UNITY_EDITOR
-
-        [UnityEditor.MenuItem("Testing/Shake Test Up", false)]
-        public static void ShakeTest1() => _instance.Shake(Vector2.up, 1);
-
-        [UnityEditor.MenuItem("Testing/Shake Test Down", false)]
-        public static void ShakeTest2() => _instance.Shake(Vector2.down, 1);
-
-        [UnityEditor.MenuItem("Testing/Shake Test Left", false)]
-        public static void ShakeTest3() => _instance.Shake(Vector2.left, 1);
-
-        [UnityEditor.MenuItem("Testing/Shake Test Right", false)]
-        public static void ShakeTest4() => _instance.Shake(Vector2.right, 1);
-
-        [UnityEditor.MenuItem("Testing/Shake Test Random", false)]
-        public static void ShakeTest5() => _instance.ShakeRandom(1);
-
-        #endif
     }
 }

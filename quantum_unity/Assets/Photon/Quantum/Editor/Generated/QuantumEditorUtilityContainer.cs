@@ -28,6 +28,7 @@ namespace Quantum.Editor {
 
     [System.Serializable]
     public partial class KnownObjectsContainer : QuantumEditorUtility.SerializableObjectsContainerBase {
+      public Quantum.ShakeSettings[] ShakeSettings = {};
       public Quantum.Voice[] Voice = {};
       public Quantum.NoneBadge[] NoneBadge = {};
       public Quantum.DigitalDoubleUltimate[] DigitalDoubleUltimate = {};

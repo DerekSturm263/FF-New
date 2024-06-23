@@ -19,9 +19,5 @@ namespace Quantum
         public FP ZoomOffset;
         public FP ZoomSpeed;
         public FP ZoomScale;
-
-        public FPAnimationCurve ShakeCurve;
-        public FP ShakeStrength;
-        public FP ShakeFrequency;
     }
 }
