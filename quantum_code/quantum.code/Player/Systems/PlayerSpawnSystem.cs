@@ -61,9 +61,9 @@ namespace Quantum
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
             Stats stats = f.Get<Stats>(player);
-            RemovePlayerFromList(f, player, stats);
-
             f.Events.OnPlayerDespawn(player, stats.GetIndex(f, player), stats.Name);
+
+            RemovePlayerFromList(f, player, stats);
             f.Destroy(player);
 
             --f.Global->TotalPlayers;

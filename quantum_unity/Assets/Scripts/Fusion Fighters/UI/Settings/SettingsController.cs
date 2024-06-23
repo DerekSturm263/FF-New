@@ -5,10 +5,6 @@ using GameResources.Camera;
 using GameResources;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using System.Linq;
-using UnityEngine.EventSystems;
 
 public class SettingsController : Controller<SettingsController>
 {
@@ -30,12 +26,6 @@ public class SettingsController : Controller<SettingsController>
     public Settings Settings => _settings;
 
     [System.NonSerialized] private bool _isInitialized = false;
-
-    private GameObject _oldSelected;
-    private List<(Selectable, bool)> _allSelectables;
-
-    private IEnumerable<Extensions.Components.Input.InputEvent> _inputEvents;
-    private Dictionary<Extensions.Components.Input.InputEvent, bool> _wasEnabled;
 
     public override void Initialize()
     {
@@ -88,53 +78,16 @@ public class SettingsController : Controller<SettingsController>
 
     public void Spawn()
     {
-        RememberOldSelected();
-
-        _allSelectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select<Selectable, (Selectable, bool)>(item => new(item, item.interactable)).ToList();
-        foreach (var selectable in _allSelectables)
-        {
-            selectable.Item1.interactable = false;
-        }
-
-        _inputEvents = FindObjectsByType<Extensions.Components.Input.InputEvent>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(item => item.gameObject != gameObject);
-        _wasEnabled = new();
-
-        foreach (Extensions.Components.Input.InputEvent inputEvent in _inputEvents)
-        {
-            _wasEnabled.Add(inputEvent, inputEvent.enabled);
-            inputEvent.enabled = false;
-        }
+        EventSystemController.Instance.Enable();
 
         _popupInstance = Instantiate(_popup, GameObject.FindWithTag("Popup Canvas").transform);
     }
 
     public void Despawn()
     {
-        foreach (var selectable in _allSelectables)
-        {
-            selectable.Item1.interactable = selectable.Item2;
-        }
-
-        SetOldSelected();
-
-        foreach (Extensions.Components.Input.InputEvent inputEvent in _inputEvents)
-        {
-            inputEvent.enabled = _wasEnabled[inputEvent];
-        }
-
         Destroy(_popupInstance);
-    }
 
-    public void RememberOldSelected()
-    {
-        if (EventSystem.current)
-            _oldSelected = EventSystem.current.currentSelectedGameObject;
-    }
-
-    public void SetOldSelected()
-    {
-        if (EventSystem.current && _oldSelected)
-            EventSystem.current.SetSelectedGameObject(_oldSelected);
+        EventSystemController.Instance.Disable();
     }
 
     public void SetGameplayLanguageText(int index)

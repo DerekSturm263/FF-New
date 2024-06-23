@@ -4,33 +4,34 @@ using UnityEngine;
 
 public abstract class PlayerTracker<T> : MonoBehaviour
 {
-    protected Dictionary<EntityView, T> _playersToTs;
+    protected EntityViewUpdater _viewUpdater;
+    protected Dictionary<EntityRef, T> _playersToTs;
 
     private void Awake()
     {
+        _viewUpdater = FindAnyObjectByType<EntityViewUpdater>();
         _playersToTs = new();
     }
 
     private void Update()
     {
         foreach (var kvp in _playersToTs)
-            Action(kvp.Key, kvp.Value);
+            Action(_viewUpdater.GetView(kvp.Key).gameObject, kvp.Value);
     }
 
-    protected abstract void Action(EntityView player, T t);
+    protected abstract void Action(GameObject player, T t);
 
     public void TrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
     {
-        EntityView entity = FindFirstObjectByType<EntityViewUpdater>().GetView(player);
-        _playersToTs.TryAdd(entity, GetT(game, player, name, index));
+        _playersToTs.TryAdd(player, GetT(game, player, name, index));
     }
 
     public void UntrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
     {
-        EntityView entity = FindFirstObjectByType<EntityViewUpdater>().GetView(player);
-        CleanUp(_playersToTs[FindFirstObjectByType<EntityViewUpdater>().GetView(player)]);
+        if (_playersToTs.TryGetValue(player, out T t))
+            CleanUp(t);
 
-        _playersToTs.Remove(entity);
+        _playersToTs.Remove(player);
     }
 
     protected abstract T GetT(QuantumGame game, EntityRef player, QString32 name, int index);

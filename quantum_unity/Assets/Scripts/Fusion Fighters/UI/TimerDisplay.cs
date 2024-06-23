@@ -29,7 +29,7 @@ namespace Extensions.Components.UI
         protected override void Awake()
         {
             if (_useBeginningCountdown)
-                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time, true));
+                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time, e.InvokeEvents));
             else
                 QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e => UpdateTimer(e.Time, e.InvokeEvents));
         }

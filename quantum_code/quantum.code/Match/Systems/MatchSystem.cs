@@ -141,7 +141,7 @@ namespace Quantum
             old = f.Global->CurrentMatch.Ruleset;
             f.Global->CurrentMatch.Ruleset = ruleset;
 
-            TimerSystem.SetTime(f, new(0, 0, ruleset.Match.Time));
+            TimerSystem.SetTime(f, new(0, 0, ruleset.Match.Time), true);
             f.Events.OnRulesetSelect(old, ruleset);
         }
     }

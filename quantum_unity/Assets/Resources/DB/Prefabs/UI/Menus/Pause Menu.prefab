@@ -348,7 +348,6 @@ GameObject:
   - component: {fileID: 1976582338184361743}
   - component: {fileID: 3473874138648824995}
   - component: {fileID: 2110584230779795954}
-  - component: {fileID: 5269553688537788952}
   m_Layer: 5
   m_Name: Event System
   m_TagString: Untagged
@@ -431,18 +430,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!114 &5269553688537788952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224685021980975724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2736458739865136650
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +663,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -903,7 +890,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1251,6 +1238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8110145368323470929}
   - component: {fileID: 640672124503047119}
+  - component: {fileID: 3655762960672307063}
   m_Layer: 5
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -1316,6 +1304,18 @@ MonoBehaviour:
   _onVector2Action:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3655762960672307063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3724506073869961244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3951683961131881149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2608,7 +2608,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2950,7 +2950,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3248,7 +3248,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

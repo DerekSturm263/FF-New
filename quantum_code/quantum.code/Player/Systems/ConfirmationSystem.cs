@@ -75,7 +75,7 @@ namespace Quantum
             f.SystemDisable<CharacterControllerSystem>();
             TimerSystem.ResumeCountdown(f);
 
-            TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time + 3));
+            TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time + 3), true);
         }
 
         private void HandleAllPlayersCancel(Frame f)

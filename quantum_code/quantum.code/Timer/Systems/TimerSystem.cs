@@ -36,7 +36,7 @@ namespace Quantum
 
             if (ticks >= timer->Start)
             {
-                f.Events.OnBeginningCountdown(seconds - (timer->Start / 60));
+                f.Events.OnBeginningCountdown(seconds - (timer->Start / 60), invokeEvent);
             }
             
             if (ticks == timer->Start)
@@ -75,13 +75,13 @@ namespace Quantum
 
         public void OnAdded(Frame f, EntityRef entity, Timer* component)
         {
-            SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time));
+            SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), true);
             CountDownOneSecond(f, component, component->Time, component->Time / 60, true);
         }
 
         public static void StartCountdown(Frame f, TimeSpan time)
         {
-            SetTime(f, time);
+            SetTime(f, time, true);
             ResumeCountdown(f);
         }
 
@@ -106,7 +106,7 @@ namespace Quantum
             }
         }
 
-        public static void SetTime(Frame f, TimeSpan time, bool invokeEvent = true)
+        public static void SetTime(Frame f, TimeSpan time, bool invokeEvent)
         {
             if (f.Unsafe.TryGetPointerSingleton(out Timer* timer))
             {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,26 +12,17 @@ namespace GameResources.UI.Popup
         [SerializeField] private GameObject _buttonTemplate;
 
         private GameObject _popupInstance;
-        private GameObject _oldSelected;
-
-        private List<(Selectable, bool)> _allSelectables;
 
         public void DisplayPopup(Popup popup)
         {
-            GameObject parent = GameObject.FindGameObjectWithTag("Popup Canvas");
+            EventSystemController.Instance.Enable();
 
+            GameObject parent = GameObject.FindGameObjectWithTag("Popup Canvas");
             GameObject newPopup = Instantiate(_popupTemplate, parent.transform);
             
             TMPro.TMP_Text[] texts = newPopup.transform.GetComponentsInChildren<TMPro.TMP_Text>();
             texts[0].SetText(popup.Title);
             texts[1].SetText(popup.Description);
-
-            RememberOldSelected();
-            _allSelectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select<Selectable, (Selectable, bool)>(item => new(item, item.interactable)).ToList();
-            foreach (var selectable in _allSelectables)
-            {
-                selectable.Item1.interactable = false;
-            }
 
             Transform buttonParent = newPopup.GetComponentInChildren<LayoutGroup>().transform;
 
@@ -42,8 +32,6 @@ namespace GameResources.UI.Popup
 
                 button.GetComponentInChildren<TMPro.TMP_Text>().SetText(response.Key);
                 button.onClick.AddListener(() => response.Value.Invoke(null));
-
-                EventSystem.current.SetSelectedGameObject(button.gameObject);
             }
 
             _popupInstance = newPopup;
@@ -54,25 +42,7 @@ namespace GameResources.UI.Popup
             _popupInstance.GetComponent<PopupInstance>().InvokeOnAnimationEndStart();
             _popupInstance.GetComponent<Animator>().SetTrigger("Exit");
 
-            foreach (var selectable in _allSelectables)
-            {
-                if (selectable.Item1)
-                    selectable.Item1.interactable = selectable.Item2;
-            }
-
-            SetOldSelected();
-        }
-
-        public void RememberOldSelected()
-        {
-            if (EventSystem.current)
-                _oldSelected = EventSystem.current.currentSelectedGameObject;
-        }
-
-        public void SetOldSelected()
-        {
-            if (EventSystem.current && _oldSelected)
-                EventSystem.current.SetSelectedGameObject(_oldSelected);
+            EventSystemController.Instance.Disable();
         }
 
         public void ContinueAction(PopupContinueContext ctx) => ctx.InvokePreviousAction();

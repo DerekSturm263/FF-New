@@ -59,6 +59,7 @@ namespace GameResources.Camera
         private Vector2 _shakeDirection;
         private Vector3 _shakeAmount;
         private float _shakeTime;
+        private float _shakeMaxTime;
 
         private UnityEngine.Camera _cam;
         public UnityEngine.Camera Cam => _cam;
@@ -141,7 +142,7 @@ namespace GameResources.Camera
             targetPosition.y = Mathf.Clamp(targetPosition.y, _settings.Settings.TranslationMinClamp.Y.AsFloat, _settings.Settings.TranslationMaxClamp.Y.AsFloat);
             targetPosition.z = Mathf.Clamp(targetPosition.z, _settings.Settings.TranslationMinClamp.Z.AsFloat, _settings.Settings.TranslationMaxClamp.Z.AsFloat);
 
-            _targetPosition = targetPosition + _settings.Settings.TranslationOffset.ToUnityVector3() + _shakeAmount + new Vector3(0, 0, -_targetZoom);
+            _targetPosition = targetPosition + _settings.Settings.TranslationOffset.ToUnityVector3() + new Vector3(0, 0, -_targetZoom);
         }
 
         private void CalculateTargetRotation()
@@ -152,14 +153,14 @@ namespace GameResources.Camera
         private void CalculateShake()
         {
             if (_shakeTime > 0)
-                _shakeAmount = (Vector3)_shakeDirection * (float)(_settings.Settings.ShakeCurve.Evaluate(_shakeTime.ToFP() * _settings.Settings.ShakeFrequency) * _settings.Settings.ShakeStrength);
+                _shakeAmount = (Vector3)_shakeDirection * (float)(_settings.Settings.ShakeCurve.Evaluate((_shakeMaxTime.ToFP() - _shakeTime.ToFP()) * _settings.Settings.ShakeFrequency) * _settings.Settings.ShakeStrength);
             else
                 _shakeAmount = default;
         }
 
         private void ApplyPosition(float dt)
         {
-            transform.position = Vector3.Lerp(transform.position, _targetPosition, dt * _settings.Settings.TranslationSpeed.AsFloat);
+            transform.position = Vector3.Lerp(transform.position, _targetPosition, dt * _settings.Settings.TranslationSpeed.AsFloat) + _shakeAmount;
         }
 
         private void ApplyRotation(float dt)
@@ -226,6 +227,7 @@ namespace GameResources.Camera
         {
             _instance._shakeDirection = amount;
             _instance._shakeTime = time;
+            _instance._shakeMaxTime = time;
             _instance._shakeAmount = default;
         }
 
@@ -237,19 +239,19 @@ namespace GameResources.Camera
         #if UNITY_EDITOR
 
         [UnityEditor.MenuItem("Testing/Shake Test Up", false)]
-        public static void ShakeTest1() => _instance.Shake(Vector2.up, 0.5f);
+        public static void ShakeTest1() => _instance.Shake(Vector2.up, 1);
 
         [UnityEditor.MenuItem("Testing/Shake Test Down", false)]
-        public static void ShakeTest2() => _instance.Shake(Vector2.down, 0.5f);
+        public static void ShakeTest2() => _instance.Shake(Vector2.down, 1);
 
         [UnityEditor.MenuItem("Testing/Shake Test Left", false)]
-        public static void ShakeTest3() => _instance.Shake(Vector2.left, 0.5f);
+        public static void ShakeTest3() => _instance.Shake(Vector2.left, 1);
 
         [UnityEditor.MenuItem("Testing/Shake Test Right", false)]
-        public static void ShakeTest4() => _instance.Shake(Vector2.right, 0.5f);
+        public static void ShakeTest4() => _instance.Shake(Vector2.right, 1);
 
         [UnityEditor.MenuItem("Testing/Shake Test Random", false)]
-        public static void ShakeTest5() => _instance.ShakeRandom(0.5f);
+        public static void ShakeTest5() => _instance.ShakeRandom(1);
 
         #endif
     }

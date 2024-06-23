@@ -10,7 +10,7 @@ public class AlleywayLightsController : PlayerTracker<Transform>
 
     [SerializeField] private Transform[] _lights;
 
-    protected override void Action(EntityView player, Transform t)
+    protected override void Action(GameObject player, Transform t)
     {
         t.forward = Vector3.Lerp(t.transform.forward, (player.transform.position - t.transform.position).normalized, Time.deltaTime * _speed);
         t.position = Vector3.Lerp(t.position, player.transform.position - t.forward * _followDistance, Time.deltaTime * _moveSpeed);

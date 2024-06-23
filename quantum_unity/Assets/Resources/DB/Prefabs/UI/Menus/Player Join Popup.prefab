@@ -317,7 +317,6 @@ GameObject:
   - component: {fileID: 7086761731247336671}
   - component: {fileID: 6357017843787009034}
   - component: {fileID: 4765420707574049371}
-  - component: {fileID: 7408330555215898803}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -396,18 +395,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!114 &7408330555215898803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600057629087261371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &921606094347532348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1242,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55.55
+  m_fontSize: 65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1409,7 +1396,7 @@ RectTransform:
   m_Father: {fileID: 2027654245118005723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1488,7 +1475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25.049988}
+  m_AnchoredPosition: {x: 0, y: 1560.9994}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &671197288179752978
@@ -1712,7 +1699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2269663774752274819
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1834,6 +1821,7 @@ GameObject:
   - component: {fileID: 6876803562752762317}
   - component: {fileID: 3626126495957635075}
   - component: {fileID: 7981794717489852946}
+  - component: {fileID: 5611253618508098473}
   m_Layer: 5
   m_Name: Player Join Popup
   m_TagString: Untagged
@@ -2025,6 +2013,18 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5611253618508098473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816177689871241227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8353665459420272886
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2473,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 269105535091723568}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6310398798904772317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
+    type: 3}
+  m_PrefabInstance: {fileID: 269105535091723568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &993070211808445804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2906,7 +2912,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 4425252764705523475}
+      objectReference: {fileID: 6310398798904772317}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2950,7 +2956,12 @@ PrefabInstance:
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
       propertyPath: m_fontSize
-      value: 34.4
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5582590176198170808, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}

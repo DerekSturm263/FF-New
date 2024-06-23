@@ -2,11 +2,7 @@ using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using Quantum;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class UserProfileController : Controller<UserProfileController>
 {
@@ -20,12 +16,6 @@ public class UserProfileController : Controller<UserProfileController>
 
     [NonSerialized] private bool _isSpawningPlayer;
     public bool IsSpawningPlayer => _isSpawningPlayer;
-    
-    private GameObject _oldSelected;
-    private List<(Selectable, bool)> _allSelectables;
-
-    private IEnumerable<Extensions.Components.Input.InputEvent> _inputEvents;
-    private Dictionary<Extensions.Components.Input.InputEvent, bool> _wasEnabled;
 
     public override void Initialize()
     {
@@ -36,37 +26,10 @@ public class UserProfileController : Controller<UserProfileController>
 
     public void Spawn()
     {
-        RememberOldSelected();
-
-        _allSelectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select<Selectable, (Selectable, bool)>(item => new(item, item.interactable)).ToList();
-        foreach (var selectable in _allSelectables)
-        {
-            selectable.Item1.interactable = false;
-        }
-
-        _inputEvents = FindObjectsByType<Extensions.Components.Input.InputEvent>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(item => item.gameObject != gameObject);
-        _wasEnabled = new();
-
-        foreach (Extensions.Components.Input.InputEvent inputEvent in _inputEvents)
-        {
-            _wasEnabled.Add(inputEvent, inputEvent.enabled);
-            inputEvent.enabled = false;
-        }
+        EventSystemController.Instance.Enable();
 
         _current = Instantiate(_asset, GameObject.FindWithTag("Popup Canvas").transform);
         _isSpawningPlayer = true;
-    }
-
-    public void RememberOldSelected()
-    {
-        if (EventSystem.current)
-            _oldSelected = EventSystem.current.currentSelectedGameObject;
-    }
-
-    public void SetOldSelected()
-    {
-        if (EventSystem.current && _oldSelected)
-            EventSystem.current.SetSelectedGameObject(_oldSelected);
     }
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Profiles";
@@ -132,22 +95,12 @@ public class UserProfileController : Controller<UserProfileController>
 
     public void Close()
     {
-        foreach (var selectable in _allSelectables)
-        {
-            selectable.Item1.interactable = selectable.Item2;
-        }
-
-        SetOldSelected();
-
-        foreach (Extensions.Components.Input.InputEvent inputEvent in _inputEvents)
-        {
-            inputEvent.enabled = _wasEnabled[inputEvent];
-        }
-
         Destroy(_current);
         _current = null;
 
         _isSpawningPlayer = false;
+
+        EventSystemController.Instance.Disable();
     }
 
     public void Cancel()

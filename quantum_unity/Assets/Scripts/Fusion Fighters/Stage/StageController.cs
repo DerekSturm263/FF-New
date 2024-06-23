@@ -33,7 +33,7 @@ public class StageController : Controller<StageController>
     public void Load(Stage stage)
     {
         _stage = new(stage, "", "", AssetGuid.NewGuid(), 0, 0);
-        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()

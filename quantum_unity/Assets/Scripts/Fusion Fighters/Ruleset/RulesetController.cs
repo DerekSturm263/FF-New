@@ -34,7 +34,7 @@ public class RulesetController : Controller<RulesetController>
     public void Load(Ruleset ruleset)
     {
         _ruleset = new(ruleset, "", "", AssetGuid.NewGuid(), 0, 0);
-        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStartDeferred.AddListener(_ => SendToSimulation());
+        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()

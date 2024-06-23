@@ -19,7 +19,6 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
 
   bool _isReload;
     public UnityEvent<QuantumGame> OnStart;
-    [HideInInspector] public UnityEvent<QuantumGame> OnStartDeferred;
 
 #if (QUANTUM_ADDRESSABLES || QUANTUM_ENABLE_ADDRESSABLES) && !QUANTUM_DISABLE_ADDRESSABLES
     public async void Start()
@@ -98,7 +97,6 @@ public class QuantumRunnerLocalDebug : QuantumCallbacks {
             }
 
             OnStart.Invoke(game);
-            OnStartDeferred.Invoke(game);
         }
     }
 

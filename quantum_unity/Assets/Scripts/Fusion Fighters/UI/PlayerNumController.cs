@@ -11,7 +11,7 @@ public class PlayerNumController : PlayerTracker<RectTransform>
 
     [SerializeField] private Canvas _canvas;
 
-    protected override void Action(EntityView player, RectTransform t)
+    protected override void Action(GameObject player, RectTransform t)
     {
         if (CameraController.Instance)
             t.anchoredPosition = (CameraController.Instance.Cam.WorldToScreenPoint(player.transform.position + (Vector3)_offset) - (new Vector3(Screen.width, Screen.height) / 2)) / _canvas.scaleFactor;

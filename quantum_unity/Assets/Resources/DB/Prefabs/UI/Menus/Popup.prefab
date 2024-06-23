@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 1019667192056054749}
   - component: {fileID: 7192583970790445598}
   - component: {fileID: 8648456676910982552}
-  - component: {fileID: 61437989344420727}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -167,18 +166,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!114 &61437989344420727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155736827663858492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1386994199960022286
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,8 +870,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2254153881613378043}
   m_HandleRect: {fileID: 1079719883953292477}
   m_Direction: 2
-  m_Value: 0.5
-  m_Size: 0
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -983,7 +970,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1154,6 +1141,7 @@ GameObject:
   - component: {fileID: 998933908408907365}
   - component: {fileID: 1602647719239724772}
   - component: {fileID: 7401864876177310476}
+  - component: {fileID: 3551305053654043038}
   m_Layer: 5
   m_Name: Responses
   m_TagString: Untagged
@@ -1244,6 +1232,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3551305053654043038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784704153498935791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b46cf269cf59564bba08aa2b9b531bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectMethod: 8
+  _resetIndexOnStart: 1
+  _executeOnSelect: 1
+  _delay: 0
 --- !u!1 &8018091637017531045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,6 +1300,7 @@ GameObject:
   - component: {fileID: 7150174190159414887}
   - component: {fileID: 4220631636302486893}
   - component: {fileID: 7613648088561686606}
+  - component: {fileID: 4730642490179540540}
   m_Layer: 5
   m_Name: Popup
   m_TagString: Untagged
@@ -1589,3 +1594,15 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4730642490179540540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9130855526157340096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
