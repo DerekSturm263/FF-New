@@ -8,14 +8,14 @@ namespace GameResources.UI.Dialogue
     [System.Serializable]
     public class DialoguePiece
     {
-        [SerializeField][Multiline] private string _text;
+        [SerializeField][TextArea] private string _text;
         public string Text => _text;
 
-        [SerializeField] private float _speed;
+        [SerializeField] private float _speed = 5;
         public float Speed => _speed;
 
         [SerializeField] private AudioClip[] _voiceLines;
-        public void PlayVoiceLines(DialogueController caller)
+        public void PlayVoiceLines(DialogueBoxInstance caller)
         {
             float delay = 0;
 

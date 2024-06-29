@@ -13,22 +13,13 @@ MonoBehaviour:
   m_Name: Version 0.1.7a
   m_EditorClassIdentifier: 
   _title: Changelog
-  _description: "<b>Version 0.1.7a (04/20/2024)</b>\r\n\r\nAdded:\r\n  - An HUD for
-    each player in the game. The HUD keeps track of their:\r\n    - Health\r\n   
-    - Energy\r\n    - Stocks\r\n  - To be included in a future update is the correct
-    portrait, username, and player number\r\n  - The energy system\r\n    - The player
-    can not use their Burst if they don't have enough energy (20, will be adjusted)\r\n   
-    - The player starts the match with 20 energy\r\n    - Energy will be used for
-    Sub-Weapons and Ultimates in the future\r\n  - The health system\r\n    - The
-    player will lose a stock once their health reaches 0\r\n  - The stock system\r\n   
-    - In the future, once a player hits 0 stock (if the ruleset has that as a lose
-    condition), then they will lose the match\r\n  - Support for multiple local players.
-    This isn't finished yet, but just needs to be bugfixed\r\n\r\nUpdated:\r\n  -
-    The copyright information to include the company name\r\n  - The credits to include
-    the updated copyright information\r\n\r\nFixed:\r\n  - An issue where loading
-    into new scenes would reset the button prompts back to the Keyboard\r\n  - An
-    issue where the credits would seem to restart once it reached the end and the
-    user continued scrolling\r\n  - The player index now begins at 0 instead of 1"
+  _description: "<b>Version 0.1.7a (06/23/2024)</b>\n\nAdded:\n  - Popups that can
+    be used to prompt the user for something, confirm something, etc.\n  - The 5-4-3-2-1
+    countdown at the end of a match\n  - Sound effects while pressing buttons\n\nFixed:\n 
+    - Users can now properly move again after a match countdown\n  - Users can no
+    longer cancel a match while in the middle of one\n  - You can no longer press
+    a button to load a scene multiple times\n  - Input Events no longer stack when
+    in Edit Mode"
   _responses:
     _kvps:
     - _item1: OK
@@ -37,8 +28,9 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
               type: 3}
-            m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
-            m_MethodName: ClosePopup
+            m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+              GameResources
+            m_MethodName: Despawn
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}

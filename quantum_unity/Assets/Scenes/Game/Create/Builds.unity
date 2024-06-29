@@ -17296,6 +17296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 806385847}
   - component: {fileID: 806385846}
+  - component: {fileID: 806385848}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -17372,6 +17373,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -40, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &806385848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806385844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: B2
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 0f6f038d41310c14c9c087c2701a9488,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &806659368
 GameObject:
   m_ObjectHideFlags: 0
@@ -21542,6 +21574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1003254175}
   - component: {fileID: 1003254168}
+  - component: {fileID: 1003254176}
   m_Layer: 5
   m_Name: Character Select Menu
   m_TagString: Untagged
@@ -21618,6 +21651,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1003254176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003254166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: B1
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 76b9b029e159f0440b9ba30b6d338480,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1021220305
 GameObject:
   m_ObjectHideFlags: 0
@@ -27409,6 +27473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259473196}
   - component: {fileID: 1259473195}
+  - component: {fileID: 1259473197}
   m_Layer: 5
   m_Name: Equipment
   m_TagString: Untagged
@@ -27508,6 +27573,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1259473197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259473194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: B3
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b4dcef1906463724b95416557f536b4f,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1259542729
 GameObject:
   m_ObjectHideFlags: 0
@@ -27582,8 +27678,9 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
-        m_MethodName: DisplayPopup
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+          GameResources
+        m_MethodName: Spawn
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: f62507463bc9caa41a5f386c2036c48b,
@@ -35434,8 +35531,9 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
-        m_MethodName: DisplayPopup
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+          GameResources
+        m_MethodName: Spawn
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 5554d1af1c02b0b46a3d55dc5b0c7139,
@@ -40527,6 +40625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827297221}
   - component: {fileID: 1827297222}
+  - component: {fileID: 1827297223}
   m_Layer: 5
   m_Name: Appearance
   m_TagString: Untagged
@@ -40626,6 +40725,37 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1827297223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827297220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: B4
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 9f8300fee362abe439041909aac02acf,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1835114470
 GameObject:
   m_ObjectHideFlags: 0

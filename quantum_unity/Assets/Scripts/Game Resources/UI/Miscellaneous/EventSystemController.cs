@@ -31,14 +31,20 @@ public class EventSystemController : Controller<EventSystemController>
 
         private void DisableOldEventSystem()
         {
-            _oldEventSystem = EventSystem.current;
-            _oldEventSystem.enabled = false;
+            if (EventSystem.current)
+            {
+                _oldEventSystem = EventSystem.current;
+                _oldEventSystem.enabled = false;
+            }
         }
 
         private void EnableOldEventSystem()
         {
-            _oldEventSystem.enabled = true;
-            EventSystem.current = _oldEventSystem;
+            if (_oldEventSystem)
+            {
+                _oldEventSystem.enabled = true;
+                EventSystem.current = _oldEventSystem;
+            }
         }
 
         private void DisableSelectables()

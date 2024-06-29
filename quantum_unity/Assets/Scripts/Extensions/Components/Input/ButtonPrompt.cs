@@ -11,30 +11,40 @@ namespace Extensions.Components.Input
         [SerializeField] private InputEvent _inputEvent;
 
         private TMPro.TMP_Text _text;
-        private InputDevice _lastDevice;
 
-        private void Awake() => Setup();
+        private InputDevice _device;
+
+        private void Awake()
+        {
+            Setup();
+            DisplayInput(InputMapperController.Instance.CurrentDevice ?? InputSystem.devices[0]);
+        }
 
         public void Setup()
         {
             GetComponent<Button>().onClick.AddListener(_inputEvent.Invoke);
         }
 
-        public void DisplayInputs(InputDevice device)
+        public void DisplayInput(InputDevice device)
         {
-            if (device == _lastDevice)
+            if (device == _device)
                 return;
 
+            _device = device;
+
+            DisplayInputs(device.displayName);
+        }
+
+        private void DisplayInputs(string deviceName)
+        {
             if (!_text)
                 _text = GetComponentInChildren<TMPro.TMP_Text>();
 
-            if (!InputMapperController.Instance.ControlSchemesToSpriteAssets.ContainsKey(device.name))
+            if (!InputMapperController.Instance.ControlSchemesToSpriteAssets.ContainsKey(deviceName))
                 return;
 
-            _text.spriteAsset = InputMapperController.Instance.ControlSchemesToSpriteAssets[device.name];
-            _text.SetText(string.Format(_format, $"<sprite={_inputEvent.Button.GetID(device.name)}>"));
-
-            _lastDevice = device;
+            _text.spriteAsset = InputMapperController.Instance.ControlSchemesToSpriteAssets[deviceName];
+            _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\">"));
         }
     }
 }

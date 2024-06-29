@@ -59,13 +59,13 @@ public class SubController : Controller<SubController>
     {
         if (!_template)
         {
-            PopupController.Instance.DisplayPopup(_onFail);
+            PopupController.Instance.Spawn(_onFail);
             return;
         }
 
         if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _enhancer?.Price))
         {
-            PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
+            PopupController.Instance.Spawn(_onNotEnoughCurrency);
             return;
         }
 
@@ -109,7 +109,7 @@ public class SubController : Controller<SubController>
         if (!_doAction)
             return;
             
-        PopupController.Instance.DisplayPopup(_onSuccess);
+        PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastSub);
     }
 

@@ -1,12 +1,17 @@
+using System.Collections.Generic;
+
 [System.Serializable]
 public struct Settings
 {
     public static Settings Default = new()
     {
+        VisitedScenes = new(),
         Gameplay = GameplaySettings.Default,
         Graphics = GraphicsSettings.Default,
         Audio = AudioSettings.Default
     };
+
+    public List<string> VisitedScenes;
 
     public GameplaySettings Gameplay;
     public GraphicsSettings Graphics;

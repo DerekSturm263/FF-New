@@ -98,7 +98,7 @@ public class ApparelController : Controller<ApparelController>
     {
         if (!_template)
         {
-            PopupController.Instance.DisplayPopup(_onFail);
+            PopupController.Instance.Spawn(_onFail);
             return;
         }
 
@@ -115,7 +115,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _pattern?.Price, modifier1?.Price, modifier2?.Price, modifier3?.Price))
         {
-            PopupController.Instance.DisplayPopup(_onNotEnoughCurrency);
+            PopupController.Instance.Spawn(_onNotEnoughCurrency);
             return;
         }
 
@@ -180,7 +180,7 @@ public class ApparelController : Controller<ApparelController>
         if (!_doAction)
             return;
 
-        PopupController.Instance.DisplayPopup(_onSuccess);
+        PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastApparel);
     }
 

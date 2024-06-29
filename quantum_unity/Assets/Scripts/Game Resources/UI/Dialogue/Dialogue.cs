@@ -4,9 +4,12 @@ using UnityEngine.Events;
 
 namespace GameResources.UI.Dialogue
 {
-    [System.Serializable]
-    public class Dialogue
+    [CreateAssetMenu(fileName = "New Dialogue", menuName = "Fusion Fighters/UI/Dialogue")]
+    public class Dialogue : ScriptableObject
     {
+        [SerializeField] private bool _hideSpeaker;
+        public bool HideSpeaker => _hideSpeaker;
+
         [SerializeField] private string _speaker;
         public string Speaker => _speaker;
 

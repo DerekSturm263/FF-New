@@ -6,7 +6,7 @@ using FusionFighters.Profile;
 
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
-    [System.NonSerialized] private Dictionary<InputDevice, LocalPlayerInfo> _allPlayers;
+    [System.NonSerialized] private Dictionary<InputDevice, LocalPlayerInfo> _allPlayers = new();
     public Dictionary<InputDevice, LocalPlayerInfo> AllPlayers => _allPlayers;
 
     private Controls _controls;
@@ -14,7 +14,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     private int _playerLimit;
     public void SetPlayerLimit(int playerLimit) => _playerLimit = playerLimit;
 
-    private bool _isEnabled = true;
+    private static bool _isEnabled = true;
     public void Enable(bool isEnabled) => _isEnabled = isEnabled;
 
     private bool _executeEvents = true;
@@ -33,7 +33,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         if (!_isInitialized)
         {
-            _allPlayers = new();
+            _allPlayers.Clear();
 
             Application.quitting += Shutdown;
             _isInitialized = true;
@@ -68,20 +68,17 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private void TryPlayerJoin(InputAction.CallbackContext ctx)
     {
-        if (!_isEnabled || UserProfileController.Instance.IsSpawningPlayer || GetPlayer(ctx.control.device) != null)
-            return;
-
-        if (_allPlayers.Count == _playerLimit)
+        if (!_isEnabled || GetPlayer(ctx.control.device) != null || _allPlayers.Count == _playerLimit)
             return;
 
         LocalPlayerInfo player = AddPlayer(ctx.control.device);
         
         if (player is not null)
         {
-            UserProfileController.Instance.SetPlayer(player);
+            (UserProfileController.Instance as UserProfileController).SetPlayer(player);
 
-            UserProfileController.Instance.Spawn();
-            UserProfileController.Instance.DeferEvents(() =>
+            UserProfileController.Instance.Spawn(default);
+            (UserProfileController.Instance as UserProfileController).DeferEvents(() =>
             {
                 if (_executeEvents)
                     foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).Reverse())

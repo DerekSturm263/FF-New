@@ -32,6 +32,7 @@ GameObject:
   - component: {fileID: -7092123073383150721}
   - component: {fileID: -8979094445783090270}
   - component: {fileID: 5440210475578707955}
+  - component: {fileID: 1641385757697503227}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -107,7 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247dc2ac4ae85194e84dfe6c002b2de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _popup: {fileID: 8061645974274241428, guid: 38f022e4edd608c44ae4ed08531329f3, type: 3}
+  _template: {fileID: 8061645974274241428, guid: 38f022e4edd608c44ae4ed08531329f3,
+    type: 3}
   _master: {fileID: 24300002, guid: 3d79f15d7e6bf1f48b3fd8f50fc51231, type: 2}
   _playerMaster: {fileID: 24300002, guid: a4704c5dd4fad3946a8e83ef4d0d9890, type: 2}
   _playerSFX: {fileID: -4132150874975322781, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
@@ -135,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d860ea25ee290e4f8f0c09586354dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asset: {fileID: 6816177689871241227, guid: 1cd4f0ae750bf13498ed15ea162307af, type: 3}
-  _populator: {fileID: 0}
+  _template: {fileID: 6816177689871241227, guid: 1cd4f0ae750bf13498ed15ea162307af,
+    type: 3}
 --- !u!114 &-5538812888440427866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,13 +540,13 @@ MonoBehaviour:
   _controlSchemesToSpriteAssets:
     _kvps:
     - _item1: Keyboard
-      _item2: {fileID: 11400000, guid: bf633a733396f0f4d8e96aa839664fe7, type: 2}
-    - _item1: PS Gamepad
-      _item2: {fileID: 11400000, guid: db0861fa25d64e2418c08f5e9738857c, type: 2}
-    - _item1: Switch Gamepad
-      _item2: {fileID: 11400000, guid: 7d8ddee8d69191642a64af1c2ff09cdc, type: 2}
-    - _item1: XInputControllerWindows
-      _item2: {fileID: 11400000, guid: f5b54fad65406364eb1304a8060d6de7, type: 2}
+      _item2: {fileID: 11400000, guid: 7b9f5416f1505d343bf4eeb8b002b00a, type: 2}
+    - _item1: PlayStation Controller
+      _item2: {fileID: 11400000, guid: 1c6ab27a38a0f8b419649bdc76e4d76f, type: 2}
+    - _item1: Switch Pro Controller
+      _item2: {fileID: 11400000, guid: 6d1a1566c8b18754291f4cae41686586, type: 2}
+    - _item1: Xbox Controller
+      _item2: {fileID: 11400000, guid: c517585ed96cb3d4ab636710172e12b6, type: 2}
 --- !u!114 &-7661239446362814834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aae747e81e32a94ba4d329f91cc1353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _popupTemplate: {fileID: 9130855526157340096, guid: f3f63db834e967040bcbc0ff3ddd8ace,
+  _template: {fileID: 9130855526157340096, guid: f3f63db834e967040bcbc0ff3ddd8ace,
     type: 3}
   _buttonTemplate: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
     type: 3}
@@ -924,3 +926,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea88c028085f214cb34abefafb32e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1641385757697503227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81cb54d40c625e84aba8b4fbbd8abce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _template: {fileID: 976297683254407655, guid: 8be7b91a2032ada43a493b6f24675b96,
+    type: 3}

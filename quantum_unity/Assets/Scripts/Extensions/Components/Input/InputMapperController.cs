@@ -10,19 +10,16 @@ namespace Extensions.Components.Input
         [SerializeField] private Types.Dictionary<string, TMPro.TMP_SpriteAsset> _controlSchemesToSpriteAssets;
         public Types.Dictionary<string, TMPro.TMP_SpriteAsset> ControlSchemesToSpriteAssets => _controlSchemesToSpriteAssets;
 
-        protected ButtonPrompt[] _allButtonPrompts;
+        private InputDevice _currentDevice;
+        public InputDevice CurrentDevice => _currentDevice;
 
-        private InputDevice _lastDevice;
         private IDisposable _event;
 
         public override void Initialize()
         {
             base.Initialize();
-
-            _allButtonPrompts = FindObjectsByType<ButtonPrompt>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            _event = InputSystem.onAnyButtonPress.Call(ctx => SetAllInputDevices(ctx.device));
-
-            SetAllInputDevicesDefault();
+            
+            _event = InputSystem.onAnyButtonPress.Call(SetAllInputDevices);
 
             Application.quitting += Shutdown;
         }
@@ -35,17 +32,14 @@ namespace Extensions.Components.Input
             base.Shutdown();
         }
 
-        public void SetAllInputDevicesDefault() => SetAllInputDevices(_lastDevice ?? InputSystem.devices[0]);
-
-        public void SetAllInputDevices(InputDevice device)
+        public void SetAllInputDevices(InputControl action)
         {
-            foreach (ButtonPrompt prompt in _allButtonPrompts)
-            {
-                if (prompt)
-                    prompt.DisplayInputs(device);
-            }
+            _currentDevice = action.device;
 
-            _lastDevice = device;
+            foreach (ButtonPrompt prompt in FindObjectsByType<ButtonPrompt>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                prompt.DisplayInput(action.device);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class DisplayGraphicsSettings : Display<GraphicsSettings, List<Selectable>>
 {
-    protected override GraphicsSettings GetValue() => SettingsController.Instance.Settings.Graphics;
+    protected override GraphicsSettings GetValue() => (SettingsController.Instance as SettingsController).Settings.Graphics;
 
     public override void UpdateDisplay(GraphicsSettings item)
     {

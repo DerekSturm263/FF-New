@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class DisplayAudioSettings : Display<AudioSettings, List<Selectable>>
 {
-    protected override AudioSettings GetValue() => SettingsController.Instance.Settings.Audio;
+    protected override AudioSettings GetValue() => (SettingsController.Instance as SettingsController).Settings.Audio;
 
     public override void UpdateDisplay(AudioSettings item)
     {

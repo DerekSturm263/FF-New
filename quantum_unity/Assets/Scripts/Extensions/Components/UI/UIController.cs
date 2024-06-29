@@ -101,5 +101,7 @@ namespace Extensions.Components.UI
         {
             anim.SetBool("On", false);
         }
+
+        public void Instantiate(GameObject gameObject) => Instantiate(gameObject, GameObject.FindWithTag("Popup Canvas").transform);
     }
 }

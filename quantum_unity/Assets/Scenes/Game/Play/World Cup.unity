@@ -1650,6 +1650,7 @@ GameObject:
   - component: {fileID: 1028787259}
   - component: {fileID: 1028787258}
   - component: {fileID: 1028787257}
+  - component: {fileID: 1028787260}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -1730,6 +1731,37 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1028787260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028787255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: W1
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: abbcd313756dcc646882e767829e86f0,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1079875914 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 142591071272611522, guid: f78383ff365f2ee43946e3ff1be94daa,

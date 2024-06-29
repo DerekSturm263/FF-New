@@ -1041,6 +1041,7 @@ GameObject:
   - component: {fileID: 41460555}
   - component: {fileID: 41460554}
   - component: {fileID: 41460553}
+  - component: {fileID: 41460556}
   m_Layer: 5
   m_Name: Create Apparel
   m_TagString: Untagged
@@ -1269,6 +1270,37 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &41460556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41460551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: E4
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: c70df59c7f30a904caf74a120bc56b99,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &49259963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4105,6 +4137,7 @@ GameObject:
   - component: {fileID: 172588455}
   - component: {fileID: 172588454}
   - component: {fileID: 172588453}
+  - component: {fileID: 172588456}
   m_Layer: 5
   m_Name: Forge a Sub
   m_TagString: Untagged
@@ -4321,6 +4354,37 @@ MonoBehaviour:
   _onDestroy:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &172588456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172588451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: E3
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: fbd3badceed79d04bb11c8f782424021,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &175431425
 GameObject:
   m_ObjectHideFlags: 0
@@ -6444,8 +6508,9 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
-        m_MethodName: DisplayPopup
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+          GameResources
+        m_MethodName: Spawn
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 10ffe4559e41cd648a2fd3f4afbb0783,
@@ -13667,6 +13732,7 @@ GameObject:
   - component: {fileID: 746698953}
   - component: {fileID: 746698952}
   - component: {fileID: 746698954}
+  - component: {fileID: 746698955}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -13750,6 +13816,37 @@ MonoBehaviour:
   _resetIndexOnStart: 1
   _executeOnSelect: 1
   _delay: 0
+--- !u!114 &746698955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746698949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: E1
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: eeb4e8a346c70644bbea8e724a57486f,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &749699302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14847,8 +14944,9 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
-        m_MethodName: DisplayPopup
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+          GameResources
+        m_MethodName: Spawn
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: b1dd311561bae8f4ea66b5eb4b43696e,
@@ -18796,8 +18894,9 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: GameResources.UI.Popup.PopupController, GameResources
-        m_MethodName: DisplayPopup
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+          GameResources
+        m_MethodName: Spawn
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: c2d03203888b0e249ad5a69c2e18ca7f,
@@ -45002,6 +45101,7 @@ GameObject:
   - component: {fileID: 1975446408}
   - component: {fileID: 1975446411}
   - component: {fileID: 1975446410}
+  - component: {fileID: 1975446412}
   m_Layer: 5
   m_Name: Forge a Weapon
   m_TagString: Untagged
@@ -45230,6 +45330,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1975446412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975446406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c283e57fd56240bd4feaf93ee2e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _identifier: E2
+  _events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641385757697503227, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Dialogue.Dialogue,
+          GameResources
+        m_MethodName: Spawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: bc2bd80a50727664993889bb669df009,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameResources.UI.Dialogue.Dialogue, GameResources
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1988033604
 GameObject:
   m_ObjectHideFlags: 0

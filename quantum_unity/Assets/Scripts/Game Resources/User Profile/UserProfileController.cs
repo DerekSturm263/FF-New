@@ -1,36 +1,11 @@
-using Extensions.Components.Miscellaneous;
-using Extensions.Components.UI;
 using Quantum;
 using System;
 using UnityEngine;
 
-public class UserProfileController : Controller<UserProfileController>
+public class UserProfileController : SpawnableController<UserProfile>
 {
-    [SerializeField] private GameObject _asset;
-    private GameObject _current;
-
     private LocalPlayerInfo _player;
     public void SetPlayer(LocalPlayerInfo player) => _player = player;
-
-    [SerializeField] private PopulateBase _populator;
-
-    [NonSerialized] private bool _isSpawningPlayer;
-    public bool IsSpawningPlayer => _isSpawningPlayer;
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        _isSpawningPlayer = false;
-    }
-
-    public void Spawn()
-    {
-        EventSystemController.Instance.Enable();
-
-        _current = Instantiate(_asset, GameObject.FindWithTag("Popup Canvas").transform);
-        _isSpawningPlayer = true;
-    }
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Profiles";
 
@@ -56,7 +31,7 @@ public class UserProfileController : Controller<UserProfileController>
     private SerializableWrapper<UserProfile> _currentlySelected;
     public void SetCurrentlySelected(SerializableWrapper<UserProfile> profile) => _currentlySelected = profile;
 
-    public void InstanceDelete() => Instance.Delete();
+    public void InstanceDelete() => (Instance as UserProfileController).Delete();
 
     private void Delete()
     {
@@ -64,7 +39,7 @@ public class UserProfileController : Controller<UserProfileController>
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
 
         Destroy(UserProfilePopulator.ButtonFromItem(_currentlySelected));
-        _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        //_populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 
     public void SetName(string name)
@@ -91,16 +66,6 @@ public class UserProfileController : Controller<UserProfileController>
     public void ExecuteDeferredEvents()
     {
         _action.Invoke();
-    }
-
-    public void Close()
-    {
-        Destroy(_current);
-        _current = null;
-
-        _isSpawningPlayer = false;
-
-        EventSystemController.Instance.Disable();
     }
 
     public void Cancel()

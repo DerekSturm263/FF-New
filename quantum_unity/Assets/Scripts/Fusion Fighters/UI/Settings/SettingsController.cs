@@ -1,16 +1,12 @@
 using UnityEngine;
-using Extensions.Components.Miscellaneous;
 using UnityEngine.Audio;
 using GameResources.Camera;
 using GameResources;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
 
-public class SettingsController : Controller<SettingsController>
+public class SettingsController : SpawnableController<Settings>
 {
-    [SerializeField] private GameObject _popup;
-    private GameObject _popupInstance;
-
     [SerializeField] private AudioMixerGroup _master;
     [SerializeField] private AudioMixerGroup _playerMaster;
     [SerializeField] private AudioMixerGroup _playerSFX;
@@ -26,6 +22,11 @@ public class SettingsController : Controller<SettingsController>
     public Settings Settings => _settings;
 
     [System.NonSerialized] private bool _isInitialized = false;
+
+    public void Spawn()
+    {
+        Spawn(default);
+    }
 
     public override void Initialize()
     {
@@ -74,20 +75,6 @@ public class SettingsController : Controller<SettingsController>
         Serializer.Save(_settings, "Settings", $"{Application.persistentDataPath}/SaveData/Misc");
         
         base.Shutdown();
-    }
-
-    public void Spawn()
-    {
-        EventSystemController.Instance.Enable();
-
-        _popupInstance = Instantiate(_popup, GameObject.FindWithTag("Popup Canvas").transform);
-    }
-
-    public void Despawn()
-    {
-        Destroy(_popupInstance);
-
-        EventSystemController.Instance.Disable();
     }
 
     public void SetGameplayLanguageText(int index)
