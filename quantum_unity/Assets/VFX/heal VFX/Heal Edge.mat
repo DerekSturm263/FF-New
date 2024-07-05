@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Heal  Particle 1
+  m_Name: Heal Edge
   m_Shader: {fileID: -6465566751694194690, guid: b92b66b18bf8164488272e20a0d8e36a,
     type: 3}
   m_Parent: {fileID: 0}
@@ -36,8 +36,8 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
-  - SHADOWCASTER
   - MOTIONVECTORS
+  - SHADOWCASTER
   m_LockedProperties: _Offset_Strength
   m_SavedProperties:
     serializedVersion: 3
@@ -51,11 +51,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4898119cdd56ac344a018a449a18db5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd090718b35c39c4587e982d6cf01b20, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: ddc464f6ebd7f314b9d0cdcb4b043398, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
@@ -95,16 +95,17 @@ Material:
     - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _Alpha_Clip: 0
     - _Alpha_Clip_Threshold: 0
     - _Alpha_Threshhold: 0
-    - _Blend: 2
-    - _Brightness: 43.93
+    - _Blend: 0
+    - _Brightness: 5
     - _CastShadows: 0
     - _Cull: 0
     - _Distance: 0
     - _Distortion_Strength: 0
-    - _DstBlend: 1
-    - _Edge_sharpness: 1
+    - _DstBlend: 10
+    - _Edge_sharpness: 0
     - _EffectTime: 1
     - _Fill: 1
     - _Fill_Hardness: 0
@@ -114,12 +115,12 @@ Material:
     - _Max_Color: 1
     - _Min_Color: 0
     - _Noise_Strength: 0
-    - _Offset_Speed: 0
+    - _Offset_Speed: 0.02
     - _Offset_Strength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotate: 0
-    - _Saturation: 25
+    - _Saturation: 3.41
     - _Speed_Pattern_1: 0
     - _Speed_Pattern_2: 2
     - _Speed_Pattern_3: 0
@@ -128,6 +129,7 @@ Material:
     - _Surface: 1
     - _TimeControle: 0
     - _Top_Step_Mask: 1
+    - _Use_Cutout: 0
     - _Use_Vertex_Alpha: 0
     - _ZTest: 4
     - _ZWrite: 0
@@ -148,7 +150,7 @@ Material:
     - _Scroll_With_Fade: {r: 0, g: 0, b: 0, a: 0}
     - _Smooth_Step: {r: 0, g: 1, b: 0, a: 0}
     - _Smooth_Step_Final_Color: {r: 0, g: 1, b: 0, a: 0}
-    - _Tiling_Main_Tex: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Tiling_Main_Tex: {r: 1, g: 1, b: 0, a: 0}
     - _Tilling_1: {r: 1, g: 1, b: 0, a: 0}
     - _Tilling_2: {r: 1, g: 1, b: 0, a: 0}
     - _Tilling_3: {r: 1, g: 1, b: 0, a: 0}

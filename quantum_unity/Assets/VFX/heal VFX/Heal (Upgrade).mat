@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Heal  Particle 1
+  m_Name: Heal (Upgrade)
   m_Shader: {fileID: -6465566751694194690, guid: b92b66b18bf8164488272e20a0d8e36a,
     type: 3}
   m_Parent: {fileID: 0}
@@ -36,8 +36,8 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
-  - SHADOWCASTER
   - MOTIONVECTORS
+  - SHADOWCASTER
   m_LockedProperties: _Offset_Strength
   m_SavedProperties:
     serializedVersion: 3
@@ -47,19 +47,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Gradient:
-        m_Texture: {fileID: 2800000, guid: f25b51c2201f43d439eda5ea4d3a3a84, type: 3}
+        m_Texture: {fileID: 2800000, guid: 18eded35d5eec42498159df1e39be726, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4898119cdd56ac344a018a449a18db5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4a8df47401061d14db0b649508d9a60e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 5bbdbd424eaa25844b99f625ddb7d63f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 738ba7e068dfb864db023e69bd252dcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Offset_Texture:
@@ -95,50 +95,52 @@ Material:
     - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _Alpha_Clip: 0
     - _Alpha_Clip_Threshold: 0
     - _Alpha_Threshhold: 0
-    - _Blend: 2
-    - _Brightness: 43.93
+    - _Blend: 0
+    - _Brightness: 1.18
     - _CastShadows: 0
     - _Cull: 0
-    - _Distance: 0
+    - _Distance: -0.74
     - _Distortion_Strength: 0
-    - _DstBlend: 1
-    - _Edge_sharpness: 1
+    - _DstBlend: 10
+    - _Edge_sharpness: 0.97
     - _EffectTime: 1
     - _Fill: 1
     - _Fill_Hardness: 0
-    - _Main_Tex_Fade: 1
+    - _Main_Tex_Fade: 0
     - _Main_Text_Strength: 1.61
-    - _Mask_strength: 1
+    - _Mask_strength: 0.63
     - _Max_Color: 1
-    - _Min_Color: 0
+    - _Min_Color: 0.5
     - _Noise_Strength: 0
-    - _Offset_Speed: 0
-    - _Offset_Strength: 0
+    - _Offset_Speed: 0.02
+    - _Offset_Strength: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotate: 0
-    - _Saturation: 25
+    - _Saturation: 1
     - _Speed_Pattern_1: 0
     - _Speed_Pattern_2: 2
     - _Speed_Pattern_3: 0
     - _SrcBlend: 5
-    - _Strength: 0
+    - _Strength: 0.3
     - _Surface: 1
     - _TimeControle: 0
     - _Top_Step_Mask: 1
+    - _Use_Cutout: 0
     - _Use_Vertex_Alpha: 0
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     - _multiply: 1
-    - _noise_Edge_distance: 0
+    - _noise_Edge_distance: 0.07
     m_Colors:
     - _Direction_Pattern_1: {r: 0, g: 0, b: 0, a: 0}
     - _Direction_Pattern_2: {r: 1, g: 0, b: 0, a: 0}
     - _Direction_Pattern_3: {r: 0, g: 0, b: 0, a: 0}
-    - _Main_text_Scroll_Direction_speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Main_text_Scroll_Direction_speed: {r: 0, g: 1, b: 0, a: 0}
     - _Offset_1: {r: 0, g: 0, b: 0, a: 0}
     - _Offset_2: {r: 0, g: 0, b: 0, a: 0}
     - _Offset_3: {r: 0, g: 0, b: 0, a: 0}
@@ -148,7 +150,7 @@ Material:
     - _Scroll_With_Fade: {r: 0, g: 0, b: 0, a: 0}
     - _Smooth_Step: {r: 0, g: 1, b: 0, a: 0}
     - _Smooth_Step_Final_Color: {r: 0, g: 1, b: 0, a: 0}
-    - _Tiling_Main_Tex: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Tiling_Main_Tex: {r: 1, g: 1, b: 0, a: 0}
     - _Tilling_1: {r: 1, g: 1, b: 0, a: 0}
     - _Tilling_2: {r: 1, g: 1, b: 0, a: 0}
     - _Tilling_3: {r: 1, g: 1, b: 0, a: 0}

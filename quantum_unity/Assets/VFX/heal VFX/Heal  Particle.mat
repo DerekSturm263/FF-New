@@ -23,7 +23,7 @@ Material:
   m_Name: Heal  Particle
   m_Shader: {fileID: -6465566751694194690, guid: b92b66b18bf8164488272e20a0d8e36a,
     type: 3}
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 2100000, guid: f9d25667455bb194793608e010f7a8d2, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
@@ -42,14 +42,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Fill_Pattern:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Gradient:
-        m_Texture: {fileID: 2800000, guid: f25b51c2201f43d439eda5ea4d3a3a84, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 2ba2ea3e105a063458d73c225fee5bbd, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -58,96 +50,17 @@ Material:
         m_Texture: {fileID: 2800000, guid: 9bd6a7f30ce14b8489e37151f0d3afb0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Noise:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Offset_Texture:
-        m_Texture: {fileID: 2800000, guid: 2eed58fac43e95c429d81bb7e3d205ef, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Pattern_1_Texture:
-        m_Texture: {fileID: 2800000, guid: 0adafb543704ac74082df13b6f225221, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Pattern_2_Texture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Pattern_3_Texture_Distortion:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Alpha_Clip_Threshold: 0
-    - _Blend: 0
     - _Brightness: 9.8
-    - _CastShadows: 0
-    - _Cull: 0
     - _Distance: 0
-    - _Distortion_Strength: 0
-    - _DstBlend: 10
     - _Edge_sharpness: 1
-    - _EffectTime: 1
-    - _Fill: 1
-    - _Fill_Hardness: 0
     - _Main_Tex_Fade: 1
-    - _Main_Text_Strength: 1.61
-    - _Mask_strength: 1
-    - _Noise_Strength: 0
-    - _Offset_Speed: 0.02
-    - _Offset_Strength: 0.01
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Rotate: 0
     - _Saturation: 9.43
-    - _Speed_Pattern_1: 0
-    - _Speed_Pattern_2: 2
-    - _Speed_Pattern_3: 0
-    - _SrcBlend: 5
     - _Strength: 0
-    - _Surface: 1
-    - _TimeControle: 1
-    - _Top_Step_Mask: 1
-    - _Use_Vertex_Alpha: 0
-    - _ZTest: 4
-    - _ZWrite: 0
-    - _ZWriteControl: 0
     - _multiply: 1
-    - _noise_Edge_distance: 0
     m_Colors:
-    - _Direction_Pattern_1: {r: 0, g: 0, b: 0, a: 0}
-    - _Direction_Pattern_2: {r: 1, g: 0, b: 0, a: 0}
-    - _Direction_Pattern_3: {r: 0, g: 0, b: 0, a: 0}
     - _Main_text_Scroll_Direction_speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Offset_1: {r: 0, g: 0, b: 0, a: 0}
-    - _Offset_2: {r: 0, g: 0, b: 0, a: 0}
-    - _Offset_3: {r: 0, g: 0, b: 0, a: 0}
-    - _Pattern_1_Blend_Colors: {r: 1, g: 0, b: 0, a: 0}
-    - _Pattern_2_Blend_Colors: {r: 1, g: 0, b: 0, a: 0}
-    - _Pattern_3_Blend_Colors: {r: 1, g: 0, b: 0, a: 0}
-    - _Scroll_With_Fade: {r: 0, g: 0, b: 0, a: 0}
-    - _Smooth_Step: {r: 0, g: 1, b: 0, a: 0}
-    - _Smooth_Step_Final_Color: {r: 0, g: 1, b: 0, a: 0}
     - _Tiling_Main_Tex: {r: 1, g: 1, b: 0, a: 0}
-    - _Tilling_1: {r: 1, g: 1, b: 0, a: 0}
-    - _Tilling_2: {r: 1, g: 1, b: 0, a: 0}
-    - _Tilling_3: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
