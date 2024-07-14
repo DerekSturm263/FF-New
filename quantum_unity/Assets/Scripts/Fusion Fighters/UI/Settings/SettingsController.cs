@@ -106,6 +106,7 @@ public class SettingsController : SpawnableController<Settings>
         QualitySettings.SetQualityLevel(index);
 
         _settings.Graphics.QualityPreset = index;
+
         switch (_settings.Graphics.QualityPreset)
         {
             case 0:
@@ -147,7 +148,7 @@ public class SettingsController : SpawnableController<Settings>
 
     public void SetGraphicsQualityLights(float value)
     {
-        QualitySettings.pixelLightCount = (int)value;
+        UniversalRenderPipeline.asset.maxAdditionalLightsCount = (int)value;
 
         _settings.Graphics.Quality.LightCount = (int)value;
     }
@@ -197,6 +198,7 @@ public class SettingsController : SpawnableController<Settings>
     public void SetGraphicsColorPreset(int index)
     {
         _settings.Graphics.ColorsPreset = index;
+
         switch (_settings.Graphics.ColorsPreset)
         {
             case 0:
