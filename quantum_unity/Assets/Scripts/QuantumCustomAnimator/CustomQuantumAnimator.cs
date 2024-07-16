@@ -2,56 +2,77 @@
 using Quantum.Custom.Animator;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 using UE = UnityEngine;
 
-public unsafe class AnimatorInfo
+public struct AnimationData
 {
-    UE.Animator _animator;
-    Dictionary<String, KeyValuePair<int, AnimationClipPlayable>> _clips = new Dictionary<String, KeyValuePair<int, AnimationClipPlayable>>();
+    public UE.Animator animator;
+    public PlayableGraph graph;
+    public AnimationMixerPlayable mixerPlayable;
+    public readonly Dictionary<string, KeyValuePair<int, AnimationClipPlayable>> clips;
 
-    PlayableGraph _graph;
-    AnimationMixerPlayable _mixerPlayable;
-
-    // used during SetAnimationData
-    List<int> _activeInputs = new List<int>(64);
-    static List<AnimatorRuntimeBlendData> _blendData = new List<AnimatorRuntimeBlendData>(64);
-    static List<AnimatorMotion> _motionData = new List<AnimatorMotion>(32);
-
-    public void Awake(UE.Animator anim)
+    public AnimationData(Animator animator, PlayableGraph graph, AnimationMixerPlayable mixerPlayable)
     {
-        _animator = anim;
+        this.animator = animator;
+        this.graph = graph;
+        this.mixerPlayable = mixerPlayable;
+        this.clips = new();
     }
 
-    public void Enable()
+    public void Setup(int index)
     {
-        if (_animator)
-        {
-            _graph = PlayableGraph.Create();
-            _graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
-            _mixerPlayable = AnimationMixerPlayable.Create(_graph);
-            var output = AnimationPlayableOutput.Create(_graph, "Animation", _animator);
-            output.SetSourcePlayable(_mixerPlayable);
+        graph = PlayableGraph.Create();
+        graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+        mixerPlayable = AnimationMixerPlayable.Create(graph);
+        AnimationPlayableOutput output = AnimationPlayableOutput.Create(graph, $"Animation {index}", animator);
+        output.SetSourcePlayable(mixerPlayable);
 
-            _graph.Play();
+        graph.Play();
+    }
+}
+
+public unsafe class CustomQuantumAnimator : MonoBehaviour
+{
+    private AnimationData[] _animData;
+
+    private readonly List<int> _activeInputs = new(64);
+    private static readonly List<AnimatorRuntimeBlendData> _blendData = new(64);
+    private static readonly List<AnimatorMotion> _motionData = new(32);
+
+    public bool applyFootIK = true;
+
+    private void Awake()
+    {
+        _animData = GetComponentsInChildren<UE.Animator>().Select(item => new AnimationData(item, new(), new())).ToArray();
+    }
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < _animData.Length; ++i)
+        {
+            _animData[i].Setup(i);
         }
     }
 
-    public void Disable()
+    private void OnDisable()
     {
         _activeInputs.Clear();
-        _clips.Clear();
-        _graph.Destroy();
+
+        for (int i = 0; i < _animData.Length; ++i)
+        {
+            _animData[i].clips.Clear();
+            _animData[i].graph.Destroy();
+        }
     }
 
     public void Animate(Quantum.Frame frame, Quantum.CustomAnimator* a)
     {
-        if (!_animator.enabled)
-            return;
-
         var asset = UnityDB.FindAsset<CustomAnimatorGraphAsset>(a->animatorGraph.Id);
+
         if (asset)
         {
             // load clips
@@ -68,116 +89,78 @@ public unsafe class AnimatorInfo
         }
     }
 
-    public void LoadClips(List<AnimationClip> clipList)
+    private void LoadClips(List<AnimationClip> clipList)
     {
-        if (_clips.Count == 0)
+        for (int i = 0; i < _animData.Length; ++i)
         {
-            for (int c = 0; c < clipList.Count; c++)
+            if (_animData[i].clips.Count == 0)
             {
-                if (_clips.ContainsKey(clipList[c].name) == false)
+                for (int j = 0; j < clipList.Count; ++j)
                 {
-                    var clip = AnimationClipPlayable.Create(_graph, clipList[c]);
+                    if (!_animData[i].clips.ContainsKey(clipList[j].name))
+                    {
+                        AnimationClipPlayable clip = AnimationClipPlayable.Create(_animData[i].graph, clipList[j]);
+                        clip.SetApplyFootIK(applyFootIK);
 
-                    _clips.Add
-                    (
-                        clipList[c].name,
-                        new KeyValuePair<int, AnimationClipPlayable>(_mixerPlayable.AddInput(clip, 0), clip)
-                    );
+                        _animData[i].clips.Add
+                        (
+                            clipList[j].name,
+                            new KeyValuePair<int, AnimationClipPlayable>(_animData[i].mixerPlayable.AddInput(clip, 0), clip)
+                        );
 
-                    clip.Pause();
+                        clip.Pause();
+                    }
                 }
             }
         }
     }
 
-    public void SetAnimationData(CustomAnimatorGraph graph, List<AnimatorRuntimeBlendData> blend_data)
+    private void SetAnimationData(CustomAnimatorGraph graph, List<AnimatorRuntimeBlendData> blendData)
     {
-        foreach (var input in _activeInputs)
+        foreach (int input in _activeInputs)
         {
-            _mixerPlayable.SetInputWeight(input, 0);
+            for (int i = 0; i < _animData.Length; ++i)
+            {
+                if (!_animData[i].animator.enabled)
+                    continue;
+
+                _animData[i].mixerPlayable.SetInputWeight(input, 0);
+            }
         }
+
         _activeInputs.Clear();
 
-        foreach (var b in blend_data)
+        foreach (AnimatorRuntimeBlendData b in blendData)
         {
-            var state = graph.GetState(b.stateId);
-            var motion = state.GetMotion(b.animationIndex, _motionData) as AnimatorClip;
+            AnimatorState state = graph.GetState(b.stateId);
 
-            if (motion != null && !String.IsNullOrEmpty(motion.clipName))
+            if (state.GetMotion(b.animationIndex, _motionData) is AnimatorClip motion && !string.IsNullOrEmpty(motion.clipName))
             {
-                if (_clips.TryGetValue(motion.clipName, out KeyValuePair<int, AnimationClipPlayable> clip))
+                for (int i = 0; i < _animData.Length; ++i)
                 {
-                    _activeInputs.Add(clip.Key);
+                    if (!_animData[i].animator.enabled)
+                        continue;
 
-                    _mixerPlayable.SetInputWeight(clip.Key, b.weight.AsFloat);
-                    var normalTime = b.normalTime.AsDouble;
-                    var clipLength = clip.Value.GetAnimationClip().length;
-                    var expectedTime = normalTime * clipLength;
-                    clip.Value.SetTime(expectedTime);
-                }
-                else
-                {
-                    Log.Error("SetAnimationData failed to find clip: " + motion.clipName + " in graph: " + graph.Guid.ToString());
+                    if (_animData[i].clips.TryGetValue(motion.clipName, out KeyValuePair<int, AnimationClipPlayable> clip))
+                    {
+                        _activeInputs.Add(clip.Key);
+
+                        _animData[i].mixerPlayable.SetInputWeight(clip.Key, b.weight.AsFloat);
+
+                        double normalTime = b.normalTime.AsDouble;
+                        float clipLength = clip.Value.GetAnimationClip().length;
+                        double expectedTime = normalTime * clipLength;
+
+                        clip.Value.SetTime(expectedTime);
+                    }
+                    else
+                    {
+                        Log.Error("SetAnimationData failed to find clip: " + motion.clipName + " in graph: " + graph.Guid.ToString());
+                    }
                 }
             }
 
             _motionData.Clear();
-        }
-    }
-}
-
-public unsafe class CustomQuantumAnimator : MonoBehaviour
-{
-    private AnimatorInfo[] _anims;
-
-    void Awake()
-    {
-        UE.Animator[] anims = GetComponentsInChildren<UE.Animator>();
-        _anims = new AnimatorInfo[anims.Length];
-
-        for (int i = 0; i < _anims.Length; ++i)
-        {
-            _anims[i].Awake(anims[i]);
-        }
-    }
-
-    void OnEnable()
-    {
-        foreach (var anim in _anims)
-        {
-            anim.Enable();
-        }
-    }
-
-    void OnDisable()
-    {
-        foreach (var anim in _anims)
-        {
-            anim.Disable();
-        }
-    }
-
-    public void Animate(Quantum.Frame frame, Quantum.CustomAnimator* a)
-    {
-        foreach (var anim in _anims)
-        {
-            anim.Animate(frame, a);
-        }
-    }
-
-    void LoadClips(List<AnimationClip> clipList)
-    {
-        foreach (var anim in _anims)
-        {
-            anim.LoadClips(clipList);
-        }
-    }
-
-    void SetAnimationData(CustomAnimatorGraph graph, List<AnimatorRuntimeBlendData> blend_data)
-    {
-        foreach (var anim in _anims)
-        {
-            anim.SetAnimationData(graph, blend_data);
         }
     }
 }

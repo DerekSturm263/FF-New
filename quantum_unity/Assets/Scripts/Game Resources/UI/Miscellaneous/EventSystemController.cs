@@ -5,15 +5,24 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
 
 public class EventSystemController : Controller<EventSystemController>
 {
-    public class SavableData
+    [System.Serializable]
+    public struct SavableData
     {
-        private Dictionary<Selectable, Navigation> _selectables = new();
-        private Dictionary<InputEvent, bool> _inputEvents = new();
+        private Dictionary<Selectable, (bool, Navigation)> _selectables;
+        private Dictionary<InputEvent, bool> _inputEvents;
         private EventSystem _oldEventSystem;
+        private GameObject _oldSelected;
+
+        public SavableData(int _)
+        {
+            _selectables = new();
+            _inputEvents = new();
+            _oldEventSystem = null;
+            _oldSelected = null;
+        }
 
         public void Enable()
         {
@@ -22,34 +31,38 @@ public class EventSystemController : Controller<EventSystemController>
             DisableOldEventSystem();
         }
 
-        public void Disable()
+        public readonly void Disable()
         {
             EnableOldEventSystem();
             EnableInputEvents();
             EnableSelectables();
         }
 
-        private void DisableOldEventSystem()
+        private unsafe void DisableOldEventSystem()
         {
             if (EventSystem.current)
             {
                 _oldEventSystem = EventSystem.current;
-                _oldEventSystem.enabled = false;
+
+                _oldSelected = _oldEventSystem.currentSelectedGameObject;
+                _oldEventSystem.gameObject.SetActive(false);
             }
         }
 
-        private void EnableOldEventSystem()
+        private readonly unsafe void EnableOldEventSystem()
         {
             if (_oldEventSystem)
             {
-                _oldEventSystem.enabled = true;
+                _oldEventSystem.gameObject.SetActive(true);
                 EventSystem.current = _oldEventSystem;
+
+                EventSystem.current.SetSelectedGameObject(_oldSelected);
             }
         }
 
         private void DisableSelectables()
         {
-            _selectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToDictionary(item => item, item => item.navigation);
+            _selectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToDictionary(item => item, item => (item.interactable, item.navigation));
 
             foreach (Selectable selectable in _selectables.Keys)
             {
@@ -57,11 +70,11 @@ public class EventSystemController : Controller<EventSystemController>
             }
         }
 
-        private void EnableSelectables()
+        private readonly void EnableSelectables()
         {
             foreach (var kvp in _selectables)
             {
-                kvp.Key.navigation = kvp.Value;
+                kvp.Key.navigation = kvp.Value.Item2;
             }
         }
 
@@ -75,7 +88,7 @@ public class EventSystemController : Controller<EventSystemController>
             }
         }
 
-        private void EnableInputEvents()
+        private readonly void EnableInputEvents()
         {
             foreach (var kvp in _inputEvents)
             {
@@ -84,18 +97,26 @@ public class EventSystemController : Controller<EventSystemController>
         }
     }
 
-    [NonSerialized] private readonly Stack<SavableData> _data = new();
+    private List<SavableData> _data;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        _data = new();
+    }
 
     public void Enable()
     {
-        SavableData data = new();
+        SavableData data = new(0);
         data.Enable();
 
-        _data.Push(data);
+        _data.Add(data);
     }
 
     public void Disable()
     {
-        _data.Pop().Disable();
+        _data[^1].Disable();
+        _data.RemoveAt(_data.Count - 1);
     }
 }

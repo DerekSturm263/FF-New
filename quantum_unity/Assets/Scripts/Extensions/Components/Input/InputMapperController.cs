@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -18,7 +19,8 @@ namespace Extensions.Components.Input
         public override void Initialize()
         {
             base.Initialize();
-            
+
+            _currentDevice ??= InputSystem.devices.First(item => _controlSchemesToSpriteAssets.ContainsKey(item.displayName));
             _event = InputSystem.onAnyButtonPress.Call(SetAllInputDevices);
 
             Application.quitting += Shutdown;
@@ -29,11 +31,16 @@ namespace Extensions.Components.Input
             _event.Dispose();
             Application.quitting -= Shutdown;
 
+            _currentDevice = null;
+
             base.Shutdown();
         }
 
         public void SetAllInputDevices(InputControl action)
         {
+            if (!_controlSchemesToSpriteAssets.ContainsKey(action.device.displayName))
+                return;
+
             _currentDevice = action.device;
 
             foreach (ButtonPrompt prompt in FindObjectsByType<ButtonPrompt>(FindObjectsInactive.Include, FindObjectsSortMode.None))

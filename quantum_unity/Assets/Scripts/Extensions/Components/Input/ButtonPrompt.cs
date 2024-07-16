@@ -17,7 +17,7 @@ namespace Extensions.Components.Input
         private void Awake()
         {
             Setup();
-            DisplayInput(InputMapperController.Instance.CurrentDevice ?? InputSystem.devices[0]);
+            DisplayInput(InputMapperController.Instance.CurrentDevice);
         }
 
         public void Setup()

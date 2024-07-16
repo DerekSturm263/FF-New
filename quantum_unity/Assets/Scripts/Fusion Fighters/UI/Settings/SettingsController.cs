@@ -155,7 +155,7 @@ public class SettingsController : SpawnableController<Settings>
 
     public void SetGraphicsQualityShadows(float value)
     {
-        QualitySettings.shadowDistance = value;
+        UniversalRenderPipeline.asset.shadowDistance = value;
 
         _settings.Graphics.Quality.ShadowDistance = value;
     }
