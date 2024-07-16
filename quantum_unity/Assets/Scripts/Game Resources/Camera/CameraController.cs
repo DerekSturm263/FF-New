@@ -23,32 +23,62 @@ namespace GameResources.Camera
                 return;
 
             _instance._settings = settings;
+            SetVolumeInternal(_settings.Volume);
         }
-        
+
+        private void SetVolumeInternal(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
+
         public void SetCameraSettingsFromStageDefault(Stage stage)
         {
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(stage.Theme.CameraSettings.Default.Id));
         }
 
+        public void SetCameraSettingsFromStageZoom(Stage stage)
+        {
+            SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(stage.Theme.CameraSettings.Zoom.Id));
+        }
+
+        public void SetCameraSettingsFromStageTension(Stage stage)
+        {
+            SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(stage.Theme.CameraSettings.Tension.Id));
+        }
+
+        public void SetCameraSettingsFromStageWinner(Stage stage)
+        {
+            SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(stage.Theme.CameraSettings.Winner.Id));
+        }
+
         public unsafe void SetCameraSettingsFromCurrentStageDefault()
         {
-            AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.CameraSettings.Default.Id;
+            Stage stage = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage;
+            AssetGuid guid = stage.Theme.CameraSettings.Default.Id;
+
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
         }
 
         public unsafe void SetCameraSettingsFromCurrentStageZoom()
         {
-            AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.CameraSettings.Zoom.Id;
+            Stage stage = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage;
+            AssetGuid guid = stage.Theme.CameraSettings.Zoom.Id;
+
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
         }
 
         public unsafe void SetCameraSettingsFromCurrentStageTension()
         {
-            AssetGuid guid = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage.Theme.CameraSettings.Tension.Id;
+            Stage stage = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage;
+            AssetGuid guid = stage.Theme.CameraSettings.Tension.Id;
+
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
         }
 
-        public void SetVolume(VolumeProfile volumeProfile) => _instance._volume.sharedProfile = volumeProfile;
+        public unsafe void SetCameraSettingsFromCurrentStageWinner()
+        {
+            Stage stage = QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Stage;
+            AssetGuid guid = stage.Theme.CameraSettings.Winner.Id;
+
+            SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
+        }
 
         private EntityViewUpdater _entityView;
         private Volume _volume;

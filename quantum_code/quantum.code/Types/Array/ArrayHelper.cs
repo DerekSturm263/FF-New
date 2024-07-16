@@ -17,6 +17,28 @@ namespace Quantum.Types
             };
         }
 
+        public static unsafe void Set(ArrayTeams* array, int index, Team value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+            }
+        }
+
         public static unsafe Team* GetPointer(ArrayTeams array, int index)
         {
             return index switch
@@ -54,6 +76,28 @@ namespace Quantum.Types
                 3 => array.Item4,
                 _ => default
             };
+        }
+
+        public static unsafe void Set(ArrayPlayerSpawnPoints* array, int index, FPVector2 value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+            }
         }
 
         public static unsafe FPVector2* GetPointer(ArrayPlayerSpawnPoints array, int index)
@@ -105,6 +149,76 @@ namespace Quantum.Types
                 15 => array.Item16,
                 _ => default
             };
+        }
+
+        public static unsafe void Set(ArrayItemSpawnPoints* array, int index, FPVector2 value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+
+                case 4:
+                    array->Item5 = value;
+                    break;
+
+                case 5:
+                    array->Item6 = value;
+                    break;
+
+                case 6:
+                    array->Item7 = value;
+                    break;
+
+                case 7:
+                    array->Item8 = value;
+                    break;
+
+                case 8:
+                    array->Item9 = value;
+                    break;
+
+                case 9:
+                    array->Item10 = value;
+                    break;
+
+                case 10:
+                    array->Item11 = value;
+                    break;
+
+                case 11:
+                    array->Item12 = value;
+                    break;
+
+                case 12:
+                    array->Item13 = value;
+                    break;
+
+                case 13:
+                    array->Item14 = value;
+                    break;
+
+                case 14:
+                    array->Item15 = value;
+                    break;
+
+                case 15:
+                    array->Item16 = value;
+                    break;
+            }
         }
 
         public static unsafe FPVector2* GetPointer(ArrayItemSpawnPoints array, int index)
@@ -182,6 +296,76 @@ namespace Quantum.Types
             };
         }
 
+        public static unsafe void Set(ArrayItems* array, int index, AssetRefItem value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+
+                case 4:
+                    array->Item5 = value;
+                    break;
+
+                case 5:
+                    array->Item6 = value;
+                    break;
+
+                case 6:
+                    array->Item7 = value;
+                    break;
+
+                case 7:
+                    array->Item8 = value;
+                    break;
+
+                case 8:
+                    array->Item9 = value;
+                    break;
+
+                case 9:
+                    array->Item10 = value;
+                    break;
+
+                case 10:
+                    array->Item11 = value;
+                    break;
+
+                case 11:
+                    array->Item12 = value;
+                    break;
+
+                case 12:
+                    array->Item13 = value;
+                    break;
+
+                case 13:
+                    array->Item14 = value;
+                    break;
+
+                case 14:
+                    array->Item15 = value;
+                    break;
+
+                case 15:
+                    array->Item16 = value;
+                    break;
+            }
+        }
+
         public static unsafe AssetRefItem* GetPointer(ArrayItems array, int index)
         {
             return index switch
@@ -253,6 +437,60 @@ namespace Quantum.Types
             };
         }
 
+        public static unsafe void Set(ArrayStages* array, int index, AssetRefStageAsset value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+
+                case 4:
+                    array->Item5 = value;
+                    break;
+
+                case 5:
+                    array->Item6 = value;
+                    break;
+
+                case 6:
+                    array->Item7 = value;
+                    break;
+
+                case 7:
+                    array->Item8 = value;
+                    break;
+
+                case 8:
+                    array->Item9 = value;
+                    break;
+
+                case 9:
+                    array->Item10 = value;
+                    break;
+
+                case 10:
+                    array->Item11 = value;
+                    break;
+
+                case 11:
+                    array->Item12 = value;
+                    break;
+            }
+        }
+
         public static unsafe AssetRefStageAsset* GetPointer(ArrayStages array, int index)
         {
             return index switch
@@ -310,6 +548,44 @@ namespace Quantum.Types
                 7 => array.Item8,
                 _ => default
             };
+        }
+
+        public static unsafe void Set(ArrayStaticColliderInfo* array, int index, StaticColliderInfo value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+
+                case 4:
+                    array->Item5 = value;
+                    break;
+
+                case 5:
+                    array->Item6 = value;
+                    break;
+
+                case 6:
+                    array->Item7 = value;
+                    break;
+
+                case 7:
+                    array->Item8 = value;
+                    break;
+            }
         }
 
         public static unsafe StaticColliderInfo* GetPointer(ArrayStaticColliderInfo array, int index)

@@ -2,48 +2,50 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Editor;
 using Quantum.Types;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(StageAssetAsset))]
 public class StageAssetAssetEditor : Editor
 {
-    public override void OnInspectorGUI()
+    public override unsafe void OnInspectorGUI()
     {
         StageAssetAsset stage = target as StageAssetAsset;
 
         if (GUILayout.Button("Bake Colliders"))
         {
             GameObject stageObj = UnityDB.FindAssetForInspector(stage.Stage.Value.Objects.Stage.Id).FindNestedObjectParent() as GameObject;
-            BakeColliders(ref stage.Stage.Value.Objects.Colliders, stageObj);
+
+            fixed (ArrayStaticColliderInfo* colliders = &stage.Stage.Value.Objects.Colliders)
+            {
+                BakeColliders(colliders, stageObj);
+            }
         }
 
         base.OnInspectorGUI();
     }
 
-    public static void BakeColliders(ref ArrayStaticColliderInfo colliders, GameObject scene)
+    public static unsafe void BakeColliders(ArrayStaticColliderInfo* colliders, GameObject scene)
     {
         Debug.Assert(scene);
+        Debug.Log("Baking Colliders...");
 
         QuantumStaticBoxCollider2D[] staticCollider2Ds = scene.GetComponentsInChildren<QuantumStaticBoxCollider2D>();
 
-        BakeAllColliders(ref colliders, staticCollider2Ds);
+        BakeAllColliders(colliders, staticCollider2Ds);
+        Debug.Log($"{staticCollider2Ds.Length} Colliders Baked");
     }
 
-    private static unsafe void BakeAllColliders(ref ArrayStaticColliderInfo colliders, QuantumStaticBoxCollider2D[] staticCollider2Ds)
+    private static unsafe void BakeAllColliders(ArrayStaticColliderInfo* colliders, QuantumStaticBoxCollider2D[] staticCollider2Ds)
     {
         for (int i = 0; i < staticCollider2Ds.Length; ++i)
         {
-            StaticColliderInfo* col = ArrayHelper.GetPointer(colliders, i);
-            *col = BakeCollider(staticCollider2Ds[i]);
+            ArrayHelper.Set(colliders, i, BakeCollider(staticCollider2Ds[i]));
         }
 
         for (int i = staticCollider2Ds.Length; i < 8; ++i)
         {
-            StaticColliderInfo* col = ArrayHelper.GetPointer(colliders, i);
-            *col = default;
+            ArrayHelper.Set(colliders, i, default);
         }
     }
 
@@ -57,6 +59,8 @@ public class StageAssetAssetEditor : Editor
         e.x *= s.x;
         e.y *= s.y;
         e.z *= s.z;
+
+        Debug.Log($"Collider Baked: {collider.name}");
 
         return new()
         {
