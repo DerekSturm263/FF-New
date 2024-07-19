@@ -121,7 +121,10 @@ namespace Quantum
                 f.Global->CurrentMatch.Stage = stage;
 
                 if (f.Global->CurrentStage.IsValid)
+                {
                     f.Destroy(f.Global->CurrentStage);
+                    f.DisposeAsset(f.Map.Guid);
+                }
 
                 f.Global->CurrentStage = f.Create(stage.Objects.Stage);
 

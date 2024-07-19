@@ -7,12 +7,26 @@ public class LocalInputController : Controller<LocalInputController>
 {
     [SerializeField] private RuntimePlayer _player;
 
-    private static bool _canInput;
-    public void SetCanInput(bool canInput) => _canInput = canInput;
+    [SerializeField] private bool _canInput;
+    public void SetCanInput(bool canInput) => _instance._canInput = canInput;
+
+    private bool _couldInput;
+
+    public void DisableInput()
+    {
+        _instance._couldInput = _instance._canInput;
+        _instance._canInput = false;
+    }
+
+    public void TryEnableInput()
+    {
+        _instance._canInput = _instance._couldInput;
+    }
 
     private void Awake()
     {
         Initialize();
+
         _canInput = false;
         
         QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);

@@ -220,7 +220,6 @@ GameObject:
   - component: {fileID: 338122196}
   - component: {fileID: 338122195}
   - component: {fileID: 338122194}
-  - component: {fileID: 338122197}
   m_Layer: 5
   m_Name: Content Canvas
   m_TagString: Untagged
@@ -312,65 +311,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &338122197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338122191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2e76ce6688d664da9b4929015412c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onAwake:
-    m_PersistentCalls:
-      m_Calls: []
-  _onEnable:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: SetPlayerLimit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFixedUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDisable:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: SetPlayerLimit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!224 &419660056 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 427603635882001077, guid: 7997ae1f09596ec41a0587c5273ee108,
@@ -1874,7 +1814,20 @@ MonoBehaviour:
         m_CallState: 2
   _onEnable:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: SetPlayerLimit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onStart:
     m_PersistentCalls:
       m_Calls:

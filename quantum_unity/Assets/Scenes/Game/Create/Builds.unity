@@ -311,7 +311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &21166219
@@ -1513,7 +1513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &73122938
@@ -3215,7 +3215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 430.00003, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &136892816
@@ -7574,7 +7574,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.8
+  m_fontSize: 19.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7663,7 +7663,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &323409968
@@ -8221,7 +8221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &340186146
@@ -9382,7 +9382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &451607351
@@ -9885,7 +9885,20 @@ MonoBehaviour:
         m_CallState: 2
   _onEnable:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
+        m_MethodName: SetPlayerLimit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onStart:
     m_PersistentCalls:
       m_Calls:
@@ -10555,7 +10568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503513199
@@ -10654,7 +10667,6 @@ GameObject:
   - component: {fileID: 505140481}
   - component: {fileID: 505140480}
   - component: {fileID: 505140479}
-  - component: {fileID: 505140482}
   m_Layer: 5
   m_Name: Content Canvas
   m_TagString: Untagged
@@ -10746,80 +10758,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &505140482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505140476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2e76ce6688d664da9b4929015412c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onAwake:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-        m_MethodName: EnableSnapshot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: -4980061243674452760, guid: df8e81d8ae2e38f45960c330754d4911,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Audio.AudioMixerSnapshot,
-            UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onEnable:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: SetPlayerLimit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFixedUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDisable:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: SetPlayerLimit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &506043865
 GameObject:
   m_ObjectHideFlags: 0
@@ -16091,7 +16029,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &721832218
@@ -16611,7 +16549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &732511643
@@ -17386,6 +17324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: B2
+  _delay: 0.1
   _events:
     m_PersistentCalls:
       m_Calls:
@@ -19473,7 +19412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &931639136
@@ -20270,6 +20209,19 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
+        m_MethodName: FocusTarget
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player(Clone)
           m_BoolArgument: 0
         m_CallState: 2
   _onStart:
@@ -21664,6 +21616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: B1
+  _delay: 0.1
   _events:
     m_PersistentCalls:
       m_Calls:
@@ -22768,7 +22721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1063652752
@@ -23338,7 +23291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 716.66675, y: -150}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1109238277
@@ -24778,7 +24731,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 28.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24867,7 +24820,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164834324
@@ -25664,7 +25617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207659208
@@ -27586,6 +27539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: B3
+  _delay: 0.1
   _events:
     m_PersistentCalls:
       m_Calls:
@@ -27642,7 +27596,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_SizeDelta: {x: 160, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1259542731
 MonoBehaviour:
@@ -27789,7 +27743,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.65
+  m_fontSize: 27.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -28132,7 +28086,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1292801516
@@ -33578,7 +33532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 143.33334, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1540689708
@@ -34463,7 +34417,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 39.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -37073,7 +37027,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673078103
@@ -40738,6 +40692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _identifier: B4
+  _delay: 0.1
   _events:
     m_PersistentCalls:
       m_Calls:
@@ -41358,7 +41313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1856079608
@@ -42611,7 +42566,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1.289, y: 0.75}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -58.109863, y: 0}
+  m_AnchoredPosition: {x: -58.10974, y: 0}
   m_SizeDelta: {x: 116.22003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1892103577
@@ -45159,7 +45114,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.8
+  m_fontSize: 19.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -47097,7 +47052,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 28.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

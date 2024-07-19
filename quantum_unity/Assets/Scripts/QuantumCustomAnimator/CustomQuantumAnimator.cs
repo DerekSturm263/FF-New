@@ -1,6 +1,5 @@
 ﻿using Quantum;
 using Quantum.Custom.Animator;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -43,7 +42,27 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
     private static readonly List<AnimatorRuntimeBlendData> _blendData = new(64);
     private static readonly List<AnimatorMotion> _motionData = new(32);
 
-    public bool applyFootIK = true;
+    private CustomQuantumAnimator _target;
+    public CustomQuantumAnimator Target => _target;
+    public void SetTarget(CustomQuantumAnimator target) => _target = target;
+
+    [SerializeField] private Transform _lFoot;
+    public Transform LFoot => _lFoot;
+
+    [SerializeField] private Transform _rFoot;
+    public Transform RFoot => _rFoot;
+
+    [SerializeField] private Transform _head;
+    public Transform Head => _head;
+
+    private float[] _curveValues = new float[3];
+
+    [SerializeField] private float _speed;
+
+    public float GetFloat(int index)
+    {
+        return _curveValues[index];
+    }
 
     private void Awake()
     {
@@ -86,6 +105,11 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
 
             // clear old blend data
             _blendData.Clear();
+
+            // get the custom animator curves
+            _curveValues[0] = Mathf.Lerp(_curveValues[0], CustomAnimator.GetFP(frame, a, 0).AsFloat, frame.DeltaTime.AsFloat * _speed);
+            _curveValues[1] = Mathf.Lerp(_curveValues[1], CustomAnimator.GetFP(frame, a, 1).AsFloat, frame.DeltaTime.AsFloat * _speed);
+            _curveValues[2] = Mathf.Lerp(_curveValues[2], CustomAnimator.GetFP(frame, a, 2).AsFloat, frame.DeltaTime.AsFloat * _speed);
         }
     }
 
@@ -100,7 +124,9 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
                     if (!_animData[i].clips.ContainsKey(clipList[j].name))
                     {
                         AnimationClipPlayable clip = AnimationClipPlayable.Create(_animData[i].graph, clipList[j]);
-                        clip.SetApplyFootIK(applyFootIK);
+                        
+                        clip.SetApplyFootIK(true);
+                        clip.SetApplyPlayableIK(true);
 
                         _animData[i].clips.Add
                         (

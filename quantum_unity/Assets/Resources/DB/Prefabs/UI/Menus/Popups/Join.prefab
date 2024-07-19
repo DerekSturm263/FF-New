@@ -1917,8 +1917,8 @@ MonoBehaviour:
       - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: Enable
-        m_Mode: 6
+        m_MethodName: DisableJoin
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1930,8 +1930,8 @@ MonoBehaviour:
       - m_Target: {fileID: -8979094445783090270, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
-        m_MethodName: SetCanInput
-        m_Mode: 6
+        m_MethodName: DisableInput
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1975,8 +1975,8 @@ MonoBehaviour:
       - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: Enable
-        m_Mode: 6
+        m_MethodName: TryEnableJoin
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1988,8 +1988,8 @@ MonoBehaviour:
       - m_Target: {fileID: -8979094445783090270, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
-        m_MethodName: SetCanInput
-        m_Mode: 6
+        m_MethodName: TryEnableInput
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2111178703219328406}
   - component: {fileID: 360288722535300257}
   - component: {fileID: 1114076345859143432}
-  - component: {fileID: -5256369195451661884}
   - component: {fileID: 4779371707735279607}
+  - component: {fileID: -5256369195451661884}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -116,6 +116,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4779371707735279607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976297683254407655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 112e64d9b9349054894e2267e0bfb116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonParent: {fileID: 8697856171410500908}
+  _buttonTemplate: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
+    type: 3}
 --- !u!114 &-5256369195451661884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,8 +178,8 @@ MonoBehaviour:
       - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: Enable
-        m_Mode: 6
+        m_MethodName: DisableJoin
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -176,8 +191,8 @@ MonoBehaviour:
       - m_Target: {fileID: -8979094445783090270, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
-        m_MethodName: SetCanInput
-        m_Mode: 6
+        m_MethodName: DisableInput
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -221,8 +236,8 @@ MonoBehaviour:
       - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: Enable
-        m_Mode: 6
+        m_MethodName: TryEnableJoin
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -234,8 +249,8 @@ MonoBehaviour:
       - m_Target: {fileID: -8979094445783090270, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
-        m_MethodName: SetCanInput
-        m_Mode: 6
+        m_MethodName: TryEnableInput
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -244,21 +259,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &4779371707735279607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976297683254407655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112e64d9b9349054894e2267e0bfb116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buttonParent: {fileID: 8697856171410500908}
-  _buttonTemplate: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
-    type: 3}
 --- !u!1 &2294970642482737373
 GameObject:
   m_ObjectHideFlags: 0

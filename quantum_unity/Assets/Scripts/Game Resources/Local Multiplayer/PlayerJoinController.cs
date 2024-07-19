@@ -11,11 +11,24 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private Controls _controls;
 
-    private int _playerLimit;
-    public void SetPlayerLimit(int playerLimit) => _playerLimit = playerLimit;
+    [SerializeField] private int _playerLimit;
+    public void SetPlayerLimit(int playerLimit) => _instance._playerLimit = playerLimit;
 
-    private static bool _isEnabled = true;
-    public void Enable(bool isEnabled) => _isEnabled = isEnabled;
+    [SerializeField] private bool _isEnabled;
+    public void Enable(bool isEnabled) => _instance._isEnabled = isEnabled;
+
+    private bool _wasEnabled;
+
+    public void DisableJoin()
+    {
+        _instance._wasEnabled = _instance._isEnabled;
+        _instance._isEnabled = false;
+    }
+
+    public void TryEnableJoin()
+    {
+        _instance._isEnabled = _instance._wasEnabled;
+    }
 
     private bool _executeEvents = true;
     public void SetExecuteEvents(bool isEnabled) => _executeEvents = isEnabled;
@@ -26,8 +39,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     {
         base.Initialize();
 
-        _isEnabled = true;
         _playerLimit = 4;
+        _isEnabled = true;
 
         Subscribe();
 

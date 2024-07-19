@@ -8,7 +8,6 @@ using UnityEngine.Audio;
 public class DynamicTrackController : Controller<DynamicTrackController>
 {
     private GameObject _obj;
-    public GameObject Obj => _obj = _obj ? _obj : CreateObj();
     private GameObject CreateObj()
     {
         return new GameObject("Stage Music Player");
@@ -51,33 +50,33 @@ public class DynamicTrackController : Controller<DynamicTrackController>
         _trackGraph.SetCurrentSection(null);
         _trackGraph.SetCurrentTransition(null);
 
-        if (!_obj)
+        if (_obj)
+            Destroy(_obj);
+
+        _trackSources = new();
+        _obj = CreateObj();
+
+        foreach (TrackSection trackSection in _trackGraph.Sections)
         {
-            _trackSources = new();
-            _obj = CreateObj();
+            GameObject section = new(trackSection.name);
+            section.transform.parent = _obj.transform;
+            _trackSources.Add(trackSection, new());
 
-            foreach (TrackSection trackSection in _trackGraph.Sections)
+            int i = 0;
+            foreach (AudioClip clip in trackSection.Clips)
             {
-                GameObject section = new(trackSection.name);
-                section.transform.parent = _obj.transform;
-                _trackSources.Add(trackSection, new());
+                AudioSource source = section.AddComponent<AudioSource>();
 
-                int i = 0;
-                foreach (AudioClip clip in trackSection.Clips)
-                {
-                    AudioSource source = section.AddComponent<AudioSource>();
+                source.clip = clip;
+                source.outputAudioMixerGroup = _musicGroup;
+                source.volume = trackSection.DefaultWeights[i];
+                source.loop = true;
 
-                    source.clip = clip;
-                    source.outputAudioMixerGroup = _musicGroup;
-                    source.volume = trackSection.DefaultWeights[i];
-                    source.loop = true;
-
-                    _trackSources[trackSection].Add(source);
-                    ++i;
-                }
-
-                section.SetActive(false);
+                _trackSources[trackSection].Add(source);
+                ++i;
             }
+
+            section.SetActive(false);
         }
     }
 

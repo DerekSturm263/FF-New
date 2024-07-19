@@ -1345,10 +1345,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 971811731}
-    - targetCorrespondingSourceObject: {fileID: 4535028809737183416, guid: c414bf125161ce1409de4374f7af879c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 971811732}
   m_SourcePrefab: {fileID: 100100000, guid: c414bf125161ce1409de4374f7af879c, type: 3}
 --- !u!224 &971811729 stripped
 RectTransform:
@@ -1374,51 +1370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c354a8fb5fa1439d3ad64c8f2940e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &971811732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 971811730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2e76ce6688d664da9b4929015412c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onAwake:
-    m_PersistentCalls:
-      m_Calls: []
-  _onEnable:
-    m_PersistentCalls:
-      m_Calls: []
-  _onStart:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 971811730}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onFixedUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDisable:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &1017428543
 PrefabInstance:
   m_ObjectHideFlags: 0

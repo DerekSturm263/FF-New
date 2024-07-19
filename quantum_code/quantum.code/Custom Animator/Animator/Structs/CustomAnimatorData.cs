@@ -3,25 +3,29 @@ using Photon.Deterministic;
 
 namespace Quantum.Custom.Animator
 {
-  [Serializable]
-  public class AnimatorData {
-    public string clipName;
-    public FP length;
-    public int index;
-    public int frameRate;
-    public int frameCount;
-    public AnimatorFrame[] frames = new AnimatorFrame[15];
+    [Serializable]
+    public class AnimatorData
+    {
+        public string clipName;
+        public FP length;
+        public int index;
+        public int frameRate;
+        public int frameCount;
+        public AnimatorFrame[] frames = new AnimatorFrame[15];
+        public FPAnimationCurve[] curves;
 
-    public bool looped;
-    public bool mirror;
-    public bool isReversed;
+        public bool looped;
+        public bool mirror;
+        public bool isReversed;
 
-    public AnimatorFrame CalculateDelta(FP lastTime, FP currentTime) {
-      return GetFrameAtTime(lastTime) - GetFrameAtTime(currentTime);
-    }
+        public AnimatorFrame CalculateDelta(FP lastTime, FP currentTime)
+        {
+            return GetFrameAtTime(lastTime) - GetFrameAtTime(currentTime);
+        }
 
-    public AnimatorFrame GetFrameAtTime(FP time) {
-      AnimatorFrame output = new AnimatorFrame();
+        public AnimatorFrame GetFrameAtTime(FP time)
+        {
+            AnimatorFrame output = new AnimatorFrame();
             output.hurtboxPositions = new FPVector3[15];
 
             int timeIndex;
@@ -86,6 +90,6 @@ namespace Quantum.Custom.Animator
                 //      Log.Info(clipName+" "+time.AsFloat()+" "+ frame_a + " "+ frame_b + " "+lerp.AsFloat());
                 return output + AnimatorFrame.Lerp(frameA, frameB, lerp);
             }
+        }
     }
-  }
 }

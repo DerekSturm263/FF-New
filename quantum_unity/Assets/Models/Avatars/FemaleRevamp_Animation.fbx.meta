@@ -55,11 +55,16 @@ ModelImporter:
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'DEF-spine.004' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'ORG-palm.01.L' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.02.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.03.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.04.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.01.R'
+      and has rotation animation that will be discarded.\n\t'DEF-head' has translation
+      animation that will be discarded.\n\t'DEF-forearm.L' has translation animation
+      that will be discarded.\n\t'ORG-palm.01.L' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'ORG-palm.02.L' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.03.L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'DEF-f_ring.01.L'
+      has translation animation that will be discarded.\n\t'ORG-palm.04.L' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'DEF-f_pinky.01.L'
+      has translation animation that will be discarded.\n\t'ORG-palm.01.R' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.02.R'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.03.R'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-palm.04.R'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
@@ -98,39 +103,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: Jump
-      takeName: Take 001
-      internalID: -998496362607748373
-      firstFrame: 72
-      lastFrame: 86
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -381,6 +442,394 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Jump
+      takeName: Take 001
+      internalID: -998496362607748373
+      firstFrame: 72
+      lastFrame: 86
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.0995851
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.0995851
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
+        weight: 1
+      - path: Body_Rig
+        weight: 1
+      - path: Body_Rig/root
+        weight: 1
+      - path: Body_Rig/root/DEF-spine
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002/DEF-bow.L.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002/DEF-bow.L.003/DEF-bow.L.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002/DEF-bow.L.003/DEF-bow.L.004/DEF-bow.L.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.006/DEF-bow.L.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.006/DEF-bow.L.007/DEF-bow.L.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L/DEF-f_index.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L/DEF-f_index.02.L/DEF-f_index.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-palm.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L/DEF-thumb.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L/DEF-thumb.02.L/DEF-thumb.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L/DEF-f_middle.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-palm.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L/DEF-f_ring.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L/DEF-f_ring.02.L/DEF-f_ring.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-palm.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L/DEF-f_pinky.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-palm.04.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002/DEF-bow.R.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002/DEF-bow.R.003/DEF-bow.R.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002/DEF-bow.R.003/DEF-bow.R.004/DEF-bow.R.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.006/DEF-bow.R.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.006/DEF-bow.R.007/DEF-bow.R.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R/DEF-f_index.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-palm.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R/DEF-thumb.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R/DEF-thumb.02.R/DEF-thumb.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R/DEF-f_middle.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-palm.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R/DEF-f_ring.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-palm.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R/DEF-f_pinky.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-palm.04.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/DEF-eye.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/DEF-eye.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001/Hair_Back.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001/Hair_Back.004/Hair_Back.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001/Hair_Back.004/Hair_Back.002/Hair_Back.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.005/Hair_Back.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.007/Hair_Back.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.009
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.009/Hair_Back.010
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front/Hair_front.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front/Hair_front.001/Hair_front.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.003/Hair_front.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.003/Hair_front.004/Hair_front.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007/Hair_front.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007/Hair_front.008/Hair_front.009
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007/Hair_front.008/Hair_front.009/Hair_front.010
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011/Hair_front.012
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011/Hair_front.012/Hair_front.013
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011/Hair_front.012/Hair_front.013/Hair_front.014
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L/DEF-shin.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L/DEF-shin.L/DEF-foot.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L/DEF-shin.L/DEF-foot.L/DEF-toe.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R/DEF-shin.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R/DEF-shin.R/DEF-foot.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R/DEF-shin.R/DEF-foot.R/DEF-toe.R
+        weight: 1
+      - path: Cube.002
+        weight: 1
+      - path: Cube.004
+        weight: 1
+      - path: OBJ_body
+        weight: 1
+      - path: OBJ_Hair
+        weight: 1
+      - path: OBJ_head
+        weight: 1
+      - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -408,10 +857,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -662,6 +1196,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -689,10 +1225,122 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.14937782
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.14937782
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.49792528
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -943,6 +1591,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -970,10 +1620,149 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.37759337
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.6556017
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.16597512
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.81327796
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.49377576
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.8091287
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -1224,6 +2013,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -1251,10 +2042,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -1505,6 +2381,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -1532,10 +2410,104 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.45643154
+            value: 0.25
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -1786,6 +2758,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -1813,10 +2787,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -2067,6 +3126,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -2094,10 +3155,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -2348,6 +3494,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -2375,10 +3523,95 @@ ModelImporter:
       heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -2629,6 +3862,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -2637,8 +3872,8 @@ ModelImporter:
       name: Open Block
       takeName: Take 001
       internalID: 7731641710072435382
-      firstFrame: 224
-      lastFrame: 234
+      firstFrame: 705
+      lastFrame: 715
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2656,10 +3891,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -2910,6 +4230,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -2918,8 +4240,8 @@ ModelImporter:
       name: Close Block
       takeName: Take 001
       internalID: -6577145938085917429
-      firstFrame: 224
-      lastFrame: 234
+      firstFrame: 725
+      lastFrame: 735
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2937,10 +4259,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -3191,6 +4598,8 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -3218,10 +4627,95 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Curve
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -3473,11 +4967,13 @@ ModelImporter:
         weight: 1
       - path: OBJ_jacket
         weight: 1
+      - path: sword
+        weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Backward Grounded Dodge
+      name: Directional Ground Dodge
       takeName: Take 001
       internalID: -8608414141577764740
       firstFrame: 642
@@ -3499,10 +4995,149 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.04564358
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.90041476
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.04564358
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.90041476
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.04564358
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.90041476
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
         weight: 1
       - path: Body_Rig
         weight: 1
@@ -3753,6 +5388,376 @@ ModelImporter:
       - path: OBJ_head
         weight: 1
       - path: OBJ_jacket
+        weight: 1
+      - path: sword
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Air Dodge
+      takeName: Take 001
+      internalID: -4068993222697286061
+      firstFrame: 745
+      lastFrame: 795
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: LFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: RFoot
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: Head
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE
+        weight: 1
+      - path: Armature.001/HANDLE_GRIP/HANDLE_TOP/BLADE/BLADE_end
+        weight: 1
+      - path: Body_Rig
+        weight: 1
+      - path: Body_Rig/root
+        weight: 1
+      - path: Body_Rig/root/DEF-spine
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002/DEF-bow.L.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002/DEF-bow.L.003/DEF-bow.L.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.002/DEF-bow.L.003/DEF-bow.L.004/DEF-bow.L.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.006/DEF-bow.L.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-bow.L/DEF-bow.L.006/DEF-bow.L.007/DEF-bow.L.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L/DEF-f_index.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L/DEF-f_index.02.L/DEF-f_index.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-palm.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L/DEF-thumb.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L/DEF-thumb.02.L/DEF-thumb.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L/DEF-f_middle.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-palm.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L/DEF-f_ring.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L/DEF-f_ring.02.L/DEF-f_ring.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-palm.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L/DEF-f_pinky.03.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-palm.04.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002/DEF-bow.R.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002/DEF-bow.R.003/DEF-bow.R.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.002/DEF-bow.R.003/DEF-bow.R.004/DEF-bow.R.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.006/DEF-bow.R.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-bow.R/DEF-bow.R.006/DEF-bow.R.007/DEF-bow.R.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R/DEF-f_index.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-palm.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R/DEF-thumb.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R/DEF-thumb.02.R/DEF-thumb.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R/DEF-f_middle.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-palm.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R/DEF-f_ring.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-palm.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R/DEF-f_pinky.03.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-palm.04.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/DEF-eye.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/DEF-eye.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001/Hair_Back.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001/Hair_Back.004/Hair_Back.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.001/Hair_Back.004/Hair_Back.002/Hair_Back.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.005/Hair_Back.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.007/Hair_Back.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.009
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_Back/Hair_Back.009/Hair_Back.010
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front/Hair_front.001
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front/Hair_front.001/Hair_front.002
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.003
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.003/Hair_front.004
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.003/Hair_front.004/Hair_front.005
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007/Hair_front.008
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007/Hair_front.008/Hair_front.009
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.006/Hair_front.007/Hair_front.008/Hair_front.009/Hair_front.010
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011/Hair_front.012
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011/Hair_front.012/Hair_front.013
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head/Hair_Rig/Hair_root/Hair_front.011/Hair_front.012/Hair_front.013/Hair_front.014
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L/DEF-shin.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L/DEF-shin.L/DEF-foot.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.L/DEF-shin.L/DEF-foot.L/DEF-toe.L
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R/DEF-shin.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R/DEF-shin.R/DEF-foot.R
+        weight: 1
+      - path: Body_Rig/root/DEF-spine/DEF-thigh.R/DEF-shin.R/DEF-foot.R/DEF-toe.R
+        weight: 1
+      - path: Cube.002
+        weight: 1
+      - path: Cube.004
+        weight: 1
+      - path: OBJ_body
+        weight: 1
+      - path: OBJ_Hair
+        weight: 1
+      - path: OBJ_head
+        weight: 1
+      - path: OBJ_jacket
+        weight: 1
+      - path: sword
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}

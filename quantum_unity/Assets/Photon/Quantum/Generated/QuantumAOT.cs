@@ -28,6 +28,7 @@ public class QuantumAOT {
   public List<Quantum.Custom.Animator.AnimatorFrame> AnimatorFrame;
   public List<Quantum.Custom.Animator.SerializableWeightDimentionY> SerializableWeightDimentionY;
   public List<Quantum.Custom.Animator.SerializableWeightDimentionZ> SerializableWeightDimentionZ;
+  public List<Quantum.FPAnimationCurve> FPAnimationCurve;
   public List<Quantum.FPAnimationCurve.Keyframe> Keyframe;
   public List<Quantum.MapStaticCollider2D> MapStaticCollider2D;
   public List<Quantum.MapStaticCollider3D> MapStaticCollider3D;

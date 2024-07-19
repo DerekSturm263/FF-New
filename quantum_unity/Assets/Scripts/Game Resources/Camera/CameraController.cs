@@ -23,7 +23,9 @@ namespace GameResources.Camera
                 return;
 
             _instance._settings = settings;
-            SetVolumeInternal(_settings.Volume);
+
+            if (_settings.Volume)
+                _instance.SetVolumeInternal(_settings.Volume);
         }
 
         private void SetVolumeInternal(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
@@ -117,7 +119,7 @@ namespace GameResources.Camera
 
         private void LateUpdate()
         {
-            if (_settings is null)
+            if (!_settings)
                 return;
 
             CalculateTargetZoom();
@@ -221,13 +223,19 @@ namespace GameResources.Camera
             if (index >= _instance._targets.Count)
                 return;
 
-            for (int i = 0; i < _targets.Count; ++i)
+            for (int i = 0; i < _instance._targets.Count; ++i)
             {
                 if (i != index)
                     _instance._targets[i] = new(0, _instance._targets[i].Item2);
                 else
                     _instance._targets[i] = new(1, _instance._targets[i].Item2);
             }
+        }
+
+        public void FocusTarget(string name)
+        {
+            int index = _instance._targets.FindIndex(item => item.Item2.name == name);
+            FocusTarget(index);
         }
 
         public void ResetAllWeights()

@@ -153,7 +153,7 @@ public class PlayerEventListener : MonoBehaviour
 
     private void ChangeDirection(EventOnPlayerChangeDirection e)
     {
-        _entityViewUpdater.GetView(e.Player).transform.GetChild(0).localScale = new(1, 1, e.Direction);
+        _entityViewUpdater.GetView(e.Player).transform.localScale = new(e.Direction, 1, 1);
     }
 
     public void SpawnPlayerJumpVFX(QuantumGame game, EntityRef player, int index)
