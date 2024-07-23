@@ -15,8 +15,6 @@ namespace Extensions.Components.Miscellaneous
 
         public void QuitGame() => Application.Quit();
 
-        public void SetTimeScale(float timeScale) => Time.timeScale = timeScale;
-
         public void DebugLog(string message) => Debug.Log(message);
 
         public void DontDestroyOnLoad(GameObject gameObject)

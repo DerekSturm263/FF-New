@@ -13,6 +13,7 @@ public class AnimationEventContainer : StateMachineBehaviour
         State = UnityEditor.Selection.activeObject as UnityEditor.Animations.AnimatorState;
 
         Event = CreateAsset<QuantumAnimationEventAsset>(State.name);
+        Event.Settings.AnimID = State.nameHash;
         Event.Settings.Events = new();
     }
 

@@ -58,6 +58,8 @@
                     commandPause.Execute(f);
                 else if (command is CommandPlay commandPlay)
                     commandPlay.Execute(f);
+                else if (command is CommandSetTimeScale commandSetTimeScale)
+                    commandSetTimeScale.Execute(f);
             }
         }
     }

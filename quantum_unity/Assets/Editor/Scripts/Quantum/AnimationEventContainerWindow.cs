@@ -1,4 +1,5 @@
 using Extensions.Miscellaneous;
+using log4net.Util;
 using Quantum;
 using UnityEditor;
 using UnityEngine;
@@ -214,7 +215,7 @@ public class AnimationEventContainerWindow : EditorWindow
             _animation.SampleAnimation(_animationPreview, (float)_scrubFrame / _maxScrubFrame);
     }
 
-    public void DrawGizmos()
+    public unsafe void DrawGizmos()
     {
         if (!_eventAsset || !_animationPreview)
             return;
@@ -282,7 +283,20 @@ public class AnimationEventContainerWindow : EditorWindow
                     }
 
                     Gizmos.color = Color.Lerp(Color.white, Color.red, (float)hitbox2.Settings.Settings.Damage / 100);
-                    Gizmos.DrawSphere(hitbox2.Settings.Settings.Offset.ToUnityVector3() + offset, hitbox2.Settings.Settings.Radius.AsFloat);
+
+                    for (int j = 0; j < hitbox2.Settings.Shape.CompoundShapes.Length; ++j)
+                    {
+                        switch (hitbox2.Settings.Shape.CompoundShapes[j].ShapeType)
+                        {
+                            case Shape2DType.Circle:
+                                Gizmos.DrawSphere(hitbox2.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), hitbox2.Settings.Shape.CompoundShapes[j].CircleRadius.AsFloat);
+                                break;
+
+                            case Shape2DType.Box:
+                                Gizmos.DrawCube(hitbox2.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), hitbox2.Settings.Shape.CompoundShapes[j].BoxExtents.ToUnityVector3());
+                                break;
+                        }
+                    }
                 }
                 else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
                 {

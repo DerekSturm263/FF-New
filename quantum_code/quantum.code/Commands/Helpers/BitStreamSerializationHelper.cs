@@ -311,6 +311,11 @@ namespace Quantum
                 stream.SerializeBuffer(&bytes[0], value.ByteCount);
         }
 
+        public static unsafe void Serialize(this IBitStream stream, ref LayerMask value)
+        {
+            stream.Serialize(ref value.BitMask);
+        }
+
         #endregion
     }
 }

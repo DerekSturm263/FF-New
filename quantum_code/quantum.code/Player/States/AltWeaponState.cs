@@ -11,28 +11,32 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
+            Log.Debug("Tyring to get the time...");
+
             Weapon altWeaponAsset = filter.Stats->Build.Equipment.Weapons.AltWeapon;
 
             if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
+                Log.Debug("Found asset");
+                
                 MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);
 
                 if (animEvent.AnimID != 0)
-                    return (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animEvent.AnimID).motion as AnimatorClip).data.frameCount;
+                {
+                    int frameCount = (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animEvent.AnimID).motion as AnimatorClip).data.frameCount;
+                    Log.Debug(frameCount);
+
+                    return frameCount;
+                }
             }
+
+            Log.Debug("Didn't find asset or it didn't have an animation");
 
             return 1;
         }
         protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
         public override bool CanInterruptSelf => true;
-
-        protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
-        {
-            base.Enter(f, ref filter, ref input, settings, stats);
-
-            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
-        }
 
         protected override void DelayedEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {

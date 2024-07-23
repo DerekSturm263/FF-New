@@ -19,7 +19,6 @@ namespace Quantum
 
             while (hitboxFilter.Next(&hitbox))
             {
-                Shape2D shape2D = Shape2D.CreateCircle(hitbox.Hitbox->Settings.Radius, hitbox.Hitbox->Settings.Offset);
                 FPVector2 offset = default;
 
                 if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Parent, out Transform2D* transform))
@@ -29,7 +28,7 @@ namespace Quantum
                 (
                     position: hitbox.Transform->Position + offset,
                     rotation: 0,
-                    shape: shape2D,
+                    shape: hitbox.Hitbox->Shape,
                     layerMask: f.RuntimeConfig.HitboxLayer
                 );
             }

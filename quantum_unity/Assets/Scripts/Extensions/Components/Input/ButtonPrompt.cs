@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -31,7 +32,6 @@ namespace Extensions.Components.Input
                 return;
 
             _device = device;
-
             DisplayInputs(device.displayName);
         }
 
@@ -40,10 +40,11 @@ namespace Extensions.Components.Input
             if (!_text)
                 _text = GetComponentInChildren<TMPro.TMP_Text>();
 
-            if (!InputMapperController.Instance.ControlSchemesToSpriteAssets.ContainsKey(deviceName))
+            TMP_SpriteAsset spriteAsset = InputMapperController.Instance.GetSpriteAsset(deviceName);
+            if (!spriteAsset)
                 return;
 
-            _text.spriteAsset = InputMapperController.Instance.ControlSchemesToSpriteAssets[deviceName];
+            _text.spriteAsset = spriteAsset;
             _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\">"));
         }
     }

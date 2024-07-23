@@ -29,6 +29,7 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 PathQueryIndex;
     public System.Int32 Lifetime;
     public Quantum.Prototypes.HitboxSettings_Prototype Settings;
+    public Quantum.Shape2D Shape;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
     [Quantum.LocalReference]
@@ -39,6 +40,7 @@ namespace Quantum.Prototypes.Unity {
       result.PathQueryIndex = this.PathQueryIndex;
       result.Lifetime = this.Lifetime;
       result.Settings = this.Settings;
+      result.Shape = this.Shape;
       converter.Convert(this.Owner, out result.Owner);
       converter.Convert(this.Parent, out result.Parent);
       return result;

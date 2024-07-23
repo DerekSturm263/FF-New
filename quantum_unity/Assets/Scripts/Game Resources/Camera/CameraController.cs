@@ -240,7 +240,7 @@ namespace GameResources.Camera
 
         public void ResetAllWeights()
         {
-            for (int i = 0; i < _targets.Count; ++i)
+            for (int i = 0; i < _instance._targets.Count; ++i)
             {
                 _instance._targets[i] = new(1, _instance._targets[i].Item2);
             }

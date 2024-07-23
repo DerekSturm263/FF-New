@@ -4,6 +4,8 @@ using GameResources.Camera;
 using GameResources;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
+using Quantum;
+using Photon.Deterministic;
 
 public class SettingsController : SpawnableController<Settings>
 {
@@ -333,6 +335,22 @@ public class SettingsController : SpawnableController<Settings>
     public void Quit()
     {
         QuantumRunner.Default.Shutdown();
+    }
+
+    public void SetTimeScale(int scaleIndex)
+    {
+        CommandSetTimeScale setTimeScale = new()
+        {
+            scale = scaleIndex switch {
+                0 => FP._0,
+                1 => FP._0_50,
+                2 => FP._1,
+                _ => FP._1,
+            }
+        };
+
+        Time.timeScale = setTimeScale.scale.AsFloat;
+        QuantumRunner.Default.Game.SendCommand(setTimeScale);
     }
 
     public void EraseAllSaveData()

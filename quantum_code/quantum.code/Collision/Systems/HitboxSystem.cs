@@ -16,19 +16,41 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            DrawHitbox(filter.Transform, filter.HitboxInstance);
+            DrawHitbox(f, filter.Transform, filter.HitboxInstance, filter.HitboxInstance->Shape);
 
             --filter.HitboxInstance->Lifetime;
             if (filter.HitboxInstance->Lifetime <= 0)
             {
                 KillHitbox(f, filter.HitboxInstance->Owner, filter.Entity);
             }
+
+            if (f.Unsafe.TryGetPointer(filter.HitboxInstance->Owner, out Transform2D* transform))
+            {
+                filter.Transform->Position = transform->Position;
+            }
         }
 
         [Conditional("DEBUG")]
-        private void DrawHitbox(Transform2D* transform, HitboxInstance* hitboxInstance)
+        private void DrawHitbox(Frame f, Transform2D* transform, HitboxInstance* hitboxInstance, Shape2D shape)
         {
-            Draw.Circle(transform->Position + hitboxInstance->Settings.Offset, hitboxInstance->Settings.Radius);
+            if (shape.Compound.GetShapes(f, out Shape2D* shapesBuffer, out int count))
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    Shape2D* currentShape = shapesBuffer + i;
+
+                    switch (currentShape->Type)
+                    {
+                        case Shape2DType.Circle:
+                            Draw.Circle(transform->Position + currentShape->LocalTransform.Position, currentShape->Circle.Radius);
+                            break;
+
+                        case Shape2DType.Box:
+                            Draw.Box((transform->Position + currentShape->LocalTransform.Position).XYO, currentShape->Box.Extents.XYO);
+                            break;
+                    }
+                }
+            }
         }
 
         private void KillHitbox(Frame f, EntityRef owner, EntityRef hitbox)
@@ -39,10 +61,15 @@ namespace Quantum
                 hitboxes.Remove(hitbox);
             }
 
+            if (f.Unsafe.TryGetPointer(hitbox, out HitboxInstance* instance))
+            {
+                instance->Shape.Compound.FreePersistent(f);
+            }
+
             f.Destroy(hitbox);
         }
 
-        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, int lifetime, EntityRef user)
+        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user)
         {
             Log.Debug("Spawning hitbox!");
 
@@ -59,6 +86,14 @@ namespace Quantum
                     {
                         settings.Damage *= stats->WeaponStatsMultiplier.Damage;
                         settings.Knockback *= stats->WeaponStatsMultiplier.Knockback;
+                    }
+
+                    hitbox->Shape = Shape2D.CreatePersistentCompound();
+                    
+                    for (int i = 0; i < shape.CompoundShapes.Length; ++i)
+                    {
+                        Shape2D createdShape = shape.CompoundShapes[i].CreateShape(f);
+                        hitbox->Shape.Compound.AddShape(f, ref createdShape);
                     }
 
                     hitbox->Settings = settings;

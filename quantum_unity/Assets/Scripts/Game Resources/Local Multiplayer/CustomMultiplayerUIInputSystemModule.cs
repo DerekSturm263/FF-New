@@ -131,7 +131,9 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         _selector = Instantiate(_selectorAsset, transform);
         _selector.Initialize(_playerInfo.Index);
 
-        if (!gameObject.activeInHierarchy)
+        if (gameObject.activeInHierarchy)
+            _playerInfo?.Controls?.Menu.Enable();
+        else
             _playerInfo?.Controls?.Menu.Disable();
     }
 

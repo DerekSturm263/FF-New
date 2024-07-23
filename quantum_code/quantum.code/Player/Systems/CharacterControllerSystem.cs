@@ -16,9 +16,9 @@ namespace Quantum
             new EmoteState(),
             new SubState(),
             new UltimateState(),
-            new InteractState()
-            //new MainWeaponState(),
-            //new AltWeaponState()
+            new InteractState(),
+            new MainWeaponState(),
+            new AltWeaponState()
         );
 
         public struct Filter

@@ -9,7 +9,10 @@ namespace Extensions.Components.Input
     public class InputMapperController : Miscellaneous.Controller<InputMapperController>
     {
         [SerializeField] private Types.Dictionary<string, TMPro.TMP_SpriteAsset> _controlSchemesToSpriteAssets;
-        public Types.Dictionary<string, TMPro.TMP_SpriteAsset> ControlSchemesToSpriteAssets => _controlSchemesToSpriteAssets;
+        public TMPro.TMP_SpriteAsset GetSpriteAsset(string controlScheme) => _controlSchemesToSpriteAssets[controlScheme];
+
+        [SerializeField] private Types.Dictionary<string, Sprite> _controlSchemesToIcons;
+        public Sprite GetIcon(string controlScheme) => _controlSchemesToIcons[controlScheme];
 
         private InputDevice _currentDevice;
         public InputDevice CurrentDevice => _currentDevice;

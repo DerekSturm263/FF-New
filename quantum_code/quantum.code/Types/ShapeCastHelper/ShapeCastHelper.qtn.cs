@@ -24,6 +24,7 @@ namespace Quantum
             hashCode = hashCode * -1521134295 + EqualityComparer<Shape2DConfig>.Default.GetHashCode(Shape);
             return hashCode;
         }
+
         /*
         public static void Serialize(void* ptr, FrameSerializer serializer)
         {

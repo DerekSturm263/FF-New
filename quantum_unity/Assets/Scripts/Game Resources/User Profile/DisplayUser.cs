@@ -1,3 +1,4 @@
+using Extensions.Components.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,8 @@ public class DisplayUser : MonoBehaviour
     public void SetUser(LocalPlayerInfo playerInfo)
     {
         _playerNum.SetText($"P{playerInfo.Index + 1}");
-        //_controllerIcon.sprite = ;
         _playerName.SetText(playerInfo.Profile.Name);
+
+        _controllerIcon.sprite = InputMapperController.Instance.GetIcon(playerInfo.Device.displayName);
     }
 }
