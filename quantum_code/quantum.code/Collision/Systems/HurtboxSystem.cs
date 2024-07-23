@@ -20,6 +20,11 @@ namespace Quantum
                 f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out Transform2D* parentTransform))
             {
                 FPVector3 offset = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[filter.HurtboxInstance->Index];
+                if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out CharacterController* characterController) && characterController->MovementDirection < 0)
+                {
+                    offset.X *= -1;
+                }
+
                 filter.Transform->Position = parentTransform->Position + offset.XY;
             }
 

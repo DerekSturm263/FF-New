@@ -20,9 +20,7 @@ namespace Quantum
                 Log.Debug("Found asset");
                 
                 MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
-                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);
-
-                if (animEvent.AnimID != 0)
+                if (f.TryFindAsset(animRef.MoveAnim.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0)
                 {
                     int frameCount = (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animEvent.AnimID).motion as AnimatorClip).data.frameCount;
                     Log.Debug(frameCount);

@@ -1,7 +1,10 @@
-synced event OnHitboxHurtboxCollection
+synced event OnHitboxHurtboxCollision
 {
-	local EntityRef Attacker;
-	local EntityRef Defender;
+	EntityRef AttackerEntity;
+	FighterIndex AttackerIndex;
+
+	EntityRef DefenderEntity;
+	FighterIndex DefenderIndex;
 
 	HitboxSettings Settings;
 }

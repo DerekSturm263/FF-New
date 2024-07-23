@@ -76,7 +76,6 @@ namespace Quantum
         public void OnAdded(Frame f, EntityRef entity, Timer* component)
         {
             SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), true);
-            CountDownOneSecond(f, component, component->Time, component->Time / 60, true);
         }
 
         public static void StartCountdown(Frame f, TimeSpan time)

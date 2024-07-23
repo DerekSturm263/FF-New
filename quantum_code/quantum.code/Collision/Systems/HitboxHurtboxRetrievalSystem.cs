@@ -80,7 +80,7 @@ namespace Quantum
                             }
                         }
 
-                        f.Events.OnHitboxHurtboxCollection(hitbox.Hitbox->Owner, ownerHit, hitbox.Hitbox->Settings);
+                        f.Events.OnHitboxHurtboxCollision(hitbox.Hitbox->Owner, f.Unsafe.GetPointer<Stats>(hitbox.Hitbox->Owner)->GetIndex(f, hitbox.Hitbox->Owner), ownerHit, f.Unsafe.GetPointer<Stats>(ownerHit)->GetIndex(f, ownerHit), hitbox.Hitbox->Settings);
                     }
                 }
             }

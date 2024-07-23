@@ -22,38 +22,38 @@ public class SetIK : StateMachineBehaviour
 
     public override void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.DrawLine(_animator.LFoot.position, _animator.LFoot.position - new Vector3(0, _footCastLength, 0));
-        if (Physics.Linecast(_animator.LFoot.position, _animator.LFoot.position - new Vector3(0, _footCastLength, 0), out RaycastHit hit1, _ground))
+        SetFootIK(animator, AvatarIKGoal.LeftFoot, _animator.Direction < 0);
+        SetFootIK(animator, AvatarIKGoal.RightFoot, _animator.Direction < 0);
+        SetHeadIK(animator);
+    }
+
+    public void SetFootIK(Animator animator, AvatarIKGoal goal, bool isReversed)
+    {
+        Vector3 footPos = goal == AvatarIKGoal.LeftFoot ^ isReversed ? _animator.LFoot.position : _animator.RFoot.position;
+
+        Debug.DrawLine(footPos, footPos - new Vector3(0, _footCastLength, 0));
+        if (Physics.Linecast(footPos, footPos - new Vector3(0, _footCastLength, 0), out RaycastHit hit, _ground))
         {
-            Vector3 oldPos = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
-            Vector3 newPos = hit1.point + new Vector3(0, _footOffset, 0);
+            Vector3 oldPos = animator.GetIKPosition(goal);
+            Vector3 newPos = hit.point + new Vector3(0, _footOffset, 0);
 
             Debug.DrawLine(newPos - new Vector3(0.1f, 0, 0.1f), newPos + new Vector3(0.1f, 0, 0.1f));
 
-            animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, _footWeight * _animator.GetFloat(0));
-            animator.SetIKPosition(AvatarIKGoal.LeftFoot, Vector3.Lerp(oldPos, newPos, Time.deltaTime * _lerpSpeed));
+            animator.SetIKPositionWeight(goal, _footWeight * _animator.GetFloat(goal == AvatarIKGoal.LeftFoot ? 0 : 1));
+            animator.SetIKPosition(goal, Vector3.Lerp(oldPos, newPos, Time.deltaTime * _lerpSpeed));
         }
+    }
 
-        Debug.DrawLine(_animator.RFoot.position, _animator.RFoot.position - new Vector3(0, _footCastLength, 0));
-        if (Physics.Linecast(_animator.RFoot.position, _animator.RFoot.position - new Vector3(0, _footCastLength, 0), out RaycastHit hit2, _ground))
-        {
-            Vector3 oldPos = animator.GetIKPosition(AvatarIKGoal.RightFoot);
-            Vector3 newPos = hit2.point + new Vector3(0, _footOffset, 0);
+    public void SetHeadIK(Animator animator)
+    {
+        if (!_animator.Target)
+            return;
 
-            Debug.DrawLine(newPos - new Vector3(0.1f, 0, 0.1f), newPos + new Vector3(0.1f, 0, 0.1f));
+        Vector3 newPos = _animator.Target.Head.transform.position - _animator.Head.transform.position + new Vector3(0, _headOffset, 0);
 
-            animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, _footWeight * _animator.GetFloat(1));
-            animator.SetIKPosition(AvatarIKGoal.RightFoot, Vector3.Lerp(oldPos, newPos, Time.deltaTime * _lerpSpeed));
-        }
+        Debug.DrawLine(_animator.Head.transform.position, newPos);
 
-        if (_animator.Target)
-        {
-            Vector3 newPos = _animator.Target.Head.transform.position - _animator.Head.transform.position + new Vector3(0, _headOffset, 0);
-
-            Debug.DrawLine(_animator.Head.transform.position, newPos);
-
-            animator.SetLookAtWeight(_headWeight * _animator.GetFloat(2));
-            animator.SetLookAtPosition(newPos);
-        }
+        animator.SetLookAtWeight(_headWeight * _animator.GetFloat(2));
+        animator.SetLookAtPosition(newPos);
     }
 }

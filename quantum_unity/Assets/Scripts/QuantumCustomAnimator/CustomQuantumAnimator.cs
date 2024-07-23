@@ -59,6 +59,9 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
 
     [SerializeField] private float _speed;
 
+    private int _direction;
+    public int Direction => _direction;
+
     public float GetFloat(int index)
     {
         return _curveValues[index];
@@ -67,6 +70,8 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
     private void Awake()
     {
         _animData = GetComponentsInChildren<UE.Animator>().Select(item => new AnimationData(item, new(), new())).ToArray();
+
+        QuantumEvent.Subscribe<EventOnPlayerChangeDirection>(listener: this, handler: e => _direction = e.Direction);
     }
 
     private void OnEnable()
