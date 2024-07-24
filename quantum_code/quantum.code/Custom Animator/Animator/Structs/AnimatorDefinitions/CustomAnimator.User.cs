@@ -74,7 +74,6 @@ namespace Quantum
             AnimatorMotion motion = GetCurrentState(f, a).motion;
             if (motion is AnimatorClip clip)
             {
-                Log.Debug($"{motion.name}: index: {index}, ntime: {a->normalized_time}, value: {clip.data.curves[index].Evaluate(a->normalized_time)}");
                 return clip.data.curves[index].Evaluate(a->normalized_time);
             }
 

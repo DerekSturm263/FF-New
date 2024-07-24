@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Primary Side
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Primary Side
+      Guid:
+        Value: 1694449303682354758
+    AnimID: 1234388901
+    Events:
+    - Id:
+        Value: 1521727750349985121
+--- !u!114 &6991939808288364267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
+  m_Name: Hitbox 1
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Primary Side|Hitbox 1
+      Guid:
+        Value: 1521727750349985121
+    StartingFrame: 42
+    EndingFrame: 44
+    Settings:
+      Damage:
+        RawValue: 655360
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 524288
+        Y:
+          RawValue: 655360
+      OnlyHitOnce:
+        Value: 0
+      Parent: 2
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 5
+      TargetShakeIntensity:
+        RawValue: 327680
+      UserFreezeDuration: 5
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 45875
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 96337
+          Y:
+            RawValue: 57671
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0

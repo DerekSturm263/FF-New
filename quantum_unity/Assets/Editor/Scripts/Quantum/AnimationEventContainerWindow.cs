@@ -1,6 +1,9 @@
+using Codice.CM.Common;
 using Extensions.Miscellaneous;
-using log4net.Util;
+using NUnit.Framework;
 using Quantum;
+using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -35,6 +38,8 @@ public class AnimationEventContainerWindow : EditorWindow
         _eventAsset = EditorGUILayout.ObjectField(_eventAsset, typeof(QuantumAnimationEventAsset), false) as QuantumAnimationEventAsset;
         _animation = EditorGUILayout.ObjectField(_animation, typeof(AnimationClip), false) as AnimationClip;
         _animationPreview = EditorGUILayout.ObjectField(_animationPreview, typeof(GameObject), true) as GameObject;
+
+        _maxScrubFrame = (int)(_animation.length * 60);
 
         GUILayout.EndHorizontal();
 
@@ -80,14 +85,6 @@ public class AnimationEventContainerWindow : EditorWindow
             AssetDatabase.SaveAssets();
 
             Selected = null;
-        }
-
-        Rect rect4 = rect3;
-        rect4.x += rect3.width;
-
-        if (GUI.Button(rect4, new GUIContent("D", "Duplicates the currently selected event")))
-        {
-
         }
 
         if (_isPreviewing)
@@ -262,49 +259,33 @@ public class AnimationEventContainerWindow : EditorWindow
 
             if (_scrubFrame >= startingFrame && _scrubFrame <= endingFrame)
             {
-                if (frameEvent is SpawnHitboxEventAsset hitbox2)
+                if (frameEvent is SpawnHitboxEventAsset spawnHitbox)
                 {
-                    Vector3 offset = default;
+                    Gizmos.color = Color.Lerp(Color.white, Color.red, (float)spawnHitbox.Settings.Settings.Damage / 100);
 
-                    switch (hitbox2.Settings.Settings.Parent)
+                    for (int j = 0; j < spawnHitbox.Settings.Shape.CompoundShapes.Length; ++j)
                     {
-                        case Quantum.ParentType.User:
-                            offset = _animationPreview.transform.position;
-                            break;
-
-                        case Quantum.ParentType.MainWeapon:
-                            break;
-
-                        case Quantum.ParentType.SubWeapon:
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                    Gizmos.color = Color.Lerp(Color.white, Color.red, (float)hitbox2.Settings.Settings.Damage / 100);
-
-                    for (int j = 0; j < hitbox2.Settings.Shape.CompoundShapes.Length; ++j)
-                    {
-                        switch (hitbox2.Settings.Shape.CompoundShapes[j].ShapeType)
+                        switch (spawnHitbox.Settings.Shape.CompoundShapes[j].ShapeType)
                         {
                             case Shape2DType.Circle:
-                                Gizmos.DrawSphere(hitbox2.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), hitbox2.Settings.Shape.CompoundShapes[j].CircleRadius.AsFloat);
+                                Gizmos.DrawSphere(spawnHitbox.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), spawnHitbox.Settings.Shape.CompoundShapes[j].CircleRadius.AsFloat);
                                 break;
 
                             case Shape2DType.Box:
-                                Gizmos.DrawCube(hitbox2.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), hitbox2.Settings.Shape.CompoundShapes[j].BoxExtents.ToUnityVector3());
+                                Gizmos.DrawCube(spawnHitbox.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), spawnHitbox.Settings.Shape.CompoundShapes[j].BoxExtents.ToUnityVector3());
                                 break;
                         }
                     }
+
+                    Gizmos.DrawLineList(CalculateArcPositions(20, spawnHitbox.Settings.Settings.Knockback.ToUnityVector2(), spawnHitbox.Settings.Shape.CompoundShapes[^1].PositionOffset.ToUnityVector2()));
                 }
-                else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
+                else if (frameEvent is ModifyHurtboxesEventAsset modifyHurtboxes)
                 {
 
                 }
                 else if (frameEvent is ApplyPhysicsEventAsset applyPhysics)
                 {
-                    //_playerAnimTarget.transform.position = 
+
                 }
                 else if (frameEvent is SpawnProjectileEventAsset spawnProjectile)
                 {
@@ -312,5 +293,29 @@ public class AnimationEventContainerWindow : EditorWindow
                 }
             }
         }
+    }
+
+    private ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)
+    {
+        Vector3[] positions = new Vector3[resolution];
+
+        for (int i = 0; i < resolution; ++i)
+        {
+            float t = (float)i / resolution;
+            positions[i] = CalculateArcPoint(t, 20, 1, amount) + offset;
+        }
+
+        return positions;
+    }
+
+    private Vector2 CalculateArcPoint(float t, float gravity, float scalar, Vector2 amount)
+    {
+        amount.x += 0.0001f;
+        float angle = Mathf.Atan2(amount.y, amount.x);
+
+        float x = t * amount.x;
+        float y = x * Mathf.Tan(angle) - (gravity * x * x / (2 * amount.magnitude * amount.magnitude * Mathf.Cos(angle) * Mathf.Cos(angle)));
+
+        return new Vector2(x, y) * scalar;
     }
 }

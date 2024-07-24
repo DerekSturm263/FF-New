@@ -5,15 +5,25 @@ using UnityEngine.InputSystem;
 
 public class HitboxHurtboxEvents : MonoBehaviour
 {
+    private EntityViewUpdater _viewUpdater;
+
     private void Awake()
     {
+        _viewUpdater = FindFirstObjectByType<EntityViewUpdater>();
+
         QuantumEvent.Subscribe<EventOnHitboxHurtboxCollision>(listener: this, handler: HandleHitboxHurtboxCollision);
+        QuantumEvent.Subscribe<EventOnHitboxSpawnDespawn>(listener: this, handler: HandleHitboxSpawnDespawn);
     }
 
     private void HandleHitboxHurtboxCollision(EventOnHitboxHurtboxCollision e)
     {
         LocalPlayerInfo player = PlayerJoinController.Instance.GetPlayer(e.DefenderIndex.Local);
-        StartCoroutine(Rumble(player.Device as Gamepad, 0.5f, 0.5f));
+        StartCoroutine(Rumble(player.Device as Gamepad, e.Settings.TargetShakeIntensity.AsFloat * 0.1f, 0.3f));
+    }
+
+    private void HandleHitboxSpawnDespawn(EventOnHitboxSpawnDespawn e)
+    {
+        _viewUpdater.GetView(e.Owner).gameObject.GetComponentInChildren<TrailRenderer>().emitting = e.IsEnabled;
     }
 
     IEnumerator Rumble(Gamepad gamepad, float frequency, float time)

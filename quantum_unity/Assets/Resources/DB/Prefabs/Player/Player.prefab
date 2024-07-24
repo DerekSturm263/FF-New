@@ -570,10 +570,16 @@ MonoBehaviour:
     StateTime: 0
     NearbyColliders:
       Value: 0
+    KnockbackVelocityX:
+      RawValue: 0
+    KnockbackVelocityTime:
+      RawValue: 0
     Velocity:
       RawValue: 0
     MovingLerp:
       RawValue: 0
+    Influence:
+      RawValue: 65536
     GroundedJump:
       Value: 0
     JumpCount: 0
@@ -791,18 +797,18 @@ MonoBehaviour:
         RawValue: 65536
     WeaponStatsMultiplier:
       Damage:
-        RawValue: 0
+        RawValue: 65536
       Knockback:
-        RawValue: 0
+        RawValue: 65536
       Speed:
-        RawValue: 0
+        RawValue: 65536
     HeldItem: {fileID: 0}
     StatusEffect:
       Id:
         Value: 0
     StatusEffectTimeLeft: 0
     StatusEffectMultiplier:
-      RawValue: 0
+      RawValue: 65536
 --- !u!114 &3318794597594987953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,21 +842,21 @@ MonoBehaviour:
     - _item1:
         Id:
           Value: 482559385480558028
-      _item2: {fileID: 8833598424946095024}
+      _item2: {fileID: 7692609136356351824}
     - _item1:
         Id:
           Value: 1621980965895008522
-      _item2: {fileID: 909351281905158292}
+      _item2: {fileID: 776505143270169158}
   _subWeaponSlot:
     _kvps:
     - _item1:
         Id:
           Value: 482559385480558028
-      _item2: {fileID: 2388251748345811222}
+      _item2: {fileID: 3199290652538146947}
     - _item1:
         Id:
           Value: 1621980965895008522
-      _item2: {fileID: 6477090122441347849}
+      _item2: {fileID: 217469079452014296}
   _headgearSlot:
     _kvps:
     - _item1:
@@ -1013,7 +1019,7 @@ PrefabInstance:
     - target: {fileID: -7477935017051228118, guid: 7fd2767357a19344e9a9a75e458ef356,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5336035633276606144, guid: 7fd2767357a19344e9a9a75e458ef356,
         type: 3}
@@ -2622,7 +2628,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 95ec925256b97b9469c593dc4e2a2dde,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1545176958868426891, guid: 95ec925256b97b9469c593dc4e2a2dde,
         type: 3}

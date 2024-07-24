@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4955575144993623180}
   - component: {fileID: 7377665445066138184}
   - component: {fileID: 8393471324942441767}
+  - component: {fileID: -6206429220071738607}
   m_Layer: 9
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -205,6 +206,55 @@ MonoBehaviour:
         Value: 0
     Index: 0
     Owner: {fileID: 0}
+--- !u!114 &-6206429220071738607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7995288866631961228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BindBehaviour: 0
+  CustomQuantumAnimator: {fileID: 0}
+  ManualDisposal: 0
+  GameObjectNameIsEntityRef: 1
+  ErrorCorrectionRateMin: 3.3
+  ErrorCorrectionRateMax: 10
+  ErrorPositionBlendStart: 0.25
+  ErrorPositionBlendEnd: 1
+  ErrorRotationBlendStart: 0.1
+  ErrorRotationBlendEnd: 0.5
+  ErrorPositionMinCorrection: 0.025
+  ErrorPositionTeleportDistance: 2
+  ErrorRotationTeleportDistance: 0.5
+  OnEntityInstantiated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEntityDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-5132320344111573740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5baec4de8d2754a864a680181831e8, type: 3}
+  m_Name: HurtboxEntityView
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/Prefabs/Miscellaneous/Hurtbox|EntityView
+      Guid:
+        Value: 1747906768796535873
+  Parent: {fileID: -6206429220071738607}
 --- !u!114 &7838785701765842632
 MonoBehaviour:
   m_ObjectHideFlags: 0

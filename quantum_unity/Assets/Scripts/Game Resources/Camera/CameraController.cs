@@ -275,6 +275,9 @@ namespace GameResources.Camera
 
         private void Shake(AssetRefShakeSettings settings, Vector2 direction)
         {
+            if (!settings.Id.IsValid)
+                return;
+
             Shake(UnityDB.FindAsset<ShakeSettingsAsset>(settings.Id).Settings, direction);
         }
 
