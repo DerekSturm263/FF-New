@@ -5,7 +5,7 @@ public class WeaponMaterialPopulator : PopulateAsset<WeaponMaterialAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Weapons/Weapons/Materials";
 
-    protected override bool DoSpawn(WeaponMaterialAsset item) => InventoryController.Instance.HasItem(item);
+    protected override bool DoSpawn(WeaponMaterialAsset item) => InventoryController.Instance.HasUnlockedItem(item);
 
     protected override void Decorate(GameObject buttonObj, WeaponMaterialAsset item)
     {

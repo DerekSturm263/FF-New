@@ -71,16 +71,16 @@ public class SubController : Controller<SubController>
 
         Sub sub = new()
         {
-            Template = new AssetRefSubTemplate() { Id = _template.AssetObject.Guid }
+            Template = new AssetRefSubTemplate() { Id = _template.AssetObject.Guid },
+            Enhancer = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid }
         };
-        sub.Enhancers.Enhancer1 = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid };
 
-        InventoryController.Instance.UseCountableItem(_template);
+        InventoryController.Instance.LoseItem(_template, 1);
         InventoryController.Instance.LoseCurrency(_template.Price);
 
         if (_enhancer && _enhancer.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(_enhancer);
+            InventoryController.Instance.LoseItem(_enhancer, 1);
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
         
@@ -120,10 +120,8 @@ public class SubController : Controller<SubController>
 
     private void Delete()
     {
-        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Template.Id, 1);
-
-        if (_currentlySelected.Value.Enhancers.Enhancer1.Id.IsValid)
-            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Enhancers.Enhancer1.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Template.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Enhancer.Id, 1);
 
         string path = GetPath();
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
@@ -135,7 +133,7 @@ public class SubController : Controller<SubController>
     public void PreviewSub(SerializableWrapper<Sub> sub)
     {
         PreviewTemplate(UnityDB.FindAsset<SubTemplateAsset>(sub.Value.Template.Id));
-        PreviewEnhancer(UnityDB.FindAsset<SubEnhancerAsset>(sub.Value.Enhancers.Enhancer1.Id));
+        PreviewEnhancer(UnityDB.FindAsset<SubEnhancerAsset>(sub.Value.Enhancer.Id));
     }
 
     public void PreviewTemplate(SubTemplateAsset template)
@@ -148,7 +146,7 @@ public class SubController : Controller<SubController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = template.Price;
+            ulong price = template.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -165,7 +163,7 @@ public class SubController : Controller<SubController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = _template.Price + enhancer.Price;
+            ulong price = _template.Price + enhancer.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

@@ -1,13 +1,11 @@
 using Extensions.Components.UI;
-using Quantum;
-using UnityEngine;
 
-public class DisplayCurrency : DisplayText<int>
+public class DisplayCurrency : DisplayText<ulong>
 {
-    protected override string GetInfo(int currency)
+    protected override string GetInfo(ulong currency)
     {
         return currency.ToString();
     }
 
-    protected override int GetValue() => InventoryController.Instance.Inventory.Currency;
+    protected override ulong GetValue() => InventoryController.Instance.Inventory.Currency;
 }

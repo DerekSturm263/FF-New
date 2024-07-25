@@ -1,6 +1,7 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using System.Diagnostics;
+using System.Runtime;
 
 namespace Quantum
 {
@@ -64,6 +65,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(hitbox, out HitboxInstance* instance))
             {
                 instance->Shape.Compound.FreePersistent(f);
+                f.Events.OnHitboxSpawnDespawn(owner, hitbox, instance->Settings.Parent, false);
             }
 
             f.Destroy(hitbox);
@@ -72,6 +74,9 @@ namespace Quantum
         public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user)
         {
             Log.Debug("Spawning hitbox!");
+
+            Log.Debug(settings.Knockback);
+            Log.Debug(settings.Damage);
 
             EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(f.RuntimeConfig.Hitbox.Id);
             EntityRef hitboxEntity = f.Create(hitboxPrototype);
@@ -100,6 +105,9 @@ namespace Quantum
                     hitbox->Lifetime = lifetime;
                     hitbox->Owner = user;
 
+                    Log.Debug(hitbox->Settings.Knockback);
+                    Log.Debug(hitbox->Settings.Damage);
+
                     hitbox->Parent = settings.Parent switch
                     {
                         ParentType.None => EntityRef.None,
@@ -113,6 +121,8 @@ namespace Quantum
                 QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
                 hitboxLists.Add(hitboxEntity);
             }
+
+            f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, settings.Parent, true);
 
             return hitboxEntity;
         }

@@ -5,7 +5,7 @@ public class ApparelPatternPopulator : PopulateAsset<ApparelPatternAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Apparel/Patterns";
 
-    protected override bool DoSpawn(ApparelPatternAsset item) => InventoryController.Instance.HasItem(item);
+    protected override bool DoSpawn(ApparelPatternAsset item) => InventoryController.Instance.HasUnlockedItem(item);
 
     protected override void Decorate(GameObject buttonObj, ApparelPatternAsset item)
     {

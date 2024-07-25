@@ -31,26 +31,15 @@ namespace Quantum
         {
             stream.Serialize(ref value.Template);
             stream.Serialize(ref value.Material);
-            stream.Serialize(ref value.Enhancers);
+            stream.Serialize(ref value.Enhancer);
             stream.Serialize(ref value.FileGuid);
-        }
-
-        public static void Serialize(this IBitStream stream, ref WeaponEnhancerSet value)
-        {
-            stream.Serialize(ref value.Enhancer1);
-            stream.Serialize(ref value.Enhancer2);
         }
 
         public static void Serialize(this IBitStream stream, ref Sub value)
         {
             stream.Serialize(ref value.Template);
-            stream.Serialize(ref value.Enhancers);
+            stream.Serialize(ref value.Enhancer);
             stream.Serialize(ref value.FileGuid);
-        }
-
-        public static void Serialize(this IBitStream stream, ref SubEnhancerSet value)
-        {
-            stream.Serialize(ref value.Enhancer1);
         }
 
         public static void Serialize(this IBitStream stream, ref Outfit value)

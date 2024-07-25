@@ -3,7 +3,7 @@ struct Weapon
 {
 	asset_ref<WeaponTemplate> Template;
 	asset_ref<WeaponMaterial> Material;
-	WeaponEnhancerSet Enhancers;
+	asset_ref<WeaponEnhancer> Enhancer;
 
 	AssetGuid FileGuid;
 }

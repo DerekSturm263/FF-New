@@ -79,16 +79,16 @@ public class WeaponController : Controller<WeaponController>
         Weapon weapon = new()
         {
             Template = new AssetRefWeaponTemplate() { Id = _template.AssetObject.Guid },
-            Material = new AssetRefWeaponMaterial() { Id = _material.AssetObject.Guid }
+            Material = new AssetRefWeaponMaterial() { Id = _material.AssetObject.Guid },
+            Enhancer = new AssetRefWeaponEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid }
         };
-        weapon.Enhancers.Enhancer1 = new AssetRefWeaponEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid };
 
-        InventoryController.Instance.UseCountableItem(_template);
-        InventoryController.Instance.UseCountableItem(_material);
+        InventoryController.Instance.LoseItem(_template, 1);
+        InventoryController.Instance.LoseItem(_material, 1);
 
         if (_enhancer && _enhancer.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(_enhancer);
+            InventoryController.Instance.LoseItem(_enhancer, 1);
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
         
@@ -130,11 +130,9 @@ public class WeaponController : Controller<WeaponController>
 
     private void Delete()
     {
-        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Template.Id, 1);
-        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Material.Id, 1);
-
-        if (_currentlySelected.Value.Enhancers.Enhancer1.Id.IsValid)
-            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Enhancers.Enhancer1.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Template.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Material.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Enhancer.Id, 1);
 
         string path = GetPath();
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
@@ -147,7 +145,7 @@ public class WeaponController : Controller<WeaponController>
     {
         PreviewTemplate(UnityDB.FindAsset<WeaponTemplateAsset>(weapon.Value.Template.Id));
         PreviewMaterial(UnityDB.FindAsset<WeaponMaterialAsset>(weapon.Value.Material.Id));
-        PreviewEnhancer(UnityDB.FindAsset<WeaponEnhancerAsset>(weapon.Value.Enhancers.Enhancer1.Id));
+        PreviewEnhancer(UnityDB.FindAsset<WeaponEnhancerAsset>(weapon.Value.Enhancer.Id));
     }
 
     public void PreviewTemplate(WeaponTemplateAsset template)
@@ -160,7 +158,7 @@ public class WeaponController : Controller<WeaponController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = template.Price;
+            ulong price = template.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -177,7 +175,7 @@ public class WeaponController : Controller<WeaponController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = _template.Price + material.Price;
+            ulong price = _template.Price + material.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -194,7 +192,7 @@ public class WeaponController : Controller<WeaponController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = _template.Price + _material.Price + enhancer.Price;
+            ulong price = _template.Price + _material.Price + enhancer.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

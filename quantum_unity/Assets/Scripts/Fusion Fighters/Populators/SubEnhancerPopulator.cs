@@ -5,23 +5,31 @@ public class SubEnhancerPopulator : PopulateAsset<SubEnhancerAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Weapons/Subs/Enhancers";
 
-    protected override bool DoSpawn(SubEnhancerAsset item) => InventoryController.Instance.HasItem(item);
+    protected override bool DoSpawn(SubEnhancerAsset item) => InventoryController.Instance.HasUnlockedItem(item);
 
     protected override void Decorate(GameObject buttonObj, SubEnhancerAsset item)
     {
         base.Decorate(buttonObj, item);
 
+        bool infinite = InventoryController.Instance.HasInfiniteItem(item);
         int countNum = InventoryController.Instance.GetItemCount(item);
 
         TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count")?.GetComponent<TMPro.TMP_Text>();
+
         if (count)
+        {
+            if (infinite)
+            {
+                count.gameObject.SetActive(false);
+                return;
+            }
+
             count.SetText(countNum.ToString());
 
-        if (countNum == 0)
-            count.color = Color.red;
-        else if (countNum == -1)
-            count.gameObject.SetActive(false);
+            if (countNum == 0)
+                count.color = Color.red;
+        }
     }
 
-    protected override bool GiveEvents(SubEnhancerAsset item) => InventoryController.Instance.GetItemCount(item) == -1 || InventoryController.Instance.GetItemCount(item) > 0;
+    protected override bool GiveEvents(SubEnhancerAsset item) => InventoryController.Instance.HasItem(item);
 }

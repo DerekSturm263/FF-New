@@ -2,7 +2,7 @@
 struct Sub
 {
 	asset_ref<SubTemplate> Template;
-	SubEnhancerSet Enhancers;
+	asset_ref<SubEnhancer> Enhancer;
 	
 	AssetGuid FileGuid;
 }

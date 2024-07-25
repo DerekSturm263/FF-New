@@ -4,7 +4,7 @@ namespace Quantum
 {
     public static class ApparelHelper
     {
-        public static ApparelStats Add(ApparelStats lhs, ApparelStats rhs)
+        private static ApparelStats Add(ApparelStats lhs, ApparelStats rhs)
         {
             return new()
             {
@@ -28,7 +28,18 @@ namespace Quantum
             };
         }
 
-        public static ApparelStats FromApparel(Frame f, Apparel apparel)
+        public static unsafe ApparelStats FromStats(Frame f, Stats* stats)
+        {
+            ApparelStats apparelStats = Default;
+
+            apparelStats = Add(FromApparel(f, stats->Build.Equipment.Outfit.Headgear), apparelStats);
+            apparelStats = Add(FromApparel(f, stats->Build.Equipment.Outfit.Clothing), apparelStats);
+            apparelStats = Add(FromApparel(f, stats->Build.Equipment.Outfit.Legwear), apparelStats);
+
+            return Multiply(apparelStats, stats->ApparelStatsMultiplier);
+        }
+
+        private static ApparelStats FromApparel(Frame f, Apparel apparel)
         {
             ApparelStats result = default;
 

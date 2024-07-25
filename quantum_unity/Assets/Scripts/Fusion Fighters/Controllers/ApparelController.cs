@@ -18,6 +18,22 @@ public class ApparelController : Controller<ApparelController>
     public void ClearPattern() => _pattern = null;
 
     private Extensions.Types.Dictionary<ApparelModifierAsset, int> _modifiers = new();
+
+    public List<ApparelModifierAsset> GetModifierList()
+    {
+        List<ApparelModifierAsset> modifiers = new();
+
+        foreach (var kvp in _modifiers)
+        {
+            for (int i = 0; i < kvp.Value; ++i)
+                modifiers.Add(kvp.Key);
+        }
+
+        return modifiers;
+    }
+
+    public ApparelModifierAsset GetModifierFromIndex(List<ApparelModifierAsset> modifiers, int index) => modifiers.ElementAtOrDefault(index);
+    
     public void AdjustModifiers(ApparelModifierAsset modifier, int increment)
     {
         if ((increment > 0 && _modifiers.Sum(item => item.Value) == 3))
@@ -102,12 +118,7 @@ public class ApparelController : Controller<ApparelController>
             return;
         }
 
-        List<ApparelModifierAsset> modifiers = new();
-        foreach (var kvp in _modifiers)
-        {
-            for (int i = 0; i < kvp.Value; ++i)
-                modifiers.Add(kvp.Key);
-        }
+        List<ApparelModifierAsset> modifiers = GetModifierList();
 
         ApparelModifierAsset modifier1 = modifiers.ElementAtOrDefault(0);
         ApparelModifierAsset modifier2 = modifiers.ElementAtOrDefault(1);
@@ -128,30 +139,30 @@ public class ApparelController : Controller<ApparelController>
         apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = modifier2 ? modifier2.AssetObject.Guid : AssetGuid.Invalid };
         apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = modifier3 ? modifier3.AssetObject.Guid : AssetGuid.Invalid };
 
-        InventoryController.Instance.UseCountableItem(_template);
+        InventoryController.Instance.LoseItem(_template, 1);
         InventoryController.Instance.LoseCurrency(_template.Price);
 
         if (_pattern && _pattern.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(_pattern);
+            InventoryController.Instance.LoseItem(_pattern, 1);
             InventoryController.Instance.LoseCurrency(_pattern.Price);
         }
 
         if (modifier1 && modifier1.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(modifier1);
+            InventoryController.Instance.LoseItem(modifier1, 1);
             InventoryController.Instance.LoseCurrency(modifier1.Price);
         }
 
         if (modifier2 && modifier2.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(modifier2);
+            InventoryController.Instance.LoseItem(modifier2, 1);
             InventoryController.Instance.LoseCurrency(modifier2.Price);
         }
 
         if (modifier3 && modifier3.AssetObject.Guid != AssetGuid.Invalid)
         {
-            InventoryController.Instance.UseCountableItem(modifier3);
+            InventoryController.Instance.LoseItem(modifier3, 1);
             InventoryController.Instance.LoseCurrency(modifier3.Price);
         }
 
@@ -191,17 +202,17 @@ public class ApparelController : Controller<ApparelController>
 
     private void Delete()
     {
-        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Template.Id, 1);
-        InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Pattern.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Template.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.Value.Pattern.Id, 1);
 
         if (_currentlySelected.Value.Modifiers.Modifier1.Id.IsValid)
-            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Modifiers.Modifier1.Id, 1);
+            InventoryController.Instance.GainItem(_currentlySelected.Value.Modifiers.Modifier1.Id, 1);
     
         if (_currentlySelected.Value.Modifiers.Modifier2.Id.IsValid)
-            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Modifiers.Modifier2.Id, 1);
+            InventoryController.Instance.GainItem(_currentlySelected.Value.Modifiers.Modifier2.Id, 1);
         
         if (_currentlySelected.Value.Modifiers.Modifier3.Id.IsValid)
-            InventoryController.Instance.GainCountableItem(_currentlySelected.Value.Modifiers.Modifier3.Id, 1);
+            InventoryController.Instance.GainItem(_currentlySelected.Value.Modifiers.Modifier3.Id, 1);
 
         string path = GetPath();
         Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
@@ -226,7 +237,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = template.Price;
+            ulong price = template.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -243,7 +254,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = _template.Price + material.Price;
+            ulong price = _template.Price + material.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -260,7 +271,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            int price = _template.Price + _pattern.Price + _modifiers.Sum(item => item.Key.Price * item.Value);
+            ulong price = _template.Price + _pattern.Price + (ulong)_modifiers.Sum(item => (long)(item.Key.Price * (ulong)item.Value));
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

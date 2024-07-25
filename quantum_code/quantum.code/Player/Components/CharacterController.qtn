@@ -32,10 +32,13 @@ component CharacterController
     int StateTime;
 
     Colliders NearbyColliders;
+    FP KnockbackVelocityX;
+    FP KnockbackVelocityTime;
 
     // Move
     FP Velocity;
     FP MovingLerp;
+    FP Influence;
 
     // Jump
     bool GroundedJump;

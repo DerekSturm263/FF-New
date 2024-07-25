@@ -8,7 +8,7 @@ public abstract partial class InfoAssetAsset : AssetBase
 
     [Space(10)]
 
-    public int Price;
+    public ulong Price;
 
     public Sprite Icon;
     public Sprite Background;

@@ -73,7 +73,7 @@ namespace Quantum
             {
                 if (f.TryFindAsset(subWeaponInstance->SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
                 {
-                    if (f.TryFindAsset(subWeaponInstance->SubWeapon.Enhancers.Enhancer1.Id, out SubEnhancer enhancer))
+                    if (f.TryFindAsset(subWeaponInstance->SubWeapon.Enhancer.Id, out SubEnhancer enhancer))
                         enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, subWeaponInstance);
 
                     subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, subWeaponInstance);

@@ -10,6 +10,9 @@ namespace Quantum
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
+            Log.Debug(Settings.Knockback);
+            Log.Debug(Settings.Damage);
+
             HitboxSystem.SpawnHitbox(f, Settings, Shape, EndingFrame - StartingFrame, entity);
         }
     }

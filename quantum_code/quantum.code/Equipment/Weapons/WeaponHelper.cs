@@ -4,7 +4,7 @@ namespace Quantum
 {
     public static class WeaponHelper
     {
-        public static WeaponStats Add(WeaponStats lhs, WeaponStats rhs)
+        private static WeaponStats Add(WeaponStats lhs, WeaponStats rhs)
         {
             return new()
             {
@@ -24,21 +24,21 @@ namespace Quantum
             };
         }
 
-        public static WeaponStats FromMainWeapon(Frame f, Weapon mainWeapon)
+        public static unsafe WeaponStats FromStats(Frame f, Stats* stats)
+        {
+            WeaponStats weaponStats = Default;
+
+            weaponStats = Add(FromWeapon(f, stats->Build.Equipment.Weapons.MainWeapon), weaponStats);
+
+            return Multiply(weaponStats, stats->WeaponStatsMultiplier);
+        }
+
+        private static WeaponStats FromWeapon(Frame f, Weapon mainWeapon)
         {
             WeaponStats result = default;
 
-            if (f.TryFindAsset(mainWeapon.Material.Id, out WeaponMaterial material1))
-                result = Add(result, material1.Stats);
-
-            if (f.TryFindAsset(mainWeapon.Material.Id, out WeaponMaterial material2))
-                result = Add(result, material2.Stats);
-
-            if (f.TryFindAsset(mainWeapon.Material.Id, out WeaponMaterial material3))
-                result = Add(result, material3.Stats);
-
-            if (f.TryFindAsset(mainWeapon.Material.Id, out WeaponMaterial material4))
-                result = Add(result, material4.Stats);
+            if (f.TryFindAsset(mainWeapon.Material.Id, out WeaponMaterial material))
+                result = Add(result, material.Stats);
 
             return result;
         }

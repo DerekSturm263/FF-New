@@ -24,6 +24,10 @@
                 new Core.PlayerConnectedSystem(),
 
                 // user systems go here 
+
+                // physics resolution
+                new HitboxHurtboxRetrievalSystem(),
+
                 new MatchSystem(),
                 new TimerSystem(),
                 new PlayerSpawnSystem(),
@@ -38,10 +42,7 @@
                 new CustomAnimatorStateSystem(),
                 new CustomAnimatorResetTriggersSystem(),
 
-                new HurtboxSystem(),
-
-                // physics resolution
-                new HitboxHurtboxRetrievalSystem()
+                new HurtboxSystem()
             ];
         }
     }

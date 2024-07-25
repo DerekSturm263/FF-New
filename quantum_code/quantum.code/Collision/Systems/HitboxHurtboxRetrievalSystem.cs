@@ -34,12 +34,7 @@ namespace Quantum
                         if (hurtbox->Settings.CanBeDamaged && f.Unsafe.TryGetPointer(ownerHit, out Stats* hitStats))
                         {
                             // Grab the hit player's stats from their outfit.
-                            ApparelStats apparelStats = ApparelHelper.Default;
-                            {
-                                apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Headgear), apparelStats);
-                                apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Clothing), apparelStats);
-                                apparelStats = ApparelHelper.Add(ApparelHelper.FromApparel(f, hitStats->Build.Equipment.Outfit.Legwear), apparelStats);
-                            }
+                            ApparelStats apparelStats = ApparelHelper.FromStats(f, hitStats);
 
                             // Apply damage.
                             FP damage = -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense);
@@ -63,9 +58,13 @@ namespace Quantum
                         }
 
                         // Apply knockback.
-                        if (hurtbox->Settings.CanBeKnockedBack && f.Unsafe.TryGetPointer(ownerHit, out PhysicsBody2D* physicsBody))
+                        if (hurtbox->Settings.CanBeKnockedBack && f.Unsafe.TryGetPointer(ownerHit, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(ownerHit, out CharacterController* characterController))
                         {
-                            physicsBody->Velocity = hitbox.Hitbox->Settings.Knockback;
+                            characterController->KnockbackVelocityX = hitbox.Hitbox->Settings.Knockback.X;
+                            physicsBody->Velocity.Y = hitbox.Hitbox->Settings.Knockback.Y;
+
+                            characterController->KnockbackVelocityTime = 1;
+                            characterController->Influence = 0;
                         }
 
                         if (hurtbox->Settings.CanBeInterrupted && f.Unsafe.TryGetPointer(ownerHit, out CustomAnimator* customAnimator))

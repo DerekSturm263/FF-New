@@ -46,7 +46,7 @@ namespace Quantum
                 input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
 
             // Calculate the player's stats.
-            ApparelStats stats = CalculateStats(f, ref filter, settings);
+            ApparelStats stats = ApparelHelper.FromStats(f, filter.Stats);
 
             // Do everything.
             HandleGround(f, ref filter, settings, stats);
@@ -64,21 +64,6 @@ namespace Quantum
             {
                 player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.Stats->GetIndex(f, player.Entity).Global);
             }
-        }
-
-        private ApparelStats CalculateStats(Frame f, ref Filter filter, MovementSettings movementSettings)
-        {
-            // Grab the player's stats from their outfit.
-            ApparelStats stats = ApparelHelper.Default;
-            {
-                stats = ApparelHelper.Add(ApparelHelper.FromApparel(f, filter.Stats->Build.Equipment.Outfit.Headgear), stats);
-                stats = ApparelHelper.Add(ApparelHelper.FromApparel(f, filter.Stats->Build.Equipment.Outfit.Clothing), stats);
-                stats = ApparelHelper.Add(ApparelHelper.FromApparel(f, filter.Stats->Build.Equipment.Outfit.Legwear), stats);
-            }
-
-            // Multiply apparel stats by multipler.
-            stats = ApparelHelper.Multiply(filter.Stats->ApparelStatsMultiplier, stats);
-            return stats;
         }
 
         private void HandleGround(Frame f, ref Filter filter, MovementSettings movementSettings, ApparelStats stats)
@@ -138,6 +123,19 @@ namespace Quantum
 
         private void HandleMovement(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)
         {
+            if (filter.CharacterController->KnockbackVelocityTime > 0)
+            {
+                filter.CharacterController->KnockbackVelocityTime -= f.DeltaTime;
+                filter.CharacterController->KnockbackVelocityX -= f.DeltaTime;
+                filter.CharacterController->Influence += f.DeltaTime;
+
+                if (filter.CharacterController->KnockbackVelocityTime <= 0)
+                {
+                    filter.CharacterController->KnockbackVelocityX = 0;
+                    filter.CharacterController->Influence = 1;
+                }
+            }
+
             // Make sure the user can input.
             if (!filter.CharacterController->CanInput)
                 return;
@@ -147,7 +145,7 @@ namespace Quantum
                 filter.CharacterController->Move(f, input.Movement.X, ref filter, movementSettings, stats);
 
             // Apply velocity to the player.
-            filter.PhysicsBody->Velocity.X = filter.CharacterController->Velocity * stats.Agility;
+            filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * filter.CharacterController->Influence * stats.Agility) + filter.CharacterController->KnockbackVelocityX;
         }
 
         private void HandleUltimate(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)

@@ -116,30 +116,22 @@ MonoBehaviour:
     StartingFrame: 2
     EndingFrame: 14
     Settings:
-      CameraShakeIntensity:
-        RawValue: 0
       Damage:
         RawValue: 655360
+      HitShake:
+        Id:
+          Value: 0
       Knockback:
         X:
-          RawValue: -655360
+          RawValue: 262144
         Y:
-          RawValue: 655360
-      Layer:
-        BitMask: 512
-      Offset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 65536
+          RawValue: 589824
       OnlyHitOnce:
         Value: 0
       Parent: 1
-      Prototype:
+      SpawnShake:
         Id:
-          Value: 3156569685704267981
-      Radius:
-        RawValue: 114688
+          Value: 0
       StatusEffect:
         Id:
           Value: 0
@@ -147,3 +139,50 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 0
       UserFreezeDuration: 0
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 131072
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 125829
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
