@@ -53,7 +53,15 @@ namespace Quantum
                             // Increase energy.
                             if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
                             {
-                                StatsSystem.ModifyEnergy(f, hitbox.Hitbox->Owner, ownerStats, hitbox.Hitbox->Settings.Damage / 5);
+                                FP multiplier = 1;
+
+                                if (ownerStats->Build.Equipment.Weapons.MainWeapon.Enhancer.Id.IsValid)
+                                {
+                                    WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(ownerStats->Build.Equipment.Weapons.MainWeapon.Enhancer.Id);
+                                    multiplier = (weaponEnhancer as ChargingWeaponEnhancer).Multiplier;
+                                }
+
+                                StatsSystem.ModifyEnergy(f, hitbox.Hitbox->Owner, ownerStats, (hitbox.Hitbox->Settings.Damage / 5) * multiplier);
                             }
                         }
 

@@ -11,7 +11,7 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     public SerializableWrapper<UserProfile> New()
     {
-        UserProfile profile = new();
+        UserProfile profile = new(0.5f);
         return new(profile, _name, "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
     }
 
