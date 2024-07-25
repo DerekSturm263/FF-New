@@ -18,7 +18,7 @@ public class InventoryController : Controller<InventoryController>
 
         if (!_isInitialized)
         {
-            if (Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Inventory.json", $"{Application.persistentDataPath}/SaveData/Misc", out Inventory inventory))
+            if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Inventory.json", $"{Application.persistentDataPath}/SaveData/Misc", out Inventory inventory))
                 _inventory = inventory;
             else
                 _inventory = _default.Inventory;
@@ -33,14 +33,14 @@ public class InventoryController : Controller<InventoryController>
         Application.quitting -= Shutdown;
         _isInitialized = false;
 
-        Serializer.Save(_inventory, "Inventory", $"{Application.persistentDataPath}/SaveData/Misc");
+        FusionFighters.Serializer.Save(_inventory, "Inventory", $"{Application.persistentDataPath}/SaveData/Misc");
 
         base.Shutdown();
     }
 
     public bool HasUnlockedItem(InfoAssetAsset asset)
     {
-        if (!asset.AssetObject.Guid.IsValid)
+        if (!asset || !asset.AssetObject.Guid.IsValid)
             return false;
 
         return HasUnlockedItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid });
@@ -64,7 +64,7 @@ public class InventoryController : Controller<InventoryController>
 
     public int GetItemCount(InfoAssetAsset asset)
     {
-        if (!asset.AssetObject.Guid.IsValid)
+        if (!asset || !asset.AssetObject.Guid.IsValid)
             return 0;
 
         return GetItemCount(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid });
@@ -88,7 +88,7 @@ public class InventoryController : Controller<InventoryController>
 
     public bool HasItem(InfoAssetAsset asset)
     {
-        if (!asset.AssetObject.Guid.IsValid)
+        if (!asset || !asset.AssetObject.Guid.IsValid)
             return false;
 
         return HasItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid });
@@ -112,7 +112,7 @@ public class InventoryController : Controller<InventoryController>
 
     public bool HasInfiniteItem(InfoAssetAsset asset)
     {
-        if (!asset.AssetObject.Guid.IsValid)
+        if (!asset || !asset.AssetObject.Guid.IsValid)
             return false;
 
         return HasInfiniteItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid });
@@ -134,52 +134,54 @@ public class InventoryController : Controller<InventoryController>
         return !_inventory.ItemCollection[assetRef].Item2.HasValue;
     }
 
-    public void GainItem(InfoAssetAsset asset, int count)
+    public bool GainItem(InfoAssetAsset asset, int count)
     {
-        if (!asset.AssetObject.Guid.IsValid)
-            return;
+        if (!asset || !asset.AssetObject.Guid.IsValid)
+            return false;
 
-        GainItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid }, count);
+        return GainItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid }, count);
     }
 
-    public void GainItem(AssetGuid id, int count)
+    public bool GainItem(AssetGuid id, int count)
     {
         if (!id.IsValid)
-            return;
+            return false;
 
-        GainItem(new AssetRefInfoAsset() { Id = id }, count);
+        return GainItem(new AssetRefInfoAsset() { Id = id }, count);
     }
 
-    public void GainItem(AssetRefInfoAsset assetRef, int count)
+    public bool GainItem(AssetRefInfoAsset assetRef, int count)
     {
         if (!assetRef.Id.IsValid || !_inventory.ItemCollection.ContainsKey(assetRef) || !_inventory.ItemCollection[assetRef].Item2.HasValue)
-            return;
+            return false;
 
         _inventory.ItemCollection[assetRef] = new(_inventory.ItemCollection[assetRef].Item1, _inventory.ItemCollection[assetRef].Item2.Value + count);
+        return true;
     }
 
-    public void LoseItem(InfoAssetAsset asset, int count)
+    public bool LoseItem(InfoAssetAsset asset, int count)
     {
-        if (!asset.AssetObject.Guid.IsValid)
-            return;
+        if (!asset || !asset.AssetObject.Guid.IsValid)
+            return false;
 
-        LoseItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid }, count);
+        return LoseItem(new AssetRefInfoAsset() { Id = asset.AssetObject.Guid }, count);
     }
 
-    public void LoseItem(AssetGuid id, int count)
+    public bool LoseItem(AssetGuid id, int count)
     {
         if (!id.IsValid)
-            return;
+            return false;
 
-        LoseItem(new AssetRefInfoAsset() { Id = id }, count);
+        return LoseItem(new AssetRefInfoAsset() { Id = id }, count);
     }
 
-    public void LoseItem(AssetRefInfoAsset assetRef, int count)
+    public bool LoseItem(AssetRefInfoAsset assetRef, int count)
     {
         if (!assetRef.Id.IsValid || !_inventory.ItemCollection.ContainsKey(assetRef) || !_inventory.ItemCollection[assetRef].Item2.HasValue)
-            return;
+            return false;
 
         _inventory.ItemCollection[assetRef] = new(_inventory.ItemCollection[assetRef].Item1, _inventory.ItemCollection[assetRef].Item2.Value - count);
+        return true;
     }
 
     public void GainCurrency(ulong amount)
@@ -202,5 +204,10 @@ public class InventoryController : Controller<InventoryController>
     public bool HasEnoughCurrency(params ulong?[] amount)
     {
         return _inventory.Currency >= (ulong)amount.Sum(item => (long)item.GetValueOrDefault());
+    }
+
+    public bool HasEnoughCurrency(params ulong[] amount)
+    {
+        return _inventory.Currency >= (ulong)amount.Sum(item => (long)item);
     }
 }

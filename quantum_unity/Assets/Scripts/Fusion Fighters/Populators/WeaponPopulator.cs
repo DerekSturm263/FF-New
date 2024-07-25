@@ -9,7 +9,7 @@ public class WeaponPopulator : Populate<Type, long>
 {
     protected override Sprite Icon(Type item) => item.Icon;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(WeaponController.GetPath());
+    protected override IEnumerable<Type> LoadAll() => FusionFighters.Serializer.LoadAllFromDirectory<Type>(WeaponController.GetPath());
 
     protected override string Name(Type item) => item.Name;
 

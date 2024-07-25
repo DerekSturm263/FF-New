@@ -10,11 +10,11 @@ public class UserProfilePopulator : Populate<Type, long>
 {
     protected override Sprite Icon(Type item) => item.Icon;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(UserProfileController.GetPath());
+    protected override IEnumerable<Type> LoadAll() => FusionFighters.Serializer.LoadAllFromDirectory<Type>(UserProfileController.GetPath());
 
     protected override string Name(Type item) => item.Name;
 
     protected override Func<Type, long> Sort() => (profile) => profile.LastEditedDate;
 
-    protected override bool DoSpawn(Type item) => !PlayerJoinController.Instance.AllPlayers.Values.Where(user => user.Profile is not null).Any(user => user.Profile.Equals(item));
+    protected override bool DoSpawn(Type item) => !PlayerJoinController.Instance.AllPlayers.Values.Any(user => user.Profile.Equals(item));
 }

@@ -35,6 +35,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     [System.NonSerialized] private bool _isInitialized = false;
 
+    [System.NonSerialized] private Profile _profile;
+    public Profile Profile => _profile;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -46,6 +49,11 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         if (!_isInitialized)
         {
+            if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Profile.json", $"{Application.persistentDataPath}/SaveData/Misc", out Profile profile))
+                _profile = profile;
+            else
+                _profile = Profile.Default;
+
             _allPlayers.Clear();
 
             Application.quitting += Shutdown;
@@ -61,7 +69,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         _allPlayers.Clear();
         _controls = null;
 
-        Serializer.Save(Profile.Instance, "Profile", $"{Application.persistentDataPath}/SaveData/Misc");
+        FusionFighters.Serializer.Save(_profile, "Profile", $"{Application.persistentDataPath}/SaveData/Misc");
 
         base.Shutdown();
     }

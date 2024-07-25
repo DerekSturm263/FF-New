@@ -71,7 +71,7 @@ public class ApparelController : Controller<ApparelController>
 
     private string _name = "Untitled";
     public void SetName(string name) => _name = name;
-    public void ClearName() => _name = string.Empty;
+    public void ClearName() => _name = "Untitled";
 
     private string _description = string.Empty;
     public void SetDescription(string description) => _description = description;
@@ -112,7 +112,7 @@ public class ApparelController : Controller<ApparelController>
 
     public void SaveNew()
     {
-        if (!_template)
+        if (!_template || !_pattern || _name == string.Empty)
         {
             PopupController.Instance.Spawn(_onFail);
             return;
@@ -124,7 +124,7 @@ public class ApparelController : Controller<ApparelController>
         ApparelModifierAsset modifier2 = modifiers.ElementAtOrDefault(1);
         ApparelModifierAsset modifier3 = modifiers.ElementAtOrDefault(2);
 
-        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _pattern?.Price, modifier1?.Price, modifier2?.Price, modifier3?.Price))
+        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _pattern.Price, modifier1?.Price, modifier2?.Price, modifier3?.Price))
         {
             PopupController.Instance.Spawn(_onNotEnoughCurrency);
             return;
@@ -133,44 +133,37 @@ public class ApparelController : Controller<ApparelController>
         Apparel apparel = new()
         {
             Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid },
-            Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid }
+            Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid },
+            Modifiers = new()
+            {
+                Modifier1 = new AssetRefApparelModifier() { Id = modifier1 ? modifier1.AssetObject.Guid : AssetGuid.Invalid },
+                Modifier2 = new AssetRefApparelModifier() { Id = modifier2 ? modifier2.AssetObject.Guid : AssetGuid.Invalid },
+                Modifier3 = new AssetRefApparelModifier() { Id = modifier3 ? modifier3.AssetObject.Guid : AssetGuid.Invalid }
+            },
+            FileGuid = AssetGuid.NewGuid()
         };
-        apparel.Modifiers.Modifier1 = new AssetRefApparelModifier() { Id = modifier1 ? modifier1.AssetObject.Guid : AssetGuid.Invalid };
-        apparel.Modifiers.Modifier2 = new AssetRefApparelModifier() { Id = modifier2 ? modifier2.AssetObject.Guid : AssetGuid.Invalid };
-        apparel.Modifiers.Modifier3 = new AssetRefApparelModifier() { Id = modifier3 ? modifier3.AssetObject.Guid : AssetGuid.Invalid };
 
         InventoryController.Instance.LoseItem(_template, 1);
-        InventoryController.Instance.LoseCurrency(_template.Price);
+        InventoryController.Instance.LoseCurrency(_template.Price + _pattern.Price);
 
-        if (_pattern && _pattern.AssetObject.Guid != AssetGuid.Invalid)
+        if (InventoryController.Instance.LoseItem(modifier1, 1))
         {
-            InventoryController.Instance.LoseItem(_pattern, 1);
-            InventoryController.Instance.LoseCurrency(_pattern.Price);
-        }
-
-        if (modifier1 && modifier1.AssetObject.Guid != AssetGuid.Invalid)
-        {
-            InventoryController.Instance.LoseItem(modifier1, 1);
             InventoryController.Instance.LoseCurrency(modifier1.Price);
         }
 
-        if (modifier2 && modifier2.AssetObject.Guid != AssetGuid.Invalid)
+        if (InventoryController.Instance.LoseItem(modifier2, 1))
         {
-            InventoryController.Instance.LoseItem(modifier2, 1);
             InventoryController.Instance.LoseCurrency(modifier2.Price);
         }
 
-        if (modifier3 && modifier3.AssetObject.Guid != AssetGuid.Invalid)
+        if (InventoryController.Instance.LoseItem(modifier3, 1))
         {
-            InventoryController.Instance.LoseItem(modifier3, 1);
             InventoryController.Instance.LoseCurrency(modifier3.Price);
         }
 
-        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
-        serializable.Value.FileGuid = serializable.Guid;
-        serializable.SetIcon(_template.Icon);
+        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, _template.Icon);
+        serializable.Save(GetPath());
 
-        Serializer.Save(serializable, serializable.Guid, GetPath());
         _lastApparel = serializable;
 
         Clear();
@@ -195,27 +188,40 @@ public class ApparelController : Controller<ApparelController>
         _onSuccessEventDelayed.Invoke(_lastApparel);
     }
 
-    private SerializableWrapper<Apparel> _currentlySelected;
+    private static SerializableWrapper<Apparel> _currentlySelected;
     public void SetCurrentlySelected(SerializableWrapper<Apparel> apparel) => _currentlySelected = apparel;
+
+    private static string _newName = "New Name";
+
+    public void InstanceRename(string name) => _newName = name;
+
+    public void InstanceSubmit() => Instance.Submit();
+
+    public void Submit()
+    {
+        _currentlySelected.SetName(_newName);
+        _currentlySelected.Save(GetPath());
+
+        FindFirstObjectByType<DisplayApparel>(FindObjectsInactive.Exclude).UpdateDisplay(_currentlySelected);
+    }
 
     public void InstanceDelete() => Instance.Delete();
 
     private void Delete()
     {
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Template.Id, 1);
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Pattern.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Pattern.Id, 1);
 
-        if (_currentlySelected.Value.Modifiers.Modifier1.Id.IsValid)
-            InventoryController.Instance.GainItem(_currentlySelected.Value.Modifiers.Modifier1.Id, 1);
+        if (_currentlySelected.value.Modifiers.Modifier1.Id.IsValid)
+            InventoryController.Instance.GainItem(_currentlySelected.value.Modifiers.Modifier1.Id, 1);
     
-        if (_currentlySelected.Value.Modifiers.Modifier2.Id.IsValid)
-            InventoryController.Instance.GainItem(_currentlySelected.Value.Modifiers.Modifier2.Id, 1);
+        if (_currentlySelected.value.Modifiers.Modifier2.Id.IsValid)
+            InventoryController.Instance.GainItem(_currentlySelected.value.Modifiers.Modifier2.Id, 1);
         
-        if (_currentlySelected.Value.Modifiers.Modifier3.Id.IsValid)
-            InventoryController.Instance.GainItem(_currentlySelected.Value.Modifiers.Modifier3.Id, 1);
+        if (_currentlySelected.value.Modifiers.Modifier3.Id.IsValid)
+            InventoryController.Instance.GainItem(_currentlySelected.value.Modifiers.Modifier3.Id, 1);
 
-        string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
+        _currentlySelected.Delete(GetPath());
 
         Destroy(ApparelPopulator.ButtonFromItem(_currentlySelected));
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
@@ -223,8 +229,8 @@ public class ApparelController : Controller<ApparelController>
 
     public void PreviewApparel(SerializableWrapper<Apparel> apparel)
     {
-        PreviewTemplate(UnityDB.FindAsset<ApparelTemplateAsset>(apparel.Value.Template.Id));
-        PreviewPattern(UnityDB.FindAsset<ApparelPatternAsset>(apparel.Value.Pattern.Id));
+        PreviewTemplate(UnityDB.FindAsset<ApparelTemplateAsset>(apparel.value.Template.Id));
+        PreviewPattern(UnityDB.FindAsset<ApparelPatternAsset>(apparel.value.Pattern.Id));
     }
 
     public void PreviewTemplate(ApparelTemplateAsset template)

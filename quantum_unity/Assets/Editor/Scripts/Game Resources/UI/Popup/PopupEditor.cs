@@ -16,7 +16,7 @@ namespace Editor.GameResources.UI.Popup
             serializedObject.Update();
             EditorGUILayout.Space(2);
 
-            _toolbarIndex = GUILayout.Toolbar(_toolbarIndex, new GUIContent[] { new("Info"), new("Events") });
+            _toolbarIndex = GUILayout.Toolbar(_toolbarIndex, new GUIContent[] { new("Info"), new("Events"), new("Input") });
             EditorGUILayout.Space(5);
 
             switch (_toolbarIndex)
@@ -28,6 +28,10 @@ namespace Editor.GameResources.UI.Popup
 
                 case 1:
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_responses"));
+                    break;
+
+                case 2:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_inputResponse"));
                     break;
             }
 

@@ -12,7 +12,7 @@ public class DisplayApparel : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        if (item is not null)
+        if (!item.Equals(default))
             return new($"<font=\"KeaniaOne-Title SDF\"><size={_fontSize}>{item.Name}</size></font>\n\n{item.Description}", item.Icon);
         else
             return new("", null);
@@ -22,16 +22,16 @@ public class DisplayApparel : DisplayTextAndImage<Type>
     {
         AssetGuid id = _type switch
         {
-            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentlySelected.Value.Equipment.Outfit.Headgear.FileGuid,
-            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentlySelected.Value.Equipment.Outfit.Clothing.FileGuid,
-            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentlySelected.Value.Equipment.Outfit.Legwear.FileGuid,
+            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Headgear.FileGuid,
+            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Clothing.FileGuid,
+            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Legwear.FileGuid,
             _ => default
         };
 
         if (id.IsValid)
-            return Serializer.LoadAs<Type>($"{ApparelController.GetPath()}/{id}.json", ApparelController.GetPath());
+            return Type.LoadAs(WeaponController.GetPath(), id);
         else
-            return null;
+            return default;
     }
 
     public void Clear()

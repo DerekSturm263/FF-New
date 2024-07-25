@@ -1,6 +1,5 @@
 using Extensions.Components.UI;
 using Extensions.Types;
-using Quantum;
 using UnityEngine;
 
 using Type = FFAvatarAsset;
@@ -12,5 +11,5 @@ public class DisplayAvatar : DisplayTextAndImage<Type>
         return new($"<font=\"KeaniaOne-Title SDF\"><size=50>{item.name}</size></font>\n\n{item.Description}", item.Icon);
     }
 
-    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.Value.Cosmetics.Avatar.Id);
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.value.Cosmetics.Avatar.Id);
 }

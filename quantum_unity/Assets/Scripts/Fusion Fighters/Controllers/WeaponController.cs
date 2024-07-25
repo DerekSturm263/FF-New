@@ -23,7 +23,7 @@ public class WeaponController : Controller<WeaponController>
 
     private string _name = "Untitled";
     public void SetName(string name) => _name = name;
-    public void ClearName() => _name = string.Empty;
+    public void ClearName() => _name = "Untitled";
 
     private string _description = string.Empty;
     public void SetDescription(string description) => _description = description;
@@ -64,7 +64,7 @@ public class WeaponController : Controller<WeaponController>
 
     public void SaveNew()
     {
-        if (!_template || !_material)
+        if (!_template || !_material || _name == string.Empty)
         {
             PopupController.Instance.Spawn(_onFail);
             return;
@@ -80,25 +80,22 @@ public class WeaponController : Controller<WeaponController>
         {
             Template = new AssetRefWeaponTemplate() { Id = _template.AssetObject.Guid },
             Material = new AssetRefWeaponMaterial() { Id = _material.AssetObject.Guid },
-            Enhancer = new AssetRefWeaponEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid }
+            Enhancer = new AssetRefWeaponEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid },
+            FileGuid = AssetGuid.NewGuid()
         };
 
         InventoryController.Instance.LoseItem(_template, 1);
         InventoryController.Instance.LoseItem(_material, 1);
-
-        if (_enhancer && _enhancer.AssetObject.Guid != AssetGuid.Invalid)
-        {
-            InventoryController.Instance.LoseItem(_enhancer, 1);
-            InventoryController.Instance.LoseCurrency(_enhancer.Price);
-        }
-        
         InventoryController.Instance.LoseCurrency(_template.Price + _material.Price);
 
-        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
-        serializable.Value.FileGuid = serializable.Guid;
-        serializable.SetIcon(_template.Icon);
+        if (InventoryController.Instance.LoseItem(_enhancer, 1))
+        {
+            InventoryController.Instance.LoseCurrency(_enhancer.Price);
+        }
 
-        Serializer.Save(serializable, serializable.Guid, GetPath());
+        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, _template.Icon);
+        serializable.Save(GetPath());
+
         _lastWeapon = serializable;
 
         Clear();
@@ -123,19 +120,32 @@ public class WeaponController : Controller<WeaponController>
         _onSuccessEventDelayed.Invoke(_lastWeapon);
     }
 
-    private SerializableWrapper<Weapon> _currentlySelected;
+    private static SerializableWrapper<Weapon> _currentlySelected;
     public void SetCurrentlySelected(SerializableWrapper<Weapon> weapon) => _currentlySelected = weapon;
+
+    private static string _newName = "New Name";
+
+    public void InstanceRename(string name) => _newName = name;
+
+    public void InstanceSubmit() => Instance.Submit();
+
+    public void Submit()
+    {
+        _currentlySelected.SetName(_newName);
+        _currentlySelected.Save(GetPath());
+
+        FindFirstObjectByType<DisplayWeapon>(FindObjectsInactive.Exclude).UpdateDisplay(_currentlySelected);
+    }
 
     public void InstanceDelete() => Instance.Delete();
 
     private void Delete()
     {
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Template.Id, 1);
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Material.Id, 1);
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Enhancer.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Material.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Enhancer.Id, 1);
 
-        string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
+        _currentlySelected.Delete(GetPath());
 
         Destroy(WeaponPopulator.ButtonFromItem(_currentlySelected));
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
@@ -143,9 +153,9 @@ public class WeaponController : Controller<WeaponController>
 
     public void PreviewWeapon(SerializableWrapper<Weapon> weapon)
     {
-        PreviewTemplate(UnityDB.FindAsset<WeaponTemplateAsset>(weapon.Value.Template.Id));
-        PreviewMaterial(UnityDB.FindAsset<WeaponMaterialAsset>(weapon.Value.Material.Id));
-        PreviewEnhancer(UnityDB.FindAsset<WeaponEnhancerAsset>(weapon.Value.Enhancer.Id));
+        PreviewTemplate(UnityDB.FindAsset<WeaponTemplateAsset>(weapon.value.Template.Id));
+        PreviewMaterial(UnityDB.FindAsset<WeaponMaterialAsset>(weapon.value.Material.Id));
+        PreviewEnhancer(UnityDB.FindAsset<WeaponEnhancerAsset>(weapon.value.Enhancer.Id));
     }
 
     public void PreviewTemplate(WeaponTemplateAsset template)

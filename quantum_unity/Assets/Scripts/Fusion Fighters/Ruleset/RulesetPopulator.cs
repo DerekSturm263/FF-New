@@ -12,7 +12,7 @@ public class RulesetPopulator : Populate<Type, long>
 
     protected override Sprite Icon(Type item) => item.Icon;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(RulesetController.GetPath()).Concat(Resources.LoadAll<RulesetAssetAsset>(FILE_PATH).Select(item => item.Ruleset));
+    protected override IEnumerable<Type> LoadAll() => FusionFighters.Serializer.LoadAllFromDirectory<Type>(RulesetController.GetPath()).Concat(Resources.LoadAll<RulesetAssetAsset>(FILE_PATH).Select(item => item.Ruleset));
 
     protected override string Name(Type item) => item.Name;
 

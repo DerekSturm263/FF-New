@@ -23,7 +23,7 @@ namespace Quantum.Demo
 
         public void OnConnectClicked()
         {
-            if (string.IsNullOrEmpty(Profile.Instance.Username.Trim()))
+            if (string.IsNullOrEmpty(PlayerJoinController.Instance.Profile.Username.Trim()))
             {
                 UIDialog.Show("Error", "User name not set.");
                 return;
@@ -53,7 +53,7 @@ namespace Quantum.Demo
             // Append selected app version
             appSettings.AppVersion += PhotonAppVersions.AppendAppVersion(PhotonAppVersions.Type.UsePhotonAppVersion, SelectableAppVersion);
 
-            if (UIMain.Client.ConnectUsingSettings(appSettings, Profile.Instance.Username))
+            if (UIMain.Client.ConnectUsingSettings(appSettings, PlayerJoinController.Instance.Profile.Username))
             {
                 HideScreen();
                 UIConnecting.ShowScreen();

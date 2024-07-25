@@ -6,14 +6,11 @@ namespace FusionFighters.Profile
 
     public class DisplayProfile : Extensions.Components.UI.DisplayTextAndImage<Type>
     {
-        protected override Type GetValue() => Type.Instance;
+        protected override Type GetValue() => PlayerJoinController.Instance.Profile;
 
         protected override Extensions.Types.Tuple<string, Sprite> GetInfo(Type item)
         {
-            if (!SteamManager.Initialized)
-                return new(string.Empty, null);
-
-            return new(item.Username, Sprite.Create(item.Icon, new(0, 0, 184, -184), Vector2.one));
+            return new(item.Username, item.Icon);
         }
     }
 }

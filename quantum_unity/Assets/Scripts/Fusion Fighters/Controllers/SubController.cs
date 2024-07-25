@@ -17,7 +17,7 @@ public class SubController : Controller<SubController>
 
     private string _name = "Untitled";
     public void SetName(string name) => _name = name;
-    public void ClearName() => _name = string.Empty;
+    public void ClearName() => _name = "Untitled";
 
     private string _description = string.Empty;
     public void SetDescription(string description) => _description = description;
@@ -57,7 +57,7 @@ public class SubController : Controller<SubController>
 
     public void SaveNew()
     {
-        if (!_template)
+        if (!_template || _name == string.Empty)
         {
             PopupController.Instance.Spawn(_onFail);
             return;
@@ -72,23 +72,21 @@ public class SubController : Controller<SubController>
         Sub sub = new()
         {
             Template = new AssetRefSubTemplate() { Id = _template.AssetObject.Guid },
-            Enhancer = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid }
+            Enhancer = new AssetRefSubEnhancer() { Id = _enhancer ? _enhancer.AssetObject.Guid : AssetGuid.Invalid },
+            FileGuid = AssetGuid.NewGuid()
         };
 
         InventoryController.Instance.LoseItem(_template, 1);
         InventoryController.Instance.LoseCurrency(_template.Price);
 
-        if (_enhancer && _enhancer.AssetObject.Guid != AssetGuid.Invalid)
+        if (InventoryController.Instance.LoseItem(_enhancer, 1))
         {
-            InventoryController.Instance.LoseItem(_enhancer, 1);
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
-        
-        SerializableWrapper<Sub> serializable = new(sub, _name, _description, AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
-        serializable.Value.FileGuid = serializable.Guid;
-        serializable.SetIcon(_template.Icon);
 
-        Serializer.Save(serializable, serializable.Guid, GetPath());
+        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, _template.Icon);
+        serializable.Save(GetPath());
+
         _lastSub = serializable;
 
         Clear();
@@ -113,18 +111,31 @@ public class SubController : Controller<SubController>
         _onSuccessEventDelayed.Invoke(_lastSub);
     }
 
-    private SerializableWrapper<Sub> _currentlySelected;
+    private static SerializableWrapper<Sub> _currentlySelected;
     public void SetCurrentlySelected(SerializableWrapper<Sub> sub) => _currentlySelected = sub;
+
+    private static string _newName = "New Name";
+
+    public void InstanceRename(string name) => _newName = name;
+
+    public void InstanceSubmit() => Instance.Submit();
+
+    public void Submit()
+    {
+        _currentlySelected.SetName(_newName);
+        _currentlySelected.Save(GetPath());
+
+        FindFirstObjectByType<DisplaySub>(FindObjectsInactive.Exclude).UpdateDisplay(_currentlySelected);
+    }
 
     public void InstanceDelete() => Instance.Delete();
 
     private void Delete()
     {
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Template.Id, 1);
-        InventoryController.Instance.GainItem(_currentlySelected.Value.Enhancer.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
+        InventoryController.Instance.GainItem(_currentlySelected.value.Enhancer.Id, 1);
 
-        string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
+        _currentlySelected.Delete(GetPath());
 
         Destroy(SubPopulator.ButtonFromItem(_currentlySelected));
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
@@ -132,8 +143,8 @@ public class SubController : Controller<SubController>
 
     public void PreviewSub(SerializableWrapper<Sub> sub)
     {
-        PreviewTemplate(UnityDB.FindAsset<SubTemplateAsset>(sub.Value.Template.Id));
-        PreviewEnhancer(UnityDB.FindAsset<SubEnhancerAsset>(sub.Value.Enhancer.Id));
+        PreviewTemplate(UnityDB.FindAsset<SubTemplateAsset>(sub.value.Template.Id));
+        PreviewEnhancer(UnityDB.FindAsset<SubEnhancerAsset>(sub.value.Enhancer.Id));
     }
 
     public void PreviewTemplate(SubTemplateAsset template)

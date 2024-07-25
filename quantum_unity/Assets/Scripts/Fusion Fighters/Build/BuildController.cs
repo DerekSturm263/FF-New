@@ -18,17 +18,17 @@ public class BuildController : Controller<BuildController>
 
     public void New()
     {
-        _currentlySelected = new(_default, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        _currentlySelected = new(_default, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<Build> build)
     {
-        Serializer.Save(build, build.Guid, GetPath());
+        build.Save(GetPath());
     }
 
     public void SaveCurrent()
     {
-        Serializer.Save(_currentlySelected, _currentlySelected.Guid, GetPath());
+        _currentlySelected.Save(GetPath());
     }
 
     public void SetName(string name)
@@ -43,16 +43,15 @@ public class BuildController : Controller<BuildController>
 
     public void Delete()
     {
-        string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
+        _currentlySelected.Delete(GetPath());
 
         Destroy(BuildPopulator.ButtonFromItem(_currentlySelected));
         FindFirstObjectByType<BuildPopulator>().GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 
-    public void SetAltWeaponOnPlayer(SerializableWrapper<Weapon> weapon)
+    public unsafe void SetAltWeaponOnPlayer(SerializableWrapper<Weapon> weapon)
     {
-        _currentlySelected.Value.Equipment.Weapons.AltWeapon = weapon;
+        _currentlySelected.value.Equipment.Weapons.AltWeapon = weapon;
 
         CommandSetAltWeapon setBuild = new()
         {
@@ -63,9 +62,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearAltWeaponOnPlayer()
+    public unsafe void ClearAltWeaponOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Weapons.AltWeapon = default;
+        _currentlySelected.value.Equipment.Weapons.AltWeapon = default;
 
         CommandSetAltWeapon setBuild = new()
         {
@@ -76,9 +75,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetAvatarOnPlayer(FFAvatarAsset avatar)
+    public unsafe void SetAvatarOnPlayer(FFAvatarAsset avatar)
     {
-        _currentlySelected.Value.Cosmetics.Avatar = new() { Id = avatar.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Avatar = new() { Id = avatar.AssetObject.Guid };
 
         CommandSetAvatar setBuild = new()
         {
@@ -89,9 +88,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetBadgeOnPlayer(BadgeAsset badge)
+    public unsafe void SetBadgeOnPlayer(BadgeAsset badge)
     {
-        _currentlySelected.Value.Equipment.Badge = new() { Id = badge.AssetObject.Guid };
+        _currentlySelected.value.Equipment.Badge = new() { Id = badge.AssetObject.Guid };
 
         CommandSetBadge setBuild = new()
         {
@@ -102,9 +101,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearBadgeOnPlayer()
+    public unsafe void ClearBadgeOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Badge = default;
+        _currentlySelected.value.Equipment.Badge = default;
 
         CommandSetBadge setBuild = new()
         {
@@ -115,9 +114,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetClothingOnPlayer(SerializableWrapper<Apparel> clothing)
+    public unsafe void SetClothingOnPlayer(SerializableWrapper<Apparel> clothing)
     {
-        _currentlySelected.Value.Equipment.Outfit.Clothing = clothing;
+        _currentlySelected.value.Equipment.Outfit.Clothing = clothing;
 
         CommandSetClothing setBuild = new()
         {
@@ -128,9 +127,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearClothingOnPlayer()
+    public unsafe void ClearClothingOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Outfit.Clothing = default;
+        _currentlySelected.value.Equipment.Outfit.Clothing = default;
 
         CommandSetClothing setBuild = new()
         {
@@ -141,9 +140,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetHeadgearOnPlayer(SerializableWrapper<Apparel> headgear)
+    public unsafe void SetHeadgearOnPlayer(SerializableWrapper<Apparel> headgear)
     {
-        _currentlySelected.Value.Equipment.Outfit.Headgear = headgear;
+        _currentlySelected.value.Equipment.Outfit.Headgear = headgear;
 
         CommandSetHeadgear setBuild = new()
         {
@@ -154,9 +153,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearHeadgearOnPlayer()
+    public unsafe void ClearHeadgearOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Outfit.Headgear = default;
+        _currentlySelected.value.Equipment.Outfit.Headgear = default;
 
         CommandSetHeadgear setBuild = new()
         {
@@ -167,9 +166,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetLegwearOnPlayer(SerializableWrapper<Apparel> legwear)
+    public unsafe void SetLegwearOnPlayer(SerializableWrapper<Apparel> legwear)
     {
-        _currentlySelected.Value.Equipment.Outfit.Legwear = legwear;
+        _currentlySelected.value.Equipment.Outfit.Legwear = legwear;
 
         CommandSetLegwear setBuild = new()
         {
@@ -180,9 +179,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearLegwearOnPlayer()
+    public unsafe void ClearLegwearOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Outfit.Legwear = default;
+        _currentlySelected.value.Equipment.Outfit.Legwear = default;
 
         CommandSetLegwear setBuild = new()
         {
@@ -193,9 +192,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetEmoteUpOnPlayer(EmoteAsset emote)
+    public unsafe void SetEmoteUpOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Up = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Up = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteUp setBuild = new()
         {
@@ -206,9 +205,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearEmoteUpOnPlayer()
+    public unsafe void ClearEmoteUpOnPlayer()
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Up = default;
+        _currentlySelected.value.Cosmetics.Emotes.Up = default;
 
         CommandSetEmoteUp setBuild = new()
         {
@@ -219,9 +218,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetEmoteDownOnPlayer(EmoteAsset emote)
+    public unsafe void SetEmoteDownOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Down = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Down = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteDown setBuild = new()
         {
@@ -232,9 +231,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearEmoteDownOnPlayer()
+    public unsafe void ClearEmoteDownOnPlayer()
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Down = default;
+        _currentlySelected.value.Cosmetics.Emotes.Down = default;
 
         CommandSetEmoteDown setBuild = new()
         {
@@ -245,9 +244,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetEmoteLeftOnPlayer(EmoteAsset emote)
+    public unsafe void SetEmoteLeftOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Left = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Left = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteLeft setBuild = new()
         {
@@ -258,9 +257,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearEmoteLeftOnPlayer()
+    public unsafe void ClearEmoteLeftOnPlayer()
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Left = default;
+        _currentlySelected.value.Cosmetics.Emotes.Left = default;
 
         CommandSetEmoteLeft setBuild = new()
         {
@@ -271,9 +270,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetEmoteRightOnPlayer(EmoteAsset emote)
+    public unsafe void SetEmoteRightOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Right = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Right = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteRight setBuild = new()
         {
@@ -284,9 +283,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearEmoteRightOnPlayer()
+    public unsafe void ClearEmoteRightOnPlayer()
     {
-        _currentlySelected.Value.Cosmetics.Emotes.Right = default;
+        _currentlySelected.value.Cosmetics.Emotes.Right = default;
 
         CommandSetEmoteRight setBuild = new()
         {
@@ -297,9 +296,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetEyesOnPlayer(EyesAsset eyes)
+    public unsafe void SetEyesOnPlayer(EyesAsset eyes)
     {
-        _currentlySelected.Value.Cosmetics.Eyes = new() { Id = eyes.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Eyes = new() { Id = eyes.AssetObject.Guid };
 
         CommandSetEyes setBuild = new()
         {
@@ -310,9 +309,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetHairOnPlayer(HairAsset hair)
+    public unsafe void SetHairOnPlayer(HairAsset hair)
     {
-        _currentlySelected.Value.Cosmetics.Hair = new() { Id = hair.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Hair = new() { Id = hair.AssetObject.Guid };
 
         CommandSetHair setBuild = new()
         {
@@ -323,9 +322,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetMainWeaponOnPlayer(SerializableWrapper<Weapon> weapon)
+    public unsafe void SetMainWeaponOnPlayer(SerializableWrapper<Weapon> weapon)
     {
-        _currentlySelected.Value.Equipment.Weapons.MainWeapon = weapon;
+        _currentlySelected.value.Equipment.Weapons.MainWeapon = weapon;
 
         CommandSetMainWeapon setBuild = new()
         {
@@ -336,9 +335,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearMainWeaponOnPlayer()
+    public unsafe void ClearMainWeaponOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Weapons.MainWeapon = default;
+        _currentlySelected.value.Equipment.Weapons.MainWeapon = default;
 
         CommandSetMainWeapon setBuild = new()
         {
@@ -349,9 +348,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetSubOnPlayer(SerializableWrapper<Sub> sub)
+    public unsafe void SetSubOnPlayer(SerializableWrapper<Sub> sub)
     {
-        _currentlySelected.Value.Equipment.Weapons.SubWeapon = sub;
+        _currentlySelected.value.Equipment.Weapons.SubWeapon = sub;
 
         CommandSetSub setBuild = new()
         {
@@ -362,9 +361,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearSubOnPlayer()
+    public unsafe void ClearSubOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Weapons.SubWeapon = default;
+        _currentlySelected.value.Equipment.Weapons.SubWeapon = default;
 
         CommandSetSub setBuild = new()
         {
@@ -375,9 +374,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetUltimateOnPlayer(UltimateAsset ultimate)
+    public unsafe void SetUltimateOnPlayer(UltimateAsset ultimate)
     {
-        _currentlySelected.Value.Equipment.Ultimate = new() { Id = ultimate.AssetObject.Guid };
+        _currentlySelected.value.Equipment.Ultimate = new() { Id = ultimate.AssetObject.Guid };
 
         CommandSetUltimate setBuild = new()
         {
@@ -388,9 +387,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void ClearUltimateOnPlayer()
+    public unsafe void ClearUltimateOnPlayer()
     {
-        _currentlySelected.Value.Equipment.Ultimate = default;
+        _currentlySelected.value.Equipment.Ultimate = default;
 
         CommandSetUltimate setBuild = new()
         {
@@ -401,9 +400,9 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetVoiceOnPlayer(VoiceAsset voice)
+    public unsafe void SetVoiceOnPlayer(VoiceAsset voice)
     {
-        _currentlySelected.Value.Cosmetics.Voice = new() { Id = voice.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Voice = new() { Id = voice.AssetObject.Guid };
 
         CommandSetVoice setBuild = new()
         {

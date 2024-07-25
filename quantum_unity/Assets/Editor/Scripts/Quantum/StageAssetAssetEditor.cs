@@ -14,9 +14,9 @@ public class StageAssetAssetEditor : Editor
 
         if (GUILayout.Button("Bake Colliders"))
         {
-            GameObject stageObj = UnityDB.FindAssetForInspector(stage.Stage.Value.Objects.Stage.Id).FindNestedObjectParent() as GameObject;
+            GameObject stageObj = UnityDB.FindAssetForInspector(stage.Stage.value.Objects.Stage.Id).FindNestedObjectParent() as GameObject;
 
-            fixed (ArrayStaticColliderInfo* colliders = &stage.Stage.Value.Objects.Colliders)
+            fixed (ArrayStaticColliderInfo* colliders = &stage.Stage.value.Objects.Colliders)
             {
                 BakeColliders(colliders, stageObj);
             }

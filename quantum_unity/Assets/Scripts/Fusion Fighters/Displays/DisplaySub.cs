@@ -11,7 +11,7 @@ public class DisplaySub : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        if (item is not null)
+        if (!item.Equals(default))
             return new($"<font=\"KeaniaOne-Title SDF\"><size={_fontSize}>{item.Name}</size></font>\n\n{item.Description}", item.Icon);
         else
             return new("", null);
@@ -19,12 +19,12 @@ public class DisplaySub : DisplayTextAndImage<Type>
 
     protected override Type GetValue()
     {
-        AssetGuid id = BuildController.Instance.CurrentlySelected.Value.Equipment.Weapons.SubWeapon.FileGuid;
+        AssetGuid id = BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.SubWeapon.FileGuid;
 
         if (id.IsValid)
-            return Serializer.LoadAs<Type>($"{SubController.GetPath()}/{id}.json", SubController.GetPath());
+            return Type.LoadAs(WeaponController.GetPath(), id);
         else
-            return null;
+            return default;
     }
 
     public void Clear()

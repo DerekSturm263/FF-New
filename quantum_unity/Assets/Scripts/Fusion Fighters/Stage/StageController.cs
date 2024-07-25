@@ -12,12 +12,12 @@ public class StageController : Controller<StageController>
     public SerializableWrapper<Stage> New()
     {
         Stage stage = new();
-        return new(stage, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        return new(stage, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<Stage> stage)
     {
-        Serializer.Save(stage, stage.Guid, GetPath());
+        stage.Save(GetPath());
     }
 
     public void Select(SerializableWrapper<Stage> stage, int playerIndex)
@@ -32,18 +32,18 @@ public class StageController : Controller<StageController>
 
     public void Load(Stage stage)
     {
-        _stage = new(stage, "", "", AssetGuid.NewGuid(), 0, 0);
+        _stage = new(stage, "", "", 0, 0, AssetGuid.NewGuid());
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()
     {
-        _stage = null;
+        _stage = default;
     }
 
     public void SendToSimulation()
     {
-        if (_stage is null)
+        if (!_stage.Equals(default))
             return;
 
         CommandSetStage setStage = new()

@@ -36,7 +36,7 @@ public class SettingsController : SpawnableController<Settings>
 
         if (!_isInitialized)
         {
-            if (Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Settings.json", $"{Application.persistentDataPath}/SaveData/Misc", out Settings settings))
+            if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Settings.json", $"{Application.persistentDataPath}/SaveData/Misc", out Settings settings))
                 _settings = settings;
             else
                 _settings = Settings.Default;
@@ -74,7 +74,7 @@ public class SettingsController : SpawnableController<Settings>
         Application.quitting -= Shutdown;
         _isInitialized = false;
 
-        Serializer.Save(_settings, "Settings", $"{Application.persistentDataPath}/SaveData/Misc");
+        FusionFighters.Serializer.Save(_settings, "Settings", $"{Application.persistentDataPath}/SaveData/Misc");
         
         base.Shutdown();
     }

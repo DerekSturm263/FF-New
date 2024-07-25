@@ -1,6 +1,5 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
-using System.Linq;
 using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
@@ -13,12 +12,12 @@ public class RulesetController : Controller<RulesetController>
     public SerializableWrapper<Ruleset> New()
     {
         Ruleset ruleset = new();
-        return new(ruleset, "Untitled", "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        return new(ruleset, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)
     {
-        Serializer.Save(ruleset, ruleset.Guid, GetPath());
+        ruleset.Save(GetPath());
     }
 
     public void Select(SerializableWrapper<Ruleset> ruleset)
@@ -33,18 +32,18 @@ public class RulesetController : Controller<RulesetController>
 
     public void Load(Ruleset ruleset)
     {
-        _ruleset = new(ruleset, "", "", AssetGuid.NewGuid(), 0, 0);
+        _ruleset = new(ruleset, "", "", 0, 0, AssetGuid.NewGuid());
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()
     {
-        _ruleset = null;
+        _ruleset = default;
     }
 
     public void SendToSimulation()
     {
-        if (_ruleset is null)
+        if (!_ruleset.Equals(default))
             return;
 
         CommandSetRuleset setRuleset = new()

@@ -14,6 +14,8 @@ namespace GameResources.UI.Popup
         
         [SerializeField] private Extensions.Types.Dictionary<string, UnityEvent<PopupContinueContext>> _responses;
         public Extensions.Types.Dictionary<string, UnityEvent<PopupContinueContext>> Responses => _responses;
-        public void InvokeResponse(string index, PopupContinueContext ctx) => _responses[index].Invoke(ctx);
+
+        [SerializeField] private Extensions.Types.Tuple<string, UnityEvent<string>> _inputResponse;
+        public Extensions.Types.Tuple<string, UnityEvent<string>> InputResponse => _inputResponse;
     }
 }

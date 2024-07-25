@@ -1,4 +1,5 @@
 using Extensions.Components.UI;
+using FusionFighters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ public class ApparelPopulator : Populate<Type, long>
 
     protected override Sprite Icon(Type item) => item.Icon;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(ApparelController.GetPath()).Where(item => UnityDB.FindAsset<ApparelTemplateAsset>(item.Value.Template.Id).Settings_ApparelTemplate.Type.HasFlag(_type));
+    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(ApparelController.GetPath()).Where(item => UnityDB.FindAsset<ApparelTemplateAsset>(item.value.Template.Id).Settings_ApparelTemplate.Type.HasFlag(_type));
 
     protected override string Name(Type item) => item.Name;
 

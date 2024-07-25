@@ -20,21 +20,21 @@ public class DisplayApparelInfo : DisplayBase
 
     public void UpdateDisplay(Type item)
     {
-        _component1.UpdateDisplay(UnityDB.FindAsset<ApparelTemplateAsset>(item.Value.Template.Id));
-        _component2.UpdateDisplay(UnityDB.FindAsset<ApparelPatternAsset>(item.Value.Pattern.Id));
+        _component1.UpdateDisplay(UnityDB.FindAsset<ApparelTemplateAsset>(item.value.Template.Id));
+        _component2.UpdateDisplay(UnityDB.FindAsset<ApparelPatternAsset>(item.value.Pattern.Id));
 
-        if (item.Value.Modifiers.Modifier1.Id.IsValid)
-            _component3.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.Value.Modifiers.Modifier1.Id));
+        if (item.value.Modifiers.Modifier1.Id.IsValid)
+            _component3.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.value.Modifiers.Modifier1.Id));
         else
             _component3.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(_none.Id));
 
-        if (item.Value.Modifiers.Modifier2.Id.IsValid)
-            _component4.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.Value.Modifiers.Modifier2.Id));
+        if (item.value.Modifiers.Modifier2.Id.IsValid)
+            _component4.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.value.Modifiers.Modifier2.Id));
         else
             _component4.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(_none.Id));
 
-        if (item.Value.Modifiers.Modifier3.Id.IsValid)
-            _component5.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.Value.Modifiers.Modifier3.Id));
+        if (item.value.Modifiers.Modifier3.Id.IsValid)
+            _component5.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.value.Modifiers.Modifier3.Id));
         else
             _component5.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(_none.Id));
     }

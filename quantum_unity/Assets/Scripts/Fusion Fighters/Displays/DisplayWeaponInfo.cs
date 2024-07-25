@@ -19,11 +19,11 @@ public class DisplayWeaponInfo : DisplayBase
 
     public void UpdateDisplay(Type item)
     {
-        _component1.UpdateDisplay(UnityDB.FindAsset<WeaponTemplateAsset>(item.Value.Template.Id));
-        _component2.UpdateDisplay(UnityDB.FindAsset<WeaponMaterialAsset>(item.Value.Material.Id));
+        _component1.UpdateDisplay(UnityDB.FindAsset<WeaponTemplateAsset>(item.value.Template.Id));
+        _component2.UpdateDisplay(UnityDB.FindAsset<WeaponMaterialAsset>(item.value.Material.Id));
 
-        if (item.Value.Enhancer.Id.IsValid)
-            _component3.UpdateDisplay(UnityDB.FindAsset<WeaponEnhancerAsset>(item.Value.Enhancer.Id));
+        if (item.value.Enhancer.Id.IsValid)
+            _component3.UpdateDisplay(UnityDB.FindAsset<WeaponEnhancerAsset>(item.value.Enhancer.Id));
         else
             _component3.UpdateDisplay(UnityDB.FindAsset<WeaponEnhancerAsset>(_none.Id));
     }

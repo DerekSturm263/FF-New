@@ -1,5 +1,4 @@
 using Quantum;
-using System;
 using UnityEngine;
 
 public class UserProfileController : SpawnableController<UserProfile>
@@ -12,20 +11,20 @@ public class UserProfileController : SpawnableController<UserProfile>
     public SerializableWrapper<UserProfile> New()
     {
         UserProfile profile = new(0.5f);
-        return new(profile, _name, "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<UserProfile> profile)
     {
-        Serializer.Save(profile, profile.Guid, GetPath());
+        profile.Save(GetPath());
     }
 
     public void SaveNew()
     {
         UserProfile profile = new();
-        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", AssetGuid.NewGuid(), System.DateTime.Now.Ticks, System.DateTime.Now.Ticks);
+        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
 
-        Serializer.Save(serialized, serialized.Guid, GetPath());
+        serialized.Save(GetPath());
     }
 
     private SerializableWrapper<UserProfile> _currentlySelected;
@@ -35,11 +34,9 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     private void Delete()
     {
-        string path = GetPath();
-        Serializer.Delete($"{path}/{_currentlySelected.Guid}.json", path);
+        _currentlySelected.Delete(GetPath());
 
         Destroy(UserProfilePopulator.ButtonFromItem(_currentlySelected));
-        //_populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 
     public void SetName(string name)
@@ -56,9 +53,9 @@ public class UserProfileController : SpawnableController<UserProfile>
         FindFirstObjectByType<DisplayUsers>()?.UpdateDisplay();
     }
 
-    private Action _action;
+    private System.Action _action;
 
-    public void DeferEvents(Action action)
+    public void DeferEvents(System.Action action)
     {
         _action = action;
     }

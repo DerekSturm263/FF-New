@@ -17,10 +17,10 @@ public class DisplaySubInfo : DisplayBase
 
     public void UpdateDisplay(Type item)
     {
-        _component1.UpdateDisplay(UnityDB.FindAsset<SubTemplateAsset>(item.Value.Template.Id));
+        _component1.UpdateDisplay(UnityDB.FindAsset<SubTemplateAsset>(item.value.Template.Id));
 
-        if (item.Value.Enhancer.Id.IsValid)
-            _component2.UpdateDisplay(UnityDB.FindAsset<SubEnhancerAsset>(item.Value.Enhancer.Id));
+        if (item.value.Enhancer.Id.IsValid)
+            _component2.UpdateDisplay(UnityDB.FindAsset<SubEnhancerAsset>(item.value.Enhancer.Id));
         else
             _component2.UpdateDisplay(UnityDB.FindAsset<SubEnhancerAsset>(_none.Id));
     }

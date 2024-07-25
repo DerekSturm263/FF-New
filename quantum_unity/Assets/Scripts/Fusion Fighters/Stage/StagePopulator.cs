@@ -12,7 +12,7 @@ public class StagePopulator : Populate<Type, long>
 
     protected override Sprite Icon(Type item) => item.Icon;
 
-    protected override IEnumerable<Type> LoadAll() => Serializer.LoadAllFromDirectory<Type>(StageController.GetPath()).Concat(Resources.LoadAll<StageAssetAsset>(FILE_PATH).Select(item => item.Stage));
+    protected override IEnumerable<Type> LoadAll() => FusionFighters.Serializer.LoadAllFromDirectory<Type>(StageController.GetPath()).Concat(Resources.LoadAll<StageAssetAsset>(FILE_PATH).Select(item => item.Stage));
 
     protected override string Name(Type item) => item.Name;
 
