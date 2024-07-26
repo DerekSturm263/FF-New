@@ -2,9 +2,11 @@
 using Extensions.Types;
 using Photon.Deterministic;
 using Quantum;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 namespace GameResources.Camera
@@ -114,7 +116,7 @@ namespace GameResources.Camera
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
             _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
 
-            QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Angle.ToUnityVector2()));
+            QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
         }
 
         private void LateUpdate()
@@ -273,12 +275,30 @@ namespace GameResources.Camera
             _instance._targets.Clear();
         }
 
-        private void Shake(AssetRefShakeSettings settings, Vector2 direction)
+        private void Shake(AssetRefShakeSettings settings, Vector2 direction, bool doHaptics)
         {
             if (!settings.Id.IsValid)
                 return;
 
-            Shake(UnityDB.FindAsset<ShakeSettingsAsset>(settings.Id).Settings, direction);
+            ShakeSettingsAsset shakeSettings = UnityDB.FindAsset<ShakeSettingsAsset>(settings.Id);
+            Shake(shakeSettings.Settings, direction);
+
+            if (doHaptics)
+            {
+                foreach (LocalPlayerInfo playerInfo in PlayerJoinController.Instance.AllPlayers.Values)
+                {
+                    StartCoroutine(Rumble(playerInfo.Device as Gamepad, playerInfo.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f));
+                }
+            }
+        }
+
+        IEnumerator Rumble(Gamepad gamepad, float frequency, float time)
+        {
+            gamepad.SetMotorSpeeds(frequency, frequency);
+
+            gamepad.ResumeHaptics();
+            yield return new WaitForSeconds(time);
+            gamepad.PauseHaptics();
         }
 
         private void Shake(ShakeSettings settings, Vector2 direction)

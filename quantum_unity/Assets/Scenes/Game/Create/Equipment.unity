@@ -12675,7 +12675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &638285313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14497,7 +14497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &721853442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18011,7 +18011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &880580237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21459,6 +21459,8 @@ GameObject:
   - component: {fileID: 1020578342}
   - component: {fileID: 1020578344}
   - component: {fileID: 1020578343}
+  - component: {fileID: 1020578346}
+  - component: {fileID: 1020578345}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -21524,6 +21526,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020578341}
   m_CullTransparentMesh: 1
+--- !u!114 &1020578345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020578341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: c6a108bf84334f1449fdb8f36ea8722c, type: 2}
+  _readContinuous: 1
+  _processWhenEmpty: 0
+  _onAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1020578343}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1020578346}
+        m_TargetAssemblyTypeName: ScrollRectHelper, GameResources
+        m_MethodName: Scroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1020578346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020578341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scrollSpeed: -2000
+  _items: {fileID: 1546101322}
 --- !u!1 &1040449431
 GameObject:
   m_ObjectHideFlags: 0
@@ -26221,7 +26285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &1338517588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35468,7 +35532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &1546101322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36339,7 +36403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &1585131994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41515,7 +41579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &1853387448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52347,7 +52411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 1
-  _padding: {x: 0, y: 0}
+  _padding: {x: 50, y: 0}
 --- !u!114 &2055435059
 MonoBehaviour:
   m_ObjectHideFlags: 0

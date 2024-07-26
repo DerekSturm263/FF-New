@@ -26,7 +26,7 @@ namespace Extensions.Components.UI
                 unityEvent.Invoke(time);
         }
 
-        protected override void Awake()
+        public void SetupEvents()
         {
             if (_useBeginningCountdown)
                 QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time, e.InvokeEvents));

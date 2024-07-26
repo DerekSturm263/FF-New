@@ -9,7 +9,7 @@ namespace GameResources.UI.Popup
         [SerializeField] private string _title;
         public string Title => _title;
 
-        [SerializeField][Multiline] private string _description;
+        [SerializeField][TextArea] private string _description;
         public string Description => _description;
         
         [SerializeField] private Extensions.Types.Dictionary<string, UnityEvent<PopupContinueContext>> _responses;

@@ -20,7 +20,9 @@ public class SettingsController : SpawnableController<Settings>
     [SerializeField] private AudioMixerGroup _uiMusic;
     [SerializeField] private AudioMixerGroup _uiSFX;
 
-    [System.NonSerialized] private Settings _settings;
+    [SerializeField] private SettingsAsset _default;
+
+    private Settings _settings;
     public Settings Settings => _settings;
 
     [System.NonSerialized] private bool _isInitialized = false;
@@ -39,7 +41,7 @@ public class SettingsController : SpawnableController<Settings>
             if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Settings.json", $"{Application.persistentDataPath}/SaveData/Misc", out Settings settings))
                 _settings = settings;
             else
-                _settings = Settings.Default;
+                _settings = _default.Settings;
 
             Application.quitting += Shutdown;
             _isInitialized = true;

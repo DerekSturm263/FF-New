@@ -51,7 +51,6 @@ namespace Extensions.Components.Input
 
                 case "Vector2":
                     Vector2 value2 = _action.ReadValue<Vector2>();
-
                     if (_processWhenEmpty || value2.x != 0 || value2.y != 0)
                         Invoke(value2);
 
@@ -86,6 +85,6 @@ namespace Extensions.Components.Input
         public void Invoke(float arg0) => _onAxisAction.Invoke(arg0);
         public void Invoke(Vector2 arg0) => _onVector2Action.Invoke(arg0);
 
-        public string Type => _action is not null ? _action?.expectedControlType : string.Empty;
+        public string Type => _button.Action is not null ? _button.Action.expectedControlType : string.Empty;
     }
 }

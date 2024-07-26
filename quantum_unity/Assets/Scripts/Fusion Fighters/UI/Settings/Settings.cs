@@ -1,16 +1,9 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public struct Settings
 {
-    public static Settings Default = new()
-    {
-        VisitedScenes = new(),
-        Gameplay = GameplaySettings.Default,
-        Graphics = GraphicsSettings.Default,
-        Audio = AudioSettings.Default
-    };
-
     public List<string> VisitedScenes;
 
     public GameplaySettings Gameplay;
@@ -133,6 +126,11 @@ public struct GraphicsColorSettings
     public static GraphicsColorSettings Default = new() { };
     public static GraphicsColorSettings ColorBlindRedGreen = new() { };
     public static GraphicsColorSettings ColorBlindBlueYellow = new() { };
+
+    public float RedMapping;
+    public float GreenMapping;
+    public float BlueMapping;
+    public float Srength;
 }
 
 [System.Serializable]
@@ -180,5 +178,23 @@ public struct AudioVolumeSettings
 [System.Serializable]
 public struct AudioSubtitleSettings
 {
+    public enum Language
+    {
+        English,
+        Mandarin,
+        Hindi,
+        Spanish,
+        French,
+        Arabic,
+        Bengali,
+        Portuguese,
+        Russian,
+        Urdu
+    }
+
     public static AudioSubtitleSettings Default = new() { };
+
+    public Color TextColor;
+    public Color BackgroundColor;
+    public Language WrittenLanguage;
 }

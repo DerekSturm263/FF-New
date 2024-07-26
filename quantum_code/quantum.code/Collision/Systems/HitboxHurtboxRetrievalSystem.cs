@@ -24,7 +24,7 @@ namespace Quantum
                         if (ownerHit == hitbox.Hitbox->Owner)
                             continue;
 
-                        f.Events.OnCameraShake(hitbox.Hitbox->Settings.HitShake, hitbox.Hitbox->Settings.Knockback.Normalized);
+                        f.Events.OnCameraShake(hitbox.Hitbox->Settings.HitShake, hitbox.Hitbox->Settings.Knockback.Normalized, false);
 
                         Log.Debug($"Hitbox hit {entityHit.Index}");
 

@@ -1,5 +1,6 @@
 event OnCameraShake
 {
 	asset_ref<ShakeSettings> Settings;
-	FPVector2 Angle;
+	FPVector2 Direction;
+	bool Global;
 }

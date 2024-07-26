@@ -760,6 +760,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Multi-Directional Scroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""d0c990d2-09b8-4227-8aaf-c43d935a29d7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Start"",
                     ""type"": ""Button"",
                     ""id"": ""8e756a37-4b9f-4df8-808e-b86321715968"",
@@ -1501,6 +1510,72 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Negative Controller"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrow Keys"",
+                    ""id"": ""95786891-0d33-4c8d-b034-32d223a21f74"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Multi-Directional Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""6958ba07-ec6c-4bdf-89d3-94793d184e55"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Multi-Directional Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""663c8129-d728-46b2-9cd8-fd4e7e7d3bee"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Multi-Directional Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""83bd0ea9-bf94-42f8-9ad6-14d9a9049757"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Multi-Directional Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""617709ca-2a39-43a0-9cbb-32ef4a8ed95b"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Multi-Directional Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba27a6b3-8b65-4eb0-ad64-afb32c1831e2"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Multi-Directional Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1874,6 +1949,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Menu_Info = m_Menu.FindAction("Info", throwIfNotFound: true);
         m_Menu_Toggle = m_Menu.FindAction("Toggle", throwIfNotFound: true);
         m_Menu_Scroll = m_Menu.FindAction("Scroll", throwIfNotFound: true);
+        m_Menu_MultiDirectionalScroll = m_Menu.FindAction("Multi-Directional Scroll", throwIfNotFound: true);
         m_Menu_Start = m_Menu.FindAction("Start", throwIfNotFound: true);
         m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
         m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
@@ -2117,6 +2193,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Info;
     private readonly InputAction m_Menu_Toggle;
     private readonly InputAction m_Menu_Scroll;
+    private readonly InputAction m_Menu_MultiDirectionalScroll;
     private readonly InputAction m_Menu_Start;
     private readonly InputAction m_Menu_Select;
     private readonly InputAction m_Menu_Pause;
@@ -2138,6 +2215,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Info => m_Wrapper.m_Menu_Info;
         public InputAction @Toggle => m_Wrapper.m_Menu_Toggle;
         public InputAction @Scroll => m_Wrapper.m_Menu_Scroll;
+        public InputAction @MultiDirectionalScroll => m_Wrapper.m_Menu_MultiDirectionalScroll;
         public InputAction @Start => m_Wrapper.m_Menu_Start;
         public InputAction @Select => m_Wrapper.m_Menu_Select;
         public InputAction @Pause => m_Wrapper.m_Menu_Pause;
@@ -2180,6 +2258,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
+            @MultiDirectionalScroll.started += instance.OnMultiDirectionalScroll;
+            @MultiDirectionalScroll.performed += instance.OnMultiDirectionalScroll;
+            @MultiDirectionalScroll.canceled += instance.OnMultiDirectionalScroll;
             @Start.started += instance.OnStart;
             @Start.performed += instance.OnStart;
             @Start.canceled += instance.OnStart;
@@ -2235,6 +2316,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
+            @MultiDirectionalScroll.started -= instance.OnMultiDirectionalScroll;
+            @MultiDirectionalScroll.performed -= instance.OnMultiDirectionalScroll;
+            @MultiDirectionalScroll.canceled -= instance.OnMultiDirectionalScroll;
             @Start.started -= instance.OnStart;
             @Start.performed -= instance.OnStart;
             @Start.canceled -= instance.OnStart;
@@ -2403,6 +2487,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInfo(InputAction.CallbackContext context);
         void OnToggle(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
+        void OnMultiDirectionalScroll(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);

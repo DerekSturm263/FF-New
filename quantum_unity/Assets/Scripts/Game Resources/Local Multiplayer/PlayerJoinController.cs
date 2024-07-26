@@ -38,6 +38,12 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     [System.NonSerialized] private Profile _profile;
     public Profile Profile => _profile;
 
+    public void SetProfileName(string name)
+    {
+        _profile.SetUsername(name);
+        FindFirstObjectByType<DisplayProfile>().UpdateDisplay();
+    }
+
     public override void Initialize()
     {
         base.Initialize();

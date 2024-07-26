@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
-    private SerializableWrapper<Stage> _stage;
-    public SerializableWrapper<Stage> Stage => _stage;
+    private SerializableWrapper<Stage>? _stage;
+    public SerializableWrapper<Stage>? Stage => _stage;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Stages";
 
@@ -38,17 +38,17 @@ public class StageController : Controller<StageController>
 
     public void ResetValue()
     {
-        _stage = default;
+        _stage = null;
     }
 
     public void SendToSimulation()
     {
-        if (!_stage.Equals(default))
+        if (_stage is null)
             return;
 
         CommandSetStage setStage = new()
         {
-            stage = _stage
+            stage = _stage.GetValueOrDefault()
         };
 
         QuantumRunner.Default.Game.SendCommand(setStage);

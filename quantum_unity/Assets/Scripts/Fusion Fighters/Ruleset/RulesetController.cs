@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
 {
-    private SerializableWrapper<Ruleset> _ruleset;
-    public SerializableWrapper<Ruleset> Ruleset => _ruleset;
+    private SerializableWrapper<Ruleset>? _ruleset;
+    public SerializableWrapper<Ruleset>? Ruleset => _ruleset;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Rulesets";
 
@@ -38,17 +38,17 @@ public class RulesetController : Controller<RulesetController>
 
     public void ResetValue()
     {
-        _ruleset = default;
+        _ruleset = null;
     }
 
     public void SendToSimulation()
     {
-        if (!_ruleset.Equals(default))
+        if (_ruleset is null)
             return;
 
         CommandSetRuleset setRuleset = new()
         {
-            ruleset = _ruleset
+            ruleset = _ruleset.GetValueOrDefault()
         };
 
         QuantumRunner.Default.Game.SendCommand(setRuleset);
