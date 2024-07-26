@@ -70,15 +70,24 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void SpawnAllPlayers()
     {
-        foreach (var player in PlayerJoinController.Instance.AllPlayers)
+        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
         {
-            SpawnPlayer(player.Value);
+            SpawnPlayer(player);
         }
     }
 
     public void SpawnPlayer(LocalPlayerInfo player)
     {
-        QuantumRunner.Default.Game.SendPlayerData(player.Index, new() { CharacterPrototype = _player.CharacterPrototype, DeviceIndex = HostClientEvents.DeviceIndex, Name = player.Profile.Name });
+        player.SetGlobalIndex(FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified));
+
+        RuntimePlayer data = new()
+        {
+            CharacterPrototype = _player.CharacterPrototype,
+            Name = player.Profile.Name,
+            Index = player.Index
+        };
+
+        QuantumRunner.Default.Game.SendPlayerData(data.Index.Local, data);
 
         if (!gameObject.activeInHierarchy)
             player?.Controls?.Menu.Disable();
@@ -88,10 +97,9 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void ApplyProfile(LocalPlayerInfo player)
     {
-        // TODO: FIX THE BELOW. IT WILL NOT WORK WHEN BOTS ARE IN.
         CommandPlayerApplyProfile command = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index, HostClientEvents.DeviceIndex),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index),
             name = player.Profile.Name
         };
 
@@ -100,10 +108,9 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void DespawnPlayer(LocalPlayerInfo player)
     {
-        // TODO: FIX THE BELOW. IT WILL NOT WORK WHEN BOTS ARE IN.
         CommandDespawnPlayer commandDespawnPlayer = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index, HostClientEvents.DeviceIndex)
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index)
         };
 
         QuantumRunner.Default.Game.SendCommand(commandDespawnPlayer);
@@ -111,7 +118,7 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void OnEnable()
     {
-        foreach (var player in PlayerJoinController.Instance.AllPlayers.Values)
+        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
         {
             player.Controls?.Player.Enable();
         }
@@ -119,7 +126,7 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void OnDisable()
     {
-        foreach (var player in PlayerJoinController.Instance.AllPlayers.Values)
+        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
         {
             player.Controls?.Player.Disable();
         }

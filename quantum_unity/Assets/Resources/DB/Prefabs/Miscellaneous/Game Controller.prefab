@@ -39,7 +39,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8319768471973749114
 Transform:
   m_ObjectHideFlags: 0
@@ -498,7 +498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerLimit: 4
-  _isEnabled: 0
+  _isEnabled: 1
+  _default: {fileID: 11400000, guid: 338a4c98dffddb74ab82481ee5d09ca1, type: 2}
 --- !u!114 &3267107267905655839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,8 +516,12 @@ MonoBehaviour:
     CharacterPrototype:
       Id:
         Value: 2996345552445967076
-    DeviceIndex: 0
     Name: 
+    Index:
+      Device: 0
+      Global: 0
+      Local: 0
+      Type: 0
 --- !u!114 &-7092123073383150721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,8 +550,12 @@ MonoBehaviour:
     CharacterPrototype:
       Id:
         Value: 0
-    DeviceIndex: 0
     Name: 
+    Index:
+      Device: 0
+      Global: 0
+      Local: 0
+      Type: 0
   _canInput: 0
 --- !u!114 &5440210475578707955
 MonoBehaviour:

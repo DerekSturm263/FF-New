@@ -6,20 +6,20 @@ namespace Quantum
     {
         public AssetRefEntityPrototype prototype;
         public Bot bot;
-        public int deviceIndex;
+        public FighterIndex index;
 
         public override void Serialize(BitStream stream)
         {
             stream.Serialize(ref prototype);
             stream.Serialize(ref bot);
-            stream.Serialize(ref deviceIndex);
+            stream.Serialize(ref index);
         }
 
         public void Execute(Frame f)
         {
             Log.Debug("AI spawned!");
 
-            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype, false, deviceIndex, "Bot");
+            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype, false, "Bot", index);
 
             if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
                 aiData->Behavior = bot.Behavior;

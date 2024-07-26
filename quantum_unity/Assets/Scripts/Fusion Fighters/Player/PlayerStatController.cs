@@ -8,17 +8,17 @@ public class PlayerStatController : MonoBehaviour
 
     public static PlayerStatController Instance;
 
-    public void Initialize(QuantumGame game, EntityRef player, QString32 name, int globalIndex)
+    public void Initialize(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
     {
-        _huds[globalIndex].gameObject.SetActive(true);
+        _huds[index.Global].gameObject.SetActive(true);
 
-        _huds[globalIndex].SetPlayerNumber(globalIndex + 1);
-        _huds[globalIndex].SetPlayerName(name);
+        _huds[index.Global].SetPlayerNumber(index.Global + 1);
+        _huds[index.Global].SetPlayerName(name);
     }
 
-    public void Destroy(QuantumGame game, EntityRef player, QString32 name, int index)
+    public void Destroy(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
     {
-        _huds[index].gameObject.SetActive(false);
+        _huds[index.Global].gameObject.SetActive(false);
     }
 
     private void Awake()
@@ -34,11 +34,11 @@ public class PlayerStatController : MonoBehaviour
         QuantumEvent.Subscribe<EventOnPlayerModifyStocks>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateStocks(e.NewStocks, e.MaxStocks));
     }
 
-    public void ShowAllReadies(bool show)
+    public void ShowAllReadies(bool doShow)
     {
         foreach (HUDPlayerLink playerHUD in _huds)
         {
-            playerHUD.ShowReadiness(show);
+            playerHUD.ShowReadiness(doShow);
         }
     }
 }

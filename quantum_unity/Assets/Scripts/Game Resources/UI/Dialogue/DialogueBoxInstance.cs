@@ -112,6 +112,11 @@ namespace GameResources.UI.Dialogue
         private void EndDialogue()
         {
             DialogueController.Instance.Despawn();
+            Invoke(nameof(InvokeDialogueEvents), _dialogue.EventDelay);
+        }
+
+        private void InvokeDialogueEvents()
+        {
             _dialogue.InvokeOnDialogueEnd();
         }
 

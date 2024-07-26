@@ -147,7 +147,7 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T> _onButtonHover;
         [SerializeField] protected UnityEvent<T> _onButtonClick;
         [SerializeField] protected UnityEvent<T> _onButtonClickError;
-        [SerializeField] protected UnityEvent<T, int> _onButtonClickMultiplayer;
+        [SerializeField] protected UnityEvent<T, Quantum.FighterIndex> _onButtonClickMultiplayer;
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
 

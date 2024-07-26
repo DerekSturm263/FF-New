@@ -11,9 +11,8 @@ public class ChooseSelector : MonoBehaviour
     {
         _inputSystem = GetComponent<CustomMultiplayerUIInputSystemModule>();
 
-        int selector = QuantumRunner.Default.Game.Frames.Verified.Global->LastSelector.Global;
+        FighterIndex selector = QuantumRunner.Default.Game.Frames.Verified.Global->LastSelector;
 
-        // TODO: FIX THE BELOW. THIS WILL NOT WORK SINCE THE LOCAL AND GLOBAL INDICES AREN'T THE SAME
-        _stages.SetActive(selector == -1 || selector == _inputSystem.PlayerInfo.Index);
+        _stages.SetActive(selector.Equals(FighterIndex.Invalid) || selector.Equals(_inputSystem.PlayerInfo.Index));
     }
 }

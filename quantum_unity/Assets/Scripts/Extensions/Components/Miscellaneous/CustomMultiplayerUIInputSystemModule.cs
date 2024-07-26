@@ -1,3 +1,4 @@
+using Photon.Deterministic;
 using Quantum.Types;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,7 +50,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         Selectable navigationTarget = null;
         bool canMove = false;
 
-        Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(dir.ToFPVector2());
+        Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(new() { X = FP.FromFloat_UNSAFE(dir.x), Y = FP.FromFloat_UNSAFE(dir.y) });
         if (direction != Quantum.Direction.Neutral)
         {
             if (direction == _lastDirection && _cooldown <= 0)
@@ -106,7 +107,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         if (!_eventSystem.currentSelectedGameObject)
             return;
 
-        PlayerEventData data = new(_eventSystem) { PlayerNum = _playerInfo.Index };
+        PlayerEventData data = new(_eventSystem) { PlayerIndex = _playerInfo.Index };
         ExecuteEvents.Execute(_eventSystem.currentSelectedGameObject, data, ExecuteEvents.submitHandler);
 
         if (_eventSystem.currentSelectedGameObject.TryGetComponent(out MultiplayerButton button))
@@ -117,7 +118,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
 
     private void Cancel()
     {
-        PlayerEventData data = new(_eventSystem) { PlayerNum = _playerInfo.Index };
+        PlayerEventData data = new(_eventSystem) { PlayerIndex = _playerInfo.Index };
         ExecuteEvents.Execute(_eventSystem.currentSelectedGameObject, data, ExecuteEvents.cancelHandler);
     }
 

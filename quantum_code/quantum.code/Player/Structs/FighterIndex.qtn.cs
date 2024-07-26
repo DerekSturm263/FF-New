@@ -1,8 +1,4 @@
-﻿using Photon.Deterministic;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe partial struct FighterIndex
     {
@@ -10,9 +6,40 @@ namespace Quantum
         {
             Local = -1,
             Global = -1,
-            Internal = -1
+            Device = -1,
+            Type = FighterType.Human
         };
 
-        public override string ToString() => $"(Local: {Local}, Global: {Global})";
+        public static FighterIndex Player1 = new()
+        {
+            Local = 0,
+            Global = 0,
+            Device = 0,
+            Type = FighterType.Human
+        };
+
+        public static int GetNextGlobalIndex(Frame f)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                if (!f.Global->PlayerSlots[i])
+                    return i;
+            }
+
+            return -1;
+        }
+
+        public static EntityRef GetPlayerFromIndex(Frame f, FighterIndex index)
+        {
+            foreach (var stats in f.GetComponentIterator<Stats>())
+            {
+                if (stats.Component.Index.Equals(index))
+                    return stats.Entity;
+            }
+
+            return EntityRef.None;
+        }
+
+        public override readonly string ToString() => $"(Local: {Local}, Global: {Global})";
     }
 }

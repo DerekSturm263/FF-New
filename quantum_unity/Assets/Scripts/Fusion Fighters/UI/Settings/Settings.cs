@@ -9,6 +9,17 @@ public struct Settings
     public GameplaySettings Gameplay;
     public GraphicsSettings Graphics;
     public AudioSettings Audio;
+
+    public Settings DeepCopy()
+    {
+        return new()
+        {
+            VisitedScenes = new(VisitedScenes),
+            Gameplay = Gameplay,
+            Graphics = Graphics,
+            Audio = Audio
+        };
+    }
 }
 
 [System.Serializable]

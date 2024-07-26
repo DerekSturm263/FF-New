@@ -16,5 +16,5 @@ public class UserProfilePopulator : Populate<Type, long>
 
     protected override Func<Type, long> Sort() => (profile) => profile.LastEditedDate;
 
-    protected override bool DoSpawn(Type item) => !PlayerJoinController.Instance.AllPlayers.Values.Any(user => user.Profile.Equals(item));
+    protected override bool DoSpawn(Type item) => !PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.Equals(item));
 }

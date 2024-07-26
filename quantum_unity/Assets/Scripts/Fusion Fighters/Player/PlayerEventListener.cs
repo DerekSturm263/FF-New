@@ -49,14 +49,14 @@ public class PlayerEventListener : MonoBehaviour
         QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
         {
             SetPlayerExpressionFocused(e.Player, 1);
-            SpawnPlayerJumpVFX(e.Game, e.Player, e.Index.Global);
+            SpawnPlayerJumpVFX(e.Game, e.Player);
 
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
         QuantumEvent.Subscribe<EventOnPlayerJump>(listener: this, handler: e =>
         {
             SetPlayerExpressionFocused(e.Player, 1);
-            SpawnPlayerDoubleJumpVFX(e.Game, e.Player, e.Index.Global);
+            SpawnPlayerDoubleJumpVFX(e.Game, e.Player);
 
             Extensions.Miscellaneous.Helper.Delay(1, () => SetPlayerExpressionNeutral(e.Player, 1));
         });
@@ -156,7 +156,7 @@ public class PlayerEventListener : MonoBehaviour
         _entityViewUpdater.GetView(e.Player).transform.localScale = new(e.Direction, 1, 1);
     }
 
-    public void SpawnPlayerJumpVFX(QuantumGame game, EntityRef player, int index)
+    public void SpawnPlayerJumpVFX(QuantumGame game, EntityRef player)
     {
         GameObject effect = VFXController.Instance.SpawnEffect(_jump);
 
@@ -164,7 +164,7 @@ public class PlayerEventListener : MonoBehaviour
             effect.transform.position = _entityViewUpdater.GetView(player).transform.position;
     }
 
-    public void SpawnPlayerDoubleJumpVFX(QuantumGame game, EntityRef player, int index)
+    public void SpawnPlayerDoubleJumpVFX(QuantumGame game, EntityRef player)
     {
         GameObject effect = VFXController.Instance.SpawnEffect(_doubleJump);
 

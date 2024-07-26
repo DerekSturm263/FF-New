@@ -1,6 +1,5 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildController : Controller<BuildController>
@@ -8,9 +7,6 @@ public class BuildController : Controller<BuildController>
     [SerializeField] private Build _default;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Builds";
-
-    private readonly Dictionary<int, EntityRef> _localIndicesToPlayers = new();
-    private readonly Dictionary<int, EntityRef> _globalIndicesToPlayers = new();
 
     private SerializableWrapper<Build> _currentlySelected;
     public SerializableWrapper<Build> CurrentlySelected => _currentlySelected;
@@ -55,7 +51,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetAltWeapon setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             weapon = weapon
         };
 
@@ -68,7 +64,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetAltWeapon setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             weapon = default
         };
 
@@ -81,7 +77,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetAvatar setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             avatar = new() { Id = avatar.AssetObject.Guid }
         };
 
@@ -94,7 +90,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetBadge setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             badge = new() { Id = badge.AssetObject.Guid }
         };
 
@@ -107,7 +103,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetBadge setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             badge = default
         };
 
@@ -120,7 +116,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetClothing setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             clothing = clothing
         };
 
@@ -133,7 +129,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetClothing setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             clothing = default
         };
 
@@ -146,7 +142,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetHeadgear setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             headgear = headgear
         };
 
@@ -159,7 +155,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetHeadgear setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             headgear = default
         };
 
@@ -172,7 +168,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetLegwear setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             legwear = legwear
         };
 
@@ -185,7 +181,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetLegwear setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             legwear = default
         };
 
@@ -198,7 +194,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteUp setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = new() { Id = emote.AssetObject.Guid }
         };
 
@@ -211,7 +207,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteUp setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = default
         };
 
@@ -224,7 +220,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteDown setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = new() { Id = emote.AssetObject.Guid }
         };
 
@@ -237,7 +233,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteDown setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = default
         };
 
@@ -250,7 +246,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteLeft setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = new() { Id = emote.AssetObject.Guid }
         };
 
@@ -263,7 +259,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteLeft setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = default
         };
 
@@ -276,7 +272,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteRight setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = new() { Id = emote.AssetObject.Guid }
         };
 
@@ -289,7 +285,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEmoteRight setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             emote = default
         };
 
@@ -302,7 +298,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetEyes setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             eyes = new() { Id = eyes.AssetObject.Guid }
         };
 
@@ -315,7 +311,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetHair setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             hair = new() { Id = hair.AssetObject.Guid }
         };
 
@@ -328,7 +324,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetMainWeapon setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             weapon = weapon
         };
 
@@ -341,7 +337,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetMainWeapon setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             weapon = default
         };
 
@@ -354,7 +350,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetSub setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             sub = sub
         };
 
@@ -367,7 +363,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetSub setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             sub = default
         };
 
@@ -380,7 +376,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetUltimate setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             ultimate = new() { Id = ultimate.AssetObject.Guid }
         };
 
@@ -393,7 +389,7 @@ public class BuildController : Controller<BuildController>
 
         CommandSetUltimate setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             ultimate = default
         };
 
@@ -406,32 +402,32 @@ public class BuildController : Controller<BuildController>
 
         CommandSetVoice setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, 0, 0),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, FighterIndex.Player1),
             voice = new() { Id = voice.AssetObject.Guid }
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public void SetOnPlayer(SerializableWrapper<Build> build, int playerIndex)
+    public void SetOnPlayer(SerializableWrapper<Build> build, FighterIndex index)
     {
         CommandSetBuild setBuild = new()
         {
-            entity = StatsSystem.GetPlayerFromLocalIndex(QuantumRunner.Default.Game.Frames.Verified, playerIndex, playerIndex),
+            entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, index),
             build = build
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
-        PlayerStatController.Instance.HUDS[playerIndex].SetPlayerIcon(build.Icon);
+        PlayerStatController.Instance.HUDS[index.Global].SetPlayerIcon(build.Icon);
     }
 
     public void SetOnPlayerDefault(SerializableWrapper<Build> build)
     {
-        SetOnPlayer(build, 0);
+        SetOnPlayer(build, FighterIndex.Player1);
     }
 
     public void SetOnPlayerDefault()
     {
-        SetOnPlayer(_currentlySelected, 0);
+        SetOnPlayer(_currentlySelected, FighterIndex.Player1);
     }
 }

@@ -39,9 +39,9 @@ public class SettingsController : SpawnableController<Settings>
         if (!_isInitialized)
         {
             if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Settings.json", $"{Application.persistentDataPath}/SaveData/Misc", out Settings settings))
-                _settings = settings;
+                _settings = settings.DeepCopy();
             else
-                _settings = _default.Settings;
+                _settings = _default.Settings.DeepCopy();
 
             Application.quitting += Shutdown;
             _isInitialized = true;

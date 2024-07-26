@@ -42,7 +42,14 @@ public class MatchController : Controller<MatchController>
         CommandSpawnAI commandSpawnAI = new()
         {
             prototype = _ai.CharacterPrototype,
-            bot = newBot
+            bot = newBot,
+            index = new()
+            {
+                Local = PlayerJoinController.Instance.GetNextLocalIndex(),
+                Device = HostClientEvents.DeviceIndex,
+                Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
+                Type = FighterType.Bot
+            }
         };
 
         QuantumRunner.Default.Game.SendCommand(commandSpawnAI);

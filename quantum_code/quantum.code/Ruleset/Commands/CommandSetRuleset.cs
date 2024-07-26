@@ -20,7 +20,7 @@ namespace Quantum
 
             if (!f.Global->LastSelector.Equals(FighterIndex.Invalid) && (ruleset.Stage.StagePicker != StagePickerType.Anyone || ruleset.Stage.StagePicker != StagePickerType.Vote))
             {
-                index = new() { Local = 0, Global = 0 };
+                index = FighterIndex.Player1;
             }
             else
             {
@@ -32,7 +32,7 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(players[0], out Stats* stats))
                     {
-                        index = stats->GetIndex(f, players[0]);
+                        index = stats->Index;
                     }
                 }
             }

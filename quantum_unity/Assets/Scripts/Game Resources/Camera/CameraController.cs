@@ -220,14 +220,14 @@ namespace GameResources.Camera
             _instance._targets.Add(new(1, target));
         }
 
-        public void FocusTarget(int index)
+        public void FocusTarget(int globalIndex)
         {
-            if (index >= _instance._targets.Count)
+            if (globalIndex >= _instance._targets.Count)
                 return;
 
             for (int i = 0; i < _instance._targets.Count; ++i)
             {
-                if (i != index)
+                if (i != globalIndex)
                     _instance._targets[i] = new(0, _instance._targets[i].Item2);
                 else
                     _instance._targets[i] = new(1, _instance._targets[i].Item2);
@@ -285,7 +285,7 @@ namespace GameResources.Camera
 
             if (doHaptics)
             {
-                foreach (LocalPlayerInfo playerInfo in PlayerJoinController.Instance.AllPlayers.Values)
+                foreach (LocalPlayerInfo playerInfo in PlayerJoinController.Instance.LocalPlayers)
                 {
                     StartCoroutine(Rumble(playerInfo.Device as Gamepad, playerInfo.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f));
                 }

@@ -38,7 +38,7 @@ namespace Quantum
 
                             // Apply damage.
                             FP damage = -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense);
-                            f.Events.OnPlayerHit(ownerHit, hitStats->GetIndex(f, ownerHit), damage);
+                            f.Events.OnPlayerHit(ownerHit, hitStats->Index, damage);
 
                             if (StatsSystem.ModifyHealth(f, ownerHit, hitStats, damage))
                             {
@@ -87,7 +87,7 @@ namespace Quantum
                             }
                         }
 
-                        f.Events.OnHitboxHurtboxCollision(hitbox.Hitbox->Owner, f.Unsafe.GetPointer<Stats>(hitbox.Hitbox->Owner)->GetIndex(f, hitbox.Hitbox->Owner), ownerHit, f.Unsafe.GetPointer<Stats>(ownerHit)->GetIndex(f, ownerHit), hitbox.Hitbox->Settings);
+                        f.Events.OnHitboxHurtboxCollision(hitbox.Hitbox->Owner, f.Unsafe.GetPointer<Stats>(hitbox.Hitbox->Owner)->Index, ownerHit, f.Unsafe.GetPointer<Stats>(ownerHit)->Index, hitbox.Hitbox->Settings);
                     }
                 }
             }

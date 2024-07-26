@@ -1,7 +1,21 @@
+enum FighterType
+{
+    Human,
+    Bot
+}
+
 [Serializable]
 struct FighterIndex
 {
+    // The player's local player index.
     int Local;
+
+    // The player's device index.
+    int Device;
+
+    // The player's global player index.
     int Global;
-    int Internal;
+
+    // The type of player this is.
+    FighterType Type;
 }

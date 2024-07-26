@@ -19,9 +19,9 @@ public class InventoryController : Controller<InventoryController>
         if (!_isInitialized)
         {
             if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Inventory.json", $"{Application.persistentDataPath}/SaveData/Misc", out Inventory inventory))
-                _inventory = inventory;
+                _inventory = inventory.DeepCopy();
             else
-                _inventory = _default.Inventory;
+                _inventory = _default.Inventory.DeepCopy();
 
             Application.quitting += Shutdown;
             _isInitialized = true;

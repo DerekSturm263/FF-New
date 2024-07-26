@@ -1,5 +1,5 @@
+using Quantum;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Selector : MonoBehaviour
@@ -16,10 +16,10 @@ public class Selector : MonoBehaviour
         _rect = GetComponent<RectTransform>();
     }
 
-    public void Initialize(int playerNum)
+    public void Initialize(FighterIndex playerIndex)
     {
-        _arrow.color = _colors[playerNum];
-        _label.SetText($"P{playerNum + 1}");
+        _arrow.color = _colors[playerIndex.Global];
+        _label.SetText($"P{playerIndex.Global + 1}");
     }
 
     public void ChildToSelected(GameObject selected)

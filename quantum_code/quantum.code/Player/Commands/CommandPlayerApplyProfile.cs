@@ -20,7 +20,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {
                 stats->Name = name;
-                f.Events.OnPlayerSetName(entity, stats->GetIndex(f, entity), stats->Name);
+                f.Events.OnPlayerSetName(entity, stats->Index, stats->Name);
             }
         }
     }

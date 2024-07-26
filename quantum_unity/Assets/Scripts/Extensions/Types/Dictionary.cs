@@ -8,6 +8,9 @@ namespace Extensions.Types
     {
         [SerializeField] private List<Tuple<TKey, TValue>> _kvps = new();
 
+        public Dictionary() : base() { }
+        public Dictionary(IDictionary<TKey, TValue> dictionary) : base(dictionary) { }
+
         public void OnBeforeSerialize()
         {
             _kvps.Clear();

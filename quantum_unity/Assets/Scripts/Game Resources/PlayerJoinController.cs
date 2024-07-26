@@ -1,13 +1,14 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-using Extensions.Types;
 using System.Linq;
 using FusionFighters.Profile;
+using Quantum;
+using System.Collections.Generic;
 
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
-    [System.NonSerialized] private Dictionary<InputDevice, LocalPlayerInfo> _allPlayers = new();
-    public Dictionary<InputDevice, LocalPlayerInfo> AllPlayers => _allPlayers;
+    private List<LocalPlayerInfo> _allPlayers = new();
+    public List<LocalPlayerInfo> LocalPlayers => _allPlayers;
 
     private Controls _controls;
 
@@ -33,10 +34,12 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     private bool _executeEvents = true;
     public void SetExecuteEvents(bool isEnabled) => _executeEvents = isEnabled;
 
-    [System.NonSerialized] private bool _isInitialized = false;
+    [SerializeField] private ProfileAsset _default;
 
-    [System.NonSerialized] private Profile _profile;
+    private Profile _profile;
     public Profile Profile => _profile;
+
+    [System.NonSerialized] private bool _isInitialized = false;
 
     public void SetProfileName(string name)
     {
@@ -56,9 +59,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         if (!_isInitialized)
         {
             if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Profile.json", $"{Application.persistentDataPath}/SaveData/Misc", out Profile profile))
-                _profile = profile;
+                _profile = profile.DeepCopy();
             else
-                _profile = Profile.Default;
+                _profile = _default.Profile.DeepCopy();
 
             _allPlayers.Clear();
 
@@ -129,17 +132,24 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     public LocalPlayerInfo AddPlayer(InputDevice device)
     {
-        if (_allPlayers.ContainsKey(device))
-            return _allPlayers[device];
+        if (_allPlayers.Any(item => item.Device == device))
+            return _allPlayers.First(item => item.Device == device);
 
-        int index = NextIndex();
-        if (index == -1)
+        int localIndex = GetNextLocalIndex();
+        if (localIndex == -1)
             return null;
 
-        LocalPlayerInfo player = new(device);
-        _allPlayers.Add(device, player);
+        FighterIndex index = new()
+        {
+            Local = localIndex,
+            Device = HostClientEvents.DeviceIndex,
+            Global = -1,
+            Type = FighterType.Human
+        };
 
-        player.SetIndex(index);
+        LocalPlayerInfo player = new(device, index);
+        _allPlayers.Add(player);
+
         Debug.Log($"Player {player.Index} has joined via {device?.displayName}");
 
         return player;
@@ -147,7 +157,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     public LocalPlayerInfo GetPlayer(InputDevice device)
     {
-        if (_allPlayers.TryGetValue(device, out var player))
+        var player = _allPlayers.FirstOrDefault(item => item.Device == device);
+        if (player is not null)
             return player;
 
         return null;
@@ -158,7 +169,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         if (localIndex < 0 || localIndex >= _allPlayers.Count)
             return null;
 
-        return _allPlayers.ElementAt(localIndex).Value;
+        return _allPlayers.ElementAt(localIndex);
     }
 
     public LocalPlayerInfo RemovePlayer(InputDevice device) => RemovePlayer(GetPlayer(device));
@@ -167,22 +178,22 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     {
         for (int i = 0; i < _allPlayers.Count; ++i)
         {
-            RemovePlayer(_allPlayers.First().Value);
+            RemovePlayer(_allPlayers.First());
         }
     }
 
     public LocalPlayerInfo RemovePlayer(LocalPlayerInfo player)
     {
         if (player is not null)
-            _allPlayers.Remove(player.Device);
+            _allPlayers.Remove(player);
 
         Debug.Log($"Player has left the game");
         return player;
     }
 
-    public int NextIndex()
+    public int GetNextLocalIndex()
     {
-        int[] indicesInUse = _allPlayers.Values.Select(item => item.Index).ToArray();
+        int[] indicesInUse = _allPlayers.Select(item => item.Index.Local).ToArray();
         
         for (int i = 0; i < 4; ++i)
         {

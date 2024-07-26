@@ -8,12 +8,12 @@ namespace Quantum
         {
             RuntimePlayer data = f.GetPlayerData(player);
             EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
-            SpawnPlayer(f, player, prototype, true, data.DeviceIndex, data.Name);
+            SpawnPlayer(f, player, prototype, true, data.Name, data.Index);
 
             ++f.Global->TotalPlayers;
         }
 
-        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, int deviceIndex, string name)
+        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index)
         {
             EntityRef entity = f.Create(prototype);
 
@@ -25,11 +25,9 @@ namespace Quantum
 
             Stats* stats = f.Unsafe.GetPointer<Stats>(entity);
             StatsSystem.SetBuild(f, entity, stats, stats->Build);
+            stats->Index = index;
 
-            AddPlayerToList(f, entity, deviceIndex);
-            stats->DeviceIndex = deviceIndex;
-
-            FighterIndex index = stats->GetIndex(f, entity);
+            AddPlayerToList(f, entity, index);
 
             if (assignLink)
             {
@@ -61,32 +59,24 @@ namespace Quantum
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
             Stats stats = f.Get<Stats>(player);
-            f.Events.OnPlayerDespawn(player, stats.GetIndex(f, player), stats.Name);
+            f.Events.OnPlayerDespawn(player, stats.Index, stats.Name);
 
-            RemovePlayerFromList(f, player, stats);
+            RemovePlayerFromList(f, stats.Index);
             f.Destroy(player);
 
             --f.Global->TotalPlayers;
         }
 
-        public static bool AddPlayerToList(Frame f, EntityRef player, int deviceIndex)
+        public static void AddPlayerToList(Frame f, EntityRef player, FighterIndex index)
         {
-            for (int i = 0; i < 4; ++i)
-            {
-                if (!f.Global->AllPlayers[deviceIndex * 4 + i].IsValid)
-                {
-                    f.Global->AllPlayers[deviceIndex * 4 + i] = player;
-                    return true;
-                }
-            }
-
-            return false;
+            f.Global->PlayerSlots[index.Global] = true;
+            f.Global->Players[index.Global] = player;
         }
 
-        public static void RemovePlayerFromList(Frame f, EntityRef player, Stats stats)
+        public static void RemovePlayerFromList(Frame f, FighterIndex index)
         {
-            FighterIndex index = stats.GetIndex(f, player);
-            f.Global->AllPlayers[index.Internal] = EntityRef.None;
+            f.Global->PlayerSlots[index.Global] = false;
+            f.Global->Players[index.Global] = EntityRef.None;
         }
     }
 }

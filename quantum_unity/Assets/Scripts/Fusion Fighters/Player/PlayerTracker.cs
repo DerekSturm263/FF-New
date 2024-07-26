@@ -21,12 +21,12 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 
     protected abstract void Action(GameObject player, T t);
 
-    public void TrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
+    public void TrackPlayer(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
     {
         _playersToTs.TryAdd(player, GetT(game, player, name, index));
     }
 
-    public void UntrackPlayer(QuantumGame game, EntityRef player, QString32 name, int index)
+    public void UntrackPlayer(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
     {
         if (_playersToTs.TryGetValue(player, out T t))
             CleanUp(t);
@@ -34,6 +34,6 @@ public abstract class PlayerTracker<T> : MonoBehaviour
         _playersToTs.Remove(player);
     }
 
-    protected abstract T GetT(QuantumGame game, EntityRef player, QString32 name, int index);
+    protected abstract T GetT(QuantumGame game, EntityRef player, QString32 name, FighterIndex index);
     protected abstract void CleanUp(T t);
 }

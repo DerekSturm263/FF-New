@@ -6,13 +6,6 @@ namespace FusionFighters.Profile
     [System.Serializable]
     public struct Profile
     {
-        public static Profile Default = new()
-        {
-            _level = 1,
-            _username = new(true, "New Player"),
-            _icon = new(true, Texture2D.whiteTexture)
-        };
-
         [SerializeField] private Extensions.Types.Tuple<bool, string> _username;
         public readonly string Username => SteamManager.Initialized && _username.Item1 ? SteamFriends.GetPersonaName() : _username.Item2; 
         public void SetUsername(string username) => _username = new(false, username);
@@ -51,15 +44,6 @@ namespace FusionFighters.Profile
         }
         public void SetIcon(Texture2D icon) => _icon = new(false, icon);
 
-        /*[SerializeField] private IconFrame _iconFrame;
-        public IconFrame IconFrame => _iconFrame;
-
-        [SerializeField] private CardBackground _cardBackground;
-        public CardBackground CardBackground => _cardBackground;
-
-        [SerializeField] private List<Extensions.Types.Positional<Stamp>> _stamps;
-        public List<Extensions.Types.Positional<Stamp>> Stamps => _stamps;*/
-
         [SerializeField] private float _level;
         public int Level => (int)_level;
         public float Experience => _level - Level;
@@ -74,6 +58,14 @@ namespace FusionFighters.Profile
                 user.InvokeOnLevelUp(oldLevel, newLevel);*/
         }
 
-        public static string FilePath => $"{Application.persistentDataPath}";
+        public Profile DeepCopy()
+        {
+            return new()
+            {
+                _username = _username,
+                _icon = _icon,
+                _level = _level
+            };
+        }
     }
 }

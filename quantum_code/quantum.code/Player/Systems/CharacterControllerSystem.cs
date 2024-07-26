@@ -62,7 +62,7 @@ namespace Quantum
 
             while (playerFilter.Next(&player))
             {
-                player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.Stats->GetIndex(f, player.Entity).Global);
+                player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.Stats->Index.Global);
             }
         }
 

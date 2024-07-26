@@ -1,3 +1,4 @@
+using Quantum;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
@@ -17,11 +18,11 @@ public class LocalPlayerInfo
     public SerializableWrapper<UserProfile> Profile => _profile;
     public void SetProfile(SerializableWrapper<UserProfile> profile) => _profile = profile;
 
-    private int _index;
-    public int Index => _index;
-    public void SetIndex(int index) => _index = index;
+    private FighterIndex _index;
+    public FighterIndex Index => _index;
+    public void SetGlobalIndex(int index) => _index.Global = index;
 
-    public LocalPlayerInfo(InputDevice device)
+    public LocalPlayerInfo(InputDevice device, FighterIndex index)
     {
         if (device is not null)
         {
@@ -31,6 +32,8 @@ public class LocalPlayerInfo
             BindControls();
             Enable();
         }
+
+        _index = index;
     }
 
     public void BindControls()
@@ -44,6 +47,7 @@ public class LocalPlayerInfo
             _user.ActivateControlScheme(scheme.Value);
         }
     }
+
     public void Enable() => _controls.Enable();
     public void Disable() => _controls.Disable();
 }

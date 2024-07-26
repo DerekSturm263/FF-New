@@ -305,6 +305,21 @@ namespace Quantum
             stream.Serialize(ref value.BitMask);
         }
 
+        public static unsafe void Serialize(this IBitStream stream, ref FighterIndex value)
+        {
+            stream.Serialize(ref value.Local);
+            stream.Serialize(ref value.Device);
+            stream.Serialize(ref value.Global);
+            stream.Serialize(ref value.Type);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref FighterType value)
+        {
+            int intValue = (int)value;
+            stream.Serialize(ref intValue);
+            value = (FighterType)intValue;
+        }
+
         #endregion
     }
 }

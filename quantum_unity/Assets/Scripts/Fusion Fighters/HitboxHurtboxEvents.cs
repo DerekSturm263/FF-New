@@ -17,8 +17,14 @@ public class HitboxHurtboxEvents : MonoBehaviour
 
     private void HandleHitboxHurtboxCollision(EventOnHitboxHurtboxCollision e)
     {
-        LocalPlayerInfo player = PlayerJoinController.Instance.GetPlayer(e.DefenderIndex.Local);
-        StartCoroutine(Rumble(player.Device as Gamepad, player.Profile.value.HapticStrength * e.Settings.TargetShakeIntensity.AsFloat * 0.1f, 0.3f));
+        foreach (LocalPlayerInfo player in PlayerJoinController.Instance.LocalPlayers)
+        {
+            if (player.Index.Equals(e.DefenderIndex))
+            {
+                StartCoroutine(Rumble(player.Device as Gamepad, player.Profile.value.HapticStrength * e.Settings.TargetShakeIntensity.AsFloat * 0.1f, 0.3f));
+                continue;
+            }
+        }
     }
 
     private void HandleHitboxSpawnDespawn(EventOnHitboxSpawnDespawn e)

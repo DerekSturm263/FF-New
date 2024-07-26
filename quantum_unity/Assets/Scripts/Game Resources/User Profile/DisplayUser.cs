@@ -10,7 +10,7 @@ public class DisplayUser : MonoBehaviour
 
     public void SetUser(LocalPlayerInfo playerInfo)
     {
-        _playerNum.SetText($"P{playerInfo.Index + 1}");
+        _playerNum.SetText($"P{playerInfo.Index.Global + 1}");
         _playerName.SetText(playerInfo.Profile.Name);
 
         _controllerIcon.sprite = InputMapperController.Instance.GetIcon(playerInfo.Device.displayName);

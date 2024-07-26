@@ -16,6 +16,7 @@ namespace Extensions.Components.UI
         [SerializeField] private bool _trimStart;
         [SerializeField] private bool _trimEnd;
         [SerializeField] private bool _useBeginningCountdown;
+        [SerializeField] private bool _showDuringEditMode;
 
         [SerializeField] private Types.Dictionary<int, UnityEvent<int>> _tickEvents;
         [SerializeField] private UnityEvent<string> _onTick;
@@ -26,15 +27,18 @@ namespace Extensions.Components.UI
                 unityEvent.Invoke(time);
         }
 
-        public void SetupEvents()
+        protected override unsafe void Awake()
         {
             if (_useBeginningCountdown)
-                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time, e.InvokeEvents));
+                QuantumEvent.Subscribe<EventOnBeginningCountdown>(listener: this, handler: e => UpdateTimer(e.Time, true, e.InvokeEvents));
             else
-                QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e => UpdateTimer(e.Time, e.InvokeEvents));
+                QuantumEvent.Subscribe<EventOnTimerTick>(listener: this, handler: e => UpdateTimer(e.Time, true, e.InvokeEvents));
+
+            if (_showDuringEditMode)
+                UpdateTimer(QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Ruleset.Match.Time, true, false);
         }
 
-        private void UpdateTimer(int time, bool invokeEvents)
+        private void UpdateTimer(int time, bool invokeTickEvent, bool invokeSpecialEvents)
         {
             _time = System.TimeSpan.FromSeconds(time);
 
@@ -44,9 +48,10 @@ namespace Extensions.Components.UI
             if (_trimEnd)
                 text = text.TrimEnd('0');
 
-            _onTick.Invoke(text);
+            if (invokeTickEvent)
+                _onTick.Invoke(text);
 
-            if (invokeEvents)
+            if (invokeSpecialEvents)
                 InvokeTickEvent(time);
         }
     }

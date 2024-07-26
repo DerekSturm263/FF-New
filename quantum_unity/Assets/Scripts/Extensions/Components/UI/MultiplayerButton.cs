@@ -14,7 +14,7 @@ public class MultiplayerButton : Selectable, ISubmitHandler
     /// <summary>
     /// Function definition for a button click event.
     /// </summary>
-    public class ButtonClickedEvent : UnityEvent<int> { }
+    public class ButtonClickedEvent : UnityEvent<FighterIndex> { }
 
     // Event delegates triggered on click.
     [SerializeField]
@@ -29,7 +29,7 @@ public class MultiplayerButton : Selectable, ISubmitHandler
         set { m_OnClick = value; }
     }
 
-    private void Press(int playerNum)
+    private void Press(FighterIndex index)
     {
         if (!IsActive() || !IsInteractable())
             return;
@@ -40,7 +40,7 @@ public class MultiplayerButton : Selectable, ISubmitHandler
 
     public virtual void OnSubmit(BaseEventData eventData)
     {
-        Press((eventData as PlayerEventData).PlayerNum);
+        Press((eventData as PlayerEventData).PlayerIndex);
 
         // if we get set disabled during the press
         // don't run the coroutine.

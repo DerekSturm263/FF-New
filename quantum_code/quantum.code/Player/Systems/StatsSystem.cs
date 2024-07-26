@@ -96,7 +96,7 @@ namespace Quantum
             if (stats->CurrentHealth > f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 stats->CurrentHealth = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
 
-            f.Events.OnPlayerModifyHealth(entityRef, stats->GetIndex(f, entityRef), oldHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
+            f.Events.OnPlayerModifyHealth(entityRef, stats->Index, oldHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
 
             if (stats->CurrentHealth <= 0)
             {
@@ -145,7 +145,7 @@ namespace Quantum
             else if (stats->CurrentEnergy < 0)
                 stats->CurrentEnergy = 0;
 
-            f.Events.OnPlayerModifyEnergy(entityRef, stats->GetIndex(f, entityRef), oldEnergy, stats->CurrentEnergy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
+            f.Events.OnPlayerModifyEnergy(entityRef, stats->Index, oldEnergy, stats->CurrentEnergy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
         }
 
         public static void SetAllEnergy(Frame f, FP amount)
@@ -171,7 +171,7 @@ namespace Quantum
             else if (stats->CurrentStocks < 0)
                 stats->CurrentStocks = 0;
 
-            f.Events.OnPlayerModifyStocks(entityRef, stats->GetIndex(f, entityRef), oldStocks, stats->CurrentStocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
+            f.Events.OnPlayerModifyStocks(entityRef, stats->Index, oldStocks, stats->CurrentStocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
         }
 
         public static void SetAllStocks(Frame f, int amount)
@@ -443,34 +443,34 @@ namespace Quantum
             }
         }
 
-        public static EntityRef GetPlayerFromGlobalIndex(Frame f, int index)
-        {
-            int j = -1;
-            for (int i = 0; i < 16; ++i)
-            {
-                if (f.Global->AllPlayers[i].IsValid)
-                    ++j;
+        //public static EntityRef GetPlayerFromGlobalIndex(Frame f, int index)
+        //{
+        //    int j = -1;
+        //    for (int i = 0; i < 16; ++i)
+        //    {
+        //        if (f.Global->AllPlayers[i].IsValid)
+        //            ++j;
 
-                if (j == index)
-                    return f.Global->AllPlayers[i];
-            }
+        //        if (j == index)
+        //            return f.Global->AllPlayers[i];
+        //    }
 
-            return EntityRef.None;
-        }
+        //    return EntityRef.None;
+        //}
 
-        public static EntityRef GetPlayerFromLocalIndex(Frame f, int index, int deviceIndex)
-        {
-            int j = -1;
-            for (int i = 0; i < 4; ++i)
-            {
-                if (f.Global->AllPlayers[deviceIndex * 4 + i].IsValid)
-                    ++j;
+        //public static EntityRef GetPlayerFromLocalIndex(Frame f, int index, int deviceIndex)
+        //{
+        //    int j = -1;
+        //    for (int i = 0; i < 4; ++i)
+        //    {
+        //        if (f.Global->AllPlayers[deviceIndex * 4 + i].IsValid)
+        //            ++j;
 
-                if (j == index)
-                    return f.Global->AllPlayers[deviceIndex * 4 + i];
-            }
+        //        if (j == index)
+        //            return f.Global->AllPlayers[deviceIndex * 4 + i];
+        //    }
             
-            return EntityRef.None;
-        }
+        //    return EntityRef.None;
+        //}
     }
 }

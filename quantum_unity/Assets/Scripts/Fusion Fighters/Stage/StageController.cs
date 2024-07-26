@@ -20,7 +20,7 @@ public class StageController : Controller<StageController>
         stage.Save(GetPath());
     }
 
-    public void Select(SerializableWrapper<Stage> stage, int playerIndex)
+    public void Select(SerializableWrapper<Stage> stage, FighterIndex index)
     {
         _stage = stage;
     }

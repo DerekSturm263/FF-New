@@ -1,5 +1,4 @@
 using Extensions.Components.UI;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,5 +23,5 @@ public class DisplayUsers : Display<LocalPlayerInfo[], UnityEvent<LocalPlayerInf
         }
     }
 
-    protected override LocalPlayerInfo[] GetValue() => PlayerJoinController.Instance.AllPlayers.Values.ToArray();
+    protected override LocalPlayerInfo[] GetValue() => PlayerJoinController.Instance.LocalPlayers.ToArray();
 }
