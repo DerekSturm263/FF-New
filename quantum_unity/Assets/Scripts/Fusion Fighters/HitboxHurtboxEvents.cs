@@ -17,27 +17,14 @@ public class HitboxHurtboxEvents : MonoBehaviour
 
     private void HandleHitboxHurtboxCollision(EventOnHitboxHurtboxCollision e)
     {
-        foreach (LocalPlayerInfo player in PlayerJoinController.Instance.LocalPlayers)
+        if (PlayerJoinController.Instance.TryGetPlayer(e.DefenderIndex, out LocalPlayerInfo player))
         {
-            if (player.Index.Equals(e.DefenderIndex))
-            {
-                StartCoroutine(Rumble(player.Device as Gamepad, player.Profile.value.HapticStrength * e.Settings.TargetShakeIntensity.AsFloat * 0.1f, 0.3f));
-                continue;
-            }
+            PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * e.Settings.TargetShakeIntensity.AsFloat * 0.1f, 0.3f);
         }
     }
 
     private void HandleHitboxSpawnDespawn(EventOnHitboxSpawnDespawn e)
     {
         _viewUpdater.GetView(e.Owner).gameObject.GetComponentInChildren<TrailRenderer>().emitting = e.IsEnabled;
-    }
-
-    IEnumerator Rumble(Gamepad gamepad, float frequency, float time)
-    {
-        gamepad.SetMotorSpeeds(frequency, frequency);
-
-        gamepad.ResumeHaptics();
-        yield return new WaitForSeconds(time);
-        gamepad.PauseHaptics();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Extensions.Components.Miscellaneous;
 using Extensions.Types;
 using Photon.Deterministic;
+using Photon.Realtime;
 using Quantum;
 using System.Collections;
 using System.Collections.Generic;
@@ -84,7 +85,13 @@ namespace GameResources.Camera
             SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(guid));
         }
 
+        public void StartParticles()
+        {
+            _instance._particleSystem.Play();
+        }
+
         private EntityViewUpdater _entityView;
+        private ParticleSystem _particleSystem;
         private Volume _volume;
 
         private Vector3 _targetPosition;
@@ -111,6 +118,7 @@ namespace GameResources.Camera
             _targetRotation = transform.rotation;
 
             _cam = GetComponent<UnityEngine.Camera>();
+            _particleSystem = GetComponentInChildren<ParticleSystem>();
             _volume = GetComponent<Volume>();
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
@@ -285,20 +293,11 @@ namespace GameResources.Camera
 
             if (doHaptics)
             {
-                foreach (LocalPlayerInfo playerInfo in PlayerJoinController.Instance.LocalPlayers)
+                foreach (LocalPlayerInfo player in PlayerJoinController.Instance.LocalPlayers)
                 {
-                    StartCoroutine(Rumble(playerInfo.Device as Gamepad, playerInfo.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f));
+                    PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
                 }
             }
-        }
-
-        IEnumerator Rumble(Gamepad gamepad, float frequency, float time)
-        {
-            gamepad.SetMotorSpeeds(frequency, frequency);
-
-            gamepad.ResumeHaptics();
-            yield return new WaitForSeconds(time);
-            gamepad.PauseHaptics();
         }
 
         private void Shake(ShakeSettings settings, Vector2 direction)

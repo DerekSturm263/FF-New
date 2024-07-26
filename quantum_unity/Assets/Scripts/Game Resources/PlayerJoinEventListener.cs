@@ -39,7 +39,9 @@ public class PlayerJoinEventListener :  MonoBehaviour
         _isEnabled = true;
 
         foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        {
             InvokeOnPlayerJoin(player);
+        }
     }
 
     public void BindSelectScreens(LocalPlayerInfo player)

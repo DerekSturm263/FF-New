@@ -37,8 +37,7 @@ public class LocalInputController : Controller<LocalInputController>
         if (!_canInput)
             return;
 
-        LocalPlayerInfo player = PlayerJoinController.Instance.GetPlayer(callback.Player);
-        if (player is null)
+        if (!PlayerJoinController.Instance.TryGetPlayer(callback.Player, out LocalPlayerInfo player))
         {
             callback.SetInput(new(), DeterministicInputFlags.Repeatable);
             return;

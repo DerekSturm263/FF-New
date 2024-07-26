@@ -10,7 +10,8 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     public SerializableWrapper<UserProfile> New()
     {
-        UserProfile profile = new(0.5f);
+        UserProfile profile = new(_hapticStrength);
+
         return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
@@ -21,7 +22,7 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     public void SaveNew()
     {
-        UserProfile profile = new();
+        UserProfile profile = new(_hapticStrength);
         SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
 
         serialized.Save(GetPath());
@@ -46,6 +47,13 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     private string _name;
     public void SetNameUnfinished(string name) => _name = name;
+
+    private float _hapticStrength;
+    public void SetHapticStrengthUnfinished(float hapticStrength)
+    {
+        _hapticStrength = hapticStrength;
+        PlayerJoinController.Instance.Rumble(_player, _hapticStrength, 0.1f);
+    }
 
     public void SetOnPlayer(SerializableWrapper<UserProfile> profile)
     {

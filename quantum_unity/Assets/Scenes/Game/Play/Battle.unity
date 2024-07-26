@@ -781,6 +781,19 @@ MonoBehaviour:
           m_StringArgument: Countdown
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
+        m_MethodName: SetCameraSettingsFromCurrentStageZoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Countdown
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAllPlayersCancel:
     m_PersistentCalls:
       m_Calls:
@@ -886,6 +899,19 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pre-Game
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Camera.CameraController, GameResources
+        m_MethodName: SetCameraSettingsFromCurrentStageDefault
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1448,6 +1474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434108028}
   - component: {fileID: 434108029}
+  - component: {fileID: 434108030}
   m_Layer: 0
   m_Name: Scene Setup
   m_TagString: Untagged
@@ -1597,6 +1624,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &434108030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434108027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57ea18069d50c743ad01257952df86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &440949428
 GameObject:
   m_ObjectHideFlags: 0
@@ -7544,8 +7583,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.size
-      value: 9
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
@@ -7565,12 +7614,12 @@ PrefabInstance:
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[9].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[10].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
@@ -7580,6 +7629,12 @@ PrefabInstance:
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
+        type: 3}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
         type: 3}
@@ -7630,13 +7685,13 @@ PrefabInstance:
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[9].m_Target
       value: 
-      objectReference: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+      objectReference: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
         type: 3}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[10].m_Target
       value: 
-      objectReference: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+      objectReference: {fileID: 2654408415023315440, guid: 344a6686efe77ed41989cfbe5099f1ab,
         type: 3}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
@@ -7646,8 +7701,18 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
       propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: FocusTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetCameraSettingsFromCurrentStageDefault
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
@@ -7692,17 +7757,22 @@ PrefabInstance:
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[9].m_MethodName
-      value: PlayAudioClip
+      value: SetCameraSettingsFromCurrentStageDefault
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[10].m_MethodName
-      value: PlayAudioClip
+      value: StartParticles
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[11].m_MethodName
       value: PlayAudioClip
+      objectReference: {fileID: 0}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: GameResources.Camera.CameraController, GameResources
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
@@ -7732,12 +7802,12 @@ PrefabInstance:
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[9].m_TargetAssemblyTypeName
-      value: GameResources.Audio.AudioController, GameResources
+      value: GameResources.Camera.CameraController, GameResources
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[10].m_TargetAssemblyTypeName
-      value: GameResources.Audio.AudioController, GameResources
+      value: GameResources.Camera.CameraController, GameResources
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
@@ -7798,17 +7868,22 @@ PrefabInstance:
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[9].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 8300000, guid: 5b40deca7acced34ba236d5b994aee06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[10].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 8300000, guid: 5b40deca7acced34ba236d5b994aee06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[11].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 8300000, guid: 5b40deca7acced34ba236d5b994aee06, type: 3}
+    - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      propertyPath: _tickEvents._kvps.Array.data[0]._item2.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -7817,12 +7892,12 @@ PrefabInstance:
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[9].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.AudioClip, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}
       propertyPath: _tickEvents._kvps.Array.data[3]._item2.m_PersistentCalls.m_Calls.Array.data[10].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.AudioClip, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 117834322934795943, guid: c414bf125161ce1409de4374f7af879c,
         type: 3}

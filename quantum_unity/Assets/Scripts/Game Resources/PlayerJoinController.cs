@@ -4,11 +4,12 @@ using System.Linq;
 using FusionFighters.Profile;
 using Quantum;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
-    private List<LocalPlayerInfo> _allPlayers = new();
-    public List<LocalPlayerInfo> LocalPlayers => _allPlayers;
+    private List<LocalPlayerInfo> _localPlayers = new();
+    public List<LocalPlayerInfo> LocalPlayers => _localPlayers;
 
     private Controls _controls;
 
@@ -63,7 +64,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             else
                 _profile = _default.Profile.DeepCopy();
 
-            _allPlayers.Clear();
+            _localPlayers.Clear();
 
             Application.quitting += Shutdown;
             _isInitialized = true;
@@ -75,7 +76,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         Application.quitting -= Shutdown;
         _isInitialized = false;
 
-        _allPlayers.Clear();
+        _localPlayers.Clear();
         _controls = null;
 
         FusionFighters.Serializer.Save(_profile, "Profile", $"{Application.persistentDataPath}/SaveData/Misc");
@@ -98,28 +99,29 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private void TryPlayerJoin(InputAction.CallbackContext ctx)
     {
-        if (!_isEnabled || GetPlayer(ctx.control.device) != null || _allPlayers.Count == _playerLimit)
+        if (!_isEnabled || TryGetPlayer(ctx.control.device, out LocalPlayerInfo _) || _localPlayers.Count == _playerLimit)
             return;
 
-        LocalPlayerInfo player = AddPlayer(ctx.control.device);
-        
-        if (player is not null)
+        if (TryAddPlayer(ctx.control.device, out LocalPlayerInfo player))
         {
-            (UserProfileController.Instance as UserProfileController).SetPlayer(player);
-
-            UserProfileController.Instance.Spawn(default);
-            (UserProfileController.Instance as UserProfileController).DeferEvents(() =>
+            if (player is not null)
             {
-                if (_executeEvents)
-                    foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).Reverse())
-                        listener.InvokeOnPlayerJoin(player);
-            });
+                (UserProfileController.Instance as UserProfileController).SetPlayer(player);
+
+                UserProfileController.Instance.Spawn(default);
+                (UserProfileController.Instance as UserProfileController).DeferEvents(() =>
+                {
+                    if (_executeEvents)
+                        foreach (var listener in FindObjectsByType<PlayerJoinEventListener>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).Reverse())
+                            listener.InvokeOnPlayerJoin(player);
+                });
+            }
         }
     }
 
     private void TryPlayerLeave(InputAction.CallbackContext ctx)
     {
-        if (!_isEnabled || GetPlayer(ctx.control.device) == null)
+        if (!_isEnabled || !TryGetPlayer(ctx.control.device, out LocalPlayerInfo _))
             return;
 
         LocalPlayerInfo player = RemovePlayer(ctx.control.device);
@@ -130,14 +132,20 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
                 listener.InvokeOnPlayerLeave(player);
     }
 
-    public LocalPlayerInfo AddPlayer(InputDevice device)
+    public bool TryAddPlayer(InputDevice device, out LocalPlayerInfo player)
     {
-        if (_allPlayers.Any(item => item.Device == device))
-            return _allPlayers.First(item => item.Device == device);
+        if (_localPlayers.Any(item => item.Device == device))
+        {
+            player = _localPlayers.First(item => item.Device == device);
+            return false;
+        }
 
         int localIndex = GetNextLocalIndex();
         if (localIndex == -1)
-            return null;
+        {
+            player = null;
+            return false;
+        }
 
         FighterIndex index = new()
         {
@@ -147,45 +155,61 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             Type = FighterType.Human
         };
 
-        LocalPlayerInfo player = new(device, index);
-        _allPlayers.Add(player);
+        player = new(device, index);
+        _localPlayers.Add(player);
 
         Debug.Log($"Player {player.Index} has joined via {device?.displayName}");
 
-        return player;
+        return true;
     }
 
-    public LocalPlayerInfo GetPlayer(InputDevice device)
+    public bool TryGetPlayer(InputDevice device, out LocalPlayerInfo player)
     {
-        var player = _allPlayers.FirstOrDefault(item => item.Device == device);
+        player = _localPlayers.FirstOrDefault(item => item.Device == device);
         if (player is not null)
+            return true;
+
+        return false;
+    }
+
+    public bool TryGetPlayer(FighterIndex index, out LocalPlayerInfo player)
+    {
+        player = _localPlayers.FirstOrDefault(item => item.Index.Equals(index));
+        if (player is not null)
+            return true;
+
+        return false;
+    }
+
+    public bool TryGetPlayer(int localIndex, out LocalPlayerInfo player)
+    {
+        player = _localPlayers.ElementAtOrDefault(localIndex);
+        if (player is not null)
+            return true;
+
+        return false;
+    }
+
+    public LocalPlayerInfo RemovePlayer(InputDevice device)
+    {
+        if (TryGetPlayer(device, out LocalPlayerInfo player))
             return player;
 
         return null;
     }
 
-    public LocalPlayerInfo GetPlayer(int localIndex)
-    {
-        if (localIndex < 0 || localIndex >= _allPlayers.Count)
-            return null;
-
-        return _allPlayers.ElementAt(localIndex);
-    }
-
-    public LocalPlayerInfo RemovePlayer(InputDevice device) => RemovePlayer(GetPlayer(device));
-
     public void RemoveAllPlayers()
     {
-        for (int i = 0; i < _allPlayers.Count; ++i)
+        for (int i = 0; i < _localPlayers.Count; ++i)
         {
-            RemovePlayer(_allPlayers.First());
+            RemovePlayer(_localPlayers.First());
         }
     }
 
     public LocalPlayerInfo RemovePlayer(LocalPlayerInfo player)
     {
         if (player is not null)
-            _allPlayers.Remove(player);
+            _localPlayers.Remove(player);
 
         Debug.Log($"Player has left the game");
         return player;
@@ -193,7 +217,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     public int GetNextLocalIndex()
     {
-        int[] indicesInUse = _allPlayers.Select(item => item.Index.Local).ToArray();
+        int[] indicesInUse = _localPlayers.Select(item => item.Index.Local).ToArray();
         
         for (int i = 0; i < 4; ++i)
         {
@@ -202,5 +226,19 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         }
 
         return -1;
+    }
+
+    public void Rumble(LocalPlayerInfo player, float frequency, float time) => CoroutineRunner.Instance.StartCoroutine(RumbleCoroutine(player, frequency, time));
+
+    private IEnumerator RumbleCoroutine(LocalPlayerInfo player, float frequency, float time)
+    {
+        if (player.Device is Gamepad gamepad)
+        {
+            gamepad.SetMotorSpeeds(frequency, frequency);
+
+            gamepad.ResumeHaptics();
+            yield return new WaitForSeconds(time);
+            gamepad.PauseHaptics();
+        }
     }
 }

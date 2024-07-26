@@ -38,14 +38,18 @@ public class MatchController : Controller<MatchController>
     public void SpawnAI(Bot bot)
     {
         Bot newBot = Variate(bot);
-        
+
+        int localIndex = PlayerJoinController.Instance.GetNextLocalIndex();
+        if (localIndex == -1)
+            return;
+
         CommandSpawnAI commandSpawnAI = new()
         {
             prototype = _ai.CharacterPrototype,
             bot = newBot,
             index = new()
             {
-                Local = PlayerJoinController.Instance.GetNextLocalIndex(),
+                Local = localIndex,
                 Device = HostClientEvents.DeviceIndex,
                 Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
                 Type = FighterType.Bot
