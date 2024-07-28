@@ -12,9 +12,12 @@ public abstract class PlayerTracker<T> : MonoBehaviour
         _viewUpdater = FindAnyObjectByType<EntityViewUpdater>();
         _playersToTs = new();
 
-        foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<Stats>())
+        if (QuantumRunner.Default)
         {
-            TrackPlayer(QuantumRunner.Default.Game, stats.Entity, stats.Component.Name, stats.Component.Index);
+            foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<Stats>())
+            {
+                TrackPlayer(QuantumRunner.Default.Game, stats.Entity, stats.Component.Name, stats.Component.Index);
+            }
         }
     }
 

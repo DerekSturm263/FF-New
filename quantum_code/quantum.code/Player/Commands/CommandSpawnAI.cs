@@ -8,6 +8,7 @@ namespace Quantum
         public Bot bot;
 
         public string name;
+
         public FighterIndex index;
 
         public override void Serialize(BitStream stream)

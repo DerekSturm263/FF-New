@@ -68,7 +68,8 @@ public class MatchController : Controller<MatchController>
         return new()
         {
             Build = bot.Build,
-            Behavior = bot.Behavior
+            Behavior = bot.Behavior,
+            Name = bot.Name
         };
     }
 
