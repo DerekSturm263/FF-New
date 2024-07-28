@@ -48,7 +48,7 @@ namespace Quantum
             StatsSystem.SetAllHealth(f, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
             StatsSystem.SetAllEnergy(f, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy / 5);
             StatsSystem.SetAllStocks(f, f.Global->CurrentMatch.Ruleset.Players.StockCount);
-            StatsSystem.SetAllReadiness(f, false);
+            StatsSystem.SetAllShowReadiness(f, false);
 
             f.SystemEnable<CharacterControllerSystem>();
             f.SystemEnable<ItemSpawnSystem>();
@@ -110,7 +110,8 @@ namespace Quantum
                 Teams = teamsArray
             };
 
-            StatsSystem.SetAllReadiness(f, true);
+            StatsSystem.SetAllShowReadiness(f, true);
+            StatsSystem.SetAllReadiness(f, false);
 
             f.Global->Results = results;
             f.Events.OnMatchEnd(results);

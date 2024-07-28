@@ -129,6 +129,8 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.Prototypes.WeaponStats_Prototype WeaponStatsMultiplier;
     [Quantum.LocalReference]
     public global::EntityPrototype HeldItem;
+    public Quantum.QBoolean IsReady;
+    public Photon.Deterministic.FP ReadyTime;
     public Quantum.AssetRefStatusEffect StatusEffect;
     public System.Int32 StatusEffectTimeLeft;
     public Photon.Deterministic.FP StatusEffectMultiplier;
@@ -151,6 +153,8 @@ namespace Quantum.Prototypes.Unity {
       result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
       result.WeaponStatsMultiplier = this.WeaponStatsMultiplier;
       converter.Convert(this.HeldItem, out result.HeldItem);
+      result.IsReady = this.IsReady;
+      result.ReadyTime = this.ReadyTime;
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
       result.StatusEffectMultiplier = this.StatusEffectMultiplier;

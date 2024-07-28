@@ -1,12 +1,11 @@
+using Extensions.Components.Miscellaneous;
 using Quantum;
 using UnityEngine;
 
-public class PlayerStatController : MonoBehaviour
+public class PlayerStatController : Controller<PlayerStatController>
 {
     [SerializeField] private HUDPlayerLink[] _huds;
     public HUDPlayerLink[] HUDS => _huds;
-
-    public static PlayerStatController Instance;
 
     public void Initialize(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
     {
@@ -23,7 +22,7 @@ public class PlayerStatController : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        _instance = this;
 
         QuantumEvent.Subscribe<EventOnPlayerSetName>(listener: this, handler: (e) => _huds[e.Index.Global].SetPlayerName(e.Name));
         QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateReadiness(true));
@@ -41,5 +40,10 @@ public class PlayerStatController : MonoBehaviour
         {
             playerHUD.ShowReadiness(doShow);
         }
+    }
+
+    public void SetEnabled(bool isEnabled)
+    {
+        _instance.gameObject.SetActive(isEnabled);
     }
 }

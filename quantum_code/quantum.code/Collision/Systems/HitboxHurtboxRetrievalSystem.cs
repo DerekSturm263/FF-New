@@ -43,7 +43,7 @@ namespace Quantum
                             FP damage = -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense);
                             f.Events.OnPlayerHit(ownerHit, hitStats->Index, damage);
 
-                            if (StatsSystem.ModifyHealth(f, ownerHit, hitStats, damage))
+                            if (StatsSystem.ModifyHealth(f, ownerHit, hitStats, damage, true))
                             {
                                 if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* stats))
                                     ++stats->Kills;

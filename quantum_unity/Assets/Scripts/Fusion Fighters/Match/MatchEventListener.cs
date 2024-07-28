@@ -97,7 +97,7 @@ public class MatchEventListener : MonoBehaviour
         CameraController.Instance.FocusTarget(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(firstPlaceTeam[0]).Index.Global);
     }
 
-    public void ChangeFighters()
+    public void ResetMatch()
     {
         CommandResetMatch command = new();
         QuantumRunner.Default.Game.SendCommand(command);
@@ -105,15 +105,7 @@ public class MatchEventListener : MonoBehaviour
         _onChangeFighters.Invoke();
     }
 
-    public void ChangeStage()
-    {
-        CommandResetMatch command = new();
-        QuantumRunner.Default.Game.SendCommand(command);
-
-        _onChangeStage.Invoke();
-    }
-
-    public void SendMatchSetup()
+    public void SetupMatch()
     {
         CommandSetupMatch command = new();
         QuantumRunner.Default.Game.SendCommand(command);

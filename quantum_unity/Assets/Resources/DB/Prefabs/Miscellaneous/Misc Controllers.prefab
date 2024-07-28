@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4169850038472308340}
   - component: {fileID: -6408311383321103069}
   - component: {fileID: 6050474710582076369}
+  - component: {fileID: -3354176086312360790}
   m_Layer: 0
   m_Name: Misc Controllers
   m_TagString: Untagged
@@ -48,6 +49,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onSuccess: {fileID: 0}
   _onFail: {fileID: 0}
+  _onNotEnoughCurrency: {fileID: 0}
+  _populator: {fileID: 0}
+  _price: {fileID: 0}
+  _objParent: {fileID: 0}
+  _onSuccessEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _delayTime: 8
+  _onSuccessEventDelayed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-6408311383321103069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +74,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onSuccess: {fileID: 0}
   _onFail: {fileID: 0}
+  _onNotEnoughCurrency: {fileID: 0}
+  _populator: {fileID: 0}
+  _price: {fileID: 0}
+  _objParent: {fileID: 0}
+  _onSuccessEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _delayTime: 8
+  _onSuccessEventDelayed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6050474710582076369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,3 +99,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onSuccess: {fileID: 0}
   _onFail: {fileID: 0}
+  _onNotEnoughCurrency: {fileID: 0}
+  _populator: {fileID: 0}
+  _price: {fileID: 0}
+  _objParent: {fileID: 0}
+  _onSuccessEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _delayTime: 8
+  _onSuccessEventDelayed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-3354176086312360790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d92efa65e6613c46a9242495a1dff59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _huds: []

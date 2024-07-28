@@ -22,7 +22,7 @@ namespace Quantum
                 switch (HealingStat)
                 {
                     case Stat.Health:
-                        StatsSystem.ModifyHealth(f, user, stats, Amount);
+                        StatsSystem.ModifyHealth(f, user, stats, Amount, true);
                         break;
 
                     case Stat.Energy:

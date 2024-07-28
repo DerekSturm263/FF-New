@@ -63,7 +63,7 @@ namespace Quantum
                 FP lerpValue = (FP)(timer->Time - timer->Start) / 180;
 
                 FP health = FPMath.Lerp(f.Global->CurrentMatch.Ruleset.Players.MaxHealth, 0, lerpValue);
-                StatsSystem.SetHealth(f, stats.Entity, stats.Component, health);
+                StatsSystem.SetHealth(f, stats.Entity, stats.Component, health, false);
 
                 FP energy = FPMath.Lerp(f.Global->CurrentMatch.Ruleset.Players.MaxEnergy / 5, 0, lerpValue);
                 StatsSystem.SetEnergy(f, stats.Entity, stats.Component, energy);

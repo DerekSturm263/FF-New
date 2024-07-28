@@ -82,12 +82,12 @@ namespace Quantum
             }
         }
 
-        public static bool ModifyHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount)
+        public static bool ModifyHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount, bool triggerDeath)
         {
-            return SetHealth(f, entityRef, stats, stats->CurrentHealth + amount * stats->HealthModifyMultiplier);
+            return SetHealth(f, entityRef, stats, stats->CurrentHealth + amount * stats->HealthModifyMultiplier, triggerDeath);
         }
 
-        public static bool SetHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount)
+        public static bool SetHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount, bool triggerDeath)
         {
             bool didDie = false;
 
@@ -99,7 +99,7 @@ namespace Quantum
 
             f.Events.OnPlayerModifyHealth(entityRef, stats->Index, oldHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
 
-            if (stats->CurrentHealth <= 0)
+            if (triggerDeath && stats->CurrentHealth <= 0)
             {
                 ModifyStocks(f, entityRef, stats, -1);
                 stats->CurrentHealth = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
@@ -118,7 +118,7 @@ namespace Quantum
         {
             foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
             {
-                SetHealth(f, stats.Entity, stats.Component, amount);
+                SetHealth(f, stats.Entity, stats.Component, amount, false);
             }
         }
 
@@ -183,16 +183,56 @@ namespace Quantum
             }
         }
 
-        public static void SetReadiness(Frame f, EntityRef entityRef, Stats* stats, bool showReadiness)
+        public static void SetShowReadiness(Frame f, EntityRef entityRef, Stats* stats, bool showReadiness)
         {
             f.Events.OnHideShowReadiness(entityRef, stats->Index, showReadiness);
         }
 
-        public static void SetAllReadiness(Frame f, bool showReadiness)
+        public static void SetAllShowReadiness(Frame f, bool showReadiness)
         {
             foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
             {
-                SetReadiness(f, stats.Entity, stats.Component, showReadiness);
+                SetShowReadiness(f, stats.Entity, stats.Component, showReadiness);
+            }
+        }
+
+        public static void SetReadiness(Frame f, EntityRef entityRef, Stats* stats, bool isReady)
+        {
+            stats->ReadyTime = 0;
+            stats->IsReady = isReady;
+
+            //f.Events.OnPlayerUpdateReady(entityRef, stats->Index, stats->ReadyTime / FP._0_50);
+            f.Events.OnPlayerCancel(entityRef, stats->Index);
+        }
+
+        public static void SetAllReadiness(Frame f, bool isReady)
+        {
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
+            {
+                SetReadiness(f, stats.Entity, stats.Component, isReady);
+            }
+        }
+
+        public static void ResetTemporaryValues(Frame f, Stats* stats)
+        {
+            stats->ApparelStatsMultiplier = ApparelHelper.Default;
+            stats->Deaths = 0;
+            stats->EnergyModifyMultiplier = 1;
+            stats->HealthModifyMultiplier = 1;
+
+            stats->HeldItem = EntityRef.None;
+            stats->Kills = 0;
+            stats->StatusEffect.Id = AssetGuid.Invalid;
+            stats->StatusEffectMultiplier = 1;
+            stats->StatusEffectTimeLeft = 0;
+            stats->WeaponStatsMultiplier = WeaponHelper.Default;
+        }
+
+        public static void ResetAllTemporaryValues(Frame f)
+        {
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
+            {
+                ResetTemporaryValues(f, stats.Component);
             }
         }
 
@@ -456,35 +496,5 @@ namespace Quantum
                 f.Events.OnHurtboxStateChange(entity, hurtboxesType, settings);
             }
         }
-
-        //public static EntityRef GetPlayerFromGlobalIndex(Frame f, int index)
-        //{
-        //    int j = -1;
-        //    for (int i = 0; i < 16; ++i)
-        //    {
-        //        if (f.Global->AllPlayers[i].IsValid)
-        //            ++j;
-
-        //        if (j == index)
-        //            return f.Global->AllPlayers[i];
-        //    }
-
-        //    return EntityRef.None;
-        //}
-
-        //public static EntityRef GetPlayerFromLocalIndex(Frame f, int index, int deviceIndex)
-        //{
-        //    int j = -1;
-        //    for (int i = 0; i < 4; ++i)
-        //    {
-        //        if (f.Global->AllPlayers[deviceIndex * 4 + i].IsValid)
-        //            ++j;
-
-        //        if (j == index)
-        //            return f.Global->AllPlayers[deviceIndex * 4 + i];
-        //    }
-            
-        //    return EntityRef.None;
-        //}
     }
 }

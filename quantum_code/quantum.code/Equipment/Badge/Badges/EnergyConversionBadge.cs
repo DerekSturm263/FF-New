@@ -13,7 +13,7 @@ namespace Quantum
             {
                 if (stats->CurrentEnergy > 0 && stats->CurrentHealth < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 {
-                    StatsSystem.ModifyHealth(f, user, stats, 1);
+                    StatsSystem.ModifyHealth(f, user, stats, 1, true);
                     StatsSystem.ModifyEnergy(f, user, stats, -1);
                 }
             }

@@ -23,6 +23,9 @@ component Stats
 	WeaponStats WeaponStatsMultiplier;
 
     entity_ref HeldItem;
+
+    bool IsReady;
+    FP ReadyTime;
 	
 	asset_ref<StatusEffect> StatusEffect;
 	int StatusEffectTimeLeft;
