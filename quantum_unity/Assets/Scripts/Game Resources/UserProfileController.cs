@@ -55,9 +55,13 @@ public class UserProfileController : SpawnableController<UserProfile>
         PlayerJoinController.Instance.Rumble(_player, _hapticStrength, 0.1f);
     }
 
-    public void SetOnPlayer(SerializableWrapper<UserProfile> profile)
+    public void SetProfile(SerializableWrapper<UserProfile> profile)
     {
         _player.SetProfile(profile);
+    }
+
+    public void UpdateDisplay()
+    {
         FindFirstObjectByType<DisplayUsers>()?.UpdateDisplay();
     }
 

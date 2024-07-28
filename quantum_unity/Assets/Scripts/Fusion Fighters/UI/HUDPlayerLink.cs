@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,9 +36,9 @@ public class HUDPlayerLink : MonoBehaviour
         _energy.fillAmount = _energyFill;
     }
 
-    public void SetPlayerNumber(int globalIndex)
+    public void SetPlayerNumber(FighterIndex index)
     {
-        _playerNum.SetText($"P{globalIndex}");
+        _playerNum.SetText(index.Type == FighterType.Human ? $"P{index.GlobalNoBots + 1}" : "Bot");
     }
 
     public void SetPlayerName(string name)
@@ -62,7 +63,7 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void ShowReadiness(bool show)
     {
-        _ready.gameObject.SetActive(show);
+        _readyFill.gameObject.SetActive(show);
     }
 
     public void UpdateHealth(FP newHealth, FP maxHealth)

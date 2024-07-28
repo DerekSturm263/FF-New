@@ -1,5 +1,6 @@
 using GameResources.Camera;
 using Quantum;
+using Quantum.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,8 @@ public class MatchEventListener : MonoBehaviour
 
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>> _onMatchStart;
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>, bool> _onMatchEnd;
+    [SerializeField] private UnityEvent _onMatchEndDelayed;
+    [SerializeField] private UnityEvent _onMatchSetup;
 
     [SerializeField] private UnityEvent _onChangeFighters;
     [SerializeField] private UnityEvent _onChangeStage;
@@ -56,6 +59,8 @@ public class MatchEventListener : MonoBehaviour
 
             _onMatchEnd.Invoke(e.Game, _entityView, teams, e.Results.WasForfeited);
         });
+
+        QuantumEvent.Subscribe<EventOnMatchSetup>(listener: this, handler: e => _onMatchSetup.Invoke());
     }
 
     private (EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited) matchResults;
@@ -68,7 +73,7 @@ public class MatchEventListener : MonoBehaviour
     public void LoadWinner(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
     {
         Invoke(nameof(LoadWinnerDelayed), _delayTime);
-        Invoke(nameof(SetCameraDelayed), _delayTime + 1);
+        Invoke(nameof(InvokeEventsDelayed), _delayTime + 1);
 
         for (int i = 1; i < teams.Count; ++i)
         {
@@ -84,13 +89,12 @@ public class MatchEventListener : MonoBehaviour
         _transition.SetActive(true);
     }
 
-    private void SetCameraDelayed()
+    private void InvokeEventsDelayed()
     {
-        var firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
+        _onMatchEndDelayed.Invoke();
 
-        // TODO: UPDATE FROM PLAYER LINK TO STATS.PLAYERINDEX!!!
-        CameraController.Instance.FocusTarget(firstPlaceTeam[0].Index);
-        CameraController.Instance.SetCameraSettings(_camSettings);
+        QList<EntityRef> firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
+        CameraController.Instance.FocusTarget(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(firstPlaceTeam[0]).Index.Global);
     }
 
     public void ChangeFighters()
@@ -107,6 +111,12 @@ public class MatchEventListener : MonoBehaviour
         QuantumRunner.Default.Game.SendCommand(command);
 
         _onChangeStage.Invoke();
+    }
+
+    public void SendMatchSetup()
+    {
+        CommandSetupMatch command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
     }
 
     public void Quit()

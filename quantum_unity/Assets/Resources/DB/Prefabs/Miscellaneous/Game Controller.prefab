@@ -39,7 +39,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8319768471973749114
 Transform:
   m_ObjectHideFlags: 0
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56809c6d4fbdd048bc0db854d5f7fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerLimit: 4
+  _playerLimit: 1
   _isEnabled: 1
   _default: {fileID: 11400000, guid: 338a4c98dffddb74ab82481ee5d09ca1, type: 2}
 --- !u!114 &3267107267905655839
@@ -512,16 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1713db2fbdb544647bbb75b663797915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ai:
-    CharacterPrototype:
-      Id:
-        Value: 2996345552445967076
-    Name: 
-    Index:
-      Device: 0
-      Global: 0
-      Local: 0
-      Type: 0
+  _name: Bot
 --- !u!114 &-7092123073383150721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +545,18 @@ MonoBehaviour:
     Index:
       Device: 0
       Global: 0
+      GlobalNoBots: 0
+      Local: 0
+      Type: 0
+  _bot:
+    CharacterPrototype:
+      Id:
+        Value: 0
+    Name: 
+    Index:
+      Device: 0
+      Global: 0
+      GlobalNoBots: 0
       Local: 0
       Type: 0
   _canInput: 0

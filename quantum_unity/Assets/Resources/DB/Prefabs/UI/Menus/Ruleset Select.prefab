@@ -771,8 +771,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6400506381843341190}
   m_HandleRect: {fileID: 8821695797431914849}
   m_Direction: 2
-  m_Value: -0.0000065279264
-  m_Size: 0.9882677
+  m_Value: -0.00005104066
+  m_Size: 0.9864925
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1868,6 +1868,8 @@ GameObject:
   - component: {fileID: 3967011232131692501}
   - component: {fileID: 8142360399299254767}
   - component: {fileID: 8870554444909446637}
+  - component: {fileID: 3957941807530544103}
+  - component: {fileID: 3436761090017019512}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -1934,6 +1936,56 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3957941807530544103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5370163197248372852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scrollSpeed: -2000
+  _items: {fileID: 6448769028181243405}
+--- !u!114 &3436761090017019512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5370163197248372852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: c6a108bf84334f1449fdb8f36ea8722c, type: 2}
+  _readContinuous: 1
+  _processWhenEmpty: 0
+  _onAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3957941807530544103}
+        m_TargetAssemblyTypeName: ScrollRectHelper, GameResources
+        m_MethodName: Scroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6352971812702320808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,7 +2665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 30, y: 9.349949}
+  m_AnchoredPosition: {x: 30, y: 10.762892}
   m_SizeDelta: {x: -50, y: 829.7091}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8147876142426966933

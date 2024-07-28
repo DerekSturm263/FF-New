@@ -16,10 +16,7 @@ namespace Quantum
 
             if (DestroySelfOnHit)
             {
-                f.Destroy(item);
-
-                if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
-                    --itemSpawner->CurrentSpawned;
+                ItemSpawnSystem.Despawn(f, item);
             }
         }
     }

@@ -6,6 +6,9 @@ namespace Quantum
     {
         public override void Update(Frame f)
         {
+            if (!f.Global->IsMatchRunning)
+                return;
+
             var hitboxFilter = f.Unsafe.FilterStruct<HitboxHurtboxQueryInjectionSystem.Filter>();
             var hitbox = default(HitboxHurtboxQueryInjectionSystem.Filter);
 

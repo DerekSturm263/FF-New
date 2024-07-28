@@ -114,6 +114,7 @@ namespace Quantum
             stream.Serialize(ref value.Default);
             stream.Serialize(ref value.Zoom);
             stream.Serialize(ref value.Tension);
+            stream.Serialize(ref value.Winner);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref ObjectSettings value)
@@ -287,6 +288,7 @@ namespace Quantum
 
         public static void Serialize(this IBitStream stream, ref Bot value)
         {
+            stream.Serialize(ref value.Name);
             stream.Serialize(ref value.Build);
             stream.Serialize(ref value.Behavior);
         }
@@ -310,6 +312,7 @@ namespace Quantum
             stream.Serialize(ref value.Local);
             stream.Serialize(ref value.Device);
             stream.Serialize(ref value.Global);
+            stream.Serialize(ref value.GlobalNoBots);
             stream.Serialize(ref value.Type);
         }
 

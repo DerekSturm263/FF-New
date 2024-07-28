@@ -1,6 +1,7 @@
 using Photon.Deterministic;
 using System.Collections.Generic;
 using System.Linq;
+using static Photon.Deterministic.DeterministicTickInput;
 
 namespace Quantum
 {
@@ -179,6 +180,19 @@ namespace Quantum
             foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
             {
                 SetStocks(f, stats.Entity, stats.Component, amount);
+            }
+        }
+
+        public static void SetReadiness(Frame f, EntityRef entityRef, Stats* stats, bool showReadiness)
+        {
+            f.Events.OnHideShowReadiness(entityRef, stats->Index, showReadiness);
+        }
+
+        public static void SetAllReadiness(Frame f, bool showReadiness)
+        {
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
+            {
+                SetReadiness(f, stats.Entity, stats.Component, showReadiness);
             }
         }
 

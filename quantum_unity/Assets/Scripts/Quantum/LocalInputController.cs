@@ -2,10 +2,12 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
+using UnityEngine.SceneManagement;
 
 public class LocalInputController : Controller<LocalInputController>
 {
     [SerializeField] private RuntimePlayer _player;
+    [SerializeField] private RuntimePlayer _bot;
 
     [SerializeField] private bool _canInput;
     public void SetCanInput(bool canInput) => _instance._canInput = canInput;
@@ -77,13 +79,14 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void SpawnPlayer(LocalPlayerInfo player)
     {
-        player.SetGlobalIndex(FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified));
+        player.SetGlobalIndices(FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified), FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified));
 
         RuntimePlayer data = new()
         {
             CharacterPrototype = _player.CharacterPrototype,
             Name = player.Profile.Name,
-            Index = player.Index
+            Index = player.Index,
+            IsRealBattle = FindFirstObjectByType<PlayerReadyEventListener>()
         };
 
         QuantumRunner.Default.Game.SendPlayerData(data.Index.Local, data);
@@ -92,6 +95,30 @@ public class LocalInputController : Controller<LocalInputController>
             player?.Controls?.Menu.Disable();
 
         Debug.Log($"Spawned player {player.Index}");
+    }
+
+    public void SpawnAI(Bot bot)
+    {
+        int localIndex = PlayerJoinController.Instance.GetNextLocalIndex();
+        if (localIndex == -1)
+            return;
+
+        CommandSpawnAI commandSpawnAI = new()
+        {
+            prototype = _bot.CharacterPrototype,
+            bot = bot,
+            name = bot.Name,
+            index = new()
+            {
+                Local = localIndex,
+                Device = HostClientEvents.DeviceIndex,
+                Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
+                Type = FighterType.Bot
+            }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(commandSpawnAI);
+        Debug.Log($"Spawned bot {commandSpawnAI.index}");
     }
 
     public void ApplyProfile(LocalPlayerInfo player)

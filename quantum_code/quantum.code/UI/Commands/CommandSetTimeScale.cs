@@ -13,9 +13,9 @@ namespace Quantum
 
         public void Execute(Frame f)
         {
-            Log.Debug("Time scale set!");
+            Log.Debug($"Time scale set to {scale}!");
 
-            f.Global->DeltaTime = scale;
+            f.Global->DeltaTime = (FP._1 / f.UpdateRate) * scale;
         }
     }
 }

@@ -7,6 +7,7 @@ public class PlayerNumController : PlayerTracker<RectTransform>
 {
     [SerializeField] private GameObject[] _numbers;
     [SerializeField] private Color[] _colors;
+    [SerializeField] private Color _botColor;
     [SerializeField] private Vector2 _offset;
 
     [SerializeField] private Canvas _canvas;
@@ -20,9 +21,10 @@ public class PlayerNumController : PlayerTracker<RectTransform>
     protected override RectTransform GetT(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
     {
         _numbers[index.Global].SetActive(true);
-        _numbers[index.Global].GetComponentInChildren<TMPro.TMP_Text>().SetText($"P{index.Global + 1}");
-        _numbers[index.Global].GetComponentInChildren<Image>().color = _colors[index.Global];
-
+        
+        _numbers[index.Global].GetComponentInChildren<TMPro.TMP_Text>().SetText(index.Type == FighterType.Human ? $"P{index.GlobalNoBots + 1}" : "Bot");
+        _numbers[index.Global].GetComponentInChildren<Image>().color = index.Type == FighterType.Human ? _colors[index.GlobalNoBots] : _botColor;
+            
         return _numbers[index.Global].GetComponent<RectTransform>();
     }
 

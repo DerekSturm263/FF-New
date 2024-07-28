@@ -346,7 +346,6 @@ public class SettingsController : SpawnableController<Settings>
             scale = scaleIndex switch {
                 0 => FP._0,
                 1 => FP._0_50,
-                2 => FP._1,
                 _ => FP._1,
             }
         };

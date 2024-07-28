@@ -72,5 +72,21 @@ namespace Quantum
 
             return item;
         }
+
+        public static void Despawn(Frame f, EntityRef item)
+        {
+            f.Destroy(item);
+
+            if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
+                --itemSpawner->CurrentSpawned;
+        }
+
+        public static void DespawnAll(Frame f)
+        {
+            foreach (var item in f.GetComponentIterator<ItemInstance>())
+            {
+                Despawn(f, item.Entity);
+            }
+        }
     }
 }

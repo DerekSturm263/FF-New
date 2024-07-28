@@ -148,6 +148,8 @@ GameObject:
   - component: {fileID: 8603966422412597417}
   - component: {fileID: 4044267360731176289}
   - component: {fileID: 8742311848517479965}
+  - component: {fileID: 1024547908099042383}
+  - component: {fileID: 4207670128489690059}
   m_Layer: 5
   m_Name: Profiles
   m_TagString: Untagged
@@ -214,6 +216,56 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1024547908099042383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100281722205898471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scrollSpeed: -2000
+  _items: {fileID: 671197288179752978}
+--- !u!114 &4207670128489690059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100281722205898471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: c6a108bf84334f1449fdb8f36ea8722c, type: 2}
+  _readContinuous: 0
+  _processWhenEmpty: 1
+  _onAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1024547908099042383}
+        m_TargetAssemblyTypeName: ScrollRectHelper, GameResources
+        m_MethodName: Scroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &523468713273192391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,7 +1636,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.75
+  m_fontSize: 52.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1984,7 +2036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.0009613037}
+  m_AnchoredPosition: {x: 0, y: 14}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &671197288179752978
@@ -2048,7 +2100,7 @@ MonoBehaviour:
       - m_Target: {fileID: 373650367842606867, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: UserProfileController, GameResources
-        m_MethodName: SetOnPlayer
+        m_MethodName: SetProfile
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2075,6 +2127,19 @@ MonoBehaviour:
           type: 3}
         m_TargetAssemblyTypeName: UserProfileController, GameResources
         m_MethodName: ExecuteDeferredEvents
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 373650367842606867, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: UserProfileController, GameResources
+        m_MethodName: UpdateDisplay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2310,7 +2375,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7803476223173886833}
   m_HandleRect: {fileID: 583316105924824761}
   m_Direction: 2
-  m_Value: -0.000030134932
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3987,7 +4052,7 @@ PrefabInstance:
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
       propertyPath: m_fontSize
-      value: 15
+      value: 34.4
       objectReference: {fileID: 0}
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}

@@ -20,6 +20,8 @@
                     commandDespawnPlayer.Execute(f);
                 else if (command is CommandResetMatch commandResetMatch)
                     commandResetMatch.Execute(f);
+                else if (command is CommandSetupMatch commandSetupMatch)
+                    commandSetupMatch.Execute(f);
                 else if (command is CommandPlayerApplyProfile commandPlayerApplyProfile)
                     commandPlayerApplyProfile.Execute(f);
                 else if (command is CommandSetAltWeapon commandSetAltWeapon)

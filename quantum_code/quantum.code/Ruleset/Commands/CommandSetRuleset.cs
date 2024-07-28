@@ -1,5 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Types;
+using System.ComponentModel;
 
 namespace Quantum
 {
@@ -16,11 +17,18 @@ namespace Quantum
         {
             Log.Debug("Ruleset applied!");
 
+            foreach (var stats in f.GetComponentIterator<Stats>())
+            {
+                f.Events.OnPlayerModifyHealth(stats.Entity, stats.Component.Index, stats.Component.CurrentHealth, stats.Component.CurrentHealth, ruleset.Players.MaxHealth);
+                f.Events.OnPlayerModifyEnergy(stats.Entity, stats.Component.Index, stats.Component.CurrentEnergy, stats.Component.CurrentEnergy, ruleset.Players.MaxEnergy);
+                f.Events.OnPlayerModifyStocks(stats.Entity, stats.Component.Index, stats.Component.CurrentStocks, stats.Component.CurrentStocks, ruleset.Players.StockCount);
+            }
+
             FighterIndex index = FighterIndex.Invalid;
 
             if (!f.Global->LastSelector.Equals(FighterIndex.Invalid) && (ruleset.Stage.StagePicker != StagePickerType.Anyone || ruleset.Stage.StagePicker != StagePickerType.Vote))
             {
-                index = FighterIndex.Player1;
+                index = FighterIndex.GetFirstFighterIndex(f, item => item.GlobalNoBots == 0);
             }
             else
             {

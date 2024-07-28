@@ -8,6 +8,7 @@ namespace Extensions.Components.Input
     {
         [SerializeField] protected InputButton _button;
         public InputButton Button => _button;
+        public void SetButton(InputButton button) => _button = button;
 
         private InputAction _action;
 
@@ -15,8 +16,13 @@ namespace Extensions.Components.Input
         [SerializeField] private bool _processWhenEmpty = true;
 
         [SerializeField] protected UnityEvent _onAction;
+        public UnityEvent OnAction => _onAction;
+
         [SerializeField] protected UnityEvent<float> _onAxisAction;
+        public UnityEvent<float> OnAxisAction => _onAxisAction;
+
         [SerializeField] protected UnityEvent<Vector2> _onVector2Action;
+        public UnityEvent<Vector2> OnVector2Action => _onVector2Action;
 
         protected bool _isReady;
 
@@ -85,6 +91,6 @@ namespace Extensions.Components.Input
         public void Invoke(float arg0) => _onAxisAction.Invoke(arg0);
         public void Invoke(Vector2 arg0) => _onVector2Action.Invoke(arg0);
 
-        public string Type => _button.Action is not null ? _button.Action.expectedControlType : string.Empty;
+        public string Type => _button is not null && _button.Action is not null ? _button.Action.expectedControlType : string.Empty;
     }
 }

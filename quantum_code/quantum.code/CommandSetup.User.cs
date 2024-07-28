@@ -14,6 +14,7 @@ namespace Quantum
             factories.Add(new CommandSpawnAI());
             factories.Add(new CommandDespawnPlayer());
             factories.Add(new CommandResetMatch());
+            factories.Add(new CommandSetupMatch());
             factories.Add(new CommandPlayerApplyProfile());
             factories.Add(new CommandSetAltWeapon());
             factories.Add(new CommandSetAvatar());

@@ -99,6 +99,7 @@
     <Compile Include="Camera\Assets\ShakeSettings.qtn.cs" />
     <Compile Include="Item\Assets\Items\ProjectileSpawningItem.cs" />
     <Compile Include="Map Generator\Helpers\MapGenerator.cs" />
+    <Compile Include="Match\Commands\CommandSetupMatch.cs" />
     <Compile Include="Player\Structs\FighterIndex.qtn.cs" />
     <Compile Include="UI\Commands\CommandPause.cs" />
     <Compile Include="UI\Commands\CommandPlay.cs" />
@@ -118,6 +119,7 @@
     <None Include="Item\Events\OnItemUse.qtn" />
     <None Include="Item\Components\ItemSpawner.qtn" />
     <None Include="Map Generator\Structs\StaticColliderInfo.qtn" />
+    <None Include="Match\Events\OnMatchSetup.qtn" />
     <None Include="Match\Structs\MatchResults.qtn" />
     <None Include="Match\Structs\MatchSetup.qtn" />
     <None Include="packages.config" />
@@ -143,6 +145,7 @@
     <None Include="Player\Events\Readiness\OnAllPlayersCancel.qtn" />
     <None Include="Player\Components\CharacterController.qtn" />
     <None Include="Player\Events\Actions\OnPlayerSpawn.qtn" />
+    <None Include="Player\Events\Readiness\OnHideShowReadiness.qtn" />
     <None Include="Player\Events\Readiness\OnPlayerUpdateReady.qtn" />
     <None Include="Player\Events\Stats\OnPlayerSetName.qtn" />
     <None Include="Player\Structs\Bot.qtn" />

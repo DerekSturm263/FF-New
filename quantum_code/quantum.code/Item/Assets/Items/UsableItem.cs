@@ -16,12 +16,7 @@ namespace Quantum
 
             if (itemInstance->Uses == Uses)
             {
-                f.Destroy(item);
-
-                if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
-                    --itemSpawner->CurrentSpawned;
-
-                return;
+                ItemSpawnSystem.Despawn(f, item);
             }
         }
     }

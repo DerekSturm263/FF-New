@@ -12,8 +12,8 @@ public class PlayerStatController : MonoBehaviour
     {
         _huds[index.Global].gameObject.SetActive(true);
 
-        _huds[index.Global].SetPlayerNumber(index.Global + 1);
         _huds[index.Global].SetPlayerName(name);
+        _huds[index.Global].SetPlayerNumber(index);
     }
 
     public void Destroy(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
@@ -32,6 +32,7 @@ public class PlayerStatController : MonoBehaviour
         QuantumEvent.Subscribe<EventOnPlayerModifyHealth>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateHealth(e.NewHealth, e.MaxHealth));
         QuantumEvent.Subscribe<EventOnPlayerModifyEnergy>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateEnergy(e.NewEnergy, e.MaxEnergy));
         QuantumEvent.Subscribe<EventOnPlayerModifyStocks>(listener: this, handler: (e) => _huds[e.Index.Global].UpdateStocks(e.NewStocks, e.MaxStocks));
+        QuantumEvent.Subscribe<EventOnHideShowReadiness>(listener: this, handler: (e) => _huds[e.Index.Global].ShowReadiness(e.ShowReadiness && e.Index.Type == FighterType.Human));
     }
 
     public void ShowAllReadies(bool doShow)

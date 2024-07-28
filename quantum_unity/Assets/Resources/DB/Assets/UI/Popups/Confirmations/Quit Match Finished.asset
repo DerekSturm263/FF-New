@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119913672a2c78f43be62b25b2180ea2, type: 3}
+  m_Name: Quit Match Finished
+  m_EditorClassIdentifier: 
+  _title: Quit?
+  _description: <align=center>Are you sure you want to go back to the main menu?</align>
+  _responses:
+    _kvps:
+    - _item1: Yes
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+            m_MethodName: PlayAudioClip
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 8300000, guid: 76479c52ac6e6234ca03826e6d2d626a,
+                type: 3}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 7259386362456708021, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: SettingsController, FusionFighters
+            m_MethodName: Quit
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController,
+              Extensions
+            m_MethodName: SetTransition
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 6398944209038441729, guid: fc93758d55ec3214897f3f08a8eb1f99,
+                type: 3}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController,
+              Extensions
+            m_MethodName: LoadScene
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: Main Menu
+              m_BoolArgument: 0
+            m_CallState: 2
+    - _item1: No
+      _item2:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: -2846974123142394300, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: SpawnableController`1[[GameResources.UI.Popup.Popup,
+              GameResources
+            m_MethodName: Despawn
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  _inputResponse:
+    _item1: 
+    _item2:
+      m_PersistentCalls:
+        m_Calls: []

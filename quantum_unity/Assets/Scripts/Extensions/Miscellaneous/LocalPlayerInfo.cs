@@ -20,7 +20,11 @@ public class LocalPlayerInfo
 
     private FighterIndex _index;
     public FighterIndex Index => _index;
-    public void SetGlobalIndex(int index) => _index.Global = index;
+    public void SetGlobalIndices(int global, int globalNoBots)
+    {
+        _index.Global = global;
+        _index.GlobalNoBots = globalNoBots;
+    }
 
     public LocalPlayerInfo(InputDevice device, FighterIndex index)
     {

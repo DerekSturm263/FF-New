@@ -18,8 +18,8 @@ public class Selector : MonoBehaviour
 
     public void Initialize(FighterIndex playerIndex)
     {
-        _arrow.color = _colors[playerIndex.Global];
-        _label.SetText($"P{playerIndex.Global + 1}");
+        _arrow.color = _colors[playerIndex.GlobalNoBots];
+        _label.SetText($"P{playerIndex.GlobalNoBots + 1}");
     }
 
     public void ChildToSelected(GameObject selected)

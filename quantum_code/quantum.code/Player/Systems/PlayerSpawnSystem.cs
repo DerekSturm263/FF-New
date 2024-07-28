@@ -8,12 +8,11 @@ namespace Quantum
         {
             RuntimePlayer data = f.GetPlayerData(player);
             EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
-            SpawnPlayer(f, player, prototype, true, data.Name, data.Index);
 
-            ++f.Global->TotalPlayers;
+            SpawnPlayer(f, player, prototype, true, data.Name, data.Index, data.IsRealBattle);
         }
 
-        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index)
+        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index, bool isRealBattle)
         {
             EntityRef entity = f.Create(prototype);
 
@@ -47,6 +46,7 @@ namespace Quantum
             f.Events.OnPlayerModifyHealth(entity, index, stats->CurrentHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
             f.Events.OnPlayerModifyEnergy(entity, index, stats->CurrentEnergy, stats->CurrentEnergy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
             f.Events.OnPlayerModifyStocks(entity, index, stats->CurrentStocks, stats->CurrentStocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
+            f.Events.OnHideShowReadiness(entity, index, isRealBattle);
 
             if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
@@ -63,18 +63,32 @@ namespace Quantum
 
             RemovePlayerFromList(f, stats.Index);
             f.Destroy(player);
-
-            --f.Global->TotalPlayers;
         }
 
         public static void AddPlayerToList(Frame f, EntityRef player, FighterIndex index)
         {
+            if (index.Type == FighterType.Human)
+            {
+                ++f.Global->TotalPlayers;
+
+                f.Global->PlayerSlotsNoBots[index.GlobalNoBots] = true;
+                f.Global->PlayersNoBots[index.GlobalNoBots] = player;
+            }
+
             f.Global->PlayerSlots[index.Global] = true;
             f.Global->Players[index.Global] = player;
         }
 
         public static void RemovePlayerFromList(Frame f, FighterIndex index)
         {
+            if (index.Type == FighterType.Human)
+            {
+                --f.Global->TotalPlayers;
+
+                f.Global->PlayerSlotsNoBots[index.GlobalNoBots] = false;
+                f.Global->PlayersNoBots[index.GlobalNoBots] = EntityRef.None;
+            }
+
             f.Global->PlayerSlots[index.Global] = false;
             f.Global->Players[index.Global] = EntityRef.None;
         }

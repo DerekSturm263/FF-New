@@ -15,6 +15,9 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
+            if (f.Global->CurrentMatch.Ruleset.Match.Time == 0)
+                return;
+
             // Get the player's input before we do anything with it.
             Input input = *f.GetPlayerInput(filter.PlayerLink->Player);
 
