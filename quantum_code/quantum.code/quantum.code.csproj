@@ -97,10 +97,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera\Assets\ShakeSettings.qtn.cs" />
+    <Compile Include="Collision\Structs\HitboxSettings.qtn.cs" />
+    <Compile Include="Custom Animator\Animation Events\Assets\Events\AllowMovementEvent.cs" />
+    <Compile Include="Custom Animator\Animation Events\Assets\Events\HoldAnimationEvent.cs" />
     <Compile Include="Item\Assets\Items\ProjectileSpawningItem.cs" />
     <Compile Include="Map Generator\Helpers\MapGenerator.cs" />
     <Compile Include="Match\Commands\CommandSetupMatch.cs" />
     <Compile Include="Player\Structs\FighterIndex.qtn.cs" />
+    <Compile Include="Projectile\Helpers\ProjectileHelper.cs" />
+    <Compile Include="Projectile\Structs\ProjectileSettings.qtn.cs" />
     <Compile Include="UI\Commands\CommandPause.cs" />
     <Compile Include="UI\Commands\CommandPlay.cs" />
     <Compile Include="UI\Commands\CommandSetTimeScale.cs" />
@@ -362,6 +367,7 @@
     <None Include="Types\Array\Array.qtn" />
     <None Include="Types\Directional\DirectionalAsset.qtn" />
     <None Include="Types\Positional\PositionalAsset.qtn" />
+    <None Include="Types\Range\Range.qtn" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="db.json" />

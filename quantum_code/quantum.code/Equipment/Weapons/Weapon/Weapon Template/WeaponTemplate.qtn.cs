@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public partial class WeaponTemplate : InfoAsset
@@ -11,6 +9,5 @@ namespace Quantum
         
         // Support
         public DirectionalMoveRef Secondaries;
-        public DirectionalMoveRef EnergySecondaries;
     }
 }

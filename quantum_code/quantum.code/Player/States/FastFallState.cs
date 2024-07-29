@@ -2,7 +2,7 @@
 {
     public unsafe sealed class FastFallState : PlayerState
     {
-        public override States GetState() => States.IsFastFalling;
+        public override (States, StatesFlag) GetState() => (States.IsFastFalling, StatesFlag.FastFall);
 
         public override bool GetInput(ref Input input) => input.FastFall;
         public override StateType GetStateType() => StateType.Aerial;

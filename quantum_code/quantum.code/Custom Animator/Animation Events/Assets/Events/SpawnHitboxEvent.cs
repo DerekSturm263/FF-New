@@ -1,4 +1,4 @@
-﻿using Quantum.Collections;
+﻿using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -6,14 +6,25 @@ namespace Quantum
     public sealed unsafe partial class SpawnHitboxEvent : FrameEvent
     {
         public HitboxSettings Settings;
+        public HitboxSettings MaxHoldSettings;
+
         public Shape2DConfig Shape;
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
-            Log.Debug(Settings.Knockback);
-            Log.Debug(Settings.Damage);
+            Log.Debug("Spawning hitbox!");
 
-            HitboxSystem.SpawnHitbox(f, Settings, Shape, EndingFrame - StartingFrame, entity);
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
+                HitboxSettings settings;
+
+                if (stats->MaxHoldAnimationFrameTime > 0)
+                    settings = HitboxSettings.Lerp(Settings, MaxHoldSettings, (FP)stats->HeldAnimationFrameTime / stats->MaxHoldAnimationFrameTime);
+                else
+                    settings = Settings;
+                
+                HitboxSystem.SpawnHitbox(f, settings, Shape, Length, entity);
+            }
         }
     }
 }

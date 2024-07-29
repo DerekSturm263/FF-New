@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
   m_Name: Sweatspot
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Neutral|Sweatspot
       Guid:
         Value: 651535101339400723
-    StartingFrame: 9
-    EndingFrame: 10
+    StartingFrame: 10
+    EndingFrame: 11
     Settings:
       Damage:
         RawValue: 1310720
@@ -30,8 +31,6 @@ MonoBehaviour:
           RawValue: -65536
         Y:
           RawValue: 393216
-      OnlyHitOnce:
-        Value: 0
       Parent: 2
       SpawnShake:
         Id:
@@ -43,6 +42,28 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 655360
       UserFreezeDuration: 5
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Parent: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
     Shape:
       ShapeType: 16
       PolygonCollider:
@@ -102,13 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
   m_Name: Sourspot
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Neutral|Sourspot
       Guid:
         Value: 1260691866449193985
-    StartingFrame: 12
-    EndingFrame: 20
+    StartingFrame: 13
+    EndingFrame: 21
     Settings:
       Damage:
         RawValue: 458752
@@ -120,8 +142,6 @@ MonoBehaviour:
           RawValue: -196608
         Y:
           RawValue: 65536
-      OnlyHitOnce:
-        Value: 0
       Parent: 2
       SpawnShake:
         Id:
@@ -133,6 +153,28 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 196608
       UserFreezeDuration: 3
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Parent: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
     Shape:
       ShapeType: 16
       PolygonCollider:
@@ -205,6 +247,10 @@ MonoBehaviour:
         Value: 1260691866449193985
     - Id:
         Value: 2031396909086208709
+    Committed:
+      Max: 30
+      Min: 0
+  Clip: {fileID: -5059006814000262888, guid: 62badd7f310731b4a9fb30a3bc11ce53, type: 3}
 --- !u!114 &4769729156586474748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
   m_Name: Main2
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Neutral|Main2
@@ -235,8 +282,28 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-      OnlyHitOnce:
-        Value: 0
+      Parent: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
       Parent: 0
       SpawnShake:
         Id:
@@ -285,13 +352,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
   m_Name: Main
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Neutral|Main
       Guid:
         Value: 2031396909086208709
-    StartingFrame: 8
-    EndingFrame: 10
+    StartingFrame: 9
+    EndingFrame: 11
     Settings:
       Damage:
         RawValue: 655360
@@ -303,8 +371,6 @@ MonoBehaviour:
           RawValue: 131072
         Y:
           RawValue: 655360
-      OnlyHitOnce:
-        Value: 0
       Parent: 2
       SpawnShake:
         Id:
@@ -316,6 +382,28 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 327680
       UserFreezeDuration: 5
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Parent: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
     Shape:
       ShapeType: 16
       PolygonCollider:

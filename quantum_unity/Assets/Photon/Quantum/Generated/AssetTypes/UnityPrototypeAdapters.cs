@@ -131,6 +131,8 @@ namespace Quantum.Prototypes.Unity {
     public global::EntityPrototype HeldItem;
     public Quantum.QBoolean IsReady;
     public Photon.Deterministic.FP ReadyTime;
+    public System.Int32 HeldAnimationFrameTime;
+    public System.Int32 MaxHoldAnimationFrameTime;
     public Quantum.AssetRefStatusEffect StatusEffect;
     public System.Int32 StatusEffectTimeLeft;
     public Photon.Deterministic.FP StatusEffectMultiplier;
@@ -155,6 +157,8 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.HeldItem, out result.HeldItem);
       result.IsReady = this.IsReady;
       result.ReadyTime = this.ReadyTime;
+      result.HeldAnimationFrameTime = this.HeldAnimationFrameTime;
+      result.MaxHoldAnimationFrameTime = this.MaxHoldAnimationFrameTime;
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
       result.StatusEffectMultiplier = this.StatusEffectMultiplier;

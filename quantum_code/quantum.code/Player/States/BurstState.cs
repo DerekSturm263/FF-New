@@ -1,11 +1,10 @@
 ﻿using Photon.Deterministic;
-using static Quantum.Navigation.FindPathResult;
 
 namespace Quantum
 {
     public unsafe sealed class BurstState : PlayerState
     {
-        public override States GetState() => States.IsBursting;
+        public override (States, StatesFlag) GetState() => (States.IsBursting, StatesFlag.Burst);
 
         public override bool GetInput(ref Input input) => input.Burst;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
@@ -33,7 +32,7 @@ namespace Quantum
         {
             base.Exit(f, ref filter, ref input, settings, stats);
 
-            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DisableHitbox = false });
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
             filter.PhysicsBody->GravityScale = 1;
         }
     }

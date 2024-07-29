@@ -536,14 +536,22 @@ MonoBehaviour:
       Id:
         Value: 887067288549751597
     States: 0000000000000000
+    PossibleStates:
+      Value: 8191
     Holding: 0000000000000000
     StateTime: 0
     NearbyColliders:
       Value: 0
+    KnockbackVelocityX:
+      RawValue: 0
+    KnockbackVelocityTime:
+      RawValue: 0
     Velocity:
       RawValue: 0
     MovingLerp:
       RawValue: 0
+    Influence:
+      RawValue: 65536
     GroundedJump:
       Value: 0
     JumpCount: 0
@@ -562,10 +570,6 @@ MonoBehaviour:
     Direction:
       Value: 4
     MovementDirection: 1
-    IsReady:
-      Value: 0
-    ReadyTime:
-      RawValue: 0
     UltimateTime: 0
 --- !u!114 &8318716123870308168
 MonoBehaviour:
@@ -590,13 +594,9 @@ MonoBehaviour:
             Material:
               Id:
                 Value: 2346310419226999301
-            Enhancers:
-              Enhancer1:
-                Id:
-                  Value: 2471047938944617157
-              Enhancer2:
-                Id:
-                  Value: 926683192902121334
+            Enhancer:
+              Id:
+                Value: 0
             FileGuid:
               Value: 0
           AltWeapon:
@@ -606,23 +606,18 @@ MonoBehaviour:
             Material:
               Id:
                 Value: 629877417507454797
-            Enhancers:
-              Enhancer1:
-                Id:
-                  Value: 0
-              Enhancer2:
-                Id:
-                  Value: 0
+            Enhancer:
+              Id:
+                Value: 0
             FileGuid:
               Value: 0
           SubWeapon:
             Template:
               Id:
                 Value: 3998083542428612409
-            Enhancers:
-              Enhancer1:
-                Id:
-                  Value: 3705783788831071389
+            Enhancer:
+              Id:
+                Value: 0
             FileGuid:
               Value: 0
         Ultimate:
@@ -736,7 +731,13 @@ MonoBehaviour:
       Id:
         Value: 3467847473562426331
     Name: 
-    DeviceIndex: 0
+    Index:
+      Local: 0
+      Device: 0
+      Global: 0
+      GlobalNoBots: 0
+      Type:
+        Value: 0
     CurrentStocks: 0
     CurrentHealth:
       RawValue: 0
@@ -761,18 +762,24 @@ MonoBehaviour:
         RawValue: 65536
     WeaponStatsMultiplier:
       Damage:
-        RawValue: 0
+        RawValue: 65536
       Knockback:
-        RawValue: 0
+        RawValue: 65536
       Speed:
-        RawValue: 0
+        RawValue: 65536
     HeldItem: {fileID: 0}
+    IsReady:
+      Value: 0
+    ReadyTime:
+      RawValue: 0
+    HeldAnimationFrameTime: 0
+    MaxHoldAnimationFrameTime: 0
     StatusEffect:
       Id:
         Value: 0
     StatusEffectTimeLeft: 0
     StatusEffectMultiplier:
-      RawValue: 0
+      RawValue: 65536
 --- !u!114 &3318794597594987953
 MonoBehaviour:
   m_ObjectHideFlags: 0

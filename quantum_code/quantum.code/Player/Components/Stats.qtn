@@ -26,6 +26,9 @@ component Stats
 
     bool IsReady;
     FP ReadyTime;
+
+	int HeldAnimationFrameTime;
+	int MaxHoldAnimationFrameTime;
 	
 	asset_ref<StatusEffect> StatusEffect;
 	int StatusEffectTimeLeft;

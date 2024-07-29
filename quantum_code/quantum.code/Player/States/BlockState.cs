@@ -1,10 +1,8 @@
-﻿using static Quantum.Navigation.FindPathResult;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe sealed class BlockState : PlayerState
     {
-        public override States GetState() => States.IsBlocking;
+        public override (States, StatesFlag) GetState() => (States.IsBlocking, StatesFlag.Block);
 
         public override bool GetInput(ref Input input) => input.Block;
         public override StateType GetStateType() => StateType.Grounded;
@@ -28,7 +26,7 @@ namespace Quantum
         {
             base.Exit(f, ref filter, ref input, settings, stats);
 
-            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DisableHitbox = false });
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
         }
     }
 }

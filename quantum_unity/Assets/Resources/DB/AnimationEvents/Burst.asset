@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ede89f12f440ff49a7194688928d3b6, type: 3}
   m_Name: New Event 2
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Burst|New Event 2
@@ -19,7 +20,11 @@ MonoBehaviour:
         Value: 4353448811302768375
     StartingFrame: 1
     EndingFrame: 2
-    Settings: {fileID: 11400000, guid: 3045b095bec668d4b89b238def6f88dc, type: 2}
+    Settings:
+      Variants:
+        _kvps: []
+      Mixer: {fileID: 0}
+      Volume: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,6 +52,10 @@ MonoBehaviour:
         Value: 1126665172000336546
     - Id:
         Value: 258623156459692848
+    Committed:
+      Max: 22
+      Min: 0
+  Clip: {fileID: -4045831500588228705, guid: 95ec925256b97b9469c593dc4e2a2dde, type: 3}
 --- !u!114 &3672677731246183076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,13 +68,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9b6f8ee2265754b9da7862f1b73379, type: 3}
   m_Name: fd
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Burst|fd
       Guid:
         Value: 1126665172000336546
     StartingFrame: 1
-    EndingFrame: 24
+    EndingFrame: 17
     Hurtboxes: -1
     Settings:
       CanBeDamaged:
@@ -74,8 +84,7 @@ MonoBehaviour:
         Value: 0
       CanBeKnockedBack:
         Value: 0
-      DisableHitbox:
-        Value: 1
+      DamageToBreak: 0
 --- !u!114 &4718132377580673384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1151a94cd33eef4a9d1092594af1376, type: 3}
   m_Name: VFX
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Burst|VFX
@@ -95,7 +105,20 @@ MonoBehaviour:
         Value: 258623156459692848
     StartingFrame: 2
     EndingFrame: 14
-    Settings: {fileID: 11400000, guid: 5f24571e6e3aa7344acbacb4de391a83, type: 2}
+    Settings:
+      VFXObject: {fileID: 0}
+      Parent: 0
+      DoesFollowParent: 0
+      Offset: {x: 0, y: 0, z: 0}
+      Direction: {x: 0, y: 0, z: 0}
+      ScaleMultiplier: {x: 0, y: 0}
+    MaxHoldSettings:
+      VFXObject: {fileID: 0}
+      Parent: 0
+      DoesFollowParent: 0
+      Offset: {x: 0, y: 0, z: 0}
+      Direction: {x: 0, y: 0, z: 0}
+      ScaleMultiplier: {x: 0, y: 0}
 --- !u!114 &5080887121173982603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
   m_Name: New Event
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Burst|New Event
@@ -126,9 +150,29 @@ MonoBehaviour:
           RawValue: 262144
         Y:
           RawValue: 589824
-      OnlyHitOnce:
-        Value: 0
       Parent: 1
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Parent: 0
       SpawnShake:
         Id:
           Value: 0

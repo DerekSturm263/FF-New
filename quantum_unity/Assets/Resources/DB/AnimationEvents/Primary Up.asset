@@ -21,6 +21,10 @@ MonoBehaviour:
     Events:
     - Id:
         Value: 3741106188410421604
+    Committed:
+      Max: 30
+      Min: 0
+  Clip: {fileID: -998496362607748373, guid: 62badd7f310731b4a9fb30a3bc11ce53, type: 3}
 --- !u!114 &9177898541167263565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,13 +37,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
   m_Name: Hitbox 1
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Primary Up|Hitbox 1
       Guid:
         Value: 3741106188410421604
-    StartingFrame: 10
-    EndingFrame: 18
+    StartingFrame: 6
+    EndingFrame: 12
     Settings:
       Damage:
         RawValue: 327680
@@ -51,8 +56,6 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 766771
-      OnlyHitOnce:
-        Value: 0
       Parent: 2
       SpawnShake:
         Id:
@@ -64,6 +67,28 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 327680
       UserFreezeDuration: 5
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Parent: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
     Shape:
       ShapeType: 16
       PolygonCollider:

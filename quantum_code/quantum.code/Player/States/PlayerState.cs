@@ -9,7 +9,7 @@
             Aerial = 1 << 1
         }
 
-        public abstract States GetState();
+        public abstract (States, StatesFlag) GetState();
 
         public abstract bool GetInput(ref Input input);
         public abstract StateType GetStateType();
@@ -36,7 +36,8 @@
                     return false;
             }
 
-            if (filter.CharacterController->CanInput && GetInput(ref input) && DoesStateTypeMatch(ref filter) && !filter.CharacterController->IsHolding(GetState()) && CanEnter(f, ref filter, ref input, settings, stats))
+            var state = GetState();
+            if (filter.CharacterController->CanInput && GetInput(ref input) && (!filter.CharacterController->IsCommitted || filter.CharacterController->PossibleStates.HasFlag(state.Item2)) && DoesStateTypeMatch(ref filter) && !filter.CharacterController->IsHolding(state.Item1) && CanEnter(f, ref filter, ref input, settings, stats))
             {
                 States[] killList = KillStateList;
                 for (int i = 0; i < killList.Length; ++i)
@@ -72,8 +73,8 @@
         {
             Log.Debug($"Entered state: {GetType()}");
 
-            CustomAnimator.SetBoolean(f, filter.CustomAnimator, (int)GetState(), true);
-            filter.CharacterController->SetState(GetState(), true);
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, (int)GetState().Item1, true);
+            filter.CharacterController->SetState(GetState().Item1, true);
 
             filter.CharacterController->StateTime = 0;
         }
@@ -98,8 +99,8 @@
         {
             filter.CharacterController->StateTime = 0;
 
-            filter.CharacterController->SetState(GetState(), false);
-            CustomAnimator.SetBoolean(f, filter.CustomAnimator, (int)GetState(), false);
+            filter.CharacterController->SetState(GetState().Item1, false);
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, (int)GetState().Item1, false);
 
             Log.Debug($"Exited state: {GetType()}");
         }

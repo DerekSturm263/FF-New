@@ -4,7 +4,7 @@ namespace Quantum
 {
     public unsafe sealed class DodgeState : PlayerState
     {
-        public override States GetState() => States.IsDodging;
+        public override (States, StatesFlag) GetState() => (States.IsDodging, StatesFlag.Dodge);
 
         public override bool GetInput(ref Input input) => input.Dodge;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
@@ -78,7 +78,7 @@ namespace Quantum
         {
             base.Exit(f, ref filter, ref input, settings, stats);
 
-            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() {  CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DisableHitbox = false });
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() {  CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
 
             filter.PhysicsBody->GravityScale = 1;
             filter.CharacterController->DodgeTime = 0;

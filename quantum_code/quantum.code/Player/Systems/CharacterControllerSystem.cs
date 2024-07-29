@@ -141,7 +141,7 @@ namespace Quantum
                 return;
 
             // Check to see if the user is in any non-moving state, and if they aren't, let them move.
-            if (!filter.CharacterController->IsInState(States.IsCrouching, States.IsInteracting, States.IsBlocking, States.IsBursting, States.IsDodging))
+            if (filter.CharacterController->PossibleStates.HasFlag(StatesFlag.Move) && !filter.CharacterController->IsInState(States.IsCrouching, States.IsInteracting, States.IsBlocking, States.IsBursting, States.IsDodging))
                 filter.CharacterController->Move(f, input.Movement.X, ref filter, movementSettings, stats);
 
             // Apply velocity to the player.

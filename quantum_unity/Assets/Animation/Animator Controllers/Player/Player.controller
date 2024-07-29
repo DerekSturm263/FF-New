@@ -124,20 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event: {fileID: 0}
   State: {fileID: 8571094825180577233}
---- !u!114 &-8514060507420961336
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fddd0ea48b56604d8e6170fd845174e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 869b252072302804281cb90a9331f5a8, type: 2}
-  State: {fileID: 9119595026092589256}
 --- !u!206 &-8498799894891221458
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1427,6 +1413,20 @@ AnimatorState:
   m_MirrorParameter: Turn Around
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &196612346215257359
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fddd0ea48b56604d8e6170fd845174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 869b252072302804281cb90a9331f5a8, type: 2}
+  State: {fileID: 9119595026092589256}
 --- !u!114 &219545251500665274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3018,8 +3018,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 8312109036294787042}
   m_StateMachineBehaviours:
-  - {fileID: -8514060507420961336}
   - {fileID: -7845756317038421144}
+  - {fileID: 196612346215257359}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

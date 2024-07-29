@@ -1,32 +1,27 @@
-﻿
+﻿using Photon.Deterministic;
+
 namespace Quantum
 {
     [System.Serializable]
     public sealed unsafe partial class SpawnProjectileEvent : FrameEvent
     {
         public ProjectileSettings Settings;
+        public ProjectileSettings MaxHoldSettings;
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
             Log.Debug("Spawning projectile!");
 
-            EntityPrototype projectilePrototype = f.FindAsset<EntityPrototype>(Settings.Prototype.Id);
-            EntityRef projectileEntity = f.Create(projectilePrototype);
-
-            if (f.Unsafe.TryGetPointer(projectileEntity, out HitboxInstance* hitbox))
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {
-                hitbox->Owner = entity;
-            }
+                ProjectileSettings settings;
 
-            if (f.Unsafe.TryGetPointer(projectileEntity, out PhysicsBody2D* physicsBody))
-            {
-                physicsBody->Velocity = Settings.Angle;
-            }
+                if (stats->MaxHoldAnimationFrameTime > 0)
+                    settings = ProjectileSettings.Lerp(Settings, MaxHoldSettings, (FP)stats->HeldAnimationFrameTime / stats->MaxHoldAnimationFrameTime);
+                else
+                    settings = Settings;
 
-            if (f.Unsafe.TryGetPointer(projectileEntity, out Transform2D* transform) &&
-                f.Unsafe.TryGetPointer(entity, out Transform2D* parentTransform))
-            {
-                transform->Position = parentTransform->Position + Settings.Offset;
+                ProjectileHelper.SpawnProjectile(f, settings, entity);
             }
         }
     }

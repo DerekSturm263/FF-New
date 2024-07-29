@@ -5,7 +5,7 @@ namespace Quantum
 {
     public unsafe sealed class MainWeaponState : PlayerState
     {
-        public override States GetState() => States.IsUsingMainWeapon;
+        public override (States, StatesFlag) GetState() => (States.IsUsingMainWeapon, 0);
 
         public override bool GetInput(ref Input input) => input.MainWeapon;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
@@ -26,7 +26,7 @@ namespace Quantum
                 else
                     animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
-                if (f.TryFindAsset(animRef.MoveAnim.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0)
+                if (f.TryFindAsset(animRef.Step1.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0)
                 {
                     int frameCount = (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animEvent.AnimID).motion as AnimatorClip).data.frameCount;
                     Log.Debug(frameCount);
@@ -41,6 +41,11 @@ namespace Quantum
         }
         protected override int DelayedEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats) => settings.DirectionChangeTime;
         public override bool CanInterruptSelf => true;
+
+        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            return !filter.CharacterController->IsCommitted;
+        }
 
         public override States[] EntranceBlacklist => new States[] { States.IsInteracting, States.IsBlocking, States.IsDodging, States.IsBursting };
 
@@ -60,9 +65,18 @@ namespace Quantum
                 else
                     animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
-                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.MoveAnim.Id);
+                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.Step1.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
+
+                filter.CharacterController->PossibleStates = 0;
             }
+        }
+
+        protected override void Exit(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            base.Exit(f, ref filter, ref input, settings, stats);
+
+            filter.CharacterController->PossibleStates = (StatesFlag)511;
         }
     }
 }

@@ -3,7 +3,7 @@
     [System.Serializable]
     public abstract unsafe partial class Ultimate : InfoAsset
     {
-        public MoveRef Move;
+        public AssetRefQuantumAnimationEvent Move;
         public int Length;
 
         public abstract void OnBegin(Frame f, EntityRef user);

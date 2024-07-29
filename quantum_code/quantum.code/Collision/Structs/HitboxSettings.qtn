@@ -15,8 +15,6 @@ struct HitboxSettings
     [Tooltip("How many frames to freeze the user for when the hitbox hits")] uint UserFreezeDuration;
     [Tooltip("How many frames to freeze the opponent for when the hitbox hits")] uint TargetFreezeDuration;
     [Tooltip("How much the opponent should shake when the hitbox hits")] FP TargetShakeIntensity;
-    [Tooltip("Whether or not the hitbox should disappear after hitting an opponent")] bool OnlyHitOnce;
-
     [Tooltip("The status effect that opponents hit by this hitbox will be affected by, if any")] asset_ref<StatusEffect> StatusEffect;
     [Tooltip("How much the camera should shake as soon as the hitbox spawns in, if it should")] asset_ref<ShakeSettings> SpawnShake;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> HitShake;

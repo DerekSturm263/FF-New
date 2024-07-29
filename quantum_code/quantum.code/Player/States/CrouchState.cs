@@ -4,7 +4,7 @@ namespace Quantum
 {
     public unsafe sealed class CrouchState : PlayerState
     {
-        public override States GetState() => States.IsCrouching;
+        public override (States, StatesFlag) GetState() => (States.IsCrouching, StatesFlag.Crouch);
 
         public override bool GetInput(ref Input input) => input.Crouch;
         public override StateType GetStateType() => StateType.Grounded;

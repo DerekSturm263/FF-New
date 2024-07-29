@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ede89f12f440ff49a7194688928d3b6, type: 3}
   m_Name: Audio Clip
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Throw|Audio Clip
@@ -19,7 +20,11 @@ MonoBehaviour:
         Value: 3000091466511514236
     StartingFrame: 0
     EndingFrame: 1
-    Settings: {fileID: 11400000, guid: 6624363b3b3b6084da91287148d61b92, type: 2}
+    Settings:
+      Variants:
+        _kvps: []
+      Mixer: {fileID: 0}
+      Volume: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,7 +42,11 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Throw
       Guid:
         Value: 2142681327213112695
-    AnimID: 0
+    AnimID: -1907200461
     Events:
     - Id:
         Value: 3000091466511514236
+    Committed:
+      Max: 59
+      Min: 0
+  Clip: {fileID: 9067093048684652814, guid: 95ec925256b97b9469c593dc4e2a2dde, type: 3}

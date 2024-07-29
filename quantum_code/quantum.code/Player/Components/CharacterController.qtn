@@ -15,6 +15,20 @@ enum States
 }
 
 [System.Flags]
+enum StatesFlag
+{
+    Move = 1,
+    Crouch = 2,
+    Jump = 4,
+    FastFall = 8,
+    Burst = 16,
+    Dodge = 32,
+    Block = 64,
+    Emote = 128,
+    Interact = 1024,
+}
+
+[System.Flags]
 enum Colliders
 {
     Ground = 1,
@@ -56,6 +70,8 @@ component CharacterController
     // Attacking/Emoting
     Direction Direction;
     int MovementDirection;
+    StatesFlag PossibleStates;
+    bool IsCommitted;
 
     // Ultimate
     int UltimateTime;

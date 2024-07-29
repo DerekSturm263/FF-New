@@ -31,9 +31,6 @@ namespace Quantum
 
                         Log.Debug($"Hitbox hit {entityHit.Index}");
 
-                        if (hurtbox->Settings.DisableHitbox)
-                            break;
-
                         if (hurtbox->Settings.CanBeDamaged && f.Unsafe.TryGetPointer(ownerHit, out Stats* hitStats))
                         {
                             // Grab the hit player's stats from their outfit.

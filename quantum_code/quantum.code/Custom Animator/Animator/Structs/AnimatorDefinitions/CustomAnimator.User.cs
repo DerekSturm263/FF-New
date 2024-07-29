@@ -2,6 +2,7 @@
 using Quantum.Collections;
 using Quantum.Custom.Animator;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Quantum
 {
@@ -364,7 +365,16 @@ namespace Quantum
 
         public static void SetCurrentState(Frame f, CustomAnimator* anim, int stateId)
         {
+            anim->from_state_id = anim->current_state_id;
+            anim->from_state_time = anim->time;
+            anim->from_state_last_time = anim->last_time;
+            anim->from_state_normalized_time = anim->normalized_time;
+            anim->from_length = anim->length;
+
             anim->to_state_id = stateId;
+            anim->to_state_time = 0;
+            anim->to_state_last_time = 0;
+            anim->normalized_time = 0;
         }
 
         public static AnimatorState GetStateFromId(Frame f, CustomAnimator* anim, int stateId)

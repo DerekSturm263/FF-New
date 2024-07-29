@@ -1,4 +1,5 @@
 using GameResources;
+using Photon.Deterministic;
 using UnityEngine;
 
 namespace Quantum
@@ -6,18 +7,24 @@ namespace Quantum
     [System.Serializable]
     public sealed unsafe partial class SpawnVFXEvent : FrameEvent
     {
-        public VFX Settings;
+        public VFXSettings Settings;
+        public VFXSettings MaxHoldSettings;
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
             Log.Debug("Spawning VFX!");
 
-            VFXController.Instance.SpawnEffectParented(Settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
-        }
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
+                VFXSettings settings;
 
-        public override void End(Frame f, EntityRef entity, int frame)
-        {
-            Log.Debug("Cleaning up VFX!");
+                if (stats->MaxHoldAnimationFrameTime > 0)
+                    settings = VFXSettings.Lerp(Settings, MaxHoldSettings, ((FP)stats->HeldAnimationFrameTime / stats->MaxHoldAnimationFrameTime).AsFloat);
+                else
+                    settings = Settings;
+
+                VFXController.Instance.SpawnEffectParented(Settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
+            }
         }
     }
 }

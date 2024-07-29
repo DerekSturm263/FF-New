@@ -4,7 +4,7 @@ namespace Quantum
 {
     public unsafe sealed class UltimateState : PlayerState
     {
-        public override States GetState() => States.IsUsingUltimate;
+        public override (States, StatesFlag) GetState() => (States.IsUsingUltimate, 0);
 
         public override bool GetInput(ref Input input) => input.Ultimate;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
@@ -12,7 +12,7 @@ namespace Quantum
         {
             if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
             {
-                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.MoveAnim.Id);
+                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.Id);
 
                 if (animEvent.AnimID != 0)
                     return (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animEvent.AnimID).motion as AnimatorClip).data.frameCount;
@@ -26,7 +26,7 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= f.Global->CurrentMatch.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
+            return !filter.CharacterController->IsCommitted && f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= f.Global->CurrentMatch.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
@@ -35,12 +35,21 @@ namespace Quantum
 
             if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
             {
-                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.MoveAnim.Id);
+                QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
 
                 ultimate.OnBegin(f, filter.Entity);
                 filter.CharacterController->UltimateTime = ultimate.Length;
+
+                filter.CharacterController->PossibleStates = 0;
             }
+        }
+
+        protected override void Exit(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
+        {
+            base.Exit(f, ref filter, ref input, settings, stats);
+
+            filter.CharacterController->PossibleStates = (StatesFlag)511;
         }
     }
 }

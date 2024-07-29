@@ -5,7 +5,7 @@ namespace Quantum
 {
     public unsafe sealed class InteractState : PlayerState
     {
-        public override States GetState() => States.IsInteracting;
+        public override (States, StatesFlag) GetState() => (States.IsInteracting, StatesFlag.Interact);
 
         public override bool GetInput(ref Input input) => input.Interact;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;

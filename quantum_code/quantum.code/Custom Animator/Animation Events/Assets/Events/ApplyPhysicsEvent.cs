@@ -3,6 +3,63 @@
 namespace Quantum
 {
     [System.Serializable]
+    public struct PhysicsSettings
+    {
+        public FPAnimationCurve XCurve;
+        public FP XForce;
+        public FPAnimationCurve YCurve;
+        public FP YForce;
+
+        public static PhysicsSettings Lerp(PhysicsSettings a, PhysicsSettings b, FP t)
+        {
+            return new()
+            {
+                XCurve = Lerp(a.XCurve, b.XCurve, t),
+                XForce = FPMath.Lerp(a.XForce, b.XForce, t),
+                YCurve = Lerp(a.YCurve, b.YCurve, t),
+                YForce = FPMath.Lerp(a.YForce, b.YForce, t)
+            };
+        }
+
+        public static FPAnimationCurve Lerp(FPAnimationCurve a, FPAnimationCurve b, FP t)
+        {
+            FP[] samples = new FP[a.Samples.Length];
+            for (int i = 0; i < samples.Length; ++i)
+            {
+                samples[i] = FPMath.Lerp(a.Samples[i], b.Samples[i], t);
+            }
+
+            FPAnimationCurve.Keyframe[] keys = new FPAnimationCurve.Keyframe[a.Keys.Length];
+            for (int i = 0; i < keys.Length; ++i)
+            {
+                keys[i] = new()
+                {
+                    Time = FPMath.Lerp(a.Keys[i].Time, b.Keys[i].Time, t),
+                    Value = FPMath.Lerp(a.Keys[i].Value, b.Keys[i].Value, t),
+                    InTangent = FPMath.Lerp(a.Keys[i].InTangent, b.Keys[i].InTangent, t),
+                    OutTangent = FPMath.Lerp(a.Keys[i].OutTangent, b.Keys[i].OutTangent, t),
+                    TangentMode = a.Keys[i].TangentMode,
+                    TangentModeLeft = a.Keys[i].TangentModeLeft,
+                    TangentModeRight = a.Keys[i].TangentModeRight
+                };
+            }
+
+            return new()
+            {
+                Samples = samples,
+                PreWrapMode = a.PreWrapMode,
+                PostWrapMode = a.PostWrapMode,
+                StartTime = FPMath.Lerp(a.StartTime, b.StartTime, t),
+                EndTime = FPMath.Lerp(a.EndTime, b.EndTime, t),
+                Resolution = a.Resolution,
+                OriginalPreWrapMode = b.OriginalPreWrapMode,
+                OriginalPostWrapMode = a.OriginalPostWrapMode,
+                Keys = keys
+            };
+        }
+    }
+
+    [System.Serializable]
     public sealed unsafe partial class ApplyPhysicsEvent : FrameEvent
     {
         [System.Flags]
@@ -12,18 +69,10 @@ namespace Quantum
             Airborne = 1 << 1
         }
 
-        public enum ForceType : byte
-        {
-            SetVelocity,
-            AddForceForce,
-            AddLinearImpulse
-        }
-
         public Usability UsabilityType;
-        public ForceType AppliedForceType;
-        public FPAnimationCurve MotionCurve;
-        public FP MotionForce;
-        public FP GravityScale;
+
+        public PhysicsSettings Settings;
+        public PhysicsSettings MaxHoldSettings;
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
@@ -31,36 +80,30 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(entity, out PhysicsBody2D* physicsBody))
             {
-                physicsBody->GravityScale = GravityScale;
+                physicsBody->GravityScale = 0;
             }
         }
 
-        public override void Update(Frame f, EntityRef entity, int frame)
+        public override void Update(Frame f, EntityRef entity, int frame, int elapsedFrames)
         {
             Log.Debug("Updating physics!");
 
-            if (f.Unsafe.TryGetPointer(entity, out PhysicsBody2D* physicsBody))
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats) && f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
-                FPVector2 force = new FPVector2(frame, MotionCurve.Evaluate(frame)) * MotionForce;
+                PhysicsSettings settings;
 
-                switch (AppliedForceType)
-                {
-                    case ForceType.SetVelocity:
-                        physicsBody->Velocity = force;
-                        break;
+                if (stats->MaxHoldAnimationFrameTime > 0)
+                    settings = PhysicsSettings.Lerp(Settings, MaxHoldSettings, (FP)stats->HeldAnimationFrameTime / stats->MaxHoldAnimationFrameTime);
+                else
+                    settings = Settings;
 
-                    case ForceType.AddForceForce:
-                        physicsBody->AddForce(force);
-                        break;
-
-                    case ForceType.AddLinearImpulse:
-                        physicsBody->AddLinearImpulse(force);
-                        break;
-
-                    default:
-                        break;
-                }
+                transform->Position = GetPositionAtTime(settings, (FP)elapsedFrames / Length);
             }
+        }
+
+        public static FPVector2 GetPositionAtTime(PhysicsSettings settings, FP normalizedTime)
+        {
+            return new FPVector2(settings.XCurve.Evaluate(normalizedTime) * settings.XForce, settings.YCurve.Evaluate(normalizedTime) * settings.YForce);
         }
 
         public override void End(Frame f, EntityRef entity, int frame)

@@ -22,7 +22,8 @@ enum HurtboxType
 struct HurtboxSettings
 {
     bool CanBeDamaged;
+
+    int DamageToBreak;
     bool CanBeInterrupted;
     bool CanBeKnockedBack;
-    bool DisableHitbox;
 }

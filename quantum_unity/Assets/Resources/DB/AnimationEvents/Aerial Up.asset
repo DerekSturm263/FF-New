@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3534541352796691533
+--- !u!114 &-1092552295171331129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,87 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
-  m_Name: Sourspot
+  m_Script: {fileID: 11500000, guid: 79c161510921f004796ca6fae2fde59c, type: 3}
+  m_Name: Event 1
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
-      Path: Resources/DB/AnimationEvents/Aerial Up|Sourspot
+      Path: Resources/DB/AnimationEvents/Aerial Up|Event 1
       Guid:
-        Value: 3502967539286736236
-    StartingFrame: 4
-    EndingFrame: 7
-    Settings:
-      Damage:
-        RawValue: 655360
-      HitShake:
-        Id:
-          Value: 0
-      Knockback:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 655360
-      OnlyHitOnce:
-        Value: 0
-      Parent: 2
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 5
-      TargetShakeIntensity:
-        RawValue: 327680
-      UserFreezeDuration: 5
-    Shape:
-      ShapeType: 16
-      PolygonCollider:
-        Id:
-          Value: 0
-      CircleRadius:
-        RawValue: 0
-      EdgeExtent:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      RotationOffset:
-        RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes:
-      - ShapeType: 1
-        PolygonCollider:
-          Id:
-            Value: 0
-        CircleRadius:
-          RawValue: 65536
-        EdgeExtent:
-          RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 155975
-        RotationOffset:
-          RawValue: 0
-        UserTag: 0
-        IsSetFromSourceCollider: 0
-      IsSetFromSourceCollider: 0
+        Value: 1000999536555759208
+    StartingFrame: 2
+    EndingFrame: 37
+    AllowedStates: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,8 +37,62 @@ MonoBehaviour:
     Identifier:
       Path: Resources/DB/AnimationEvents/Aerial Up
       Guid:
-        Value: 1902879757527248908
+        Value: 3651066314831771637
     AnimID: -1715357138
     Events:
     - Id:
-        Value: 3502967539286736236
+        Value: 1000999536555759208
+    - Id:
+        Value: 1146079999619533858
+    Committed:
+      Max: 30
+      Min: 0
+  Clip: {fileID: 6641085478485924818, guid: 62badd7f310731b4a9fb30a3bc11ce53, type: 3}
+--- !u!114 &4335625059909775704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2144755d5ebd5d34b8ea9faa7158bef9, type: 3}
+  m_Name: Event 2
+  m_EditorClassIdentifier: 
+  Description: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Aerial Up|Event 2
+      Guid:
+        Value: 1146079999619533858
+    StartingFrame: 23
+    EndingFrame: 35
+    Settings:
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Prototype:
+        Id:
+          Value: 0
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    MaxHoldSettings:
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Prototype:
+        Id:
+          Value: 0
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0

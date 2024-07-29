@@ -9,7 +9,7 @@ namespace Quantum
         {
             foreach (var state in states)
             {
-                Add(state.GetState(), state);
+                Add(state.GetState().Item1, state);
             }
         }
     }

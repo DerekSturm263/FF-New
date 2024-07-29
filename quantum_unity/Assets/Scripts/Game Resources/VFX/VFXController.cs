@@ -18,7 +18,7 @@ namespace GameResources
             }
         }
 
-        public GameObject SpawnEffectParented(VFX settings, Transform parent)
+        public GameObject SpawnEffectParented(VFXSettings settings, Transform parent)
         {
             if (!_isEnabled)
                 return null;
@@ -34,9 +34,9 @@ namespace GameResources
                 effect = Instantiate(settings.VFXObject, parent.transform.position, Quaternion.identity);
             }
 
-            effect.transform.right = settings.Direction.Normalized.ToUnityVector3();
-            effect.transform.localScale *= settings.ScaleMultiplier.ToUnityVector2();
-            effect.transform.localPosition += settings.Offset.ToUnityVector3();
+            effect.transform.right = settings.Direction.normalized;
+            effect.transform.localScale *= settings.ScaleMultiplier;
+            effect.transform.localPosition += settings.Offset;
 
             return effect;
         }
@@ -46,11 +46,11 @@ namespace GameResources
             if (!_isEnabled)
                 return null;
 
-            GameObject effect = Instantiate(settings.VFXObject, settings.Offset.ToUnityVector3(), Quaternion.identity);
+            GameObject effect = Instantiate(settings.Settings.VFXObject, settings.Settings.Offset, Quaternion.identity);
 
-            effect.transform.right = settings.Direction.Normalized.ToUnityVector3();
-            effect.transform.localScale *= settings.ScaleMultiplier.ToUnityVector2();
-            effect.transform.localPosition += settings.Offset.ToUnityVector3();
+            effect.transform.right = settings.Settings.Direction.normalized;
+            effect.transform.localScale *= settings.Settings.ScaleMultiplier;
+            effect.transform.localPosition += settings.Settings.Offset;
 
             return effect;
         }
@@ -66,7 +66,7 @@ namespace GameResources
             }
             if (tuple.itemAsset.UserVFX)
             {
-                SpawnEffectParented(tuple.itemAsset.ItemVFX, user.transform);
+                SpawnEffectParented(tuple.itemAsset.ItemVFX.Settings, user.transform);
             }
         }
     }

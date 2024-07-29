@@ -1,6 +1,4 @@
-﻿
-using Quantum.Custom.Animator;
-using System.Diagnostics;
+﻿using Quantum.Custom.Animator;
 
 namespace Quantum
 {
@@ -24,6 +22,7 @@ namespace Quantum
                 AnimatorMotion motion = state.motion;
                 int frame = (animator->normalized_time * motion.CalculateLength(f, animator, 1, state) * 60).AsInt;
 
+                Log.Debug($"Frame: {frame}");
                 asset.InvokeEvents(f, entity, frame);
             }
         }

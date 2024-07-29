@@ -1,10 +1,8 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe sealed class JumpState : PlayerState
     {
-        public override States GetState() => States.IsJumping;
+        public override (States, StatesFlag) GetState() => (States.IsJumping, StatesFlag.Jump);
 
         public override bool GetInput(ref Input input) => input.Jump;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;

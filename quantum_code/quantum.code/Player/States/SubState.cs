@@ -4,7 +4,7 @@ namespace Quantum
 {
     public unsafe sealed class SubState : PlayerState
     {
-        public override States GetState() => States.IsUsingSubWeapon;
+        public override (States, StatesFlag) GetState() => (States.IsUsingSubWeapon, 0);
 
         public override bool GetInput(ref Input input) => input.SubWeapon;
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
@@ -16,6 +16,9 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
+            if (filter.CharacterController->IsCommitted)
+                return false;
+
             if (filter.Stats->Build.Equipment.Weapons.SubWeapon.Equals(default(Sub)))
                 return false;
 

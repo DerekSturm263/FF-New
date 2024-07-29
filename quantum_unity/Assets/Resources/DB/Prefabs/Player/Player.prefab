@@ -566,6 +566,8 @@ MonoBehaviour:
       Id:
         Value: 887067288549751597
     States: 0000000000000000
+    PossibleStates:
+      Value: 8191
     Holding: 0000000000000000
     StateTime: 0
     NearbyColliders:
@@ -598,10 +600,6 @@ MonoBehaviour:
     Direction:
       Value: 4
     MovementDirection: 1
-    IsReady:
-      Value: 0
-    ReadyTime:
-      RawValue: 0
     UltimateTime: 0
 --- !u!114 &8318716123870308168
 MonoBehaviour:
@@ -763,7 +761,13 @@ MonoBehaviour:
       Id:
         Value: 3467847473562426331
     Name: 
-    DeviceIndex: 0
+    Index:
+      Local: 0
+      Device: 0
+      Global: 0
+      GlobalNoBots: 0
+      Type:
+        Value: 0
     CurrentStocks: 0
     CurrentHealth:
       RawValue: 0
@@ -794,6 +798,12 @@ MonoBehaviour:
       Speed:
         RawValue: 65536
     HeldItem: {fileID: 0}
+    IsReady:
+      Value: 0
+    ReadyTime:
+      RawValue: 0
+    HeldAnimationFrameTime: 0
+    MaxHoldAnimationFrameTime: 0
     StatusEffect:
       Id:
         Value: 0

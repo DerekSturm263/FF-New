@@ -98,10 +98,10 @@ namespace GameResources.Audio
 
         public unsafe void PlayVoiceLine(QuantumGame game, EntityView user, (EntityView itemObj, ItemAsset itemAsset, FPVector2 position) tuple)
         {
-            AudioClip clip = tuple.itemAsset.SFX["Voice Line"].GetClip(game.Frames.Verified.Unsafe.GetPointer<Stats>(user.EntityRef)->Build.Cosmetics.Voice);
+            AudioClip clip = tuple.itemAsset.SFX["Voice Line"].Settings.GetClip(game.Frames.Verified.Unsafe.GetPointer<Stats>(user.EntityRef)->Build.Cosmetics.Voice);
 
             if (clip)
-                user.GetComponentInChildren<AudioSource>().PlayOneShot(clip, tuple.itemAsset.SFX["Voice Line"].Volume);
+                user.GetComponentInChildren<AudioSource>().PlayOneShot(clip, tuple.itemAsset.SFX["Voice Line"].Settings.Volume);
         }
 
         /// <summary>

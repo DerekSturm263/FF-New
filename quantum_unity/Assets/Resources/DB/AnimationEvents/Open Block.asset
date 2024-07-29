@@ -17,9 +17,14 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Open Block
       Guid:
         Value: 2655766938592780018
+    AnimID: 0
     Events:
     - Id:
         Value: 3312101968484649454
+    Committed:
+      Max: 10
+      Min: 0
+  Clip: {fileID: 7731641710072435382, guid: 95ec925256b97b9469c593dc4e2a2dde, type: 3}
 --- !u!114 &3026981749106962733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,6 +37,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9b6f8ee2265754b9da7862f1b73379, type: 3}
   m_Name: Make Intangible
   m_EditorClassIdentifier: 
+  Description: 
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Open Block|Make Intangible
@@ -47,5 +53,4 @@ MonoBehaviour:
         Value: 0
       CanBeKnockedBack:
         Value: 1
-      DisableHitbox:
-        Value: 0
+      DamageToBreak: 0

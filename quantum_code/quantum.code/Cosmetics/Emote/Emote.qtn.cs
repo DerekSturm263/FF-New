@@ -1,10 +1,8 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public partial class Emote : InfoAsset
     {
-        public MoveRef Animation;
+        public AssetRefQuantumAnimationEvent Animation;
     }
 }

@@ -1,10 +1,9 @@
-using Codice.CM.Common;
 using Extensions.Miscellaneous;
-using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using System;
-using System.Collections.Generic;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class AnimationEventContainerWindow : EditorWindow
@@ -14,19 +13,183 @@ public class AnimationEventContainerWindow : EditorWindow
     public static FrameEventAsset Selected;
 
     public int _scrubFrame;
-    public int _maxScrubFrame = 60;
+    public int _maxScrubFrame;
 
     private QuantumAnimationEventAsset _eventAsset;
-    private AnimationClip _animation;
     private GameObject _animationPreview;
 
     private float _initialTime;
     private bool _isPreviewing;
 
+    private ReorderableList _events;
+
     [MenuItem("Fusion Fighters/Animation Event Editor")]
     public static void ShowWindow()
     {
         GetWindow(typeof(AnimationEventContainerWindow), false, "Animation Event Editor");
+    }
+
+    public void EventListDrawElementCallback(Rect rect, int index, bool isActive, bool isFocused)
+    {
+        FrameEventAsset frameEvent = UnityDB.FindAssetForInspector(_eventAsset.Settings.Events[index].Id) as FrameEventAsset;
+
+        float startingFrame = 0;
+        float endingFrame = 0;
+
+        if (frameEvent is SpawnHitboxEventAsset hitbox)
+        {
+            startingFrame = hitbox.Settings.StartingFrame;
+            endingFrame = hitbox.Settings.EndingFrame;
+        }
+        else if (frameEvent is SpawnProjectileEventAsset projectile)
+        {
+            startingFrame = projectile.Settings.StartingFrame;
+            endingFrame = projectile.Settings.EndingFrame;
+        }
+        else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
+        {
+            startingFrame = hurtboxes.Settings.StartingFrame;
+            endingFrame = hurtboxes.Settings.EndingFrame;
+        }
+        else if (frameEvent is SpawnVFXEventAsset vfx)
+        {
+            startingFrame = vfx.Settings.StartingFrame;
+            endingFrame = vfx.Settings.EndingFrame;
+        }
+        else if (frameEvent is PlayClipEventAsset clip)
+        {
+            startingFrame = clip.Settings.StartingFrame;
+            endingFrame = clip.Settings.EndingFrame;
+        }
+        else if (frameEvent is ApplyPhysicsEventAsset physics)
+        {
+            startingFrame = physics.Settings.StartingFrame;
+            endingFrame = physics.Settings.EndingFrame;
+        }
+        else if (frameEvent is HoldAnimationEventAsset hold)
+        {
+            startingFrame = hold.Settings.StartingFrame;
+            endingFrame = hold.Settings.EndingFrame;
+        }
+        else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
+        {
+            startingFrame = unityEvent.Settings.StartingFrame;
+            endingFrame = unityEvent.Settings.EndingFrame;
+        }
+        else if (frameEvent is AllowMovementEventAsset movement)
+        {
+            startingFrame = movement.Settings.StartingFrame;
+            endingFrame = movement.Settings.EndingFrame;
+        }
+
+        EditorGUI.BeginDisabledGroup(true);
+
+        Rect nameRect = new(rect.x, rect.y, 149, rect.height);
+        frameEvent.name = EditorGUI.TextField(nameRect, frameEvent.name);
+
+        EditorGUI.EndDisabledGroup();
+
+        if (frameEvent is SpawnHitboxEventAsset)
+            GUI.color = Color.red;
+        else if (frameEvent is SpawnProjectileEventAsset)
+            GUI.color = Color.cyan;
+        else if (frameEvent is ModifyHurtboxesEventAsset)
+            GUI.color = Color.blue;
+        else if (frameEvent is SpawnVFXEventAsset)
+            GUI.color = Color.green;
+        else if (frameEvent is PlayClipEventAsset)
+            GUI.color = Color.magenta;
+        else if (frameEvent is ApplyPhysicsEventAsset)
+            GUI.color = Color.yellow;
+        else if (frameEvent is HoldAnimationEventAsset)
+            GUI.color = Color.white;
+        else if (frameEvent is ExecuteUnityEventEventAsset)
+            GUI.color = Color.black;
+        else
+            GUI.color = new Color(0.75f, 1, 1);
+
+        Rect sliderRect = new(nameRect.x + nameRect.width + 4, nameRect.y, rect.width - 204, nameRect.height);
+        EditorGUI.MinMaxSlider(sliderRect, ref startingFrame, ref endingFrame, 0, _maxScrubFrame);
+
+        GUI.color = Color.white;
+
+        Rect minRect = new(sliderRect.x + sliderRect.width + 5, sliderRect.y, 20, sliderRect.height);
+        startingFrame = EditorGUI.IntField(minRect, (int)startingFrame);
+
+        Rect maxRect = new(minRect.x + minRect.width + 8, minRect.y, minRect.width, minRect.height);
+        endingFrame = EditorGUI.IntField(maxRect, (int)endingFrame);
+
+        if (frameEvent is SpawnHitboxEventAsset hitbox2)
+        {
+            hitbox2.Settings.StartingFrame = (int)startingFrame;
+            hitbox2.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is SpawnProjectileEventAsset projectile)
+        {
+            projectile.Settings.StartingFrame = (int)startingFrame;
+            projectile.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
+        {
+            hurtboxes.Settings.StartingFrame = (int)startingFrame;
+            hurtboxes.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is SpawnVFXEventAsset vfx)
+        {
+            vfx.Settings.StartingFrame = (int)startingFrame;
+            vfx.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is PlayClipEventAsset clip)
+        {
+            clip.Settings.StartingFrame = (int)startingFrame;
+            clip.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is ApplyPhysicsEventAsset physics)
+        {
+            physics.Settings.StartingFrame = (int)startingFrame;
+            physics.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is HoldAnimationEventAsset hold)
+        {
+            hold.Settings.StartingFrame = (int)startingFrame;
+            hold.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
+        {
+            unityEvent.Settings.StartingFrame = (int)startingFrame;
+            unityEvent.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is AllowMovementEventAsset movement)
+        {
+            movement.Settings.StartingFrame = (int)startingFrame;
+            movement.Settings.EndingFrame = (int)endingFrame;
+        }
+
+        if (isFocused)
+        {
+            Selected = frameEvent;
+            Selection.activeObject = Selected;
+        }
+    }
+
+    public float EventListElementHeightCallback(int index) => EditorGUIUtility.singleLineHeight;
+
+    public void EventListOnAddCallback(ReorderableList list)
+    {
+        Rect rect = new(Event.current.mousePosition, new(500, 700));
+        PopupWindow.Show(rect, new FrameEventPopup(_scrubFrame, _scrubFrame + 1, _eventAsset));
+    }
+
+    public void EventListOnRemoveCallback(ReorderableList list)
+    {
+        AssetDatabase.RemoveObjectFromAsset(Selected);
+
+        AssetRefFrameEvent toRemove = _eventAsset.Settings.Events.Find(item => item.Id == Selected.AssetObject.Guid);
+        _eventAsset.Settings.Events.Remove(toRemove);
+
+        AssetDatabase.SaveAssets();
+
+        Selected = null;
     }
 
     private void OnGUI()
@@ -35,181 +198,111 @@ public class AnimationEventContainerWindow : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        _eventAsset = EditorGUILayout.ObjectField(_eventAsset, typeof(QuantumAnimationEventAsset), false) as QuantumAnimationEventAsset;
-        _animation = EditorGUILayout.ObjectField(_animation, typeof(AnimationClip), false) as AnimationClip;
-        _animationPreview = EditorGUILayout.ObjectField(_animationPreview, typeof(GameObject), true) as GameObject;
+        QuantumAnimationEventAsset eventAsset = EditorGUILayout.ObjectField("Animation Event", _eventAsset, typeof(QuantumAnimationEventAsset), false) as QuantumAnimationEventAsset;
+        if (eventAsset != _eventAsset)
+        {
+            _eventAsset = eventAsset;
 
-        _maxScrubFrame = (int)(_animation.length * 60);
+            _events = new(_eventAsset.Settings.Events, typeof(AssetRefFrameEvent), true, false, true, true)
+            {
+                drawElementCallback = EventListDrawElementCallback,
+                elementHeightCallback = EventListElementHeightCallback,
+                onAddCallback = EventListOnAddCallback,
+                onRemoveCallback = EventListOnRemoveCallback,
+            };
+        }
+
+        GUILayout.Space(40);
+
+        _animationPreview = EditorGUILayout.ObjectField("Preview", _animationPreview, typeof(GameObject), true) as GameObject;
 
         GUILayout.EndHorizontal();
 
-        if (!_eventAsset || !_animation)
+        _events ??= new(_eventAsset.Settings.Events, typeof(AssetRefFrameEvent), true, false, true, true)
         {
-            EditorGUILayout.HelpBox("Please assign both an Animation Event Asset and an Animation Clip to begin editting and previewing events. The animation you're previewing should be the one that the Event will be used with", MessageType.Info);
+            drawElementCallback = EventListDrawElementCallback,
+            elementHeightCallback = EventListElementHeightCallback,
+            onAddCallback = EventListOnAddCallback,
+            onRemoveCallback = EventListOnRemoveCallback
+        };
+
+        if (!_eventAsset)
+        {
+            EditorGUILayout.HelpBox("Please assign an Animation Event Asset to edit", MessageType.Warning);
             return;
         }
 
         if (!_animationPreview)
         {
-            EditorGUILayout.HelpBox("Please assign a GameObject to preview the events with", MessageType.Warning);
+            EditorGUILayout.HelpBox("Please assign a GameObject to preview the Animation Event with", MessageType.Warning);
+            return;
         }
 
-        Rect rect1 = EditorGUILayout.GetControlRect();
-        rect1.width = rect1.height;
+        GUILayout.Space(10);
 
-        if (GUI.Button(rect1, new GUIContent(">", "Previews the Animation Event with the given Animation Clip")))
+        _maxScrubFrame = _eventAsset.Clip.FrameCount();
+
+        float minCommittedFrame = _eventAsset.Settings.Committed.Min;
+        float maxCommittedFrame = _eventAsset.Settings.Committed.Max;
+        EditorGUILayout.MinMaxSlider(new GUIContent("Committed Frames", "While the player is between these frames, they can not cancel the attack"), ref minCommittedFrame, ref maxCommittedFrame, 0, _maxScrubFrame);
+        _eventAsset.Settings.Committed.Min = (int)minCommittedFrame;
+        _eventAsset.Settings.Committed.Max = (int)maxCommittedFrame;
+
+        GUILayout.BeginHorizontal();
+
+        if (!_isPreviewing)
         {
-            _isPreviewing = !_isPreviewing;
-            _initialTime += Time.time;
+            if (GUILayout.Button(new GUIContent("Start Preview", "Previews the Animation Event by playing it"), GUILayout.MaxWidth(168)))
+            {
+                _isPreviewing = true;
+                _initialTime = Time.realtimeSinceStartup;
+            }
         }
-
-        Rect rect2 = rect1;
-        rect2.x += rect1.width;
-
-        if (GUI.Button(rect2, new GUIContent("+", "Adds a new Event starting at the given frame")))
+        else
         {
-            Rect lastRect = GUILayoutUtility.GetLastRect();
-            PopupWindow.Show(lastRect, new FrameEventPopup(_scrubFrame, _eventAsset, _eventAsset));
+            if (GUILayout.Button(new GUIContent("Stop Preview", "Stops previewing the Animation Event"), GUILayout.MaxWidth(168)))
+            {
+                _isPreviewing = false;
+            }
         }
-
-        Rect rect3 = rect2;
-        rect3.x += rect2.width;
-
-        if (GUI.Button(rect3, new GUIContent("-", "Removes the currently selected event")))
-        {
-            AssetDatabase.RemoveObjectFromAsset(Selected);
-
-            AssetRefFrameEvent toRemove = _eventAsset.Settings.Events.Find(item => item.Id == Selected.AssetObject.Guid);
-            _eventAsset.Settings.Events.Remove(toRemove);
-
-            AssetDatabase.SaveAssets();
-
-            Selected = null;
-        }
-
-        if (_isPreviewing)
-        {
-            _scrubFrame = (int)((Time.time - _initialTime) / 60) % _animation.FrameCount();
-        }
-
-        Rect sliderRect = EditorGUILayout.GetControlRect();
-        sliderRect.width -= rect1.width * 4 + 10;
-        sliderRect.x += rect1.width * 4 + 10;
-        sliderRect.y -= EditorGUIUtility.singleLineHeight;
 
         EditorGUI.BeginDisabledGroup(_isPreviewing);
 
-        _scrubFrame = EditorGUI.IntSlider(sliderRect, _scrubFrame, 0, _maxScrubFrame);
+        if (_isPreviewing)
+        {
+            EditorGUILayout.IntSlider(_scrubFrame, 0, _maxScrubFrame);
+        }
+        else
+        {
+            _scrubFrame = EditorGUILayout.IntSlider(_scrubFrame, 0, _maxScrubFrame);
+        }
+
+        GUILayout.EndHorizontal();
+
+        _events.DoLayoutList();
 
         EditorGUI.EndDisabledGroup();
 
-        for (int i = 0; i < _eventAsset.Settings.Events.Count; ++i)
-        {
-            FrameEventAsset frameEvent = UnityDB.FindAssetForInspector(_eventAsset.Settings.Events[i].Id) as FrameEventAsset;
-            if (!frameEvent)
-                continue;
-
-            float startingFrame = 0;
-            float endingFrame = 0;
-
-            if (frameEvent is SpawnHitboxEventAsset hitbox)
-            {
-                startingFrame = hitbox.Settings.StartingFrame;
-                endingFrame = hitbox.Settings.EndingFrame;
-            }
-            else if (frameEvent is SpawnProjectileEventAsset projectile)
-            {
-                startingFrame = projectile.Settings.StartingFrame;
-                endingFrame = projectile.Settings.EndingFrame;
-            }
-            else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
-            {
-                startingFrame = hurtboxes.Settings.StartingFrame;
-                endingFrame = hurtboxes.Settings.EndingFrame;
-            }
-            else if (frameEvent is SpawnVFXEventAsset vfx)
-            {
-                startingFrame = vfx.Settings.StartingFrame;
-                endingFrame = vfx.Settings.EndingFrame;
-            }
-            else if (frameEvent is PlayClipEventAsset clip)
-            {
-                startingFrame = clip.Settings.StartingFrame;
-                endingFrame = clip.Settings.EndingFrame;
-            }
-            else if (frameEvent is ApplyPhysicsEventAsset physics)
-            {
-                startingFrame = physics.Settings.StartingFrame;
-                endingFrame = physics.Settings.EndingFrame;
-            }
-
-            if (frameEvent != Selected)
-            {
-                if (frameEvent is SpawnHitboxEventAsset)
-                    GUI.color = Color.red;
-                else if (frameEvent is SpawnProjectileEventAsset)
-                    GUI.color = Color.cyan;
-                else if (frameEvent is ModifyHurtboxesEventAsset)
-                    GUI.color = Color.blue;
-                else if (frameEvent is SpawnVFXEventAsset)
-                    GUI.color = Color.green;
-                else if (frameEvent is PlayClipEventAsset)
-                    GUI.color = Color.magenta;
-                else if (frameEvent is ApplyPhysicsEventAsset)
-                    GUI.color = Color.yellow;
-            }
-
-            EditorGUILayout.MinMaxSlider($"[{startingFrame} - {endingFrame}]: {frameEvent.name}", ref startingFrame, ref endingFrame, 0, _maxScrubFrame);
-            GUI.color = Color.white;
-
-            if (frameEvent is SpawnHitboxEventAsset hitbox2)
-            {
-                hitbox2.Settings.StartingFrame = (int)startingFrame;
-                hitbox2.Settings.EndingFrame = (int)endingFrame;
-            }
-            else if (frameEvent is SpawnProjectileEventAsset projectile)
-            {
-                projectile.Settings.StartingFrame = (int)startingFrame;
-                projectile.Settings.EndingFrame = (int)endingFrame;
-            }
-            else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
-            {
-                hurtboxes.Settings.StartingFrame = (int)startingFrame;
-                hurtboxes.Settings.EndingFrame = (int)endingFrame;
-            }
-            else if (frameEvent is SpawnVFXEventAsset vfx)
-            {
-                vfx.Settings.StartingFrame = (int)startingFrame;
-                vfx.Settings.EndingFrame = (int)endingFrame;
-            }
-            else if (frameEvent is PlayClipEventAsset clip)
-            {
-                clip.Settings.StartingFrame = (int)startingFrame;
-                clip.Settings.EndingFrame = (int)endingFrame;
-            }
-            else if (frameEvent is ApplyPhysicsEventAsset physics)
-            {
-                physics.Settings.StartingFrame = (int)startingFrame;
-                physics.Settings.EndingFrame = (int)endingFrame;
-            }
-
-            if (Event.current.type == EventType.MouseDown && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
-            {
-                Selected = frameEvent;
-                Selection.activeObject = Selected;
-            }
-        }
-
-        PreviewAnimation();
+        SampleAnimation();
     }
 
-    public void PreviewAnimation()
+    private void Update()
+    {
+        if (_isPreviewing)
+        {
+            float elapsedTime = Time.realtimeSinceStartup - _initialTime;
+            float elapsedFrames = elapsedTime * _eventAsset.Clip.frameRate;
+
+            _scrubFrame = (int)elapsedFrames % _maxScrubFrame;
+        }
+    }
+
+    public void SampleAnimation()
     {
         if (!_animationPreview)
             _animationPreview = GameObject.FindGameObjectWithTag("Player");
-
-        if (_animation && _animationPreview)
-            _animation.SampleAnimation(_animationPreview, (float)_scrubFrame / _maxScrubFrame);
+        
+        _eventAsset.Clip.SampleAnimation(_animationPreview, _scrubFrame / _eventAsset.Clip.frameRate);
     }
 
     public unsafe void DrawGizmos()
@@ -256,6 +349,21 @@ public class AnimationEventContainerWindow : EditorWindow
                 startingFrame = physics.Settings.StartingFrame;
                 endingFrame = physics.Settings.EndingFrame;
             }
+            else if (frameEvent is HoldAnimationEventAsset hold)
+            {
+                startingFrame = hold.Settings.StartingFrame;
+                endingFrame = hold.Settings.EndingFrame;
+            }
+            else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
+            {
+                startingFrame = unityEvent.Settings.StartingFrame;
+                endingFrame = unityEvent.Settings.EndingFrame;
+            }
+            else if (frameEvent is AllowMovementEventAsset movement)
+            {
+                startingFrame = movement.Settings.StartingFrame;
+                endingFrame = movement.Settings.EndingFrame;
+            }
 
             if (_scrubFrame >= startingFrame && _scrubFrame <= endingFrame)
             {
@@ -278,18 +386,16 @@ public class AnimationEventContainerWindow : EditorWindow
                     }
 
                     Gizmos.DrawLineList(CalculateArcPositions(20, spawnHitbox.Settings.Settings.Knockback.ToUnityVector2(), spawnHitbox.Settings.Shape.CompoundShapes[^1].PositionOffset.ToUnityVector2()));
-                }
-                else if (frameEvent is ModifyHurtboxesEventAsset modifyHurtboxes)
-                {
-
+                    
+                    if (spawnHitbox.Settings.MaxHoldSettings.Knockback != FPVector2.Zero)
+                        Gizmos.DrawLineList(CalculateArcPositions(20, spawnHitbox.Settings.MaxHoldSettings.Knockback.ToUnityVector2(), spawnHitbox.Settings.Shape.CompoundShapes[^1].PositionOffset.ToUnityVector2()));
                 }
                 else if (frameEvent is ApplyPhysicsEventAsset applyPhysics)
                 {
+                    int elapsedFrames = _scrubFrame - startingFrame;
+                    FP normalizedTime = (FP)elapsedFrames / applyPhysics.Settings.Length;
 
-                }
-                else if (frameEvent is SpawnProjectileEventAsset spawnProjectile)
-                {
-
+                    _animationPreview.transform.position = ApplyPhysicsEvent.GetPositionAtTime(applyPhysics.Settings.Settings, normalizedTime).ToUnityVector2();
                 }
             }
         }
