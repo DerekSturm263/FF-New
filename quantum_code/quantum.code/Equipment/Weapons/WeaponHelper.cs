@@ -24,7 +24,7 @@ namespace Quantum
             };
         }
 
-        public static unsafe WeaponStats FromStats(Frame f, Stats* stats)
+        public static unsafe WeaponStats FromStats(Frame f, PlayerStats* stats)
         {
             WeaponStats weaponStats = Default;
 

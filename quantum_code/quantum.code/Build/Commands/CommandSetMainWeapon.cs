@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Main Weapon applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetMainWeapon(f, entity, stats, weapon);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetMainWeapon(f, entity, stats, weapon);
         }
     }
 }

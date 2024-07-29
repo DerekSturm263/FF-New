@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Legwear applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetLegwear(f, entity, stats, legwear);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetLegwear(f, entity, stats, legwear);
         }
     }
 }

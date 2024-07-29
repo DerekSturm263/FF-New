@@ -10,7 +10,7 @@ namespace Quantum
 
         public override void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
         {
-            itemInstance->Target = StatsSystem.FindNearestOtherPlayer(f, user);
+            itemInstance->Target = PlayerStatsSystem.FindNearestOtherPlayer(f, user);
         }
 
         public override unsafe void OnUpdate(Frame f, EntityRef user, EntityRef target, EntityRef item, ItemInstance* itemInstance)

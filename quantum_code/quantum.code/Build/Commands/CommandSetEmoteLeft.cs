@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Emote Left applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetEmoteLeft(f, entity, stats, emote);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetEmoteLeft(f, entity, stats, emote);
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Headgear applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetHeadgear(f, entity, stats, headgear);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetHeadgear(f, entity, stats, headgear);
         }
     }
 }

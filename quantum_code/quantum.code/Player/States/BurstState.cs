@@ -14,7 +14,7 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return filter.Stats->CurrentEnergy >= settings.BurstCost;
+            return filter.Stats->CurrentStats.Energy >= settings.BurstCost;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)

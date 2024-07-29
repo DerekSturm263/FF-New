@@ -1,4 +1,5 @@
-﻿using Quantum.Types;
+﻿using Photon.Deterministic;
+using Quantum.Types;
 
 namespace Quantum
 {
@@ -19,11 +20,11 @@ namespace Quantum
             if (filter.CharacterController->IsCommitted)
                 return false;
 
-            if (filter.Stats->Build.Equipment.Weapons.SubWeapon.Equals(default(Sub)))
+            if (filter.PlayerStats->Build.Equipment.Weapons.SubWeapon.Equals(default(Sub)))
                 return false;
 
-            if (f.TryFindAsset(filter.Stats->Build.Equipment.Weapons.SubWeapon.Template.Id, out SubTemplate subWeapon))
-                return filter.Stats->CurrentEnergy >= subWeapon.EnergyAmount;
+            if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Weapons.SubWeapon.Template.Id, out SubTemplate subWeapon))
+                return filter.Stats->CurrentStats.Energy >= subWeapon.EnergyAmount;
 
             return false;
         }
@@ -32,16 +33,20 @@ namespace Quantum
         {
             base.Enter(f, ref filter, ref input, settings, stats);
 
-            AssetRefSubTemplate itemAsset = filter.Stats->Build.Equipment.Weapons.SubWeapon.Template;
+            AssetRefSubTemplate itemAsset = filter.PlayerStats->Build.Equipment.Weapons.SubWeapon.Template;
             if (f.TryFindAsset(itemAsset.Id, out SubTemplate subTemplate))
             {
                 StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -subTemplate.EnergyAmount);
 
-                EntityRef instance = ItemSpawnSystem.SpawnInHand(f, subTemplate.Prototype, filter.Entity);
-                if (f.Unsafe.TryGetPointer(instance, out SubInstance* subInstance))
+                ItemSpawnSettings itemSpawnSettings = new()
                 {
-                    subInstance->SubWeapon = filter.Stats->Build.Equipment.Weapons.SubWeapon;
-                }
+                    Item = subTemplate.Prototype,
+                    Velocity = FPVector2.Zero,
+                    Offset = FPVector2.Zero,
+                    StartHolding = false
+                };
+
+                ItemSpawnSystem.SpawnWithOwner(f, itemSpawnSettings, filter.Entity);
             }
         }
 
@@ -57,7 +62,7 @@ namespace Quantum
 
             if (!input.SubWeapon)
             {
-                ItemSystem.Throw(f, filter.Entity, filter.Stats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
+                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
             }
         }
     }

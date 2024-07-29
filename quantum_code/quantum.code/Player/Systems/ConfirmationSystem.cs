@@ -9,7 +9,8 @@ namespace Quantum
             public EntityRef Entity;
 
             public PlayerLink* PlayerLink;
-            public Stats* Stats;
+            public CharacterController* CharacterController;
+            public PlayerStats* PlayerStats;
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -21,28 +22,28 @@ namespace Quantum
             Input input = *f.GetPlayerInput(filter.PlayerLink->Player);
 
             // Set the player's readiness.
-            HandleReady(f, ref filter, ref input, filter.PlayerLink);
-            HandleCancel(f, ref filter, ref input, filter.PlayerLink);
+            HandleReady(f, ref filter, ref input);
+            HandleCancel(f, ref filter, ref input);
         }
 
-        private void HandleReady(Frame f, ref Filter filter, ref Input input, PlayerLink* playerLink)
+        private void HandleReady(Frame f, ref Filter filter, ref Input input)
         {
-            if (input.Ready && !filter.Stats->IsReady)
-                filter.Stats->ReadyTime += f.DeltaTime;
+            if (input.Ready && !filter.CharacterController->IsReady)
+                filter.CharacterController->ReadyTime += f.DeltaTime;
             else
-                filter.Stats->ReadyTime = 0;
+                filter.CharacterController->ReadyTime = 0;
 
-            f.Events.OnPlayerUpdateReady(filter.Entity, filter.Stats->Index, filter.Stats->ReadyTime / FP._0_50);
+            f.Events.OnPlayerUpdateReady(filter.Entity, filter.PlayerStats->Index, filter.CharacterController->ReadyTime / FP._0_50);
 
-            if (filter.Stats->ReadyTime > FP._0_50)
+            if (filter.CharacterController->ReadyTime > FP._0_50)
             {
-                filter.Stats->IsReady = true;
+                filter.CharacterController->IsReady = true;
 
                 if (!f.Global->CanPlayersEdit)
                     return;
 
                 ++f.Global->PlayersReady;
-                f.Events.OnPlayerReady(filter.Entity, filter.Stats->Index);
+                f.Events.OnPlayerReady(filter.Entity, filter.PlayerStats->Index);
 
                 if (f.Global->TotalPlayers > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
                 {
@@ -51,9 +52,9 @@ namespace Quantum
             }
         }
 
-        private void HandleCancel(Frame f, ref Filter filter, ref Input input, PlayerLink* playerLink)
+        private void HandleCancel(Frame f, ref Filter filter, ref Input input)
         {
-            if (input.Cancel && filter.Stats->IsReady)
+            if (input.Cancel && filter.CharacterController->IsReady)
             {
                 if (!f.Global->CanPlayersEdit)
                     return;
@@ -62,8 +63,8 @@ namespace Quantum
 
                 --f.Global->PlayersReady;
 
-                filter.Stats->IsReady = false;
-                f.Events.OnPlayerCancel(filter.Entity, filter.Stats->Index);
+                filter.CharacterController->IsReady = false;
+                f.Events.OnPlayerCancel(filter.Entity, filter.PlayerStats->Index);
 
                 if (shouldCancelAll)
                     HandleAllPlayersCancel(f);
@@ -75,16 +76,16 @@ namespace Quantum
             f.Events.OnAllPlayersReady();
 
             f.SystemDisable<CharacterControllerSystem>();
-            TimerSystem.ResumeCountdown(f);
 
+            TimerSystem.ResumeCountdown(f);
             TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time + 3), true);
         }
 
         private void HandleAllPlayersCancel(Frame f)
         {
             f.SystemEnable<CharacterControllerSystem>();
-            TimerSystem.StopCountdown(f);
 
+            TimerSystem.StopCountdown(f);
             TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), false);
 
             StatsSystem.SetAllHealth(f, 0);

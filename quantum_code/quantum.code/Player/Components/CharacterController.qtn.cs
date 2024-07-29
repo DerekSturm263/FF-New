@@ -129,12 +129,12 @@ namespace Quantum
                     if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0)
                     {
                         MovementDirection = -1;
-                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.Stats->Index, MovementDirection);
+                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
                     }
                     else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0)
                     {
                         MovementDirection = 1;
-                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.Stats->Index, MovementDirection);
+                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
                     }
                 }
 
@@ -147,5 +147,21 @@ namespace Quantum
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);
         private readonly FP CalculateTopSpeed(MovementMoveSettings settings, FP stickX) => stickX * settings.TopSpeed;
+
+        public readonly T LerpFromAnimationHold<T>(System.Func<T, T, FP, T> lerpFunc, T a, T b) where T : struct
+        {
+            if (MaxHoldAnimationFrameTime > 0)
+                return lerpFunc.Invoke(a, b, (FP)HeldAnimationFrameTime / MaxHoldAnimationFrameTime);
+            else
+                return a;
+        }
+
+        public readonly T LerpFromAnimationHold_UNSAFE<T>(System.Func<T, T, float, T> lerpFunc, T a, T b) where T : struct
+        {
+            if (MaxHoldAnimationFrameTime > 0)
+                return lerpFunc.Invoke(a, b, (float)HeldAnimationFrameTime / MaxHoldAnimationFrameTime);
+            else
+                return a;
+        }
     }
 }

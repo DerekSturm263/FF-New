@@ -34,15 +34,15 @@
                 new CharacterControllerSystem(),
                 new ConfirmationSystem(),
                 new StatsSystem(),
+                new PlayerStatsSystem(),
                 new ItemSpawnSystem(),
                 new ItemSystem(),
+                new HurtboxSystem(),
 
                 // animation-related systems
                 new CustomAnimatorSystem(),
                 new CustomAnimatorStateSystem(),
-                new CustomAnimatorResetTriggersSystem(),
-
-                new HurtboxSystem()
+                new CustomAnimatorResetTriggersSystem()
             ];
         }
     }

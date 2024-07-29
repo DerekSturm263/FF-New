@@ -17,11 +17,14 @@ namespace Quantum
         {
             Log.Debug("Ruleset applied!");
 
-            foreach (var stats in f.GetComponentIterator<Stats>())
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {
-                f.Events.OnPlayerModifyHealth(stats.Entity, stats.Component.Index, stats.Component.CurrentHealth, stats.Component.CurrentHealth, ruleset.Players.MaxHealth);
-                f.Events.OnPlayerModifyEnergy(stats.Entity, stats.Component.Index, stats.Component.CurrentEnergy, stats.Component.CurrentEnergy, ruleset.Players.MaxEnergy);
-                f.Events.OnPlayerModifyStocks(stats.Entity, stats.Component.Index, stats.Component.CurrentStocks, stats.Component.CurrentStocks, ruleset.Players.StockCount);
+                if (f.Unsafe.TryGetPointer(stats.Entity, out Stats* statValues))
+                {
+                    f.Events.OnPlayerModifyHealth(stats.Entity, stats.Component.Index, statValues->CurrentStats.Health, statValues->CurrentStats.Health, ruleset.Players.MaxHealth);
+                    f.Events.OnPlayerModifyEnergy(stats.Entity, stats.Component.Index, statValues->CurrentStats.Energy, statValues->CurrentStats.Energy, ruleset.Players.MaxEnergy);
+                    f.Events.OnPlayerModifyStocks(stats.Entity, stats.Component.Index, statValues->CurrentStats.Stocks, statValues->CurrentStats.Stocks, ruleset.Players.StockCount);
+                }
             }
 
             FighterIndex index = FighterIndex.Invalid;
@@ -38,7 +41,7 @@ namespace Quantum
                 {
                     var players = f.ResolveList(selectingTeam.Players);
 
-                    if (f.Unsafe.TryGetPointer(players[0], out Stats* stats))
+                    if (f.Unsafe.TryGetPointer(players[0], out PlayerStats* stats))
                     {
                         index = stats->Index;
                     }

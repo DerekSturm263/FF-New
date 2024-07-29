@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Avatar applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetAvatar(f, entity, stats, avatar);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetAvatar(f, entity, stats, avatar);
         }
     }
 }

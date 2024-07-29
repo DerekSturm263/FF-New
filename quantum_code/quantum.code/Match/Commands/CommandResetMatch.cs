@@ -21,6 +21,8 @@ namespace Quantum
             StatsSystem.SetAllHealth(f, 0);
             StatsSystem.SetAllEnergy(f, 0);
             StatsSystem.SetAllStocks(f, 0);
+
+            PlayerStatsSystem.ResetAllTemporaryValues(f);
             StatsSystem.ResetAllTemporaryValues(f);
 
             f.Global->CanPlayersEdit = true;

@@ -9,7 +9,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->EnergyModifyMultiplier = 0;
+                stats->MatchStatsMultiplier.Energy = 0;
             }
         }
 
@@ -17,7 +17,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->EnergyModifyMultiplier = 1;
+                stats->MatchStatsMultiplier.Energy = 1;
             }
         }
     }

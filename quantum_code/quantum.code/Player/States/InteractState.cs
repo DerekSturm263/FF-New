@@ -14,7 +14,7 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return filter.Stats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0) * settings.InteractCastDistanceMultiplier).Count > 0;
+            return filter.PlayerStats->HeldItem.IsValid || settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0) * settings.InteractCastDistanceMultiplier).Count > 0;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
@@ -34,7 +34,7 @@ namespace Quantum
                 filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(new FPVector2(filter.CharacterController->MovementDirection, 0) * settings.InteractCastDistanceMultiplier);
             }
 
-            if (!filter.Stats->HeldItem.IsValid)
+            if (!filter.PlayerStats->HeldItem.IsValid)
             {
                 Physics2D.HitCollection hitCollection = settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0));
 
@@ -49,7 +49,7 @@ namespace Quantum
             }
             else
             {
-                ItemSystem.Throw(f, filter.Entity, filter.Stats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
+                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
             }
         }
     }

@@ -28,8 +28,8 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
                 aiData->Behavior = bot.Behavior;
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetBuild(f, entity, stats, bot.Build);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetBuild(f, entity, stats, bot.Build);
         }
     }
 }

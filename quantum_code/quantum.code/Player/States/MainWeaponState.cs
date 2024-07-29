@@ -13,7 +13,7 @@ namespace Quantum
         {
             Log.Debug("Tyring to get the time...");
 
-            Weapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.MainWeapon;
+            Weapon mainWeaponAsset = filter.PlayerStats->Build.Equipment.Weapons.MainWeapon;
 
             if (f.TryFindAsset(mainWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
@@ -53,9 +53,10 @@ namespace Quantum
         {
             base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
+            filter.PlayerStats->ActiveWeaponType = WeaponType.Main;
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
 
-            Weapon mainWeaponAsset = filter.Stats->Build.Equipment.Weapons.MainWeapon;
+            Weapon mainWeaponAsset = filter.PlayerStats->Build.Equipment.Weapons.MainWeapon;
             if (f.TryFindAsset(mainWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
                 MoveRef animRef;
@@ -77,6 +78,7 @@ namespace Quantum
             base.Exit(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->PossibleStates = (StatesFlag)511;
+            filter.PlayerStats->ActiveWeaponType = WeaponType.None;
         }
     }
 }

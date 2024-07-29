@@ -1,35 +1,14 @@
 component Stats
 {
-	Build Build;
-	list<EntityRef> Hitboxes;
+	list<entity_ref> Hitboxes;
 	dictionary<HurtboxType, entity_ref> Hurtboxes;
-	asset_ref<EntityPrototype> Hurtbox;
 
-	QString<32> Name;
-	FighterIndex Index;
-
-	int CurrentStocks;
-
-	FP CurrentHealth;
-	FP HealthModifyMultiplier;
-
-	FP CurrentEnergy;
-	FP EnergyModifyMultiplier;
-
-	int Kills;
-	int Deaths;
-
+	MatchStats CurrentStats;
+	MatchStats MatchStatsMultiplier;
+	
 	ApparelStats ApparelStatsMultiplier;
 	WeaponStats WeaponStatsMultiplier;
 
-    entity_ref HeldItem;
-
-    bool IsReady;
-    FP ReadyTime;
-
-	int HeldAnimationFrameTime;
-	int MaxHoldAnimationFrameTime;
-	
 	asset_ref<StatusEffect> StatusEffect;
 	int StatusEffectTimeLeft;
 	FP StatusEffectMultiplier;

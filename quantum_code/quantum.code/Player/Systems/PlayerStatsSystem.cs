@@ -1,0 +1,347 @@
+﻿using Photon.Deterministic;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Quantum
+{
+    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>, ISignalOnComponentAdded<PlayerStats>, ISignalOnComponentRemoved<PlayerStats>
+    {
+        public struct Filter
+        {
+            public EntityRef Entity;
+            public PlayerStats* PlayerStats;
+        }
+
+        public override void Update(Frame f, ref Filter filter)
+        {
+            UpdateHitboxes(f, ref filter);
+
+            if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Badge.Id, out Badge badge))
+            {
+                badge.OnUpdate(f, filter.Entity);
+            }
+        }
+
+        public void OnAdded(Frame f, EntityRef entity, PlayerStats* component)
+        {
+            SetBuild(f, entity, component, component->Build);
+        }
+
+        public void OnRemoved(Frame f, EntityRef entity, PlayerStats* component)
+        {
+            RemoveBuild(f, entity, component);
+        }
+
+        private void UpdateHitboxes(Frame f, ref Filter filter)
+        {
+            UpdateHitbox(f, ref filter, filter.PlayerStats->MainWeapon);
+            UpdateHitbox(f, ref filter, filter.PlayerStats->AltWeapon);
+        }
+
+        private void UpdateHitbox(Frame f, ref Filter filter, EntityRef hurtbox)
+        {
+            //HitboxSystem.SpawnDynamicHitbox(f, );
+        }
+
+        public static void SetShowReadiness(Frame f, EntityRef entityRef, PlayerStats* stats, bool showReadiness)
+        {
+            f.Events.OnHideShowReadiness(entityRef, stats->Index, showReadiness);
+        }
+
+        public static void SetAllShowReadiness(Frame f, bool showReadiness)
+        {
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<PlayerStats>())
+            {
+                SetShowReadiness(f, stats.Entity, stats.Component, showReadiness);
+            }
+        }
+
+        struct StatsFilter
+        {
+            public EntityRef Entity;
+
+            public CharacterController* CharacterController;
+            public PlayerStats* PlayerStats;
+        }
+
+        public static void SetReadiness(Frame f, EntityRef entityRef, CharacterController* characterController, PlayerStats* playerStats, bool isReady)
+        {
+            characterController->ReadyTime = 0;
+            characterController->IsReady = isReady;
+
+            f.Events.OnPlayerCancel(entityRef, playerStats->Index);
+        }
+
+        public static void SetAllReadiness(Frame f, bool isReady)
+        {
+            var filter = f.Unsafe.FilterStruct<StatsFilter>();
+            var item = default(StatsFilter);
+
+            while (filter.Next(&item))
+            {
+                SetReadiness(f, item.Entity, item.CharacterController, item.PlayerStats, isReady);
+            }
+        }
+
+        public static void SetBuild(Frame f, EntityRef user, PlayerStats* stats, Build build)
+        {
+            stats->Build = build;
+
+            SetAvatar(f, user, stats, build.Cosmetics.Avatar);
+            SetAltWeapon(f, user, stats, build.Equipment.Weapons.AltWeapon);
+            SetBadge(f, user, stats, build.Equipment.Badge);
+            SetClothing(f, user, stats, build.Equipment.Outfit.Clothing);
+            SetEmoteDown(f, user, stats, build.Cosmetics.Emotes.Down);
+            SetEmoteLeft(f, user, stats, build.Cosmetics.Emotes.Left);
+            SetEmoteRight(f, user, stats, build.Cosmetics.Emotes.Right);
+            SetEmoteUp(f, user, stats, build.Cosmetics.Emotes.Up);
+            SetEyes(f, user, stats, build.Cosmetics.Eyes);
+            SetHair(f, user, stats, build.Cosmetics.Hair);
+            SetHeadgear(f, user, stats, build.Equipment.Outfit.Headgear);
+            SetLegwear(f, user, stats, build.Equipment.Outfit.Legwear);
+            SetMainWeapon(f, user, stats, build.Equipment.Weapons.MainWeapon);
+            SetSub(f, user, stats, build.Equipment.Weapons.SubWeapon);
+            SetUltimate(f, user, stats, build.Equipment.Ultimate);
+            SetVoice(f, user, stats, build.Cosmetics.Voice);
+
+            ApplyBuild(f, user, stats, build);
+        }
+
+        public static void ApplyBuild(Frame f, EntityRef user, PlayerStats* stats, Build build)
+        {
+            ApplyBadge(f, user, stats->Build.Equipment.Badge);
+        }
+
+        public static void UnapplyBuild(Frame f, EntityRef user, PlayerStats* stats)
+        {
+            UnapplyBadge(f, user, stats->Build.Equipment.Badge);
+        }
+
+        public static void RemoveBuild(Frame f, EntityRef user, PlayerStats* stats)
+        {
+            UnapplyBuild(f, user, stats);
+
+            SetAvatar(f, user, stats, default);
+            SetAltWeapon(f, user, stats, default);
+            SetBadge(f, user, stats, default);
+            SetClothing(f, user, stats, default);
+            SetEmoteDown(f, user, stats, default);
+            SetEmoteLeft(f, user, stats, default);
+            SetEmoteRight(f, user, stats, default);
+            SetEmoteUp(f, user, stats, default);
+            SetEyes(f, user, stats, default);
+            SetHair(f, user, stats, default);
+            SetHeadgear(f, user, stats, default);
+            SetLegwear(f, user, stats, default);
+            SetMainWeapon(f, user, stats, default);
+            SetSub(f, user, stats, default);
+            SetUltimate(f, user, stats, default);
+            SetVoice(f, user, stats, default);
+
+            stats->Build = default;
+        }
+
+        public static void SetAltWeapon(Frame f, EntityRef user, PlayerStats* stats, Weapon altWeapon)
+        {
+            if (stats->AltWeapon.IsValid)
+                f.Destroy(stats->AltWeapon);
+
+            Weapon oldAltWeapon = stats->Build.Equipment.Weapons.AltWeapon;
+            stats->Build.Equipment.Weapons.AltWeapon = altWeapon;
+
+            if (altWeapon.Template.Id.IsValid)
+            {
+                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
+                stats->AltWeapon = f.Create(entity.Weapon);
+            }
+
+            f.Events.OnPlayerSetAltWeapon(user, oldAltWeapon, altWeapon);
+        }
+
+        public static void SetAvatar(Frame f, EntityRef user, PlayerStats* stats, AssetRefFFAvatar avatar)
+        {
+            AssetRefFFAvatar oldAvatar = stats->Build.Cosmetics.Avatar;
+            stats->Build.Cosmetics.Avatar = avatar;
+
+            f.Events.OnPlayerSetAvatar(user, oldAvatar, avatar);
+        }
+
+        public static void SetVoice(Frame f, EntityRef user, PlayerStats* stats, AssetRefVoice voice)
+        {
+            AssetRefVoice oldVoice = stats->Build.Cosmetics.Voice;
+            stats->Build.Cosmetics.Voice = voice;
+
+            f.Events.OnPlayerSetVoice(user, oldVoice, voice);
+        }
+
+        public static void SetBadge(Frame f, EntityRef user, PlayerStats* stats, AssetRefBadge badge)
+        {
+            AssetRefBadge oldBadge = stats->Build.Equipment.Badge;
+            stats->Build.Equipment.Badge = badge;
+
+            ApplyBadge(f, user, badge);
+
+            f.Events.OnPlayerSetBadge(user, oldBadge, badge);
+        }
+
+        public static void SetClothing(Frame f, EntityRef user, PlayerStats* stats, Apparel clothing)
+        {
+            Apparel oldClothing = stats->Build.Equipment.Outfit.Clothing;
+            stats->Build.Equipment.Outfit.Clothing = clothing;
+
+            f.Events.OnPlayerSetClothing(user, oldClothing, clothing);
+        }
+
+        public static void SetEmoteDown(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
+        {
+            AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Down;
+            stats->Build.Cosmetics.Emotes.Down = emote;
+
+            f.Events.OnPlayerSetEmoteDown(user, oldEmote, emote);
+        }
+
+        public static void SetEmoteLeft(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
+        {
+            AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Left;
+            stats->Build.Cosmetics.Emotes.Left = emote;
+
+            f.Events.OnPlayerSetEmoteLeft(user, oldEmote, emote);
+        }
+
+        public static void SetEmoteRight(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
+        {
+            AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Right;
+            stats->Build.Cosmetics.Emotes.Right = emote;
+
+            f.Events.OnPlayerSetEmoteRight(user, oldEmote, emote);
+        }
+
+        public static void SetEmoteUp(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
+        {
+            AssetRefEmote oldEmote = stats->Build.Cosmetics.Emotes.Up;
+            stats->Build.Cosmetics.Emotes.Up = emote;
+
+            f.Events.OnPlayerSetEmoteUp(user, oldEmote, emote);
+        }
+
+        public static void SetEyes(Frame f, EntityRef user, PlayerStats* stats, AssetRefEyes eyes)
+        {
+            AssetRefEyes oldEyes = stats->Build.Cosmetics.Eyes;
+            stats->Build.Cosmetics.Eyes = eyes;
+
+            f.Events.OnPlayerSetEyes(user, oldEyes, eyes);
+        }
+
+        public static void SetHair(Frame f, EntityRef user, PlayerStats* stats, AssetRefHair hair)
+        {
+            AssetRefHair oldHair = stats->Build.Cosmetics.Hair;
+            stats->Build.Cosmetics.Hair = oldHair;
+
+            f.Events.OnPlayerSetHair(user, oldHair, hair);
+        }
+
+        public static void SetHeadgear(Frame f, EntityRef user, PlayerStats* stats, Apparel headgear)
+        {
+            Apparel oldHeadgear = stats->Build.Equipment.Outfit.Headgear;
+            stats->Build.Equipment.Outfit.Headgear = headgear;
+
+            f.Events.OnPlayerSetHeadgear(user, oldHeadgear, headgear);
+        }
+
+        public static void SetLegwear(Frame f, EntityRef user, PlayerStats* stats, Apparel legwear)
+        {
+            Apparel oldOutfit = stats->Build.Equipment.Outfit.Legwear;
+            stats->Build.Equipment.Outfit.Legwear = legwear;
+
+            f.Events.OnPlayerSetLegwear(user, oldOutfit, legwear);
+        }
+
+        public static void SetMainWeapon(Frame f, EntityRef user, PlayerStats* stats, Weapon mainWeapon)
+        {
+            if (stats->MainWeapon.IsValid)
+                f.Destroy(stats->MainWeapon);
+
+            Weapon oldMainWeapon = stats->Build.Equipment.Weapons.MainWeapon;
+            stats->Build.Equipment.Weapons.MainWeapon = mainWeapon;
+
+            if (mainWeapon.Template.Id.IsValid)
+            {
+                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
+                stats->MainWeapon = f.Create(entity.Weapon);
+            }
+
+            f.Events.OnPlayerSetMainWeapon(user, oldMainWeapon, mainWeapon);
+        }
+
+        public static void SetSub(Frame f, EntityRef user, PlayerStats* stats, Sub sub)
+        {
+            Sub oldSub = stats->Build.Equipment.Weapons.SubWeapon;
+            stats->Build.Equipment.Weapons.SubWeapon = sub;
+
+            f.Events.OnPlayerSetSub(user, oldSub, sub);
+        }
+
+        public static void SetUltimate(Frame f, EntityRef user, PlayerStats* stats, AssetRefUltimate ultimate)
+        {
+            AssetRefUltimate oldUltimate = stats->Build.Equipment.Ultimate;
+            stats->Build.Equipment.Ultimate = ultimate;
+
+            f.Events.OnPlayerSetUltimate(user, oldUltimate, ultimate);
+        }
+
+        public static void ApplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
+        {
+            if (f.TryFindAsset(badgeAsset.Id, out Badge badge))
+                badge.OnApply(f, user);
+        }
+
+        public static void UnapplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
+        {
+            if (f.TryFindAsset(badgeAsset.Id, out Badge badge))
+                badge.OnRemove(f, user);
+        }
+
+        public static void RemoveBadge(Frame f, EntityRef user, PlayerStats* stats)
+        {
+            UnapplyBadge(f, user, stats->Build.Equipment.Badge);
+
+            AssetRefBadge oldBadge = stats->Build.Equipment.Badge;
+            stats->Build.Equipment.Badge = default;
+
+            f.Events.OnPlayerSetBadge(user, oldBadge, default);
+        }
+
+        public static void ResetTemporaryValues(Frame f, PlayerStats* playerStats)
+        {
+            playerStats->WinStats = default;
+            playerStats->HeldItem = EntityRef.None;
+            playerStats->ApparelStatsMultiplier = ApparelHelper.Default;
+            playerStats->WeaponStatsMultiplier = WeaponHelper.Default;
+        }
+
+        public static void ResetAllTemporaryValues(Frame f)
+        {
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<PlayerStats>())
+            {
+                ResetTemporaryValues(f, stats.Component);
+            }
+        }
+
+        public static EntityRef FindNearestOtherPlayer(Frame f, EntityRef user)
+        {
+            List<EntityRef> players = [];
+
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
+            {
+                players.Add(stats.Entity);
+            }
+
+            players.Remove(user);
+
+            Transform2D userTransform = f.Get<Transform2D>(user);
+            players.OrderBy(item => FPVector2.DistanceSquared(userTransform.Position, f.Get<Transform2D>(item).Position));
+
+            return players[0];
+        }
+    }
+}

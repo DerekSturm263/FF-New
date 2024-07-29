@@ -622,5 +622,150 @@ namespace Quantum.Types
                 };
             }
         }
+
+        public static PositionalGizmo Get(ArrayPositionalGizmoInfo array, int index)
+        {
+            return index switch
+            {
+                0 => array.Item1,
+                1 => array.Item2,
+                2 => array.Item3,
+                3 => array.Item4,
+                4 => array.Item5,
+                5 => array.Item6,
+                6 => array.Item7,
+                7 => array.Item8,
+                8 => array.Item9,
+                9 => array.Item10,
+                10 => array.Item11,
+                11 => array.Item12,
+                12 => array.Item13,
+                13 => array.Item14,
+                14 => array.Item15,
+                15 => array.Item16,
+                _ => default
+            };
+        }
+
+        public static unsafe void Set(ArrayPositionalGizmoInfo* array, int index, PositionalGizmo value)
+        {
+            switch (index)
+            {
+                case 0:
+                    array->Item1 = value;
+                    break;
+
+                case 1:
+                    array->Item2 = value;
+                    break;
+
+                case 2:
+                    array->Item3 = value;
+                    break;
+
+                case 3:
+                    array->Item4 = value;
+                    break;
+
+                case 4:
+                    array->Item5 = value;
+                    break;
+
+                case 5:
+                    array->Item6 = value;
+                    break;
+
+                case 6:
+                    array->Item7 = value;
+                    break;
+
+                case 7:
+                    array->Item8 = value;
+                    break;
+
+                case 8:
+                    array->Item9 = value;
+                    break;
+
+                case 9:
+                    array->Item10 = value;
+                    break;
+
+                case 10:
+                    array->Item11 = value;
+                    break;
+
+                case 11:
+                    array->Item12 = value;
+                    break;
+
+                case 12:
+                    array->Item13 = value;
+                    break;
+
+                case 13:
+                    array->Item14 = value;
+                    break;
+
+                case 14:
+                    array->Item15 = value;
+                    break;
+
+                case 15:
+                    array->Item16 = value;
+                    break;
+            }
+        }
+
+        public static unsafe PositionalGizmo* GetPointer(ArrayPositionalGizmoInfo array, int index)
+        {
+            return index switch
+            {
+                0 => &array.Item1,
+                1 => &array.Item2,
+                2 => &array.Item3,
+                3 => &array.Item4,
+                4 => &array.Item5,
+                5 => &array.Item6,
+                6 => &array.Item7,
+                7 => &array.Item8,
+                8 => &array.Item9,
+                9 => &array.Item10,
+                10 => &array.Item11,
+                11 => &array.Item12,
+                12 => &array.Item13,
+                13 => &array.Item14,
+                14 => &array.Item15,
+                15 => &array.Item16,
+                _ => default
+            };
+        }
+
+        public static IEnumerator<PositionalGizmo> All(ArrayPositionalGizmoInfo array)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                yield return i switch
+                {
+                    0 => array.Item1,
+                    1 => array.Item2,
+                    2 => array.Item3,
+                    3 => array.Item4,
+                    4 => array.Item5,
+                    5 => array.Item6,
+                    6 => array.Item7,
+                    7 => array.Item8,
+                    8 => array.Item9,
+                    9 => array.Item10,
+                    10 => array.Item11,
+                    11 => array.Item12,
+                    12 => array.Item13,
+                    13 => array.Item14,
+                    14 => array.Item15,
+                    15 => array.Item16,
+                    _ => default
+                };
+            }
+        }
     }
 }

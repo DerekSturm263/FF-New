@@ -122,7 +122,7 @@ namespace Quantum
             stream.Serialize(ref value.Stage);
             stream.Serialize(ref value.SourceMap);
             stream.Serialize(ref value.Colliders);
-            stream.SerializeBuffer(value.Gizmos.Buffer, value.Gizmos.Length);
+            stream.Serialize(ref value.Gizmos);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref ArrayStaticColliderInfo value)
@@ -148,6 +148,32 @@ namespace Quantum
             stream.Serialize(ref value.CircleRadius);
             stream.Serialize(ref value.BoxExtents);
             stream.Serialize(ref value.EdgeExtent);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayPositionalGizmoInfo value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
+            stream.Serialize(ref value.Item5);
+            stream.Serialize(ref value.Item6);
+            stream.Serialize(ref value.Item7);
+            stream.Serialize(ref value.Item8);
+            stream.Serialize(ref value.Item9);
+            stream.Serialize(ref value.Item10);
+            stream.Serialize(ref value.Item11);
+            stream.Serialize(ref value.Item12);
+            stream.Serialize(ref value.Item13);
+            stream.Serialize(ref value.Item14);
+            stream.Serialize(ref value.Item15);
+            stream.Serialize(ref value.Item16);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref PositionalGizmo value)
+        {
+            stream.Serialize(ref value.Position);
+            stream.Serialize(ref value.Gizmo);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref SpawnSettings value)

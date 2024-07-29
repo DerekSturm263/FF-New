@@ -1,0 +1,26 @@
+enum WeaponType
+{
+	None,
+	Main,
+	Alt
+}
+
+component PlayerStats
+{
+	Build Build;
+	QString<32> Name;
+	FighterIndex Index;
+
+	WeaponType ActiveWeaponType;
+	WeaponType CurrentActiveWeapon;
+	
+	entity_ref MainWeapon;
+	entity_ref AltWeapon;
+
+	WinConditionStats WinStats;
+
+	ApparelStats ApparelStatsMultiplier;
+	WeaponStats WeaponStatsMultiplier;
+
+    entity_ref HeldItem;
+}

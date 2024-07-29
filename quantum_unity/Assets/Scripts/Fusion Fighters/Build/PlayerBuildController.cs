@@ -53,14 +53,6 @@ public class PlayerBuildController : MonoBehaviour
         if (e.Player != _entityView.EntityRef)
             return;
 
-        if (_currentAltWeapon)
-            Destroy(_currentAltWeapon);
-
-        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(e.New.Template.Id);
-        if (template)
-        {
-            _currentAltWeapon = Instantiate(template.Instance, _altWeapon);
-        }
     }
 
     private void SetAvatar(EventOnPlayerSetAvatar e)
@@ -200,14 +192,6 @@ public class PlayerBuildController : MonoBehaviour
         if (e.Player != _entityView.EntityRef)
             return;
 
-        if (_currentMainWeapon)
-            Destroy(_currentMainWeapon);
-
-        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(e.New.Template.Id);
-        if (template)
-        {
-            _currentMainWeapon = Instantiate(template.Instance, _mainWeapon);
-        }
     }
 
     private void SetSub(EventOnPlayerSetSub e)

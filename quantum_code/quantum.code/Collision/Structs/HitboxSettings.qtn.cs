@@ -8,7 +8,6 @@ namespace Quantum
         {
             return new()
             {
-                Parent = a.Parent,
                 Damage = FPMath.Lerp(a.Damage, b.Damage, t),
                 Knockback = FPVector2.Lerp(a.Knockback, b.Knockback, t),
                 UserFreezeDuration = (uint)FPMath.Lerp(a.UserFreezeDuration, b.UserFreezeDuration, t).AsInt,

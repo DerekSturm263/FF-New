@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Sub applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetSub(f, entity, stats, sub);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetSub(f, entity, stats, sub);
         }
     }
 }

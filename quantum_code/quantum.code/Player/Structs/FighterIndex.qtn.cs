@@ -44,7 +44,7 @@
 
         public static EntityRef GetPlayerFromIndex(Frame f, FighterIndex index)
         {
-            foreach (var stats in f.GetComponentIterator<Stats>())
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {
                 if (stats.Component.Index.Equals(index))
                     return stats.Entity;
@@ -55,7 +55,7 @@
 
         public static FighterIndex GetFirstFighterIndex(Frame f, System.Func<FighterIndex, bool> comparer)
         {
-            foreach (var stats in f.GetComponentIterator<Stats>())
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {
                 if (comparer.Invoke(stats.Component.Index))
                     return stats.Component.Index;
@@ -66,7 +66,7 @@
 
         public static EntityRef GetFirstPlayer(Frame f, System.Func<FighterIndex, bool> comparer)
         {
-            foreach (var stats in f.GetComponentIterator<Stats>())
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {
                 if (comparer.Invoke(stats.Component.Index))
                     return stats.Entity;

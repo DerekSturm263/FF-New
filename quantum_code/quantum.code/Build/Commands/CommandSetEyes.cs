@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Eyes applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetEyes(f, entity, stats, eyes);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetEyes(f, entity, stats, eyes);
         }
     }
 }

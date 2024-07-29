@@ -22,73 +22,107 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(entityHit, out HurtboxInstance* hurtbox))
                     {
-                        EntityRef ownerHit = hurtbox->Owner;
+                        EntityRef defender = hurtbox->Owner;
 
-                        if (ownerHit == hitbox.Hitbox->Owner)
+                        if (defender == hitbox.Hitbox->Owner)
                             continue;
 
-                        f.Events.OnCameraShake(hitbox.Hitbox->Settings.HitShake, hitbox.Hitbox->Settings.Knockback.Normalized, false);
-
-                        Log.Debug($"Hitbox hit {entityHit.Index}");
-
-                        if (hurtbox->Settings.CanBeDamaged && f.Unsafe.TryGetPointer(ownerHit, out Stats* hitStats))
-                        {
-                            // Grab the hit player's stats from their outfit.
-                            ApparelStats apparelStats = ApparelHelper.FromStats(f, hitStats);
-
-                            // Apply damage.
-                            FP damage = -hitbox.Hitbox->Settings.Damage * (1 / apparelStats.Defense);
-                            f.Events.OnPlayerHit(ownerHit, hitStats->Index, damage);
-
-                            if (StatsSystem.ModifyHealth(f, ownerHit, hitStats, damage, true))
-                            {
-                                if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* stats))
-                                    ++stats->Kills;
-                            }
-                            else
-                            {
-                                StatsSystem.GiveStatusEffect(f, hitbox.Hitbox->Settings.StatusEffect, ownerHit, hitStats);
-                            }
-
-                            // Increase energy.
-                            if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Stats* ownerStats))
-                            {
-                                FP multiplier = 1;
-
-                                if (ownerStats->Build.Equipment.Weapons.MainWeapon.Enhancer.Id.IsValid)
-                                {
-                                    WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(ownerStats->Build.Equipment.Weapons.MainWeapon.Enhancer.Id);
-                                    multiplier = (weaponEnhancer as ChargingWeaponEnhancer).Multiplier;
-                                }
-
-                                StatsSystem.ModifyEnergy(f, hitbox.Hitbox->Owner, ownerStats, (hitbox.Hitbox->Settings.Damage / 5) * multiplier);
-                            }
-                        }
-
-                        // Apply knockback.
-                        if (hurtbox->Settings.CanBeKnockedBack && f.Unsafe.TryGetPointer(ownerHit, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(ownerHit, out CharacterController* characterController))
-                        {
-                            characterController->KnockbackVelocityX = hitbox.Hitbox->Settings.Knockback.X;
-                            physicsBody->Velocity.Y = hitbox.Hitbox->Settings.Knockback.Y;
-
-                            characterController->KnockbackVelocityTime = 1;
-                            characterController->Influence = 0;
-                        }
-
-                        if (hurtbox->Settings.CanBeInterrupted && f.Unsafe.TryGetPointer(ownerHit, out CustomAnimator* customAnimator))
-                        {
-                            if (hitbox.Hitbox->Settings.Knockback.SqrMagnitude > 5 * 5)
-                            {
-                                CustomAnimator.SetTrigger(f, customAnimator, "Knocked Back");
-                            }
-                            else
-                            {
-                                CustomAnimator.SetTrigger(f, customAnimator, "Hurt");
-                            }
-                        }
-
-                        f.Events.OnHitboxHurtboxCollision(hitbox.Hitbox->Owner, f.Unsafe.GetPointer<Stats>(hitbox.Hitbox->Owner)->Index, ownerHit, f.Unsafe.GetPointer<Stats>(ownerHit)->Index, hitbox.Hitbox->Settings);
+                        ResolveHit(f, hitbox.Hitbox->Settings, hurtbox->Settings, hitbox.Hitbox->Owner, defender);
                     }
+                }
+            }
+        }
+
+        private void ResolveHit(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        {
+            Log.Debug($"{attacker.Index} hit {defender.Index}");
+
+            ResolveDamage(f, hitbox, hurtbox, attacker, defender);
+            ResolveKnockback(f, hitbox, hurtbox, attacker, defender);
+
+            f.Events.OnCameraShake(hitbox.HitShake, hitbox.Knockback.Normalized, false);
+
+            if (f.TryGet(attacker, out PlayerStats attackerStats) && f.TryGet(defender, out PlayerStats defenderStats))
+            {
+                f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, defenderStats.Index, hitbox);
+            }
+        }
+
+        private void ResolveDamage(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        {
+            if (hurtbox.CanBeDamaged &&
+                f.Unsafe.TryGetPointer(defender, out Stats* defenderStats) &&
+                f.Unsafe.TryGetPointer(attacker, out Stats* attackerStats))
+            {
+                // Grab the hit player's stats from their outfit.
+                ApparelStats apparelStats = ApparelHelper.Default;
+
+                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* playerStats))
+                    apparelStats = ApparelHelper.FromStats(f, playerStats);
+
+                // Apply damage.
+                FP damage = -hitbox.Damage * (1 / apparelStats.Defense);
+
+                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* playerStats2))
+                {
+                    f.Events.OnPlayerHit(defender, playerStats2->Index, damage);
+                }
+
+                if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
+                {
+                    if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
+                    {
+                        ++attackerPlayerStats->WinStats.Kills;
+                    }
+
+                    if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
+                    {
+                        ++defenderPlayerStats->WinStats.Deaths;
+                    }
+                }
+                else
+                {
+                    StatsSystem.GiveStatusEffect(f, hitbox.StatusEffect, defender, attackerStats);
+                }
+
+                // Increase energy.
+                FP multiplier = 1;
+
+                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats2))
+                {
+                    if (attackerPlayerStats2->Build.Equipment.Weapons.MainWeapon.Enhancer.Id.IsValid)
+                    {
+                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats2->Build.Equipment.Weapons.MainWeapon.Enhancer.Id);
+                        multiplier = (weaponEnhancer as ChargingWeaponEnhancer).Multiplier;
+                    }
+                }
+
+                StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Damage / 5) * multiplier);
+            }
+        }
+
+        private void ResolveKnockback(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        {
+            if (hurtbox.CanBeKnockedBack &&
+                f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) &&
+                f.Unsafe.TryGetPointer(defender, out CharacterController* characterController))
+            {
+                characterController->KnockbackVelocityX = hitbox.Knockback.X;
+                physicsBody->Velocity.Y = hitbox.Knockback.Y;
+
+                characterController->KnockbackVelocityTime = 1;
+                characterController->Influence = 0;
+            }
+
+            if (hurtbox.CanBeInterrupted && f.Unsafe.TryGetPointer(defender, out CustomAnimator* customAnimator))
+            {
+                if (hitbox.Knockback.SqrMagnitude > 5 * 5)
+                {
+                    CustomAnimator.SetTrigger(f, customAnimator, "Knocked Back");
+                }
+                else
+                {
+                    CustomAnimator.SetTrigger(f, customAnimator, "Hurt");
                 }
             }
         }

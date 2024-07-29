@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Clothing applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetClothing(f, entity, stats, clothing);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetClothing(f, entity, stats, clothing);
         }
     }
 }

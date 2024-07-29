@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Badge applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetBadge(f, entity, stats, badge);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetBadge(f, entity, stats, badge);
         }
     }
 }

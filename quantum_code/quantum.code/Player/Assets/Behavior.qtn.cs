@@ -48,7 +48,7 @@ namespace Quantum
 
         private void SetGoals(Frame f, CharacterControllerSystem.Filter userFilter, AIData* aiData, CharacterControllerSystem.Filter targetFilter)
         {
-            if (targetFilter.Stats->CurrentHealth < 20)
+            if (targetFilter.Stats->CurrentStats.Health < 20)
             {
                 aiData->SetGoal(Goal.DealHeavyDamage, true);
                 aiData->SetGoal(Goal.StartCombo, false);

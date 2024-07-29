@@ -1,7 +1,5 @@
 using Quantum;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class HitboxHurtboxEvents : MonoBehaviour
 {

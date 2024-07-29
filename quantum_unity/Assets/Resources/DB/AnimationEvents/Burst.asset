@@ -1,30 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-852433400876170322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ede89f12f440ff49a7194688928d3b6, type: 3}
-  m_Name: New Event 2
-  m_EditorClassIdentifier: 
-  Description: 
-  Settings:
-    Identifier:
-      Path: Resources/DB/AnimationEvents/Burst|New Event 2
-      Guid:
-        Value: 4353448811302768375
-    StartingFrame: 1
-    EndingFrame: 2
-    Settings:
-      Variants:
-        _kvps: []
-      Mixer: {fileID: 0}
-      Volume: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,22 +16,16 @@ MonoBehaviour:
     Identifier:
       Path: Resources/DB/AnimationEvents/Burst
       Guid:
-        Value: 1131542861135584775
+        Value: 3635889049628453693
     AnimID: -1124102220
     Events:
     - Id:
-        Value: 4132347426701160259
-    - Id:
-        Value: 4353448811302768375
-    - Id:
-        Value: 1126665172000336546
-    - Id:
-        Value: 258623156459692848
+        Value: 4298400336211544052
     Committed:
-      Max: 22
+      Max: 0
       Min: 0
   Clip: {fileID: -4045831500588228705, guid: 95ec925256b97b9469c593dc4e2a2dde, type: 3}
---- !u!114 &3672677731246183076
+--- !u!114 &8207710995993784467
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,124 +34,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b9b6f8ee2265754b9da7862f1b73379, type: 3}
-  m_Name: fd
+  m_Script: {fileID: 11500000, guid: c7544fe975492724d9c5d2be99b86f6a, type: 3}
+  m_Name: Hitbox
   m_EditorClassIdentifier: 
   Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
   Settings:
     Identifier:
-      Path: Resources/DB/AnimationEvents/Burst|fd
+      Path: Resources/DB/AnimationEvents/Burst|Hitbox
       Guid:
-        Value: 1126665172000336546
-    StartingFrame: 1
-    EndingFrame: 17
-    Hurtboxes: -1
-    Settings:
-      CanBeDamaged:
-        Value: 0
-      CanBeInterrupted:
-        Value: 0
-      CanBeKnockedBack:
-        Value: 0
-      DamageToBreak: 0
---- !u!114 &4718132377580673384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1151a94cd33eef4a9d1092594af1376, type: 3}
-  m_Name: VFX
-  m_EditorClassIdentifier: 
-  Description: 
-  Settings:
-    Identifier:
-      Path: Resources/DB/AnimationEvents/Burst|VFX
-      Guid:
-        Value: 258623156459692848
-    StartingFrame: 2
-    EndingFrame: 14
-    Settings:
-      VFXObject: {fileID: 0}
-      Parent: 0
-      DoesFollowParent: 0
-      Offset: {x: 0, y: 0, z: 0}
-      Direction: {x: 0, y: 0, z: 0}
-      ScaleMultiplier: {x: 0, y: 0}
-    MaxHoldSettings:
-      VFXObject: {fileID: 0}
-      Parent: 0
-      DoesFollowParent: 0
-      Offset: {x: 0, y: 0, z: 0}
-      Direction: {x: 0, y: 0, z: 0}
-      ScaleMultiplier: {x: 0, y: 0}
---- !u!114 &5080887121173982603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
-  m_Name: New Event
-  m_EditorClassIdentifier: 
-  Description: 
-  Settings:
-    Identifier:
-      Path: Resources/DB/AnimationEvents/Burst|New Event
-      Guid:
-        Value: 4132347426701160259
-    StartingFrame: 2
-    EndingFrame: 14
-    Settings:
-      Damage:
-        RawValue: 655360
-      HitShake:
-        Id:
-          Value: 0
-      Knockback:
-        X:
-          RawValue: 262144
-        Y:
-          RawValue: 589824
-      Parent: 1
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
-        RawValue: 0
-      UserFreezeDuration: 0
-    MaxHoldSettings:
-      Damage:
-        RawValue: 0
-      HitShake:
-        Id:
-          Value: 0
-      Knockback:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      Parent: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
-        RawValue: 0
-      UserFreezeDuration: 0
+        Value: 4298400336211544052
+    StartingFrame: 5
+    EndingFrame: 7
     Shape:
       ShapeType: 16
       PolygonCollider:
@@ -224,9 +87,51 @@ MonoBehaviour:
           X:
             RawValue: 0
           Y:
-            RawValue: 125829
+            RawValue: 131072
         RotationOffset:
           RawValue: 0
         UserTag: 0
         IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
+    Settings:
+      Damage:
+        RawValue: 1310720
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 196608
+        Y:
+          RawValue: 458752
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0

@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Hair applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetHair(f, entity, stats, hair);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetHair(f, entity, stats, hair);
         }
     }
 }

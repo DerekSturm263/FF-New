@@ -31,6 +31,7 @@ namespace Quantum.Editor {
       public Quantum.ShakeSettings[] ShakeSettings = {};
       public Quantum.AllowMovementEvent[] AllowMovementEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
+      public Quantum.SetWeaponHitboxEvent[] SetWeaponHitboxEvent = {};
       public Quantum.ProjectileSpawningItem[] ProjectileSpawningItem = {};
       public Quantum.Voice[] Voice = {};
       public Quantum.NoneBadge[] NoneBadge = {};
@@ -78,14 +79,13 @@ namespace Quantum.Editor {
       public Quantum.BestKillToDeathRatioWinCondition[] BestKillToDeathRatioWinCondition = {};
       public Quantum.LeastDeathsWinCondition[] LeastDeathsWinCondition = {};
       public Quantum.MostKillsWinCondition[] MostKillsWinCondition = {};
-      public Quantum.Gizmo[] Gizmo = {};
       public Quantum.StageAsset[] StageAsset = {};
       public Quantum.FriedStatusEffect[] FriedStatusEffect = {};
       public Quantum.OverheatedStatusEffect[] OverheatedStatusEffect = {};
       public Quantum.ApplyPhysicsEvent[] ApplyPhysicsEvent = {};
       public Quantum.ModifyHurtboxesEvent[] ModifyHurtboxesEvent = {};
-      public Quantum.SpawnProjectileEvent[] SpawnProjectileEvent = {};
-      public Quantum.SpawnHitboxEvent[] SpawnHitboxEvent = {};
+      public Quantum.SpawnItemEvent[] SpawnItemEvent = {};
+      public Quantum.SpawnDynamicHitboxEvent[] SpawnDynamicHitboxEvent = {};
       public Quantum.CameraSettings[] CameraSettings = {};
       public Quantum.CustomAnimatorGraph[] CustomAnimatorGraph = {};
       public Quantum.SimulationConfig[] SimulationConfig = {};

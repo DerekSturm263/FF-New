@@ -14,7 +14,7 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 
         if (QuantumRunner.Default)
         {
-            foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<Stats>())
+            foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<PlayerStats>())
             {
                 TrackPlayer(QuantumRunner.Default.Game, stats.Entity, stats.Component.Name, stats.Component.Index);
             }

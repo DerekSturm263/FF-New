@@ -1,7 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using System.Diagnostics;
-using System.Runtime;
 
 namespace Quantum
 {
@@ -12,13 +11,11 @@ namespace Quantum
             public EntityRef Entity;
 
             public Transform2D* Transform;
-            public HitboxInstance* HitboxInstance;
+            public DynamicHitboxInstance* HitboxInstance;
         }
 
         public override void Update(Frame f, ref Filter filter)
         {
-            DrawHitbox(f, filter.Transform, filter.HitboxInstance, filter.HitboxInstance->Shape);
-
             --filter.HitboxInstance->Lifetime;
             if (filter.HitboxInstance->Lifetime <= 0)
             {
@@ -29,10 +26,12 @@ namespace Quantum
             {
                 filter.Transform->Position = transform->Position;
             }
+
+            DrawHitbox(f, filter.Transform, filter.HitboxInstance, filter.HitboxInstance->Shape);
         }
 
         [Conditional("DEBUG")]
-        private void DrawHitbox(Frame f, Transform2D* transform, HitboxInstance* hitboxInstance, Shape2D shape)
+        private void DrawHitbox(Frame f, Transform2D* transform, DynamicHitboxInstance* hitboxInstance, Shape2D shape)
         {
             if (shape.Compound.GetShapes(f, out Shape2D* shapesBuffer, out int count))
             {
@@ -62,39 +61,28 @@ namespace Quantum
                 hitboxes.Remove(hitbox);
             }
 
-            if (f.Unsafe.TryGetPointer(hitbox, out HitboxInstance* instance))
+            if (f.Unsafe.TryGetPointer(hitbox, out DynamicHitboxInstance* instance))
             {
                 instance->Shape.Compound.FreePersistent(f);
-                f.Events.OnHitboxSpawnDespawn(owner, hitbox, instance->Settings.Parent, false);
+                f.Events.OnHitboxSpawnDespawn(owner, hitbox, false);
             }
 
             f.Destroy(hitbox);
         }
 
-        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user)
+        public static EntityRef SpawnDynamicHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user)
         {
-            Log.Debug("Spawning hitbox!");
-
-            Log.Debug(settings.Knockback);
-            Log.Debug(settings.Damage);
+            Log.Debug("Spawning dynamic hitbox!");
 
             EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(f.RuntimeConfig.Hitbox.Id);
             EntityRef hitboxEntity = f.Create(hitboxPrototype);
 
-            f.Events.OnCameraShake(settings.SpawnShake, new FPVector2(f.Global->RngSession.Next(-FP._1, FP._1), f.Global->RngSession.Next(-FP._1, FP._1)), true);
-
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                if (f.Unsafe.TryGetPointer(hitboxEntity, out HitboxInstance* hitbox))
+                if (f.Unsafe.TryGetPointer(hitboxEntity, out DynamicHitboxInstance* hitbox))
                 {
-                    if (settings.Parent == ParentType.MainWeapon)
-                    {
-                        settings.Damage *= stats->WeaponStatsMultiplier.Damage;
-                        settings.Knockback *= stats->WeaponStatsMultiplier.Knockback;
-                    }
-
                     hitbox->Shape = Shape2D.CreatePersistentCompound();
-                    
+
                     for (int i = 0; i < shape.CompoundShapes.Length; ++i)
                     {
                         Shape2D createdShape = shape.CompoundShapes[i].CreateShape(f);
@@ -104,27 +92,42 @@ namespace Quantum
                     hitbox->Settings = settings;
                     hitbox->Lifetime = lifetime;
                     hitbox->Owner = user;
-
-                    Log.Debug(hitbox->Settings.Knockback);
-                    Log.Debug(hitbox->Settings.Damage);
-
-                    hitbox->Parent = settings.Parent switch
-                    {
-                        ParentType.None => EntityRef.None,
-                        ParentType.User => user,
-                        ParentType.MainWeapon => user,
-                        ParentType.SubWeapon => user,
-                        _ => user
-                    };
                 }
 
                 QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
                 hitboxLists.Add(hitboxEntity);
             }
 
-            f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, settings.Parent, true);
+            f.Events.OnCameraShake(settings.SpawnShake, new FPVector2(f.Global->RngSession.Next(-FP._1, FP._1), f.Global->RngSession.Next(-FP._1, FP._1)), true);
+            f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, true);
 
             return hitboxEntity;
+        }
+
+        public static void SetStaticHitboxEnabled(Frame f, HitboxSettings hitboxSettings, EntityRef user, bool isActive)
+        {
+            if (f.Unsafe.TryGetPointer(user, out PlayerStats* playerStats))
+            {
+                if (!isActive)
+                    playerStats->CurrentActiveWeapon = WeaponType.None;
+
+                switch (playerStats->ActiveWeaponType)
+                {
+                    case WeaponType.Main:
+                        playerStats->CurrentActiveWeapon = WeaponType.Main;
+                        break;
+
+                    case WeaponType.Alt:
+                        playerStats->CurrentActiveWeapon = WeaponType.Alt;
+                        break;
+                };
+            }
+
+            /*if (settings.Parent == ParentType.MainWeapon)
+            {
+                settings.Damage *= stats->WeaponStatsMultiplier.Damage;
+                settings.Knockback *= stats->WeaponStatsMultiplier.Knockback;
+            }*/
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Quantum
                 f.Unsafe.TryGetPointer(user, out Stats* stats) &&
                 characterController->IsInState(States.IsBlocking))
             {
-                if (stats->CurrentEnergy > 0 && stats->CurrentHealth < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
+                if (stats->CurrentStats.Energy > 0 && stats->CurrentStats.Health < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 {
                     StatsSystem.ModifyHealth(f, user, stats, 1, true);
                     StatsSystem.ModifyEnergy(f, user, stats, -1);

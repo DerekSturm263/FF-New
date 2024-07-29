@@ -4,6 +4,6 @@ public partial class WeaponTemplateAsset : InfoAssetAsset
 {
     [Header("In-Game")]
 
-    public GameObject Instance;
+    public GameObject Alt;
     public GameObject Preview;
 }

@@ -28,7 +28,7 @@ namespace Quantum
             };
         }
 
-        public static unsafe ApparelStats FromStats(Frame f, Stats* stats)
+        public static unsafe ApparelStats FromStats(Frame f, PlayerStats* stats)
         {
             ApparelStats apparelStats = Default;
 

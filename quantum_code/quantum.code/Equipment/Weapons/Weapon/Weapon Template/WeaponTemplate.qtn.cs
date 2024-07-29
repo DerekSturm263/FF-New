@@ -3,11 +3,13 @@
     [System.Serializable]
     public partial class WeaponTemplate : InfoAsset
     {
-        // Main
+        public AssetRefEntityPrototype Weapon;
+
+        // Primary
         public DirectionalMoveRef Primaries;
         public DirectionalMoveRef Aerials;
         
-        // Support
+        // Secondary
         public DirectionalMoveRef Secondaries;
     }
 }

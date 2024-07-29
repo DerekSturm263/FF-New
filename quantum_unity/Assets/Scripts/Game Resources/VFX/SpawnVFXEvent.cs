@@ -1,5 +1,4 @@
 using GameResources;
-using Photon.Deterministic;
 using UnityEngine;
 
 namespace Quantum
@@ -14,15 +13,9 @@ namespace Quantum
         {
             Log.Debug("Spawning VFX!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
-                VFXSettings settings;
-
-                if (stats->MaxHoldAnimationFrameTime > 0)
-                    settings = VFXSettings.Lerp(Settings, MaxHoldSettings, ((FP)stats->HeldAnimationFrameTime / stats->MaxHoldAnimationFrameTime).AsFloat);
-                else
-                    settings = Settings;
-
+                VFXSettings settings = characterController->LerpFromAnimationHold_UNSAFE(VFXSettings.Lerp, Settings, MaxHoldSettings);
                 VFXController.Instance.SpawnEffectParented(Settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
             }
         }

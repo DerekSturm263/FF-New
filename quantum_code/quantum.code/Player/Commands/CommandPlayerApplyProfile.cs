@@ -17,7 +17,7 @@ namespace Quantum
         {
             Log.Debug("Profile applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
             {
                 stats->Name = name;
                 f.Events.OnPlayerSetName(entity, stats->Index, stats->Name);

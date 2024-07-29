@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Alt Weapon applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetAltWeapon(f, entity, stats, weapon);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetAltWeapon(f, entity, stats, weapon);
         }
     }
 }

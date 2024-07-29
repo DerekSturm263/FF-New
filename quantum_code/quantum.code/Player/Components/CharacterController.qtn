@@ -72,7 +72,15 @@ component CharacterController
     int MovementDirection;
     StatesFlag PossibleStates;
     bool IsCommitted;
+    
+    // Holding Animations
+	int HeldAnimationFrameTime;
+	int MaxHoldAnimationFrameTime;
 
+    // Readiness
+    bool IsReady;
+    FP ReadyTime;
+	
     // Ultimate
     int UltimateTime;
 }

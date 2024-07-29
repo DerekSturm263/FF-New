@@ -69,14 +69,14 @@ namespace Quantum
                 }
             }
 
-            if (f.Unsafe.TryGetPointer(info.Entity, out SubInstance* subWeaponInstance))
+            if (f.Unsafe.TryGetPointer(itemInstance->Owner, out PlayerStats* stats))
             {
-                if (f.TryFindAsset(subWeaponInstance->SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
+                if (f.TryFindAsset(stats->Build.Equipment.Weapons.SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
                 {
-                    if (f.TryFindAsset(subWeaponInstance->SubWeapon.Enhancer.Id, out SubEnhancer enhancer))
-                        enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, subWeaponInstance);
+                    if (f.TryFindAsset(stats->Build.Equipment.Weapons.SubWeapon.Enhancer.Id, out SubEnhancer enhancer))
+                        enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Equipment.Weapons.SubWeapon);
 
-                    subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, subWeaponInstance);
+                    subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Equipment.Weapons.SubWeapon);
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(item, out ItemInstance* itemInstance))
             {
-                if (f.Unsafe.TryGetPointer(user, out Stats* stats))
+                if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
                     stats->HeldItem = item;
 
                 itemInstance->Holder = user;
@@ -108,7 +108,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(item, out ItemInstance* itemInstance))
             {
-                if (f.Unsafe.TryGetPointer(user, out Stats* stats))
+                if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
                     stats->HeldItem = default;
 
                 itemInstance->Holder = default;

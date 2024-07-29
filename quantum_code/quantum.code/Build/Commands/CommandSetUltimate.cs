@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Ultimate applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetUltimate(f, entity, stats, ultimate);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetUltimate(f, entity, stats, ultimate);
         }
     }
 }

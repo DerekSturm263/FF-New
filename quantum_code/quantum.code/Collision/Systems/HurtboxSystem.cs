@@ -1,9 +1,8 @@
-﻿using Photon.Deterministic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Quantum
 {
-    public unsafe class HurtboxSystem : SystemMainThreadFilter<HurtboxSystem.Filter>
+    public unsafe class HurtboxSystem : SystemMainThreadFilter<HurtboxSystem.Filter>, ISignalOnComponentAdded<HurtboxInstance>
     {
         public struct Filter
         {
@@ -16,23 +15,16 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out CustomAnimator* customAnimator) &&
-                f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out Transform2D* parentTransform))
-            {
-                FPVector3 offset = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[filter.HurtboxInstance->Index];
-                if (f.Unsafe.TryGetPointer(filter.HurtboxInstance->Owner, out CharacterController* characterController) && characterController->MovementDirection < 0)
-                {
-                    offset.X *= -1;
-                }
-
-                filter.Transform->Position = parentTransform->Position + offset.XY;
-            }
-
             DrawHurtbox(filter.Transform, filter.PhysicsCollider, filter.HurtboxInstance);
         }
 
+        public void OnAdded(Frame f, EntityRef entity, HurtboxInstance* component)
+        {
+            component->Owner = entity;
+        }
+
         [Conditional("DEBUG")]
-        private void DrawHurtbox(Transform2D* transform, PhysicsCollider2D* physicsCollider, HurtboxInstance* hurtboxInstance)
+        public static void DrawHurtbox(Transform2D* transform, PhysicsCollider2D* physicsCollider, HurtboxInstance* hurtboxInstance)
         {
             ColorRGBA color = new() { R = 0, G = 0, B = 0, A = 128 };
 
@@ -43,7 +35,16 @@ namespace Quantum
             if (hurtboxInstance->Settings.CanBeDamaged)
                 color.B = 255;
 
-            Draw.Circle(transform->Position, physicsCollider->Shape.BroadRadius);
+            switch (physicsCollider->Shape.Type)
+            {
+                case Shape2DType.Circle:
+                    Draw.Circle(transform->Position + physicsCollider->Shape.Centroid, physicsCollider->Shape.Circle.Radius, color);
+                    break;
+
+                case Shape2DType.Box:
+                    Draw.Rectangle(transform->Position + physicsCollider->Shape.Centroid, physicsCollider->Shape.Box.Extents * 2, 0, color);
+                    break;
+            }
         }
     }
 }

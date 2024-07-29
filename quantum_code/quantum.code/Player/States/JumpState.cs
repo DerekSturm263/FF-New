@@ -26,7 +26,7 @@
 
             filter.CharacterController->GroundedJump = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
 
-            f.Events.OnPlayerJump(filter.Entity, filter.Stats->Index, stats.Jump.AsInt - filter.CharacterController->JumpCount);
+            f.Events.OnPlayerJump(filter.Entity, filter.PlayerStats->Index, stats.Jump.AsInt - filter.CharacterController->JumpCount);
 
             --filter.CharacterController->JumpCount;
             filter.CharacterController->JumpTime = 0;

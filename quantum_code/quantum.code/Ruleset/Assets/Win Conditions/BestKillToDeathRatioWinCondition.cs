@@ -11,7 +11,7 @@ namespace Quantum
             return team =>
             {
                 var players = f.ResolveList(team.Players);
-                return players.Sum(item => f.Unsafe.GetPointer<Stats>(item)->Deaths - f.Unsafe.GetPointer<Stats>(item)->Kills);
+                return players.Sum(item => f.Unsafe.GetPointer<PlayerStats>(item)->WinStats.Deaths - f.Unsafe.GetPointer<PlayerStats>(item)->WinStats.Kills);
             };
         }
     }

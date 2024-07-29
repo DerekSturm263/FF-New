@@ -10,7 +10,7 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded | StateType.Aerial;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
+            if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.Id);
 
@@ -26,14 +26,14 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            return !filter.CharacterController->IsCommitted && f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentEnergy >= f.Global->CurrentMatch.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
+            return !filter.CharacterController->IsCommitted && f.TryFindAsset(filter.PlayerStats->Build.Equipment.Ultimate.Id, out Ultimate _) && filter.Stats->CurrentStats.Energy >= f.Global->CurrentMatch.Ruleset.Players.MaxEnergy && filter.CharacterController->UltimateTime == 0;
         }
 
         protected override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
             base.Enter(f, ref filter, ref input, settings, stats);
 
-            if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
+            if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);

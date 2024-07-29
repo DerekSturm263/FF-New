@@ -29,6 +29,7 @@ namespace Quantum
             public Transform2D* Transform;
             public PhysicsBody2D* PhysicsBody;
             public CustomAnimator* CustomAnimator;
+            public PlayerStats* PlayerStats;
             public Stats* Stats;
         }
 
@@ -46,7 +47,7 @@ namespace Quantum
                 input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
 
             // Calculate the player's stats.
-            ApparelStats stats = ApparelHelper.FromStats(f, filter.Stats);
+            ApparelStats stats = ApparelHelper.FromStats(f, filter.PlayerStats);
 
             // Do everything.
             HandleGround(f, ref filter, settings, stats);
@@ -62,7 +63,7 @@ namespace Quantum
 
             while (playerFilter.Next(&player))
             {
-                player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.Stats->Index.Global);
+                player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.PlayerStats->Index.Global);
             }
         }
 
@@ -156,7 +157,7 @@ namespace Quantum
             // Decrease the time left in the Ultimate state if the player is using their Ultimate.
             if (filter.CharacterController->UltimateTime > 0)
             {
-                if (f.TryFindAsset(filter.Stats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
+                if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
                 {
                     filter.CharacterController->UltimateTime--;
 

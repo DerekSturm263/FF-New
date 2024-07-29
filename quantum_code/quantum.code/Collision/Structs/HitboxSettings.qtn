@@ -1,15 +1,6 @@
-﻿enum ParentType
-{
-    None,
-    User,
-    MainWeapon,
-    SubWeapon
-}
-
-[Serializable]
+﻿[Serializable]
 struct HitboxSettings
 {
-    [Tooltip("What object the hitbox should be parented to (if N/A, choose User)")] ParentType Parent;
     [Tooltip("How much damage the hitbox should do")] FP Damage;
     [Tooltip("How much knockback the hitbox should give and what direction to give it in")] FPVector2 Knockback;
     [Tooltip("How many frames to freeze the user for when the hitbox hits")] uint UserFreezeDuration;

@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4243082238361564185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5347636493524fb449cf2f02ec1a1078, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Primary Side|Sourspot
+      Guid:
+        Value: 1846080431178111442
+    StartingFrame: 30
+    EndingFrame: 33
+    Settings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
+    MaxHoldSettings:
+      Damage:
+        RawValue: 0
+      HitShake:
+        Id:
+          Value: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      UserFreezeDuration: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16,16 +79,18 @@ MonoBehaviour:
     Identifier:
       Path: Resources/DB/AnimationEvents/Primary Side
       Guid:
-        Value: 1694449303682354758
+        Value: 3126110743777979828
     AnimID: 1234388901
     Events:
     - Id:
-        Value: 1521727750349985121
+        Value: 1846080431178111442
+    - Id:
+        Value: 1743750104658431482
     Committed:
-      Max: 50
+      Max: 0
       Min: 0
   Clip: {fileID: 3060872287085348379, guid: 62badd7f310731b4a9fb30a3bc11ce53, type: 3}
---- !u!114 &6991939808288364267
+--- !u!114 &7026335688519334865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34,39 +99,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078570b05f4078e4f9407b8bea5b5288, type: 3}
-  m_Name: Hitbox 1
+  m_Script: {fileID: 11500000, guid: 5347636493524fb449cf2f02ec1a1078, type: 3}
+  m_Name: Sweetspot
   m_EditorClassIdentifier: 
   Description: 
+  Color: {r: 1, g: 0.504717, b: 0.504717, a: 1}
   Settings:
     Identifier:
-      Path: Resources/DB/AnimationEvents/Primary Side|Hitbox 1
+      Path: Resources/DB/AnimationEvents/Primary Side|Sweetspot
       Guid:
-        Value: 1521727750349985121
+        Value: 1743750104658431482
     StartingFrame: 31
     EndingFrame: 32
     Settings:
       Damage:
-        RawValue: 655360
+        RawValue: 0
       HitShake:
         Id:
           Value: 0
       Knockback:
         X:
-          RawValue: 524288
+          RawValue: 0
         Y:
-          RawValue: 655360
-      Parent: 2
+          RawValue: 0
       SpawnShake:
         Id:
           Value: 0
       StatusEffect:
         Id:
           Value: 0
-      TargetFreezeDuration: 5
+      TargetFreezeDuration: 0
       TargetShakeIntensity:
-        RawValue: 327680
-      UserFreezeDuration: 5
+        RawValue: 0
+      UserFreezeDuration: 0
     MaxHoldSettings:
       Damage:
         RawValue: 0
@@ -78,7 +143,6 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-      Parent: 0
       SpawnShake:
         Id:
           Value: 0
@@ -89,50 +153,3 @@ MonoBehaviour:
       TargetShakeIntensity:
         RawValue: 0
       UserFreezeDuration: 0
-    Shape:
-      ShapeType: 16
-      PolygonCollider:
-        Id:
-          Value: 0
-      CircleRadius:
-        RawValue: 0
-      EdgeExtent:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      RotationOffset:
-        RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes:
-      - ShapeType: 1
-        PolygonCollider:
-          Id:
-            Value: 0
-        CircleRadius:
-          RawValue: 45875
-        EdgeExtent:
-          RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-        PositionOffset:
-          X:
-            RawValue: 96337
-          Y:
-            RawValue: 57671
-        RotationOffset:
-          RawValue: 0
-        UserTag: 0
-        IsSetFromSourceCollider: 0
-      IsSetFromSourceCollider: 0

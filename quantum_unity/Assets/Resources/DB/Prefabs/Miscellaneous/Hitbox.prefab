@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3752432560751321733}
   - component: {fileID: 6049013337113849420}
-  - component: {fileID: -8335963841204325770}
   - component: {fileID: 6827526823731206715}
+  - component: {fileID: 303029763039186551}
   m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
@@ -182,48 +182,6 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
---- !u!114 &-8335963841204325770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4112116602947518751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529ae5b121e9b824cb4630b9aa7576de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    PathQueryIndex: 0
-    Lifetime: 0
-    Settings:
-      Parent:
-        Value: 0
-      Damage:
-        RawValue: 0
-      Knockback:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      UserFreezeDuration: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
-        RawValue: 0
-      OnlyHitOnce:
-        Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      HitShake:
-        Id:
-          Value: 0
-    Owner: {fileID: 0}
-    Parent: {fileID: 0}
 --- !u!114 &6827526823731206715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +213,43 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &303029763039186551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112116602947518751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0fdbcf2e8b088428f4f9f90012a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    PathQueryIndex: 0
+    Owner: {fileID: 0}
+    Lifetime: 0
+    Settings:
+      Damage:
+        RawValue: 0
+      Knockback:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      UserFreezeDuration: 0
+      TargetFreezeDuration: 0
+      TargetShakeIntensity:
+        RawValue: 0
+      StatusEffect:
+        Id:
+          Value: 0
+      SpawnShake:
+        Id:
+          Value: 0
+      HitShake:
+        Id:
+          Value: 0
 --- !u!114 &-2529971104628218342
 MonoBehaviour:
   m_ObjectHideFlags: 0

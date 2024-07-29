@@ -94,7 +94,7 @@ public class MatchEventListener : MonoBehaviour
         _onMatchEndDelayed.Invoke();
 
         QList<EntityRef> firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
-        CameraController.Instance.FocusTarget(QuantumRunner.Default.Game.Frames.Verified.Get<Stats>(firstPlaceTeam[0]).Index.Global);
+        CameraController.Instance.FocusTarget(QuantumRunner.Default.Game.Frames.Verified.Get<PlayerStats>(firstPlaceTeam[0]).Index.Global);
     }
 
     public void ResetMatch()

@@ -9,7 +9,7 @@ namespace Quantum
             public EntityRef Entity;
 
             public Transform2D* Transform;
-            public HitboxInstance* Hitbox;
+            public DynamicHitboxInstance* Hitbox;
         }
 
         public override void Update(Frame f)
@@ -21,7 +21,7 @@ namespace Quantum
             {
                 FPVector2 offset = default;
 
-                if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Parent, out Transform2D* transform))
+                if (f.Unsafe.TryGetPointer(hitbox.Hitbox->Owner, out Transform2D* transform))
                     offset += transform->Position;
 
                 hitbox.Hitbox->PathQueryIndex = f.Physics2D.AddOverlapShapeQuery

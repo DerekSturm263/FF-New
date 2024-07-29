@@ -22,9 +22,8 @@ namespace Quantum
                 Entity = entity
             };
 
-            Stats* stats = f.Unsafe.GetPointer<Stats>(entity);
-            StatsSystem.SetBuild(f, entity, stats, stats->Build);
-            stats->Index = index;
+            PlayerStats* playerStats = f.Unsafe.GetPointer<PlayerStats>(entity);
+            playerStats->Index = index;
 
             AddPlayerToList(f, entity, index);
 
@@ -43,10 +42,13 @@ namespace Quantum
 
             teams.Add(new() { Players = newTeam });
 
-            f.Events.OnPlayerModifyHealth(entity, index, stats->CurrentHealth, stats->CurrentHealth, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
-            f.Events.OnPlayerModifyEnergy(entity, index, stats->CurrentEnergy, stats->CurrentEnergy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
-            f.Events.OnPlayerModifyStocks(entity, index, stats->CurrentStocks, stats->CurrentStocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
-            f.Events.OnHideShowReadiness(entity, index, isRealBattle);
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
+                f.Events.OnPlayerModifyHealth(entity, index, stats->CurrentStats.Health, stats->CurrentStats.Health, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
+                f.Events.OnPlayerModifyEnergy(entity, index, stats->CurrentStats.Energy, stats->CurrentStats.Energy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
+                f.Events.OnPlayerModifyStocks(entity, index, stats->CurrentStats.Stocks, stats->CurrentStats.Stocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
+                f.Events.OnHideShowReadiness(entity, index, isRealBattle);
+            }
 
             if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
@@ -58,7 +60,7 @@ namespace Quantum
 
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
-            Stats stats = f.Get<Stats>(player);
+            PlayerStats stats = f.Get<PlayerStats>(player);
             f.Events.OnPlayerDespawn(player, stats.Index, stats.Name);
 
             RemovePlayerFromList(f, stats.Index);

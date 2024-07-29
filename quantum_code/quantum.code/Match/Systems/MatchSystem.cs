@@ -48,7 +48,7 @@ namespace Quantum
             StatsSystem.SetAllHealth(f, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
             StatsSystem.SetAllEnergy(f, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy / 5);
             StatsSystem.SetAllStocks(f, f.Global->CurrentMatch.Ruleset.Players.StockCount);
-            StatsSystem.SetAllShowReadiness(f, false);
+            PlayerStatsSystem.SetAllShowReadiness(f, false);
 
             f.SystemEnable<CharacterControllerSystem>();
             f.SystemEnable<ItemSpawnSystem>();
@@ -69,7 +69,15 @@ namespace Quantum
             {
                 if (f.Global->CurrentMatch.Ruleset.Items.StartingItem.Id != AssetGuid.Invalid)
                 {
-                    EntityRef newItem = ItemSpawnSystem.SpawnInHand(f, f.Global->CurrentMatch.Ruleset.Items.StartingItem, stats.Entity);
+                    ItemSpawnSettings settings = new()
+                    {
+                        Item = f.Global->CurrentMatch.Ruleset.Items.StartingItem,
+                        Velocity = FPVector2.Zero,
+                        Offset = FPVector2.Zero,
+                        StartHolding = true
+                    };
+
+                    EntityRef newItem = ItemSpawnSystem.SpawnWithOwner(f, settings, stats.Entity);
                 }
             }
 
@@ -110,8 +118,8 @@ namespace Quantum
                 Teams = teamsArray
             };
 
-            StatsSystem.SetAllShowReadiness(f, true);
-            StatsSystem.SetAllReadiness(f, false);
+            PlayerStatsSystem.SetAllShowReadiness(f, true);
+            PlayerStatsSystem.SetAllReadiness(f, false);
 
             f.Global->Results = results;
             f.Events.OnMatchEnd(results);
@@ -138,6 +146,20 @@ namespace Quantum
 
                 f.AddAsset(newMap);
                 f.Map = newMap;
+
+                for (int i = 0; i < 16; ++i)
+                {
+                    PositionalGizmo gizmo = ArrayHelper.Get(stage.Objects.Gizmos, i);
+                    if (!gizmo.Gizmo.Id.IsValid)
+                        continue;
+
+                    EntityRef newGizmo = f.Create(gizmo.Gizmo);
+
+                    if (f.Unsafe.TryGetPointer(newGizmo, out Transform2D* transform))
+                    {
+                        transform->Position = gizmo.Position;
+                    }
+                }
             }
 
             f.Events.OnStageSelect(old, stage);

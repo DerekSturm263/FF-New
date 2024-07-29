@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("Voice applied!");
 
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
-                StatsSystem.SetVoice(f, entity, stats, voice);
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetVoice(f, entity, stats, voice);
         }
     }
 }

@@ -36,15 +36,20 @@ public class AnimationEventContainerWindow : EditorWindow
         float startingFrame = 0;
         float endingFrame = 0;
 
-        if (frameEvent is SpawnHitboxEventAsset hitbox)
+        if (frameEvent is SetWeaponHitboxEventAsset weapon)
+        {
+            startingFrame = weapon.Settings.StartingFrame;
+            endingFrame = weapon.Settings.EndingFrame;
+        }
+        else if (frameEvent is SpawnDynamicHitboxEventAsset hitbox)
         {
             startingFrame = hitbox.Settings.StartingFrame;
             endingFrame = hitbox.Settings.EndingFrame;
         }
-        else if (frameEvent is SpawnProjectileEventAsset projectile)
+        else if (frameEvent is SpawnItemEventAsset item)
         {
-            startingFrame = projectile.Settings.StartingFrame;
-            endingFrame = projectile.Settings.EndingFrame;
+            startingFrame = item.Settings.StartingFrame;
+            endingFrame = item.Settings.EndingFrame;
         }
         else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
         {
@@ -82,31 +87,16 @@ public class AnimationEventContainerWindow : EditorWindow
             endingFrame = movement.Settings.EndingFrame;
         }
 
-        EditorGUI.BeginDisabledGroup(true);
-
         Rect nameRect = new(rect.x, rect.y, 149, rect.height);
-        frameEvent.name = EditorGUI.TextField(nameRect, frameEvent.name);
 
-        EditorGUI.EndDisabledGroup();
+        string newName = EditorGUI.TextField(nameRect, frameEvent.name);
+        if (newName != frameEvent.name)
+        {
+            var path = AssetDatabase.GUIDToAssetPath(AssetDatabase.GetAssetPath(frameEvent));
+            AssetDatabase.RenameAsset(path, newName);
+        }
 
-        if (frameEvent is SpawnHitboxEventAsset)
-            GUI.color = Color.red;
-        else if (frameEvent is SpawnProjectileEventAsset)
-            GUI.color = Color.cyan;
-        else if (frameEvent is ModifyHurtboxesEventAsset)
-            GUI.color = Color.blue;
-        else if (frameEvent is SpawnVFXEventAsset)
-            GUI.color = Color.green;
-        else if (frameEvent is PlayClipEventAsset)
-            GUI.color = Color.magenta;
-        else if (frameEvent is ApplyPhysicsEventAsset)
-            GUI.color = Color.yellow;
-        else if (frameEvent is HoldAnimationEventAsset)
-            GUI.color = Color.white;
-        else if (frameEvent is ExecuteUnityEventEventAsset)
-            GUI.color = Color.black;
-        else
-            GUI.color = new Color(0.75f, 1, 1);
+        GUI.color = frameEvent.Color;
 
         Rect sliderRect = new(nameRect.x + nameRect.width + 4, nameRect.y, rect.width - 204, nameRect.height);
         EditorGUI.MinMaxSlider(sliderRect, ref startingFrame, ref endingFrame, 0, _maxScrubFrame);
@@ -119,15 +109,20 @@ public class AnimationEventContainerWindow : EditorWindow
         Rect maxRect = new(minRect.x + minRect.width + 8, minRect.y, minRect.width, minRect.height);
         endingFrame = EditorGUI.IntField(maxRect, (int)endingFrame);
 
-        if (frameEvent is SpawnHitboxEventAsset hitbox2)
+        if (frameEvent is SetWeaponHitboxEventAsset weapon2)
         {
-            hitbox2.Settings.StartingFrame = (int)startingFrame;
-            hitbox2.Settings.EndingFrame = (int)endingFrame;
+            weapon2.Settings.StartingFrame = (int)startingFrame;
+            weapon2.Settings.EndingFrame = (int)endingFrame;
         }
-        else if (frameEvent is SpawnProjectileEventAsset projectile)
+        else if (frameEvent is SpawnDynamicHitboxEventAsset hitbox)
         {
-            projectile.Settings.StartingFrame = (int)startingFrame;
-            projectile.Settings.EndingFrame = (int)endingFrame;
+            hitbox.Settings.StartingFrame = (int)startingFrame;
+            hitbox.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is SpawnItemEventAsset item)
+        {
+            item.Settings.StartingFrame = (int)startingFrame;
+            item.Settings.EndingFrame = (int)endingFrame;
         }
         else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
         {
@@ -313,21 +308,24 @@ public class AnimationEventContainerWindow : EditorWindow
         for (int i = 0; i < _eventAsset.Settings.Events.Count; ++i)
         {
             FrameEventAsset frameEvent = UnityDB.FindAssetForInspector(_eventAsset.Settings.Events[i].Id) as FrameEventAsset;
-            if (!frameEvent)
-                continue;
 
             int startingFrame = 0;
             int endingFrame = 0;
 
-            if (frameEvent is SpawnHitboxEventAsset hitbox)
+            if (frameEvent is SetWeaponHitboxEventAsset weapon)
+            {
+                startingFrame = weapon.Settings.StartingFrame;
+                endingFrame = weapon.Settings.EndingFrame;
+            }
+            else if (frameEvent is SpawnDynamicHitboxEventAsset hitbox)
             {
                 startingFrame = hitbox.Settings.StartingFrame;
                 endingFrame = hitbox.Settings.EndingFrame;
             }
-            else if (frameEvent is SpawnProjectileEventAsset projectile)
+            else if (frameEvent is SpawnItemEventAsset item)
             {
-                startingFrame = projectile.Settings.StartingFrame;
-                endingFrame = projectile.Settings.EndingFrame;
+                startingFrame = item.Settings.StartingFrame;
+                endingFrame = item.Settings.EndingFrame;
             }
             else if (frameEvent is ModifyHurtboxesEventAsset hurtboxes)
             {
@@ -367,7 +365,7 @@ public class AnimationEventContainerWindow : EditorWindow
 
             if (_scrubFrame >= startingFrame && _scrubFrame <= endingFrame)
             {
-                if (frameEvent is SpawnHitboxEventAsset spawnHitbox)
+                if (frameEvent is SpawnDynamicHitboxEventAsset spawnHitbox)
                 {
                     Gizmos.color = Color.Lerp(Color.white, Color.red, (float)spawnHitbox.Settings.Settings.Damage / 100);
 

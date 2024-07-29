@@ -11,7 +11,7 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            AssetRefEmote emoteAsset = DirectionalAssetHelper.GetFromDirection(filter.Stats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
+            AssetRefEmote emoteAsset = DirectionalAssetHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
 
             if (f.TryFindAsset(emoteAsset.Id, out Emote emote))
             {
@@ -38,7 +38,7 @@ namespace Quantum
 
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
 
-            AssetRefEmote emoteAsset = DirectionalAssetHelper.GetFromDirection(filter.Stats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
+            AssetRefEmote emoteAsset = DirectionalAssetHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
             if (f.TryFindAsset(emoteAsset.Id, out Emote emote))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(emote.Animation.Id);
