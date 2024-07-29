@@ -17,7 +17,8 @@ public class HitboxHurtboxEvents : MonoBehaviour
     {
         if (PlayerJoinController.Instance.TryGetPlayer(e.DefenderIndex, out LocalPlayerInfo player))
         {
-            PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * e.Settings.TargetShakeIntensity.AsFloat * 0.1f, 0.3f);
+            ShakeSettings shake = e.Game.Frames.Verified.FindAsset<ShakeSettings>(e.Settings.Visual.TargetShake.Id);
+            PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shake.Strength.AsFloat * 0.1f, 0.3f);
         }
     }
 

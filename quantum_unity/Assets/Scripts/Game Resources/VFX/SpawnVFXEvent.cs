@@ -6,8 +6,8 @@ namespace Quantum
     [System.Serializable]
     public sealed unsafe partial class SpawnVFXEvent : FrameEvent
     {
-        public VFXSettings Settings;
-        public VFXSettings MaxHoldSettings;
+        public VFXSettings UnchargedSettings;
+        public VFXSettings FullyChargedSettings;
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
@@ -15,8 +15,8 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
-                VFXSettings settings = characterController->LerpFromAnimationHold_UNSAFE(VFXSettings.Lerp, Settings, MaxHoldSettings);
-                VFXController.Instance.SpawnEffectParented(Settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
+                VFXSettings settings = characterController->LerpFromAnimationHold_UNSAFE(VFXSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+                VFXController.Instance.SpawnEffectParented(settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
             }
         }
     }

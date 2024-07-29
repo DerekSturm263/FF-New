@@ -88,8 +88,8 @@ namespace Quantum
         {
             EntityRef item = Spawn(f, settings);
 
-            if (f.Unsafe.TryGetPointer(item, out DynamicHitboxInstance* hitbox))
-                hitbox->Owner = owner;
+            if (f.Unsafe.TryGetPointer(item, out ItemInstance* itemInstance))
+                itemInstance->Owner = owner;
 
             if (f.Unsafe.TryGetPointer(item, out Transform2D* transform) &&
                 f.Unsafe.TryGetPointer(owner, out Transform2D* parentTransform))

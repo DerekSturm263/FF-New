@@ -100,7 +100,6 @@
     <Compile Include="Collision\Structs\HitboxSettings.qtn.cs" />
     <Compile Include="Player\Animation Events\AllowMovementEvent.cs" />
     <Compile Include="Player\Animation Events\HoldAnimationEvent.cs" />
-    <Compile Include="Collision\Animation Events\SetWeaponHitboxEvent.cs" />
     <Compile Include="Item\Assets\Items\ProjectileSpawningItem.cs" />
     <Compile Include="Map Generator\Helpers\MapGenerator.cs" />
     <Compile Include="Match\Commands\CommandSetupMatch.cs" />
@@ -108,6 +107,7 @@
     <Compile Include="Item\Structs\ItemSpawnSettings.qtn.cs" />
     <None Include="Player\Components\PlayerStats.qtn" />
     <None Include="Player\Structs\MatchStats.qtn" />
+    <Compile Include="Player\Structs\PhysicsSettings.cs" />
     <Compile Include="Player\Systems\PlayerStatsSystem.cs" />
     <Compile Include="UI\Commands\CommandPause.cs" />
     <Compile Include="UI\Commands\CommandPlay.cs" />
@@ -117,9 +117,9 @@
     <None Include="Camera\Assets\ShakeSettings.qtn" />
     <None Include="Camera\Events\OnCameraShake.qtn" />
     <None Include="Camera\Structs\CameraSettingsGroup.qtn" />
-    <None Include="Collision\Components\StaticHitboxInstance.qtn" />
+    <None Include="Collision\Components\HitboxContainer.qtn" />
     <None Include="Collision\Events\OnHitboxHurtboxCollision.qtn" />
-    <None Include="Collision\Components\DynamicHitboxInstance.qtn" />
+    <None Include="Collision\Components\HitboxInstance.qtn" />
     <None Include="Collision\Components\HurtboxInstance.qtn" />
     <None Include="Collision\Events\OnHitboxSpawnDespawn.qtn" />
     <None Include="Collision\Events\OnHurtboxStateChange.qtn" />
@@ -308,7 +308,7 @@
     <Compile Include="Collision\Animation Events\ModifyHurtboxesEvent.cs" />
     <Compile Include="Item\Animation Events\SpawnItemEvent.cs" />
     <Compile Include="Custom Animator\Animation Events\Assets\FrameEvent.qtn.cs" />
-    <Compile Include="Collision\Animation Events\SpawnDynamicHitboxEvent.cs" />
+    <Compile Include="Collision\Animation Events\SpawnHitboxEvent.cs" />
     <Compile Include="Types\Array\ArrayHelper.cs" />
     <Compile Include="Types\ShapeCastHelper\ShapeCastHelper.qtn.cs" />
     <Compile Include="Types\Directional\DirectionalAssetHelper.cs" />

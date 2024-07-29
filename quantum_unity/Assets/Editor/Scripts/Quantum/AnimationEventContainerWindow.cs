@@ -1,6 +1,7 @@
 using Extensions.Miscellaneous;
 using Photon.Deterministic;
 using Quantum;
+using Quantum.Editor;
 using System;
 using UnityEditor;
 using UnityEditorInternal;
@@ -16,7 +17,8 @@ public class AnimationEventContainerWindow : EditorWindow
     public int _maxScrubFrame;
 
     private QuantumAnimationEventAsset _eventAsset;
-    private GameObject _animationPreview;
+    private GameObject _previewPlayer;
+    private GameObject _previewWeapon;
 
     private float _initialTime;
     private bool _isPreviewing;
@@ -36,12 +38,7 @@ public class AnimationEventContainerWindow : EditorWindow
         float startingFrame = 0;
         float endingFrame = 0;
 
-        if (frameEvent is SetWeaponHitboxEventAsset weapon)
-        {
-            startingFrame = weapon.Settings.StartingFrame;
-            endingFrame = weapon.Settings.EndingFrame;
-        }
-        else if (frameEvent is SpawnDynamicHitboxEventAsset hitbox)
+        if (frameEvent is SpawnHitboxEventAsset hitbox)
         {
             startingFrame = hitbox.Settings.StartingFrame;
             endingFrame = hitbox.Settings.EndingFrame;
@@ -109,15 +106,10 @@ public class AnimationEventContainerWindow : EditorWindow
         Rect maxRect = new(minRect.x + minRect.width + 8, minRect.y, minRect.width, minRect.height);
         endingFrame = EditorGUI.IntField(maxRect, (int)endingFrame);
 
-        if (frameEvent is SetWeaponHitboxEventAsset weapon2)
+        if (frameEvent is SpawnHitboxEventAsset hitbox2)
         {
-            weapon2.Settings.StartingFrame = (int)startingFrame;
-            weapon2.Settings.EndingFrame = (int)endingFrame;
-        }
-        else if (frameEvent is SpawnDynamicHitboxEventAsset hitbox)
-        {
-            hitbox.Settings.StartingFrame = (int)startingFrame;
-            hitbox.Settings.EndingFrame = (int)endingFrame;
+            hitbox2.Settings.StartingFrame = (int)startingFrame;
+            hitbox2.Settings.EndingFrame = (int)endingFrame;
         }
         else if (frameEvent is SpawnItemEventAsset item)
         {
@@ -209,7 +201,8 @@ public class AnimationEventContainerWindow : EditorWindow
 
         GUILayout.Space(40);
 
-        _animationPreview = EditorGUILayout.ObjectField("Preview", _animationPreview, typeof(GameObject), true) as GameObject;
+        _previewPlayer = EditorGUILayout.ObjectField("Player", _previewPlayer, typeof(GameObject), true) as GameObject;
+        _previewWeapon = EditorGUILayout.ObjectField("Weapon", _previewWeapon, typeof(GameObject), true) as GameObject;
 
         GUILayout.EndHorizontal();
 
@@ -221,15 +214,9 @@ public class AnimationEventContainerWindow : EditorWindow
             onRemoveCallback = EventListOnRemoveCallback
         };
 
-        if (!_eventAsset)
+        if (!_eventAsset || !_previewPlayer || !_previewWeapon)
         {
-            EditorGUILayout.HelpBox("Please assign an Animation Event Asset to edit", MessageType.Warning);
-            return;
-        }
-
-        if (!_animationPreview)
-        {
-            EditorGUILayout.HelpBox("Please assign a GameObject to preview the Animation Event with", MessageType.Warning);
+            EditorGUILayout.HelpBox("Please assign a\n- AnimationEvent for editting\n- Player GameObject for previewing\n- Weapon GameObject for previewing", MessageType.Warning);
             return;
         }
 
@@ -294,15 +281,15 @@ public class AnimationEventContainerWindow : EditorWindow
 
     public void SampleAnimation()
     {
-        if (!_animationPreview)
-            _animationPreview = GameObject.FindGameObjectWithTag("Player");
+        if (!_previewPlayer)
+            _previewPlayer = GameObject.FindGameObjectWithTag("Player");
         
-        _eventAsset.Clip.SampleAnimation(_animationPreview, _scrubFrame / _eventAsset.Clip.frameRate);
+        _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
     }
 
     public unsafe void DrawGizmos()
     {
-        if (!_eventAsset || !_animationPreview)
+        if (!_eventAsset || !_previewPlayer || !_previewWeapon)
             return;
 
         for (int i = 0; i < _eventAsset.Settings.Events.Count; ++i)
@@ -312,12 +299,7 @@ public class AnimationEventContainerWindow : EditorWindow
             int startingFrame = 0;
             int endingFrame = 0;
 
-            if (frameEvent is SetWeaponHitboxEventAsset weapon)
-            {
-                startingFrame = weapon.Settings.StartingFrame;
-                endingFrame = weapon.Settings.EndingFrame;
-            }
-            else if (frameEvent is SpawnDynamicHitboxEventAsset hitbox)
+            if (frameEvent is SpawnHitboxEventAsset hitbox)
             {
                 startingFrame = hitbox.Settings.StartingFrame;
                 endingFrame = hitbox.Settings.EndingFrame;
@@ -365,38 +347,75 @@ public class AnimationEventContainerWindow : EditorWindow
 
             if (_scrubFrame >= startingFrame && _scrubFrame <= endingFrame)
             {
-                if (frameEvent is SpawnDynamicHitboxEventAsset spawnHitbox)
-                {
-                    Gizmos.color = Color.Lerp(Color.white, Color.red, (float)spawnHitbox.Settings.Settings.Damage / 100);
+                Gizmos.color = frameEvent.Color;
 
-                    for (int j = 0; j < spawnHitbox.Settings.Shape.CompoundShapes.Length; ++j)
-                    {
-                        switch (spawnHitbox.Settings.Shape.CompoundShapes[j].ShapeType)
-                        {
-                            case Shape2DType.Circle:
-                                Gizmos.DrawSphere(spawnHitbox.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), spawnHitbox.Settings.Shape.CompoundShapes[j].CircleRadius.AsFloat);
-                                break;
-
-                            case Shape2DType.Box:
-                                Gizmos.DrawCube(spawnHitbox.Settings.Shape.CompoundShapes[j].PositionOffset.ToUnityVector3(), spawnHitbox.Settings.Shape.CompoundShapes[j].BoxExtents.ToUnityVector3());
-                                break;
-                        }
-                    }
-
-                    Gizmos.DrawLineList(CalculateArcPositions(20, spawnHitbox.Settings.Settings.Knockback.ToUnityVector2(), spawnHitbox.Settings.Shape.CompoundShapes[^1].PositionOffset.ToUnityVector2()));
-                    
-                    if (spawnHitbox.Settings.MaxHoldSettings.Knockback != FPVector2.Zero)
-                        Gizmos.DrawLineList(CalculateArcPositions(20, spawnHitbox.Settings.MaxHoldSettings.Knockback.ToUnityVector2(), spawnHitbox.Settings.Shape.CompoundShapes[^1].PositionOffset.ToUnityVector2()));
-                }
+                if (frameEvent is SpawnHitboxEventAsset spawnHitbox)
+                    PreviewHitbox(spawnHitbox.Settings);
+                else if (frameEvent is ModifyHurtboxesEventAsset modifyHurtboxes)
+                    PreviewHurtboxes(modifyHurtboxes.Settings);
                 else if (frameEvent is ApplyPhysicsEventAsset applyPhysics)
-                {
-                    int elapsedFrames = _scrubFrame - startingFrame;
-                    FP normalizedTime = (FP)elapsedFrames / applyPhysics.Settings.Length;
-
-                    _animationPreview.transform.position = ApplyPhysicsEvent.GetPositionAtTime(applyPhysics.Settings.Settings, normalizedTime).ToUnityVector2();
-                }
+                    PreviewPhysics(applyPhysics.Settings);
             }
         }
+    }
+
+    private void PreviewHitbox(SpawnHitboxEvent eventSettings)
+    {
+        Vector3 offset;
+
+        if (eventSettings.Parent == SpawnHitboxEvent.ParentType.Player)
+            offset = _previewPlayer.transform.position;
+        else
+            offset = _previewWeapon.transform.position;
+
+        for (int i = 0; i < eventSettings.Shape.CompoundShapes.Length; ++i)
+        {
+            Vector3 position = offset;
+
+            if (eventSettings.Parent == SpawnHitboxEvent.ParentType.Weapon)
+            {
+                position += _previewWeapon.transform.forward * eventSettings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + _previewWeapon.transform.right * eventSettings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
+            }
+            else
+            {
+                position += new Vector3(eventSettings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat, eventSettings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat);
+            }
+
+            switch (eventSettings.Shape.CompoundShapes[i].ShapeType)
+            {
+                case Shape2DType.Circle:
+                    Gizmos.DrawSphere(position, eventSettings.Shape.CompoundShapes[i].CircleRadius.AsFloat);
+                    break;
+
+                case Shape2DType.Box:
+                    Gizmos.DrawCube(position, eventSettings.Shape.CompoundShapes[i].BoxExtents.ToUnityVector3());
+                    break;
+            }
+
+            if (i == eventSettings.Shape.CompoundShapes.Length / 2)
+                PreviewKnockback(eventSettings, position);
+        }
+    }
+
+    private void PreviewKnockback(SpawnHitboxEvent eventSettings, Vector2 offset)
+    {
+        Gizmos.DrawLineList(CalculateArcPositions(20, eventSettings.UnchargedSettings.Offensive.Knockback.ToUnityVector2(), offset));
+
+        if (eventSettings.FullyChargedSettings.Offensive.Knockback != FPVector2.Zero)
+            Gizmos.DrawLineList(CalculateArcPositions(20, eventSettings.FullyChargedSettings.Offensive.Knockback.ToUnityVector2(), offset));
+    }
+
+    private void PreviewHurtboxes(ModifyHurtboxesEvent eventSettings)
+    {
+
+    }
+
+    private void PreviewPhysics(ApplyPhysicsEvent eventSettings)
+    {
+        int elapsedFrames = _scrubFrame - eventSettings.StartingFrame;
+        FP normalizedTime = (FP)elapsedFrames / eventSettings.Length;
+
+        _previewPlayer.transform.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime).ToUnityVector2();
     }
 
     private ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)

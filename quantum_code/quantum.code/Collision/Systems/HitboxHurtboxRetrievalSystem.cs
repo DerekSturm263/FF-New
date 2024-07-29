@@ -14,7 +14,7 @@ namespace Quantum
 
             while (hitboxFilter.Next(&hitbox))
             {
-                Physics2D.HitCollection hits = f.Physics2D.GetQueryHits(hitbox.Hitbox->PathQueryIndex);
+                Physics2D.HitCollection hits = f.Physics2D.GetQueryHits(hitbox.HitboxInstance->PathQueryIndex);
 
                 for (int i = 0; i < hits.Count; ++i)
                 {
@@ -24,10 +24,10 @@ namespace Quantum
                     {
                         EntityRef defender = hurtbox->Owner;
 
-                        if (defender == hitbox.Hitbox->Owner)
+                        if (defender == hitbox.HitboxInstance->Owner)
                             continue;
 
-                        ResolveHit(f, hitbox.Hitbox->Settings, hurtbox->Settings, hitbox.Hitbox->Owner, defender);
+                        ResolveHit(f, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender);
                     }
                 }
             }
@@ -40,7 +40,7 @@ namespace Quantum
             ResolveDamage(f, hitbox, hurtbox, attacker, defender);
             ResolveKnockback(f, hitbox, hurtbox, attacker, defender);
 
-            f.Events.OnCameraShake(hitbox.HitShake, hitbox.Knockback.Normalized, false);
+            f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false);
 
             if (f.TryGet(attacker, out PlayerStats attackerStats) && f.TryGet(defender, out PlayerStats defenderStats))
             {
@@ -61,7 +61,7 @@ namespace Quantum
                     apparelStats = ApparelHelper.FromStats(f, playerStats);
 
                 // Apply damage.
-                FP damage = -hitbox.Damage * (1 / apparelStats.Defense);
+                FP damage = -hitbox.Offensive.Damage * (1 / apparelStats.Defense);
 
                 if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* playerStats2))
                 {
@@ -82,7 +82,7 @@ namespace Quantum
                 }
                 else
                 {
-                    StatsSystem.GiveStatusEffect(f, hitbox.StatusEffect, defender, attackerStats);
+                    StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, attackerStats);
                 }
 
                 // Increase energy.
@@ -97,7 +97,7 @@ namespace Quantum
                     }
                 }
 
-                StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Damage / 5) * multiplier);
+                StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 5) * multiplier);
             }
         }
 
@@ -107,8 +107,8 @@ namespace Quantum
                 f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) &&
                 f.Unsafe.TryGetPointer(defender, out CharacterController* characterController))
             {
-                characterController->KnockbackVelocityX = hitbox.Knockback.X;
-                physicsBody->Velocity.Y = hitbox.Knockback.Y;
+                characterController->KnockbackVelocityX = hitbox.Offensive.Knockback.X;
+                physicsBody->Velocity.Y = hitbox.Offensive.Knockback.Y;
 
                 characterController->KnockbackVelocityTime = 1;
                 characterController->Influence = 0;
@@ -116,7 +116,7 @@ namespace Quantum
 
             if (hurtbox.CanBeInterrupted && f.Unsafe.TryGetPointer(defender, out CustomAnimator* customAnimator))
             {
-                if (hitbox.Knockback.SqrMagnitude > 5 * 5)
+                if (hitbox.Offensive.Knockback.SqrMagnitude > 5 * 5)
                 {
                     CustomAnimator.SetTrigger(f, customAnimator, "Knocked Back");
                 }

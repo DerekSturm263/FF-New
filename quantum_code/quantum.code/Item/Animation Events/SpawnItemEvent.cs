@@ -5,8 +5,8 @@ namespace Quantum
     [System.Serializable]
     public sealed unsafe partial class SpawnItemEvent : FrameEvent
     {
-        public ItemSpawnSettings Settings;
-        public ItemSpawnSettings MaxHoldSettings;
+        public ItemSpawnSettings UnchargedSettings;
+        public ItemSpawnSettings FullyChargedSettings;
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
@@ -14,13 +14,7 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
-                ItemSpawnSettings settings;
-
-                if (characterController->MaxHoldAnimationFrameTime > 0)
-                    settings = ItemSpawnSettings.Lerp(Settings, MaxHoldSettings, (FP)characterController->HeldAnimationFrameTime / characterController->MaxHoldAnimationFrameTime);
-                else
-                    settings = Settings;
-
+                ItemSpawnSettings settings = characterController->LerpFromAnimationHold(ItemSpawnSettings.Lerp, UnchargedSettings, FullyChargedSettings);
                 ItemSpawnSystem.SpawnWithOwner(f, settings, entity);
             }
         }

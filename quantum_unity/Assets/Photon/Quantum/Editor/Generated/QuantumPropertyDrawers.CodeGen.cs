@@ -215,7 +215,6 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StagePickerType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.States_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StatesFlag_Prototype))]
-  [CustomPropertyDrawer(typeof(Quantum.Prototypes.WeaponType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]
   partial class PrototypeDrawer {}
 }

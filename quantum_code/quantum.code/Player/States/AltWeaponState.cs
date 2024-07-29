@@ -45,8 +45,8 @@ namespace Quantum
         {
             base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
-            filter.PlayerStats->ActiveWeaponType = WeaponType.Alt;
             filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+            filter.PlayerStats->ActiveWeapon = filter.PlayerStats->AltWeapon;
 
             Weapon altWeaponAsset = filter.PlayerStats->Build.Equipment.Weapons.AltWeapon;
             if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
@@ -65,7 +65,7 @@ namespace Quantum
             base.Exit(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->PossibleStates = (StatesFlag)511;
-            filter.PlayerStats->ActiveWeaponType = WeaponType.None;
+            filter.PlayerStats->ActiveWeapon = EntityRef.None;
         }
     }
 }

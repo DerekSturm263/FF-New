@@ -32,18 +32,10 @@ internal class FrameEventPopup : PopupWindowContent
 
         GUILayout.BeginHorizontal();
 
-        EditorGUI.BeginDisabledGroup(_clicked[0]);
-        if (GUILayout.Button(new GUIContent("Weapon", "Sets a weapon's static hitbox as active for the duration of the frames")))
-        {
-            _type = typeof(SetWeaponHitboxEventAsset);
-            _clicked = new bool[] { true, false, false, false, false, false, false, false, false, false };
-        }
-        EditorGUI.EndDisabledGroup();
-
         EditorGUI.BeginDisabledGroup(_clicked[9]);
         if (GUILayout.Button(new GUIContent("Hitbox", "Spawns a hitbox during the active frames. When a hitbox hits another player's hurtbox, the attack is resolved")))
         {
-            _type = typeof(SpawnDynamicHitboxEventAsset);
+            _type = typeof(SpawnHitboxEventAsset);
             _clicked = new bool[] { false, false, false, false, false, false, false, false, false, true };
         }
         EditorGUI.EndDisabledGroup();
@@ -162,14 +154,8 @@ internal class FrameEventPopup : PopupWindowContent
                     t.Settings.StartingFrame = _beginningFrame;
                     t.Settings.EndingFrame = _endingFrame;
                 });
-            else if (_type == typeof(SetWeaponHitboxEventAsset))
-                asset = AnimationEventContainer.CreateAsset<SetWeaponHitboxEventAsset>(_name, _parent, t =>
-                {
-                    t.Settings.StartingFrame = _beginningFrame;
-                    t.Settings.EndingFrame = _endingFrame;
-                });
-            else if (_type == typeof(SpawnDynamicHitboxEventAsset))
-                asset = AnimationEventContainer.CreateAsset<SpawnDynamicHitboxEventAsset>(_name, _parent, t =>
+            else if (_type == typeof(SpawnHitboxEventAsset))
+                asset = AnimationEventContainer.CreateAsset<SpawnHitboxEventAsset>(_name, _parent, t =>
                 {
                     t.Settings.StartingFrame = _beginningFrame;
                     t.Settings.EndingFrame = _endingFrame;

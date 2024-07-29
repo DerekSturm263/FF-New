@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3382484690693361643
+--- !u!114 &-5770476856239792179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,60 +9,247 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5347636493524fb449cf2f02ec1a1078, type: 3}
-  m_Name: Sourspot
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot 1
   m_EditorClassIdentifier: 
   Description: 
   Color: {r: 1, g: 0.504717, b: 0.504717, a: 1}
   Settings:
     Identifier:
-      Path: Resources/DB/AnimationEvents/Aerial Up|Sourspot
+      Path: Resources/DB/AnimationEvents/Aerial Up|Sweetspot 1
       Guid:
-        Value: 3330713677204893377
+        Value: 1969880304971989522
+    StartingFrame: 4
+    EndingFrame: 4
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 16384
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 37355
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 311296
+          Y:
+            RawValue: 434503
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &-1348427239483955053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Aerial Up|Sweetspot
+      Guid:
+        Value: 320328908021932616
     StartingFrame: 5
-    EndingFrame: 10
-    Settings:
-      Damage:
-        RawValue: 0
-      HitShake:
+    EndingFrame: 8
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
         Id:
           Value: 0
-      Knockback:
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
         X:
           RawValue: 0
         Y:
           RawValue: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
-        RawValue: 0
-      UserFreezeDuration: 0
-    MaxHoldSettings:
-      Damage:
-        RawValue: 0
-      HitShake:
-        Id:
-          Value: 0
-      Knockback:
+      PositionOffset:
         X:
           RawValue: 0
         Y:
           RawValue: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
+      RotationOffset:
         RawValue: 0
-      UserFreezeDuration: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 16384
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 37355
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 311296
+          Y:
+            RawValue: 434503
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,13 +270,15 @@ MonoBehaviour:
     AnimID: -1715357138
     Events:
     - Id:
-        Value: 2549315829734191757
-    - Id:
-        Value: 3330713677204893377
-    - Id:
         Value: 4260708986736543257
+    - Id:
+        Value: 3006879764565498020
+    - Id:
+        Value: 320328908021932616
+    - Id:
+        Value: 1969880304971989522
     Committed:
-      Max: 0
+      Max: 28
       Min: 0
   Clip: {fileID: 6641085478485924818, guid: 62badd7f310731b4a9fb30a3bc11ce53, type: 3}
 --- !u!114 &1240895199461620115
@@ -114,102 +303,7 @@ MonoBehaviour:
     StartingFrame: 4
     EndingFrame: 15
     UsabilityType: 0
-    Settings:
-      XCurve:
-        Samples: []
-        PreWrapMode: 0
-        PostWrapMode: 0
-        StartTime:
-          RawValue: 0
-        EndTime:
-          RawValue: 65536
-        Resolution: 32
-        OriginalPreWrapMode: 0
-        OriginalPostWrapMode: 0
-        Keys: []
-      XForce:
-        RawValue: 0
-      YCurve:
-        Samples:
-        - RawValue: 0
-        - RawValue: 10037
-        - RawValue: 19022
-        - RawValue: 27009
-        - RawValue: 34054
-        - RawValue: 40214
-        - RawValue: 45544
-        - RawValue: 50101
-        - RawValue: 53940
-        - RawValue: 57117
-        - RawValue: 59689
-        - RawValue: 61711
-        - RawValue: 63239
-        - RawValue: 64330
-        - RawValue: 65039
-        - RawValue: 65422
-        - RawValue: 65536
-        - RawValue: 65464
-        - RawValue: 65206
-        - RawValue: 64686
-        - RawValue: 63829
-        - RawValue: 62560
-        - RawValue: 60804
-        - RawValue: 58487
-        - RawValue: 55533
-        - RawValue: 51868
-        - RawValue: 47416
-        - RawValue: 42104
-        - RawValue: 35855
-        - RawValue: 28595
-        - RawValue: 20249
-        - RawValue: 10742
-        - RawValue: 0
-        PreWrapMode: 0
-        PostWrapMode: 0
-        StartTime:
-          RawValue: 0
-        EndTime:
-          RawValue: 65536
-        Resolution: 32
-        OriginalPreWrapMode: 8
-        OriginalPostWrapMode: 8
-        Keys:
-        - Time:
-            RawValue: 0
-          Value:
-            RawValue: 0
-          InTangent:
-            RawValue: 338669
-          OutTangent:
-            RawValue: 338669
-          TangentMode: 0
-          TangentModeLeft: 0
-          TangentModeRight: 0
-        - Time:
-            RawValue: 32768
-          Value:
-            RawValue: 65536
-          InTangent:
-            RawValue: -86
-          OutTangent:
-            RawValue: -86
-          TangentMode: 0
-          TangentModeLeft: 0
-          TangentModeRight: 0
-        - Time:
-            RawValue: 65536
-          Value:
-            RawValue: 0
-          InTangent:
-            RawValue: -364334
-          OutTangent:
-            RawValue: -364334
-          TangentMode: 0
-          TangentModeLeft: 0
-          TangentModeRight: 0
-      YForce:
-        RawValue: 32768
-    MaxHoldSettings:
+    UnchargedSettings:
       XCurve:
         Samples: []
         PreWrapMode: 0
@@ -238,7 +332,36 @@ MonoBehaviour:
         Keys: []
       YForce:
         RawValue: 0
---- !u!114 &4559255496876025161
+    FullyChargedSettings:
+      XCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 0
+        Resolution: 0
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 0
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 0
+        Resolution: 0
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 0
+--- !u!114 &3633134043581857997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,57 +370,244 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5347636493524fb449cf2f02ec1a1078, type: 3}
-  m_Name: Sweetspot
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot 2
   m_EditorClassIdentifier: 
   Description: 
-  Color: {r: 1, g: 0, b: 0, a: 1}
+  Color: {r: 1, g: 1, b: 1, a: 1}
   Settings:
     Identifier:
-      Path: Resources/DB/AnimationEvents/Aerial Up|Sweetspot
+      Path: Resources/DB/AnimationEvents/Aerial Up|Sweetspot 2
       Guid:
-        Value: 2549315829734191757
-    StartingFrame: 7
-    EndingFrame: 8
-    Settings:
-      Damage:
-        RawValue: 0
-      HitShake:
+        Value: 2788608066718160430
+    StartingFrame: 9
+    EndingFrame: 10
+    Parent: 0
+    Shape:
+      ShapeType: 0
+      PolygonCollider:
         Id:
           Value: 0
-      Knockback:
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
         X:
           RawValue: 0
         Y:
           RawValue: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
-        RawValue: 0
-      UserFreezeDuration: 0
-    MaxHoldSettings:
-      Damage:
-        RawValue: 0
-      HitShake:
-        Id:
-          Value: 0
-      Knockback:
+      PositionOffset:
         X:
           RawValue: 0
         Y:
           RawValue: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
+      RotationOffset:
         RawValue: 0
-      UserFreezeDuration: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes: []
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &7464512778356993430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.495283, b: 0.495283, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Aerial Up|Sourspot
+      Guid:
+        Value: 3006879764565498020
+    StartingFrame: 4
+    EndingFrame: 13
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 16384
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: -26214
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 16384
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 5242
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 249692
+          Y:
+            RawValue: 225443
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        UserFreezeFrames: 0
+      Offensive:
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0

@@ -1,19 +1,10 @@
-enum WeaponType
-{
-	None,
-	Main,
-	Alt
-}
-
 component PlayerStats
 {
 	Build Build;
 	QString<32> Name;
 	FighterIndex Index;
 
-	WeaponType ActiveWeaponType;
-	WeaponType CurrentActiveWeapon;
-	
+	entity_ref ActiveWeapon;
 	entity_ref MainWeapon;
 	entity_ref AltWeapon;
 

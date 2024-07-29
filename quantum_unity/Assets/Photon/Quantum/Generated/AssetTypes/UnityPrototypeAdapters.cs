@@ -24,22 +24,25 @@ namespace Quantum.Prototypes.Unity {
     }
   }
   [System.SerializableAttribute()]
-  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.DynamicHitboxInstance))]
-  public class DynamicHitboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.DynamicHitboxInstance_Prototype> {
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.HitboxInstance))]
+  public class HitboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.HitboxInstance_Prototype> {
     public System.Int32 PathQueryIndex;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
-    public System.Int32 Lifetime;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Parent;
     public Quantum.Prototypes.HitboxSettings_Prototype Settings;
     public Quantum.Shape2D Shape;
+    public System.Int32 Lifetime;
 
-    public sealed override Quantum.Prototypes.DynamicHitboxInstance_Prototype Convert(EntityPrototypeConverter converter) {
-      var result = new Quantum.Prototypes.DynamicHitboxInstance_Prototype();
+    public sealed override Quantum.Prototypes.HitboxInstance_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.HitboxInstance_Prototype();
       result.PathQueryIndex = this.PathQueryIndex;
       converter.Convert(this.Owner, out result.Owner);
-      result.Lifetime = this.Lifetime;
+      converter.Convert(this.Parent, out result.Parent);
       result.Settings = this.Settings;
       result.Shape = this.Shape;
+      result.Lifetime = this.Lifetime;
       return result;
     }
   }
@@ -108,8 +111,8 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.MaxStringByteCountAttribute((Int32)30, "Unicode")]
     public System.String Name;
     public Quantum.Prototypes.FighterIndex_Prototype Index;
-    public Quantum.Prototypes.WeaponType_Prototype ActiveWeaponType;
-    public Quantum.Prototypes.WeaponType_Prototype CurrentActiveWeapon;
+    [Quantum.LocalReference]
+    public global::EntityPrototype ActiveWeapon;
     [Quantum.LocalReference]
     public global::EntityPrototype MainWeapon;
     [Quantum.LocalReference]
@@ -125,8 +128,7 @@ namespace Quantum.Prototypes.Unity {
       result.Build = this.Build;
       result.Name = this.Name;
       result.Index = this.Index;
-      result.ActiveWeaponType = this.ActiveWeaponType;
-      result.CurrentActiveWeapon = this.CurrentActiveWeapon;
+      converter.Convert(this.ActiveWeapon, out result.ActiveWeapon);
       converter.Convert(this.MainWeapon, out result.MainWeapon);
       converter.Convert(this.AltWeapon, out result.AltWeapon);
       result.WinStats = this.WinStats;
