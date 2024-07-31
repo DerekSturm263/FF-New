@@ -10,7 +10,7 @@ namespace Quantum
         {
             public EntityRef Entity;
 
-            public Transform2D* Transform;
+            public Transform3D* Transform;
             public HitboxInstance* HitboxInstance;
         }
 
@@ -20,11 +20,6 @@ namespace Quantum
             if (filter.HitboxInstance->Lifetime <= 0)
             {
                 f.Destroy(filter.Entity);
-            }
-
-            if (f.Unsafe.TryGetPointer(filter.HitboxInstance->Parent, out Transform2D* transform))
-            {
-                transform->Position = transform->Position + transform->Forward;
             }
 
             DrawHitbox(f, ref filter);
@@ -38,15 +33,16 @@ namespace Quantum
                 for (int i = 0; i < count; ++i)
                 {
                     Shape2D* currentShape = shapesBuffer + i;
+                    FPVector3 position = filter.Transform->Position + currentShape->LocalTransform.Position.XYO;
 
                     switch (currentShape->Type)
                     {
                         case Shape2DType.Circle:
-                            Draw.Circle(filter.Transform->Position + currentShape->LocalTransform.Position, currentShape->Circle.Radius);
+                            Draw.Circle(position, currentShape->Circle.Radius);
                             break;
 
                         case Shape2DType.Box:
-                            Draw.Box((filter.Transform->Position + currentShape->LocalTransform.Position).XYO, currentShape->Box.Extents.XYO);
+                            Draw.Box(position, currentShape->Box.Extents.XYO);
                             break;
                     }
                 }
@@ -55,7 +51,7 @@ namespace Quantum
 
         public void OnRemoved(Frame f, EntityRef entity, HitboxInstance* component)
         {
-            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            if (f.Unsafe.TryGetPointer(component->Owner, out Stats* stats))
             {
                 QList<EntityRef> hitboxes = f.ResolveList(stats->Hitboxes);
                 hitboxes.Remove(entity);
@@ -65,12 +61,12 @@ namespace Quantum
             f.Events.OnHitboxSpawnDespawn(component->Owner, entity, false);
         }
 
-        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user)
+        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user, EntityRef parent = default)
         {
             Log.Debug("Spawning hitbox!");
 
             EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(f.RuntimeConfig.Hitbox.Id);
-            EntityRef hitboxEntity = f.Create(hitboxPrototype);
+            EntityRef hitboxEntity = parent == EntityRef.None ? f.Create(hitboxPrototype) : f.CreateChilded(hitboxPrototype, parent);
 
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
@@ -96,19 +92,6 @@ namespace Quantum
             f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, true);
 
             return hitboxEntity;
-        }
-
-        public static EntityRef SpawnHitboxParented(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user, EntityRef parent)
-        {
-            Log.Debug("Spawning (parented) hitbox!");
-            EntityRef hitbox = SpawnHitbox(f, settings, shape, lifetime, user);
-
-            if (f.Unsafe.TryGetPointer(hitbox, out HitboxInstance* hitboxInstance))
-            {
-                hitboxInstance->Parent = parent;
-            }
-
-            return hitbox;
         }
     }
 }

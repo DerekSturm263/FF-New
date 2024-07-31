@@ -11,7 +11,7 @@ namespace Quantum.Custom.Animator
         public int index;
         public int frameRate;
         public int frameCount;
-        public AnimatorFrame[] frames = new AnimatorFrame[15];
+        public AnimatorFrame[] frames = new AnimatorFrame[17];
         public FPAnimationCurve[] curves;
 
         public bool looped;
@@ -25,8 +25,10 @@ namespace Quantum.Custom.Animator
 
         public AnimatorFrame GetFrameAtTime(FP time)
         {
-            AnimatorFrame output = new AnimatorFrame();
-            output.hurtboxPositions = new FPVector3[15];
+            AnimatorFrame output = new()
+            {
+                hurtboxPositions = new HurtboxTransformInfo[17]
+            };
 
             int timeIndex;
 

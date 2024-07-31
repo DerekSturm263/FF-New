@@ -72,13 +72,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1679822226763317830}
   - component: {fileID: 1244091598796935202}
+  - component: {fileID: 6197314848405837591}
   - component: {fileID: 6816865711551216664}
   - component: {fileID: -4687178255261983269}
   - component: {fileID: 7579628621272166192}
   - component: {fileID: 5203211118637406478}
   - component: {fileID: 8318716123870308168}
   - component: {fileID: 3318794597594987953}
-  - component: {fileID: 6197314848405837591}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -420,6 +420,196 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
+--- !u!114 &6197314848405837591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2967317518420762171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a43dc91e16df84cb131d3bc36b440c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Build:
+      Equipment:
+        Weapons:
+          MainWeapon:
+            Template:
+              Id:
+                Value: 3233801449374500001
+            Material:
+              Id:
+                Value: 3442718674901078516
+            Enhancer:
+              Id:
+                Value: 1106471372353854031
+            FileGuid:
+              Value: 0
+          AltWeapon:
+            Template:
+              Id:
+                Value: 1493138515856977896
+            Material:
+              Id:
+                Value: 3442718674901078516
+            Enhancer:
+              Id:
+                Value: 1106471372353854031
+            FileGuid:
+              Value: 0
+          SubWeapon:
+            Template:
+              Id:
+                Value: 3998083542428612409
+            Enhancer:
+              Id:
+                Value: 3282206142539188617
+            FileGuid:
+              Value: 0
+        Ultimate:
+          Id:
+            Value: 2697187724191887445
+        Badge:
+          Id:
+            Value: 1747819291679557132
+        Outfit:
+          Headgear:
+            Template:
+              Id:
+                Value: 3314098909229985552
+            Pattern:
+              Id:
+                Value: 4118883214475881020
+            Modifiers:
+              Modifier1:
+                Id:
+                  Value: 0
+              Modifier2:
+                Id:
+                  Value: 0
+              Modifier3:
+                Id:
+                  Value: 0
+            Color:
+              R: 0
+              G: 0
+              B: 0
+              A: 0
+            FileGuid:
+              Value: 0
+          Clothing:
+            Template:
+              Id:
+                Value: 646432423482747649
+            Pattern:
+              Id:
+                Value: 4118883214475881020
+            Modifiers:
+              Modifier1:
+                Id:
+                  Value: 0
+              Modifier2:
+                Id:
+                  Value: 0
+              Modifier3:
+                Id:
+                  Value: 0
+            Color:
+              R: 0
+              G: 0
+              B: 0
+              A: 0
+            FileGuid:
+              Value: 0
+          Legwear:
+            Template:
+              Id:
+                Value: 891383649516256389
+            Pattern:
+              Id:
+                Value: 4118883214475881020
+            Modifiers:
+              Modifier1:
+                Id:
+                  Value: 0
+              Modifier2:
+                Id:
+                  Value: 0
+              Modifier3:
+                Id:
+                  Value: 0
+            Color:
+              R: 0
+              G: 0
+              B: 0
+              A: 0
+            FileGuid:
+              Value: 0
+      Cosmetics:
+        Avatar:
+          Id:
+            Value: 482559385480558028
+        Voice:
+          Id:
+            Value: 167286258291661986
+        Eyes:
+          Id:
+            Value: 4193926059399940068
+        Hair:
+          Id:
+            Value: 2401582579574677935
+        Emotes:
+          Up:
+            Id:
+              Value: 2097941827246698576
+          Down:
+            Id:
+              Value: 3312345975541602217
+          Left:
+            Id:
+              Value: 4206227343587173824
+          Right:
+            Id:
+              Value: 1182797516208325580
+    Name: 
+    Index:
+      Local: 0
+      Device: 0
+      Global: 0
+      GlobalNoBots: 0
+      Type:
+        Value: 0
+    HurtboxSetup:
+      Id:
+        Value: 2622519728145133298
+    ActiveWeapon: {fileID: 0}
+    MainWeapon: {fileID: 0}
+    AltWeapon: {fileID: 0}
+    WinStats:
+      Kills: 0
+      Deaths: 0
+    ApparelStatsMultiplier:
+      Agility:
+        RawValue: 65536
+      Jump:
+        RawValue: 65536
+      Weight:
+        RawValue: 65536
+      Dodge:
+        RawValue: 65536
+      Defense:
+        RawValue: 65536
+    WeaponStatsMultiplier:
+      Damage:
+        RawValue: 65536
+      Knockback:
+        RawValue: 65536
+      Speed:
+        RawValue: 65536
+    HeldItem: {fileID: 0}
 --- !u!114 &6816865711551216664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,24 +827,6 @@ MonoBehaviour:
         RawValue: 65536
       Energy:
         RawValue: 65536
-    ApparelStatsMultiplier:
-      Agility:
-        RawValue: 65536
-      Jump:
-        RawValue: 65536
-      Weight:
-        RawValue: 65536
-      Dodge:
-        RawValue: 65536
-      Defense:
-        RawValue: 65536
-    WeaponStatsMultiplier:
-      Damage:
-        RawValue: 65536
-      Knockback:
-        RawValue: 65536
-      Speed:
-        RawValue: 65536
     StatusEffect:
       Id:
         Value: 0
@@ -779,192 +951,6 @@ MonoBehaviour:
         Id:
           Value: 1621980965895008522
       _item2: {fileID: 3507380724054792601}
---- !u!114 &6197314848405837591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2967317518420762171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72a43dc91e16df84cb131d3bc36b440c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    Build:
-      Equipment:
-        Weapons:
-          MainWeapon:
-            Template:
-              Id:
-                Value: 3233801449374500001
-            Material:
-              Id:
-                Value: 3442718674901078516
-            Enhancer:
-              Id:
-                Value: 1106471372353854031
-            FileGuid:
-              Value: 0
-          AltWeapon:
-            Template:
-              Id:
-                Value: 0
-            Material:
-              Id:
-                Value: 3442718674901078516
-            Enhancer:
-              Id:
-                Value: 1106471372353854031
-            FileGuid:
-              Value: 0
-          SubWeapon:
-            Template:
-              Id:
-                Value: 3998083542428612409
-            Enhancer:
-              Id:
-                Value: 3282206142539188617
-            FileGuid:
-              Value: 0
-        Ultimate:
-          Id:
-            Value: 2697187724191887445
-        Badge:
-          Id:
-            Value: 1747819291679557132
-        Outfit:
-          Headgear:
-            Template:
-              Id:
-                Value: 3314098909229985552
-            Pattern:
-              Id:
-                Value: 4118883214475881020
-            Modifiers:
-              Modifier1:
-                Id:
-                  Value: 0
-              Modifier2:
-                Id:
-                  Value: 0
-              Modifier3:
-                Id:
-                  Value: 0
-            Color:
-              R: 0
-              G: 0
-              B: 0
-              A: 0
-            FileGuid:
-              Value: 0
-          Clothing:
-            Template:
-              Id:
-                Value: 646432423482747649
-            Pattern:
-              Id:
-                Value: 4118883214475881020
-            Modifiers:
-              Modifier1:
-                Id:
-                  Value: 0
-              Modifier2:
-                Id:
-                  Value: 0
-              Modifier3:
-                Id:
-                  Value: 0
-            Color:
-              R: 0
-              G: 0
-              B: 0
-              A: 0
-            FileGuid:
-              Value: 0
-          Legwear:
-            Template:
-              Id:
-                Value: 891383649516256389
-            Pattern:
-              Id:
-                Value: 4118883214475881020
-            Modifiers:
-              Modifier1:
-                Id:
-                  Value: 0
-              Modifier2:
-                Id:
-                  Value: 0
-              Modifier3:
-                Id:
-                  Value: 0
-            Color:
-              R: 0
-              G: 0
-              B: 0
-              A: 0
-            FileGuid:
-              Value: 0
-      Cosmetics:
-        Avatar:
-          Id:
-            Value: 482559385480558028
-        Voice:
-          Id:
-            Value: 167286258291661986
-        Eyes:
-          Id:
-            Value: 4193926059399940068
-        Hair:
-          Id:
-            Value: 2401582579574677935
-        Emotes:
-          Up:
-            Id:
-              Value: 2097941827246698576
-          Down:
-            Id:
-              Value: 3312345975541602217
-          Left:
-            Id:
-              Value: 4206227343587173824
-          Right:
-            Id:
-              Value: 1182797516208325580
-    Name: 
-    Index:
-      Local: 0
-      Device: 0
-      Global: 0
-      GlobalNoBots: 0
-      Type:
-        Value: 0
-    MainWeapon: {fileID: 0}
-    AltWeapon: {fileID: 0}
-    WinStats:
-      Kills: 0
-      Deaths: 0
-    ApparelStatsMultiplier:
-      Agility:
-        RawValue: 65536
-      Jump:
-        RawValue: 65536
-      Weight:
-        RawValue: 65536
-      Dodge:
-        RawValue: 65536
-      Defense:
-        RawValue: 65536
-    WeaponStatsMultiplier:
-      Damage:
-        RawValue: 65536
-      Knockback:
-        RawValue: 65536
-      Speed:
-        RawValue: 65536
-    HeldItem: {fileID: 0}
 --- !u!1 &8061166377565863883
 GameObject:
   m_ObjectHideFlags: 0

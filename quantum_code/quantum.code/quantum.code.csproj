@@ -96,8 +96,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Build\Assets\ColorPreset.qtn.cs" />
     <Compile Include="Camera\Assets\ShakeSettings.qtn.cs" />
+    <Compile Include="Collision\Assets\HurtboxSetup.qtn.cs" />
     <Compile Include="Collision\Structs\HitboxSettings.qtn.cs" />
+    <Compile Include="Miscellaneous\Extensions\FrameBaseExtensions.cs" />
     <Compile Include="Player\Animation Events\AllowMovementEvent.cs" />
     <Compile Include="Player\Animation Events\HoldAnimationEvent.cs" />
     <Compile Include="Item\Assets\Items\ProjectileSpawningItem.cs" />
@@ -105,10 +108,12 @@
     <Compile Include="Match\Commands\CommandSetupMatch.cs" />
     <Compile Include="Player\Structs\FighterIndex.qtn.cs" />
     <Compile Include="Item\Structs\ItemSpawnSettings.qtn.cs" />
+    <None Include="Collision\Assets\HurtboxSetup.qtn" />
     <None Include="Player\Components\PlayerStats.qtn" />
     <None Include="Player\Structs\MatchStats.qtn" />
     <Compile Include="Player\Structs\PhysicsSettings.cs" />
     <Compile Include="Player\Systems\PlayerStatsSystem.cs" />
+    <Compile Include="Miscellaneous\Systems\ChildParentLinkSystem.cs" />
     <Compile Include="UI\Commands\CommandPause.cs" />
     <Compile Include="UI\Commands\CommandPlay.cs" />
     <Compile Include="UI\Commands\CommandSetTimeScale.cs" />
@@ -309,9 +314,9 @@
     <Compile Include="Item\Animation Events\SpawnItemEvent.cs" />
     <Compile Include="Custom Animator\Animation Events\Assets\FrameEvent.qtn.cs" />
     <Compile Include="Collision\Animation Events\SpawnHitboxEvent.cs" />
-    <Compile Include="Types\Array\ArrayHelper.cs" />
-    <Compile Include="Types\ShapeCastHelper\ShapeCastHelper.qtn.cs" />
-    <Compile Include="Types\Directional\DirectionalAssetHelper.cs" />
+    <Compile Include="Miscellaneous\Helpers\ArrayHelper.cs" />
+    <Compile Include="Miscellaneous\Structs\ShapeCastHelper.qtn.cs" />
+    <Compile Include="Miscellaneous\Helpers\DirectionalHelper.cs" />
     <None Include="Player\Assets\MovementSettings.qtn" />
     <None Include="Custom Animator\Animation Events\Assets\QuantumAnimationEvent.qtn" />
     <None Include="Match\Events\OnMatchEnd.qtn" />
@@ -367,10 +372,11 @@
     <Compile Include="SystemSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Player\Systems\CharacterControllerSystem.cs" />
-    <None Include="Types\Array\Array.qtn" />
-    <None Include="Types\Directional\DirectionalAsset.qtn" />
-    <None Include="Types\Positional\PositionalAsset.qtn" />
-    <None Include="Types\Range\Range.qtn" />
+    <None Include="Miscellaneous\Structs\Array.qtn" />
+    <None Include="Miscellaneous\Components\ChildParentLink.qtn" />
+    <None Include="Miscellaneous\Structs\Directional.qtn" />
+    <None Include="Miscellaneous\Structs\Positional.qtn" />
+    <None Include="Miscellaneous\Structs\Range.qtn" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="db.json" />

@@ -25,6 +25,7 @@ namespace Quantum
             PlayerStats* playerStats = f.Unsafe.GetPointer<PlayerStats>(entity);
             playerStats->Index = index;
 
+            PlayerStatsSystem.SetBuild(f, entity, playerStats, playerStats->Build);
             AddPlayerToList(f, entity, index);
 
             if (assignLink)

@@ -17,7 +17,9 @@ public class AnimationEventContainerWindow : EditorWindow
     public int _maxScrubFrame;
 
     private QuantumAnimationEventAsset _eventAsset;
+
     private GameObject _previewPlayer;
+    private HurtboxTracker _previewTracker;
     private GameObject _previewWeapon;
 
     private float _initialTime;
@@ -29,6 +31,16 @@ public class AnimationEventContainerWindow : EditorWindow
     public static void ShowWindow()
     {
         GetWindow(typeof(AnimationEventContainerWindow), false, "Animation Event Editor");
+    }
+
+    private void OnEnable()
+    {
+        EditorApplication.update += Preview;
+    }
+
+    private void OnDisable()
+    {
+        EditorApplication.update -= Preview;
     }
 
     public void EventListDrawElementCallback(Rect rect, int index, bool isActive, bool isFocused)
@@ -264,11 +276,9 @@ public class AnimationEventContainerWindow : EditorWindow
         _events.DoLayoutList();
 
         EditorGUI.EndDisabledGroup();
-
-        SampleAnimation();
     }
 
-    private void Update()
+    private void Preview()
     {
         if (_isPreviewing)
         {
@@ -277,6 +287,8 @@ public class AnimationEventContainerWindow : EditorWindow
 
             _scrubFrame = (int)elapsedFrames % _maxScrubFrame;
         }
+
+        SampleAnimation();
     }
 
     public void SampleAnimation()
@@ -287,10 +299,12 @@ public class AnimationEventContainerWindow : EditorWindow
         _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
     }
 
-    public unsafe void DrawGizmos()
+    public unsafe void DrawGizmos(AssetRefHurtboxSetup hurtboxSetup)
     {
         if (!_eventAsset || !_previewPlayer || !_previewWeapon)
             return;
+
+        Color[] hurtboxColors = new Color[] { Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white, Color.white };
 
         for (int i = 0; i < _eventAsset.Settings.Events.Count; ++i)
         {
@@ -352,10 +366,21 @@ public class AnimationEventContainerWindow : EditorWindow
                 if (frameEvent is SpawnHitboxEventAsset spawnHitbox)
                     PreviewHitbox(spawnHitbox.Settings);
                 else if (frameEvent is ModifyHurtboxesEventAsset modifyHurtboxes)
-                    PreviewHurtboxes(modifyHurtboxes.Settings);
+                    PreviewHurtboxes(modifyHurtboxes.Settings, ref hurtboxColors);
                 else if (frameEvent is ApplyPhysicsEventAsset applyPhysics)
                     PreviewPhysics(applyPhysics.Settings);
             }
+        }
+
+        _previewTracker ??= _previewPlayer.GetComponent<HurtboxTracker>();
+
+        for (int i = 0; i < 15; ++i)
+        {
+            Transform hurtboxTransform = _previewTracker.GetHurtbox((Quantum.HurtboxType)(1 << i));
+            HurtboxSetupAsset asset = UnityDB.FindAsset<HurtboxSetupAsset>(hurtboxSetup.Id);
+
+            Gizmos.color = hurtboxColors[i];
+            Gizmos.DrawSphere(hurtboxTransform.position, asset.Settings.HurtboxSizes[i].AsFloat);
         }
     }
 
@@ -405,9 +430,19 @@ public class AnimationEventContainerWindow : EditorWindow
             Gizmos.DrawLineList(CalculateArcPositions(20, eventSettings.FullyChargedSettings.Offensive.Knockback.ToUnityVector2(), offset));
     }
 
-    private void PreviewHurtboxes(ModifyHurtboxesEvent eventSettings)
+    private void PreviewHurtboxes(ModifyHurtboxesEvent eventSettings, ref Color[] colors)
     {
+        for (int i = 0; i < colors.Length; ++i)
+        {
+            HurtboxType hurtboxType = (HurtboxType)Math.Pow(2, i);
 
+            if (eventSettings.Hurtboxes.HasFlag(hurtboxType))
+            {
+                colors[i].r = eventSettings.Settings.CanBeDamaged ? 1 : 0;
+                colors[i].g = eventSettings.Settings.CanBeKnockedBack ? 1 : 0;
+                colors[i].b = eventSettings.Settings.CanBeInterrupted ? 1 : 0;
+            }
+        }
     }
 
     private void PreviewPhysics(ApplyPhysicsEvent eventSettings)
@@ -415,7 +450,7 @@ public class AnimationEventContainerWindow : EditorWindow
         int elapsedFrames = _scrubFrame - eventSettings.StartingFrame;
         FP normalizedTime = (FP)elapsedFrames / eventSettings.Length;
 
-        _previewPlayer.transform.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime).ToUnityVector2();
+        _previewPlayer.transform.parent.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime).ToUnityVector2();
     }
 
     private ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)

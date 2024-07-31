@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3752432560751321733}
   - component: {fileID: 6049013337113849420}
   - component: {fileID: 6827526823731206715}
-  - component: {fileID: 303029763039186551}
+  - component: {fileID: 2944449349986038832}
   m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 0
+  TransformMode: 1
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -213,7 +213,7 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &303029763039186551
+--- !u!114 &2944449349986038832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,34 +222,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 4112116602947518751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0fdbcf2e8b088428f4f9f90012a3cf, type: 3}
+  m_Script: {fileID: 11500000, guid: ca38a13b260445a4392daa7dc191fc79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
     PathQueryIndex: 0
     Owner: {fileID: 0}
-    Lifetime: 0
     Settings:
-      Damage:
-        RawValue: 0
-      Knockback:
-        X:
+      Offensive:
+        Damage:
           RawValue: 0
-        Y:
-          RawValue: 0
-      UserFreezeDuration: 0
-      TargetFreezeDuration: 0
-      TargetShakeIntensity:
-        RawValue: 0
-      StatusEffect:
-        Id:
-          Value: 0
-      SpawnShake:
-        Id:
-          Value: 0
-      HitShake:
-        Id:
-          Value: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Delay:
+        UserFreezeFrames: 0
+        TargetFreezeFrames: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    Lifetime: 0
 --- !u!114 &-2529971104628218342
 MonoBehaviour:
   m_ObjectHideFlags: 0

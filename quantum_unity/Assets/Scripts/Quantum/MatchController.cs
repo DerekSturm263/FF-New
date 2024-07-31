@@ -78,7 +78,7 @@ public class MatchController : Controller<MatchController>
         if (QuantumRunner.Default.Game.Frames.Verified.TryGetSingleton(out Timer timer))
         {
             int diference = timer.OriginalTime - timer.Time;
-            InventoryController.Instance.GainCurrency((ulong)(diference * 0.75f));
+            InventoryController.Instance.GainCurrency((uint)(diference * 0.75f));
         }
     }
 }

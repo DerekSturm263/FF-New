@@ -50,6 +50,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefColorPreset))]
+  public class AssetRefColorPresetPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(ColorPresetAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefCustomAnimatorGraph))]
   public class AssetRefCustomAnimatorGraphPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -89,6 +96,13 @@ namespace Quantum.Editor {
   public class AssetRefHairPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(HairAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefHurtboxSetup))]
+  public class AssetRefHurtboxSetupPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(HurtboxSetupAsset));
     }
   }
 

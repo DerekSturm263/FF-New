@@ -17,7 +17,7 @@
 
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
-            Log.Debug("Spawning dynamic hitbox!");
+            Log.Debug("Spawning hitbox!");
 
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
@@ -25,12 +25,12 @@
 
                 if (Parent == ParentType.Player)
                 {
-                    HitboxSystem.SpawnHitboxParented(f, settings, Shape, Length, entity, entity);
+                    HitboxSystem.SpawnHitbox(f, settings, Shape, Length, entity, entity);
                 }
                 else
                 {
                     EntityRef parent = f.Unsafe.GetPointer<PlayerStats>(entity)->ActiveWeapon;
-                    HitboxSystem.SpawnHitboxParented(f, settings, Shape, Length, entity, parent);
+                    HitboxSystem.SpawnHitbox(f, settings, Shape, Length, entity, parent);
                 }
             }
         }

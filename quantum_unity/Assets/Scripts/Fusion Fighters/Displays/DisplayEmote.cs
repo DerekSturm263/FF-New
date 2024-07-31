@@ -1,6 +1,5 @@
 using Extensions.Components.UI;
 using Extensions.Types;
-using Quantum;
 using UnityEngine;
 
 using Type = EmoteAsset;
@@ -11,7 +10,7 @@ public class DisplayEmote : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        return new($"<font=\"KeaniaOne-Title SDF\"><size=50>{item.name}</size></font>\n\n{item.Description}", item.Icon);
+        return new(string.Format(_format, item.name, item.Description), item.Icon);
     }
 
     protected override Type GetValue() => _direction switch

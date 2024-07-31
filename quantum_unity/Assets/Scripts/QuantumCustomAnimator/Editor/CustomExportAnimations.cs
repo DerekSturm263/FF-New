@@ -472,18 +472,23 @@ public class CustomExportAnimations : MonoBehaviour
 
             }
 
-            frameData.hurtboxPositions = new FPVector3[15];
-            //Debug.Log($"Created hurtbox positions array for frame {i}");
+            frameData.hurtboxPositions = new HurtboxTransformInfo[17];
+            Debug.Log($"Created hurtbox positions array for frame {i}");
 
             clip.SampleAnimation(player, (float)i / frameCount);
-            for (int j = 0; j < 15; ++j)
+            for (int j = 0; j < frameData.hurtboxPositions.Length; ++j)
             {
-                frameData.hurtboxPositions[j] = (tracker.GetHurtbox((Quantum.HurtboxType)(1 << j)).position - player.transform.position).ToFPVector3();
-                //Debug.Log($"Set hurtbox position in array at {j} to {frameData.hurtboxPositions[j]}");
+                Transform hurtboxTransform = tracker.GetHurtbox((Quantum.HurtboxType)(1 << j));
+
+                FPVector3 position = (hurtboxTransform.position - player.transform.position).ToFPVector3();
+                FPQuaternion rotation = hurtboxTransform.rotation.ToFPQuaternion();
+
+                frameData.hurtboxPositions[j] = new() { position = position, rotation = rotation };
+                Debug.Log($"Set hurtbox position in array at {j} to {frameData.hurtboxPositions[j]}");
             }
 
             animationData.frames[i] = frameData;
-            //Debug.Log(animationData.frames[i]);
+            Debug.Log(animationData.frames[i]);
         }
 
         var curves = AnimationUtility.GetCurveBindings(clip).Where(item => item.propertyName switch

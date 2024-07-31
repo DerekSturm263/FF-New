@@ -14,7 +14,11 @@ namespace Extensions.Types
 
         public Nullable(T? value)
         {
-            _nonNullValue = value.Value;
+            if (value is not null)
+                _nonNullValue = value.Value;
+            else
+                _nonNullValue = default;
+
             _hasValue = value.HasValue;
         }
 

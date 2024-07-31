@@ -26,14 +26,11 @@ namespace Quantum
         [Conditional("DEBUG")]
         public static void DrawHurtbox(Transform2D* transform, PhysicsCollider2D* physicsCollider, HurtboxInstance* hurtboxInstance)
         {
-            ColorRGBA color = new() { R = 0, G = 0, B = 0, A = 128 };
+            ColorRGBA color = new() { R = 255, G = 255, B = 255, A = 255 };
 
-            if (hurtboxInstance->Settings.CanBeInterrupted)
-                color.R = 255;
-            if (hurtboxInstance->Settings.CanBeKnockedBack)
-                color.G = 255;
-            if (hurtboxInstance->Settings.CanBeDamaged)
-                color.B = 255;
+            color.R = (byte)(hurtboxInstance->Settings.CanBeDamaged ? 255 : 0);
+            color.G = (byte)(hurtboxInstance->Settings.CanBeKnockedBack ? 255 : 0);
+            color.B = (byte)(hurtboxInstance->Settings.CanBeInterrupted ? 255 : 0);
 
             switch (physicsCollider->Shape.Type)
             {

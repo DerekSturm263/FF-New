@@ -7,6 +7,7 @@
             return [
                 // pre-defined core systems
                 new Core.CullingSystem2D(),
+                new ChildParentLinkSystem(),
 
                 // physics querying
                 new HitboxSystem(),

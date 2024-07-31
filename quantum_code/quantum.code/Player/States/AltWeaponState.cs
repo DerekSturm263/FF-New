@@ -19,7 +19,7 @@ namespace Quantum
             {
                 Log.Debug("Found asset");
                 
-                MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
+                MoveRef animRef = DirectionalHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
                 if (f.TryFindAsset(animRef.Step1.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0)
                 {
                     int frameCount = (CustomAnimator.GetStateFromId(f, filter.CustomAnimator, animEvent.AnimID).motion as AnimatorClip).data.frameCount;
@@ -45,13 +45,13 @@ namespace Quantum
         {
             base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
-            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+            filter.CharacterController->Direction = DirectionalHelper.GetEnumFromDirection(input.Movement);
             filter.PlayerStats->ActiveWeapon = filter.PlayerStats->AltWeapon;
 
             Weapon altWeaponAsset = filter.PlayerStats->Build.Equipment.Weapons.AltWeapon;
             if (f.TryFindAsset(altWeaponAsset.Template.Id, out WeaponTemplate mainWeapon))
             {
-                MoveRef animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
+                MoveRef animRef = DirectionalHelper.GetFromDirection(mainWeapon.Secondaries, filter.CharacterController->Direction);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.Step1.Id);
 
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);

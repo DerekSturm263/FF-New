@@ -1,8 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using Quantum.Custom.Animator;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Quantum
 {
@@ -48,7 +46,7 @@ namespace Quantum
             Assert.Check(variable != null);
             Assert.Check(variableId >= 0);
 
-            var paramsList = f.ResolveList<CustomAnimatorRuntimeVariable>(a->AnimatorVariables);
+            var paramsList = f.ResolveList(a->AnimatorVariables);
             *paramsList.GetPointer(variableId) = *variable;
         }
 
@@ -56,18 +54,22 @@ namespace Quantum
         {
             var weightsDictionary = f.ResolveDictionary(a->BlendTreeWeights);
             var weights = f.ResolveList(weightsDictionary[stateId].Values);
+
             return weights;
         }
 
         public static AnimatorFrame GetFrame(Frame f, CustomAnimator* a)
         {
-            AnimatorMotion motion = GetCurrentState(f, a).motion;
-            if (motion is AnimatorClip clip)
+            AnimatorState currentState = GetCurrentState(f, a);
+            if (currentState is not null)
             {
-                return clip.data.GetFrameAtTime(a->time);
-            }
+                AnimatorMotion motion = currentState.motion;
 
-            return new() { hurtboxPositions = new FPVector3[15] };
+                if (motion is AnimatorClip clip)
+                    return clip.data.GetFrameAtTime(a->time);
+            }
+            
+            return new() { hurtboxPositions = new HurtboxTransformInfo[17] };
         }
 
         public static FP GetFP(Frame f, CustomAnimator* a, int index)
@@ -374,6 +376,7 @@ namespace Quantum
             anim->to_state_id = stateId;
             anim->to_state_time = 0;
             anim->to_state_last_time = 0;
+
             anim->normalized_time = 0;
         }
 

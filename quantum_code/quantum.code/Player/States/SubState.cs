@@ -54,15 +54,15 @@ namespace Quantum
         {
             base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
-            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+            filter.CharacterController->Direction = DirectionalHelper.GetEnumFromDirection(input.Movement);
             if (filter.CharacterController->Direction == Direction.Neutral)
             {
-                filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(new(filter.CharacterController->MovementDirection, 0));
+                filter.CharacterController->Direction = DirectionalHelper.GetEnumFromDirection(new(filter.CharacterController->MovementDirection, 0));
             }
 
             if (!input.SubWeapon)
             {
-                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalAssetHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalAssetHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
+                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->Direction), DirectionalHelper.GetFromDirection(settings.ThrowForce, filter.CharacterController->Direction));
             }
         }
     }

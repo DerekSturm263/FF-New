@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4961953053630497690}
   - component: {fileID: -1021235288708050047}
   - component: {fileID: -6166161976002533024}
-  - component: {fileID: 4187175547203520433}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -200,6 +199,7 @@ MonoBehaviour:
     Item:
       Id:
         Value: 970741987260007549
+    Owner: {fileID: 0}
     Holder: {fileID: 0}
     Target: {fileID: 0}
     FallState:
@@ -240,18 +240,6 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4187175547203520433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914034142178784249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38b870d712f603479c27d26d7a9fff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3763781501870300755
 PrefabInstance:
   m_ObjectHideFlags: 0

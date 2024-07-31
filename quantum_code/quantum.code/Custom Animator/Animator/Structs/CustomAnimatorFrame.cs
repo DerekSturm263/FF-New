@@ -1,9 +1,60 @@
 ﻿using System;
-using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum.Custom.Animator
 {
+    [Serializable]
+    public struct HurtboxTransformInfo
+    {
+        public FPVector3 position;
+        public FPQuaternion rotation;
+
+        public static HurtboxTransformInfo operator+(HurtboxTransformInfo a, HurtboxTransformInfo b)
+        {
+            return new()
+            {
+                position = a.position + b.position,
+                rotation = a.rotation + b.rotation
+            };
+        }
+
+        public static HurtboxTransformInfo operator -(HurtboxTransformInfo a, HurtboxTransformInfo b)
+        {
+            return new()
+            {
+                position = a.position - b.position,
+                rotation = a.rotation - b.rotation
+            };
+        }
+
+        public static HurtboxTransformInfo operator *(HurtboxTransformInfo a, HurtboxTransformInfo b)
+        {
+            return new()
+            {
+                position = FPVector3.Scale(a.position, b.position),
+                rotation = a.rotation * b.rotation
+            };
+        }
+
+        public static HurtboxTransformInfo operator *(HurtboxTransformInfo a, FP b)
+        {
+            return new()
+            {
+                position = a.position * b,
+                rotation = a.rotation * b
+            };
+        }
+
+        public static HurtboxTransformInfo Lerp(HurtboxTransformInfo a, HurtboxTransformInfo b, FP t)
+        {
+            return new()
+            {
+                position = FPVector3.Lerp(a.position, b.position, t),
+                rotation = FPQuaternion.Slerp(a.rotation, b.rotation, t)
+            };
+        }
+    }
+
     [Serializable]
     public struct AnimatorFrame
     {
@@ -12,7 +63,7 @@ namespace Quantum.Custom.Animator
         public FPVector3 position;
         public FPQuaternion rotation;
         public FP rotationY;//radians
-        public FPVector3[] hurtboxPositions;
+        public HurtboxTransformInfo[] hurtboxPositions;
 
         public static AnimatorFrame operator +(AnimatorFrame a, AnimatorFrame b)
         {
@@ -23,7 +74,7 @@ namespace Quantum.Custom.Animator
                 position = a.position + b.position,
                 rotation = a.rotation + b.rotation,
                 rotationY = a.rotationY + b.rotationY,
-                hurtboxPositions = new FPVector3[15]
+                hurtboxPositions = new HurtboxTransformInfo[17]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -43,7 +94,7 @@ namespace Quantum.Custom.Animator
                 position = b.position - a.position,
                 rotation = b.rotation - a.rotation,
                 rotationY = b.rotationY - a.rotationY,
-                hurtboxPositions = new FPVector3[15]
+                hurtboxPositions = new HurtboxTransformInfo[17]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -63,12 +114,12 @@ namespace Quantum.Custom.Animator
                 position = FPVector3.Scale(a.position, b.position),
                 rotation = a.rotation * b.rotation,
                 rotationY = a.rotationY * b.rotationY,
-                hurtboxPositions = new FPVector3[15]
+                hurtboxPositions = new HurtboxTransformInfo[17]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
             {
-                result.hurtboxPositions[i] = FPVector3.Scale(a.hurtboxPositions[i], b.hurtboxPositions[i]);
+                result.hurtboxPositions[i] = a.hurtboxPositions[i] * b.hurtboxPositions[i];
             }
 
             return result;
@@ -83,7 +134,7 @@ namespace Quantum.Custom.Animator
                 position = a.position * b,
                 rotation = a.rotation * b,
                 rotationY = a.rotationY * b,
-                hurtboxPositions = new FPVector3[15]
+                hurtboxPositions = new HurtboxTransformInfo[17]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -96,17 +147,18 @@ namespace Quantum.Custom.Animator
 
         public static AnimatorFrame Lerp(AnimatorFrame a, AnimatorFrame b, FP value)
         {
-            AnimatorFrame output = new AnimatorFrame();
-
-            output.id = a.id;
-            output.time = FPMath.Lerp(a.time, b.time, value);
-            output.position = FPVector3.Lerp(a.position, b.position, value);
-            output.rotationY = FPMath.Lerp(a.rotationY, b.rotationY, value);
-            output.hurtboxPositions = new FPVector3[15];
+            AnimatorFrame output = new()
+            {
+                id = a.id,
+                time = FPMath.Lerp(a.time, b.time, value),
+                position = FPVector3.Lerp(a.position, b.position, value),
+                rotationY = FPMath.Lerp(a.rotationY, b.rotationY, value),
+                hurtboxPositions = new HurtboxTransformInfo[17]
+            };
 
             for (int i = 0; i < output.hurtboxPositions.Length; ++i)
             {
-                output.hurtboxPositions[i] = FPVector3.Lerp(a.hurtboxPositions[i], b.hurtboxPositions[i], value);
+                output.hurtboxPositions[i] = HurtboxTransformInfo.Lerp(a.hurtboxPositions[i], b.hurtboxPositions[i], value);
             }
 
             try

@@ -1,3 +1,4 @@
+using Extensions.Types;
 using UnityEngine;
 
 public abstract partial class InfoAssetAsset : AssetBase
@@ -8,14 +9,13 @@ public abstract partial class InfoAssetAsset : AssetBase
 
     [Space(10)]
 
-    public ulong Price;
+    public bool IsUnlocked;
+    public Nullable<int> StartingCount;
+
+    public uint Price;
 
     public Sprite Icon;
     public Sprite Background;
-
-    public Color MainColor;
-    public Color LightColor;
-    public Color DarkColor;
 
     public int SortingID;
 }

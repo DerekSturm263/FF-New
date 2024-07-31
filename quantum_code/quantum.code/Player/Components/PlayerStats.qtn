@@ -4,6 +4,8 @@ component PlayerStats
 	QString<32> Name;
 	FighterIndex Index;
 
+	asset_ref<HurtboxSetup> HurtboxSetup;
+
 	entity_ref ActiveWeapon;
 	entity_ref MainWeapon;
 	entity_ref AltWeapon;

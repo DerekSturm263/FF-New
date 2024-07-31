@@ -186,7 +186,7 @@ public class CustomAnimatorGraphAssetEditor : Editor
         Quaternion[] rotationsQ = new Quaternion[frameCount];
         Vector3[] rotations = new Vector3[frameCount];
         float[] times = new float[frameCount];
-        FPVector3[][] hurtboxPositions = new FPVector3[frameCount][];
+        HurtboxTransformInfo[][] hurtboxPositions = new HurtboxTransformInfo[frameCount][];
         for (int f = 0; f < frameCount; f++)
         {
             AnimatorFrame frame = clip.data.frames[f];
@@ -194,7 +194,7 @@ public class CustomAnimatorGraphAssetEditor : Editor
             FPVector3 position = frame.position;
             FPQuaternion rotation = frame.rotation;
 
-            FPVector3[] hurtboxPositions2 = frame.hurtboxPositions;
+            HurtboxTransformInfo[] hurtboxPositions2 = frame.hurtboxPositions;
 
             Vector3 pV3 = new Vector3(position.X.AsFloat, position.Y.AsFloat, position.Z.AsFloat);
             Quaternion rQ = new Quaternion(rotation.X.AsFloat, rotation.Y.AsFloat, rotation.Z.AsFloat, rotation.W.AsFloat);

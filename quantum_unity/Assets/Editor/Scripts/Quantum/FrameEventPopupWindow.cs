@@ -159,24 +159,36 @@ internal class FrameEventPopup : PopupWindowContent
                 {
                     t.Settings.StartingFrame = _beginningFrame;
                     t.Settings.EndingFrame = _endingFrame;
+
+                    t.Settings.Parent = Quantum.SpawnHitboxEvent.ParentType.Weapon;
                 });
             else if (_type == typeof(ModifyHurtboxesEventAsset))
                 asset = AnimationEventContainer.CreateAsset<ModifyHurtboxesEventAsset>(_name, _parent, t =>
                 {
                     t.Settings.StartingFrame = _beginningFrame;
                     t.Settings.EndingFrame = _endingFrame;
+
+                    t.Settings.Hurtboxes = (Quantum.HurtboxType)32767;
+                    t.Settings.Settings.CanBeDamaged = true;
+                    t.Settings.Settings.CanBeKnockedBack = true;
+                    t.Settings.Settings.CanBeInterrupted = true;
                 });
             else if (_type == typeof(ApplyPhysicsEventAsset))
                 asset = AnimationEventContainer.CreateAsset<ApplyPhysicsEventAsset>(_name, _parent, t =>
                 {
                     t.Settings.StartingFrame = _beginningFrame;
                     t.Settings.EndingFrame = _endingFrame;
+
+                    t.Settings.UnchargedSettings.XForce = 1;
+                    t.Settings.UnchargedSettings.YForce = 1;
                 });
             else if (_type == typeof(HoldAnimationEventAsset))
                 asset = AnimationEventContainer.CreateAsset<HoldAnimationEventAsset>(_name, _parent, t =>
                 {
                     t.Settings.StartingFrame = _beginningFrame;
                     t.Settings.EndingFrame = _endingFrame;
+
+                    t.Settings.MaxLength = 120;
                 });
             else if (_type == typeof(ExecuteUnityEventEventAsset))
                 asset = AnimationEventContainer.CreateAsset<ExecuteUnityEventEventAsset>(_name, _parent, t =>

@@ -24,13 +24,28 @@ namespace Quantum.Prototypes.Unity {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.ChildParentLink))]
+  public class ChildParentLink_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.ChildParentLink_Prototype> {
+    [Quantum.LocalReference]
+    public global::EntityPrototype Parent;
+    public Photon.Deterministic.FPVector3 LocalPosition;
+    [Quantum.Inspector.DegreesAttribute()]
+    public Photon.Deterministic.FPVector3 LocalRotation;
+
+    public sealed override Quantum.Prototypes.ChildParentLink_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.ChildParentLink_Prototype();
+      converter.Convert(this.Parent, out result.Parent);
+      result.LocalPosition = this.LocalPosition;
+      result.LocalRotation = this.LocalRotation;
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.HitboxInstance))]
   public class HitboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.HitboxInstance_Prototype> {
     public System.Int32 PathQueryIndex;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
-    [Quantum.LocalReference]
-    public global::EntityPrototype Parent;
     public Quantum.Prototypes.HitboxSettings_Prototype Settings;
     public Quantum.Shape2D Shape;
     public System.Int32 Lifetime;
@@ -39,7 +54,6 @@ namespace Quantum.Prototypes.Unity {
       var result = new Quantum.Prototypes.HitboxInstance_Prototype();
       result.PathQueryIndex = this.PathQueryIndex;
       converter.Convert(this.Owner, out result.Owner);
-      converter.Convert(this.Parent, out result.Parent);
       result.Settings = this.Settings;
       result.Shape = this.Shape;
       result.Lifetime = this.Lifetime;
@@ -111,6 +125,7 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.MaxStringByteCountAttribute((Int32)30, "Unicode")]
     public System.String Name;
     public Quantum.Prototypes.FighterIndex_Prototype Index;
+    public Quantum.AssetRefHurtboxSetup HurtboxSetup;
     [Quantum.LocalReference]
     public global::EntityPrototype ActiveWeapon;
     [Quantum.LocalReference]
@@ -128,6 +143,7 @@ namespace Quantum.Prototypes.Unity {
       result.Build = this.Build;
       result.Name = this.Name;
       result.Index = this.Index;
+      result.HurtboxSetup = this.HurtboxSetup;
       converter.Convert(this.ActiveWeapon, out result.ActiveWeapon);
       converter.Convert(this.MainWeapon, out result.MainWeapon);
       converter.Convert(this.AltWeapon, out result.AltWeapon);
@@ -149,8 +165,6 @@ namespace Quantum.Prototypes.Unity {
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
     public Quantum.Prototypes.MatchStats_Prototype CurrentStats;
     public Quantum.Prototypes.MatchStats_Prototype MatchStatsMultiplier;
-    public Quantum.Prototypes.ApparelStats_Prototype ApparelStatsMultiplier;
-    public Quantum.Prototypes.WeaponStats_Prototype WeaponStatsMultiplier;
     public Quantum.AssetRefStatusEffect StatusEffect;
     public System.Int32 StatusEffectTimeLeft;
     public Photon.Deterministic.FP StatusEffectMultiplier;
@@ -161,8 +175,6 @@ namespace Quantum.Prototypes.Unity {
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
       result.CurrentStats = this.CurrentStats;
       result.MatchStatsMultiplier = this.MatchStatsMultiplier;
-      result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
-      result.WeaponStatsMultiplier = this.WeaponStatsMultiplier;
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
       result.StatusEffectMultiplier = this.StatusEffectMultiplier;

@@ -1,10 +1,11 @@
 ﻿using Photon.Deterministic;
+using Quantum.Custom.Animator;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Quantum
 {
-    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>, ISignalOnComponentAdded<PlayerStats>, ISignalOnComponentRemoved<PlayerStats>
+    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>, ISignalOnComponentRemoved<PlayerStats>
     {
         public struct Filter
         {
@@ -14,7 +15,11 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            UpdateHitboxes(f, ref filter);
+            if (f.Unsafe.TryGetPointer(filter.Entity, out CustomAnimator* customAnimator) && f.Unsafe.TryGetPointer(filter.Entity, out CharacterController* characterController))
+            {
+                UpdateMainWeapon(f, ref filter, customAnimator, characterController);
+                UpdateAltWeapon(f, ref filter, customAnimator, characterController);
+            }
 
             if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Badge.Id, out Badge badge))
             {
@@ -22,25 +27,37 @@ namespace Quantum
             }
         }
 
-        public void OnAdded(Frame f, EntityRef entity, PlayerStats* component)
-        {
-            SetBuild(f, entity, component, component->Build);
-        }
-
         public void OnRemoved(Frame f, EntityRef entity, PlayerStats* component)
         {
             RemoveBuild(f, entity, component);
         }
 
-        private void UpdateHitboxes(Frame f, ref Filter filter)
+        public void UpdateMainWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)
         {
-            UpdateHitbox(f, ref filter, filter.PlayerStats->MainWeapon);
-            UpdateHitbox(f, ref filter, filter.PlayerStats->AltWeapon);
+            if (f.Unsafe.TryGetPointer(filter.PlayerStats->MainWeapon, out ChildParentLink* childParentLink))
+            {
+                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[15];
+
+                childParentLink->LocalPosition = transform.position;
+                childParentLink->LocalRotation = transform.rotation;
+
+                if (characterController->MovementDirection < 0)
+                    childParentLink->LocalPosition.X *= -1;
+            }
         }
 
-        private void UpdateHitbox(Frame f, ref Filter filter, EntityRef hurtbox)
+        public void UpdateAltWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)
         {
-            //HitboxSystem.SpawnDynamicHitbox(f, );
+            if (f.Unsafe.TryGetPointer(filter.PlayerStats->AltWeapon, out ChildParentLink* childParentLink))
+            {
+                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[16];
+
+                childParentLink->LocalPosition = transform.position;
+                childParentLink->LocalRotation = transform.rotation;
+
+                if (characterController->MovementDirection < 0)
+                    childParentLink->LocalPosition.X *= -1;
+            }
         }
 
         public static void SetShowReadiness(Frame f, EntityRef entityRef, PlayerStats* stats, bool showReadiness)
@@ -151,8 +168,11 @@ namespace Quantum
 
             if (altWeapon.Template.Id.IsValid)
             {
-                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
-                stats->AltWeapon = f.Create(entity.Weapon);
+                if (f.Unsafe.TryGetPointer(user, out Stats* genericStats))
+                {
+                    WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
+                    stats->AltWeapon = f.CreateChilded(entity.Weapon, user);
+                }
             }
 
             f.Events.OnPlayerSetAltWeapon(user, oldAltWeapon, altWeapon);
@@ -266,8 +286,11 @@ namespace Quantum
 
             if (mainWeapon.Template.Id.IsValid)
             {
-                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
-                stats->MainWeapon = f.Create(entity.Weapon);
+                if (f.Unsafe.TryGetPointer(user, out Stats* genericStats))
+                {
+                    WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
+                    stats->MainWeapon = f.CreateChilded(entity.Weapon, user);
+                }
             }
 
             f.Events.OnPlayerSetMainWeapon(user, oldMainWeapon, mainWeapon);

@@ -35,7 +35,9 @@ public class HurtboxTracker : MonoBehaviour
             [HurtboxType.RightForeArm] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R"),
             [HurtboxType.RightHand] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R"),
             [HurtboxType.NeckChest] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004"),
-            [HurtboxType.Head] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head")
+            [HurtboxType.Head] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/DEF-neck/DEF-head"),
+            [HurtboxType.MainWeapon] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/Main"),
+            [HurtboxType.AltWeapon] = transform.Find("Body_Rig/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-spine.004/Alt")
         };
     }
 }

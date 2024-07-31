@@ -22,9 +22,9 @@ namespace Quantum
                 MoveRef animRef;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Primaries, filter.CharacterController->Direction);
+                    animRef = DirectionalHelper.GetFromDirection(mainWeapon.Primaries, filter.CharacterController->Direction);
                 else
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
+                    animRef = DirectionalHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
                 if (f.TryFindAsset(animRef.Step1.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0)
                 {
@@ -53,7 +53,7 @@ namespace Quantum
         {
             base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
-            filter.CharacterController->Direction = DirectionalAssetHelper.GetEnumFromDirection(input.Movement);
+            filter.CharacterController->Direction = DirectionalHelper.GetEnumFromDirection(input.Movement);
             filter.PlayerStats->ActiveWeapon = filter.PlayerStats->MainWeapon;
 
             Weapon mainWeaponAsset = filter.PlayerStats->Build.Equipment.Weapons.MainWeapon;
@@ -62,9 +62,9 @@ namespace Quantum
                 MoveRef animRef;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Primaries, filter.CharacterController->Direction);
+                    animRef = DirectionalHelper.GetFromDirection(mainWeapon.Primaries, filter.CharacterController->Direction);
                 else
-                    animRef = DirectionalAssetHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
+                    animRef = DirectionalHelper.GetFromDirection(mainWeapon.Aerials, filter.CharacterController->Direction);
 
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.Step1.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);

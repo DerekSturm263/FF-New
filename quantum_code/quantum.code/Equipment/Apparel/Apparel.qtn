@@ -4,7 +4,7 @@ struct Apparel
 	asset_ref<ApparelTemplate> Template;
 	asset_ref<ApparelPattern> Pattern;
 	ApparelModifierSet Modifiers;
-	ColorRGBA Color;
+	asset_ref<ColorPreset> Color;
 	
 	AssetGuid FileGuid;
 }

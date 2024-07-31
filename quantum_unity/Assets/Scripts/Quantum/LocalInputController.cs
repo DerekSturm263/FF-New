@@ -79,6 +79,14 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void SpawnPlayer(LocalPlayerInfo player)
     {
+        if (QuantumRunner.Default)
+            SpawnPlayerImmediate(player);
+        else
+            FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SpawnPlayerImmediate(player));
+    }
+
+    private void SpawnPlayerImmediate(LocalPlayerInfo player)
+    {
         player.SetGlobalIndices(FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified), FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified));
 
         RuntimePlayer data = new()

@@ -157,7 +157,7 @@ public class SubController : Controller<SubController>
 
         if (_price.isActiveAndEnabled)
         {
-            ulong price = template.Price;
+            uint price = template.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -174,7 +174,7 @@ public class SubController : Controller<SubController>
 
         if (_price.isActiveAndEnabled)
         {
-            ulong price = _template.Price + enhancer.Price;
+            uint price = _template.Price + enhancer.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

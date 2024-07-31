@@ -32,13 +32,13 @@ public class MatchEventListener : MonoBehaviour
         {
             List<Team> teams = new();
 
-            if (!e.Setup.Teams.Item1.Equals(default))
+            if (!e.Setup.Teams.Item1.Equals(default(Team)))
                 teams.Add(e.Setup.Teams.Item1);
-            if (!e.Setup.Teams.Item2.Equals(default))
+            if (!e.Setup.Teams.Item2.Equals(default(Team)))
                 teams.Add(e.Setup.Teams.Item2);
-            if (!e.Setup.Teams.Item3.Equals(default))
+            if (!e.Setup.Teams.Item3.Equals(default(Team)))
                 teams.Add(e.Setup.Teams.Item3);
-            if (!e.Setup.Teams.Item4.Equals(default))
+            if (!e.Setup.Teams.Item4.Equals(default(Team)))
                 teams.Add(e.Setup.Teams.Item4);
 
             _onMatchStart.Invoke(e.Game, _entityView, teams);
@@ -48,13 +48,13 @@ public class MatchEventListener : MonoBehaviour
         {
             List<Team> teams = new();
 
-            if (!e.Results.Teams.Item1.Equals(default))
+            if (!e.Results.Teams.Item1.Equals(default(Team)))
                 teams.Add(e.Results.Teams.Item1);
-            if (!e.Results.Teams.Item2.Equals(default))
+            if (!e.Results.Teams.Item2.Equals(default(Team)))
                 teams.Add(e.Results.Teams.Item2);
-            if (!e.Results.Teams.Item3.Equals(default))
+            if (!e.Results.Teams.Item3.Equals(default(Team)))
                 teams.Add(e.Results.Teams.Item3);
-            if (!e.Results.Teams.Item4.Equals(default))
+            if (!e.Results.Teams.Item4.Equals(default(Team)))
                 teams.Add(e.Results.Teams.Item4);
 
             _onMatchEnd.Invoke(e.Game, _entityView, teams, e.Results.WasForfeited);

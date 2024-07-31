@@ -32,7 +32,7 @@ namespace Extensions.Components.UI
 
     public abstract class DisplayText<T> : Display<T, UnityEvent<string>>
     {
-        [SerializeField] protected string _format = "{0}";
+        [SerializeField][TextArea] protected string _format = "{0}";
 
         protected abstract string GetInfo(T item);
         public override void UpdateDisplay(T item) => _component.Invoke(string.Format(_format, GetInfo(item)));
@@ -52,7 +52,7 @@ namespace Extensions.Components.UI
 
     public abstract class DisplayTextAndImage<T> : Display<T, Types.Tuple<UnityEvent<string>, UnityEvent<Sprite>>>
     {
-        [SerializeField] protected string _format = "{0}";
+        [SerializeField][TextArea] protected string _format = "{0}";
 
         protected abstract Types.Tuple<string, Sprite> GetInfo(T item);
         public override void UpdateDisplay(T item)

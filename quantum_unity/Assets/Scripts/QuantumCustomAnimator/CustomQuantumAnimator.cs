@@ -130,8 +130,8 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
                     {
                         AnimationClipPlayable clip = AnimationClipPlayable.Create(_animData[i].graph, clipList[j]);
                         
-                        clip.SetApplyFootIK(true);
-                        clip.SetApplyPlayableIK(true);
+                        //clip.SetApplyFootIK(true);
+                        //clip.SetApplyPlayableIK(true);
 
                         _animData[i].clips.Add
                         (

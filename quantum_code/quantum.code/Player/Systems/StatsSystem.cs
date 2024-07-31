@@ -1,4 +1,6 @@
 using Photon.Deterministic;
+using Quantum.Custom.Animator;
+using System;
 
 namespace Quantum
 {
@@ -17,23 +19,30 @@ namespace Quantum
         public override void Update(Frame f, ref Filter filter)
         {
             UpdateHurtboxes(f, ref filter);
+
             UpdateStatusEffect(f, filter.Entity, filter.Stats);
         }
 
         public void OnAdded(Frame f, EntityRef entity, Stats* component)
         {
-            if (f.TryGet(entity, out PlayerStats _))
+            if (f.TryGet(entity, out PlayerStats playerStats))
             {
                 component->Hitboxes = f.AllocateList<EntityRef>();
                 component->Hurtboxes = f.AllocateDictionary<HurtboxType, EntityRef>();
 
                 for (int i = 0; i < 15; ++i)
                 {
-                    EntityRef hurtbox = f.Create(f.RuntimeConfig.Hurtbox);
+                    EntityRef hurtbox = f.CreateChilded(f.RuntimeConfig.Hurtbox, entity);
 
                     if (f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance))
                     {
                         SetHurtbox(f, entity, hurtboxInstance, hurtbox, i);
+                    }
+
+                    if (f.Unsafe.TryGetPointer(hurtbox, out PhysicsCollider2D* physicsCollider2D))
+                    {
+                        HurtboxSetup hurtboxSetup = f.FindAsset<HurtboxSetup>(playerStats.HurtboxSetup.Id);
+                        physicsCollider2D->Shape.Circle.Radius = hurtboxSetup.HurtboxSizes[i];
                     }
                 }
             }
@@ -54,7 +63,6 @@ namespace Quantum
         private void UpdateHurtboxes(Frame f, ref Filter filter)
         {
             var dictionary = f.ResolveDictionary(filter.Stats->Hurtboxes);
-            Log.Debug("Count: " + dictionary.Count);
 
             foreach (var hurtbox in dictionary)
             {
@@ -64,16 +72,15 @@ namespace Quantum
 
         private void UpdateHurtbox(Frame f, ref Filter filter, EntityRef hurtbox)
         {
-            if (f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance) && f.Unsafe.TryGetPointer(hurtbox, out Transform2D* transform))
+            if (f.Unsafe.TryGetPointer(hurtbox, out ChildParentLink* childParentLink) && f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance))
             {
-                Log.Debug("Yes");
+                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, filter.CustomAnimator).hurtboxPositions[hurtboxInstance->Index];
 
-                FPVector3 offset = CustomAnimator.GetFrame(f, filter.CustomAnimator).hurtboxPositions[hurtboxInstance->Index];
+                childParentLink->LocalPosition = transform.position;
+                childParentLink->LocalRotation = transform.rotation;
 
                 if (filter.CharacterController->MovementDirection < 0)
-                    offset.X *= -1;
-
-                transform->Position = filter.Transform->Position + offset.XY;
+                    childParentLink->LocalPosition.X *= -1;
             }
         }
 
@@ -247,7 +254,7 @@ namespace Quantum
 
                 for (int i = 0; i < 15; ++i)
                 {
-                    HurtboxType hurtboxType = (HurtboxType)(1 << i);
+                    HurtboxType hurtboxType = (HurtboxType)Math.Pow(2, i);
                     if (!hurtboxesType.HasFlag(hurtboxType))
                         continue;
 

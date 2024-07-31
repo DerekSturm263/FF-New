@@ -50,7 +50,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         Selectable navigationTarget = null;
         bool canMove = false;
 
-        Quantum.Direction direction = DirectionalAssetHelper.GetEnumFromDirection(new() { X = FP.FromFloat_UNSAFE(dir.x), Y = FP.FromFloat_UNSAFE(dir.y) });
+        Quantum.Direction direction = DirectionalHelper.GetEnumFromDirection(new() { X = FP.FromFloat_UNSAFE(dir.x), Y = FP.FromFloat_UNSAFE(dir.y) });
         if (direction != Quantum.Direction.Neutral)
         {
             if (direction == _lastDirection && _cooldown <= 0)

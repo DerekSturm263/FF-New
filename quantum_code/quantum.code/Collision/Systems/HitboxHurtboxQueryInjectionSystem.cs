@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe class HitboxHurtboxQueryInjectionSystem : SystemMainThread
     {
@@ -8,7 +6,7 @@ namespace Quantum
         {
             public EntityRef Entity;
 
-            public Transform2D* Transform;
+            public Transform3D* Transform;
             public HitboxInstance* HitboxInstance;
         }
 
@@ -19,17 +17,10 @@ namespace Quantum
 
             while (hitboxFilter.Next(&hitbox))
             {
-                FPVector2 offset = default;
-
-                if (f.Unsafe.TryGetPointer(hitbox.HitboxInstance->Parent, out Transform2D* transform))
-                {
-                    offset += transform->Position;
-                }
-
                 hitbox.HitboxInstance->PathQueryIndex = f.Physics2D.AddOverlapShapeQuery
                 (
-                    position: hitbox.Transform->Position + offset,
-                    rotation: 0,
+                    position: hitbox.Transform->Position.XY,
+                    rotation: hitbox.Transform->Rotation.AsEuler.Z,
                     shape: hitbox.HitboxInstance->Shape,
                     layerMask: f.RuntimeConfig.HitboxLayer
                 );

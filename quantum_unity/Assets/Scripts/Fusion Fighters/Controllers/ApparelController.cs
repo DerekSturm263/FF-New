@@ -243,7 +243,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            ulong price = template.Price;
+            uint price = template.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -260,7 +260,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            ulong price = _template.Price + material.Price;
+            uint price = _template.Price + material.Price;
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
@@ -277,7 +277,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            ulong price = _template.Price + _pattern.Price + (ulong)_modifiers.Sum(item => (long)(item.Key.Price * (ulong)item.Value));
+            uint price = _template.Price + _pattern.Price + (uint)_modifiers.Sum(item => item.Key.Price * item.Value);
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

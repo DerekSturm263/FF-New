@@ -21,11 +21,11 @@ public class QuantumAOT {
   public List<Photon.Deterministic.DeterministicTickInputSet> DeterministicTickInputSet;
   public List<Photon.Deterministic.FP> FP;
   public List<Photon.Deterministic.FPVector2> FPVector2;
-  public List<Photon.Deterministic.FPVector3> FPVector3;
   public List<Quantum.AssetRefNavMesh> AssetRefNavMesh;
   public List<Quantum.Bot> Bot;
   public List<Quantum.Core.FrameBase.EntitiesConfig.ComponentBufferConfig> ComponentBufferConfig;
   public List<Quantum.Custom.Animator.AnimatorFrame> AnimatorFrame;
+  public List<Quantum.Custom.Animator.HurtboxTransformInfo> HurtboxTransformInfo;
   public List<Quantum.Custom.Animator.SerializableWeightDimentionY> SerializableWeightDimentionY;
   public List<Quantum.Custom.Animator.SerializableWeightDimentionZ> SerializableWeightDimentionZ;
   public List<Quantum.FPAnimationCurve> FPAnimationCurve;

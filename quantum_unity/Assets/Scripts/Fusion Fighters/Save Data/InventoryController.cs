@@ -184,30 +184,30 @@ public class InventoryController : Controller<InventoryController>
         return true;
     }
 
-    public void GainCurrency(ulong amount)
+    public void GainCurrency(uint amount)
     {
         _inventory.Currency += amount;
         FindFirstObjectByType<DisplayCurrency>()?.UpdateDisplay(_inventory.Currency);
     }
 
-    public void LoseCurrency(ulong amount)
+    public void LoseCurrency(uint amount)
     {
         _inventory.Currency -= amount;
         FindFirstObjectByType<DisplayCurrency>()?.UpdateDisplay(_inventory.Currency);
     }
 
-    public bool HasEnoughCurrency(ulong amount)
+    public bool HasEnoughCurrency(uint amount)
     {
         return _inventory.Currency >= amount;
     }
 
-    public bool HasEnoughCurrency(params ulong?[] amount)
+    public bool HasEnoughCurrency(params uint?[] amount)
     {
-        return _inventory.Currency >= (ulong)amount.Sum(item => (long)item.GetValueOrDefault());
+        return _inventory.Currency >= (uint)amount.Sum(item => item.GetValueOrDefault());
     }
 
-    public bool HasEnoughCurrency(params ulong[] amount)
+    public bool HasEnoughCurrency(params uint[] amount)
     {
-        return _inventory.Currency >= (ulong)amount.Sum(item => (long)item);
+        return _inventory.Currency >= (uint)amount.Sum(item => item);
     }
 }

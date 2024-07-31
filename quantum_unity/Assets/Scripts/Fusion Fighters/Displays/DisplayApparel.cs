@@ -12,10 +12,10 @@ public class DisplayApparel : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        if (!item.Equals(default))
-            return new($"<font=\"KeaniaOne-Title SDF\"><size={_fontSize}>{item.Name}</size></font>\n\n{item.Description}", item.Icon);
+        if (!item.Equals(default(Type)))
+            return new(string.Format(_format, item.Name, item.Description), item.Icon);
         else
-            return new("", null);
+            return new("None", null);
     }
 
     protected override Type GetValue()
