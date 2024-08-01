@@ -9,7 +9,7 @@ public class ColorPresetPopulator : PopulateAsset<ColorPresetAsset>
 
     protected override string FilePath() => "DB/Assets/Build/Color Presets";
 
-    protected override bool DoSpawn(ColorPresetAsset item) => InventoryController.Instance.HasUnlockedItem(item);
+    protected override bool DoSpawn(ColorPresetAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
 
     protected override Func<ColorPresetAsset, int> Sort() => (item) => -(item.Settings_ColorPreset.Color.R + item.Settings_ColorPreset.Color.G + item.Settings_ColorPreset.Color.B);
 

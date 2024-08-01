@@ -5,7 +5,7 @@ public class ApparelModifierPopulator : PopulateAsset<ApparelModifierAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Apparel/Modifiers";
 
-    protected override bool DoSpawn(ApparelModifierAsset item) => InventoryController.Instance.HasUnlockedItem(item);
+    protected override bool DoSpawn(ApparelModifierAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
 
     protected override void Decorate(GameObject buttonObj, ApparelModifierAsset item)
     {

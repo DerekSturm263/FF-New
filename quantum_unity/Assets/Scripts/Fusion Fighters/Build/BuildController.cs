@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildController : Controller<BuildController>
 {
-    [SerializeField] private Build _default;
+    [SerializeField] private BuildAssetAsset _default;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Builds";
 
@@ -14,7 +14,15 @@ public class BuildController : Controller<BuildController>
 
     public void New()
     {
-        _currentlySelected = new(_default, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        Build randomBuild = _default.Build.value;
+
+        // TODO: MAKE IT RANDOM
+        //randomBuild.Cosmetics.Avatar = new() { Avatar = _avatars[Random.Range(0, _avatars.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
+        //randomBuild.Cosmetics.Hair = new() { Hair = _hair[Random.Range(0, _hair.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
+        //randomBuild.Cosmetics.Eyes = new() { Eyes = _eyes[Random.Range(0, _eyes.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
+        //randomBuild.Cosmetics.Voice = _voices[Random.Range(0, _voices.Length)];
+
+        _currentlySelected = new(_default.Build.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<Build> build)

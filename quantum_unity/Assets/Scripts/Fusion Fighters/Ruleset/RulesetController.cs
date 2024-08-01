@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
 {
+    [SerializeField] private RulesetAssetAsset _default;
+
     private SerializableWrapper<Ruleset>? _ruleset;
     public SerializableWrapper<Ruleset>? Ruleset => _ruleset;
 
@@ -11,8 +13,7 @@ public class RulesetController : Controller<RulesetController>
 
     public SerializableWrapper<Ruleset> New()
     {
-        Ruleset ruleset = new();
-        return new(ruleset, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        return new(_default.Ruleset.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)

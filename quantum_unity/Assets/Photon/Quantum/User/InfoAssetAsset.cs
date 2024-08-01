@@ -9,6 +9,7 @@ public abstract partial class InfoAssetAsset : AssetBase
 
     [Space(10)]
 
+    public bool IncludeInLists;
     public bool IsUnlocked;
     public Nullable<int> StartingCount;
 

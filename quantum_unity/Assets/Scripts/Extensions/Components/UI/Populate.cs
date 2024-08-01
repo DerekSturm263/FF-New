@@ -28,6 +28,7 @@ namespace Extensions.Components.UI
 
         [SerializeField] protected GameObject _button;
         [SerializeField] protected Color _color = Color.white;
+        [SerializeField] protected int _emptyCount;
 
         [SerializeField] protected LoadStage _loadingType = LoadStage.Awake;
         public LoadStage LoadingType => _loadingType;
@@ -164,7 +165,7 @@ namespace Extensions.Components.UI
             foreach (T item in items)
                 AddItem(item);
 
-            if (_itemsToButtons[typeof(T)].Count == 0)
+            if (_itemsToButtons[typeof(T)].Count == _emptyCount)
                 _onIfEmpty.Invoke();
             else
                 _onIfNotEmpty.Invoke();

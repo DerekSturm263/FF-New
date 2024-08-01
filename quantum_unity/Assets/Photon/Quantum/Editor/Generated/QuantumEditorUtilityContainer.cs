@@ -32,6 +32,9 @@ namespace Quantum.Editor {
       public Quantum.ShakeSettings[] ShakeSettings = {};
       public Quantum.HurtboxSetup[] HurtboxSetup = {};
       public Quantum.MessagePreset[] MessagePreset = {};
+      public Quantum.ApparelAsset[] ApparelAsset = {};
+      public Quantum.SubAsset[] SubAsset = {};
+      public Quantum.WeaponAsset[] WeaponAsset = {};
       public Quantum.AllowMovementEvent[] AllowMovementEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
       public Quantum.ProjectileSpawningItem[] ProjectileSpawningItem = {};

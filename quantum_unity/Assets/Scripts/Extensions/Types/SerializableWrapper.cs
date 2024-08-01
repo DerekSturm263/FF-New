@@ -5,6 +5,13 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public unsafe struct SerializableWrapper<T> where T : unmanaged
 {
+    [System.Flags]
+    public enum CreationType
+    {
+        BuiltIn = 1 << 0,
+        Custom = 1 << 1
+    }
+
     [SerializeField] private string _name;
     public readonly string Name => _name;
     public void SetName(string name) => _name = name;

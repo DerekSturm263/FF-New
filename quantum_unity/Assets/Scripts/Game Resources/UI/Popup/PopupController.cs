@@ -28,7 +28,7 @@ namespace GameResources.UI.Popup
             }
 
             Transform inputFieldParent = layoutGroups[1].transform;
-            if (popup.InputResponse.Item2.GetPersistentEventCount() > 0)
+            if (popup.InputResponse.Item2 is not null && popup.InputResponse.Item2.GetPersistentEventCount() > 0)
             {
                 TMPro.TMP_InputField inputField = Instantiate(_inputFieldTemplate, inputFieldParent).GetComponentInChildren<TMPro.TMP_InputField>();
 

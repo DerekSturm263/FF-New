@@ -160,7 +160,11 @@ MonoBehaviour:
   _color: {r: 1, g: 1, b: 1, a: 1}
   _loadingType: 1
   _sizeOffset: 0
+  _reloadOnEachEnable: 0
   _onIfEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
   _onButtonSpawn:
@@ -170,6 +174,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _onButtonClick:
+    m_PersistentCalls:
+      m_Calls: []
+  _onButtonClickError:
     m_PersistentCalls:
       m_Calls: []
   _onButtonClickMultiplayer:
@@ -191,6 +198,10 @@ MonoBehaviour:
   _onButtonDeselect:
     m_PersistentCalls:
       m_Calls: []
+  _onIncrementalIncrementDecrement:
+    m_PersistentCalls:
+      m_Calls: []
+  _loadType: -1
 --- !u!114 &1450439343772411858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +217,4 @@ MonoBehaviour:
   _selectMethod: 6
   _resetIndexOnStart: 1
   _executeOnSelect: 1
+  _delay: 0

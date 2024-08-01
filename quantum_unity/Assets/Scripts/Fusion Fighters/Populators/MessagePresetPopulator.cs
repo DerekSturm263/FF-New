@@ -6,7 +6,7 @@ public class MessagePresetPopulator : PopulateAsset<MessagePresetAsset>
 
     protected override string FilePath() => "DB/Assets/Build/Cosmetics/Messages";
 
-    protected override bool DoSpawn(MessagePresetAsset item) => InventoryController.Instance.HasUnlockedItem(item);
+    protected override bool DoSpawn(MessagePresetAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
 
     protected override string Name(MessagePresetAsset item) => !item.name.Equals("None") ? item.Description : "None";
 

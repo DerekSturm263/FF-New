@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
+    [SerializeField] private StageAssetAsset _default;
+
     private SerializableWrapper<Stage>? _stage;
     public SerializableWrapper<Stage>? Stage => _stage;
 
@@ -11,8 +13,7 @@ public class StageController : Controller<StageController>
 
     public SerializableWrapper<Stage> New()
     {
-        Stage stage = new();
-        return new(stage, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        return new(_default.Stage.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
     }
 
     public void Save(SerializableWrapper<Stage> stage)

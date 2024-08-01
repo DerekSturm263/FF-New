@@ -5,7 +5,7 @@ public class SubEnhancerPopulator : PopulateAsset<SubEnhancerAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Weapons/Subs/Enhancers";
 
-    protected override bool DoSpawn(SubEnhancerAsset item) => InventoryController.Instance.HasUnlockedItem(item);
+    protected override bool DoSpawn(SubEnhancerAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
 
     protected override void Decorate(GameObject buttonObj, SubEnhancerAsset item)
     {
