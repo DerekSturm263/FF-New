@@ -19,6 +19,7 @@ namespace Extensions.Components.UI
         [SerializeField] private float _selectionMarkerSpeed = 20;
 
         [SerializeField] private bool _rememberLastTab;
+        [SerializeField] private bool _resetOnDisable;
         [SerializeField] private bool _cycle = true;
         [SerializeField] private string _dictionaryIndex;
         [SerializeField] private int _defaultTab;
@@ -77,6 +78,12 @@ namespace Extensions.Components.UI
                 _selectionMarker.position = Vector3.Lerp(_selectionMarker.position, rect.position, Time.deltaTime * _selectionMarkerSpeed);
                 _selectionMarker.sizeDelta = Vector3.Lerp(_selectionMarker.sizeDelta, rect.sizeDelta, Time.deltaTime * _selectionMarkerSpeed);
             }
+        }
+
+        protected override void OnDisable()
+        {
+            if (_resetOnDisable)
+                SelectTab(_tabs.ElementAt(0).Key);
         }
 
         public void SelectTab(Button tab)

@@ -84,6 +84,19 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public unsafe void SetAvatarColorOnPlayer(ColorPresetAsset color)
+    {
+        _currentlySelected.value.Cosmetics.AvatarColor = new() { Id = color.AssetObject.Guid };
+
+        CommandSetAvatarColor setBuild = new()
+        {
+            entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
+            color = new() { Id = color.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public unsafe void SetBadgeOnPlayer(BadgeAsset badge)
     {
         _currentlySelected.value.Equipment.Badge = new() { Id = badge.AssetObject.Guid };
@@ -305,6 +318,19 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
+    public unsafe void SetEyeColorOnPlayer(ColorPresetAsset color)
+    {
+        _currentlySelected.value.Cosmetics.EyeColor = new() { Id = color.AssetObject.Guid };
+
+        CommandSetEyeColor setBuild = new()
+        {
+            entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
+            color = new() { Id = color.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
     public unsafe void SetHairOnPlayer(HairAsset hair)
     {
         _currentlySelected.value.Cosmetics.Hair = new() { Id = hair.AssetObject.Guid };
@@ -313,6 +339,19 @@ public class BuildController : Controller<BuildController>
         {
             entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
             hair = new() { Id = hair.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(setBuild);
+    }
+
+    public unsafe void SetHairColorOnPlayer(ColorPresetAsset color)
+    {
+        _currentlySelected.value.Cosmetics.HairColor = new() { Id = color.AssetObject.Guid };
+
+        CommandSetHairColor setBuild = new()
+        {
+            entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
+            color = new() { Id = color.AssetObject.Guid }
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);

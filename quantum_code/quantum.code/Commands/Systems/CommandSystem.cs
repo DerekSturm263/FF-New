@@ -56,6 +56,12 @@
                     commandSetUltimate.Execute(f);
                 else if (command is CommandSetVoice commandSetVoice)
                     commandSetVoice.Execute(f);
+                else if (command is CommandSetAvatarColor commandSetAvatarColor)
+                    commandSetAvatarColor.Execute(f);
+                else if (command is CommandSetHairColor commandSetHairColor)
+                    commandSetHairColor.Execute(f);
+                else if (command is CommandSetEyeColor commandSetEyeColor)
+                    commandSetEyeColor.Execute(f);
                 else if (command is CommandPause commandPause)
                     commandPause.Execute(f);
                 else if (command is CommandPlay commandPlay)

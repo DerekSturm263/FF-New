@@ -3838,6 +3838,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: -3354176086312360790, guid: 974c41a9988a0da49a7b19055e8f3dea,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerStatController, FusionFighters
+        m_MethodName: SetEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1349939899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4836,19 +4849,6 @@ MonoBehaviour:
       - m_Target: {fileID: 853013124}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: -3354176086312360790, guid: 974c41a9988a0da49a7b19055e8f3dea,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerStatController, FusionFighters
-        m_MethodName: SetEnabled
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8530,12 +8530,12 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8555,7 +8555,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[7].m_Mode
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8585,7 +8585,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[7].m_Mode
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8624,7 +8624,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+      objectReference: {fileID: -3354176086312360790, guid: 974c41a9988a0da49a7b19055e8f3dea,
         type: 3}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8669,7 +8669,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+      objectReference: {fileID: -3354176086312360790, guid: 974c41a9988a0da49a7b19055e8f3dea,
         type: 3}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8729,7 +8729,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
-      value: EnableSnapshot
+      value: SetEnabled
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8764,7 +8764,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
-      value: EnableSnapshot
+      value: SetEnabled
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8784,7 +8784,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[7].m_TargetAssemblyTypeName
-      value: GameResources.Audio.AudioController, GameResources
+      value: PlayerStatController, FusionFighters
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8814,7 +8814,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[7].m_TargetAssemblyTypeName
-      value: GameResources.Audio.AudioController, GameResources
+      value: PlayerStatController, FusionFighters
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8856,8 +8856,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: -4980061243674452760, guid: df8e81d8ae2e38f45960c330754d4911,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgument
@@ -8883,8 +8882,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 24500006, guid: df8e81d8ae2e38f45960c330754d4911,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -8903,7 +8901,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Audio.AudioMixerSnapshot, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
@@ -8928,7 +8926,7 @@ PrefabInstance:
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Audio.AudioMixerSnapshot, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8034886979963801018, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
