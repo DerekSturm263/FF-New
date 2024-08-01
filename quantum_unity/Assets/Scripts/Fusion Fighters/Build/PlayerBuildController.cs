@@ -60,27 +60,27 @@ public class PlayerBuildController : MonoBehaviour
         if (e.Player != _entityView.EntityRef)
             return;
 
-        if (e.New == _female)
+        if (e.New.Avatar == _female)
         {
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(1).gameObject.SetActive(false);
         }
-        else if (e.New == _male)
+        else if (e.New.Avatar == _male)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
         }
 
-        _altWeapon = _altWeaponSlot[e.New];
-        _mainWeapon = _mainWeaponSlot[e.New];
-        _subWeapon = _subWeaponSlot[e.New];
-        _headgear = _headgearSlot[e.New];
-        _clothing = _clothingSlot[e.New];
-        _legwear = _legwearSlot[e.New];
-        _hair = _hairSlot[e.New];
-        _head = _headSlot[e.New];
-        _parentClothing = _parentClothingSlot[e.New];
-        _root = _rootSlot[e.New];
+        _altWeapon = _altWeaponSlot[e.New.Avatar];
+        _mainWeapon = _mainWeaponSlot[e.New.Avatar];
+        _subWeapon = _subWeaponSlot[e.New.Avatar];
+        _headgear = _headgearSlot[e.New.Avatar];
+        _clothing = _clothingSlot[e.New.Avatar];
+        _legwear = _legwearSlot[e.New.Avatar];
+        _hair = _hairSlot[e.New.Avatar];
+        _head = _headSlot[e.New.Avatar];
+        _parentClothing = _parentClothingSlot[e.New.Avatar];
+        _root = _rootSlot[e.New.Avatar];
 
         if (_currentAltWeapon)
             _currentAltWeapon.transform.SetParent(_altWeapon, false);
@@ -168,7 +168,7 @@ public class PlayerBuildController : MonoBehaviour
         if (e.Player != _entityView.EntityRef)
             return;
 
-        _head.materials[2].SetTexture("_Base_Map", UnityDB.FindAsset<EyesAsset>(e.New.Id).Texture);
+        _head.materials[2].SetTexture("_Base_Map", UnityDB.FindAsset<EyesAsset>(e.New.Eyes.Id).Texture);
     }
 
     private void SetHair(EventOnPlayerSetHair e)
@@ -179,7 +179,7 @@ public class PlayerBuildController : MonoBehaviour
         if (_currentHair)
             Destroy(_currentHair);
 
-        HairAsset template = UnityDB.FindAsset<HairAsset>(e.New.Id);
+        HairAsset template = UnityDB.FindAsset<HairAsset>(e.New.Hair.Id);
         if (template)
         {
             _currentHair = Instantiate(template.Hair, _hair);

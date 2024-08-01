@@ -10,10 +10,10 @@ enum Direction
 [Serializable]
 struct DirectionalEmote
 {
-	asset_ref<Emote> Up;
-	asset_ref<Emote> Down;
-	asset_ref<Emote> Left;
-	asset_ref<Emote> Right;
+	EmoteMessageBinding Up;
+	EmoteMessageBinding Down;
+	EmoteMessageBinding Left;
+	EmoteMessageBinding Right;
 }
 
 [Serializable]

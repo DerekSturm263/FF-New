@@ -13,7 +13,7 @@ public class ApparelModifierPopulator : PopulateAsset<ApparelModifierAsset>
 
         int countNum = InventoryController.Instance.GetItemCount(item);
 
-        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count")?.GetComponent<TMPro.TMP_Text>();
+        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count", false)?.GetComponent<TMPro.TMP_Text>();
         if (count)
             count.SetText(countNum.ToString());
 
@@ -22,9 +22,11 @@ public class ApparelModifierPopulator : PopulateAsset<ApparelModifierAsset>
         else if (countNum == -1)
             count.gameObject.SetActive(false);
 
-        TMPro.TMP_Text current = buttonObj.FindChildWithTag("Current")?.GetComponent<TMPro.TMP_Text>();
+        TMPro.TMP_Text current = buttonObj.FindChildWithTag("Current", false)?.GetComponent<TMPro.TMP_Text>();
         current.color = new(0.7f, 0.7f, 0.7f);
     }
 
     protected override bool GiveEvents(ApparelModifierAsset item) => InventoryController.Instance.HasItem(item);
+
+    protected override bool HasEquipped(ApparelModifierAsset item) => false;
 }

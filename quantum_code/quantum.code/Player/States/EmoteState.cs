@@ -11,9 +11,9 @@ namespace Quantum
         public override StateType GetStateType() => StateType.Grounded;
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, ref Input input, MovementSettings settings, ApparelStats stats)
         {
-            AssetRefEmote emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
+            EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
 
-            if (f.TryFindAsset(emoteAsset.Id, out Emote emote))
+            if (f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(emote.Animation.Id);
 
@@ -38,8 +38,8 @@ namespace Quantum
 
             filter.CharacterController->Direction = DirectionalHelper.GetEnumFromDirection(input.Movement);
 
-            AssetRefEmote emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
-            if (f.TryFindAsset(emoteAsset.Id, out Emote emote))
+            EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
+            if (f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(emote.Animation.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);

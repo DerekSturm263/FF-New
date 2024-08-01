@@ -13,7 +13,7 @@ public class ApparelPatternPopulator : PopulateAsset<ApparelPatternAsset>
 
         int countNum = InventoryController.Instance.GetItemCount(item);
 
-        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count")?.GetComponent<TMPro.TMP_Text>();
+        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count", false)?.GetComponent<TMPro.TMP_Text>();
         if (count)
             count.SetText(countNum.ToString());
 
@@ -22,4 +22,6 @@ public class ApparelPatternPopulator : PopulateAsset<ApparelPatternAsset>
     }
 
     protected override bool GiveEvents(ApparelPatternAsset item) => InventoryController.Instance.GetItemCount(item) > 0;
+
+    protected override bool HasEquipped(ApparelPatternAsset item) => false;
 }

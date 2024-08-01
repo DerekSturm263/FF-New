@@ -82,12 +82,36 @@ namespace Quantum
             stream.Serialize(ref value.Emotes);
         }
 
+        public static void Serialize(this IBitStream stream, ref AvatarColorBinding value)
+        {
+            stream.Serialize(ref value.Avatar);
+            stream.Serialize(ref value.Color);
+        }
+
+        public static void Serialize(this IBitStream stream, ref EyesColorBinding value)
+        {
+            stream.Serialize(ref value.Eyes);
+            stream.Serialize(ref value.Color);
+        }
+
+        public static void Serialize(this IBitStream stream, ref HairColorBinding value)
+        {
+            stream.Serialize(ref value.Hair);
+            stream.Serialize(ref value.Color);
+        }
+
         public static void Serialize(this IBitStream stream, ref DirectionalEmote value)
         {
             stream.Serialize(ref value.Up);
             stream.Serialize(ref value.Down);
             stream.Serialize(ref value.Left);
             stream.Serialize(ref value.Right);
+        }
+
+        public static void Serialize(this IBitStream stream, ref EmoteMessageBinding value)
+        {
+            stream.Serialize(ref value.Emote);
+            stream.Serialize(ref value.Message);
         }
 
         #endregion

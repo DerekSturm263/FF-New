@@ -62,6 +62,14 @@
                     commandSetHairColor.Execute(f);
                 else if (command is CommandSetEyeColor commandSetEyeColor)
                     commandSetEyeColor.Execute(f);
+                else if (command is CommandSetEmoteUpMessage commandSetEmoteUpMessage)
+                    commandSetEmoteUpMessage.Execute(f);
+                else if (command is CommandSetEmoteDownMessage commandSetEmoteDownMessage)
+                    commandSetEmoteDownMessage.Execute(f);
+                else if (command is CommandSetEmoteLeftMessage commandSetEmoteLeftMessage)
+                    commandSetEmoteLeftMessage.Execute(f);
+                else if (command is CommandSetEmoteRightMessage commandSetEmoteRightMessage)
+                    commandSetEmoteRightMessage.Execute(f);
                 else if (command is CommandPause commandPause)
                     commandPause.Execute(f);
                 else if (command is CommandPlay commandPlay)

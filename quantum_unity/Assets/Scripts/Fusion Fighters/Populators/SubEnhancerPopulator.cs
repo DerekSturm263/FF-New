@@ -14,7 +14,7 @@ public class SubEnhancerPopulator : PopulateAsset<SubEnhancerAsset>
         bool infinite = InventoryController.Instance.HasInfiniteItem(item);
         int countNum = InventoryController.Instance.GetItemCount(item);
 
-        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count")?.GetComponent<TMPro.TMP_Text>();
+        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count", false)?.GetComponent<TMPro.TMP_Text>();
 
         if (count)
         {
@@ -32,4 +32,6 @@ public class SubEnhancerPopulator : PopulateAsset<SubEnhancerAsset>
     }
 
     protected override bool GiveEvents(SubEnhancerAsset item) => InventoryController.Instance.HasItem(item);
+
+    protected override bool HasEquipped(SubEnhancerAsset item) => false;
 }

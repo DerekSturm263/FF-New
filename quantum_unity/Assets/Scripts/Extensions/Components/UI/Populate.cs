@@ -10,7 +10,6 @@ using static Extensions.Miscellaneous.Helper;
 namespace Extensions.Components.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    [DisallowMultipleComponent]
     public abstract class PopulateBase : UIBehaviour
     {
         public enum LoadType
@@ -243,15 +242,15 @@ namespace Extensions.Components.UI
 
             buttonObj.name = $"{name} Button";
 
-            TMPro.TMP_Text label = buttonObj.FindChildWithTag("Label")?.GetComponent<TMPro.TMP_Text>();
+            TMPro.TMP_Text label = buttonObj.FindChildWithTag("Label", false)?.GetComponent<TMPro.TMP_Text>();
             if (label)
                 label.SetText(name);
 
-            TMPro.TMP_Text description = buttonObj.FindChildWithTag("Description")?.GetComponent<TMPro.TMP_Text>();
+            TMPro.TMP_Text description = buttonObj.FindChildWithTag("Description", false)?.GetComponent<TMPro.TMP_Text>();
             if (description)
                 description.SetText(Description(item));
 
-            Image icon = buttonObj.FindChildWithTag("Icon")?.GetComponent<Image>();
+            Image icon = buttonObj.FindChildWithTag("Icon", false)?.GetComponent<Image>();
             if (icon)
             {
                 icon.sprite = Icon(item);
@@ -262,7 +261,7 @@ namespace Extensions.Components.UI
 
             Color[] colorPalette = ColorPalette(item);
 
-            Image background = buttonObj.FindChildWithTag("Background")?.GetComponent<Image>();
+            Image background = buttonObj.FindChildWithTag("Background", false)?.GetComponent<Image>();
             if (background)
             {
                 Sprite backgroundSprite = Background(item);
@@ -273,7 +272,7 @@ namespace Extensions.Components.UI
                 background.color = colorPalette[2];
             }
 
-            GameObject color = buttonObj.FindChildWithTag("Color");
+            GameObject color = buttonObj.FindChildWithTag("Color", false);
             if (color)
                 color.GetComponent<Image>().color = colorPalette[0];
         }

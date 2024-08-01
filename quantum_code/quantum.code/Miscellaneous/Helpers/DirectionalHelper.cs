@@ -9,7 +9,7 @@ namespace Quantum.Types
 
         private static FP DIRECTION_SUCCESS = (FP)7 / 10;
 
-        public static AssetRefEmote GetFromDirection(DirectionalEmote asset, Direction direction)
+        public static EmoteMessageBinding GetFromDirection(DirectionalEmote asset, Direction direction)
         {
             return direction switch
             {
@@ -46,7 +46,7 @@ namespace Quantum.Types
             };
         }
 
-        public static void SetFromDirection(DirectionalEmote asset, AssetRefEmote value, Direction direction)
+        public static void SetFromDirection(DirectionalEmote asset, EmoteMessageBinding value, Direction direction)
         {
             switch (direction)
             {
@@ -113,7 +113,7 @@ namespace Quantum.Types
             }
         }
 
-        public static AssetRefEmote GetValueFromDirection(DirectionalEmote asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
+        public static EmoteMessageBinding GetValueFromDirection(DirectionalEmote asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
         public static FPVector2 GetValueFromDirection(DirectionalFPVector2 asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
         public static MoveRef GetValueFromDirection(DirectionalMoveRef asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
 

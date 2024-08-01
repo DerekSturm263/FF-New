@@ -73,7 +73,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetAvatarOnPlayer(FFAvatarAsset avatar)
     {
-        _currentlySelected.value.Cosmetics.Avatar = new() { Id = avatar.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Avatar.Avatar = new() { Id = avatar.AssetObject.Guid };
 
         CommandSetAvatar setBuild = new()
         {
@@ -86,7 +86,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetAvatarColorOnPlayer(ColorPresetAsset color)
     {
-        _currentlySelected.value.Cosmetics.AvatarColor = new() { Id = color.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Avatar.Color = new() { Id = color.AssetObject.Guid };
 
         CommandSetAvatarColor setBuild = new()
         {
@@ -203,7 +203,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteUpOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Up = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Up.Emote = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteUp setBuild = new()
         {
@@ -214,14 +214,14 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public unsafe void ClearEmoteUpOnPlayer()
+    public unsafe void SetEmoteUpMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Up = default;
+        _currentlySelected.value.Cosmetics.Emotes.Up.Message = new() { Id = message.AssetObject.Guid };
 
-        CommandSetEmoteUp setBuild = new()
+        CommandSetEmoteUpMessage setBuild = new()
         {
             entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
-            emote = default
+            message = new() { Id = message.AssetObject.Guid }
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -229,7 +229,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteDownOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Down = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Down.Emote = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteDown setBuild = new()
         {
@@ -240,14 +240,14 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public unsafe void ClearEmoteDownOnPlayer()
+    public unsafe void SetEmoteDownMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Down = default;
+        _currentlySelected.value.Cosmetics.Emotes.Down.Message = new() { Id = message.AssetObject.Guid };
 
-        CommandSetEmoteDown setBuild = new()
+        CommandSetEmoteDownMessage setBuild = new()
         {
             entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
-            emote = default
+            message = new() { Id = message.AssetObject.Guid }
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -255,7 +255,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteLeftOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Left = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Left.Emote = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteLeft setBuild = new()
         {
@@ -266,14 +266,14 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public unsafe void ClearEmoteLeftOnPlayer()
+    public unsafe void SetEmoteLeftMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Left = default;
+        _currentlySelected.value.Cosmetics.Emotes.Left.Message = new() { Id = message.AssetObject.Guid };
 
-        CommandSetEmoteLeft setBuild = new()
+        CommandSetEmoteLeftMessage setBuild = new()
         {
             entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
-            emote = default
+            message = new() { Id = message.AssetObject.Guid }
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -281,7 +281,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteRightOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Right = new() { Id = emote.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Emotes.Right.Emote = new() { Id = emote.AssetObject.Guid };
 
         CommandSetEmoteRight setBuild = new()
         {
@@ -292,14 +292,14 @@ public class BuildController : Controller<BuildController>
         QuantumRunner.Default.Game.SendCommand(setBuild);
     }
 
-    public unsafe void ClearEmoteRightOnPlayer()
+    public unsafe void SetEmoteRightMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Right = default;
+        _currentlySelected.value.Cosmetics.Emotes.Right.Message = new() { Id = message.AssetObject.Guid };
 
-        CommandSetEmoteRight setBuild = new()
+        CommandSetEmoteRightMessage setBuild = new()
         {
             entity = FighterIndex.GetFirstPlayer(QuantumRunner.Default.Game.Frames.Verified, index => index.GlobalNoBots == 0),
-            emote = default
+            message = new() { Id = message.AssetObject.Guid }
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
@@ -307,7 +307,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEyesOnPlayer(EyesAsset eyes)
     {
-        _currentlySelected.value.Cosmetics.Eyes = new() { Id = eyes.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Eyes.Eyes = new() { Id = eyes.AssetObject.Guid };
 
         CommandSetEyes setBuild = new()
         {
@@ -320,7 +320,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEyeColorOnPlayer(ColorPresetAsset color)
     {
-        _currentlySelected.value.Cosmetics.EyeColor = new() { Id = color.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Eyes.Color = new() { Id = color.AssetObject.Guid };
 
         CommandSetEyeColor setBuild = new()
         {
@@ -333,7 +333,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetHairOnPlayer(HairAsset hair)
     {
-        _currentlySelected.value.Cosmetics.Hair = new() { Id = hair.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Hair.Hair = new() { Id = hair.AssetObject.Guid };
 
         CommandSetHair setBuild = new()
         {
@@ -346,7 +346,7 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetHairColorOnPlayer(ColorPresetAsset color)
     {
-        _currentlySelected.value.Cosmetics.HairColor = new() { Id = color.AssetObject.Guid };
+        _currentlySelected.value.Cosmetics.Hair.Color = new() { Id = color.AssetObject.Guid };
 
         CommandSetHairColor setBuild = new()
         {

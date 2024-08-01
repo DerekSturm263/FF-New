@@ -11,5 +11,5 @@ public class DisplayAvatar : DisplayTextAndImage<Type>
         return new(string.Format(_format, item.name, item.Description), item.Icon);
     }
 
-    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.value.Cosmetics.Avatar.Id);
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.value.Cosmetics.Avatar.Avatar.Id);
 }

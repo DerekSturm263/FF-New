@@ -1,14 +1,9 @@
 [Serializable]
 struct CosmeticSettings
 {
-	asset_ref<FFAvatar> Avatar;
-	asset_ref<ColorPreset> AvatarColor;
-
-	asset_ref<Eyes> Eyes;
-	asset_ref<ColorPreset> EyeColor;
-
-	asset_ref<Hair> Hair;
-	asset_ref<ColorPreset> HairColor;
+	AvatarColorBinding Avatar;
+	EyesColorBinding Eyes;
+	HairColorBinding Hair;
 
 	asset_ref<Voice> Voice;
 	DirectionalEmote Emotes;

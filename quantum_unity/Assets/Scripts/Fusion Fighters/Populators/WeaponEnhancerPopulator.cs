@@ -14,7 +14,7 @@ public class WeaponEnhancerPopulator : PopulateAsset<WeaponEnhancerAsset>
         bool infinite = InventoryController.Instance.HasInfiniteItem(item);
         int countNum = InventoryController.Instance.GetItemCount(item);
 
-        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count")?.GetComponent<TMPro.TMP_Text>();
+        TMPro.TMP_Text count = buttonObj.FindChildWithTag("Count", false)?.GetComponent<TMPro.TMP_Text>();
 
         if (count)
         {
@@ -32,4 +32,6 @@ public class WeaponEnhancerPopulator : PopulateAsset<WeaponEnhancerAsset>
     }
 
     protected override bool GiveEvents(WeaponEnhancerAsset item) => InventoryController.Instance.HasItem(item);
+
+    protected override bool HasEquipped(WeaponEnhancerAsset item) => false;
 }

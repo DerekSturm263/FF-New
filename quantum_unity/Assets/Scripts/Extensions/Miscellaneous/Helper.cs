@@ -45,9 +45,9 @@ namespace Extensions.Miscellaneous
 
         public static int FrameCount(this AnimationClip animClip) => (int)(animClip.length * animClip.frameRate);
 
-        public static GameObject FindChildWithTag(this GameObject gameObject, string tag)
+        public static GameObject FindChildWithTag(this GameObject gameObject, string tag, bool includeInactive)
         {
-            foreach (Transform transform in gameObject.GetComponentsInChildren<Transform>())
+            foreach (Transform transform in gameObject.GetComponentsInChildren<Transform>(includeInactive))
             {
                 if (transform.CompareTag(tag))
                     return transform.gameObject;

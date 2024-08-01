@@ -98,11 +98,16 @@
   <ItemGroup>
     <Compile Include="Build\Assets\ColorPreset.qtn.cs" />
     <Compile Include="Build\Commands\CommandSetAvatarColor.cs" />
+    <Compile Include="Build\Commands\CommandSetEmoteUpMessage.cs" />
+    <Compile Include="Build\Commands\CommandSetEmoteLeftMessage.cs" />
+    <Compile Include="Build\Commands\CommandSetEmoteRightMessage.cs" />
+    <Compile Include="Build\Commands\CommandSetEmoteDownMessage.cs" />
     <Compile Include="Build\Commands\CommandSetEyeColor.cs" />
     <Compile Include="Build\Commands\CommandSetHairColor.cs" />
     <Compile Include="Camera\Assets\ShakeSettings.qtn.cs" />
     <Compile Include="Collision\Assets\HurtboxSetup.qtn.cs" />
     <Compile Include="Collision\Structs\HitboxSettings.qtn.cs" />
+    <Compile Include="Cosmetics\Emote\MessagePreset.qtn.cs" />
     <Compile Include="Miscellaneous\Extensions\FrameBaseExtensions.cs" />
     <Compile Include="Player\Animation Events\AllowMovementEvent.cs" />
     <Compile Include="Player\Animation Events\HoldAnimationEvent.cs" />
@@ -112,6 +117,10 @@
     <Compile Include="Player\Structs\FighterIndex.qtn.cs" />
     <Compile Include="Item\Structs\ItemSpawnSettings.qtn.cs" />
     <None Include="Collision\Assets\HurtboxSetup.qtn" />
+    <None Include="Cosmetics\Avatar\AvatarColorBinding.qtn" />
+    <None Include="Cosmetics\Emote\EmoteMessageBinding.qtn" />
+    <None Include="Cosmetics\Eyes\EyesColorBinding.qtn" />
+    <None Include="Cosmetics\Hair\HairColorBinding.qtn" />
     <None Include="Player\Components\PlayerStats.qtn" />
     <None Include="Player\Structs\MatchStats.qtn" />
     <Compile Include="Player\Structs\PhysicsSettings.cs" />

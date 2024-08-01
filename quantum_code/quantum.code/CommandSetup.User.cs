@@ -35,6 +35,10 @@ namespace Quantum
             factories.Add(new CommandSetAvatarColor());
             factories.Add(new CommandSetHairColor());
             factories.Add(new CommandSetEyeColor());
+            factories.Add(new CommandSetEmoteUpMessage());
+            factories.Add(new CommandSetEmoteDownMessage());
+            factories.Add(new CommandSetEmoteLeftMessage());
+            factories.Add(new CommandSetEmoteRightMessage());
             factories.Add(new CommandPause());
             factories.Add(new CommandPlay());
             factories.Add(new CommandSetTimeScale());
