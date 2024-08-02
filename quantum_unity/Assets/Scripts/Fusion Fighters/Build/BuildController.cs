@@ -22,7 +22,7 @@ public class BuildController : Controller<BuildController>
         //randomBuild.Cosmetics.Eyes = new() { Eyes = _eyes[Random.Range(0, _eyes.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
         //randomBuild.Cosmetics.Voice = _voices[Random.Range(0, _voices.Length)];
 
-        _currentlySelected = new(_default.Build.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        _currentlySelected = new(_default.Build.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
     }
 
     public void Save(SerializableWrapper<Build> build)
@@ -49,7 +49,9 @@ public class BuildController : Controller<BuildController>
     {
         _currentlySelected.Delete(GetPath());
 
-        Destroy(BuildPopulator.ButtonFromItem(_currentlySelected));
+        if (BuildPopulator.Instance && BuildPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
+            Destroy(button);
+        
         FindFirstObjectByType<BuildPopulator>().GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 

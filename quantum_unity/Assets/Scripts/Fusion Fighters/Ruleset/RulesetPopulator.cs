@@ -1,33 +1,10 @@
-using Extensions.Components.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
-using Type = SerializableWrapper<Quantum.Ruleset>;
-
-public class RulesetPopulator : Populate<Type, long>
+public class RulesetPopulator : PopulateSerializable<Quantum.Ruleset, RulesetAssetAsset>
 {
-    [SerializeField] private Type.CreationType _loadType = Type.CreationType.BuiltIn | Type.CreationType.Custom;
+    protected override string BuiltInFilePath() => "DB/Assets/Ruleset/Rulesets";
+    protected override string CustomFilePath() => RulesetController.GetPath();
 
-    private const string FILE_PATH = "DB/Assets/Ruleset/Rulesets";
+    protected override SerializableWrapper<Quantum.Ruleset> GetFromBuiltInAsset(RulesetAssetAsset asset) => asset.Ruleset;
 
-    protected override Sprite Icon(Type item) => item.Icon;
-
-    protected override IEnumerable<Type> LoadAll()
-    {
-        List<Type> results = new();
-
-        if (_loadType.HasFlag(Type.CreationType.Custom))
-            results.AddRange(FusionFighters.Serializer.LoadAllFromDirectory<Type>(RulesetController.GetPath()));
-
-        if (_loadType.HasFlag(Type.CreationType.BuiltIn))
-            results.AddRange(Resources.LoadAll<RulesetAssetAsset>(FILE_PATH).Where(item => item.IncludeInLists).Select(item => item.Ruleset));
-
-        return results;
-    }
-
-    protected override string Name(Type item) => item.Name;
-
-    protected override Func<Type, long> Sort() => (build) => build.LastEditedDate;
+    protected override bool IsEquipped(SerializableWrapper<Quantum.Ruleset> item) => RulesetController.Instance.Ruleset.Equals(item);
+    protected override bool IsNone(SerializableWrapper<Quantum.Ruleset> item) => false;
 }

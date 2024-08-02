@@ -21,7 +21,7 @@ namespace GameResources.Camera
         [SerializeField] private CameraSettingsAsset _settings;
         public void SetCameraSettings(CameraSettingsAsset settings)
         {
-            if (_uninteruptables.Any(item => item.Id == _settings.Settings.Guid))
+            if (!_instance || _uninteruptables.Any(item => item.Id == _settings.Settings.Guid))
                 return;
 
             _instance._settings = settings;
@@ -243,6 +243,9 @@ namespace GameResources.Camera
 
         public void FocusTarget(string name)
         {
+            if (!_instance)
+                return;
+
             int index = _instance._targets.FindIndex(item => item.Item2.name == name);
             FocusTarget(index);
         }

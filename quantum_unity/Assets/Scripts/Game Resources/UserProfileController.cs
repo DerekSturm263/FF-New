@@ -12,7 +12,7 @@ public class UserProfileController : SpawnableController<UserProfile>
     {
         UserProfile profile = new(_hapticStrength);
 
-        return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
     }
 
     public void Save(SerializableWrapper<UserProfile> profile)
@@ -23,7 +23,7 @@ public class UserProfileController : SpawnableController<UserProfile>
     public void SaveNew()
     {
         UserProfile profile = new(_hapticStrength);
-        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
 
         serialized.Save(GetPath());
     }
@@ -37,7 +37,8 @@ public class UserProfileController : SpawnableController<UserProfile>
     {
         _currentlySelected.Delete(GetPath());
 
-        Destroy(UserProfilePopulator.ButtonFromItem(_currentlySelected));
+        if (UserProfilePopulator.Instance && UserProfilePopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
+            Destroy(button);
     }
 
     public void SetName(string name)

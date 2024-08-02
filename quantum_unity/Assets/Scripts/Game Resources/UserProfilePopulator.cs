@@ -1,20 +1,23 @@
-using Extensions.Components.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-using Type = SerializableWrapper<UserProfile>;
-
-public class UserProfilePopulator : Populate<Type, long>
+public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfileAsset>
 {
-    protected override Sprite Icon(Type item) => item.Icon;
+    protected override string BuiltInFilePath() => "Scriptable Objects/User Profiles";
+    protected override string CustomFilePath() => UserProfileController.GetPath();
 
-    protected override IEnumerable<Type> LoadAll() => FusionFighters.Serializer.LoadAllFromDirectory<Type>(UserProfileController.GetPath());
+    protected override SerializableWrapper<UserProfile> GetFromBuiltInAsset(UserProfileAsset asset) => asset.Profile;
 
-    protected override string Name(Type item) => item.Name;
+    protected override Dictionary<string, Predicate<SerializableWrapper<UserProfile>>> GetAllFilterModes()
+    {
+        return new()
+        {
+            ["All"] = (value) => !IsEquipped(value) || IsNone(value)
+        };
+    }
+    protected override Predicate<SerializableWrapper<UserProfile>> GetDefaultFilterMode() => _allFilterModes["All"];
 
-    protected override Func<Type, long> Sort() => (profile) => profile.LastEditedDate;
-
-    protected override bool DoSpawn(Type item) => !PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.Equals(item));
+    protected override bool IsEquipped(SerializableWrapper<UserProfile> item) => PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.Equals(item));
+    protected override bool IsNone(SerializableWrapper<UserProfile> item) => false;
 }

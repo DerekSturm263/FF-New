@@ -39,7 +39,14 @@ namespace FusionFighters.Profile
                 if (!icon)
                     icon = _icon.Item2;
 
-                return Sprite.Create(icon, new(0, 0, icon.width, -icon.height), Vector2.one);
+                try
+                {
+                    return Sprite.Create(icon, new(0, 0, icon.width, -icon.height), Vector2.one);
+                }
+                catch
+                {
+                    return Sprite.Create(Texture2D.whiteTexture, new(0, 0, Texture2D.whiteTexture.width, -Texture2D.whiteTexture.height), Vector2.one);
+                }
             }
         }
         public void SetIcon(Texture2D icon) => _icon = new(false, icon);

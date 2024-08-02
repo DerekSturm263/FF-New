@@ -1,6 +1,5 @@
 using Extensions.Components.Input;
 using System.Linq;
-using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,7 +21,11 @@ public class ScrollRectHelper : MonoBehaviour
         InputEvent inputEvent = GetComponent<InputEvent>();
         inputEvent.SetButton(Resources.Load<InputButton>("Scriptable Objects/Input Buttons/Multi-Directional Scroll"));
 
-        UnityEventTools.AddPersistentListener(inputEvent.OnVector2Action, Scroll);
+#if UNITY_EDITOR
+
+        UnityEditor.Events.UnityEventTools.AddPersistentListener(inputEvent.OnVector2Action, Scroll);
+
+#endif
     }
 
     private void Awake()

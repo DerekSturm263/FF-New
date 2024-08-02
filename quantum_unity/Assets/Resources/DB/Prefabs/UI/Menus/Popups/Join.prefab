@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.35
+  m_fontSize: 41.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2036,7 +2036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 60.749977}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &671197288179752978
@@ -2078,10 +2078,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be, type: 3}
-  _color: {r: 1, g: 1, b: 1, a: 1}
+  _checkmark: {fileID: 0}
+  _background: {fileID: 0}
+  _iconColor: {r: 1, g: 1, b: 1, a: 1}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  _includesNone: 0
   _loadingType: 1
-  _sizeOffset: 0
-  _reloadOnEachEnable: 1
+  _parent: {fileID: 0}
   _onIfEmpty:
     m_PersistentCalls:
       m_Calls: []
@@ -2161,6 +2164,9 @@ MonoBehaviour:
   _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
+  _filterDropdown: {fileID: 0}
+  _sortDropdown: {fileID: 0}
+  _reloadOnEachEnable: 1
 --- !u!114 &2326378943420541241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2176,6 +2182,7 @@ MonoBehaviour:
   _selectMethod: 4
   _resetIndexOnStart: 0
   _executeOnSelect: 1
+  _firstOffset: 0
   _delay: 0.1
 --- !u!114 &8804546887243744577
 MonoBehaviour:
@@ -2375,8 +2382,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7803476223173886833}
   m_HandleRect: {fileID: 583316105924824761}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9998827
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4052,7 +4059,7 @@ PrefabInstance:
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
       propertyPath: m_fontSize
-      value: 35
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
@@ -4163,6 +4170,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: New Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
+        type: 3}
+      propertyPath: m_TagString
+      value: Top
       objectReference: {fileID: 0}
     - target: {fileID: 6215476458184869422, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}

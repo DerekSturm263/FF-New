@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Extensions.Components.Miscellaneous;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,13 +18,6 @@ namespace Extensions.Components.UI
             base.Initialize();
 
             PopulateAllAwakePopulaters();
-        }
-
-        public override void Shutdown()
-        {
-            RemoveAllAwakePopulaters();
-
-            base.Shutdown();
         }
 
         public void SelectElement(GameObject obj)
@@ -79,16 +73,15 @@ namespace Extensions.Components.UI
 
             foreach (PopulateBase populater in _populaters)
             {
-                if (populater.LoadingType == UI.PopulateBase.LoadStage.Awake && !populater.IsInitialized)
-                    populater.LoadAllItems();
-            }
-        }
+                if (populater.LoadingType == PopulateBase.LoadType.LazyWithParent)
+                {
+                    populater.Parent.AddComponent<ScriptableEvents>().SubscribeOnEnable(populater.GenerateList);
+                }
 
-        private void RemoveAllAwakePopulaters()
-        {
-            foreach (PopulateBase populater in _populaters)
-            {
-                populater.RemoveFromList();
+                if (populater.LoadingType == PopulateBase.LoadType.Awake && populater.Count() == 0)
+                {
+                    populater.GenerateList();
+                }
             }
         }
 

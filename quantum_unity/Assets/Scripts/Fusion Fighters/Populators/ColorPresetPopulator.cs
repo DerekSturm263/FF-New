@@ -1,5 +1,7 @@
 using Extensions.Miscellaneous;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +11,20 @@ public class ColorPresetPopulator : PopulateAsset<ColorPresetAsset>
 
     protected override string FilePath() => "DB/Assets/Build/Color Presets";
 
-    protected override bool DoSpawn(ColorPresetAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
+    protected override Dictionary<string, Comparison<ColorPresetAsset>> GetAllSortModes()
+    {
+        Dictionary<string, Comparison<ColorPresetAsset>> derivedModes = new()
+        {
+            ["Brightness"] = (lhs, rhs) =>
+                lhs.Settings_ColorPreset.Color.R.CompareTo(rhs.Settings_ColorPreset.Color.R) +
+                lhs.Settings_ColorPreset.Color.G.CompareTo(rhs.Settings_ColorPreset.Color.G) +
+                lhs.Settings_ColorPreset.Color.B.CompareTo(rhs.Settings_ColorPreset.Color.B)
+        };
 
-    protected override Func<ColorPresetAsset, int> Sort() => (item) => -(item.Settings_ColorPreset.Color.R + item.Settings_ColorPreset.Color.G + item.Settings_ColorPreset.Color.B);
+        return base.GetAllSortModes().Concat(derivedModes).ToDictionary(item => item.Key, item => item.Value);
+    }
+
+    protected override Comparison<ColorPresetAsset> GetDefaultSortMode() => _allSortModes["Brightness"];
 
     protected override void Decorate(GameObject buttonObj, ColorPresetAsset item)
     {
@@ -20,7 +33,7 @@ public class ColorPresetPopulator : PopulateAsset<ColorPresetAsset>
         buttonObj.FindChildWithTag("Icon", false).GetComponent<Image>().color = item.Settings_ColorPreset.Color.ToColor();
     }
 
-    protected override bool HasEquipped(ColorPresetAsset item)
+    protected override bool IsEquipped(ColorPresetAsset item)
     {
         return _type switch
         {

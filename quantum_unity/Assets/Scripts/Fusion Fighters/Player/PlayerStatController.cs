@@ -44,6 +44,9 @@ public class PlayerStatController : Controller<PlayerStatController>
 
     public void SetEnabled(bool isEnabled)
     {
+        if (!_instance)
+            return;
+
         _instance.gameObject.SetActive(isEnabled);
     }
 }

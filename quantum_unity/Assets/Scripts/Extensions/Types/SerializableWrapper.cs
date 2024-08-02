@@ -5,13 +5,6 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public unsafe struct SerializableWrapper<T> where T : unmanaged
 {
-    [System.Flags]
-    public enum CreationType
-    {
-        BuiltIn = 1 << 0,
-        Custom = 1 << 1
-    }
-
     [SerializeField] private string _name;
     public readonly string Name => _name;
     public void SetName(string name) => _name = name;
@@ -30,6 +23,9 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private AssetGuid _fileID;
     public readonly AssetGuid FileID => _fileID;
 
+    [SerializeField] private bool _madeByPlayer;
+    public readonly bool MadeByPlayer => _madeByPlayer;
+
     [SerializeField] private Sprite _icon;
     public readonly Sprite Icon => _icon;
 
@@ -38,7 +34,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
 
     [FormerlySerializedAs("_value")] public T value;
 
-    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, Sprite icon = null, Sprite preview = null)
+    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, bool madeByPlayer, Sprite icon = null, Sprite preview = null)
     {
         this.value = value;
         _name = name;
@@ -46,6 +42,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
         _creationDate = creationDate;
         _lastEditedDate = lastEditedDate;
         _fileID = fileID;
+        _madeByPlayer = madeByPlayer;
         _icon = icon;
         _preview = preview;
     }

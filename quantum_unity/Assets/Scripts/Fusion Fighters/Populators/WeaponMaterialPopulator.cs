@@ -5,8 +5,6 @@ public class WeaponMaterialPopulator : PopulateAsset<WeaponMaterialAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Weapons/Weapons/Materials";
 
-    protected override bool DoSpawn(WeaponMaterialAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
-
     protected override void Decorate(GameObject buttonObj, WeaponMaterialAsset item)
     {
         base.Decorate(buttonObj, item);
@@ -23,5 +21,5 @@ public class WeaponMaterialPopulator : PopulateAsset<WeaponMaterialAsset>
 
     protected override bool GiveEvents(WeaponMaterialAsset item) => InventoryController.Instance.GetItemCount(item) > 0;
 
-    protected override bool HasEquipped(WeaponMaterialAsset item) => false;
+    protected override bool IsEquipped(WeaponMaterialAsset item) => false;
 }

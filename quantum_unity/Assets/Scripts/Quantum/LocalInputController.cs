@@ -152,6 +152,9 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void OnEnable()
     {
+        if (!PlayerJoinController.Instance)
+            return;
+
         foreach (var player in PlayerJoinController.Instance.LocalPlayers)
         {
             player.Controls?.Player.Enable();
@@ -160,6 +163,9 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void OnDisable()
     {
+        if (!PlayerJoinController.Instance)
+            return;
+
         foreach (var player in PlayerJoinController.Instance.LocalPlayers)
         {
             player.Controls?.Player.Disable();

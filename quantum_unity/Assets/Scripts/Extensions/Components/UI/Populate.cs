@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 using static Extensions.Miscellaneous.Helper;
 
 namespace Extensions.Components.UI
@@ -14,134 +14,70 @@ namespace Extensions.Components.UI
     {
         public enum LoadType
         {
-            Default,
-            Custom
-        }
-
-        public enum LoadStage
-        {
             Awake,
-            Lazy
+            Lazy,
+            LazyWithParent
         }
-
-        protected static Types.Dictionary<System.Type, Types.Dictionary<object, GameObject>> _itemsToButtons = new();
 
         [SerializeField] protected GameObject _button;
-        [SerializeField] protected Color _color = Color.white;
-        [SerializeField] protected int _emptyCount;
 
-        [SerializeField] protected LoadStage _loadingType = LoadStage.Awake;
-        public LoadStage LoadingType => _loadingType;
+        [SerializeField] protected RectTransform _checkmark;
+        protected RectTransform _checkmarkInstance;
 
-        [SerializeField] protected float _sizeOffset;
-        [SerializeField] protected bool _reloadOnEachEnable;
+        [SerializeField] protected Sprite _background;
+        [SerializeField] protected Color _iconColor = Color.white;
+        [SerializeField] protected Color _backgroundColor = Color.black;
+
+        [SerializeField] protected bool _includesNone;
+
+        [SerializeField] protected LoadType _loadingType = LoadType.LazyWithParent;
+        public LoadType LoadingType => _loadingType;
+
+        [SerializeField] protected GameObject _parent;
+        public GameObject Parent => _parent;
 
         [SerializeField] protected UnityEvent _onIfEmpty;
         [SerializeField] protected UnityEvent _onIfNotEmpty;
 
-        protected RectTransform _containerRect;
-        protected ScrollRect _scrollRect;
-        protected int _itemCount;
-
-        private Selectable[] _originals;
-
-        protected bool _isInitialized;
-        public bool IsInitialized => _isInitialized;
-
-        protected override void Awake()
-        {
-            Init(false);
-        }
-
-        private void Init(bool doLoad)
-        {
-            _originals = GetComponentsInChildren<Selectable>();
-            _itemsToButtons = new();
-
-            if ((!_reloadOnEachEnable && _loadingType == LoadStage.Lazy) || doLoad)
-                LoadAllItems();
-
-            _containerRect = GetComponent<RectTransform>();
-            _scrollRect = GetComponentInParent<ScrollRect>();
-        }
-
-        public abstract void LoadAllItems();
-        public abstract void RemoveFromList();
-
-        protected override void OnEnable()
-        {
-            if (_reloadOnEachEnable && _loadingType == LoadStage.Lazy)
-            {
-                // TODO: FIX BY REMOVING
-                _itemsToButtons = new();
-                LoadAllItems();
-            }
-
-            EnableOrDisableItems();
-        }
-
-        protected override void OnDisable()
-        {
-            if (_reloadOnEachEnable)
-            {
-                ClearAllItems(true);
-            }
-        }
-
-        public void ClearAllItems(bool excludeOriginals)
-        {
-            foreach (Selectable t in GetComponentsInChildren<Selectable>())
-            {
-                if (excludeOriginals && _originals.Contains(t))
-                    continue;
-
-                Destroy(t.gameObject);
-            }
-
-            _isInitialized = false;
-        }
-
         public void Refresh()
         {
-            ClearAllItems(false);
-            Init(true);
+            DestroyList();
+            GenerateList();
         }
 
-        protected abstract void EnableOrDisableItems();
+        public abstract void GenerateList();
+        public abstract void DestroyList();
+        public abstract void FilterList();
+        public abstract void SortList();
+        public abstract void EnableOrDisableItems();
+        public abstract void EnableAllButtonNavigation(bool enabled);
 
-        public void ScrollListBy(Vector2 amount)
-        {
-            _scrollRect.velocity = amount * -1000;
-        }
-
-        public void ScrollListTo(Transform buttonTransform)
-        {
-            _scrollRect.verticalNormalizedPosition = 1 - (buttonTransform.GetSiblingIndex() / (float)_itemCount);
-        }
+        public abstract int Count();
     }
 
     [RequireComponent(typeof(LayoutGroup))]
-    public abstract class Populate<T, TSorter> : PopulateBase
+    public abstract class Populate<T> : PopulateBase
     {
-        public static GameObject ButtonFromItem(T item)
+        public enum SortDirection
         {
-            if (_itemsToButtons is null || item is null || !_itemsToButtons[typeof(T)].TryGetValue(item, out GameObject value))
-                return null;
-
-            return value;
+            Ascending = -1,
+            Descending = 1
         }
-        public static bool TryButtonFromItem(T item, out GameObject button)
+
+        protected Dictionary<T, GameObject> _itemsToButtons = new();
+
+        public bool TryGetButtonFromItem(T item, out GameObject button)
         {
             button = null;
 
-            if (_itemsToButtons is null || item is null || !_itemsToButtons[typeof(T)].TryGetValue(item, out button))
+            if (_itemsToButtons is null || item is null || !_itemsToButtons.TryGetValue(item, out button))
                 return false;
 
             return true;
         }
 
-        public static bool ContainsItem(T item) => _itemsToButtons[typeof(T)].ContainsKey(item);
-        public static int CountAll<U>() => _itemsToButtons[typeof(U)].Count;
+        public bool ContainsItem(T item) => _itemsToButtons.ContainsKey(item);
+        public override int Count() => _itemsToButtons.Count;
 
         [SerializeField] protected UnityEvent<T> _onButtonSpawn;
         [SerializeField] protected UnityEvent<T> _onButtonHover;
@@ -151,72 +87,179 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
 
-        public override void LoadAllItems()
+        [SerializeField] private TMPro.TMP_Dropdown _filterDropdown;
+        [SerializeField] private TMPro.TMP_Dropdown _sortDropdown;
+
+        [SerializeField] protected bool _reloadOnEachEnable;
+
+        protected Dictionary<string, Predicate<T>> _allFilterModes;
+        protected Dictionary<string, Comparison<T>> _allSortModes;
+
+        private Predicate<T> _currentFilterMode;
+        private Comparison<T> _currentSortMode;
+        private SortDirection _currentSortDirection = SortDirection.Descending;
+
+        private static Populate<T> _instance;
+        public static Populate<T> Instance => _instance;
+
+        protected override void Awake()
         {
-            _itemsToButtons.TryAdd(typeof(T), new());
-            _itemCount = transform.childCount;
+            _instance = this;
 
-            _containerRect = GetComponent<RectTransform>();
-            _scrollRect = GetComponentInParent<ScrollRect>();
+            if (_checkmark)
+                _checkmarkInstance = Instantiate(_checkmark);
 
-            IEnumerable<T> items = LoadAll();
-            items = items.OrderBy(item => Sort()(item)).ToList();
-
-            foreach (T item in items)
-                AddItem(item);
-
-            if (_itemsToButtons[typeof(T)].Count == _emptyCount)
-                _onIfEmpty.Invoke();
-            else
-                _onIfNotEmpty.Invoke();
-
-            _isInitialized = true;
-        }
-
-        public override void RemoveFromList()
-        {
-            _itemsToButtons.Remove(typeof(T));
-        }
-        protected override void EnableOrDisableItems()
-        {
-            if (transform.childCount == 0 || _itemsToButtons is null)
-                return;
-
-            if (_itemsToButtons.ContainsKey(typeof(T)))
+            if (_sortDropdown)
             {
-                foreach (var kvp in _itemsToButtons[typeof(T)])
+                _sortDropdown.AddOptions(_allSortModes.Select(item => new TMPro.TMP_Dropdown.OptionData(item.Key)).ToList());
+                _sortDropdown.onValueChanged.AddListener((value) =>
                 {
-                    bool enabled = Enabled((T)kvp.Key);
+                    _currentSortMode = _allSortModes.ElementAt(value).Value;
+                    SortList();
+                });
+            }
 
-                    if (kvp.Value.TryGetComponent(out Button button))
-                        button.interactable = enabled;
-                    else if (kvp.Value.TryGetComponent(out DragAndDropItem dragAndDrop))
-                        dragAndDrop.interactable = enabled;
-                }
+            if (_filterDropdown)
+            {
+                _filterDropdown.AddOptions(_allFilterModes.Select(item => new TMPro.TMP_Dropdown.OptionData(item.Key)).ToList());
+                _filterDropdown.onValueChanged.AddListener((value) =>
+                {
+                    _currentFilterMode = _allFilterModes.ElementAt(value).Value;
+                    FilterList();
+                });
+            }
+
+            base.Awake();
+        }
+
+        protected override void OnEnable()
+        {
+            if (_loadingType == LoadType.Lazy)
+            {
+                GenerateList();
+            }
+
+            EnableOrDisableItems();
+
+            if (_checkmarkInstance)
+            {
+                ParentCheckmark(_itemsToButtons.First(item => IsEquipped(item.Key)).Value);
             }
         }
 
-        protected virtual GameObject Button(T item) => _button;
+        protected override void OnDisable()
+        {
+            if (_reloadOnEachEnable)
+            {
+                DestroyList();
+            }
+        }
+
+        public override void GenerateList()
+        {
+            if (_itemsToButtons.Count > 0)
+                return;
+
+            IEnumerable<T> items = LoadAll();
+
+            foreach (T item in items)
+            {
+                AddItem(item);
+            }
+
+            FilterList();
+            SortList();
+        }
+
+        public override void DestroyList()
+        {
+            List<T> keys = new(_itemsToButtons.Keys);
+
+            foreach (T item in keys)
+            {
+                RemoveItem(item);
+            }
+        }
 
         public GameObject AddItem(T item)
         {
-            if (!DoSpawn(item))
-                return null;
-
-            GameObject buttonObj = Instantiate(Button(item), transform);
+            GameObject buttonObj = Instantiate(_button, transform);
 
             Decorate(buttonObj, item);
             SetEvents(buttonObj, item);
             
-            Debug.Log($"Loaded {typeof(T).Name}: {Name(item)}");
             _onButtonSpawn.Invoke(item);
-            _itemsToButtons[typeof(T)].TryAdd(item, buttonObj);
-            ++_itemCount;
+            _itemsToButtons.TryAdd(item, buttonObj);
 
+            Debug.Log($"Loaded {typeof(T).Name}: {Name(item)}");
             return buttonObj;
         }
 
-        public void EnableAllButtonNavigation(bool enabled)
+        public void RemoveItem(T item)
+        {
+            if (_itemsToButtons.TryGetValue(item, out GameObject button))
+            {
+                Destroy(button);
+
+                Debug.Log($"Destroyed {typeof(T).Name}: {Name(item)}");
+                _itemsToButtons.Remove(item);
+            }
+        }
+
+        public override void FilterList()
+        {
+            _allFilterModes ??= GetAllFilterModes();
+            _currentFilterMode ??= GetDefaultFilterMode();
+
+            IEnumerable<T> filtered = _itemsToButtons.Keys.Where(_currentFilterMode.Invoke);
+
+            foreach (var kvp in _itemsToButtons)
+            {
+                kvp.Value.SetActive(filtered.Contains(kvp.Key));
+            }
+
+            if (filtered.Count() == 0 || (filtered.Count() == 1 && _includesNone))
+                _onIfEmpty.Invoke();
+            else
+                _onIfNotEmpty.Invoke();
+        }
+
+        public override void SortList()
+        {
+            _allSortModes ??= GetAllSortModes();
+            _currentSortMode ??= GetDefaultSortMode();
+
+            List<T> sorted = _itemsToButtons.Keys.ToList();
+            sorted.Sort((lhs, rhs) => _currentSortMode.Invoke(lhs,rhs) * (int)_currentSortDirection);
+
+            for (int i = 0; i < sorted.Count; ++i)
+            {
+                _itemsToButtons[sorted[i]].transform.SetSiblingIndex(i);
+            }
+
+            var none = _itemsToButtons.FirstOrDefault(item => IsNone(item.Key));
+            if (none.Key is not null && none.Value)
+                none.Value.transform.SetAsFirstSibling();
+
+            var top = gameObject.FindChildWithTag("Top", false);
+            if (top)
+                top.transform.SetAsFirstSibling();
+        }
+
+        public override void EnableOrDisableItems()
+        {
+            foreach (var kvp in _itemsToButtons)
+            {
+                bool enabled = Enabled(kvp.Key);
+
+                if (kvp.Value.TryGetComponent(out Button button))
+                    button.interactable = enabled;
+                else if (kvp.Value.TryGetComponent(out DragAndDropItem dragAndDrop))
+                    dragAndDrop.interactable = enabled;
+            }
+        }
+
+        public override void EnableAllButtonNavigation(bool enabled)
         {
             foreach (Button button in GetComponentsInChildren<Button>())
             {
@@ -224,18 +267,22 @@ namespace Extensions.Components.UI
             }
         }
 
-        protected abstract string Name(T item);
-        protected abstract Sprite Icon(T item);
-        protected virtual Sprite Background(T item) => null;
-        protected virtual Color[] ColorPalette(T item) => new Color[] { _color, _color, _color };
-        protected virtual string Description(T item) => string.Empty;
-
         protected abstract IEnumerable<T> LoadAll();
-        protected abstract System.Func<T, TSorter> Sort();
+
+        protected abstract string Name(T item);
+        protected abstract string Description(T item);
+        protected abstract Sprite Icon(T item);
+
+        protected abstract Dictionary<string, Predicate<T>> GetAllFilterModes();
+        protected abstract Predicate<T> GetDefaultFilterMode();
+
+        protected abstract Dictionary<string, Comparison<T>> GetAllSortModes();
+        protected abstract Comparison<T> GetDefaultSortMode();
 
         protected virtual bool Enabled(T item) => true;
-        protected virtual bool DoSpawn(T item) => true;
         protected virtual bool GiveEvents(T item) => true;
+        protected abstract bool IsEquipped(T item);
+        protected abstract bool IsNone(T item);
 
         protected virtual void Decorate(GameObject buttonObj, T item)
         {
@@ -254,30 +301,31 @@ namespace Extensions.Components.UI
             Image icon = buttonObj.FindChildWithTag("Icon", false)?.GetComponent<Image>();
             if (icon)
             {
-                icon.sprite = Icon(item);
+                try
+                {
+                    icon.sprite = Icon(item);
+                }
+                catch { }
 
                 if (!icon.sprite)
                     icon.enabled = false;
             }
 
-            Color[] colorPalette = ColorPalette(item);
-
             Image background = buttonObj.FindChildWithTag("Background", false)?.GetComponent<Image>();
             if (background)
             {
-                Sprite backgroundSprite = Background(item);
+                Sprite backgroundSprite = _background;
 
                 if (backgroundSprite)
                     background.sprite = backgroundSprite;
 
-                background.color = colorPalette[2];
+                //background.color = _backgroundColor;
             }
 
             GameObject color = buttonObj.FindChildWithTag("Color", false);
             if (color)
-                color.GetComponent<Image>().color = colorPalette[0];
+                color.GetComponent<Image>().color = _iconColor;
         }
-
         protected virtual void SetEvents(GameObject buttonObj, T item)
         {
             bool giveEvents = GiveEvents(item);
@@ -290,7 +338,17 @@ namespace Extensions.Components.UI
             if (giveEvents)
             {
                 if (button)
-                    button.onClick.AddListener(() => _onButtonClick.Invoke(item));
+                {
+                    button.onClick.AddListener(() =>
+                    {
+                        _onButtonClick.Invoke(item);
+
+                        if (_checkmarkInstance)
+                        {
+                            ParentCheckmark(button.gameObject);
+                        }
+                    });
+                }
 
                 if (multiplayerButton)
                     multiplayerButton.onClick.AddListener((playerNum) => _onButtonClickMultiplayer.Invoke(item, playerNum));
@@ -315,6 +373,16 @@ namespace Extensions.Components.UI
                 EventTrigger.Entry deselect = eventTrigger.triggers.FirstOrDefault(item => item.eventID == EventTriggerType.Deselect);
                 deselect?.callback.AddListener(_ => _onButtonDeselect.Invoke(item));
             }
+        }
+
+        private void ParentCheckmark(GameObject parent)
+        {
+            _checkmarkInstance.SetParent(parent.FindChildWithTag("Offset", true).transform);
+            _checkmarkInstance.localScale = Vector3.one;
+
+            _checkmarkInstance.anchoredPosition = new(20, -30);
+            _checkmarkInstance.anchorMin = new(0, 1);
+            _checkmarkInstance.anchorMax = new(0, 1);
         }
     }
 }

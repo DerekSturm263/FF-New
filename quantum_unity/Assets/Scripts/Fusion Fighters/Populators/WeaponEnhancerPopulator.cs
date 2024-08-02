@@ -5,8 +5,6 @@ public class WeaponEnhancerPopulator : PopulateAsset<WeaponEnhancerAsset>
 {
     protected override string FilePath() => "DB/Assets/Build/Equipment/Weapons/Weapons/Enhancers";
 
-    protected override bool DoSpawn(WeaponEnhancerAsset item) => item.IncludeInLists && InventoryController.Instance.HasUnlockedItem(item);
-
     protected override void Decorate(GameObject buttonObj, WeaponEnhancerAsset item)
     {
         base.Decorate(buttonObj, item);
@@ -33,5 +31,5 @@ public class WeaponEnhancerPopulator : PopulateAsset<WeaponEnhancerAsset>
 
     protected override bool GiveEvents(WeaponEnhancerAsset item) => InventoryController.Instance.HasItem(item);
 
-    protected override bool HasEquipped(WeaponEnhancerAsset item) => false;
+    protected override bool IsEquipped(WeaponEnhancerAsset item) => false;
 }

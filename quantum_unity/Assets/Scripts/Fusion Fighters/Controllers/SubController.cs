@@ -137,7 +137,9 @@ public class SubController : Controller<SubController>
 
         _currentlySelected.Delete(GetPath());
 
-        Destroy(SubPopulator.ButtonFromItem(_currentlySelected));
+        if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
+            Destroy(button);
+
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }
 

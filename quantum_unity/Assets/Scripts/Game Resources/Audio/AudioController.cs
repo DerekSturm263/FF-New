@@ -11,10 +11,6 @@ namespace GameResources.Audio
     public class AudioController : Extensions.Components.Miscellaneous.Controller<AudioController>
     {
         private AudioSource _musicSource;
-        /// <summary>
-        /// The AudioSource that's playing music.
-        /// </summary>
-        public AudioSource MusicSource => _musicSource = _musicSource ? _musicSource : CreateMusicSource();
 
         private AudioSource CreateMusicSource()
         {
@@ -28,10 +24,6 @@ namespace GameResources.Audio
         }
 
         private AudioSource _sfxSource;
-        /// <summary>
-        /// The AudioSource that's playing sound effects.
-        /// </summary>
-        public AudioSource SFXSource => _sfxSource = _sfxSource ? _sfxSource : CreateSFXSource();
 
         private AudioSource CreateSFXSource()
         {
@@ -78,12 +70,18 @@ namespace GameResources.Audio
         /// Plays an AudioClip.
         /// </summary>
         /// <param name="clip">The clip to be played.</param>
-        public void PlayAudioClip(AudioClip clip) => SFXSource.PlayOneShot(clip);
+        public void PlayAudioClip(AudioClip clip)
+        {
+            if (!_sfxSource)
+                return;
+
+            _sfxSource.PlayOneShot(clip);
+        }
 
         /// <summary>
         /// Stops an AudioClip.
         /// </summary>
-        public void StopAudioClip() => SFXSource.Stop();
+        public void StopAudioClip() => _sfxSource.Stop();
 
         /// <summary>
         /// Plays an AudioClip in the Music Source.
@@ -92,7 +90,7 @@ namespace GameResources.Audio
         public void PlayAudioClipAsTrack(AudioClip clip)
         {
             // Set the track.
-            MusicSource.clip = clip;
+            _musicSource.clip = clip;
             PlayTrack();
         }
 
@@ -111,7 +109,7 @@ namespace GameResources.Audio
         public void SetTrack(TrackGraph track)
         {
             // Set the track.
-            MusicSource.clip = track.GetUnityAsset().GetFromName("Normal").Clips[0];
+            _musicSource.clip = track.GetUnityAsset().GetFromName("Normal").Clips[0];
         }
         
         /// <summary>
@@ -120,19 +118,19 @@ namespace GameResources.Audio
         public void PlayTrack()
         {
             // Play the currently set track.
-            if (!MusicSource.isPlaying)
-                MusicSource.Play();
+            if (!_musicSource.isPlaying)
+                _musicSource.Play();
         }
         
         /// <summary>
         /// Pauses the Track currently being played by the AudioController.
         /// </summary>
-        public void PauseTrack() => MusicSource.Pause();
+        public void PauseTrack() => _musicSource.Pause();
 
         /// <summary>
         /// Stops the Track currently being played by the AudioController.
         /// </summary>
-        public void StopTrack() => MusicSource.Stop();
+        public void StopTrack() => _musicSource.Stop();
 
         /// <summary>
         /// Enables an AudioMixerSnapshot at 33% strength.

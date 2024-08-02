@@ -47,7 +47,7 @@ public class ApparelController : Controller<ApparelController>
 
         _modifiers[modifier] += increment;
 
-        if (_modifiers[modifier] >= 0 && ApparelModifierPopulator.TryButtonFromItem(modifier, out GameObject button))
+        if (_modifiers[modifier] >= 0 && ApparelModifierPopulator.Instance && ApparelModifierPopulator.Instance.TryGetButtonFromItem(modifier, out GameObject button))
         {
             TMPro.TMP_Text[] texts = button.GetComponentsInChildren<TMPro.TMP_Text>();
             int newCount = InventoryController.Instance.GetItemCount(modifier) - _modifiers[modifier];
@@ -223,7 +223,9 @@ public class ApparelController : Controller<ApparelController>
 
         _currentlySelected.Delete(GetPath());
 
-        Destroy(ApparelPopulator.ButtonFromItem(_currentlySelected));
+        if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
+            Destroy(button);
+
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }
 

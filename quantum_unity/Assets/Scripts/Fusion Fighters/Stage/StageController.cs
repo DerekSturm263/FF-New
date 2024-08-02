@@ -13,7 +13,7 @@ public class StageController : Controller<StageController>
 
     public SerializableWrapper<Stage> New()
     {
-        return new(_default.Stage.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid());
+        return new(_default.Stage.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
     }
 
     public void Save(SerializableWrapper<Stage> stage)
@@ -33,7 +33,7 @@ public class StageController : Controller<StageController>
 
     public void Load(Stage stage)
     {
-        _stage = new(stage, "", "", 0, 0, AssetGuid.NewGuid());
+        _stage = new(stage, "", "", 0, 0, AssetGuid.NewGuid(), true);
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
