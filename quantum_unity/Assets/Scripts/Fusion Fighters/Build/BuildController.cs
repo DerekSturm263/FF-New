@@ -15,6 +15,8 @@ public class BuildController : Controller<BuildController>
     public void New()
     {
         Build randomBuild = _default.Build.value;
+        string[] filterTags = new string[] { };
+        Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
         // TODO: MAKE IT RANDOM
         //randomBuild.Cosmetics.Avatar = new() { Avatar = _avatars[Random.Range(0, _avatars.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
@@ -22,7 +24,7 @@ public class BuildController : Controller<BuildController>
         //randomBuild.Cosmetics.Eyes = new() { Eyes = _eyes[Random.Range(0, _eyes.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
         //randomBuild.Cosmetics.Voice = _voices[Random.Range(0, _voices.Length)];
 
-        _currentlySelected = new(_default.Build.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
+        _currentlySelected = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
     }
 
     public void Save(SerializableWrapper<Build> build)

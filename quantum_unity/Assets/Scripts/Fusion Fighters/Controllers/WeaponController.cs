@@ -2,6 +2,7 @@ using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -93,7 +94,25 @@ public class WeaponController : Controller<WeaponController>
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
 
-        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, _template.Icon);
+        List<string> filterTags = new()
+        {
+            _template.name,
+            _material.name
+        };
+
+        if (_enhancer)
+            filterTags.Add(_enhancer.name);
+
+        List<Extensions.Types.Tuple<string, string>> groupTags = new()
+        {
+            new("Template Type", _template.name),
+            new("Material Type", _material.name)
+        };
+
+        if (_enhancer)
+            groupTags.Add(new("Enhancer Type", _enhancer.name));
+
+        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
         serializable.Save(GetPath());
 
         _lastWeapon = serializable;

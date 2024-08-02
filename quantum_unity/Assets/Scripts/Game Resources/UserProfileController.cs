@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UserProfileController : SpawnableController<UserProfile>
 {
+    [SerializeField] private Sprite _profileIcon;
+
     private LocalPlayerInfo _player;
     public void SetPlayer(LocalPlayerInfo player) => _player = player;
 
@@ -11,8 +13,10 @@ public class UserProfileController : SpawnableController<UserProfile>
     public SerializableWrapper<UserProfile> New()
     {
         UserProfile profile = new(_hapticStrength);
+        string[] filterTags = new string[] { };
+        Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
+        return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, _profileIcon, null);
     }
 
     public void Save(SerializableWrapper<UserProfile> profile)
@@ -23,8 +27,10 @@ public class UserProfileController : SpawnableController<UserProfile>
     public void SaveNew()
     {
         UserProfile profile = new(_hapticStrength);
-        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
+        string[] filterTags = new string[] { };
+        Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
+        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, _profileIcon, null);
         serialized.Save(GetPath());
     }
 

@@ -161,7 +161,26 @@ public class ApparelController : Controller<ApparelController>
             InventoryController.Instance.LoseCurrency(modifier3.Price);
         }
 
-        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, _template.Icon);
+        List<string> filterTags = new()
+        {
+            _template.name,
+            _pattern.name
+        };
+
+        if (modifiers.Count > 0)
+            filterTags.Add(modifiers[0].name);
+        if (modifiers.Count > 1)
+            filterTags.Add(modifiers[1].name);
+        if (modifiers.Count > 2)
+            filterTags.Add(modifiers[2].name);
+
+        List<Extensions.Types.Tuple<string, string>> groupTags = new()
+        {
+            new("Template Type", _template.name),
+            new("Pattern Type", _pattern.name)
+        };
+
+        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
         serializable.Save(GetPath());
 
         _lastApparel = serializable;

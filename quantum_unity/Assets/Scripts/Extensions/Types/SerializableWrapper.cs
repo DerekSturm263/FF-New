@@ -40,7 +40,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private Tuple<string, string>[] _groupTags;
     public readonly Tuple<string, string>[] GroupTags => _groupTags;
 
-    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, bool madeByPlayer, string[] filterTags, Tuple<string, string>[] groupTags, Sprite icon = null, Sprite preview = null)
+    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags, Sprite icon, Sprite preview)
     {
         this.value = value;
         _name = name;
@@ -48,7 +48,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
         _creationDate = creationDate;
         _lastEditedDate = lastEditedDate;
         _fileID = fileID;
-        _madeByPlayer = madeByPlayer;
+        _madeByPlayer = true;
         _icon = icon;
         _preview = preview;
         _filterTags = filterTags;

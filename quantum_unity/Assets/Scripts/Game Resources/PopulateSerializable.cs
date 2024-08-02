@@ -33,20 +33,58 @@ public abstract class PopulateSerializable<T, TAssetAsset> : Populate<Serializab
 
     protected override Dictionary<string, Predicate<SerializableWrapper<T>>> GetAllFilterModes()
     {
-        return new()
+        Dictionary<string, Predicate<SerializableWrapper<T>>> tagGroups = new();
+
+        foreach (var key in _itemsToButtons.Keys)
+        {
+            if (key.FilterTags is not null)
+            {
+                foreach (string tag in key.FilterTags)
+                {
+                    tagGroups.TryAdd(tag, (value) =>
+                    {
+                        if (value.FilterTags is not null)
+                            return value.FilterTags.Contains(tag);
+
+                        return false;
+                    });
+                }
+            }
+        }
+
+        return new Dictionary<string, Predicate<SerializableWrapper<T>>>()
         {
             ["All"] = (_) => true,
-            ["Custom"] = (value) => value.MadeByPlayer || IsNone(value),
-            ["Built-In"] = (value) => !value.MadeByPlayer || IsNone(value)
-        };
+            ["Custom"] = (value) => value.MadeByPlayer,
+            ["Built-In"] = (value) => !value.MadeByPlayer
+        }.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
     }
 
     protected override Dictionary<string, Func<SerializableWrapper<T>, (string, object)>> GetAllGroupModes()
     {
-        return new()
+        Dictionary<string, Func<SerializableWrapper<T>, (string, object)>> tagGroups = new();
+
+        foreach (var key in _itemsToButtons.Keys)
+        {
+            if (key.GroupTags is not null)
+            {
+                foreach (var tag in key.GroupTags)
+                {
+                    tagGroups.TryAdd(tag.Item1, (value) =>
+                    {
+                        if (value.GroupTags is not null)
+                            return (tag.Item2, tag);
+
+                        return default;
+                    });
+                }
+            }
+        }
+
+        return new Dictionary<string, Func<SerializableWrapper<T>, (string, object)>>()
         {
             ["All"] = (value) => ("All", 0)
-        };
+        }.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
     }
 
     protected override Dictionary<string, Comparison<SerializableWrapper<T>>> GetAllSortModes()

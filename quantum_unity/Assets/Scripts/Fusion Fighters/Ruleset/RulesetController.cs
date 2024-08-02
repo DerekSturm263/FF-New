@@ -13,7 +13,10 @@ public class RulesetController : Controller<RulesetController>
 
     public SerializableWrapper<Ruleset> New()
     {
-        return new(_default.Ruleset.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), true);
+        string[] filterTags = new string[] { };
+        Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
+
+        return new(_default.Ruleset.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)
@@ -33,7 +36,10 @@ public class RulesetController : Controller<RulesetController>
 
     public void Load(Ruleset ruleset)
     {
-        _ruleset = new(ruleset, "", "", 0, 0, AssetGuid.NewGuid(), true);
+        string[] filterTags = new string[] { };
+        Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
+        _ruleset = new(ruleset, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
+
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 

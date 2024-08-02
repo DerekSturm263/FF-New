@@ -2,6 +2,7 @@ using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -84,7 +85,23 @@ public class SubController : Controller<SubController>
             InventoryController.Instance.LoseCurrency(_enhancer.Price);
         }
 
-        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, _template.Icon);
+        List<string> filterTags = new()
+        {
+            _template.name
+        };
+
+        if (_enhancer)
+            filterTags.Add(_enhancer.name);
+
+        List<Extensions.Types.Tuple<string, string>> groupTags = new()
+        {
+            new("Template Type", _template.name)
+        };
+
+        if (_enhancer)
+            groupTags.Add(new("Enhancer Type", _enhancer.name));
+
+        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
         serializable.Save(GetPath());
 
         _lastSub = serializable;

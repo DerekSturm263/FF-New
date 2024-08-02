@@ -18,16 +18,25 @@ public abstract class PopulateAsset<T> : Populate<T> where T : InfoAssetAsset
 
         foreach (var key in _itemsToButtons.Keys)
         {
-            foreach (string tag in key.FilterTags)
+            if (key.FilterTags is not null)
             {
-                tagGroups.TryAdd(tag, (value) => value.FilterTags.Contains(tag));
+                foreach (string tag in key.FilterTags)
+                {
+                    tagGroups.TryAdd(tag, (value) =>
+                    {
+                        if (value.FilterTags is not null)
+                            return value.FilterTags.Contains(tag);
+
+                        return false;
+                    });
+                }
             }
         }
 
-        return tagGroups.Concat(new Dictionary<string, Predicate<T>>()
+        return new Dictionary<string, Predicate<T>>()
         {
-            ["Unlocked"] = (value) => InventoryController.Instance.HasUnlockedItem(value) || IsNone(value)
-        }).ToDictionary(item => item.Key, item => item.Value);
+            ["All"] = (value) => InventoryController.Instance.HasUnlockedItem(value)
+        }.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
     }
 
     protected override Dictionary<string, Func<T, (string, object)>> GetAllGroupModes()
@@ -36,16 +45,25 @@ public abstract class PopulateAsset<T> : Populate<T> where T : InfoAssetAsset
 
         foreach (var key in _itemsToButtons.Keys)
         {
-            foreach (var tag in key.GroupTags)
+            if (key.GroupTags is not null)
             {
-                tagGroups.TryAdd(tag.Item1, (value) => (tag.Item2, value.GroupTags.Contains(tag)));
+                foreach (var tag in key.GroupTags)
+                {
+                    tagGroups.TryAdd(tag.Item1, (value) =>
+                    {
+                        if (value.GroupTags is not null)
+                            return (tag.Item2, tag);
+
+                        return default;
+                    });
+                }
             }
         }
 
-        return tagGroups.Concat(new Dictionary<string, Func<T, (string, object)>>()
+        return new Dictionary<string, Func<T, (string, object)>>()
         {
             ["All"] = (value) => ("All", 0)
-        }).ToDictionary(item => item.Key, item => item.Value);
+        }.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
     }
 
     protected override Dictionary<string, Comparison<T>> GetAllSortModes()

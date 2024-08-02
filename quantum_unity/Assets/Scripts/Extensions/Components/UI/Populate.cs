@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GameResources.UI.Popup;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 using static Extensions.Miscellaneous.Helper;
 
 namespace Extensions.Components.UI
@@ -29,8 +31,6 @@ namespace Extensions.Components.UI
         [SerializeField] protected Color _iconColor = Color.white;
         [SerializeField] protected Color _backgroundColor = Color.black;
 
-        [SerializeField] protected bool _includesNone;
-
         [SerializeField] protected LoadType _loadingType = LoadType.LazyWithParent;
         public LoadType LoadingType => _loadingType;
 
@@ -39,6 +39,18 @@ namespace Extensions.Components.UI
 
         [SerializeField] protected UnityEvent _onIfEmpty;
         [SerializeField] protected UnityEvent _onIfNotEmpty;
+
+        public virtual List<string> AllFilterModeNames => new();
+        public virtual List<string> AllGroupModeNames => new();
+        public virtual List<string> AllSortModeNames => new();
+
+        public abstract void SetFilterModeAtIndex(int index);
+        public abstract void SetGroupModeAtIndex(int index);
+        public abstract void SetSortModeAtIndex(int index);
+
+        public abstract int GetCurrentFilterModeIndex();
+        public abstract int GetCurrentGroupModeIndex();
+        public abstract int GetCurrentSortModeIndex();
 
         public void Refresh()
         {
@@ -75,21 +87,47 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
 
-        [SerializeField] private TMPro.TMP_Dropdown _filterDropdown;
-        [SerializeField] private TMPro.TMP_Dropdown _groupDropdown;
-        [SerializeField] private TMPro.TMP_Dropdown _sortDropdown;
+        [SerializeField] private TMPro.TMP_InputField _searchbar;
+        [SerializeField] private Button _searchOptions;
 
         [SerializeField] protected bool _reloadOnEachEnable;
 
         protected Dictionary<T, GameObject> _itemsToButtons = new();
+        protected List<GameObject> _headers = new();
 
         protected Dictionary<string, Predicate<T>> _allFilterModes;
+        public override List<string> AllFilterModeNames => _allFilterModes.Keys.ToList();
+
         protected Dictionary<string, Func<T, (string, object)>> _allGroupModes;
+        public override List<string> AllGroupModeNames => _allGroupModes.Keys.ToList();
+
         protected Dictionary<string, Comparison<T>> _allSortModes;
+        public override List<string> AllSortModeNames => _allSortModes.Keys.ToList();
 
         private Predicate<T> _currentFilterMode;
+        public override void SetFilterModeAtIndex(int index)
+        {
+            _currentFilterMode = _allFilterModes.ElementAt(index).Value;
+            FilterList();
+        }
+        public override int GetCurrentFilterModeIndex() => _allFilterModes.Values.ToList().IndexOf(_currentFilterMode);
+
         private Func<T, (string, object)> _currentGroupMode;
+        public override void SetGroupModeAtIndex(int index)
+        {
+            _currentGroupMode = _allGroupModes.ElementAt(index).Value;
+            SortList(GroupList());
+        }
+        public override int GetCurrentGroupModeIndex() => _allGroupModes.Values.ToList().IndexOf(_currentGroupMode);
+
         private Comparison<T> _currentSortMode;
+        public override void SetSortModeAtIndex(int index)
+        {
+            _currentSortMode = _allSortModes.ElementAt(index).Value;
+            SortList(GroupList());
+        }
+        public override int GetCurrentSortModeIndex() => _allSortModes.Values.ToList().IndexOf(_currentSortMode);
+
         private SortDirection _currentSortDirection = SortDirection.Descending;
 
         protected override void Awake()
@@ -99,34 +137,17 @@ namespace Extensions.Components.UI
             if (_checkmark)
                 _checkmarkInstance = Instantiate(_checkmark);
 
-            if (_sortDropdown)
+            if (_searchbar)
             {
-                _sortDropdown.AddOptions(_allSortModes.Select(item => new TMPro.TMP_Dropdown.OptionData(item.Key)).ToList());
-                _sortDropdown.onValueChanged.AddListener((value) =>
+                _searchbar.onValueChanged.AddListener(value =>
                 {
-                    _currentSortMode = _allSortModes.ElementAt(value).Value;
-                    SortList(GroupList());
+                    FilterList(item => Name(item).Contains(value, StringComparison.CurrentCultureIgnoreCase));
                 });
             }
 
-            if (_groupDropdown)
+            if (_searchOptions)
             {
-                _groupDropdown.AddOptions(_allGroupModes.Select(item => new TMPro.TMP_Dropdown.OptionData(item.Key)).ToList());
-                _groupDropdown.onValueChanged.AddListener((value) =>
-                {
-                    _currentGroupMode = _allGroupModes.ElementAt(value).Value;
-                    SortList(GroupList());
-                });
-            }
-
-            if (_filterDropdown)
-            {
-                _filterDropdown.AddOptions(_allFilterModes.Select(item => new TMPro.TMP_Dropdown.OptionData(item.Key)).ToList());
-                _filterDropdown.onValueChanged.AddListener((value) =>
-                {
-                    _currentFilterMode = _allFilterModes.ElementAt(value).Value;
-                    FilterList();
-                });
+                _searchOptions.onClick.AddListener(() => SearchOptionsController.Instance.Spawn(this));
             }
 
             base.Awake();
@@ -139,11 +160,27 @@ namespace Extensions.Components.UI
                 GenerateList();
             }
 
+            _allFilterModes ??= GetAllFilterModes();
+            _allGroupModes ??= GetAllGroupModes();
+            _allSortModes ??= GetAllSortModes();
+
+            _currentFilterMode = GetDefaultFilterMode();
+            _currentGroupMode = GetDefaultGroupMode();
+            _currentSortMode = GetDefaultSortMode();
+
+            FilterList();
+            SortList(GroupList());
+
             EnableOrDisableItems();
 
             if (_checkmarkInstance)
             {
-                ParentCheckmark(_itemsToButtons.First(item => IsEquipped(item.Key)).Value);
+                var firstEquipped = _itemsToButtons.FirstOrDefault(item => IsEquipped(item.Key));
+
+                if (!firstEquipped.Equals(default(KeyValuePair<T, GameObject>)))
+                    ParentCheckmark(firstEquipped.Value);
+                else
+                    ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value);
             }
         }
 
@@ -166,9 +203,6 @@ namespace Extensions.Components.UI
             {
                 AddItem(item);
             }
-
-            FilterList();
-            SortList(GroupList());
         }
 
         public override void DestroyList()
@@ -206,19 +240,28 @@ namespace Extensions.Components.UI
             }
         }
 
-        public void FilterList()
+        public void FilterList(params Func<T, bool>[] extraFunctions)
         {
-            _allFilterModes ??= GetAllFilterModes();
-            _currentFilterMode ??= GetDefaultFilterMode();
+            List<T> filtered = _itemsToButtons.Keys.Where(item => _currentFilterMode.Invoke(item) || IsNone(item)).ToList();
+            foreach (var func in extraFunctions)
+            {
+                filtered = filtered.Where(func).ToList();
+            }
 
-            IEnumerable<T> filtered = _itemsToButtons.Keys.Where(_currentFilterMode.Invoke);
+            if (extraFunctions.Length > 0)
+            {
+                var element = filtered.FirstOrDefault(item => IsNone(item));
+
+                if (element is not null)
+                    filtered.Remove(element);
+            }
 
             foreach (var kvp in _itemsToButtons)
             {
                 kvp.Value.SetActive(filtered.Contains(kvp.Key));
             }
 
-            if (filtered.Count() == 0 || (filtered.Count() == 1 && _includesNone))
+            if (filtered.Count() == 0 || (filtered.Count() == 1 && filtered.Any(item => IsNone(item))))
                 _onIfEmpty.Invoke();
             else
                 _onIfNotEmpty.Invoke();
@@ -229,45 +272,68 @@ namespace Extensions.Components.UI
             if (!_sectionHeader)
                 return _itemsToButtons.Keys.GroupBy(item => ("All", 0 as object));
 
-            _allGroupModes ??= GetAllGroupModes();
-            _currentGroupMode ??= GetDefaultGroupMode();
-
-            IEnumerable<IGrouping<(string, object), T>> grouped = _itemsToButtons.Keys.GroupBy(_currentGroupMode);
-
-            foreach (var group in grouped)
-            {
-                TMPro.TMP_Text header = Instantiate(_sectionHeader, transform);
-                header.margin = new(20, 0, 0, 0);
-
-                header.SetText(group.Key.Item1.ToString());
-            }
-
-            return grouped;
+            return _itemsToButtons.Keys.GroupBy(_currentGroupMode);
         }
 
-        public void SortList(IEnumerable<IGrouping<(string, object), T>> grouped)
+        public void SortList(IEnumerable<IGrouping<(string, object), T>> groups)
         {
-            _allSortModes ??= GetAllSortModes();
-            _currentSortMode ??= GetDefaultSortMode();
+            for (int i = 0; i < _headers.Count; ++i)
+                Destroy(_headers[i]);
 
-            foreach (var group in grouped)
+            _headers.Clear();
+
+            int offset = 0;
+            foreach (var group in groups)
             {
+                if (_sectionHeader)
+                {
+                    TMPro.TMP_Text header = Instantiate(_sectionHeader, transform);
+                    header.margin = new(20, 0, 0, 0);
+
+                    header.SetText(group.Key.Item1.ToString());
+                    header.transform.SetSiblingIndex(offset);
+
+                    _headers.Add(header.gameObject);
+                }
+
                 List<T> sorted = group.ToList();
                 sorted.Sort((lhs, rhs) => _currentSortMode.Invoke(lhs, rhs) * (int)_currentSortDirection);
 
+                int headerOffset = _sectionHeader ? 1 : 0;
                 for (int i = 0; i < sorted.Count; ++i)
                 {
-                    _itemsToButtons[sorted[i]].transform.SetSiblingIndex(i);
+                    _itemsToButtons[sorted[i]].transform.SetSiblingIndex(i + offset + headerOffset);
+                    ++offset;
                 }
             }
 
             var none = _itemsToButtons.FirstOrDefault(item => IsNone(item.Key));
             if (none.Key is not null && none.Value)
-                none.Value.transform.SetAsFirstSibling();
+                none.Value.transform.SetSiblingIndex(_headers.Count > 0 ? 1 : 0);
 
             var top = gameObject.FindChildWithTag("Top", false);
             if (top)
                 top.transform.SetAsFirstSibling();
+
+            Button firstButton = null;
+            for (int i = 0; i < transform.childCount; ++i)
+            {
+                if (transform.GetChild(i).TryGetComponent<Button>(out var button))
+                {
+                    firstButton = button;
+                    break;
+                }
+            }
+
+            if (_searchOptions && firstButton)
+            {
+                _searchOptions.navigation = new()
+                {
+                    mode = Navigation.Mode.Explicit,
+                    selectOnLeft = _searchOptions.navigation.selectOnLeft,
+                    selectOnDown = firstButton
+                };
+            }
         }
 
         public override void EnableOrDisableItems()

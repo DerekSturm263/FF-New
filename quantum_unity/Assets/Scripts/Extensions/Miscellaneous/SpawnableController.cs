@@ -3,10 +3,10 @@ using Extensions.Components.Miscellaneous;
 
 public abstract class SpawnableController<T> : Controller<SpawnableController<T>>
 {
-    [SerializeField] private GameObject _template;
+    [SerializeField] protected GameObject _template;
 
     protected GameObject _templateInstance;
-    private T _t;
+    protected T _t;
 
     public void Spawn(T t)
     {

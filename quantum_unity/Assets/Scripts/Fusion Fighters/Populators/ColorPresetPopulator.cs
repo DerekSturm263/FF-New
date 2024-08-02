@@ -21,10 +21,8 @@ public class ColorPresetPopulator : PopulateAsset<ColorPresetAsset>
                 lhs.Settings_ColorPreset.Color.B.CompareTo(rhs.Settings_ColorPreset.Color.B)
         };
 
-        return base.GetAllSortModes().Concat(derivedModes).ToDictionary(item => item.Key, item => item.Value);
+        return derivedModes.Concat(base.GetAllSortModes()).ToDictionary(item => item.Key, item => item.Value);
     }
-
-    protected override Comparison<ColorPresetAsset> GetDefaultSortMode() => _allSortModes["Brightness"];
 
     protected override void Decorate(GameObject buttonObj, ColorPresetAsset item)
     {
