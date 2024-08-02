@@ -23,6 +23,7 @@ namespace Extensions.Components.UI
 
         [SerializeField] protected RectTransform _checkmark;
         protected RectTransform _checkmarkInstance;
+        [SerializeField] protected TMPro.TMP_Text _sectionHeader;
 
         [SerializeField] protected Sprite _background;
         [SerializeField] protected Color _iconColor = Color.white;
@@ -47,8 +48,7 @@ namespace Extensions.Components.UI
 
         public abstract void GenerateList();
         public abstract void DestroyList();
-        public abstract void FilterList();
-        public abstract void SortList();
+
         public abstract void EnableOrDisableItems();
         public abstract void EnableAllButtonNavigation(bool enabled);
 
@@ -64,20 +64,8 @@ namespace Extensions.Components.UI
             Descending = 1
         }
 
-        protected Dictionary<T, GameObject> _itemsToButtons = new();
-
-        public bool TryGetButtonFromItem(T item, out GameObject button)
-        {
-            button = null;
-
-            if (_itemsToButtons is null || item is null || !_itemsToButtons.TryGetValue(item, out button))
-                return false;
-
-            return true;
-        }
-
-        public bool ContainsItem(T item) => _itemsToButtons.ContainsKey(item);
-        public override int Count() => _itemsToButtons.Count;
+        private static Populate<T> _instance;
+        public static Populate<T> Instance => _instance;
 
         [SerializeField] protected UnityEvent<T> _onButtonSpawn;
         [SerializeField] protected UnityEvent<T> _onButtonHover;
@@ -88,19 +76,21 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
 
         [SerializeField] private TMPro.TMP_Dropdown _filterDropdown;
+        [SerializeField] private TMPro.TMP_Dropdown _groupDropdown;
         [SerializeField] private TMPro.TMP_Dropdown _sortDropdown;
 
         [SerializeField] protected bool _reloadOnEachEnable;
 
+        protected Dictionary<T, GameObject> _itemsToButtons = new();
+
         protected Dictionary<string, Predicate<T>> _allFilterModes;
+        protected Dictionary<string, Func<T, (string, object)>> _allGroupModes;
         protected Dictionary<string, Comparison<T>> _allSortModes;
 
         private Predicate<T> _currentFilterMode;
+        private Func<T, (string, object)> _currentGroupMode;
         private Comparison<T> _currentSortMode;
         private SortDirection _currentSortDirection = SortDirection.Descending;
-
-        private static Populate<T> _instance;
-        public static Populate<T> Instance => _instance;
 
         protected override void Awake()
         {
@@ -115,7 +105,17 @@ namespace Extensions.Components.UI
                 _sortDropdown.onValueChanged.AddListener((value) =>
                 {
                     _currentSortMode = _allSortModes.ElementAt(value).Value;
-                    SortList();
+                    SortList(GroupList());
+                });
+            }
+
+            if (_groupDropdown)
+            {
+                _groupDropdown.AddOptions(_allGroupModes.Select(item => new TMPro.TMP_Dropdown.OptionData(item.Key)).ToList());
+                _groupDropdown.onValueChanged.AddListener((value) =>
+                {
+                    _currentGroupMode = _allGroupModes.ElementAt(value).Value;
+                    SortList(GroupList());
                 });
             }
 
@@ -168,7 +168,7 @@ namespace Extensions.Components.UI
             }
 
             FilterList();
-            SortList();
+            SortList(GroupList());
         }
 
         public override void DestroyList()
@@ -206,7 +206,7 @@ namespace Extensions.Components.UI
             }
         }
 
-        public override void FilterList()
+        public void FilterList()
         {
             _allFilterModes ??= GetAllFilterModes();
             _currentFilterMode ??= GetDefaultFilterMode();
@@ -224,17 +224,41 @@ namespace Extensions.Components.UI
                 _onIfNotEmpty.Invoke();
         }
 
-        public override void SortList()
+        public IEnumerable<IGrouping<(string, object), T>> GroupList()
+        {
+            if (!_sectionHeader)
+                return _itemsToButtons.Keys.GroupBy(item => ("All", 0 as object));
+
+            _allGroupModes ??= GetAllGroupModes();
+            _currentGroupMode ??= GetDefaultGroupMode();
+
+            IEnumerable<IGrouping<(string, object), T>> grouped = _itemsToButtons.Keys.GroupBy(_currentGroupMode);
+
+            foreach (var group in grouped)
+            {
+                TMPro.TMP_Text header = Instantiate(_sectionHeader, transform);
+                header.margin = new(20, 0, 0, 0);
+
+                header.SetText(group.Key.Item1.ToString());
+            }
+
+            return grouped;
+        }
+
+        public void SortList(IEnumerable<IGrouping<(string, object), T>> grouped)
         {
             _allSortModes ??= GetAllSortModes();
             _currentSortMode ??= GetDefaultSortMode();
 
-            List<T> sorted = _itemsToButtons.Keys.ToList();
-            sorted.Sort((lhs, rhs) => _currentSortMode.Invoke(lhs,rhs) * (int)_currentSortDirection);
-
-            for (int i = 0; i < sorted.Count; ++i)
+            foreach (var group in grouped)
             {
-                _itemsToButtons[sorted[i]].transform.SetSiblingIndex(i);
+                List<T> sorted = group.ToList();
+                sorted.Sort((lhs, rhs) => _currentSortMode.Invoke(lhs, rhs) * (int)_currentSortDirection);
+
+                for (int i = 0; i < sorted.Count; ++i)
+                {
+                    _itemsToButtons[sorted[i]].transform.SetSiblingIndex(i);
+                }
             }
 
             var none = _itemsToButtons.FirstOrDefault(item => IsNone(item.Key));
@@ -274,10 +298,13 @@ namespace Extensions.Components.UI
         protected abstract Sprite Icon(T item);
 
         protected abstract Dictionary<string, Predicate<T>> GetAllFilterModes();
-        protected abstract Predicate<T> GetDefaultFilterMode();
+        protected virtual Predicate<T> GetDefaultFilterMode() => _allFilterModes.ElementAt(0).Value;
+
+        protected abstract Dictionary<string, Func<T, (string, object)>> GetAllGroupModes();
+        protected virtual Func<T, (string, object)> GetDefaultGroupMode() => _allGroupModes.ElementAt(0).Value;
 
         protected abstract Dictionary<string, Comparison<T>> GetAllSortModes();
-        protected abstract Comparison<T> GetDefaultSortMode();
+        protected virtual Comparison<T> GetDefaultSortMode() => _allSortModes.ElementAt(0).Value;
 
         protected virtual bool Enabled(T item) => true;
         protected virtual bool GiveEvents(T item) => true;
@@ -384,5 +411,18 @@ namespace Extensions.Components.UI
             _checkmarkInstance.anchorMin = new(0, 1);
             _checkmarkInstance.anchorMax = new(0, 1);
         }
+
+        public bool TryGetButtonFromItem(T item, out GameObject button)
+        {
+            button = null;
+
+            if (_itemsToButtons is null || item is null || !_itemsToButtons.TryGetValue(item, out button))
+                return false;
+
+            return true;
+        }
+
+        public bool ContainsItem(T item) => _itemsToButtons.ContainsKey(item);
+        public override int Count() => _itemsToButtons.Count;
     }
 }

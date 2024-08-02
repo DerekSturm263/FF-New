@@ -2,6 +2,6 @@
 {
     public partial class InfoAsset
     {
-        public string[] Tags;
+
     }
 }

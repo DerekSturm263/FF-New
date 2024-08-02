@@ -13,10 +13,9 @@ public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfil
     {
         return new()
         {
-            ["All"] = (value) => !IsEquipped(value) || IsNone(value)
+            ["All"] = (value) => !IsEquipped(value)
         };
     }
-    protected override Predicate<SerializableWrapper<UserProfile>> GetDefaultFilterMode() => _allFilterModes["All"];
 
     protected override bool IsEquipped(SerializableWrapper<UserProfile> item) => PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.Equals(item));
     protected override bool IsNone(SerializableWrapper<UserProfile> item) => false;

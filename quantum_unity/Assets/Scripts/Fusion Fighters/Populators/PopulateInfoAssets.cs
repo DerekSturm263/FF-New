@@ -22,7 +22,14 @@ public class PopulateInfoAssets : Populate<InfoAsset>
             ["Unlocked"] = (value) => InventoryController.Instance.HasUnlockedItem(value) || IsNone(value)
         };
     }
-    protected override Predicate<InfoAsset> GetDefaultFilterMode() => _allFilterModes["All"];
+
+    protected override Dictionary<string, Func<InfoAsset, (string, object)>> GetAllGroupModes()
+    {
+        return new()
+        {
+            ["All"] = (value) => ("All", 0)
+        };
+    }
 
     protected override Dictionary<string, Comparison<InfoAsset>> GetAllSortModes()
     {
@@ -31,7 +38,6 @@ public class PopulateInfoAssets : Populate<InfoAsset>
             ["Name"] = (lhs, rhs) => lhs.GetUnityAsset().name.CompareTo(rhs.GetUnityAsset().name)
         };
     }
-    protected override Comparison<InfoAsset> GetDefaultSortMode() => _allSortModes["Name"];
 
     protected override bool IsEquipped(InfoAsset item) => false;
     protected override bool IsNone(InfoAsset item) => item.GetUnityAsset().name.Equals("None");

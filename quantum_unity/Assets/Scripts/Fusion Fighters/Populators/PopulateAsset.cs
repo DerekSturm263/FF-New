@@ -14,12 +14,39 @@ public abstract class PopulateAsset<T> : Populate<T> where T : InfoAssetAsset
 
     protected override Dictionary<string, Predicate<T>> GetAllFilterModes()
     {
-        return new()
+        Dictionary<string, Predicate<T>> tagGroups = new();
+
+        foreach (var key in _itemsToButtons.Keys)
+        {
+            foreach (string tag in key.FilterTags)
+            {
+                tagGroups.TryAdd(tag, (value) => value.FilterTags.Contains(tag));
+            }
+        }
+
+        return tagGroups.Concat(new Dictionary<string, Predicate<T>>()
         {
             ["Unlocked"] = (value) => InventoryController.Instance.HasUnlockedItem(value) || IsNone(value)
-        };
+        }).ToDictionary(item => item.Key, item => item.Value);
     }
-    protected override Predicate<T> GetDefaultFilterMode() => _allFilterModes["Unlocked"];
+
+    protected override Dictionary<string, Func<T, (string, object)>> GetAllGroupModes()
+    {
+        Dictionary<string, Func<T, (string, object)>> tagGroups = new();
+
+        foreach (var key in _itemsToButtons.Keys)
+        {
+            foreach (var tag in key.GroupTags)
+            {
+                tagGroups.TryAdd(tag.Item1, (value) => (tag.Item2, value.GroupTags.Contains(tag)));
+            }
+        }
+
+        return tagGroups.Concat(new Dictionary<string, Func<T, (string, object)>>()
+        {
+            ["All"] = (value) => ("All", 0)
+        }).ToDictionary(item => item.Key, item => item.Value);
+    }
 
     protected override Dictionary<string, Comparison<T>> GetAllSortModes()
     {
@@ -28,7 +55,6 @@ public abstract class PopulateAsset<T> : Populate<T> where T : InfoAssetAsset
             ["Name"] = (lhs, rhs) => lhs.name.CompareTo(rhs.name)
         };
     }
-    protected override Comparison<T> GetDefaultSortMode() => _allSortModes["Name"];
 
     protected abstract string FilePath();
 

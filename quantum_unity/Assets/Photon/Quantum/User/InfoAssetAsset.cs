@@ -16,4 +16,8 @@ public abstract partial class InfoAssetAsset : AssetBase
     public bool IsUnlocked;
     public Nullable<int> StartingCount;
     public uint Price;
+
+    [Header("Meta Data")]
+    public string[] FilterTags;
+    public Tuple<string, string>[] GroupTags;
 }

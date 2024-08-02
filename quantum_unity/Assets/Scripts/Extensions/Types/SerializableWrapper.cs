@@ -1,10 +1,12 @@
+using Extensions.Types;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [System.Serializable]
 public unsafe struct SerializableWrapper<T> where T : unmanaged
 {
+    public T value;
+
     [SerializeField] private string _name;
     public readonly string Name => _name;
     public void SetName(string name) => _name = name;
@@ -32,9 +34,13 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private Sprite _preview;
     public readonly Sprite Preview => _preview;
 
-    [FormerlySerializedAs("_value")] public T value;
+    [SerializeField] private string[] _filterTags;
+    public readonly string[] FilterTags => _filterTags;
 
-    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, bool madeByPlayer, Sprite icon = null, Sprite preview = null)
+    [SerializeField] private Tuple<string, string>[] _groupTags;
+    public readonly Tuple<string, string>[] GroupTags => _groupTags;
+
+    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, bool madeByPlayer, string[] filterTags, Tuple<string, string>[] groupTags, Sprite icon = null, Sprite preview = null)
     {
         this.value = value;
         _name = name;
@@ -45,6 +51,8 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
         _madeByPlayer = madeByPlayer;
         _icon = icon;
         _preview = preview;
+        _filterTags = filterTags;
+        _groupTags = groupTags;
     }
 
     public static implicit operator T(SerializableWrapper<T> lhs)

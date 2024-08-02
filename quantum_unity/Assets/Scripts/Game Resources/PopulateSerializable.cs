@@ -40,7 +40,14 @@ public abstract class PopulateSerializable<T, TAssetAsset> : Populate<Serializab
             ["Built-In"] = (value) => !value.MadeByPlayer || IsNone(value)
         };
     }
-    protected override Predicate<SerializableWrapper<T>> GetDefaultFilterMode() => _allFilterModes["All"];
+
+    protected override Dictionary<string, Func<SerializableWrapper<T>, (string, object)>> GetAllGroupModes()
+    {
+        return new()
+        {
+            ["All"] = (value) => ("All", 0)
+        };
+    }
 
     protected override Dictionary<string, Comparison<SerializableWrapper<T>>> GetAllSortModes()
     {
@@ -51,7 +58,6 @@ public abstract class PopulateSerializable<T, TAssetAsset> : Populate<Serializab
             ["Name"] = (lhs, rhs) => lhs.Name.CompareTo(rhs.Name)
         };
     }
-    protected override Comparison<SerializableWrapper<T>> GetDefaultSortMode() => _allSortModes["Last Edited"];
 
     protected abstract string BuiltInFilePath();
     protected abstract string CustomFilePath();
