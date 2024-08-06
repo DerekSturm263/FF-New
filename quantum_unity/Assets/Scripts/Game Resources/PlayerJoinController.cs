@@ -152,8 +152,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         {
             Local = localIndex,
             Device = HostClientEvents.DeviceIndex,
-            Global = localIndex,
-            GlobalNoHumans = 1,
+            GlobalNoHumans = -1,
             Type = FighterType.Human
         };
 

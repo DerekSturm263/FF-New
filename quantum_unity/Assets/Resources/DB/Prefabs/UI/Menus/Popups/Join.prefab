@@ -204,7 +204,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 7045121406769886452}
   m_HorizontalScrollbar: {fileID: 0}
@@ -228,8 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 671197288179752978}
+  _lerpSpeed: 0.65
 --- !u!114 &4207670128489690059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1636,7 +1637,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.9
+  m_fontSize: 40.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

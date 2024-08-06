@@ -24,7 +24,7 @@ namespace Extensions.Components.UI
 
         private void Update()
         {
-            _rectTransform.SetSizeAuto(_direction, _padding, lessPadding: _parentPadding);
+            _rectTransform.SetSizeAuto(_direction, _padding, useMaxParent: !_parent);
 
             if (_parent)
             {

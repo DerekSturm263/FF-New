@@ -381,6 +381,7 @@ namespace Quantum
             stream.Serialize(ref value.Device);
             stream.Serialize(ref value.Global);
             stream.Serialize(ref value.GlobalNoBots);
+            stream.Serialize(ref value.GlobalNoHumans);
             stream.Serialize(ref value.Type);
         }
 

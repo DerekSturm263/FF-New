@@ -63,11 +63,11 @@ namespace Extensions.Miscellaneous
             Vertical = 1 << 1
         }
 
-        public static void SetSizeAuto(this RectTransform rectTransform, Direction direction, Vector2 padding = default, Vector2 extraPadding = default, Vector2 lessPadding = default)
+        public static void SetSizeAuto(this RectTransform rectTransform, Direction direction, Vector2 padding = default, Vector2 extraPadding = default, bool useMaxParent = false)
         {
             Vector2 sizeDelta = rectTransform.sizeDelta;
-
             RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
+
             if (direction.HasFlag(Direction.Horizontal))
             {
                 float biggestX = 0;
@@ -90,7 +90,11 @@ namespace Extensions.Miscellaneous
                 }
 
                 float newSize = biggestX - width / 2 + width;
-                sizeDelta.x = newSize + padding.x;
+                
+                if (useMaxParent)
+                    sizeDelta.x = Mathf.Max(newSize + padding.x, parentTransform.rect.width);
+                else
+                    sizeDelta.x = newSize + padding.x;
             }
 
             if (direction.HasFlag(Direction.Vertical))
@@ -115,7 +119,11 @@ namespace Extensions.Miscellaneous
                 }
 
                 float newSize = biggestY - height / 2 + height;
-                sizeDelta.y = newSize + padding.y;
+                
+                if (useMaxParent)
+                    sizeDelta.y = Mathf.Max(newSize + padding.y, parentTransform.rect.height);
+                else
+                    sizeDelta.y = newSize + padding.y;
             }
 
             rectTransform.sizeDelta = sizeDelta + extraPadding;
@@ -133,7 +141,7 @@ namespace Extensions.Miscellaneous
             Rect spriteRect = new(sprite.textureRect.position + sprite.textureRectOffset, sprite.textureRect.size);
             Rect texCoords = new(spriteRect.x / texture.width, spriteRect.y / texture.height, spriteRect.width / texture.width, spriteRect.height / texture.height);
 
-            UnityEngine.GUI.DrawTextureWithTexCoords(position, texture, texCoords);
+            GUI.DrawTextureWithTexCoords(position, texture, texCoords);
         }
 
         public static float Sign(float f)

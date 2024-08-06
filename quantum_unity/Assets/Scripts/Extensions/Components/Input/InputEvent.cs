@@ -94,7 +94,7 @@ namespace Extensions.Components.Input
             if (!isUsingKeyboard)
                 return false;
 
-            GameObject selected = EventSystem.current.currentSelectedGameObject;
+            GameObject selected = EventSystem.current?.currentSelectedGameObject;
             if (!selected)
                 return false;
 

@@ -1158,18 +1158,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 133465215}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -1206,18 +1194,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: PlayerJoinController, GameResources
@@ -1232,19 +1208,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2116842235}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-        m_MethodName: set_sprite
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: -1810126454, guid: a2f709f24c5aafd41bc36a69ddc7d0a4,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
         m_MethodName: set_sprite
         m_Mode: 2
@@ -2966,7 +2929,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1102795546}
   m_HorizontalScrollbar: {fileID: 0}
@@ -3034,8 +2997,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 721853442}
+  _lerpSpeed: 0.65
 --- !u!1 &119596201
 GameObject:
   m_ObjectHideFlags: 0
@@ -4815,18 +4779,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: PlayerJoinController, GameResources
@@ -4996,7 +4948,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 467245311}
   m_HorizontalScrollbar: {fileID: 0}
@@ -5064,8 +5016,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 1338517588}
+  _lerpSpeed: 0.65
 --- !u!1 &181107235 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
@@ -5823,7 +5776,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1538216738}
   m_HorizontalScrollbar: {fileID: 0}
@@ -5891,8 +5844,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 2055435059}
+  _lerpSpeed: 0.65
 --- !u!1 &255578201
 GameObject:
   m_ObjectHideFlags: 0
@@ -9809,7 +9763,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1741191320}
   m_HorizontalScrollbar: {fileID: 0}
@@ -9877,8 +9831,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 1853387448}
+  _lerpSpeed: 0.65
 --- !u!1 &456025111
 GameObject:
   m_ObjectHideFlags: 0
@@ -15981,7 +15936,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1198005543}
   m_HorizontalScrollbar: {fileID: 0}
@@ -16049,8 +16004,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 638285313}
+  _lerpSpeed: 0.65
 --- !u!1 &764222144
 GameObject:
   m_ObjectHideFlags: 0
@@ -19470,7 +19426,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 931404417}
   m_HorizontalScrollbar: {fileID: 0}
@@ -19538,8 +19494,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 456025114}
+  _lerpSpeed: 0.65
 --- !u!1 &916224443
 GameObject:
   m_ObjectHideFlags: 0
@@ -21642,7 +21599,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1209599831}
   m_HorizontalScrollbar: {fileID: 0}
@@ -21722,8 +21679,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 1546101322}
+  _lerpSpeed: 0.65
 --- !u!1 &1040449431
 GameObject:
   m_ObjectHideFlags: 0
@@ -23868,7 +23826,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1625837087}
   m_HorizontalScrollbar: {fileID: 0}
@@ -23936,8 +23894,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 330698530}
+  _lerpSpeed: 0.65
 --- !u!1 &1162349136
 GameObject:
   m_ObjectHideFlags: 0
@@ -37234,7 +37193,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1436272568}
   m_HorizontalScrollbar: {fileID: 0}
@@ -37302,8 +37261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 1237295237}
+  _lerpSpeed: 0.65
 --- !u!1 &1585149562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7824493393898879684, guid: 7997ae1f09596ec41a0587c5273ee108,
@@ -39985,7 +39945,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 337275289}
   m_HorizontalScrollbar: {fileID: 0}
@@ -40053,8 +40013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 1
   _scrollSpeed: -2000
-  _items: {fileID: 880580235}
+  _lerpSpeed: 0.65
 --- !u!1 &1767426140
 GameObject:
   m_ObjectHideFlags: 0
@@ -49914,18 +49875,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

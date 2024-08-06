@@ -749,7 +749,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 6355466270280001612}
   m_HorizontalScrollbar: {fileID: 0}
@@ -773,8 +773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 4164942196927376903}
+  _lerpSpeed: 0.65
 --- !u!114 &8728158618862594678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,7 +1157,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1279,6 +1280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _direction: 2
   _padding: {x: 0, y: 0}
+  _parentPadding: {x: 0, y: 0}
+  _parent: {fileID: 0}
 --- !u!1 &1777105593110774429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,6 +1471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _direction: 2
   _padding: {x: 0, y: 0}
+  _parentPadding: {x: 0, y: 0}
+  _parent: {fileID: 0}
 --- !u!1 &2022904514240644392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1774,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 5383297527092065993}
   m_HorizontalScrollbar: {fileID: 0}
@@ -1793,8 +1798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 2141760508337921264}
+  _lerpSpeed: 0.65
 --- !u!114 &6384905359216426792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2981,7 +2987,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3443,7 +3449,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 24.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4105,7 +4111,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4730,6 +4736,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _direction: 2
   _padding: {x: 0, y: 0}
+  _parentPadding: {x: 0, y: 0}
+  _parent: {fileID: 0}
 --- !u!1 &6365662497718498713
 GameObject:
   m_ObjectHideFlags: 0
@@ -4797,7 +4805,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00001
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 1371816974697968810}
   m_HorizontalScrollbar: {fileID: 0}
@@ -4821,8 +4829,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d690ecc237894f91dca7e58eca228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _direction: 2
   _scrollSpeed: -2000
-  _items: {fileID: 5650992512332988753}
+  _lerpSpeed: 0.65
 --- !u!114 &5597062955042013891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6557,7 +6566,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 30
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
