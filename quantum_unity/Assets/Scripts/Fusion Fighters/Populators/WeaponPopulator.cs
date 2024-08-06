@@ -1,3 +1,4 @@
+using Quantum;
 using UnityEngine;
 
 public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetAsset>
@@ -21,4 +22,12 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
         return isSame;
     }
     protected override bool IsNone(SerializableWrapper<Quantum.Weapon> item) => !item.value.Template.Id.IsValid;
+
+    protected override bool GiveEvents(SerializableWrapper<Weapon> item)
+    {
+        if (_type == 0)
+            return BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.AltWeapon.Template.Id != item.value.Template.Id;
+        else
+            return BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.MainWeapon.Template.Id != item.value.Template.Id;
+    }
 }

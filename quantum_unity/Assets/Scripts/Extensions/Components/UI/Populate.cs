@@ -162,6 +162,12 @@ namespace Extensions.Components.UI
                 GenerateList();
             }
 
+            foreach (var kvp in _itemsToButtons)
+            {
+                ClearEvents(kvp.Value);
+                SetEvents(kvp.Value, kvp.Key);
+            }
+
             _allFilterModes ??= GetAllFilterModes();
             _allGroupModes ??= GetAllGroupModes();
             _allSortModes ??= GetAllSortModes();
@@ -222,7 +228,6 @@ namespace Extensions.Components.UI
             GameObject buttonObj = Instantiate(_button, transform);
 
             Decorate(buttonObj, item);
-            SetEvents(buttonObj, item);
             
             _onButtonSpawn.Invoke(item);
             _itemsToButtons.TryAdd(item, buttonObj);

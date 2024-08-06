@@ -1,5 +1,7 @@
+using ExitGames.Client.Photon;
 using Extensions.Components.Input;
 using Extensions.Miscellaneous;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,8 +18,11 @@ public class ScrollRectHelper : MonoBehaviour
     private RectTransform _viewRect;
     private RectTransform _contentRect;
 
+    private Canvas _canvas;
+    private GraphicRaycaster _graphicRaycaster;
+
     private Vector2 _normalizedScrollAmount;
-    private float _defaultDecelerationRate;
+    private Vector2 _oldSelectedPos;
 
     private void Reset()
     {
@@ -39,25 +44,25 @@ public class ScrollRectHelper : MonoBehaviour
         _items = _scrollRect.content;
         _contentRect = _items.GetComponent<RectTransform>();
 
-        _defaultDecelerationRate = _scrollRect.decelerationRate;
+        _canvas = GetComponentInParent<Canvas>();
+        _graphicRaycaster = GetComponentInParent<GraphicRaycaster>();
     }
 
     private void Update()
     {
         if (EventSystem.current && EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.transform.IsChildOf(transform))
-        ScrollToItem(EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>());
+            ScrollToItem(EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>());
     }
 
     public void ScrollToItem(RectTransform itemRect)
     {
-        RectTransform parentRect = itemRect.parent.GetComponent<RectTransform>();
-
         Vector2[] itemPos = GetPositionsInViewRect(itemRect);
         bool isContained = _viewRect.rect.Contains(itemPos[0]) && _viewRect.rect.Contains(itemPos[1]);
 
         if (!isContained)
         {
             _normalizedScrollAmount = default;
+
             if (itemPos[0].y < _viewRect.rect.yMin)
                 _normalizedScrollAmount.y = -1;
             else if (itemPos[1].y > _viewRect.rect.yMax)
@@ -68,7 +73,7 @@ public class ScrollRectHelper : MonoBehaviour
             else if (itemPos[1].x  > _viewRect.rect.xMax)
                 _normalizedScrollAmount.x = 1;
 
-            Scroll(_normalizedScrollAmount * _lerpSpeed);
+            ScrollInternal(_normalizedScrollAmount * _lerpSpeed, false);
         }
     }
 
@@ -84,9 +89,57 @@ public class ScrollRectHelper : MonoBehaviour
         _scrollRect.normalizedPosition = Vector2.Lerp(_scrollRect.normalizedPosition, newScrollPos, Time.deltaTime * _lerpSpeed);
     }
 
+    private Vector2 _oldAmount;
+
     public void Scroll(Vector2 amount)
     {
+        if (_oldAmount == Vector2.zero && amount != Vector2.zero && EventSystem.current && EventSystem.current.currentSelectedGameObject)
+        {
+            _oldSelectedPos = GetScreenPos(EventSystem.current.currentSelectedGameObject.GetComponent<RectTransform>());
+        }
+
+        _oldAmount = amount;
+        if (amount == Vector2.zero)
+            return;
+
+        ScrollInternal(amount, true);
+    }
+
+    public Vector2 GetScreenPos(RectTransform rect)
+    {
+        Vector3[] corners = new Vector3[4];
+        rect.GetWorldCorners(corners);
+
+        Vector2 topLeft = corners[0];
+        Vector2 bottomRight = new(corners[2].x, Screen.height - corners[2].y);
+
+        Debug.Log(corners[2]);
+
+        return (topLeft + bottomRight) / 2;
+    }
+
+    private void ScrollInternal(Vector2 amount, bool overrideSelection)
+    {
         _scrollRect.velocity = amount * _scrollSpeed;
+
+        if (overrideSelection)
+        {
+            PointerEventData eventData = new(EventSystem.current)
+            {
+                position = _oldSelectedPos
+            };
+
+            List<RaycastResult> results = new();
+            _graphicRaycaster.Raycast(eventData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject.GetComponent<Selectable>())
+                {
+                    EventSystem.current.SetSelectedGameObject(result.gameObject);
+                }
+            }
+        }
     }
 
     public Vector2[] GetPositionsInViewRect(RectTransform rect)
