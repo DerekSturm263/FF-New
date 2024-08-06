@@ -10,6 +10,8 @@ public class WeaponController : Controller<WeaponController>
 {
     public static GameObject TemplateObj;
 
+    [SerializeField] private WeaponAssetAsset _none;
+
     private WeaponTemplateAsset _template;
     public void SetTemplate(WeaponTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
@@ -171,6 +173,18 @@ public class WeaponController : Controller<WeaponController>
         InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
         InventoryController.Instance.GainItem(_currentlySelected.value.Material.Id, 1);
         InventoryController.Instance.GainItem(_currentlySelected.value.Enhancer.Id, 1);
+
+        foreach (var build in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Build>>(BuildController.GetPath()))
+        {
+            var newBuild = build;
+
+            if (build.value.Equipment.Weapons.MainWeapon.Equals(_currentlySelected))
+                newBuild.value.Equipment.Weapons.MainWeapon = _none.Weapon;
+            if (build.value.Equipment.Weapons.AltWeapon.Equals(_currentlySelected))
+                newBuild.value.Equipment.Weapons.AltWeapon = _none.Weapon;
+
+            newBuild.Save(BuildController.GetPath());
+        }
 
         _currentlySelected.Delete(GetPath());
 

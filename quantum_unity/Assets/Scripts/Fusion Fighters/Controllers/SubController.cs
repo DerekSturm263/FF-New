@@ -8,6 +8,8 @@ using UnityEngine.Events;
 
 public class SubController : Controller<SubController>
 {
+    [SerializeField] private SubAssetAsset _none;
+
     private SubTemplateAsset _template;
     public void SetTemplate(SubTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
@@ -159,6 +161,16 @@ public class SubController : Controller<SubController>
     {
         InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
         InventoryController.Instance.GainItem(_currentlySelected.value.Enhancer.Id, 1);
+
+        foreach (var build in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Build>>(BuildController.GetPath()))
+        {
+            var newBuild = build;
+
+            if (build.value.Equipment.Weapons.SubWeapon.Equals(_currentlySelected))
+                newBuild.value.Equipment.Weapons.SubWeapon = _none.Sub;
+             
+            newBuild.Save(BuildController.GetPath());
+        }
 
         _currentlySelected.Delete(GetPath());
 

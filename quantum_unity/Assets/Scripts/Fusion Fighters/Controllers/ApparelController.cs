@@ -9,6 +9,8 @@ using UnityEngine.Events;
 
 public class ApparelController : Controller<ApparelController>
 {
+    [SerializeField] private ApparelAssetAsset _none;
+
     private ApparelTemplateAsset _template;
     public void SetTemplate(ApparelTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
@@ -238,6 +240,20 @@ public class ApparelController : Controller<ApparelController>
         
         if (_currentlySelected.value.Modifiers.Modifier3.Id.IsValid)
             InventoryController.Instance.GainItem(_currentlySelected.value.Modifiers.Modifier3.Id, 1);
+
+        foreach (var build in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Build>>(BuildController.GetPath()))
+        {
+            var newBuild = build;
+
+            if (build.value.Equipment.Outfit.Headgear.Equals(_currentlySelected))
+                newBuild.value.Equipment.Outfit.Headgear = _none.Apparel;
+            if (build.value.Equipment.Outfit.Clothing.Equals(_currentlySelected))
+                newBuild.value.Equipment.Outfit.Clothing = _none.Apparel;
+            if (build.value.Equipment.Outfit.Legwear.Equals(_currentlySelected))
+                newBuild.value.Equipment.Outfit.Legwear = _none.Apparel;
+
+            newBuild.Save(BuildController.GetPath());
+        }
 
         _currentlySelected.Delete(GetPath());
 
