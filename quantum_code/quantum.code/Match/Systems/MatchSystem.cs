@@ -11,12 +11,13 @@ namespace Quantum
         {
             if (f.Global->IsMatchRunning)
             {
-                if (f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.WinCondition.Id, out WinCondition winCondition))
+                if (f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.WinCondition.Id, out WinCondition winCondition) &&
+                    f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.TieResolver.Id, out TieResolver tieResolver))
                 {
                     var teams = f.ResolveList(f.Global->Teams);
 
                     if (winCondition.IsMatchOver(f, teams))
-                        EndOfMatch(f, teams, winCondition);
+                        EndOfMatch(f, teams, winCondition, tieResolver);
                 }
             }
         }
@@ -92,7 +93,7 @@ namespace Quantum
             f.Global->IsMatchRunning = true;
         }
 
-        public static void EndOfMatch(Frame f, QList<Team> teams, WinCondition winCondition)
+        public static void EndOfMatch(Frame f, QList<Team> teams, WinCondition winCondition, TieResolver tieResolver)
         {
             f.Global->DeltaTime = (FP._1 / f.UpdateRate) * FP._0_25;
             f.Global->IsMatchRunning = false;
@@ -102,7 +103,7 @@ namespace Quantum
 
             ItemSpawnSystem.DespawnAll(f);
 
-            IOrderedEnumerable<Team> winners = teams.OrderBy(winCondition.SortTeams(f, teams));
+            IOrderedEnumerable<Team> winners = teams.OrderBy(winCondition.SortTeams(f, teams)).ThenBy(tieResolver.ResolveTie(f, teams));
             ArrayTeams teamsArray = teams.Count switch
             {
                 1 => new() { Item1 = winners.ElementAt(0) },

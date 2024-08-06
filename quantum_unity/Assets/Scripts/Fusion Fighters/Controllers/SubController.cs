@@ -139,8 +139,16 @@ public class SubController : Controller<SubController>
 
     public void Submit()
     {
+        SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
+
         _currentlySelected.SetName(_newName);
         _currentlySelected.Save(GetPath());
+
+        if (SubPopulator.Instance && button)
+        {
+            SubPopulator.Instance.ClearEvents(button);
+            SubPopulator.Instance.SetEvents(button, _currentlySelected);
+        }
 
         FindFirstObjectByType<DisplaySub>(FindObjectsInactive.Exclude).UpdateDisplay(_currentlySelected);
     }

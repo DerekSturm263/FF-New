@@ -17,6 +17,7 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Ruleset/Rulesets/Casual
       Guid:
         Value: 3139542390985883449
+  Icon: {fileID: 0}
   Description: 
   IncludeInLists: 1
   IsUnlocked: 1
@@ -24,23 +25,14 @@ MonoBehaviour:
     _nonNullValue: 0
     _hasValue: 0
   Price: 0
-  Icon: {fileID: 0}
-  Background: {fileID: 0}
-  SortingID: 0
+  FilterTags: []
+  GroupTags: []
   Settings_RulesetAsset:
     Identifier:
       Path: Resources/DB/Assets/Ruleset/Rulesets/Party
       Guid:
         Value: 513453034288184222
   Ruleset:
-    _name: Party
-    _description: Perfect for when 3-4 people want to play in a free for all.
-    _creationDate: 0
-    _lastEditedDate: 0
-    _fileID:
-      Value: 0
-    _icon: {fileID: 0}
-    _preview: {fileID: 0}
     value:
       Items:
         Items:
@@ -107,10 +99,13 @@ MonoBehaviour:
           Value: 0
         ShowTimer:
           Value: 1
+        TieResolver:
+          Id:
+            Value: 4020883102722136184
         Time: 300
         WinCondition:
           Id:
-            Value: 1262894446653720307
+            Value: 690908184498729049
       Players:
         DisallowDuplicateSelection:
           Value: 0
@@ -168,3 +163,16 @@ MonoBehaviour:
           Item9:
             Id:
               Value: 0
+    _name: Party
+    _description: The perfect ruleset for when playing with more than 2 people. Lots
+      of items, quicker energy charging, and more! When the timer hits 0, whoever
+      has the most kills and least deaths wins!
+    _creationDate: 0
+    _lastEditedDate: 0
+    _fileID:
+      Value: 0
+    _madeByPlayer: 0
+    _icon: {fileID: 0}
+    _preview: {fileID: 0}
+    _filterTags: []
+    _groupTags: []

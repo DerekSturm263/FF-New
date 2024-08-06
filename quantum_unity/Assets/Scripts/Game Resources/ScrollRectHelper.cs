@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ScrollRectHelper : MonoBehaviour
 {
     [SerializeField] private float _scrollSpeed = -2000;
-    [SerializeField] private LayoutGroup _items;
+    private RectTransform _items;
 
     private ScrollRect _scrollRect;
     private RectTransform _viewRect;
@@ -16,8 +16,6 @@ public class ScrollRectHelper : MonoBehaviour
 
     private void Reset()
     {
-        _items = GetComponentInChildren<LayoutGroup>();
-        
         InputEvent inputEvent = GetComponent<InputEvent>();
         inputEvent.SetButton(Resources.Load<InputButton>("Scriptable Objects/Input Buttons/Multi-Directional Scroll"));
 
@@ -32,6 +30,8 @@ public class ScrollRectHelper : MonoBehaviour
     {
         _scrollRect = GetComponent<ScrollRect>();
         _viewRect = _scrollRect.viewport.GetComponent<RectTransform>();
+        
+        _items = _scrollRect.content;
         _contentRect = _items.GetComponent<RectTransform>();
     }
 

@@ -19,6 +19,9 @@ struct FighterIndex
     // The player's global player index (excluding bots).
     int GlobalNoBots;
 
+    // The player's global player index (excluding humans).
+    int GlobalNoHumans;
+
     // The type of player this is.
     FighterType Type;
 }

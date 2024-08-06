@@ -150,8 +150,16 @@ public class WeaponController : Controller<WeaponController>
 
     public void Submit()
     {
+        WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
+
         _currentlySelected.SetName(_newName);
         _currentlySelected.Save(GetPath());
+
+        if (WeaponPopulator.Instance && button)
+        {
+            WeaponPopulator.Instance.ClearEvents(button);
+            WeaponPopulator.Instance.SetEvents(button, _currentlySelected);
+        }
 
         FindFirstObjectByType<DisplayWeapon>(FindObjectsInactive.Exclude).UpdateDisplay(_currentlySelected);
     }

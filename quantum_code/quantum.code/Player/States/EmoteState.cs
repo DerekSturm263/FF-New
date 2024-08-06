@@ -37,14 +37,19 @@ namespace Quantum
             base.DelayedEnter(f, ref filter, ref input, settings, stats);
 
             filter.CharacterController->Direction = DirectionalHelper.GetEnumFromDirection(input.Movement);
-
             EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Cosmetics.Emotes, filter.CharacterController->Direction);
+            
             if (f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(emote.Animation.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
 
                 filter.CharacterController->PossibleStates = 0;
+            }
+
+            if (f.TryFindAsset(emoteAsset.Message.Id, out MessagePreset message))
+            {
+                f.Events.OnSendMessage(filter.Entity, filter.PlayerStats->Index, message.Message);
             }
         }
 

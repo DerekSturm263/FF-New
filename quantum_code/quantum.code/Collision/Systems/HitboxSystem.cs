@@ -1,5 +1,4 @@
-﻿using Photon.Deterministic;
-using Quantum.Collections;
+﻿using Quantum.Collections;
 using System.Diagnostics;
 
 namespace Quantum
@@ -22,31 +21,7 @@ namespace Quantum
                 f.Destroy(filter.Entity);
             }
 
-            DrawHitbox(f, ref filter);
-        }
-
-        [Conditional("DEBUG")]
-        private void DrawHitbox(Frame f, ref Filter filter)
-        {
-            if (filter.HitboxInstance->Shape.Compound.GetShapes(f, out Shape2D* shapesBuffer, out int count))
-            {
-                for (int i = 0; i < count; ++i)
-                {
-                    Shape2D* currentShape = shapesBuffer + i;
-                    FPVector3 position = filter.Transform->Position + currentShape->LocalTransform.Position.XYO;
-
-                    switch (currentShape->Type)
-                    {
-                        case Shape2DType.Circle:
-                            Draw.Circle(position, currentShape->Circle.Radius);
-                            break;
-
-                        case Shape2DType.Box:
-                            Draw.Box(position, currentShape->Box.Extents.XYO);
-                            break;
-                    }
-                }
-            }
+            DrawHitbox(filter.Transform, filter.HitboxInstance);
         }
 
         public void OnRemoved(Frame f, EntityRef entity, HitboxInstance* component)
@@ -61,37 +36,65 @@ namespace Quantum
             f.Events.OnHitboxSpawnDespawn(component->Owner, entity, false);
         }
 
-        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user, EntityRef parent = default)
+        [Conditional("DEBUG")]
+        public static void DrawHitbox(Transform3D* transform, HitboxInstance* hitboxInstance)
+        {
+            ColorRGBA color = new() { R = 255, G = 255, B = 255, A = 255 };
+
+            switch (hitboxInstance->Shape.Type)
+            {
+                case Shape3DType.Sphere:
+                    Draw.Sphere(transform->Position + hitboxInstance->Shape.Centroid, hitboxInstance->Shape.Sphere.Radius, color);
+                    break;
+
+                case Shape3DType.Box:
+                    Draw.Box(transform->Position + hitboxInstance->Shape.Centroid, hitboxInstance->Shape.Box.Extents * 2, transform->Rotation, color);
+                    break;
+            }
+        }
+
+        public static void SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user, EntityRef parent = default)
         {
             Log.Debug("Spawning hitbox!");
 
             EntityPrototype hitboxPrototype = f.FindAsset<EntityPrototype>(f.RuntimeConfig.Hitbox.Id);
-            EntityRef hitboxEntity = parent == EntityRef.None ? f.Create(hitboxPrototype) : f.CreateChilded(hitboxPrototype, parent);
+
+            Shape3DConfig shape3D = new()
+            {
+                CompoundShapes = new Shape3DConfig.CompoundShapeData3D[shape.CompoundShapes.Length]
+            };
+
+            for (int i = 0; i < shape3D.CompoundShapes.Length; ++i)
+            {
+                shape3D.CompoundShapes[i] = new()
+                {
+                    BoxExtents = shape.CompoundShapes[i].BoxExtents.XYO,
+                    SphereRadius = shape.CompoundShapes[i].CircleRadius,
+                    PositionOffset = shape.CompoundShapes[i].PositionOffset.OXY,
+                    ShapeType = shape.CompoundShapes[i].ShapeType == Shape2DType.Circle ? Shape3DType.Sphere : Shape3DType.Box
+                };
+            }
 
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                if (f.Unsafe.TryGetPointer(hitboxEntity, out HitboxInstance* hitboxInstance))
+                for (int i = 0; i < shape3D.CompoundShapes.Length; ++i)
                 {
-                    hitboxInstance->Shape = Shape2D.CreatePersistentCompound();
+                    EntityRef hitboxEntity = parent == EntityRef.None ? f.Create(hitboxPrototype) : f.CreateChilded(hitboxPrototype, parent);
 
-                    for (int i = 0; i < shape.CompoundShapes.Length; ++i)
+                    if (f.Unsafe.TryGetPointer(hitboxEntity, out HitboxInstance* hitboxInstance))
                     {
-                        Shape2D createdShape = shape.CompoundShapes[i].CreateShape(f);
-                        hitboxInstance->Shape.Compound.AddShape(f, ref createdShape);
+                        hitboxInstance->Shape = shape3D.CompoundShapes[i].CreateShape(f);
+                        hitboxInstance->Settings = settings;
+                        hitboxInstance->Lifetime = lifetime;
+                        hitboxInstance->Owner = user;
+
+                        QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
+                        hitboxLists.Add(hitboxEntity);
+
+                        f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, true);
                     }
-
-                    hitboxInstance->Settings = settings;
-                    hitboxInstance->Lifetime = lifetime;
-                    hitboxInstance->Owner = user;
                 }
-
-                QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
-                hitboxLists.Add(hitboxEntity);
             }
-
-            f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, true);
-
-            return hitboxEntity;
         }
     }
 }

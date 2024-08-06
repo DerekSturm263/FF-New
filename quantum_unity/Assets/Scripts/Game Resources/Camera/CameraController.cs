@@ -241,6 +241,19 @@ namespace GameResources.Camera
             }
         }
 
+        public void FocusTarget(FighterIndex index)
+        {
+            EntityRef player = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, index);
+
+            for (int i = 0; i < _instance._targets.Count; ++i)
+            {
+                if (_instance._targets[i].Item2 == _entityView.GetView(player))
+                    _instance._targets[i] = new(0, _instance._targets[i].Item2);
+                else
+                    _instance._targets[i] = new(1, _instance._targets[i].Item2);
+            }
+        }
+
         public void FocusTarget(string name)
         {
             if (!_instance)

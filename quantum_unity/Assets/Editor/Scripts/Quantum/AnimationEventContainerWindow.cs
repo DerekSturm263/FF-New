@@ -364,7 +364,7 @@ public class AnimationEventContainerWindow : EditorWindow
                 Gizmos.color = frameEvent.Color;
 
                 if (frameEvent is SpawnHitboxEventAsset spawnHitbox)
-                    PreviewHitbox(spawnHitbox.Settings);
+                    PreviewHitbox(spawnHitbox.Settings, Gizmos.color);
                 else if (frameEvent is ModifyHurtboxesEventAsset modifyHurtboxes)
                     PreviewHurtboxes(modifyHurtboxes.Settings, ref hurtboxColors);
                 else if (frameEvent is ApplyPhysicsEventAsset applyPhysics)
@@ -384,7 +384,7 @@ public class AnimationEventContainerWindow : EditorWindow
         }
     }
 
-    private void PreviewHitbox(SpawnHitboxEvent eventSettings)
+    private void PreviewHitbox(SpawnHitboxEvent eventSettings, Color color)
     {
         Vector3 offset;
 
@@ -413,7 +413,8 @@ public class AnimationEventContainerWindow : EditorWindow
                     break;
 
                 case Shape2DType.Box:
-                    Gizmos.DrawCube(position, eventSettings.Shape.CompoundShapes[i].BoxExtents.ToUnityVector3());
+                    GizmoUtils.DrawGizmosBox(position, eventSettings.Shape.CompoundShapes[i].BoxExtents.ToUnityVector3(), color);
+                    //Gizmos.DrawCube(position, eventSettings.Shape.CompoundShapes[i].BoxExtents.ToUnityVector3());
                     break;
             }
 

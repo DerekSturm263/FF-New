@@ -88,7 +88,21 @@ namespace Extensions.Components.Input
             _isReady = true;
         }
 
-        private bool IsInputting() => InputMapperController.Instance.CurrentDevice.displayName.Equals("Keyboard") && EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.GetComponent<TMPro.TMP_InputField>();
+        private bool IsInputting()
+        {
+            bool isUsingKeyboard = InputMapperController.Instance.CurrentDevice.displayName.Equals("Keyboard");
+            if (!isUsingKeyboard)
+                return false;
+
+            GameObject selected = EventSystem.current.currentSelectedGameObject;
+            if (!selected)
+                return false;
+
+            if (!EventSystem.current.currentSelectedGameObject.TryGetComponent(out TMPro.TMP_InputField inputField))
+                return false;
+
+            return inputField.isFocused;
+        }
 
         public void Invoke() => _onAction.Invoke();
         public void Invoke(float arg0) => _onAxisAction.Invoke(arg0);

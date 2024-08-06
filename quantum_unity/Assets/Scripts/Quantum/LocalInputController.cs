@@ -71,8 +71,12 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void SpawnAllPlayers()
     {
+        int i = 0;
         foreach (var player in PlayerJoinController.Instance.LocalPlayers)
         {
+            if (i == PlayerJoinController.Instance.PlayerLimit)
+                break;
+
             SpawnPlayer(player);
         }
     }
@@ -87,7 +91,11 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void SpawnPlayerImmediate(LocalPlayerInfo player)
     {
-        player.SetGlobalIndices(FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified), FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified));
+        player.SetGlobalIndices
+        (
+            FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
+            FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified)
+        );
 
         RuntimePlayer data = new()
         {
@@ -121,6 +129,8 @@ public class LocalInputController : Controller<LocalInputController>
                 Local = localIndex,
                 Device = HostClientEvents.DeviceIndex,
                 Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
+                GlobalNoBots = -1,
+                GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(QuantumRunner.Default.Game.Frames.Verified),
                 Type = FighterType.Bot
             }
         };

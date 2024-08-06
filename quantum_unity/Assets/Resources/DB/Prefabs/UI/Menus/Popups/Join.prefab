@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.75
+  m_fontSize: 36.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2079,10 +2079,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be, type: 3}
   _checkmark: {fileID: 0}
+  _sectionHeader: {fileID: 0}
   _background: {fileID: 0}
   _iconColor: {r: 1, g: 1, b: 1, a: 1}
   _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  _includesNone: 0
   _loadingType: 1
   _parent: {fileID: 0}
   _onIfEmpty:
@@ -2164,9 +2164,11 @@ MonoBehaviour:
   _onIncrementalIncrementDecrement:
     m_PersistentCalls:
       m_Calls: []
-  _filterDropdown: {fileID: 0}
-  _sortDropdown: {fileID: 0}
+  _searchbar: {fileID: 0}
+  _helpButton: 1
+  _searchOptions: {fileID: 0}
   _reloadOnEachEnable: 1
+  _loadType: 3
 --- !u!114 &2326378943420541241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2180,9 +2182,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectMethod: 4
+  _dontSelect: []
   _resetIndexOnStart: 0
   _executeOnSelect: 1
-  _firstOffset: 0
   _delay: 0.1
 --- !u!114 &8804546887243744577
 MonoBehaviour:
@@ -2198,6 +2200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _direction: 2
   _padding: {x: 0, y: 20}
+  _parentPadding: {x: 0, y: 0}
+  _parent: {fileID: 0}
 --- !u!1 &6207308893682484831
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,7 +3961,7 @@ PrefabInstance:
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8984358935918958272, guid: 7997ae1f09596ec41a0587c5273ee108,
         type: 3}

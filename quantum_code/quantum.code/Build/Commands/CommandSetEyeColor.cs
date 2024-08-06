@@ -16,6 +16,9 @@ namespace Quantum
         public void Execute(Frame f)
         {
             Log.Debug("Eye color applied!");
+
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetEyesColor(f, entity, stats, color);
         }
     }
 }

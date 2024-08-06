@@ -16,6 +16,9 @@ namespace Quantum
         public void Execute(Frame f)
         {
             Log.Debug("Emote Left message applied!");
+
+            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+                PlayerStatsSystem.SetEmoteRightMessage(f, entity, stats, message);
         }
     }
 }

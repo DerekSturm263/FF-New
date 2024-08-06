@@ -7,7 +7,6 @@ using Type = SerializableWrapper<Quantum.Apparel>;
 public class DisplayApparelInfo : DisplayBase
 {
     [SerializeField] private DisplayApparelTemplateInfo _component1;
-    [SerializeField] private DisplayApparelPatternInfo _component2;
     [SerializeField] private DisplayApparelModifierInfo _component3;
     [SerializeField] private DisplayApparelModifierInfo _component4;
     [SerializeField] private DisplayApparelModifierInfo _component5;
@@ -21,7 +20,6 @@ public class DisplayApparelInfo : DisplayBase
     public void UpdateDisplay(Type item)
     {
         _component1.UpdateDisplay(UnityDB.FindAsset<ApparelTemplateAsset>(item.value.Template.Id));
-        _component2.UpdateDisplay(UnityDB.FindAsset<ApparelPatternAsset>(item.value.Pattern.Id));
 
         if (item.value.Modifiers.Modifier1.Id.IsValid)
             _component3.UpdateDisplay(UnityDB.FindAsset<ApparelModifierAsset>(item.value.Modifiers.Modifier1.Id));

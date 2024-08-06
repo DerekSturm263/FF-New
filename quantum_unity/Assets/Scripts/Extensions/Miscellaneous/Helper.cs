@@ -56,6 +56,72 @@ namespace Extensions.Miscellaneous
             return null;
         }
 
+        [System.Flags]
+        public enum Direction
+        {
+            Horizontal = 1 << 0,
+            Vertical = 1 << 1
+        }
+
+        public static void SetSizeAuto(this RectTransform rectTransform, Direction direction, Vector2 padding = default, Vector2 extraPadding = default, Vector2 lessPadding = default)
+        {
+            Vector2 sizeDelta = rectTransform.sizeDelta;
+
+            RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
+            if (direction.HasFlag(Direction.Horizontal))
+            {
+                float biggestX = 0;
+                float width = 0;
+
+                for (int i = rectTransform.childCount - 1; i >= 0; --i)
+                {
+                    RectTransform rect = rectTransform.GetChild(i).GetComponent<RectTransform>();
+                    if (!rect.gameObject.activeSelf)
+                        continue;
+
+                    float newX = Mathf.Abs(rect.anchoredPosition.x);
+                    if (newX > biggestX)
+                    {
+                        biggestX = newX;
+                        width = rect.sizeDelta.x;
+
+                        break;
+                    }
+                }
+
+                float newSize = biggestX - width / 2 + width;
+                sizeDelta.x = newSize + padding.x;
+            }
+
+            if (direction.HasFlag(Direction.Vertical))
+            {
+                float biggestY = 0;
+                float height = 0;
+
+                for (int i = rectTransform.childCount - 1; i >= 0; --i)
+                {
+                    RectTransform rect = rectTransform.GetChild(i).GetComponent<RectTransform>();
+                    if (!rect.gameObject.activeSelf)
+                        continue;
+
+                    float newY = Mathf.Abs(rect.anchoredPosition.y);
+                    if (newY > biggestY)
+                    {
+                        biggestY = newY;
+                        height = rect.sizeDelta.y;
+
+                        break;
+                    }
+                }
+
+                float newSize = biggestY - height / 2 + height;
+                sizeDelta.y = newSize + padding.y;
+            }
+
+            rectTransform.sizeDelta = sizeDelta + extraPadding;
+            return;
+        }
+
         #endregion
 
         public static void DrawSprite(Rect position, Sprite sprite)

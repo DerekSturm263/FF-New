@@ -17,6 +17,7 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Ruleset/Rulesets/Casual
       Guid:
         Value: 3139542390985883449
+  Icon: {fileID: 0}
   Description: 
   IncludeInLists: 0
   IsUnlocked: 1
@@ -24,23 +25,14 @@ MonoBehaviour:
     _nonNullValue: 0
     _hasValue: 0
   Price: 0
-  Icon: {fileID: 0}
-  Background: {fileID: 0}
-  SortingID: 0
+  FilterTags: []
+  GroupTags: []
   Settings_RulesetAsset:
     Identifier:
       Path: Resources/DB/Assets/Ruleset/Rulesets/Default
       Guid:
         Value: 496506912101744326
   Ruleset:
-    _name: Test
-    _description: ...
-    _creationDate: 0
-    _lastEditedDate: 0
-    _fileID:
-      Value: 0
-    _icon: {fileID: 0}
-    _preview: {fileID: 0}
     value:
       Items:
         Items:
@@ -93,21 +85,24 @@ MonoBehaviour:
             Id:
               Value: 3824159520298710078
         SpawnFrequency:
-          RawValue: 131072
+          RawValue: 65536
         StartingItem:
           Id:
             Value: 0
       Match:
         EndMatchesWhenWinnerClear:
           Value: 0
-        MatchCount: 2
+        MatchCount: 1
         ShowCurrentWinner:
-          Value: 1
-        ShowScores:
           Value: 0
+        ShowScores:
+          Value: 1
         ShowTimer:
           Value: 1
-        Time: 20
+        TieResolver:
+          Id:
+            Value: 0
+        Time: 360
         WinCondition:
           Id:
             Value: 1262894446653720307
@@ -127,10 +122,10 @@ MonoBehaviour:
         AllowCustomStages:
           Value: 1
         AllowGizmos:
-          Value: 1
+          Value: 0
         DisallowDuplicateSelection:
           Value: 0
-        StagePicker: 5
+        StagePicker: 0
         Stages:
           Item1:
             Id:
@@ -168,3 +163,14 @@ MonoBehaviour:
           Item9:
             Id:
               Value: 0
+    _name: Untitled
+    _description: 
+    _creationDate: 0
+    _lastEditedDate: 0
+    _fileID:
+      Value: 0
+    _madeByPlayer: 0
+    _icon: {fileID: 0}
+    _preview: {fileID: 0}
+    _filterTags: []
+    _groupTags: []

@@ -14,6 +14,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     private Controls _controls;
 
     [SerializeField] private int _playerLimit;
+    public int PlayerLimit => _playerLimit;
     public void SetPlayerLimit(int playerLimit) => _instance._playerLimit = playerLimit;
 
     [SerializeField] private bool _isEnabled;
@@ -152,6 +153,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             Local = localIndex,
             Device = HostClientEvents.DeviceIndex,
             Global = localIndex,
+            GlobalNoHumans = 1,
             Type = FighterType.Human
         };
 

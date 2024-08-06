@@ -88,6 +88,8 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
 
         [SerializeField] private TMPro.TMP_InputField _searchbar;
+
+        [SerializeField] private bool _helpButton = true;
         [SerializeField] private Button _searchOptions;
 
         [SerializeField] protected bool _reloadOnEachEnable;
@@ -261,7 +263,7 @@ namespace Extensions.Components.UI
                 kvp.Value.SetActive(filtered.Contains(kvp.Key));
             }
 
-            if (filtered.Count() == 0 || (filtered.Count() == 1 && filtered.Any(item => IsNone(item))))
+            if (filtered.Count() == 0)
                 _onIfEmpty.Invoke();
             else
                 _onIfNotEmpty.Invoke();
@@ -325,14 +327,21 @@ namespace Extensions.Components.UI
                 }
             }
 
-            if (_searchOptions && firstButton)
+            if (_helpButton)
             {
-                _searchOptions.navigation = new()
+                if (_searchOptions && firstButton)
                 {
-                    mode = Navigation.Mode.Explicit,
-                    selectOnLeft = _searchOptions.navigation.selectOnLeft,
-                    selectOnDown = firstButton
-                };
+                    _searchOptions.navigation = new()
+                    {
+                        mode = Navigation.Mode.Explicit,
+                        selectOnLeft = _searchOptions.navigation.selectOnLeft,
+                        selectOnDown = firstButton
+                    };
+                }
+            }
+            else
+            {
+                _searchOptions.navigation = new Navigation() { mode = Navigation.Mode.Automatic };
             }
         }
 
@@ -419,7 +428,7 @@ namespace Extensions.Components.UI
             if (color)
                 color.GetComponent<Image>().color = _iconColor;
         }
-        protected virtual void SetEvents(GameObject buttonObj, T item)
+        public virtual void SetEvents(GameObject buttonObj, T item)
         {
             bool giveEvents = GiveEvents(item);
 
@@ -466,6 +475,20 @@ namespace Extensions.Components.UI
                 EventTrigger.Entry deselect = eventTrigger.triggers.FirstOrDefault(item => item.eventID == EventTriggerType.Deselect);
                 deselect?.callback.AddListener(_ => _onButtonDeselect.Invoke(item));
             }
+        }
+        public void ClearEvents(GameObject buttonObj)
+        {
+            Button button = buttonObj.GetComponentInChildren<Button>();
+            button?.onClick.RemoveAllListeners();
+
+            MultiplayerButton multiplayerButton = buttonObj.GetComponentInChildren<MultiplayerButton>();
+            multiplayerButton?.onClick.RemoveAllListeners();
+
+            DragAndDropItem dragAndDrop = buttonObj.GetComponentInChildren<DragAndDropItem>();
+            dragAndDrop?.SetValue(null);
+
+            Incremental incremental = buttonObj.GetComponentInChildren<Incremental>();
+            incremental?.OnIncrementDecrement.RemoveAllListeners();
         }
 
         private void ParentCheckmark(GameObject parent)

@@ -11,15 +11,6 @@
             Type = FighterType.Human
         };
 
-        public static FighterIndex Player1 = new()
-        {
-            Local = 0,
-            Global = 0,
-            GlobalNoBots = 0,
-            Device = 0,
-            Type = FighterType.Human
-        };
-
         public static int GetNextGlobalIndex(Frame f)
         {
             for (int i = 0; i < 4; ++i)
@@ -36,6 +27,17 @@
             for (int i = 0; i < 4; ++i)
             {
                 if (!f.Global->PlayerSlotsNoBots[i])
+                    return i;
+            }
+
+            return -1;
+        }
+
+        public static int GetNextGlobalIndexNoHumans(Frame f)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                if (!f.Global->PlayerSlotsNoHumans[i])
                     return i;
             }
 
@@ -64,7 +66,7 @@
             return Invalid;
         }
 
-        public static EntityRef GetFirstPlayer(Frame f, System.Func<FighterIndex, bool> comparer)
+        public static EntityRef GetFirstEntity(Frame f, System.Func<FighterIndex, bool> comparer)
         {
             foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {

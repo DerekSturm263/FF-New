@@ -15,13 +15,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefApparelPattern))]
-  public class AssetRefApparelPatternPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(ApparelPatternAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefApparelTemplate))]
   public class AssetRefApparelTemplatePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -162,6 +155,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefSticker))]
+  public class AssetRefStickerPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(StickerAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefSubEnhancer))]
   public class AssetRefSubEnhancerPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -173,6 +173,13 @@ namespace Quantum.Editor {
   public class AssetRefSubTemplatePropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SubTemplateAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefTieResolver))]
+  public class AssetRefTieResolverPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(TieResolverAsset));
     }
   }
 
@@ -226,6 +233,7 @@ namespace Quantum.Editor {
   }
 
   [CustomPropertyDrawer(typeof(Quantum.QString32))]
+  [CustomPropertyDrawer(typeof(Quantum.QString64))]
   partial class QStringDrawer {}
 
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]

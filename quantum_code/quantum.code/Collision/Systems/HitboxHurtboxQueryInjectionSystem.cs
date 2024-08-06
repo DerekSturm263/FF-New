@@ -17,11 +17,20 @@
 
             while (hitboxFilter.Next(&hitbox))
             {
+                Shape2D shape2D = new()
+                {
+                    BroadRadius = hitbox.HitboxInstance->Shape.BroadRadius,
+                    Centroid = hitbox.HitboxInstance->Shape.Centroid.XY,
+                    Box = new()
+                    {
+                        Extents = hitbox.HitboxInstance->Shape.Box.Extents.XY
+                    }
+                };
+
                 hitbox.HitboxInstance->PathQueryIndex = f.Physics2D.AddOverlapShapeQuery
                 (
-                    position: hitbox.Transform->Position.XY,
-                    rotation: hitbox.Transform->Rotation.AsEuler.Z,
-                    shape: hitbox.HitboxInstance->Shape,
+                    transform: Transform2D.Create(hitbox.Transform->Position.XY, hitbox.Transform->Rotation.Z),
+                    shape: shape2D,
                     layerMask: f.RuntimeConfig.HitboxLayer
                 );
             }

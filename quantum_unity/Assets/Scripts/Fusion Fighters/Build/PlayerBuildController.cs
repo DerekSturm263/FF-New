@@ -82,6 +82,12 @@ public class PlayerBuildController : MonoBehaviour
         _parentClothing = _parentClothingSlot[e.New.Avatar];
         _root = _rootSlot[e.New.Avatar];
 
+        ColorPresetAsset color = UnityDB.FindAsset<ColorPresetAsset>(e.New.Color.Id);
+        if (color)
+        {
+            _head.materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+        }
+
         if (_currentAltWeapon)
             _currentAltWeapon.transform.SetParent(_altWeapon, false);
         
@@ -168,7 +174,17 @@ public class PlayerBuildController : MonoBehaviour
         if (e.Player != _entityView.EntityRef)
             return;
 
-        _head.materials[2].SetTexture("_Base_Map", UnityDB.FindAsset<EyesAsset>(e.New.Eyes.Id).Texture);
+        EyesAsset eyes = UnityDB.FindAsset<EyesAsset>(e.New.Eyes.Id);
+        if (eyes)
+        {
+            _head.materials[2].SetTexture("_Base_Map", eyes.Texture);
+        }
+
+        ColorPresetAsset color = UnityDB.FindAsset<ColorPresetAsset>(e.New.Color.Id);
+        if (color)
+        {
+            _head.materials[2].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+        }
     }
 
     private void SetHair(EventOnPlayerSetHair e)
@@ -183,7 +199,12 @@ public class PlayerBuildController : MonoBehaviour
         if (template)
         {
             _currentHair = Instantiate(template.Hair, _hair);
-            //_currentHair.GetComponent<SkinnedMeshRenderer>().rootBone = _root;
+        }
+        
+        ColorPresetAsset color = UnityDB.FindAsset<ColorPresetAsset>(e.New.Color.Id);
+        if (color)
+        {
+            _currentHair.GetComponentInChildren<MeshRenderer>().materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
         }
     }
 

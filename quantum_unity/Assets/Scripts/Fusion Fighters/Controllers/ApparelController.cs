@@ -13,10 +13,6 @@ public class ApparelController : Controller<ApparelController>
     public void SetTemplate(ApparelTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
 
-    private ApparelPatternAsset _pattern;
-    public void SetPattern(ApparelPatternAsset pattern) => _pattern = pattern;
-    public void ClearPattern() => _pattern = null;
-
     private Extensions.Types.Dictionary<ApparelModifierAsset, int> _modifiers = new();
 
     public List<ApparelModifierAsset> GetModifierList()
@@ -80,7 +76,6 @@ public class ApparelController : Controller<ApparelController>
     public void Clear()
     {
         ClearTemplate();
-        ClearPattern();
         ClearModifiers();
         ClearName();
         ClearDescription();
@@ -112,7 +107,7 @@ public class ApparelController : Controller<ApparelController>
 
     public void SaveNew()
     {
-        if (!_template || !_pattern || _name == string.Empty)
+        if (!_template || _name == string.Empty)
         {
             PopupController.Instance.Spawn(_onFail);
             return;
@@ -124,7 +119,7 @@ public class ApparelController : Controller<ApparelController>
         ApparelModifierAsset modifier2 = modifiers.ElementAtOrDefault(1);
         ApparelModifierAsset modifier3 = modifiers.ElementAtOrDefault(2);
 
-        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, _pattern.Price, modifier1?.Price, modifier2?.Price, modifier3?.Price))
+        if (!InventoryController.Instance.HasEnoughCurrency(_template.Price, modifier1?.Price, modifier2?.Price, modifier3?.Price))
         {
             PopupController.Instance.Spawn(_onNotEnoughCurrency);
             return;
@@ -133,7 +128,6 @@ public class ApparelController : Controller<ApparelController>
         Apparel apparel = new()
         {
             Template = new AssetRefApparelTemplate() { Id = _template.AssetObject.Guid },
-            Pattern = new AssetRefApparelPattern() { Id = _pattern ? _pattern.AssetObject.Guid : AssetGuid.Invalid },
             Modifiers = new()
             {
                 Modifier1 = new AssetRefApparelModifier() { Id = modifier1 ? modifier1.AssetObject.Guid : AssetGuid.Invalid },
@@ -144,7 +138,7 @@ public class ApparelController : Controller<ApparelController>
         };
 
         InventoryController.Instance.LoseItem(_template, 1);
-        InventoryController.Instance.LoseCurrency(_template.Price + _pattern.Price);
+        InventoryController.Instance.LoseCurrency(_template.Price);
 
         if (InventoryController.Instance.LoseItem(modifier1, 1))
         {
@@ -163,8 +157,7 @@ public class ApparelController : Controller<ApparelController>
 
         List<string> filterTags = new()
         {
-            _template.name,
-            _pattern.name
+            _template.name
         };
 
         if (modifiers.Count > 0)
@@ -176,8 +169,7 @@ public class ApparelController : Controller<ApparelController>
 
         List<Extensions.Types.Tuple<string, string>> groupTags = new()
         {
-            new("Template Type", _template.name),
-            new("Pattern Type", _pattern.name)
+            new("Template Type", _template.name)
         };
 
         SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
@@ -218,8 +210,16 @@ public class ApparelController : Controller<ApparelController>
 
     public void Submit()
     {
+        ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
+
         _currentlySelected.SetName(_newName);
         _currentlySelected.Save(GetPath());
+
+        if (ApparelPopulator.Instance && button)
+        {
+            ApparelPopulator.Instance.ClearEvents(button);
+            ApparelPopulator.Instance.SetEvents(button, _currentlySelected);
+        }
 
         FindFirstObjectByType<DisplayApparel>(FindObjectsInactive.Exclude).UpdateDisplay(_currentlySelected);
     }
@@ -229,7 +229,6 @@ public class ApparelController : Controller<ApparelController>
     private void Delete()
     {
         InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
-        InventoryController.Instance.GainItem(_currentlySelected.value.Pattern.Id, 1);
 
         if (_currentlySelected.value.Modifiers.Modifier1.Id.IsValid)
             InventoryController.Instance.GainItem(_currentlySelected.value.Modifiers.Modifier1.Id, 1);
@@ -251,7 +250,6 @@ public class ApparelController : Controller<ApparelController>
     public void PreviewApparel(SerializableWrapper<Apparel> apparel)
     {
         PreviewTemplate(UnityDB.FindAsset<ApparelTemplateAsset>(apparel.value.Template.Id));
-        PreviewPattern(UnityDB.FindAsset<ApparelPatternAsset>(apparel.value.Pattern.Id));
     }
 
     public void PreviewTemplate(ApparelTemplateAsset template)
@@ -271,23 +269,6 @@ public class ApparelController : Controller<ApparelController>
         }
     }
 
-    public void PreviewPattern(ApparelPatternAsset material)
-    {
-        /*if (_templateObj)
-            Destroy(_templateObj);
-
-        if (template.Weapon)
-            _templateObj = Instantiate(template.Weapon, _objParent);*/
-
-        if (_price.isActiveAndEnabled)
-        {
-            uint price = _template.Price + material.Price;
-            _price.SetText($"${price}");
-
-            _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;
-        }
-    }
-
     public void PreviewModifier()
     {
         /*if (_templateObj)
@@ -298,7 +279,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (_price.isActiveAndEnabled)
         {
-            uint price = _template.Price + _pattern.Price + (uint)_modifiers.Sum(item => item.Key.Price * item.Value);
+            uint price = _template.Price + (uint)_modifiers.Sum(item => item.Key.Price * item.Value);
             _price.SetText($"${price}");
 
             _price.color = InventoryController.Instance.HasEnoughCurrency(price) ? Color.white : Color.red;

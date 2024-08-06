@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -18,6 +20,7 @@ public class SelectAuto : UIBehaviour
     }
 
     [SerializeField] private SelectType _selectMethod;
+    [SerializeField] private List<Selectable> _dontSelect;
     [SerializeField] private bool _resetIndexOnStart = true;
     [SerializeField] private bool _executeOnSelect = true;
     [SerializeField] private float _delay;
@@ -62,7 +65,7 @@ public class SelectAuto : UIBehaviour
             else
                 selected = transform.GetChild(_selectedIndex).GetComponentInChildren<Selectable>();
         }
-        else if (selectMethod.HasFlag(SelectType.Old) && _oldSelected && _oldSelected.interactable)
+        else if (selectMethod.HasFlag(SelectType.Old) && _oldSelected && _oldSelected.interactable && !_dontSelect.Contains(_oldSelected))
         {
             selected = _oldSelected;
         }
@@ -73,7 +76,7 @@ public class SelectAuto : UIBehaviour
             {
                 foreach (Selectable selectable in transform.GetComponentsInChildren<Selectable>())
                 {
-                    if (selectable.interactable)
+                    if (selectable.interactable && !_dontSelect.Contains(selectable))
                     {
                         selected = selectable;
                         break;
@@ -84,7 +87,7 @@ public class SelectAuto : UIBehaviour
             {
                 foreach (Selectable selectable in transform.GetComponentsInChildren<Selectable>().Reverse())
                 {
-                    if (selectable.interactable)
+                    if (selectable.interactable && !_dontSelect.Contains(selectable))
                     {
                         selected = selectable;
                         break;

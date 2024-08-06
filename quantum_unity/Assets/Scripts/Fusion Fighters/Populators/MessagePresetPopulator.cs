@@ -4,7 +4,7 @@ public class MessagePresetPopulator : PopulateAsset<MessagePresetAsset>
 {
     [SerializeField] private DisplayEmote.Direction _direction;
 
-    protected override string FilePath() => "DB/Assets/Build/Cosmetics/Messages";
+    protected override string FilePath() => "DB/Assets/Build/Cosmetics/Message Presets";
 
     protected override string Name(MessagePresetAsset item) => !item.name.Equals("None") ? item.Description : "None";
 

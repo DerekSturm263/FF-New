@@ -2,8 +2,10 @@ global
 {
 	array<bool>[4] PlayerSlots;
 	array<bool>[4] PlayerSlotsNoBots;
+	array<bool>[4] PlayerSlotsNoHumans;
 	array<entity_ref>[4] Players;
 	array<entity_ref>[4] PlayersNoBots;
+	array<entity_ref>[4] PlayersNoHumans;
 
 	int PlayersReady;
 	int TotalPlayers;

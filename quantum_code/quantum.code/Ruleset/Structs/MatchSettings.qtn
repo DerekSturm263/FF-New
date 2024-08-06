@@ -2,6 +2,7 @@
 struct MatchSettings
 {
 	asset_ref<WinCondition> WinCondition;
+	asset_ref<TieResolver> TieResolver;
 	int Time;
 	bool ShowTimer;
 	int MatchCount;

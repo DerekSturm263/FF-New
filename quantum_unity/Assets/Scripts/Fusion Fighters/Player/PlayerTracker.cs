@@ -7,7 +7,7 @@ public abstract class PlayerTracker<T> : MonoBehaviour
     protected EntityViewUpdater _viewUpdater;
     protected Dictionary<EntityRef, T> _playersToTs;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _viewUpdater = FindAnyObjectByType<EntityViewUpdater>();
         _playersToTs = new();

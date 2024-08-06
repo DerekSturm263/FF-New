@@ -52,12 +52,20 @@ public abstract class PopulateSerializable<T, TAssetAsset> : Populate<Serializab
             }
         }
 
-        return new Dictionary<string, Predicate<SerializableWrapper<T>>>()
+        Dictionary<string, Predicate<SerializableWrapper<T>>> baseFilters = new();
+
+        if (_loadType.HasFlag(CreationType.BuiltIn) && _loadType.HasFlag(CreationType.Custom))
         {
-            ["All"] = (_) => true,
-            ["Custom"] = (value) => value.MadeByPlayer,
-            ["Built-In"] = (value) => !value.MadeByPlayer
-        }.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
+            baseFilters.Add("All", (_) => true);
+            baseFilters.Add("Custom", (value) => value.MadeByPlayer);
+            baseFilters.Add("Built-In", (value) => !value.MadeByPlayer);
+        }
+        else
+        {
+            baseFilters.Add("All", (_) => true);
+        }
+        
+        return baseFilters.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
     }
 
     protected override Dictionary<string, Func<SerializableWrapper<T>, (string, object)>> GetAllGroupModes()

@@ -77,6 +77,11 @@ namespace Quantum
                 f.Global->PlayerSlotsNoBots[index.GlobalNoBots] = true;
                 f.Global->PlayersNoBots[index.GlobalNoBots] = player;
             }
+            else
+            {
+                f.Global->PlayerSlotsNoHumans[index.GlobalNoHumans] = true;
+                f.Global->PlayersNoHumans[index.GlobalNoHumans] = player;
+            }
 
             f.Global->PlayerSlots[index.Global] = true;
             f.Global->Players[index.Global] = player;
@@ -90,6 +95,11 @@ namespace Quantum
 
                 f.Global->PlayerSlotsNoBots[index.GlobalNoBots] = false;
                 f.Global->PlayersNoBots[index.GlobalNoBots] = EntityRef.None;
+            }
+            else
+            {
+                f.Global->PlayerSlotsNoHumans[index.GlobalNoHumans] = false;
+                f.Global->PlayersNoHumans[index.GlobalNoHumans] = EntityRef.None;
             }
 
             f.Global->PlayerSlots[index.Global] = false;

@@ -52,18 +52,10 @@ namespace Quantum
         public static void Serialize(this IBitStream stream, ref Apparel value)
         {
             stream.Serialize(ref value.Template);
-            stream.Serialize(ref value.Pattern);
             stream.Serialize(ref value.Modifiers);
             stream.Serialize(ref value.Color);
+            stream.Serialize(ref value.Stickers);
             stream.Serialize(ref value.FileGuid);
-        }
-
-        public static void Serialize(this IBitStream stream, ref ColorRGBA value)
-        {
-            stream.Serialize(ref value.R);
-            stream.Serialize(ref value.G);
-            stream.Serialize(ref value.B);
-            stream.Serialize(ref value.A);
         }
 
         public static void Serialize(this IBitStream stream, ref ApparelModifierSet value)
@@ -71,6 +63,32 @@ namespace Quantum
             stream.Serialize(ref value.Modifier1);
             stream.Serialize(ref value.Modifier2);
             stream.Serialize(ref value.Modifier3);
+        }
+
+        public static void Serialize(this IBitStream stream, ref ArrayAngularStickers value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
+            stream.Serialize(ref value.Item5);
+            stream.Serialize(ref value.Item6);
+            stream.Serialize(ref value.Item7);
+            stream.Serialize(ref value.Item8);
+            stream.Serialize(ref value.Item9);
+            stream.Serialize(ref value.Item10);
+            stream.Serialize(ref value.Item11);
+            stream.Serialize(ref value.Item12);
+            stream.Serialize(ref value.Item13);
+            stream.Serialize(ref value.Item14);
+            stream.Serialize(ref value.Item15);
+            stream.Serialize(ref value.Item16);
+        }
+
+        public static void Serialize(this IBitStream stream, ref AngularSticker value)
+        {
+            stream.Serialize(ref value.Sticker);
+            stream.Serialize(ref value.Angle);
         }
 
         public static void Serialize(this IBitStream stream, ref CosmeticSettings value)
@@ -196,8 +214,8 @@ namespace Quantum
 
         public static unsafe void Serialize(this IBitStream stream, ref PositionalGizmo value)
         {
-            stream.Serialize(ref value.Position);
             stream.Serialize(ref value.Gizmo);
+            stream.Serialize(ref value.Position);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref SpawnSettings value)
@@ -371,6 +389,14 @@ namespace Quantum
             int intValue = (int)value;
             stream.Serialize(ref intValue);
             value = (FighterType)intValue;
+        }
+
+        public static void Serialize(this IBitStream stream, ref ColorRGBA value)
+        {
+            stream.Serialize(ref value.R);
+            stream.Serialize(ref value.G);
+            stream.Serialize(ref value.B);
+            stream.Serialize(ref value.A);
         }
 
         #endregion

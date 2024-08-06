@@ -47,7 +47,7 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
     public Quantum.Prototypes.HitboxSettings_Prototype Settings;
-    public Quantum.Shape2D Shape;
+    public Quantum.Shape3D Shape;
     public System.Int32 Lifetime;
 
     public sealed override Quantum.Prototypes.HitboxInstance_Prototype Convert(EntityPrototypeConverter converter) {

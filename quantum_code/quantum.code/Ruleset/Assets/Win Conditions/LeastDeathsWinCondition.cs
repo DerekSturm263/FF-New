@@ -6,7 +6,7 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class LeastDeathsWinCondition : WinCondition
     {
-        public override unsafe System.Func<Team, int> SortTeams(Frame f, QList<Team> teams)
+        public override System.Func<Team, int> SortTeams(Frame f, QList<Team> teams)
         {
             return team =>
             {

@@ -2,9 +2,9 @@
 struct Apparel
 {
 	asset_ref<ApparelTemplate> Template;
-	asset_ref<ApparelPattern> Pattern;
 	ApparelModifierSet Modifiers;
 	asset_ref<ColorPreset> Color;
+	ArrayAngularStickers Stickers;
 	
 	AssetGuid FileGuid;
 }

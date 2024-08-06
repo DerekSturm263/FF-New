@@ -32,12 +32,16 @@ namespace Quantum.Editor {
       public Quantum.ShakeSettings[] ShakeSettings = {};
       public Quantum.HurtboxSetup[] HurtboxSetup = {};
       public Quantum.MessagePreset[] MessagePreset = {};
+      public Quantum.Sticker[] Sticker = {};
       public Quantum.ApparelAsset[] ApparelAsset = {};
       public Quantum.SubAsset[] SubAsset = {};
       public Quantum.WeaponAsset[] WeaponAsset = {};
       public Quantum.AllowMovementEvent[] AllowMovementEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
       public Quantum.ProjectileSpawningItem[] ProjectileSpawningItem = {};
+      public Quantum.LeastDeathsTieResolver[] LeastDeathsTieResolver = {};
+      public Quantum.MostHealthTieResolver[] MostHealthTieResolver = {};
+      public Quantum.FirstToXKillsWinCondition[] FirstToXKillsWinCondition = {};
       public Quantum.Voice[] Voice = {};
       public Quantum.NoneBadge[] NoneBadge = {};
       public Quantum.DigitalDoubleUltimate[] DigitalDoubleUltimate = {};
@@ -66,7 +70,6 @@ namespace Quantum.Editor {
       public Quantum.Eyes[] Eyes = {};
       public Quantum.Hair[] Hair = {};
       public Quantum.ApparelModifier[] ApparelModifier = {};
-      public Quantum.ApparelPattern[] ApparelPattern = {};
       public Quantum.ApparelTemplate[] ApparelTemplate = {};
       public Quantum.HardcodedBadge[] HardcodedBadge = {};
       public Quantum.MagneticBadge[] MagneticBadge = {};
