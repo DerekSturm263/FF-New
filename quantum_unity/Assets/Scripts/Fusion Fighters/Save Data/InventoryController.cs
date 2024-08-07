@@ -1,5 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -182,6 +183,23 @@ public class InventoryController : Controller<InventoryController>
 
         _inventory.ItemCollection[assetRef] = new(_inventory.ItemCollection[assetRef].Item1, _inventory.ItemCollection[assetRef].Item2.Value - count);
         return true;
+    }
+
+    public List<T> GetAllUnlocked<T>() where T : InfoAssetAsset
+    {
+        List<T> unlocked = new();
+
+        foreach (var item in _inventory.ItemCollection)
+        {
+            var infoAsset = UnityDB.FindAsset<InfoAssetAsset>(item.Key.Id);
+
+            if (infoAsset is T)
+            {
+                unlocked.Add(infoAsset as T);
+            }
+        }
+
+        return unlocked;
     }
 
     public void GainCurrency(uint amount)

@@ -1,16 +1,26 @@
 using Extensions.Components.Miscellaneous;
+using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
 public class BuildController : Controller<BuildController>
 {
     [SerializeField] private BuildAssetAsset _default;
+    [SerializeField] private BuildAssetAsset _none;
+
+    [SerializeField] private Popup _savePopup;
+
+    private bool _isDirty;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Builds";
 
-    private SerializableWrapper<Build> _currentlySelected;
-    public SerializableWrapper<Build> CurrentlySelected => _currentlySelected;
-    public void SetCurrentlySelected(SerializableWrapper<Build> build) => _currentlySelected = build;
+    private SerializableWrapper<Build> _currentBuild;
+    public SerializableWrapper<Build> CurrentBuild => _currentBuild;
+    public void SetCurrentlySelected(SerializableWrapper<Build> build)
+    {
+        _currentBuild = build;
+        _isDirty = false;
+    }
 
     public void New()
     {
@@ -18,13 +28,31 @@ public class BuildController : Controller<BuildController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        // TODO: MAKE IT RANDOM
-        //randomBuild.Cosmetics.Avatar = new() { Avatar = _avatars[Random.Range(0, _avatars.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
-        //randomBuild.Cosmetics.Hair = new() { Hair = _hair[Random.Range(0, _hair.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
-        //randomBuild.Cosmetics.Eyes = new() { Eyes = _eyes[Random.Range(0, _eyes.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
-        //randomBuild.Cosmetics.Voice = _voices[Random.Range(0, _voices.Length)];
+        var colors = InventoryController.Instance.GetAllUnlocked<ColorPresetAsset>();
+        var avatarStyles = InventoryController.Instance.GetAllUnlocked<FFAvatarAsset>();
+        var eyeStyles = InventoryController.Instance.GetAllUnlocked<EyesAsset>();
+        var hairStyles = InventoryController.Instance.GetAllUnlocked<HairAsset>();
+        var voiceStyles = InventoryController.Instance.GetAllUnlocked<VoiceAsset>();
 
-        _currentlySelected = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        randomBuild.Cosmetics.Avatar = new()
+        {
+            Avatar = new() { Id = avatarStyles[Random.Range(0, avatarStyles.Count)].AssetObject.Guid },
+            Color = new() { Id = colors[Random.Range(0, colors.Count)].AssetObject.Guid }
+        };
+        randomBuild.Cosmetics.Eyes = new()
+        {
+            Eyes = new() { Id = eyeStyles[Random.Range(0, eyeStyles.Count)].AssetObject.Guid },
+            Color = new() { Id = colors[Random.Range(0, colors.Count)].AssetObject.Guid }
+        };
+        randomBuild.Cosmetics.Hair = new()
+        {
+            Hair = new() { Id = hairStyles[Random.Range(0, hairStyles.Count)].AssetObject.Guid },
+            Color = new() { Id = colors[Random.Range(0, colors.Count)].AssetObject.Guid }
+        };
+        randomBuild.Cosmetics.Voice = new() { Id = voiceStyles[Random.Range(0, voiceStyles.Count)].AssetObject.Guid };
+
+        _currentBuild = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _isDirty = true;
     }
 
     public void Save(SerializableWrapper<Build> build)
@@ -34,32 +62,49 @@ public class BuildController : Controller<BuildController>
 
     public void SaveCurrent()
     {
-        _currentlySelected.Save(GetPath());
+        _currentBuild.Save(GetPath());
+        _isDirty = true;
+    }
+
+    public void CloseOrSaveConfirm(InvokableGameObject invokable)
+    {
+        if (_isDirty)
+        {
+            (PopupController.Instance as PopupController).InsertEvent(invokable);
+            PopupController.Instance.Spawn(_savePopup);
+        }
+        else
+        {
+            invokable.Invoke();
+        }
     }
 
     public void SetName(string name)
     {
-        _currentlySelected.SetName(name);
+        _currentBuild.SetName(name);
+        _isDirty = true;
     }
 
     public void SetDescription(string description)
     {
-        _currentlySelected.SetDescription(description);
+        _currentBuild.SetDescription(description);
+        _isDirty = true;
     }
 
     public void Delete()
     {
-        _currentlySelected.Delete(GetPath());
+        _currentBuild.Delete(GetPath());
 
-        if (BuildPopulator.Instance && BuildPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
+        if (BuildPopulator.Instance && BuildPopulator.Instance.TryGetButtonFromItem(_currentBuild, out GameObject button))
             Destroy(button);
         
-        FindFirstObjectByType<BuildPopulator>().GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        FindFirstObjectByType<BuildPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 
     public unsafe void SetAltWeaponOnPlayer(SerializableWrapper<Weapon> weapon)
     {
-        _currentlySelected.value.Equipment.Weapons.AltWeapon = weapon;
+        _currentBuild.value.Equipment.Weapons.AltWeapon = weapon;
+        _isDirty = true;
 
         CommandSetAltWeapon setBuild = new()
         {
@@ -72,7 +117,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearAltWeaponOnPlayer()
     {
-        _currentlySelected.value.Equipment.Weapons.AltWeapon = default;
+        _currentBuild.value.Equipment.Weapons.AltWeapon = default;
+        _isDirty = true;
 
         CommandSetAltWeapon setBuild = new()
         {
@@ -85,7 +131,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetAvatarOnPlayer(FFAvatarAsset avatar)
     {
-        _currentlySelected.value.Cosmetics.Avatar.Avatar = new() { Id = avatar.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Avatar.Avatar = new() { Id = avatar.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetAvatar setBuild = new()
         {
@@ -98,7 +145,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetAvatarColorOnPlayer(ColorPresetAsset color)
     {
-        _currentlySelected.value.Cosmetics.Avatar.Color = new() { Id = color.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Avatar.Color = new() { Id = color.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetAvatarColor setBuild = new()
         {
@@ -111,7 +159,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetBadgeOnPlayer(BadgeAsset badge)
     {
-        _currentlySelected.value.Equipment.Badge = new() { Id = badge.AssetObject.Guid };
+        _currentBuild.value.Equipment.Badge = new() { Id = badge.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetBadge setBuild = new()
         {
@@ -124,7 +173,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearBadgeOnPlayer()
     {
-        _currentlySelected.value.Equipment.Badge = default;
+        _currentBuild.value.Equipment.Badge = default;
+        _isDirty = true;
 
         CommandSetBadge setBuild = new()
         {
@@ -137,7 +187,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetClothingOnPlayer(SerializableWrapper<Apparel> clothing)
     {
-        _currentlySelected.value.Equipment.Outfit.Clothing = clothing;
+        _currentBuild.value.Equipment.Outfit.Clothing = clothing;
+        _isDirty = true;
 
         CommandSetClothing setBuild = new()
         {
@@ -150,7 +201,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearClothingOnPlayer()
     {
-        _currentlySelected.value.Equipment.Outfit.Clothing = default;
+        _currentBuild.value.Equipment.Outfit.Clothing = default;
+        _isDirty = true;
 
         CommandSetClothing setBuild = new()
         {
@@ -163,7 +215,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetHeadgearOnPlayer(SerializableWrapper<Apparel> headgear)
     {
-        _currentlySelected.value.Equipment.Outfit.Headgear = headgear;
+        _currentBuild.value.Equipment.Outfit.Headgear = headgear;
+        _isDirty = true;
 
         CommandSetHeadgear setBuild = new()
         {
@@ -176,7 +229,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearHeadgearOnPlayer()
     {
-        _currentlySelected.value.Equipment.Outfit.Headgear = default;
+        _currentBuild.value.Equipment.Outfit.Headgear = default;
+        _isDirty = true;
 
         CommandSetHeadgear setBuild = new()
         {
@@ -189,7 +243,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetLegwearOnPlayer(SerializableWrapper<Apparel> legwear)
     {
-        _currentlySelected.value.Equipment.Outfit.Legwear = legwear;
+        _currentBuild.value.Equipment.Outfit.Legwear = legwear;
+        _isDirty = true;
 
         CommandSetLegwear setBuild = new()
         {
@@ -202,7 +257,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearLegwearOnPlayer()
     {
-        _currentlySelected.value.Equipment.Outfit.Legwear = default;
+        _currentBuild.value.Equipment.Outfit.Legwear = default;
+        _isDirty = true;
 
         CommandSetLegwear setBuild = new()
         {
@@ -215,7 +271,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteUpOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Up.Emote = new() { Id = emote.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Up.Emote = new() { Id = emote.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteUp setBuild = new()
         {
@@ -228,7 +285,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteUpMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Up.Message = new() { Id = message.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Up.Message = new() { Id = message.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteUpMessage setBuild = new()
         {
@@ -241,7 +299,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteDownOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Down.Emote = new() { Id = emote.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Down.Emote = new() { Id = emote.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteDown setBuild = new()
         {
@@ -254,7 +313,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteDownMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Down.Message = new() { Id = message.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Down.Message = new() { Id = message.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteDownMessage setBuild = new()
         {
@@ -267,7 +327,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteLeftOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Left.Emote = new() { Id = emote.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Left.Emote = new() { Id = emote.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteLeft setBuild = new()
         {
@@ -280,7 +341,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteLeftMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Left.Message = new() { Id = message.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Left.Message = new() { Id = message.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteLeftMessage setBuild = new()
         {
@@ -293,7 +355,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteRightOnPlayer(EmoteAsset emote)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Right.Emote = new() { Id = emote.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Right.Emote = new() { Id = emote.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteRight setBuild = new()
         {
@@ -306,7 +369,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEmoteRightMessageOnPlayer(MessagePresetAsset message)
     {
-        _currentlySelected.value.Cosmetics.Emotes.Right.Message = new() { Id = message.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Emotes.Right.Message = new() { Id = message.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEmoteRightMessage setBuild = new()
         {
@@ -319,7 +383,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEyesOnPlayer(EyesAsset eyes)
     {
-        _currentlySelected.value.Cosmetics.Eyes.Eyes = new() { Id = eyes.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Eyes.Eyes = new() { Id = eyes.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEyes setBuild = new()
         {
@@ -332,7 +397,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetEyeColorOnPlayer(ColorPresetAsset color)
     {
-        _currentlySelected.value.Cosmetics.Eyes.Color = new() { Id = color.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Eyes.Color = new() { Id = color.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetEyeColor setBuild = new()
         {
@@ -345,7 +411,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetHairOnPlayer(HairAsset hair)
     {
-        _currentlySelected.value.Cosmetics.Hair.Hair = new() { Id = hair.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Hair.Hair = new() { Id = hair.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetHair setBuild = new()
         {
@@ -358,7 +425,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetHairColorOnPlayer(ColorPresetAsset color)
     {
-        _currentlySelected.value.Cosmetics.Hair.Color = new() { Id = color.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Hair.Color = new() { Id = color.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetHairColor setBuild = new()
         {
@@ -371,7 +439,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetMainWeaponOnPlayer(SerializableWrapper<Weapon> weapon)
     {
-        _currentlySelected.value.Equipment.Weapons.MainWeapon = weapon;
+        _currentBuild.value.Equipment.Weapons.MainWeapon = weapon;
+        _isDirty = true;
 
         CommandSetMainWeapon setBuild = new()
         {
@@ -384,7 +453,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearMainWeaponOnPlayer()
     {
-        _currentlySelected.value.Equipment.Weapons.MainWeapon = default;
+        _currentBuild.value.Equipment.Weapons.MainWeapon = default;
+        _isDirty = true;
 
         CommandSetMainWeapon setBuild = new()
         {
@@ -397,7 +467,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetSubOnPlayer(SerializableWrapper<Sub> sub)
     {
-        _currentlySelected.value.Equipment.Weapons.SubWeapon = sub;
+        _currentBuild.value.Equipment.Weapons.SubWeapon = sub;
+        _isDirty = true;
 
         CommandSetSub setBuild = new()
         {
@@ -410,7 +481,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearSubOnPlayer()
     {
-        _currentlySelected.value.Equipment.Weapons.SubWeapon = default;
+        _currentBuild.value.Equipment.Weapons.SubWeapon = default;
+        _isDirty = true;
 
         CommandSetSub setBuild = new()
         {
@@ -423,7 +495,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetUltimateOnPlayer(UltimateAsset ultimate)
     {
-        _currentlySelected.value.Equipment.Ultimate = new() { Id = ultimate.AssetObject.Guid };
+        _currentBuild.value.Equipment.Ultimate = new() { Id = ultimate.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetUltimate setBuild = new()
         {
@@ -436,7 +509,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void ClearUltimateOnPlayer()
     {
-        _currentlySelected.value.Equipment.Ultimate = default;
+        _currentBuild.value.Equipment.Ultimate = default;
+        _isDirty = true;
 
         CommandSetUltimate setBuild = new()
         {
@@ -449,7 +523,8 @@ public class BuildController : Controller<BuildController>
 
     public unsafe void SetVoiceOnPlayer(VoiceAsset voice)
     {
-        _currentlySelected.value.Cosmetics.Voice = new() { Id = voice.AssetObject.Guid };
+        _currentBuild.value.Cosmetics.Voice = new() { Id = voice.AssetObject.Guid };
+        _isDirty = true;
 
         CommandSetVoice setBuild = new()
         {
@@ -479,6 +554,6 @@ public class BuildController : Controller<BuildController>
 
     public void SetOnPlayerDefault()
     {
-        SetOnPlayer(_currentlySelected, FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, index => index.Type == FighterType.Human));
+        SetOnPlayer(_currentBuild, FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, index => index.Type == FighterType.Human));
     }
 }

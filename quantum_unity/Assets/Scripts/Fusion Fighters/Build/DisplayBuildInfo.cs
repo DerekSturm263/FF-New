@@ -16,5 +16,5 @@ public class DisplayBuildInfo : Display<SerializableWrapper<Build>, List<MonoBeh
         (_component[2] as TMPro.TMP_Text).SetText(string.Format(_format2, new DateTime(item.CreationDate).ToUniversalTime().ToString("U")));
     }
 
-    protected override SerializableWrapper<Build> GetValue() => BuildController.Instance.CurrentlySelected;
+    protected override SerializableWrapper<Build> GetValue() => BuildController.Instance.CurrentBuild;
 }

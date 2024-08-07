@@ -5,6 +5,6 @@ public class RulesetPopulator : PopulateSerializable<Quantum.Ruleset, RulesetAss
 
     protected override SerializableWrapper<Quantum.Ruleset> GetFromBuiltInAsset(RulesetAssetAsset asset) => asset.Ruleset;
 
-    protected override bool IsEquipped(SerializableWrapper<Quantum.Ruleset> item) => RulesetController.Instance.Ruleset.Equals(item);
+    protected override bool IsEquipped(SerializableWrapper<Quantum.Ruleset> item) => RulesetController.Instance.CurrentRuleset.Equals(item);
     protected override bool IsNone(SerializableWrapper<Quantum.Ruleset> item) => false;
 }

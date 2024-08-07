@@ -9,6 +9,6 @@ public class SubPopulator : PopulateSerializable<Quantum.Sub, SubAssetAsset>
 
     protected override SerializableWrapper<Quantum.Sub> GetFromBuiltInAsset(SubAssetAsset asset) => asset.Sub;
 
-    protected override bool IsEquipped(SerializableWrapper<Quantum.Sub> item) => BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.SubWeapon.Equals(item.value);
+    protected override bool IsEquipped(SerializableWrapper<Quantum.Sub> item) => BuildController.Instance.CurrentBuild.value.Equipment.Weapons.SubWeapon.Equals(item.value);
     protected override bool IsNone(SerializableWrapper<Quantum.Sub> item) => item.value.Equals(_none.Sub.value);
 }

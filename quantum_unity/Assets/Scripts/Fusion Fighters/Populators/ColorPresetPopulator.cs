@@ -35,12 +35,12 @@ public class ColorPresetPopulator : PopulateAsset<ColorPresetAsset>
     {
         return _type switch
         {
-            DisplayColorPreset.ParentType.Avatar => BuildController.Instance.CurrentlySelected.value.Cosmetics.Avatar.Color.Id == item.AssetObject.Guid,
-            DisplayColorPreset.ParentType.Eyes => BuildController.Instance.CurrentlySelected.value.Cosmetics.Eyes.Color.Id == item.AssetObject.Guid,
-            DisplayColorPreset.ParentType.Hair => BuildController.Instance.CurrentlySelected.value.Cosmetics.Hair.Color.Id == item.AssetObject.Guid,
-            DisplayColorPreset.ParentType.ApparelHeadgear => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Headgear.Color.Id == item.AssetObject.Guid,
-            DisplayColorPreset.ParentType.ApparelClothing => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Clothing.Color.Id == item.AssetObject.Guid,
-            DisplayColorPreset.ParentType.ApparelLegwear => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Legwear.Color.Id == item.AssetObject.Guid,
+            DisplayColorPreset.ParentType.Avatar => BuildController.Instance.CurrentBuild.value.Cosmetics.Avatar.Color.Id == item.AssetObject.Guid,
+            DisplayColorPreset.ParentType.Eyes => BuildController.Instance.CurrentBuild.value.Cosmetics.Eyes.Color.Id == item.AssetObject.Guid,
+            DisplayColorPreset.ParentType.Hair => BuildController.Instance.CurrentBuild.value.Cosmetics.Hair.Color.Id == item.AssetObject.Guid,
+            DisplayColorPreset.ParentType.ApparelHeadgear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.Color.Id == item.AssetObject.Guid,
+            DisplayColorPreset.ParentType.ApparelClothing => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Clothing.Color.Id == item.AssetObject.Guid,
+            DisplayColorPreset.ParentType.ApparelLegwear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Legwear.Color.Id == item.AssetObject.Guid,
             _ => default
         };
     }

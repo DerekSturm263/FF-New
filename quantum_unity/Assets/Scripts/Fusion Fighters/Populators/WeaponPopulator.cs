@@ -14,8 +14,8 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
     {
         bool isSame = _type switch
         {
-            0 => BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.MainWeapon.Equals(item.value),
-            1 => BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.AltWeapon.Equals(item.value),
+            0 => BuildController.Instance.CurrentBuild.value.Equipment.Weapons.MainWeapon.Equals(item.value),
+            1 => BuildController.Instance.CurrentBuild.value.Equipment.Weapons.AltWeapon.Equals(item.value),
             _ => false
         };
 
@@ -29,8 +29,8 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
             return true;
 
         if (_type == 0)
-            return BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.AltWeapon.Template.Id != item.value.Template.Id;
+            return BuildController.Instance.CurrentBuild.value.Equipment.Weapons.AltWeapon.Template.Id != item.value.Template.Id;
         else
-            return BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.MainWeapon.Template.Id != item.value.Template.Id;
+            return BuildController.Instance.CurrentBuild.value.Equipment.Weapons.MainWeapon.Template.Id != item.value.Template.Id;
     }
 }

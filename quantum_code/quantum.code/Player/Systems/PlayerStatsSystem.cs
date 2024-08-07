@@ -177,13 +177,12 @@ namespace Quantum
             Weapon oldAltWeapon = stats->Build.Equipment.Weapons.AltWeapon;
             stats->Build.Equipment.Weapons.AltWeapon = altWeapon;
 
-            if (altWeapon.Template.Id.IsValid)
+            if (altWeapon.Template.Id.IsValid && f.Unsafe.TryGetPointer(user, out Stats* genericStats))
             {
-                if (f.Unsafe.TryGetPointer(user, out Stats* genericStats))
-                {
-                    WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
+                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
+
+                if (entity.Weapon.Id.IsValid)
                     stats->AltWeapon = f.CreateChilded(entity.Weapon, user);
-                }
             }
 
             f.Events.OnPlayerSetAltWeapon(user, oldAltWeapon, altWeapon);
@@ -351,13 +350,12 @@ namespace Quantum
             Weapon oldMainWeapon = stats->Build.Equipment.Weapons.MainWeapon;
             stats->Build.Equipment.Weapons.MainWeapon = mainWeapon;
 
-            if (mainWeapon.Template.Id.IsValid)
+            if (mainWeapon.Template.Id.IsValid && f.Unsafe.TryGetPointer(user, out Stats* genericStats))
             {
-                if (f.Unsafe.TryGetPointer(user, out Stats* genericStats))
-                {
-                    WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
+                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
+
+                if (entity.Weapon.Id.IsValid)
                     stats->MainWeapon = f.CreateChilded(entity.Weapon, user);
-                }
             }
 
             f.Events.OnPlayerSetMainWeapon(user, oldMainWeapon, mainWeapon);

@@ -1,22 +1,42 @@
 using Extensions.Components.Miscellaneous;
+using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
 {
     [SerializeField] private RulesetAssetAsset _default;
+    [SerializeField] private RulesetAssetAsset _none;
 
-    private SerializableWrapper<Ruleset>? _ruleset;
-    public SerializableWrapper<Ruleset>? Ruleset => _ruleset;
+    [SerializeField] private Popup _savePopup;
+
+    private bool _isDirty;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Rulesets";
 
-    public SerializableWrapper<Ruleset> New()
+    private SerializableWrapper<Ruleset> _currentRuleset;
+    public SerializableWrapper<Ruleset> CurrentRuleset => _currentRuleset;
+    public void Select(SerializableWrapper<Ruleset> ruleset)
     {
+        _currentRuleset = ruleset;
+        _isDirty = false;
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        _currentRuleset = _none.Ruleset;
+    }
+
+    public void New()
+    {
+        Ruleset ruleset = _default.Ruleset.value;
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        return new(_default.Ruleset.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _currentRuleset = new(ruleset, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _isDirty = true;
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)
@@ -24,9 +44,45 @@ public class RulesetController : Controller<RulesetController>
         ruleset.Save(GetPath());
     }
 
-    public void Select(SerializableWrapper<Ruleset> ruleset)
+    public void SaveCurrent()
     {
-        _ruleset = ruleset;
+        _currentRuleset.Save(GetPath());
+        _isDirty = true;
+    }
+
+    public void CloseOrSaveConfirm(InvokableGameObject invokable)
+    {
+        if (_isDirty)
+        {
+            (PopupController.Instance as PopupController).InsertEvent(invokable);
+            PopupController.Instance.Spawn(_savePopup);
+        }
+        else
+        {
+            invokable.Invoke();
+        }
+    }
+
+    public void SetName(string name)
+    {
+        _currentRuleset.SetName(name);
+        _isDirty = true;
+    }
+
+    public void SetDescription(string description)
+    {
+        _currentRuleset.SetDescription(description);
+        _isDirty = true;
+    }
+
+    public void Delete()
+    {
+        _currentRuleset.Delete(GetPath());
+
+        if (RulesetPopulator.Instance && RulesetPopulator.Instance.TryGetButtonFromItem(_currentRuleset, out GameObject button))
+            Destroy(button);
+
+        FindFirstObjectByType<RulesetPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
     }
 
     public void LoadFromAsset(RulesetAssetAsset ruleset)
@@ -38,24 +94,22 @@ public class RulesetController : Controller<RulesetController>
     {
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
-        _ruleset = new(ruleset, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+
+        _currentRuleset = new(ruleset, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()
     {
-        _ruleset = null;
+        _currentRuleset = _none.Ruleset;
     }
 
     public void SendToSimulation()
     {
-        if (_ruleset is null)
-            return;
-
         CommandSetRuleset setRuleset = new()
         {
-            ruleset = _ruleset.GetValueOrDefault()
+            ruleset = _currentRuleset
         };
 
         QuantumRunner.Default.Game.SendCommand(setRuleset);

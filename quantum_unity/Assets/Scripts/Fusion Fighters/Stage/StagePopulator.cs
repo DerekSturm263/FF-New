@@ -5,6 +5,6 @@ public class StagePopulator : PopulateSerializable<Quantum.Stage, StageAssetAsse
 
     protected override SerializableWrapper<Quantum.Stage> GetFromBuiltInAsset(StageAssetAsset asset) => asset.Stage;
     
-    protected override bool IsEquipped(SerializableWrapper<Quantum.Stage> item) => StageController.Instance.Stage.Equals(item);
+    protected override bool IsEquipped(SerializableWrapper<Quantum.Stage> item) => StageController.Instance.CurrentStage.Equals(item);
     protected override bool IsNone(SerializableWrapper<Quantum.Stage> item) => false;
 }
