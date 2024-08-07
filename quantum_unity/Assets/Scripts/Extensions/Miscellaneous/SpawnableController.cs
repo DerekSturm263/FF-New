@@ -9,9 +9,16 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
     protected T _t;
 
     protected abstract bool TakeAwayFocus();
+    protected virtual bool CanSpawn => true;
+    protected int _activeCount;
 
     public void Spawn(T t)
     {
+        if (!CanSpawn)
+            return;
+
+        ++_activeCount;
+
         if (TakeAwayFocus())
             EventSystemController.Instance.Enable();
 
@@ -38,6 +45,8 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
 
         if (TakeAwayFocus())
             EventSystemController.Instance.Disable();
+
+        --_activeCount;
     }
 
     protected virtual void CleanUp(T t) { }
