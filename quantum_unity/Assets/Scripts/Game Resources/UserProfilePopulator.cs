@@ -7,7 +7,13 @@ public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfil
     protected override string BuiltInFilePath() => "Scriptable Objects/User Profiles";
     protected override string CustomFilePath() => UserProfileController.GetPath();
 
-    protected override SerializableWrapper<UserProfile> GetFromBuiltInAsset(UserProfileAsset asset) => asset.Profile;
+    protected override SerializableWrapper<UserProfile> GetFromBuiltInAsset(UserProfileAsset asset)
+    {
+        var item = asset.Profile;
+        item.SetIconForBuiltIn(asset.Icon);
+
+        return item;
+    }
 
     protected override Dictionary<string, Predicate<SerializableWrapper<UserProfile>>> GetAllFilterModes()
     {

@@ -10,7 +10,13 @@ public class ApparelPopulator : PopulateSerializable<Quantum.Apparel, ApparelAss
     protected override string BuiltInFilePath() => "DB/Assets/Build/Equipment/Apparel/Apparel";
     protected override string CustomFilePath() => ApparelController.GetPath();
 
-    protected override SerializableWrapper<Quantum.Apparel> GetFromBuiltInAsset(ApparelAssetAsset asset) => asset.Apparel;
+    protected override SerializableWrapper<Quantum.Apparel> GetFromBuiltInAsset(ApparelAssetAsset asset)
+    {
+        var item = asset.Apparel;
+        item.SetIconForBuiltIn(asset.Icon);
+
+        return item;
+    }
 
     protected override IEnumerable<SerializableWrapper<Quantum.Apparel>> LoadAll()
     {

@@ -8,7 +8,13 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
     protected override string BuiltInFilePath() => "DB/Assets/Build/Equipment/Weapons/Weapons/Weapons";
     protected override string CustomFilePath() => WeaponController.GetPath();
 
-    protected override SerializableWrapper<Quantum.Weapon> GetFromBuiltInAsset(WeaponAssetAsset asset) => asset.Weapon;
+    protected override SerializableWrapper<Quantum.Weapon> GetFromBuiltInAsset(WeaponAssetAsset asset)
+    {
+        var item = asset.Weapon;
+        item.SetIconForBuiltIn(asset.Icon);
+
+        return item;
+    }
 
     protected override bool IsEquipped(SerializableWrapper<Quantum.Weapon> item)
     {

@@ -3,7 +3,13 @@ public class BuildPopulator : PopulateSerializable<Quantum.Build, BuildAssetAsse
     protected override string BuiltInFilePath() => "DB/Assets/Build/Builds";
     protected override string CustomFilePath() => BuildController.GetPath();
 
-    protected override SerializableWrapper<Quantum.Build> GetFromBuiltInAsset(BuildAssetAsset asset) => asset.Build;
+    protected override SerializableWrapper<Quantum.Build> GetFromBuiltInAsset(BuildAssetAsset asset)
+    {
+        var item = asset.Build;
+        item.SetIconForBuiltIn(asset.Icon);
+
+        return item;
+    }
 
     protected override bool IsEquipped(SerializableWrapper<Quantum.Build> item) => BuildController.Instance.CurrentBuild.Equals(item);
     protected override bool IsNone(SerializableWrapper<Quantum.Build> item) => false;

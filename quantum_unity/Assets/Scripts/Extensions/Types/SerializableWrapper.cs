@@ -57,6 +57,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
             return _icon;
         }
     }
+    public void SetIconForBuiltIn(Sprite icon) => _icon = icon;
 
     [SerializeField] private Sprite _preview;
     public readonly Sprite Preview => _preview;
