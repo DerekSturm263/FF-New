@@ -47,7 +47,7 @@ public class RulesetController : Controller<RulesetController>
     public void SaveCurrent()
     {
         _currentRuleset.Save(GetPath());
-        _isDirty = true;
+        _isDirty = false;
     }
 
     public void CloseOrSaveConfirm(InvokableGameObject invokable)

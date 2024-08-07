@@ -47,7 +47,7 @@ public class StageController : Controller<StageController>
     public void SaveCurrent()
     {
         _currentStage.Save(GetPath());
-        _isDirty = true;
+        _isDirty = false;
     }
 
     public void CloseOrSaveConfirm(InvokableGameObject invokable)

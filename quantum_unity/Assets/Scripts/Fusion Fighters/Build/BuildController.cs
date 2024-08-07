@@ -63,7 +63,7 @@ public class BuildController : Controller<BuildController>
     public void SaveCurrent()
     {
         _currentBuild.Save(GetPath());
-        _isDirty = true;
+        _isDirty = false;
     }
 
     public void CloseOrSaveConfirm(InvokableGameObject invokable)
