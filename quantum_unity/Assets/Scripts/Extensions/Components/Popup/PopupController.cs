@@ -13,6 +13,8 @@ namespace GameResources.UI.Popup
 
         private PopupContinueContext _continueContext;
 
+        protected override bool TakeAwayFocus() => true;
+
         public void InsertEvent(InvokableGameObject ctx)
         {
             _continueContext = new(() => ctx.Invoke());

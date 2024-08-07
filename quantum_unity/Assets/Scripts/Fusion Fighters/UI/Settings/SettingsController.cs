@@ -27,6 +27,8 @@ public class SettingsController : SpawnableController<Settings>
 
     [System.NonSerialized] private bool _isInitialized = false;
 
+    protected override bool TakeAwayFocus() => true;
+
     public void Spawn()
     {
         Spawn(default);

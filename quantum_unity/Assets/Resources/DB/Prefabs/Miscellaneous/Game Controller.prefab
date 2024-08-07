@@ -34,6 +34,7 @@ GameObject:
   - component: {fileID: 5440210475578707955}
   - component: {fileID: 1641385757697503227}
   - component: {fileID: 2630691936246450310}
+  - component: {fileID: -1038214817539144214}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -367,8 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56809c6d4fbdd048bc0db854d5f7fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerLimit: 4
-  _isEnabled: 0
+  _playerLimit: 1
+  _isEnabled: 1
   _default: {fileID: 11400000, guid: 338a4c98dffddb74ab82481ee5d09ca1, type: 2}
 --- !u!114 &3267107267905655839
 MonoBehaviour:
@@ -476,4 +477,18 @@ MonoBehaviour:
   _dropdownTemplate: {fileID: 6119716335094022146, guid: bda7fa3be4b78b746871ed44320d9509,
     type: 3}
   _buttonTemplate: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be,
+    type: 3}
+--- !u!114 &-1038214817539144214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370688451139883899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750d82f14a2e47548ab9cfe780ea0d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _template: {fileID: 9130855526157340096, guid: 2fb4af0d201c5c144b3150e6eae9c44a,
     type: 3}

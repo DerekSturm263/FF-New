@@ -48,6 +48,8 @@ public class RulesetController : Controller<RulesetController>
     {
         _currentRuleset.Save(GetPath());
         _isDirty = false;
+
+        ToastController.Instance.Spawn("Ruleset saved");
     }
 
     public void CloseOrSaveConfirm(InvokableGameObject invokable)

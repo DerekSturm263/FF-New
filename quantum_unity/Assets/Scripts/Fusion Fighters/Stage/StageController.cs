@@ -48,6 +48,8 @@ public class StageController : Controller<StageController>
     {
         _currentStage.Save(GetPath());
         _isDirty = false;
+
+        ToastController.Instance.Spawn("Stage saved");
     }
 
     public void CloseOrSaveConfirm(InvokableGameObject invokable)

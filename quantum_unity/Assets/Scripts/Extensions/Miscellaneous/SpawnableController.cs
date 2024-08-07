@@ -8,9 +8,12 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
     protected GameObject _templateInstance;
     protected T _t;
 
+    protected abstract bool TakeAwayFocus();
+
     public void Spawn(T t)
     {
-        EventSystemController.Instance.Enable();
+        if (TakeAwayFocus())
+            EventSystemController.Instance.Enable();
 
         Transform parent = GameObject.FindWithTag("Popup Canvas").transform;
         _templateInstance = Instantiate(_template, parent);
@@ -33,7 +36,8 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
             fadeOutEvents.DisableButtons();
         }
 
-        EventSystemController.Instance.Disable();
+        if (TakeAwayFocus())
+            EventSystemController.Instance.Disable();
     }
 
     protected virtual void CleanUp(T t) { }

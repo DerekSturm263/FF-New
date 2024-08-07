@@ -10,6 +10,8 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Profiles";
 
+    protected override bool TakeAwayFocus() => true;
+
     public SerializableWrapper<UserProfile> New()
     {
         UserProfile profile = new(_hapticStrength);

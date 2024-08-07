@@ -64,6 +64,8 @@ public class BuildController : Controller<BuildController>
     {
         _currentBuild.Save(GetPath());
         _isDirty = false;
+
+        ToastController.Instance.Spawn("Build saved");
     }
 
     public void CloseOrSaveConfirm(InvokableGameObject invokable)
