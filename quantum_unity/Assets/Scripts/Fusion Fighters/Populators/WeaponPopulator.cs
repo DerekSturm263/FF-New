@@ -25,6 +25,9 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
 
     protected override bool GiveEvents(SerializableWrapper<Weapon> item)
     {
+        if (IsNone(item))
+            return true;
+
         if (_type == 0)
             return BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.AltWeapon.Template.Id != item.value.Template.Id;
         else

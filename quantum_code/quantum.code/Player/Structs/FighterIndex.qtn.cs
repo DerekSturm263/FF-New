@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Quantum
 {
-    public unsafe partial struct FighterIndex : IComparable<FighterIndex>
+    public unsafe partial struct FighterIndex
     {
         public static FighterIndex Invalid = new()
         {
@@ -52,7 +52,7 @@ namespace Quantum
         {
             foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {
-                if (stats.Component.Index.CompareTo(index) == 0)
+                if (stats.Component.Index.Equals(index))
                     return stats.Entity;
             }
 
@@ -108,15 +108,5 @@ namespace Quantum
         }
 
         public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Device: {Device}, Type: {Type})";
-
-        public readonly int CompareTo(FighterIndex other)
-        {
-            return (Local - other.Local) +
-                   (Global - other.Global) +
-                   (GlobalNoBots - other.GlobalNoBots) +
-                   (GlobalNoHumans - other.GlobalNoHumans) +
-                   (Device - other.Device) +
-                   (Type - other.Type);
-        }
     }
 }

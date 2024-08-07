@@ -26,8 +26,8 @@ namespace GameResources.Camera
 
             _instance._settings = settings;
 
-            if (_settings.Volume)
-                _instance.SetVolumeInternal(_settings.Volume);
+            if (settings.Volume)
+                _instance.SetVolumeInternal(settings.Volume);
         }
 
         private void SetVolumeInternal(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
