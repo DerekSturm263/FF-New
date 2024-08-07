@@ -130,7 +130,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentClothing);
 
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentClothing = Instantiate(template.Instance, _clothing);
             _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
@@ -146,7 +146,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentHeadgear);
 
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentHeadgear = Instantiate(template.Instance, _headgear);
             _currentHeadgear.GetComponent<ParentClothing>().SetParent(_parentClothing);
@@ -162,7 +162,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentLegwear);
 
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentLegwear = Instantiate(template.Instance, _legwear);
             _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
@@ -175,7 +175,7 @@ public class PlayerBuildController : MonoBehaviour
             return;
 
         EyesAsset eyes = UnityDB.FindAsset<EyesAsset>(e.New.Eyes.Id);
-        if (eyes)
+        if (eyes && eyes.Texture)
         {
             _head.materials[2].SetTexture("_Base_Map", eyes.Texture);
         }
@@ -196,7 +196,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentHair);
 
         HairAsset template = UnityDB.FindAsset<HairAsset>(e.New.Hair.Id);
-        if (template)
+        if (template && template.Hair)
         {
             _currentHair = Instantiate(template.Hair, _hair);
         }
@@ -224,7 +224,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentSubWeapon);
 
         SubTemplateAsset template = UnityDB.FindAsset<SubTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentSubWeapon = Instantiate(template.Instance, _subWeapon);
         }

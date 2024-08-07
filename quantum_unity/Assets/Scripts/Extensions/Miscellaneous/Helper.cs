@@ -130,6 +130,24 @@ namespace Extensions.Miscellaneous
             return;
         }
 
+        public static Texture2D RenderToTexture2D(this Camera camera, Shader shader = null, string replacementTag = "")
+        {
+            var currentRT = RenderTexture.active;
+            RenderTexture.active = camera.targetTexture;
+
+            if (shader)
+                camera.RenderWithShader(shader, replacementTag);
+            else
+                camera.Render();
+
+            Texture2D image = new(camera.targetTexture.width, camera.targetTexture.height);
+            image.ReadPixels(new Rect(0, 0, camera.targetTexture.width, camera.targetTexture.height), 0, 0);
+            image.Apply();
+
+            RenderTexture.active = currentRT;
+            return image;
+        }
+
         #endregion
 
         public static void DrawSprite(Rect position, Sprite sprite)

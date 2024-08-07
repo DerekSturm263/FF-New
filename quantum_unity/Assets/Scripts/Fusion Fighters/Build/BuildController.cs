@@ -24,7 +24,7 @@ public class BuildController : Controller<BuildController>
         //randomBuild.Cosmetics.Eyes = new() { Eyes = _eyes[Random.Range(0, _eyes.Length)], Color = _colors[Random.Range(0, _colors.Length)] };
         //randomBuild.Cosmetics.Voice = _voices[Random.Range(0, _voices.Length)];
 
-        _currentlySelected = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
+        _currentlySelected = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
     }
 
     public void Save(SerializableWrapper<Build> build)

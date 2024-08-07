@@ -72,12 +72,12 @@ namespace Quantum
                 {
                     if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
                     {
-                        ++attackerPlayerStats->WinStats.Kills;
+                        ++attackerPlayerStats->Stats.Kills;
                     }
 
                     if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
                     {
-                        ++defenderPlayerStats->WinStats.Deaths;
+                        ++defenderPlayerStats->Stats.Deaths;
                     }
                 }
                 else

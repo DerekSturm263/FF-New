@@ -7,7 +7,7 @@
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->MatchStatsMultiplier.Energy = 0;
+                stats->StatsMultiplier.Energy = 0;
             }
         }
 
@@ -15,7 +15,7 @@
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
-                stats->MatchStatsMultiplier.Energy = 1;
+                stats->StatsMultiplier.Energy = 1;
             }
         }
     }

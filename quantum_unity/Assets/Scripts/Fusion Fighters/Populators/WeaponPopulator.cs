@@ -1,8 +1,8 @@
-using Quantum;
 using UnityEngine;
 
 public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetAsset>
 {
+    [SerializeField] private WeaponAssetAsset _none;
     [SerializeField] private int _type;
 
     protected override string BuiltInFilePath() => "DB/Assets/Build/Equipment/Weapons/Weapons/Weapons";
@@ -21,9 +21,9 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
 
         return isSame;
     }
-    protected override bool IsNone(SerializableWrapper<Quantum.Weapon> item) => !item.value.Template.Id.IsValid;
+    protected override bool IsNone(SerializableWrapper<Quantum.Weapon> item) => item.value.Equals(_none.Weapon.value);
 
-    protected override bool GiveEvents(SerializableWrapper<Weapon> item)
+    protected override bool GiveEvents(SerializableWrapper<Quantum.Weapon> item)
     {
         if (IsNone(item))
             return true;

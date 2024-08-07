@@ -1,5 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
+using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -9,6 +10,10 @@ using UnityEngine.Events;
 public class SubController : Controller<SubController>
 {
     [SerializeField] private SubAssetAsset _none;
+    public SubAssetAsset None => _none;
+
+    [SerializeField] private Camera _renderCamera;
+    [SerializeField] private Shader _renderShader;
 
     private SubTemplateAsset _template;
     public void SetTemplate(SubTemplateAsset template) => _template = template;
@@ -103,7 +108,7 @@ public class SubController : Controller<SubController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
+        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{sub.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
         _lastSub = serializable;
@@ -125,7 +130,13 @@ public class SubController : Controller<SubController>
     {
         if (!_doAction)
             return;
-            
+
+        Texture2D texture = _renderCamera.RenderToTexture2D(_renderShader);
+        byte[] renderBytes = texture.EncodeToPNG();
+
+        string filePath = $"{GetPath()}/{_lastSub.FileID}_ICON.png";
+        System.IO.File.WriteAllBytes(filePath, renderBytes);
+
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastSub);
     }

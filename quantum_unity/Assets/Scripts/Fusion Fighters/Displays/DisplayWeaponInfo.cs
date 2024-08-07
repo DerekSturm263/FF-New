@@ -6,7 +6,6 @@ using Type = SerializableWrapper<Quantum.Weapon>;
 
 public class DisplayWeaponInfo : DisplayBase
 {
-
     [SerializeField] private DisplayWeaponTemplateInfo _component1;
     [SerializeField] private DisplayWeaponMaterialInfo _component2;
     [SerializeField] private DisplayWeaponEnhancerInfo _component3;

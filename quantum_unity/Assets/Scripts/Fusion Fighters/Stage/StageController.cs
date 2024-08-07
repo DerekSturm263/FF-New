@@ -16,7 +16,7 @@ public class StageController : Controller<StageController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        return new(_default.Stage.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
+        return new(_default.Stage.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
     }
 
     public void Save(SerializableWrapper<Stage> stage)
@@ -38,7 +38,7 @@ public class StageController : Controller<StageController>
     {
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
-        _stage = new(stage, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
+        _stage = new(stage, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }

@@ -403,7 +403,7 @@ namespace Quantum
 
         public static void ResetTemporaryValues(Frame f, PlayerStats* playerStats)
         {
-            playerStats->WinStats = default;
+            playerStats->Stats = default;
             playerStats->HeldItem = EntityRef.None;
             playerStats->ApparelStatsMultiplier = ApparelHelper.Default;
             playerStats->WeaponStatsMultiplier = WeaponHelper.Default;

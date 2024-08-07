@@ -11,8 +11,8 @@ namespace Extensions.Components.UI
     {
         [SerializeField] private bool _resetOnTextChange;
 
-        private TMPro.TMP_Text _text;
-        private TMPro.TMP_Text Text => _text = _text ? _text : GetComponent<TMPro.TMP_Text>();
+        protected TMPro.TMP_Text _text;
+        protected TMPro.TMP_Text Text => _text = _text ? _text : GetComponent<TMPro.TMP_Text>();
 
         private float _time;
         protected List<Vector3> _allVertices = new();
@@ -59,7 +59,7 @@ namespace Extensions.Components.UI
 #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
         }
 
-        private void SaveAllVertices(TMPro.TMP_TextInfo textInfo)
+        protected void SaveAllVertices(TMPro.TMP_TextInfo textInfo)
         {
             if (textInfo.meshInfo[0].vertices is null)
                 return;
@@ -75,18 +75,16 @@ namespace Extensions.Components.UI
 
         public void ModifyTMP(TMPro.TMP_TextInfo textInfo, float deltaTime)
         {
-            TMPro.TMP_MeshInfo meshInfo = textInfo.meshInfo[0];
-
             textInfo.textComponent.ClearMesh();
 
-            ModifyTextMesh(textInfo, meshInfo, deltaTime, _time);
+            ModifyTextMesh(textInfo, deltaTime, _time);
 
             textInfo.textComponent.UpdateVertexData(TMPro.TMP_VertexDataUpdateFlags.Vertices | TMPro.TMP_VertexDataUpdateFlags.Colors32);
 
             _time += deltaTime;
         }
 
-        protected abstract void ModifyTextMesh(TMPro.TMP_TextInfo textInfo, TMPro.TMP_MeshInfo meshInfo, float deltaTime, float time);
+        protected abstract void ModifyTextMesh(TMPro.TMP_TextInfo textInfo, float deltaTime, float time);
 
 #if UNITY_EDTIOR
         protected override void OnValidate() => UpdateMesh();

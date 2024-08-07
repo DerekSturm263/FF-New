@@ -42,6 +42,8 @@ namespace Quantum.Editor {
       public Quantum.LeastDeathsTieResolver[] LeastDeathsTieResolver = {};
       public Quantum.MostHealthTieResolver[] MostHealthTieResolver = {};
       public Quantum.FirstToXKillsWinCondition[] FirstToXKillsWinCondition = {};
+      public Quantum.Gizmo[] Gizmo = {};
+      public Quantum.Tile[] Tile = {};
       public Quantum.Voice[] Voice = {};
       public Quantum.NoneBadge[] NoneBadge = {};
       public Quantum.DigitalDoubleUltimate[] DigitalDoubleUltimate = {};

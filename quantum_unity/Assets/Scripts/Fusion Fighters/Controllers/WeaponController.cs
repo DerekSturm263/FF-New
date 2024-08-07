@@ -1,5 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
+using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -11,6 +12,10 @@ public class WeaponController : Controller<WeaponController>
     public static GameObject TemplateObj;
 
     [SerializeField] private WeaponAssetAsset _none;
+    public WeaponAssetAsset None => _none;
+
+    [SerializeField] private Camera _renderCamera;
+    [SerializeField] private Shader _renderShader;
 
     private WeaponTemplateAsset _template;
     public void SetTemplate(WeaponTemplateAsset template) => _template = template;
@@ -114,7 +119,7 @@ public class WeaponController : Controller<WeaponController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
+        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{weapon.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
         _lastWeapon = serializable;
@@ -136,6 +141,12 @@ public class WeaponController : Controller<WeaponController>
     {
         if (!_doAction)
             return;
+
+        Texture2D texture = _renderCamera.RenderToTexture2D(_renderShader);
+        byte[] renderBytes = texture.EncodeToPNG();
+
+        string filePath = $"{GetPath()}/{_lastWeapon.FileID}_ICON.png";
+        System.IO.File.WriteAllBytes(filePath, renderBytes);
 
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastWeapon);

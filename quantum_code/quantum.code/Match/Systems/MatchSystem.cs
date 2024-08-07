@@ -154,7 +154,8 @@ namespace Quantum
                     if (!gizmo.Gizmo.Id.IsValid)
                         continue;
 
-                    EntityRef newGizmo = f.Create(gizmo.Gizmo);
+                    Gizmo gizmoAsset = f.FindAsset<Gizmo>(gizmo.Gizmo.Id);
+                    EntityRef newGizmo = f.Create(gizmoAsset.Prototype);
 
                     if (f.Unsafe.TryGetPointer(newGizmo, out Transform2D* transform))
                     {

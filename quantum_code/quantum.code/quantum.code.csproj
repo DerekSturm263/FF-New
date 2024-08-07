@@ -128,7 +128,7 @@
     <None Include="Cosmetics\Hair\HairColorBinding.qtn" />
     <None Include="Miscellaneous\Structs\Angular.qtn" />
     <None Include="Player\Components\PlayerStats.qtn" />
-    <None Include="Player\Structs\MatchStats.qtn" />
+    <None Include="Player\Structs\WellnessStats.qtn" />
     <Compile Include="Player\Structs\PhysicsSettings.cs" />
     <Compile Include="Player\Systems\PlayerStatsSystem.cs" />
     <Compile Include="Miscellaneous\Systems\ChildParentLinkSystem.cs" />
@@ -136,6 +136,8 @@
     <Compile Include="Ruleset\Assets\Tie Resolvers\MostHealthTieResolver.cs" />
     <Compile Include="Ruleset\Assets\Win Conditions\FirstToXKillsWinCondition.cs" />
     <Compile Include="Ruleset\Assets\TieResolver.qtn.cs" />
+    <Compile Include="Stage\Assets\Gizmo.qtn.cs" />
+    <Compile Include="Stage\Assets\Tile.qtn.cs" />
     <Compile Include="UI\Commands\CommandPause.cs" />
     <Compile Include="UI\Commands\CommandPlay.cs" />
     <Compile Include="UI\Commands\CommandSetTimeScale.cs" />
@@ -343,7 +345,7 @@
     <None Include="Match\Events\OnMatchEnd.qtn" />
     <None Include="Match\Structs\Match.qtn" />
     <None Include="Match\Globals\MatchInstance.qtn" />
-    <None Include="Player\Structs\WinConditionStats.qtn" />
+    <None Include="Player\Structs\BattleStats.qtn" />
     <None Include="Ruleset\Events\OnRulesetSelect.qtn" />
     <None Include="Ruleset\Structs\ItemSettings.qtn" />
     <None Include="Ruleset\Structs\MatchSettings.qtn" />

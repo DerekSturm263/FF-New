@@ -151,6 +151,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         FighterIndex index = new()
         {
             Local = localIndex,
+            Global = localIndex,
+            GlobalNoBots = localIndex,
             Device = HostClientEvents.DeviceIndex,
             GlobalNoHumans = -1,
             Type = FighterType.Human

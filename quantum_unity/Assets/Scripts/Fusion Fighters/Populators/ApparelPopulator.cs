@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ApparelPopulator : PopulateSerializable<Quantum.Apparel, ApparelAssetAsset>
 {
+    [SerializeField] private ApparelAssetAsset _none;
     [SerializeField] private Quantum.ApparelTemplate.ApparelType _type;
 
     protected override string BuiltInFilePath() => "DB/Assets/Build/Equipment/Apparel/Apparel";
@@ -34,5 +35,5 @@ public class ApparelPopulator : PopulateSerializable<Quantum.Apparel, ApparelAss
             _ => false
         };
     }
-    protected override bool IsNone(SerializableWrapper<Quantum.Apparel> item) => !item.value.Template.Id.IsValid;
+    protected override bool IsNone(SerializableWrapper<Quantum.Apparel> item) => item.value.Equals(_none.Apparel.value);
 }

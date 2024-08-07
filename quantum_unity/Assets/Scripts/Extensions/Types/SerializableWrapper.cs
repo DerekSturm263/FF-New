@@ -1,5 +1,6 @@
 using Extensions.Types;
 using Quantum;
+using System.IO;
 using UnityEngine;
 
 [System.Serializable]
@@ -28,8 +29,34 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private bool _madeByPlayer;
     public readonly bool MadeByPlayer => _madeByPlayer;
 
-    [SerializeField] private Sprite _icon;
-    public readonly Sprite Icon => _icon;
+    [SerializeField] private string _iconFilePath;
+    public readonly string IconFilePath => _iconFilePath;
+
+    private Sprite _icon;
+    public Sprite Icon
+    {
+        get
+        {
+            if (!_icon)
+            {
+                if (File.Exists(_iconFilePath))
+                {
+                    byte[] fileData = File.ReadAllBytes(_iconFilePath);
+
+                    Texture2D iconTexture = new(512, 512, TextureFormat.RGBA32, false, true);
+                    iconTexture.LoadImage(fileData);
+
+                    _icon = Sprite.Create(iconTexture, new(0, 0, iconTexture.width, iconTexture.height), Vector2.one);
+                }
+                else
+                {
+                    _icon = Sprite.Create(Texture2D.whiteTexture, new(0, 0, Texture2D.whiteTexture.width, -Texture2D.whiteTexture.height), Vector2.one);
+                }
+            }
+
+            return _icon;
+        }
+    }
 
     [SerializeField] private Sprite _preview;
     public readonly Sprite Preview => _preview;
@@ -40,7 +67,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private Tuple<string, string>[] _groupTags;
     public readonly Tuple<string, string>[] GroupTags => _groupTags;
 
-    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags, Sprite icon, Sprite preview)
+    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags, string iconFilePath, Sprite preview)
     {
         this.value = value;
         _name = name;
@@ -49,7 +76,8 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
         _lastEditedDate = lastEditedDate;
         _fileID = fileID;
         _madeByPlayer = true;
-        _icon = icon;
+        _iconFilePath = iconFilePath;
+        _icon = null;
         _preview = preview;
         _filterTags = filterTags;
         _groupTags = groupTags;

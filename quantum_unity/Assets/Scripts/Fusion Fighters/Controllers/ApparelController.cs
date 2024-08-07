@@ -1,5 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
+using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -10,6 +11,12 @@ using UnityEngine.Events;
 public class ApparelController : Controller<ApparelController>
 {
     [SerializeField] private ApparelAssetAsset _none;
+    public ApparelAssetAsset None => _none;
+
+    [SerializeField] private ApparelModifierAsset _noneMod;
+
+    [SerializeField] private Camera _renderCamera;
+    [SerializeField] private Shader _renderShader;
 
     private ApparelTemplateAsset _template;
     public void SetTemplate(ApparelTemplateAsset template) => _template = template;
@@ -30,8 +37,14 @@ public class ApparelController : Controller<ApparelController>
         return modifiers;
     }
 
-    public ApparelModifierAsset GetModifierFromIndex(List<ApparelModifierAsset> modifiers, int index) => modifiers.ElementAtOrDefault(index);
-    
+    public ApparelModifierAsset GetModifierFromIndex(List<ApparelModifierAsset> modifiers, int index)
+    {
+        if (index >= modifiers.Count)
+            return _noneMod;
+
+        return modifiers[index];
+    }
+
     public void AdjustModifiers(ApparelModifierAsset modifier, int increment)
     {
         if ((increment > 0 && _modifiers.Sum(item => item.Value) == 3))
@@ -174,7 +187,7 @@ public class ApparelController : Controller<ApparelController>
             new("Template Type", _template.name)
         };
 
-        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
+        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{apparel.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
         _lastApparel = serializable;
@@ -196,6 +209,12 @@ public class ApparelController : Controller<ApparelController>
     {
         if (!_doAction)
             return;
+
+        Texture2D texture = _renderCamera.RenderToTexture2D(_renderShader);
+        byte[] renderBytes = texture.EncodeToPNG();
+
+        string filePath = $"{GetPath()}/{_lastApparel.FileID}_ICON.png";
+        System.IO.File.WriteAllBytes(filePath, renderBytes);
 
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastApparel);

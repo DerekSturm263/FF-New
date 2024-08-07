@@ -3,8 +3,8 @@ component Stats
 	list<entity_ref> Hitboxes;
 	dictionary<HurtboxType, entity_ref> Hurtboxes;
 
-	MatchStats CurrentStats;
-	MatchStats MatchStatsMultiplier;
+	WellnessStats CurrentStats;
+	WellnessStats StatsMultiplier;
 
 	asset_ref<StatusEffect> StatusEffect;
 	int StatusEffectTimeLeft;
