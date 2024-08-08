@@ -5,6 +5,7 @@ using FusionFighters.Profile;
 using Quantum;
 using System.Collections.Generic;
 using System.Collections;
+using Extensions.Components.Input;
 
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
@@ -100,7 +101,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     private void TryPlayerJoin(InputAction.CallbackContext ctx)
     {
-        if (!_isEnabled || TryGetPlayer(ctx.control.device, out LocalPlayerInfo _) || _localPlayers.Count == _playerLimit)
+        if (!_isEnabled || TryGetPlayer(ctx.control.device, out LocalPlayerInfo _) || _localPlayers.Count == _playerLimit || InputEvent.IsInputting())
             return;
 
         if (TryAddPlayer(ctx.control.device, out LocalPlayerInfo player))

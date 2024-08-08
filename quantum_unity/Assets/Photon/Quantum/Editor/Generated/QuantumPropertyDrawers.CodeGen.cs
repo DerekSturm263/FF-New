@@ -190,6 +190,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefTile))]
+  public class AssetRefTilePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(TileAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefTrackGraph))]
   public class AssetRefTrackGraphPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {

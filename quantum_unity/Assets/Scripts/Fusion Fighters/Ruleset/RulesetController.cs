@@ -1,6 +1,10 @@
 using Extensions.Components.Miscellaneous;
 using GameResources.UI.Popup;
+using Photon.Deterministic;
 using Quantum;
+using Quantum.Types;
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
@@ -85,6 +89,147 @@ public class RulesetController : Controller<RulesetController>
             Destroy(button);
 
         FindFirstObjectByType<RulesetPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+    }
+
+    public void SetWinCondition(WinConditionAsset winCondition)
+    {
+        _currentRuleset.value.Match.WinCondition = new() { Id = winCondition.AssetObject.Guid };
+    }
+
+    public void SetTieResolver(TieResolverAsset tieResolver)
+    {
+        _currentRuleset.value.Match.TieResolver = new() { Id = tieResolver.AssetObject.Guid };
+    }
+
+    public void SetTime(string time)
+    {
+        _currentRuleset.value.Match.Time = Convert.ToInt32(time);
+    }
+
+    public void SetShowTimer(bool showTimer)
+    {
+        _currentRuleset.value.Match.ShowTimer = showTimer;
+    }
+
+    public void SetMatchCount(string matchCount)
+    {
+        _currentRuleset.value.Match.MatchCount = Convert.ToInt32(matchCount);
+    }
+
+    public void SetEndMatchesWhenWinnerClear(bool endMatchesWhenWinnerClear)
+    {
+        _currentRuleset.value.Match.EndMatchesWhenWinnerClear = endMatchesWhenWinnerClear;
+    }
+
+    public void ShowScores(bool showScores)
+    {
+        _currentRuleset.value.Match.ShowScores = showScores;
+    }
+
+    public void ShowCurrentWinner(bool showCurrentWinner)
+    {
+        _currentRuleset.value.Match.ShowCurrentWinner = showCurrentWinner;
+    }
+
+    public void SetStockCount(string stockCount)
+    {
+        _currentRuleset.value.Players.StockCount = Convert.ToInt32(stockCount);
+    }
+
+    public void SetMaxHealth(string maxHealth)
+    {
+        _currentRuleset.value.Players.MaxHealth = Convert.ToInt32(maxHealth);
+    }
+
+    public void SetMaxEnergy(string maxEnergy)
+    {
+        _currentRuleset.value.Players.MaxEnergy = Convert.ToInt32(maxEnergy);
+    }
+
+    public void SetEnergyChargeRate(float energyChargeRate)
+    {
+        _currentRuleset.value.Players.EnergyChargeRate = FP.FromFloat_UNSAFE(energyChargeRate);
+    }
+
+    public void SetRespawnTime(string respawnTime)
+    {
+        _currentRuleset.value.Players.RespawnTime = Convert.ToInt32(respawnTime);
+    }
+
+    public void SetAllowFriendlyFire(bool allowFriendlyFire)
+    {
+        _currentRuleset.value.Players.AllowFriendlyFire = allowFriendlyFire;
+    }
+
+    public void DisallowDuplicateSelectionBuilds(bool disallowDuplicateSelection)
+    {
+        _currentRuleset.value.Players.DisallowDuplicateSelection = disallowDuplicateSelection;
+    }
+
+    public unsafe void ToggleStageAvailability(StageAssetAsset stage)
+    {
+        AssetRefStageAsset[] stages = ArrayHelper.All(_currentRuleset.value.Stage.Stages);
+        int index = Array.IndexOf(stages, new() { Id = stage.AssetObject.Guid });
+
+        fixed (ArrayStages* stageArray = &_currentRuleset.value.Stage.Stages)
+        {
+            if (index > 0)
+            {
+                ArrayHelper.Set(stageArray, index, new() { Id = 0 });
+            }
+            else
+            {
+                ArrayHelper.Set(stageArray, index, new() { Id = stage.AssetObject.Guid });
+            }
+        }
+    }
+
+    public void SetStagePicker(Quantum.StagePickerType stagePickerType)
+    {
+        _currentRuleset.value.Stage.StagePicker = stagePickerType;
+    }
+
+    public void SetAllowGizmos(bool allowGizmos)
+    {
+        _currentRuleset.value.Stage.AllowGizmos = allowGizmos;
+    }
+
+    public void SetAllowCustomStages(bool allowCustomStages)
+    {
+        _currentRuleset.value.Stage.AllowCustomStages = allowCustomStages;
+    }
+
+    public void SetDisallowDuplicateSelectionStages(bool disallowDuplicateSelection)
+    {
+        _currentRuleset.value.Stage.DisallowDuplicateSelection = disallowDuplicateSelection;
+    }
+
+    public void SetStartingItem(ItemAsset item)
+    {
+        _currentRuleset.value.Items.StartingItem = new() { Id = item.AssetObject.Guid };
+    }
+
+    public unsafe void ToggleItemAvailability(ItemAsset item)
+    {
+        AssetRefItem[] items = ArrayHelper.All(_currentRuleset.value.Items.Items);
+        int index = Array.IndexOf(items, new() { Id = item.AssetObject.Guid });
+
+        fixed (ArrayItems* itemArray = &_currentRuleset.value.Items.Items)
+        {
+            if (index > 0)
+            {
+                ArrayHelper.Set(itemArray, index, new() { Id = 0 });
+            }
+            else
+            {
+                ArrayHelper.Set(itemArray, index, new() { Id = item.AssetObject.Guid });
+            }
+        }
+    }
+
+    public void SetItemSpawnFrequency(float itemSpawnFrequency)
+    {
+        _currentRuleset.value.Items.SpawnFrequency = FP.FromFloat_UNSAFE(itemSpawnFrequency);
     }
 
     public void LoadFromAsset(RulesetAssetAsset ruleset)

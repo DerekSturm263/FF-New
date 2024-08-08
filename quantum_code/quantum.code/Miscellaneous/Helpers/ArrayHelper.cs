@@ -51,7 +51,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<Team> All(ArrayTeams array)
+        public static IEnumerator<Team> Iterator(ArrayTeams array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -64,6 +64,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static Team[] All(ArrayTeams array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4];
         }
 
         public static FPVector2 Get(ArrayPlayerSpawnPoints array, int index)
@@ -112,7 +117,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<FPVector2> All(ArrayPlayerSpawnPoints array)
+        public static IEnumerator<FPVector2> Iterator(ArrayPlayerSpawnPoints array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -125,6 +130,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static FPVector2[] All(ArrayPlayerSpawnPoints array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4];
         }
 
         public static FPVector2 Get(ArrayItemSpawnPoints array, int index)
@@ -245,7 +255,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<FPVector2> All(ArrayItemSpawnPoints array)
+        public static IEnumerator<FPVector2> Iterator(ArrayItemSpawnPoints array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -270,6 +280,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static FPVector2[] All(ArrayItemSpawnPoints array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
         }
 
         public static AssetRefItem Get(ArrayItems array, int index)
@@ -390,7 +405,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<AssetRefItem> All(ArrayItems array)
+        public static IEnumerator<AssetRefItem> Iterator(ArrayItems array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -415,6 +430,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static AssetRefItem[] All(ArrayItems array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
         }
 
         public static AssetRefStageAsset Get(ArrayStages array, int index)
@@ -511,7 +531,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<AssetRefStageAsset> All(ArrayStages array)
+        public static IEnumerator<AssetRefStageAsset> Iterator(ArrayStages array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -532,6 +552,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static AssetRefStageAsset[] All(ArrayStages array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12];
         }
 
         public static StaticColliderInfo Get(ArrayStaticColliderInfo array, int index)
@@ -604,7 +629,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<StaticColliderInfo> All(ArrayStaticColliderInfo array)
+        public static IEnumerator<StaticColliderInfo> Iterator(ArrayStaticColliderInfo array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -621,6 +646,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static StaticColliderInfo[] All(ArrayStaticColliderInfo array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8];
         }
 
         public static PositionalGizmo Get(ArrayPositionalGizmoInfo array, int index)
@@ -741,7 +771,7 @@ namespace Quantum.Types
             };
         }
 
-        public static IEnumerator<PositionalGizmo> All(ArrayPositionalGizmoInfo array)
+        public static IEnumerator<PositionalGizmo> Iterator(ArrayPositionalGizmoInfo array)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -766,6 +796,11 @@ namespace Quantum.Types
                     _ => default
                 };
             }
+        }
+
+        public static PositionalGizmo[] All(ArrayPositionalGizmoInfo array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
         }
     }
 }

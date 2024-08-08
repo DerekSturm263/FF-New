@@ -162,7 +162,6 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref ObjectSettings value)
         {
             stream.Serialize(ref value.Stage);
-            stream.Serialize(ref value.SourceMap);
             stream.Serialize(ref value.Colliders);
             stream.Serialize(ref value.Gizmos);
         }
@@ -282,7 +281,7 @@ namespace Quantum
             stream.Serialize(ref value.MaxEnergy);
             stream.Serialize(ref value.EnergyChargeRate);
             stream.Serialize(ref value.RespawnTime);
-            stream.Serialize(ref value.FriendlyFire);
+            stream.Serialize(ref value.AllowFriendlyFire);
             stream.Serialize(ref value.DisallowDuplicateSelection);
         }
 

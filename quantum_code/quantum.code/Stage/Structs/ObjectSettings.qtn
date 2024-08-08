@@ -2,8 +2,8 @@
 struct ObjectSettings
 {
 	asset_ref<EntityPrototype> Stage;
-	asset_ref<Map> SourceMap;
-
 	ArrayStaticColliderInfo Colliders;
+
+	Array2DTiles Tiles;
 	ArrayPositionalGizmoInfo Gizmos;
 }

@@ -130,7 +130,7 @@ namespace Quantum
         {
             Stage old = default;
 
-            if (f.TryFindAsset(stage.Objects.SourceMap.Id, out Map map))
+            if (f.TryFindAsset(f.RuntimeConfig.StageSourceMap.Id, out Map map))
             {
                 old = f.Global->CurrentMatch.Stage;
                 f.Global->CurrentMatch.Stage = stage;
@@ -143,7 +143,7 @@ namespace Quantum
 
                 f.Global->CurrentStage = f.Create(stage.Objects.Stage);
 
-                Map newMap = MapGenerator.GenerateMapFromStage(stage, f.Context.AssetSerializer, f.FindAsset<Map>(stage.Objects.SourceMap.Id));
+                Map newMap = MapGenerator.GenerateMapFromStage(stage, f.Context.AssetSerializer, f.FindAsset<Map>(f.RuntimeConfig.StageSourceMap.Id));
 
                 f.AddAsset(newMap);
                 f.Map = newMap;

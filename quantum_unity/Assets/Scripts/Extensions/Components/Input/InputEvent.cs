@@ -88,7 +88,7 @@ namespace Extensions.Components.Input
             _isReady = true;
         }
 
-        private bool IsInputting()
+        public static bool IsInputting()
         {
             bool isUsingKeyboard = InputMapperController.Instance.CurrentDevice.displayName.Equals("Keyboard");
             if (!isUsingKeyboard)

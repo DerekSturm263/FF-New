@@ -9,7 +9,6 @@ public class DisplayRulesetInfo : Display<Type, Extensions.Types.Tuple<UnityEven
     [SerializeField] protected string _format = "{0}";
 
     protected (string[], Sprite) GetInfo(Type item) => (new string[] { item.Name, item.Description }, item.Preview);
-    protected override Type GetValue() => default;
     public override void UpdateDisplay(Type item)
     {
         var info = GetInfo(item);
@@ -17,4 +16,6 @@ public class DisplayRulesetInfo : Display<Type, Extensions.Types.Tuple<UnityEven
         _component.Item1[0].Invoke(string.Format(_format, info.Item1[0]));
         _component.Item1[1].Invoke(string.Format(_format, info.Item1[1]));
     }
+
+    protected override Type GetValue() => RulesetController.Instance.CurrentRuleset;
 }
