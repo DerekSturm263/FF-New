@@ -89,6 +89,8 @@ public class RulesetController : Controller<RulesetController>
             Destroy(button);
 
         FindFirstObjectByType<RulesetPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+
+        ToastController.Instance.Spawn("Ruleset deleted");
     }
 
     public void SetWinCondition(WinConditionAsset winCondition)
@@ -166,21 +168,19 @@ public class RulesetController : Controller<RulesetController>
         _currentRuleset.value.Players.AllowDuplicateSelection = allowDuplicateSelection;
     }
 
-    public unsafe void ToggleStageAvailability(StageAssetAsset stage)
+    public unsafe void ToggleStageAvailability(SerializableWrapper<Stage> stage)
     {
         AssetRefStageAsset[] stages = ArrayHelper.All(_currentRuleset.value.Stage.Stages);
-        int index = Array.IndexOf(stages, new() { Id = stage.AssetObject.Guid });
+        int index = Array.IndexOf(stages, new() { Id = stage.FileID });
 
-        fixed (ArrayStages* stageArray = &_currentRuleset.value.Stage.Stages)
+        if (index >= 0)
         {
-            if (index > 0)
-            {
-                ArrayHelper.Set(stageArray, index, new() { Id = 0 });
-            }
-            else
-            {
-                ArrayHelper.Set(stageArray, index, new() { Id = stage.AssetObject.Guid });
-            }
+            ArrayHelper.Set(ref _currentRuleset.value.Stage.Stages, index, new() { Id = 0 });
+        }
+        else
+        {
+            int firstIndex = Array.FindIndex(stages, item => !item.Id.IsValid);
+            ArrayHelper.Set(ref _currentRuleset.value.Stage.Stages, firstIndex, new() { Id = stage.FileID });
         }
     }
 
@@ -214,16 +214,14 @@ public class RulesetController : Controller<RulesetController>
         AssetRefItem[] items = ArrayHelper.All(_currentRuleset.value.Items.Items);
         int index = Array.IndexOf(items, new() { Id = item.AssetObject.Guid });
 
-        fixed (ArrayItems* itemArray = &_currentRuleset.value.Items.Items)
+        if (index >= 0)
         {
-            if (index > 0)
-            {
-                ArrayHelper.Set(itemArray, index, new() { Id = 0 });
-            }
-            else
-            {
-                ArrayHelper.Set(itemArray, index, new() { Id = item.AssetObject.Guid });
-            }
+            ArrayHelper.Set(ref _currentRuleset.value.Items.Items, index, new() { Id = 0 });
+        }
+        else
+        {
+            int firstIndex = Array.FindIndex(items, item => !item.Id.IsValid);
+            ArrayHelper.Set(ref _currentRuleset.value.Items.Items, firstIndex, new() { Id = item.AssetObject.Guid });
         }
     }
 

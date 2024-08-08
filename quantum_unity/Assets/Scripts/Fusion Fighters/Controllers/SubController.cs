@@ -1,6 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using Extensions.Miscellaneous;
+using GameResources.Audio;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using UnityEngine.Events;
 
 public class SubController : Controller<SubController>
 {
+    [SerializeField] private AudioClip _jingle;
+    [SerializeField] private AudioClip _defaultMusic;
+
     [SerializeField] private SubAssetAsset _none;
     public SubAssetAsset None => _none;
 
@@ -111,6 +115,9 @@ public class SubController : Controller<SubController>
         SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{sub.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
+        Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
+        Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
+
         _lastSub = serializable;
 
         Clear();
@@ -187,6 +194,8 @@ public class SubController : Controller<SubController>
 
         if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);
+
+        ToastController.Instance.Spawn("Sub deleted");
 
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }

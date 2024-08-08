@@ -85,6 +85,8 @@ public class StageController : Controller<StageController>
             Destroy(button);
 
         FindFirstObjectByType<StagePopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+
+        ToastController.Instance.Spawn("Stage deleted");
     }
 
     public void LoadFromAsset(StageAssetAsset stage)

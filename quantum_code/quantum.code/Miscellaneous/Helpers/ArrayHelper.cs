@@ -17,24 +17,24 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayTeams* array, int index, Team value)
+        public static void Set(ref ArrayTeams array, int index, Team value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
             }
         }
@@ -83,24 +83,24 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayPlayerSpawnPoints* array, int index, FPVector2 value)
+        public static void Set(ref ArrayPlayerSpawnPoints array, int index, FPVector2 value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
             }
         }
@@ -161,72 +161,72 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayItemSpawnPoints* array, int index, FPVector2 value)
+        public static void Set(ref ArrayItemSpawnPoints array, int index, FPVector2 value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
 
                 case 4:
-                    array->Item5 = value;
+                    array.Item5 = value;
                     break;
 
                 case 5:
-                    array->Item6 = value;
+                    array.Item6 = value;
                     break;
 
                 case 6:
-                    array->Item7 = value;
+                    array.Item7 = value;
                     break;
 
                 case 7:
-                    array->Item8 = value;
+                    array.Item8 = value;
                     break;
 
                 case 8:
-                    array->Item9 = value;
+                    array.Item9 = value;
                     break;
 
                 case 9:
-                    array->Item10 = value;
+                    array.Item10 = value;
                     break;
 
                 case 10:
-                    array->Item11 = value;
+                    array.Item11 = value;
                     break;
 
                 case 11:
-                    array->Item12 = value;
+                    array.Item12 = value;
                     break;
 
                 case 12:
-                    array->Item13 = value;
+                    array.Item13 = value;
                     break;
 
                 case 13:
-                    array->Item14 = value;
+                    array.Item14 = value;
                     break;
 
                 case 14:
-                    array->Item15 = value;
+                    array.Item15 = value;
                     break;
 
                 case 15:
-                    array->Item16 = value;
+                    array.Item16 = value;
                     break;
             }
         }
@@ -257,7 +257,7 @@ namespace Quantum.Types
 
         public static IEnumerator<FPVector2> Iterator(ArrayItemSpawnPoints array)
         {
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 16; ++i)
             {
                 yield return i switch
                 {
@@ -311,72 +311,72 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayItems* array, int index, AssetRefItem value)
+        public static void Set(ref ArrayItems array, int index, AssetRefItem value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
 
                 case 4:
-                    array->Item5 = value;
+                    array.Item5 = value;
                     break;
 
                 case 5:
-                    array->Item6 = value;
+                    array.Item6 = value;
                     break;
 
                 case 6:
-                    array->Item7 = value;
+                    array.Item7 = value;
                     break;
 
                 case 7:
-                    array->Item8 = value;
+                    array.Item8 = value;
                     break;
 
                 case 8:
-                    array->Item9 = value;
+                    array.Item9 = value;
                     break;
 
                 case 9:
-                    array->Item10 = value;
+                    array.Item10 = value;
                     break;
 
                 case 10:
-                    array->Item11 = value;
+                    array.Item11 = value;
                     break;
 
                 case 11:
-                    array->Item12 = value;
+                    array.Item12 = value;
                     break;
 
                 case 12:
-                    array->Item13 = value;
+                    array.Item13 = value;
                     break;
 
                 case 13:
-                    array->Item14 = value;
+                    array.Item14 = value;
                     break;
 
                 case 14:
-                    array->Item15 = value;
+                    array.Item15 = value;
                     break;
 
                 case 15:
-                    array->Item16 = value;
+                    array.Item16 = value;
                     break;
             }
         }
@@ -407,7 +407,7 @@ namespace Quantum.Types
 
         public static IEnumerator<AssetRefItem> Iterator(ArrayItems array)
         {
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 16; ++i)
             {
                 yield return i switch
                 {
@@ -457,56 +457,56 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayStages* array, int index, AssetRefStageAsset value)
+        public static void Set(ref ArrayStages array, int index, AssetRefStageAsset value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
 
                 case 4:
-                    array->Item5 = value;
+                    array.Item5 = value;
                     break;
 
                 case 5:
-                    array->Item6 = value;
+                    array.Item6 = value;
                     break;
 
                 case 6:
-                    array->Item7 = value;
+                    array.Item7 = value;
                     break;
 
                 case 7:
-                    array->Item8 = value;
+                    array.Item8 = value;
                     break;
 
                 case 8:
-                    array->Item9 = value;
+                    array.Item9 = value;
                     break;
 
                 case 9:
-                    array->Item10 = value;
+                    array.Item10 = value;
                     break;
 
                 case 10:
-                    array->Item11 = value;
+                    array.Item11 = value;
                     break;
 
                 case 11:
-                    array->Item12 = value;
+                    array.Item12 = value;
                     break;
             }
         }
@@ -533,7 +533,7 @@ namespace Quantum.Types
 
         public static IEnumerator<AssetRefStageAsset> Iterator(ArrayStages array)
         {
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 12; ++i)
             {
                 yield return i switch
                 {
@@ -575,40 +575,40 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayStaticColliderInfo* array, int index, StaticColliderInfo value)
+        public static void Set(ref ArrayStaticColliderInfo array, int index, StaticColliderInfo value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
 
                 case 4:
-                    array->Item5 = value;
+                    array.Item5 = value;
                     break;
 
                 case 5:
-                    array->Item6 = value;
+                    array.Item6 = value;
                     break;
 
                 case 6:
-                    array->Item7 = value;
+                    array.Item7 = value;
                     break;
 
                 case 7:
-                    array->Item8 = value;
+                    array.Item8 = value;
                     break;
             }
         }
@@ -677,72 +677,72 @@ namespace Quantum.Types
             };
         }
 
-        public static unsafe void Set(ArrayPositionalGizmoInfo* array, int index, PositionalGizmo value)
+        public static void Set(ref ArrayPositionalGizmoInfo array, int index, PositionalGizmo value)
         {
             switch (index)
             {
                 case 0:
-                    array->Item1 = value;
+                    array.Item1 = value;
                     break;
 
                 case 1:
-                    array->Item2 = value;
+                    array.Item2 = value;
                     break;
 
                 case 2:
-                    array->Item3 = value;
+                    array.Item3 = value;
                     break;
 
                 case 3:
-                    array->Item4 = value;
+                    array.Item4 = value;
                     break;
 
                 case 4:
-                    array->Item5 = value;
+                    array.Item5 = value;
                     break;
 
                 case 5:
-                    array->Item6 = value;
+                    array.Item6 = value;
                     break;
 
                 case 6:
-                    array->Item7 = value;
+                    array.Item7 = value;
                     break;
 
                 case 7:
-                    array->Item8 = value;
+                    array.Item8 = value;
                     break;
 
                 case 8:
-                    array->Item9 = value;
+                    array.Item9 = value;
                     break;
 
                 case 9:
-                    array->Item10 = value;
+                    array.Item10 = value;
                     break;
 
                 case 10:
-                    array->Item11 = value;
+                    array.Item11 = value;
                     break;
 
                 case 11:
-                    array->Item12 = value;
+                    array.Item12 = value;
                     break;
 
                 case 12:
-                    array->Item13 = value;
+                    array.Item13 = value;
                     break;
 
                 case 13:
-                    array->Item14 = value;
+                    array.Item14 = value;
                     break;
 
                 case 14:
-                    array->Item15 = value;
+                    array.Item15 = value;
                     break;
 
                 case 15:
-                    array->Item16 = value;
+                    array.Item16 = value;
                     break;
             }
         }
@@ -773,7 +773,7 @@ namespace Quantum.Types
 
         public static IEnumerator<PositionalGizmo> Iterator(ArrayPositionalGizmoInfo array)
         {
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 16; ++i)
             {
                 yield return i switch
                 {

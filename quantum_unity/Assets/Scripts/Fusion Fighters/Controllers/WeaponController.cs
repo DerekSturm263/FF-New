@@ -1,6 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using Extensions.Miscellaneous;
+using GameResources.Audio;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ using UnityEngine.Events;
 public class WeaponController : Controller<WeaponController>
 {
     public static GameObject TemplateObj;
+
+    [SerializeField] private AudioClip _jingle;
+    [SerializeField] private AudioClip _defaultMusic;
 
     [SerializeField] private WeaponAssetAsset _none;
     public WeaponAssetAsset None => _none;
@@ -122,6 +126,9 @@ public class WeaponController : Controller<WeaponController>
         SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{weapon.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
+        Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
+        Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
+
         _lastWeapon = serializable;
 
         Clear();
@@ -201,6 +208,8 @@ public class WeaponController : Controller<WeaponController>
 
         if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);
+
+        ToastController.Instance.Spawn("Weapon deleted");
 
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }

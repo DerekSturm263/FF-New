@@ -1,3 +1,4 @@
+using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
@@ -47,6 +48,8 @@ public class UserProfileController : SpawnableController<UserProfile>
 
         if (UserProfilePopulator.Instance && UserProfilePopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);
+
+        ToastController.Instance.Spawn("User Profile deleted");
     }
 
     public void SetName(string name)

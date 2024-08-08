@@ -101,6 +101,8 @@ public class BuildController : Controller<BuildController>
             Destroy(button);
         
         FindFirstObjectByType<BuildPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+
+        ToastController.Instance.Spawn("Build deleted");
     }
 
     public unsafe void SetAltWeaponOnPlayer(SerializableWrapper<Weapon> weapon)

@@ -1,3 +1,6 @@
+using Quantum.Types;
+using System.Linq;
+
 public class StagePopulator : PopulateSerializable<Quantum.Stage, StageAssetAsset>
 {
     protected override string BuiltInFilePath() => "DB/Assets/Stage/Stages";
@@ -11,6 +14,6 @@ public class StagePopulator : PopulateSerializable<Quantum.Stage, StageAssetAsse
         return item;
     }
 
-    protected override bool IsEquipped(SerializableWrapper<Quantum.Stage> item) => StageController.Instance.CurrentStage.Equals(item);
+    protected override bool IsEquipped(SerializableWrapper<Quantum.Stage> item) => ArrayHelper.All(RulesetController.Instance.CurrentRuleset.value.Stage.Stages).Any(stage => stage.Id == item.FileID);
     protected override bool IsNone(SerializableWrapper<Quantum.Stage> item) => false;
 }

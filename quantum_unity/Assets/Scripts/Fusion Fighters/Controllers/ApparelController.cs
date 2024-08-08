@@ -1,6 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
 using Extensions.Miscellaneous;
+using GameResources.Audio;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ using UnityEngine.Events;
 
 public class ApparelController : Controller<ApparelController>
 {
+    [SerializeField] private AudioClip _jingle;
+    [SerializeField] private AudioClip _defaultMusic;
+
     [SerializeField] private ApparelAssetAsset _none;
     public ApparelAssetAsset None => _none;
 
@@ -190,6 +194,9 @@ public class ApparelController : Controller<ApparelController>
         SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{apparel.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
+        Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
+        Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
+
         _lastApparel = serializable;
 
         Clear();
@@ -278,6 +285,8 @@ public class ApparelController : Controller<ApparelController>
 
         if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);
+
+        ToastController.Instance.Spawn("Apparel deleted");
 
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }

@@ -25,7 +25,9 @@ namespace Extensions.Components.UI
         [SerializeField] protected GameObject _button;
 
         [SerializeField] protected RectTransform _checkmark;
+        [SerializeField] protected bool _multipleCheckmarks;
         protected RectTransform _checkmarkInstance;
+
         [SerializeField] protected TMPro.TMP_Text _sectionHeader;
 
         [SerializeField] protected Sprite _background;
@@ -114,6 +116,7 @@ namespace Extensions.Components.UI
         [SerializeField] protected Button _searchOptions;
 
         [SerializeField] protected bool _reloadOnEachEnable;
+        [SerializeField] protected bool _spawnNoneButton = true;
 
         protected Dictionary<T, GameObject> _itemsToButtons = new();
         protected List<GameObject> _headers = new();
@@ -157,7 +160,7 @@ namespace Extensions.Components.UI
         {
             _instance = this;
 
-            if (_checkmark)
+            if (!_multipleCheckmarks && _checkmark)
                 _checkmarkInstance = Instantiate(_checkmark);
 
             if (_searchbar)
@@ -210,9 +213,24 @@ namespace Extensions.Components.UI
                 var firstEquipped = _itemsToButtons.FirstOrDefault(item => IsEquipped(item.Key));
 
                 if (!firstEquipped.Equals(default(KeyValuePair<T, GameObject>)))
-                    ParentCheckmark(firstEquipped.Value);
+                {
+                    ParentCheckmark(firstEquipped.Value, _checkmarkInstance);
+                }
                 else
-                    ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value);
+                {
+                    if (_itemsToButtons.Count(item => IsNone(item.Key)) > 0)
+                        ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value, _checkmarkInstance);
+                }
+            }
+            else if (_multipleCheckmarks)
+            {
+                foreach (var item in _itemsToButtons)
+                {
+                    RectTransform checkmarkInstance = Instantiate(_checkmark);
+                    ParentCheckmark(item.Value, checkmarkInstance);
+
+                    checkmarkInstance.gameObject.SetActive(IsEquipped(item.Key));
+                }
             }
         }
 
@@ -230,6 +248,8 @@ namespace Extensions.Components.UI
                 return;
 
             IEnumerable<T> items = LoadAll();
+            if (!_spawnNoneButton)
+                items = items.Where(item => !IsNone(item));
 
             foreach (T item in items)
             {
@@ -476,7 +496,11 @@ namespace Extensions.Components.UI
 
                         if (_checkmarkInstance)
                         {
-                            ParentCheckmark(button.gameObject);
+                            ParentCheckmark(button.gameObject, _checkmarkInstance);
+                        }
+                        else if (_multipleCheckmarks)
+                        {
+                            _itemsToButtons[item].FindChildWithTag("Checkmark", true).SetActive(IsEquipped(item));
                         }
                     });
                 }
@@ -520,14 +544,14 @@ namespace Extensions.Components.UI
             incremental?.OnIncrementDecrement.RemoveAllListeners();
         }
 
-        private void ParentCheckmark(GameObject parent)
+        private void ParentCheckmark(GameObject parent, RectTransform checkmark)
         {
-            _checkmarkInstance.SetParent(parent.FindChildWithTag("Offset", true).transform);
-            _checkmarkInstance.localScale = Vector3.one;
+            checkmark.SetParent(parent.FindChildWithTag("Offset", true).transform);
+            checkmark.localScale = Vector3.one;
 
-            _checkmarkInstance.anchoredPosition = new(20, -30);
-            _checkmarkInstance.anchorMin = new(0, 1);
-            _checkmarkInstance.anchorMax = new(0, 1);
+            checkmark.anchoredPosition = new(20, -30);
+            checkmark.anchorMin = new(0, 1);
+            checkmark.anchorMax = new(0, 1);
         }
 
         public bool TryGetButtonFromItem(T item, out GameObject button)
