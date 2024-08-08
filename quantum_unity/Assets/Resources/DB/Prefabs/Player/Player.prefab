@@ -1133,9 +1133,19 @@ MonoBehaviour:
     ActiveWeapon: {fileID: 0}
     MainWeapon: {fileID: 0}
     AltWeapon: {fileID: 0}
-    WinStats:
+    Stats:
       Kills: 0
       Deaths: 0
+      TotalDamageDealt:
+        RawValue: 0
+      TotalDamageReceived:
+        RawValue: 0
+      TotalDamageHealed:
+        RawValue: 0
+      TimeSurvived:
+        RawValue: 0
+      UltimateUses: 0
+      ItemUses: 0
     ApparelStatsMultiplier:
       Agility:
         RawValue: 65536
@@ -1366,12 +1376,12 @@ MonoBehaviour:
         RawValue: 0
       Energy:
         RawValue: 0
-    MatchStatsMultiplier:
-      Stocks: 1
+    StatsMultiplier:
+      Stocks: 0
       Health:
-        RawValue: 65536
+        RawValue: 0
       Energy:
-        RawValue: 65536
+        RawValue: 0
     StatusEffect:
       Id:
         Value: 0

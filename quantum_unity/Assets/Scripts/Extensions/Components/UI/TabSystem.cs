@@ -75,8 +75,8 @@ namespace Extensions.Components.UI
             {
                 RectTransform rect = _tabs.ElementAt(_currentTabIndex).Key.GetComponent<RectTransform>();
 
-                _selectionMarker.position = Vector3.Lerp(_selectionMarker.position, rect.position, Time.deltaTime * _selectionMarkerSpeed);
-                _selectionMarker.sizeDelta = Vector3.Lerp(_selectionMarker.sizeDelta, rect.sizeDelta, Time.deltaTime * _selectionMarkerSpeed);
+                _selectionMarker.position = Vector3.Lerp(_selectionMarker.position, rect.position, Time.unscaledDeltaTime * _selectionMarkerSpeed);
+                _selectionMarker.sizeDelta = Vector3.Lerp(_selectionMarker.sizeDelta, rect.sizeDelta, Time.unscaledDeltaTime * _selectionMarkerSpeed);
             }
         }
 

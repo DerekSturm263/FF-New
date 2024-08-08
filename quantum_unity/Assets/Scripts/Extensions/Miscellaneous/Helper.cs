@@ -130,6 +130,14 @@ namespace Extensions.Miscellaneous
             return;
         }
 
+        public enum ImageType
+        {
+            PNG,
+            JPG,
+            EXR,
+            TGA
+        }
+
         public static Texture2D RenderToTexture2D(this Camera camera, Shader shader = null, string replacementTag = "")
         {
             var currentRT = RenderTexture.active;
@@ -146,6 +154,21 @@ namespace Extensions.Miscellaneous
 
             RenderTexture.active = currentRT;
             return image;
+        }
+
+        public static void RenderToScreenshot(this Camera camera, string filePath, ImageType type, Shader shader = null, string replacementTag = "")
+        {
+            Texture2D texture = RenderToTexture2D(camera, shader, replacementTag);
+            byte[] renderBytes = type switch
+            {
+                ImageType.PNG => texture.EncodeToPNG(),
+                ImageType.JPG => texture.EncodeToJPG(),
+                ImageType.EXR => texture.EncodeToEXR(),
+                ImageType.TGA => texture.EncodeToTGA(),
+                _ => null
+            };
+
+            System.IO.File.WriteAllBytes(filePath, renderBytes);
         }
 
         #endregion

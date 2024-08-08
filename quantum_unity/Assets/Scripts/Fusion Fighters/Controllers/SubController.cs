@@ -138,11 +138,7 @@ public class SubController : Controller<SubController>
         if (!_doAction)
             return;
 
-        Texture2D texture = _renderCamera.RenderToTexture2D(_renderShader);
-        byte[] renderBytes = texture.EncodeToPNG();
-
-        string filePath = $"{GetPath()}/{_lastSub.FileID}_ICON.png";
-        System.IO.File.WriteAllBytes(filePath, renderBytes);
+        _renderCamera.RenderToScreenshot($"{GetPath()}/{_lastSub.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
 
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastSub);
