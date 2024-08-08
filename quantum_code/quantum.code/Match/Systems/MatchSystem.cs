@@ -66,9 +66,10 @@ namespace Quantum
 
             f.Events.OnMatchStart(new() { Count = teams.Count, Teams = teamsArray });
 
-            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
+            Item item = f.FindAsset<Item>(f.Global->CurrentMatch.Ruleset.Items.StartingItem.Id);
+            if (item is not null && item.Prototype.Id.IsValid)
             {
-                if (f.Global->CurrentMatch.Ruleset.Items.StartingItem.Id != AssetGuid.Invalid)
+                foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
                 {
                     ItemSpawnSettings settings = new()
                     {

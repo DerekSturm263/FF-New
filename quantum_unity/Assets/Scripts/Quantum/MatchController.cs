@@ -27,7 +27,7 @@ public class MatchController : Controller<MatchController>
         QuantumRunnerLocalDebug runner = FindFirstObjectByType<QuantumRunnerLocalDebug>();
         foreach (Bot bot in _opponents)
         {
-            runner.OnStart.AddListener(_ => LocalInputController.Instance.SpawnAI(Variate(bot)));
+            runner.OnStart.AddListener(_ => LocalInputController.Instance.SpawnAIDelayed(Variate(bot)));
         }
 
         SceneManager.sceneLoaded -= LoadScene;

@@ -18,7 +18,8 @@ namespace Extensions.Components.UI
         {
             Awake,
             Lazy,
-            LazyWithParent
+            LazyWithParent,
+            Never
         }
 
         [SerializeField] protected GameObject _button;
@@ -67,7 +68,6 @@ namespace Extensions.Components.UI
         public abstract int Count();
     }
 
-    [RequireComponent(typeof(LayoutGroup))]
     public abstract class Populate<T> : PopulateBase
     {
         public enum SortDirection
@@ -80,17 +80,38 @@ namespace Extensions.Components.UI
         public static Populate<T> Instance => _instance;
 
         [SerializeField] protected UnityEvent<T> _onButtonSpawn;
+        public void SubscribeOnButtonSpawn(UnityAction<T> action) => _onButtonSpawn.AddListener(action);
+
         [SerializeField] protected UnityEvent<T> _onButtonHover;
+        public void SubscribeOnButtonHover(UnityAction<T> action)
+        {
+            _onButtonHover ??= new();
+            _onButtonHover.AddListener(action);
+        }
+
         [SerializeField] protected UnityEvent<T> _onButtonClick;
+        public void SubscribeOnButtonClick(UnityAction<T> action)
+        {
+            _onButtonClick ??= new();
+            _onButtonClick.AddListener(action);
+        }
+
         [SerializeField] protected UnityEvent<T> _onButtonClickError;
+        public void SubscribeOnButtonClickError(UnityAction<T> action) => _onButtonClickError.AddListener(action);
+
         [SerializeField] protected UnityEvent<T, Quantum.FighterIndex> _onButtonClickMultiplayer;
+        public void SubscribeOnButtonClickMultiplayer(UnityAction<T, Quantum.FighterIndex> action) => _onButtonClickMultiplayer.AddListener(action);
+
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
+        public void SubscribeOnButtonDeselect(UnityAction<T> action) => _onButtonDeselect.AddListener(action);
+
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
+        public void SubscribeIncrementalIncrementDecrement(UnityAction<T, int> action) => _onIncrementalIncrementDecrement.AddListener(action);
 
-        [SerializeField] private TMPro.TMP_InputField _searchbar;
+        [SerializeField] protected TMPro.TMP_InputField _searchbar;
 
-        [SerializeField] private bool _helpButton = true;
-        [SerializeField] private Button _searchOptions;
+        [SerializeField] protected bool _helpButton = true;
+        [SerializeField] protected Button _searchOptions;
 
         [SerializeField] protected bool _reloadOnEachEnable;
 
@@ -157,6 +178,9 @@ namespace Extensions.Components.UI
 
         protected override void OnEnable()
         {
+            if (_loadingType == LoadType.Never)
+                return;
+
             if (_loadingType == LoadType.Lazy)
             {
                 GenerateList();
@@ -269,9 +293,9 @@ namespace Extensions.Components.UI
             }
 
             if (filtered.Count() == 0)
-                _onIfEmpty.Invoke();
+                _onIfEmpty?.Invoke();
             else
-                _onIfNotEmpty.Invoke();
+                _onIfNotEmpty?.Invoke();
         }
 
         public IEnumerable<IGrouping<(string, object), T>> GroupList()

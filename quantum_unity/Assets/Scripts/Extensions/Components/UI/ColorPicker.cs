@@ -22,12 +22,12 @@ namespace Extensions.Components.UI
         private float _value;
         private Color _color;
 
-        void ISubmitHandler.OnSubmit(UnityEngine.EventSystems.BaseEventData eventData)
+        void ISubmitHandler.OnSubmit(BaseEventData eventData)
         {
             SpawnColorPicker();
         }
 
-        void IPointerClickHandler.OnPointerClick(UnityEngine.EventSystems.PointerEventData eventData)
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             SpawnColorPicker();
         }

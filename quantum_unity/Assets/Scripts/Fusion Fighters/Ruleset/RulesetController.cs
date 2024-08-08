@@ -161,9 +161,9 @@ public class RulesetController : Controller<RulesetController>
         _currentRuleset.value.Players.AllowFriendlyFire = allowFriendlyFire;
     }
 
-    public void DisallowDuplicateSelectionBuilds(bool disallowDuplicateSelection)
+    public void SetAllowDuplicateSelectionBuilds(bool allowDuplicateSelection)
     {
-        _currentRuleset.value.Players.DisallowDuplicateSelection = disallowDuplicateSelection;
+        _currentRuleset.value.Players.AllowDuplicateSelection = allowDuplicateSelection;
     }
 
     public unsafe void ToggleStageAvailability(StageAssetAsset stage)
@@ -184,9 +184,9 @@ public class RulesetController : Controller<RulesetController>
         }
     }
 
-    public void SetStagePicker(Quantum.StagePickerType stagePickerType)
+    public void SetStagePicker(int stagePickerType)
     {
-        _currentRuleset.value.Stage.StagePicker = stagePickerType;
+        _currentRuleset.value.Stage.StagePicker = (StagePickerType)stagePickerType;
     }
 
     public void SetAllowGizmos(bool allowGizmos)
@@ -199,9 +199,9 @@ public class RulesetController : Controller<RulesetController>
         _currentRuleset.value.Stage.AllowCustomStages = allowCustomStages;
     }
 
-    public void SetDisallowDuplicateSelectionStages(bool disallowDuplicateSelection)
+    public void SetAllowDuplicateSelectionStages(bool allowDuplicateSelection)
     {
-        _currentRuleset.value.Stage.DisallowDuplicateSelection = disallowDuplicateSelection;
+        _currentRuleset.value.Stage.AllowDuplicateSelection = allowDuplicateSelection;
     }
 
     public void SetStartingItem(ItemAsset item)

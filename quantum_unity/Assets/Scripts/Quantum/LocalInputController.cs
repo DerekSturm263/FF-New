@@ -2,7 +2,7 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LocalInputController : Controller<LocalInputController>
 {
@@ -111,6 +111,17 @@ public class LocalInputController : Controller<LocalInputController>
             player?.Controls?.Menu.Disable();
 
         Debug.Log($"Spawned player {player.Index}");
+    }
+
+    public void SpawnAIDelayed(Bot bot)
+    {
+        StartCoroutine(SpawnAIDelayedEnum(bot));
+    }
+
+    private IEnumerator SpawnAIDelayedEnum(Bot bot)
+    {
+        yield return new WaitForSeconds(0.5f);
+        SpawnAI(bot);
     }
 
     public void SpawnAI(Bot bot)

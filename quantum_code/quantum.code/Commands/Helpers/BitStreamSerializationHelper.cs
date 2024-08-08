@@ -282,7 +282,7 @@ namespace Quantum
             stream.Serialize(ref value.EnergyChargeRate);
             stream.Serialize(ref value.RespawnTime);
             stream.Serialize(ref value.AllowFriendlyFire);
-            stream.Serialize(ref value.DisallowDuplicateSelection);
+            stream.Serialize(ref value.AllowDuplicateSelection);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref StageSettings value)
@@ -291,7 +291,7 @@ namespace Quantum
             stream.Serialize(ref value.StagePicker);
             stream.Serialize(ref value.AllowGizmos);
             stream.Serialize(ref value.AllowCustomStages);
-            stream.Serialize(ref value.DisallowDuplicateSelection);
+            stream.Serialize(ref value.AllowDuplicateSelection);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref ArrayStages value)
