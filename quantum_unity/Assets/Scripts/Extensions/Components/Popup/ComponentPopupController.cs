@@ -34,6 +34,8 @@ namespace GameResources.UI.Popup
 
         public static void SetUp(string title, Action<TComponent> action, TComponent templatePopulator)
         {
+            _templateInstance.GetComponentInChildren<Button>().onClick.AddListener(Despawn);
+
             TComponent component = UnityEngine.Object.Instantiate(templatePopulator);
             component.gameObject.SetActive(true);
 

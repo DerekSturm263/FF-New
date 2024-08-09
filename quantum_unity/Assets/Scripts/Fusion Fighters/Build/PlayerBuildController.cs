@@ -86,6 +86,9 @@ public class PlayerBuildController : MonoBehaviour
         if (color)
         {
             _head.materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            _head.materials[0].SetFloat("_Smoothness", color.Settings_ColorPreset.Smoothness.AsFloat * 0.1f);
+            _head.materials[0].SetFloat("_Metallic", color.Settings_ColorPreset.Metallic.AsFloat);
+            _head.materials[0].SetFloat("_Fresnel_Strength", color.Settings_ColorPreset.FresnelStrength.AsFloat * 0.15f);
         }
 
         if (_currentAltWeapon)
@@ -184,6 +187,9 @@ public class PlayerBuildController : MonoBehaviour
         if (color)
         {
             _head.materials[2].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            _head.materials[2].SetFloat("_Smoothness", color.Settings_ColorPreset.Smoothness.AsFloat * 0.15f);
+            _head.materials[2].SetFloat("_Metallic", color.Settings_ColorPreset.Metallic.AsFloat);
+            _head.materials[2].SetFloat("_Fresnel_Strength", color.Settings_ColorPreset.FresnelStrength.AsFloat * 0.2f);
         }
     }
 
@@ -204,7 +210,12 @@ public class PlayerBuildController : MonoBehaviour
         ColorPresetAsset color = UnityDB.FindAsset<ColorPresetAsset>(e.New.Color.Id);
         if (color)
         {
-            _currentHair.GetComponentInChildren<MeshRenderer>().materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            MeshRenderer meshRenderer = _currentHair.GetComponentInChildren<MeshRenderer>();
+
+            meshRenderer.materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            meshRenderer.materials[0].SetFloat("_Smoothness", color.Settings_ColorPreset.Smoothness.AsFloat * 0.15f);
+            meshRenderer.materials[0].SetFloat("_Metallic", color.Settings_ColorPreset.Metallic.AsFloat);
+            meshRenderer.materials[0].SetFloat("_Fresnel_Strength", color.Settings_ColorPreset.FresnelStrength.AsFloat * 0.2f);
         }
     }
 

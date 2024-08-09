@@ -49,6 +49,7 @@ public class ManualCameraController : MonoBehaviour
         float dt = Time.unscaledDeltaTime;
 
         transform.Rotate(rotation * (dt * _settings.Settings.RotationSpeed.AsFloat), Space.Self);
+        //transform.RotateAround(transform.position + transform.forward * 10, rotation, dt * _settings.Settings.RotationSpeed.AsFloat);
     }
 
     private void Zoom(float input)
