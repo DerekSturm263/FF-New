@@ -1,4 +1,4 @@
-using Photon.Deterministic;
+﻿using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,6 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text _playerNum;
     [SerializeField] private Image _health;
     [SerializeField] private HorizontalLayoutGroup _stocks;
-    [SerializeField] private GameObject _stock;
     [SerializeField] private Image _energy;
     [SerializeField] private Material _activateUltimate;
     [SerializeField] private Material _lowHealth;
@@ -17,7 +16,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Image _portrait;
     [SerializeField] private TMPro.TMP_Text _ready;
     [SerializeField] private Image _readyFill;
-    [SerializeField] private GameObject _infiniteLives;
+    [SerializeField] private TMPro.TMP_Text _lifeCount;
 
     [Header("Settings")]
     [SerializeField] private float _lerpSpeed;
@@ -134,19 +133,32 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateStocks(int newStocks, int maxStocks)
     {
-        _infiniteLives.SetActive(maxStocks == -1);
+        bool showLifeAsNumber = maxStocks > 10 || maxStocks == -1;
 
-        if (maxStocks > _stocks.transform.childCount)
+        _stocks.gameObject.SetActive(!showLifeAsNumber);
+        _lifeCount.gameObject.SetActive(showLifeAsNumber);
+        
+        if (showLifeAsNumber)
         {
-            int count = maxStocks - _stocks.transform.childCount;
-
-            for (int i = 0; i < count; ++i)
-            {
-                Instantiate(_stock, _stocks.transform);
-            }
+            if (maxStocks == -1)
+                _lifeCount.SetText($"Lives: \u221E");
+            else
+                _lifeCount.SetText($"Lives: {newStocks}/{maxStocks}");
         }
+        else
+        {
+            for (int i = 0; i < maxStocks; ++i)
+            {
+                _stocks.transform.GetChild(i).gameObject.SetActive(true);
+            }
 
-        for (int i = 0; i < maxStocks; ++i)
-            _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
+            for (int i = maxStocks; i < _stocks.transform.childCount; ++i)
+            {
+                _stocks.transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < maxStocks; ++i)
+                _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
+        }
     }
 }

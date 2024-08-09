@@ -13,6 +13,9 @@ namespace Quantum
         {
             Log.Debug("Match Setup!");
 
+            f.Global->PlayersReady = 0;
+            PlayerStatsSystem.SetAllReadiness(f, false);
+
             f.Events.OnMatchSetup();
         }
     }

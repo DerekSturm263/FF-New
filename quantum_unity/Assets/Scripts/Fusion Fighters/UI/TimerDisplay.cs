@@ -23,7 +23,7 @@ namespace Extensions.Components.UI
 
         public void InvokeTickEvent(int time)
         {
-            if (_tickEvents.TryGetValue(time, out UnityEvent<int> unityEvent))
+            if (isActiveAndEnabled && _tickEvents.TryGetValue(time, out UnityEvent<int> unityEvent))
                 unityEvent.Invoke(time);
         }
 
