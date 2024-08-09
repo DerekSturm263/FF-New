@@ -21,7 +21,6 @@ public class SelectAuto : UIBehaviour
     [SerializeField] private SelectType _selectMethod;
     [SerializeField] private List<Selectable> _dontSelect;
     [SerializeField] private bool _resetIndexOnStart = true;
-    [SerializeField] private bool _executeOnSelect = true;
     [SerializeField] private float _delay;
 
     private Selectable _oldSelected;
@@ -107,10 +106,9 @@ public class SelectAuto : UIBehaviour
                     selector.ChildToSelected(selected.gameObject);
             }
             else
+            {
                 EventSystem.current.SetSelectedGameObject(selected.gameObject);
-
-            if (_executeOnSelect && selected.TryGetComponent(out EventTrigger eventTrigger))
-                eventTrigger.OnSelect(new(EventSystem.current));
+            }
         }
     }
 }

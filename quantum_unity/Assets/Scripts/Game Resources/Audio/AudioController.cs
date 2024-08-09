@@ -75,6 +75,7 @@ namespace GameResources.Audio
             if (!_sfxSource)
                 return;
 
+            Debug.Log($"{clip.name} played");
             _sfxSource.PlayOneShot(clip);
         }
 

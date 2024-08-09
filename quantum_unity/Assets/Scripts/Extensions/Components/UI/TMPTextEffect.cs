@@ -10,6 +10,7 @@ namespace Extensions.Components.UI
     public abstract class TMPTextEffect : UIBehaviour
     {
         [SerializeField] private bool _resetOnTextChange;
+        [SerializeField] private bool _useScaledTime = false;
 
         protected TMPro.TMP_Text _text;
         protected TMPro.TMP_Text Text => _text = _text ? _text : GetComponent<TMPro.TMP_Text>();
@@ -70,7 +71,7 @@ namespace Extensions.Components.UI
 
         private void FixedUpdate()
         {
-            ModifyTMP(Text.textInfo, Time.fixedDeltaTime);
+            ModifyTMP(Text.textInfo, _useScaledTime ? Time.fixedDeltaTime : Time.fixedUnscaledDeltaTime);
         }
 
         public void ModifyTMP(TMPro.TMP_TextInfo textInfo, float deltaTime)
