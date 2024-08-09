@@ -1220,7 +1220,6 @@ MonoBehaviour:
   _selectMethod: 4
   _dontSelect: []
   _resetIndexOnStart: 1
-  _executeOnSelect: 0
   _delay: 0
 --- !u!114 &252404334
 MonoBehaviour:
@@ -3529,6 +3528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resetOnTextChange: 0
+  _useScaledTime: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -5561,7 +5561,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2132759830}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2132759828}
+        m_TargetAssemblyTypeName: Extensions.Components.Input.InputEvent, Extensions
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2132759830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8871,7 +8883,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1735167229}
+      objectReference: {fileID: 1328411555}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onEnable.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -8910,7 +8922,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1735167229}
+      objectReference: {fileID: 1328411555}
     - target: {fileID: 6142139756365884551, guid: 2c69c63db2631f945954d106381a127e,
         type: 3}
       propertyPath: _onDisable.m_PersistentCalls.m_Calls.Array.data[1].m_Target
