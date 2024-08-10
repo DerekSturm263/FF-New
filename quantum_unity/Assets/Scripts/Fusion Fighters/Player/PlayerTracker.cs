@@ -24,7 +24,17 @@ public abstract class PlayerTracker<T> : MonoBehaviour
     private void Update()
     {
         foreach (var kvp in _playersToTs)
-            Action(_viewUpdater.GetView(kvp.Key).gameObject, kvp.Value);
+        {
+            if (_viewUpdater)
+            {
+                EntityView view = _viewUpdater.GetView(kvp.Key);
+                
+                if (view)
+                {
+                    Action(view.gameObject, kvp.Value);
+                }
+            }
+        }
     }
 
     protected abstract void Action(GameObject player, T t);

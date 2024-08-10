@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UserProfileController : SpawnableController<UserProfile>
 {
+    [SerializeField] private BuildAssetAsset _default;
+
     [SerializeField] private Sprite _profileIcon;
 
     private LocalPlayerInfo _player;
@@ -15,7 +17,7 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     public SerializableWrapper<UserProfile> New()
     {
-        UserProfile profile = new(_hapticStrength);
+        UserProfile profile = new(_hapticStrength, _default.Build);
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
@@ -29,7 +31,7 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     public void SaveNew()
     {
-        UserProfile profile = new(_hapticStrength);
+        UserProfile profile = new(_hapticStrength, _default.Build);
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 

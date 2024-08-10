@@ -15,7 +15,7 @@ public class LocalPlayerInfo
     public Controls Controls => _controls;
 
     private SerializableWrapper<UserProfile> _profile;
-    public SerializableWrapper<UserProfile> Profile => _profile;
+    public ref SerializableWrapper<UserProfile> Profile => ref _profile;
     public void SetProfile(SerializableWrapper<UserProfile> profile) => _profile = profile;
 
     private FighterIndex _index;

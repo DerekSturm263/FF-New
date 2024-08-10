@@ -28,6 +28,8 @@ namespace GameResources.Camera
                 _instance.SetVolumeInternal(settings.Volume);
         }
 
+        [SerializeField] private bool _isMain = true;
+
         private void SetVolumeInternal(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
 
         public void SetCameraSettingsFromStageDefault(Stage stage)
@@ -109,7 +111,12 @@ namespace GameResources.Camera
 
         private void Awake()
         {
-            Initialize();
+            if (_isMain)
+            {
+                Initialize();
+
+                QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
+            }
 
             _targetPosition = transform.position;
             _targetRotation = transform.rotation;
@@ -120,8 +127,6 @@ namespace GameResources.Camera
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
             _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
-
-            QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
         }
 
         private void LateUpdate()
@@ -225,6 +230,15 @@ namespace GameResources.Camera
         {
             _instance._targets.Clear();
             _instance._targets.Add(new(1, target));
+        }
+
+        public void SetTarget(string target)
+        {
+            if (_targets.Count > 0)
+                return;
+
+            _targets.Clear();
+            _targets.Add(new(1, GameObject.Find(target).transform));
         }
 
         public void FocusTarget(int globalIndex)

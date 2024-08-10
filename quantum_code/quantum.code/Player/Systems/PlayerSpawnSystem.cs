@@ -9,10 +9,10 @@ namespace Quantum
             RuntimePlayer data = f.GetPlayerData(player);
             EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
 
-            SpawnPlayer(f, player, prototype, true, data.Name, data.Index, data.IsRealBattle);
+            SpawnPlayer(f, player, prototype, true, data.Name, data.Index, data.IsRealBattle, data.Build);
         }
 
-        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index, bool isRealBattle)
+        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index, bool isRealBattle, Build defaultBuild)
         {
             EntityRef entity = f.Create(prototype);
 
@@ -55,6 +55,8 @@ namespace Quantum
             {
                 transform->Position = Types.ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, index.Global);
             }
+
+            PlayerStatsSystem.SetBuild(f, entity, playerStats, defaultBuild);
 
             return entity;
         }

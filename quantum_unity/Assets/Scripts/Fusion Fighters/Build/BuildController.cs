@@ -1,14 +1,19 @@
 using Extensions.Components.Miscellaneous;
+using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
 public class BuildController : Controller<BuildController>
 {
+    [SerializeField] private BuildAssetAsset _defaultProfileBuild;
     [SerializeField] private BuildAssetAsset _default;
     [SerializeField] private BuildAssetAsset _none;
 
     [SerializeField] private Popup _savePopup;
+
+    [SerializeField] private Shader _renderShader;
+    [SerializeField] private AnimationClip _idle;
 
     private bool _isDirty;
 
@@ -51,7 +56,9 @@ public class BuildController : Controller<BuildController>
         };
         randomBuild.Cosmetics.Voice = new() { Id = voiceStyles[Random.Range(0, voiceStyles.Count)].AssetObject.Guid };
 
-        _currentBuild = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        AssetGuid newGuid = AssetGuid.NewGuid();
+        _currentBuild = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, newGuid, filterTags, groupTags, $"{GetPath()}/{newGuid}_ICON.png", null);
+
         _isDirty = true;
     }
 
@@ -64,6 +71,27 @@ public class BuildController : Controller<BuildController>
     {
         _currentBuild.Save(GetPath());
         _isDirty = false;
+
+        Camera renderCamera = GameObject.FindWithTag("Render Camera").GetComponent<Camera>();
+        GameObject player = FindFirstObjectByType<EntityViewUpdater>().GetView(FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human)).GetComponentInChildren<Animator>().gameObject;
+        
+        Vector3 oldScale = player.transform.parent.localScale;
+        Quaternion oldRotation = player.transform.localRotation;
+
+        player.GetComponent<Animator>().enabled = false;
+
+        _idle.SampleAnimation(player, 0.666f);
+
+        player.transform.parent.localScale = Vector3.one;
+
+        renderCamera.GetComponent<Light>().enabled = true;
+        renderCamera.RenderToScreenshot($"{GetPath()}/{_currentBuild.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
+        renderCamera.GetComponent<Light>().enabled = false;
+
+        player.transform.parent.localScale = oldScale;
+        player.transform.localRotation = oldRotation;
+
+        player.GetComponent<Animator>().enabled = true;
 
         ToastController.Instance.Spawn("Build saved");
     }
@@ -95,6 +123,16 @@ public class BuildController : Controller<BuildController>
 
     public void Delete()
     {
+        foreach (var userProfile in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<UserProfile>>(UserProfileController.GetPath()))
+        {
+            var newUserProfile = userProfile;
+
+            if (userProfile.value.LastBuild.Equals(_currentBuild.value))
+                newUserProfile.value.LastBuild = _defaultProfileBuild.Build;
+
+            newUserProfile.Save(UserProfileController.GetPath());
+        }
+
         _currentBuild.Delete(GetPath());
 
         if (BuildPopulator.Instance && BuildPopulator.Instance.TryGetButtonFromItem(_currentBuild, out GameObject button))
@@ -548,7 +586,13 @@ public class BuildController : Controller<BuildController>
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
-        PlayerStatController.Instance.HUDS[index.Global].SetPlayerIcon(build.Icon);
+        PlayerStatController.Instance.HUDS.ForEach(item => item[index.Global].SetPlayerIcon(build.Icon));
+
+        if (PlayerJoinController.Instance.TryGetPlayer(index, out LocalPlayerInfo player) && player.Profile.MadeByPlayer)
+        {
+            player.Profile.value.SetLastBuild(build);
+            player.Profile.Save(UserProfileController.GetPath());
+        }
     }
 
     public void SetOnPlayerDefault(SerializableWrapper<Build> build)

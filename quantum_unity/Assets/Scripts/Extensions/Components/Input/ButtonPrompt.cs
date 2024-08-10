@@ -45,7 +45,11 @@ namespace Extensions.Components.Input
                 return;
 
             _text.spriteAsset = spriteAsset;
-            _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\">"));
+
+            if (_inputEvent.Button2Optional)
+                _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\"><sprite name=\"{_inputEvent.Button2Optional.GetID(deviceName)}\">"));
+            else
+                _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\">"));
         }
     }
 }

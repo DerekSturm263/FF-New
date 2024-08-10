@@ -13,6 +13,8 @@ public class ManualCameraController : MonoBehaviour
 
     private Controls _controls;
 
+    private Vector3 _rotation;
+
     private void Awake()
     {
         _controls = new();
@@ -25,6 +27,8 @@ public class ManualCameraController : MonoBehaviour
 
         Zoom(_controls.Camera.Zoom.ReadValue<float>());
         Tilt(_controls.Camera.Tilt.ReadValue<float>());
+
+        transform.rotation = Quaternion.Euler(_rotation);
     }
 
     private void Move(Vector2 input)
@@ -44,12 +48,10 @@ public class ManualCameraController : MonoBehaviour
         if (input.magnitude < 0.1f)
             return;
 
-        Vector3 rotation = new(-input.y, input.x, 0);
-
         float dt = Time.unscaledDeltaTime;
 
-        transform.Rotate(rotation * (dt * _settings.Settings.RotationSpeed.AsFloat), Space.Self);
-        //transform.RotateAround(transform.position + transform.forward * 10, rotation, dt * _settings.Settings.RotationSpeed.AsFloat);
+        _rotation.x -= input.y * dt * _settings.Settings.RotationSpeed.AsFloat;
+        _rotation.y += input.x * dt * _settings.Settings.RotationSpeed.AsFloat;
     }
 
     private void Zoom(float input)
@@ -63,11 +65,9 @@ public class ManualCameraController : MonoBehaviour
 
     private void Tilt(float input)
     {
-        Vector3 rotation = new(0, 0, -input);
-
         float dt = Time.unscaledDeltaTime;
 
-        transform.Rotate(rotation * (dt * _settings.Settings.RotationSpeed.AsFloat), Space.Self);
+        _rotation.z -= input * dt * _settings.Settings.RotationSpeed.AsFloat;
     }
 
     public void Snap()
@@ -82,6 +82,12 @@ public class ManualCameraController : MonoBehaviour
         ToastController.Instance.Spawn("Picture taken");
     }
 
-    private void OnEnable() => _controls.Enable();
+    private void OnEnable()
+    {
+        _controls.Enable();
+
+        _rotation = transform.rotation.eulerAngles;
+    }
+    
     private void OnDisable() => _controls.Disable();
 }

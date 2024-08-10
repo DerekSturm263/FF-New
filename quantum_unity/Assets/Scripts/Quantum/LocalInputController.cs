@@ -102,6 +102,7 @@ public class LocalInputController : Controller<LocalInputController>
             CharacterPrototype = _player.CharacterPrototype,
             Name = player.Profile.Name,
             Index = player.Index,
+            Build = player.Profile.value.LastBuild,
             IsRealBattle = FindFirstObjectByType<PlayerReadyEventListener>()
         };
 
@@ -143,7 +144,7 @@ public class LocalInputController : Controller<LocalInputController>
                 GlobalNoBots = -1,
                 GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(QuantumRunner.Default.Game.Frames.Verified),
                 Type = FighterType.Bot
-            }
+            },
         };
 
         QuantumRunner.Default.Game.SendCommand(commandSpawnAI);

@@ -8,7 +8,6 @@ namespace Quantum
         public Bot bot;
 
         public string name;
-
         public FighterIndex index;
 
         public override void Serialize(BitStream stream)
@@ -23,13 +22,10 @@ namespace Quantum
         {
             Log.Debug("AI spawned!");
 
-            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype, false, name, index, false);
+            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype, false, name, index, false, bot.Build);
 
             if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
                 aiData->Behavior = bot.Behavior;
-
-            if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
-                PlayerStatsSystem.SetBuild(f, entity, stats, bot.Build);
         }
     }
 }

@@ -848,15 +848,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Take Picture"",
-                    ""type"": ""Button"",
-                    ""id"": ""d46a72f8-25c1-40a6-a32c-9f0377603aba"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1530,28 +1521,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Multi-Directional Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d81cbdef-18bd-4a73-91ac-b382ddb35b89"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Take Picture"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""944f6792-3cc7-4386-a1fc-65a4726e5493"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Take Picture"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1662,61 +1631,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Arrow Keys"",
-                    ""id"": ""8a679ce7-ab00-4516-90f9-42fe4dfe62b4"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""456ee55f-57a3-4382-aca7-f666d1d97d59"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""9c713f0c-c1aa-4829-84cd-4ed2ce2e74df"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""7afb62b9-3665-4656-935f-e6f23d6a0960"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""e9594576-070e-4990-bb0d-34121cc31b64"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""f7669792-4c14-4938-9a97-e7d5af07122d"",
                     ""path"": ""<Gamepad>/leftStick"",
@@ -1752,7 +1666,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""0f0c7802-928c-497f-aeb5-bfb5924a6cfd"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1763,7 +1677,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""d5168b7b-f012-461d-89af-6e6391ead92a"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1774,7 +1688,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""515d5922-75f0-41d1-b460-c8401ab1d610"",
-                    ""path"": ""<Keyboard>/j"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1785,7 +1699,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""3f97957e-62c8-4ced-bdfa-08dddf04dadd"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1818,7 +1732,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""f711d116-c0ce-4a08-89f4-a017fd0d64ab"",
-                    ""path"": ""<Keyboard>/minus"",
+                    ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1829,7 +1743,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""b7fac8b3-af2d-432d-8479-a4c10147f711"",
-                    ""path"": ""<Keyboard>/equals"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1884,7 +1798,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""dd9af1f5-5208-41c6-b02a-594ce210e4ca"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1895,7 +1809,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""a6566527-817d-41bd-8824-9dd8b6dbb3d2"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1939,7 +1853,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7fe2b830-3fa4-4a36-8ce7-db69e6ae936e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + Mouse"",
@@ -1950,7 +1864,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6feee5b5-d60d-4a21-b21e-921f7843ed08"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -2023,7 +1937,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
         m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
         m_Menu_Quit = m_Menu.FindAction("Quit", throwIfNotFound: true);
-        m_Menu_TakePicture = m_Menu.FindAction("Take Picture", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
@@ -2268,7 +2181,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Submit;
     private readonly InputAction m_Menu_Cancel;
     private readonly InputAction m_Menu_Quit;
-    private readonly InputAction m_Menu_TakePicture;
     public struct MenuActions
     {
         private @Controls m_Wrapper;
@@ -2291,7 +2203,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Submit => m_Wrapper.m_Menu_Submit;
         public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
         public InputAction @Quit => m_Wrapper.m_Menu_Quit;
-        public InputAction @TakePicture => m_Wrapper.m_Menu_TakePicture;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2355,9 +2266,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Quit.started += instance.OnQuit;
             @Quit.performed += instance.OnQuit;
             @Quit.canceled += instance.OnQuit;
-            @TakePicture.started += instance.OnTakePicture;
-            @TakePicture.performed += instance.OnTakePicture;
-            @TakePicture.canceled += instance.OnTakePicture;
         }
 
         private void UnregisterCallbacks(IMenuActions instance)
@@ -2416,9 +2324,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Quit.started -= instance.OnQuit;
             @Quit.performed -= instance.OnQuit;
             @Quit.canceled -= instance.OnQuit;
-            @TakePicture.started -= instance.OnTakePicture;
-            @TakePicture.performed -= instance.OnTakePicture;
-            @TakePicture.canceled -= instance.OnTakePicture;
         }
 
         public void RemoveCallbacks(IMenuActions instance)
@@ -2570,7 +2475,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnQuit(InputAction.CallbackContext context);
-        void OnTakePicture(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

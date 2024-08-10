@@ -18,6 +18,9 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Image _readyFill;
     [SerializeField] private TMPro.TMP_Text _lifeCount;
 
+    [SerializeField] private TMPro.TMP_Text _healthText;
+    [SerializeField] private TMPro.TMP_Text _energyText;
+
     [Header("Settings")]
     [SerializeField] private float _lerpSpeed;
     [SerializeField] private Color _emptyHealth;
@@ -52,17 +55,20 @@ public class HUDPlayerLink : MonoBehaviour
 
     public void UpdateReadiness(bool isReady)
     {
-        _ready.SetText(isReady ? "Ready!" : "Not Yet...");
+        if (_ready)
+            _ready.SetText(isReady ? "Ready!" : "Not Yet...");
     }
 
     public void UpdateReadinessValue(float value)
     {
-        _readyFill.fillAmount = value;
+        if (_readyFill)
+            _readyFill.fillAmount = value;
     }
 
     public void ShowReadiness(bool show)
     {
-        _readyFill.gameObject.SetActive(show);
+        if (_readyFill)
+            _readyFill.gameObject.SetActive(show);
     }
 
     public void UpdateHealth(FP newHealth, FP maxHealth)
@@ -94,6 +100,8 @@ public class HUDPlayerLink : MonoBehaviour
         {
             _lowHealthObj.SetActive(false);
         }
+
+        _healthText?.SetText($"{newHealth}/{maxHealth}");
     }
 
     public void UpdateEnergy(FP newEnergy, FP maxEnergy)
@@ -129,6 +137,8 @@ public class HUDPlayerLink : MonoBehaviour
         {
             _lowHealthObj.SetActive(false);
         }
+
+        _energyText?.SetText($"{newEnergy}/{maxEnergy}");
     }
 
     public void UpdateStocks(int newStocks, int maxStocks)
