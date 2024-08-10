@@ -1,10 +1,11 @@
+using Extensions.Miscellaneous;
 using Extensions.Types;
 using Quantum;
 using System.IO;
 using UnityEngine;
 
 [System.Serializable]
-public unsafe struct SerializableWrapper<T> where T : struct
+public struct SerializableWrapper<T>
 {
     public T value;
 
@@ -43,21 +44,9 @@ public unsafe struct SerializableWrapper<T> where T : struct
                 return _iconOverride;
 
             if (!_icon)
-            {
-                if (File.Exists(_iconFilePath))
-                {
-                    byte[] fileData = File.ReadAllBytes(_iconFilePath);
-
-                    Texture2D iconTexture = new(512, 512, TextureFormat.RGBA32, false, true);
-                    iconTexture.LoadImage(fileData);
-
-                    _icon = Sprite.Create(iconTexture, new(0, 0, iconTexture.width, iconTexture.height), Vector2.one);
-                }
-                else
-                {
-                    _icon = Sprite.Create(Texture2D.whiteTexture, new(0, 0, Texture2D.whiteTexture.width, -Texture2D.whiteTexture.height), Vector2.one);
-                }
-            }
+                _icon = Helper.SpriteFromScreenshot(_iconFilePath, 512, 512);
+            else
+                Debug.Log("Icon already exists!");
 
             return _icon;
         }
@@ -102,6 +91,9 @@ public unsafe struct SerializableWrapper<T> where T : struct
     public readonly void Delete(string directory)
     {
         FusionFighters.Serializer.Delete($"{directory}/{FileID}.json", directory);
+
+        if (_iconFilePath is not null)
+            File.Delete(_iconFilePath);
     }
 
     public static SerializableWrapper<T> LoadAs(string directory, AssetGuid fileID)

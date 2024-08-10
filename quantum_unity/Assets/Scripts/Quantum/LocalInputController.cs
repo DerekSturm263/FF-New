@@ -106,28 +106,28 @@ public class LocalInputController : Controller<LocalInputController>
             IsRealBattle = FindFirstObjectByType<PlayerReadyEventListener>()
         };
 
-        PlayerStatController.Instance.HUDS.ForEach(item => item[player.Index.Global].SetPlayerIcon(player.Profile.value.LastBuild.Icon));
-
         QuantumRunner.Default.Game.SendPlayerData(data.Index.Local, data);
 
         if (!gameObject.activeInHierarchy)
             player?.Controls?.Menu.Disable();
 
+        PlayerStatController.Instance.HUDS.ForEach(item => item[player.Index.Global].SetPlayerIcon(player.Profile.value.LastBuild.Icon));
+
         Debug.Log($"Spawned player {player.Index}");
     }
 
-    public void SpawnAIDelayed(Bot bot)
+    public void SpawnAIDelayed(Bot bot, Sprite icon)
     {
-        StartCoroutine(SpawnAIDelayedEnum(bot));
+        StartCoroutine(SpawnAIDelayedEnum(bot, icon));
     }
 
-    private IEnumerator SpawnAIDelayedEnum(Bot bot)
+    private IEnumerator SpawnAIDelayedEnum(Bot bot, Sprite icon)
     {
         yield return new WaitForSeconds(0.5f);
-        SpawnAI(bot);
+        SpawnAI(bot, icon);
     }
 
-    public void SpawnAI(Bot bot)
+    public void SpawnAI(Bot bot, Sprite icon)
     {
         int localIndex = PlayerJoinController.Instance.GetNextLocalIndex();
         if (localIndex == -1)
@@ -150,6 +150,9 @@ public class LocalInputController : Controller<LocalInputController>
         };
 
         QuantumRunner.Default.Game.SendCommand(commandSpawnAI);
+
+        PlayerStatController.Instance.HUDS.ForEach(item => item[commandSpawnAI.index.Global].SetPlayerIcon(icon));
+
         Debug.Log($"Spawned bot {commandSpawnAI.index}");
     }
 

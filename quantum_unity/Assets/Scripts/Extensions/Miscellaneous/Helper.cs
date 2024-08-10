@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -169,6 +170,24 @@ namespace Extensions.Miscellaneous
             };
 
             System.IO.File.WriteAllBytes(filePath, renderBytes);
+            Debug.Log("Screenshot taken!");
+        }
+
+        public static Sprite SpriteFromScreenshot(string filePath, int width, int height)
+        {
+            Debug.Log("Getting sprite from a screenshot");
+
+            if (File.Exists(filePath))
+            {
+                byte[] fileData = File.ReadAllBytes(filePath);
+
+                Texture2D iconTexture = new(width, height, TextureFormat.RGBA32, false, true);
+                iconTexture.LoadImage(fileData);
+
+                return Sprite.Create(iconTexture, new(0, 0, iconTexture.width, iconTexture.height), Vector2.one);
+            }
+            
+            return Sprite.Create(Texture2D.whiteTexture, new(0, 0, Texture2D.whiteTexture.width, -Texture2D.whiteTexture.height), Vector2.one);
         }
 
         #endregion
