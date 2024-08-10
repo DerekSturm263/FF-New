@@ -13,7 +13,6 @@ public class ApparelPopulator : PopulateSerializable<Quantum.Apparel, ApparelAss
     protected override SerializableWrapper<Quantum.Apparel> GetFromBuiltInAsset(ApparelAssetAsset asset)
     {
         var item = asset.Apparel;
-        item.SetIconForBuiltIn(asset.Icon);
 
         return item;
     }

@@ -11,7 +11,6 @@ public class WeaponPopulator : PopulateSerializable<Quantum.Weapon, WeaponAssetA
     protected override SerializableWrapper<Quantum.Weapon> GetFromBuiltInAsset(WeaponAssetAsset asset)
     {
         var item = asset.Weapon;
-        item.SetIconForBuiltIn(asset.Icon);
 
         return item;
     }

@@ -6,7 +6,6 @@ public class BuildPopulator : PopulateSerializable<Quantum.Build, BuildAssetAsse
     protected override SerializableWrapper<Quantum.Build> GetFromBuiltInAsset(BuildAssetAsset asset)
     {
         var item = asset.Build;
-        item.SetIconForBuiltIn(asset.Icon);
 
         return item;
     }

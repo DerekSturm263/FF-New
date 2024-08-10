@@ -10,7 +10,6 @@ public class SubPopulator : PopulateSerializable<Quantum.Sub, SubAssetAsset>
     protected override SerializableWrapper<Quantum.Sub> GetFromBuiltInAsset(SubAssetAsset asset)
     {
         var item = asset.Sub;
-        item.SetIconForBuiltIn(asset.Icon);
 
         return item;
     }

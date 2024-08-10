@@ -22,7 +22,6 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text _energyText;
 
     [Header("Settings")]
-    [SerializeField] private float _lerpSpeed;
     [SerializeField] private Color _emptyHealth;
     [SerializeField] private Color _fullHealth;
     [SerializeField] private Color _emptyEnergy;

@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: c6a108bf84334f1449fdb8f36ea8722c, type: 2}
+  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _onAction:
@@ -1044,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
+  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _onAction:
@@ -1276,6 +1278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resetOnTextChange: 0
+  _useScaledTime: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -1637,7 +1640,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.95
+  m_fontSize: 50.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1694,6 +1697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resetOnTextChange: 0
+  _useScaledTime: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -2037,7 +2041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 5.5008755}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &671197288179752978
@@ -2078,7 +2082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710b3ab11099c6a4a84b9bd62dedf0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be, type: 3}
+  _button: {fileID: 6066071934636821485, guid: a45408719956e484bac05a41ccc97db6, type: 3}
   _checkmark: {fileID: 0}
   _multipleCheckmarks: 0
   _sectionHeader: {fileID: 0}
@@ -2171,7 +2175,7 @@ MonoBehaviour:
   _searchOptions: {fileID: 0}
   _reloadOnEachEnable: 1
   _spawnNoneButton: 1
-  _loadType: 3
+  _loadType: -1
 --- !u!114 &2326378943420541241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2187,7 +2191,6 @@ MonoBehaviour:
   _selectMethod: 4
   _dontSelect: []
   _resetIndexOnStart: 0
-  _executeOnSelect: 1
   _delay: 0.1
 --- !u!114 &8804546887243744577
 MonoBehaviour:
@@ -2390,7 +2393,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 583316105924824761}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9997392
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3214,6 +3217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
+  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _onAction:
@@ -4066,7 +4070,7 @@ PrefabInstance:
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
       propertyPath: m_fontSize
-      value: 15
+      value: 34.4
       objectReference: {fileID: 0}
     - target: {fileID: 1568244744761471430, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
@@ -4185,6 +4189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6215476458184869422, guid: c9c593514fdddf641a4c63012f8450be,
         type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 2506107567952613586}
+    - target: {fileID: 6215476458184869422, guid: c9c593514fdddf641a4c63012f8450be,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4269,6 +4278,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6155193622785096089}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2506107567952613586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -599866661421373109, guid: c9c593514fdddf641a4c63012f8450be,
+    type: 3}
+  m_PrefabInstance: {fileID: 6155193622785096089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7220047764836411131
 PrefabInstance:
   m_ObjectHideFlags: 0

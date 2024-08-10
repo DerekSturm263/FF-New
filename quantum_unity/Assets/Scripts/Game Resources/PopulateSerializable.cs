@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class PopulateSerializable<T, TAssetAsset> : Populate<SerializableWrapper<T>> where T : unmanaged where TAssetAsset : InfoAssetAsset
+public abstract class PopulateSerializable<T, TAssetAsset> : Populate<SerializableWrapper<T>> where T : struct where TAssetAsset : InfoAssetAsset
 {
     [Flags]
     public enum CreationType

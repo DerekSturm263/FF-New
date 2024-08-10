@@ -6,7 +6,6 @@ public class RulesetPopulator : PopulateSerializable<Quantum.Ruleset, RulesetAss
     protected override SerializableWrapper<Quantum.Ruleset> GetFromBuiltInAsset(RulesetAssetAsset asset)
     {
         var item = asset.Ruleset;
-        item.SetIconForBuiltIn(asset.Icon);
 
         return item;
     }

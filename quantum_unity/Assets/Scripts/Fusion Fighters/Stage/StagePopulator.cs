@@ -9,7 +9,6 @@ public class StagePopulator : PopulateSerializable<Quantum.Stage, StageAssetAsse
     protected override SerializableWrapper<Quantum.Stage> GetFromBuiltInAsset(StageAssetAsset asset)
     {
         var item = asset.Stage;
-        item.SetIconForBuiltIn(asset.Icon);
 
         return item;
     }

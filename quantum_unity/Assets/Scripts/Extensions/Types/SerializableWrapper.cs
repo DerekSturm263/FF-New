@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
-public unsafe struct SerializableWrapper<T> where T : unmanaged
+public unsafe struct SerializableWrapper<T> where T : struct
 {
     public T value;
 
@@ -32,11 +32,16 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private string _iconFilePath;
     public readonly string IconFilePath => _iconFilePath;
 
+    [SerializeField] private Sprite _iconOverride;
+
     private Sprite _icon;
     public Sprite Icon
     {
         get
         {
+            if (_iconOverride)
+                return _iconOverride;
+
             if (!_icon)
             {
                 if (File.Exists(_iconFilePath))
@@ -57,7 +62,6 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
             return _icon;
         }
     }
-    public void SetIconForBuiltIn(Sprite icon) => _icon = icon;
 
     [SerializeField] private Sprite _preview;
     public readonly Sprite Preview => _preview;
@@ -78,6 +82,7 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
         _fileID = fileID;
         _madeByPlayer = true;
         _iconFilePath = iconFilePath;
+        _iconOverride = null;
         _icon = null;
         _preview = preview;
         _filterTags = filterTags;

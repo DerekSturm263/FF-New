@@ -112,8 +112,8 @@ public class BuildController : Controller<BuildController>
         {
             var newUserProfile = userProfile;
 
-            if (userProfile.value.LastBuild.Equals(_currentBuild.value))
-                newUserProfile.value.LastBuild = _defaultProfileBuild.Build;
+            if (userProfile.value.LastBuild.value.Equals(_currentBuild.value))
+                newUserProfile.value.SetLastBuild(_defaultProfileBuild.Build);
 
             newUserProfile.Save(UserProfileController.GetPath());
         }
