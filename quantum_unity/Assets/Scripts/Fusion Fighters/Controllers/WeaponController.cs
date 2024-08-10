@@ -123,8 +123,8 @@ public class WeaponController : Controller<WeaponController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{weapon.FileGuid}_ICON.png", _template.Icon);
-        serializable.Save(GetPath());
+        SerializableWrapper<Weapon> serializable = new(weapon, GetPath(), _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        serializable.Save();
 
         _renderCamera.transform.position = _template.IconCameraPosition;
         _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
@@ -152,7 +152,7 @@ public class WeaponController : Controller<WeaponController>
         if (!_doAction)
             return;
 
-        _renderCamera.RenderToScreenshot($"{GetPath()}/{_lastWeapon.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
+        _lastWeapon.CreateIcon(_renderCamera, _renderShader);
 
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastWeapon);
@@ -172,7 +172,7 @@ public class WeaponController : Controller<WeaponController>
         WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
 
         _currentlySelected.SetName(_newName);
-        _currentlySelected.Save(GetPath());
+        _currentlySelected.Save();
 
         if (WeaponPopulator.Instance && button)
         {
@@ -200,10 +200,10 @@ public class WeaponController : Controller<WeaponController>
             if (build.value.Equipment.Weapons.AltWeapon.Equals(_currentlySelected))
                 newBuild.value.Equipment.Weapons.AltWeapon = _none.Weapon;
 
-            newBuild.Save(BuildController.GetPath());
+            newBuild.Save();
         }
 
-        _currentlySelected.Delete(GetPath());
+        _currentlySelected.Delete();
 
         if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);

@@ -139,8 +139,10 @@ namespace Extensions.Miscellaneous
             TGA
         }
 
-        public static Texture2D RenderToTexture2D(this Camera camera, Shader shader = null, string replacementTag = "")
+        public static Texture2D RenderToTexture2D(this Camera camera, RenderTexture output, Shader shader = null, string replacementTag = "")
         {
+            camera.targetTexture = output;
+
             var currentRT = RenderTexture.active;
             RenderTexture.active = camera.targetTexture;
 
@@ -157,9 +159,9 @@ namespace Extensions.Miscellaneous
             return image;
         }
 
-        public static void RenderToScreenshot(this Camera camera, string filePath, ImageType type, Shader shader = null, string replacementTag = "")
+        public static void RenderToScreenshot(this Camera camera, string filePath, RenderTexture output, ImageType type, Shader shader = null, string replacementTag = "")
         {
-            Texture2D texture = RenderToTexture2D(camera, shader, replacementTag);
+            Texture2D texture = RenderToTexture2D(camera, output, shader, replacementTag);
             byte[] renderBytes = type switch
             {
                 ImageType.PNG => texture.EncodeToPNG(),

@@ -1,7 +1,7 @@
 using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
+using Quantum;
 using System;
-using System.IO;
 using UnityEngine;
 
 public class ManualCameraController : MonoBehaviour
@@ -10,6 +10,8 @@ public class ManualCameraController : MonoBehaviour
     public void SetCameraSettings(CameraSettingsAsset settings) => _settings = settings;
 
     [SerializeField] private Camera _cam;
+
+    [SerializeField] private RenderTexture _picture;
 
     private Controls _controls;
 
@@ -72,12 +74,15 @@ public class ManualCameraController : MonoBehaviour
 
     public void Snap()
     {
-        if (!Directory.Exists($"{Application.persistentDataPath}/SaveData/Media/Pictures"))
-        {
-            Directory.CreateDirectory($"{Application.persistentDataPath}/SaveData/Media/Pictures");
-        }
-        
-        _cam.RenderToScreenshot($"{Application.persistentDataPath}/SaveData/Media/Pictures/{DateTime.Now.ToFileTime()}.png", Helper.ImageType.PNG);
+        AssetGuid guid = AssetGuid.NewGuid();
+
+        SerializableWrapper<Picture> picture = new(default, PictureController.GetPath(), DateTime.Now.ToUniversalTime().ToString("U"), "", DateTime.Now.Ticks, DateTime.Now.Ticks, guid, new string[] { }, new Extensions.Types.Tuple<string, string>[] { });
+        picture.Save();
+
+        picture.CreateIcon(_cam);
+        picture.CreatePreview(_cam);
+
+        _cam.RenderToScreenshot($"{PictureController.GetPath()}/{guid}_PICTURE.png", _picture, Helper.ImageType.PNG);
 
         ToastController.Instance.Spawn("Picture taken");
     }

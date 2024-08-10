@@ -35,18 +35,18 @@ public class StageController : Controller<StageController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentStage = new(stage, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _currentStage = new(stage, GetPath(), "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
         _isDirty = true;
     }
 
     public void Save(SerializableWrapper<Stage> stage)
     {
-        stage.Save(GetPath());
+        stage.Save();
     }
 
     public void SaveCurrent()
     {
-        _currentStage.Save(GetPath());
+        _currentStage.Save();
         _isDirty = false;
 
         ToastController.Instance.Spawn("Stage saved");
@@ -79,7 +79,7 @@ public class StageController : Controller<StageController>
 
     public void Delete()
     {
-        _currentStage.Delete(GetPath());
+        _currentStage.Delete();
 
         if (StagePopulator.Instance && StagePopulator.Instance.TryGetButtonFromItem(_currentStage, out GameObject button))
             Destroy(button);
@@ -99,7 +99,7 @@ public class StageController : Controller<StageController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentStage = new(stage, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _currentStage = new(stage, GetPath(), "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }

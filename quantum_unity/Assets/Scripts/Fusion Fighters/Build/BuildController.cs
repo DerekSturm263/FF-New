@@ -56,27 +56,38 @@ public class BuildController : Controller<BuildController>
         randomBuild.Cosmetics.Voice = new() { Id = voiceStyles[Random.Range(0, voiceStyles.Count)].AssetObject.Guid };
 
         AssetGuid newGuid = AssetGuid.NewGuid();
-        _currentBuild = new(randomBuild, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, newGuid, filterTags, groupTags, $"{GetPath()}/{newGuid}_ICON.png", null);
+        _currentBuild = new(randomBuild, GetPath(), "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, newGuid, filterTags, groupTags);
 
         _isDirty = true;
     }
 
     public void Save(SerializableWrapper<Build> build)
     {
-        build.Save(GetPath());
+        build.Save();
     }
 
     public void SaveCurrent()
     {
-        _currentBuild.Save(GetPath());
+        _currentBuild.Save();
         _isDirty = false;
 
         Camera renderCamera = GameObject.FindWithTag("Render Camera").GetComponent<Camera>();
         GameObject player = FindFirstObjectByType<EntityViewUpdater>().GetView(FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human)).GetComponentInChildren<Animator>().gameObject;
 
         renderCamera.GetComponent<Light>().enabled = true;
-        renderCamera.RenderToScreenshot($"{GetPath()}/{_currentBuild.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
+
+        _currentBuild.CreateIcon(renderCamera, _renderShader);
         renderCamera.GetComponent<Light>().enabled = false;
+
+        foreach (var userProfile in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<UserProfile>>(UserProfileController.GetPath()))
+        {
+            var newUserProfile = userProfile;
+
+            if (userProfile.value.LastBuild.Equals(_currentBuild))
+                newUserProfile.value.SetLastBuild(_currentBuild);
+
+            newUserProfile.Save();
+        }
 
         ToastController.Instance.Spawn("Build saved");
     }
@@ -112,13 +123,13 @@ public class BuildController : Controller<BuildController>
         {
             var newUserProfile = userProfile;
 
-            if (userProfile.value.LastBuild.value.Equals(_currentBuild.value))
+            if (userProfile.value.LastBuild.Equals(_currentBuild))
                 newUserProfile.value.SetLastBuild(_defaultProfileBuild.Build);
 
-            newUserProfile.Save(UserProfileController.GetPath());
+            newUserProfile.Save();
         }
 
-        _currentBuild.Delete(GetPath());
+        _currentBuild.Delete();
 
         if (BuildPopulator.Instance && BuildPopulator.Instance.TryGetButtonFromItem(_currentBuild, out GameObject button))
             Destroy(button);
@@ -576,7 +587,7 @@ public class BuildController : Controller<BuildController>
         if (PlayerJoinController.Instance.TryGetPlayer(index, out LocalPlayerInfo player) && player.Profile.MadeByPlayer)
         {
             player.Profile.value.SetLastBuild(build);
-            player.Profile.Save(UserProfileController.GetPath());
+            player.Profile.Save();
         }
     }
 

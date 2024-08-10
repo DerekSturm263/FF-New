@@ -135,7 +135,7 @@ namespace GameResources.Camera
             if (!_settings)
                 return;
 
-            float dt = Time.unscaledDeltaTime;
+            float dt = Time.timeScale == 0 ? Time.unscaledDeltaTime : Time.deltaTime;
 
             CalculateTargetZoom(dt);
             CalculateTargetPosition();

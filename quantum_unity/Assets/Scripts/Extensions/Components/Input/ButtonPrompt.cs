@@ -40,6 +40,9 @@ namespace Extensions.Components.Input
             if (!_text)
                 _text = GetComponentInChildren<TMPro.TMP_Text>();
 
+            if (!InputMapperController.Instance)
+                return;
+
             TMP_SpriteAsset spriteAsset = InputMapperController.Instance.GetSpriteAsset(deviceName);
             if (!spriteAsset)
                 return;

@@ -4,10 +4,26 @@ using Quantum;
 using System.IO;
 using UnityEngine;
 
+public static class SerializableWrapperHelper
+{
+    public static RenderTexture IconRT, PreviewRT;
+
+    public static void SetRTs(RenderTexture icon, RenderTexture preview)
+    {
+        IconRT = icon;
+        PreviewRT = preview;
+    }
+}
+
 [System.Serializable]
 public struct SerializableWrapper<T>
 {
+    public static readonly Vector2Int IconDimensions = new(512, 512);
+    public static readonly Vector2Int PreviewDimensions = new(1920, 1080);
+
     public T value;
+
+    [SerializeField] private string _directory;
 
     [SerializeField] private string _name;
     public readonly string Name => _name;
@@ -30,9 +46,6 @@ public struct SerializableWrapper<T>
     [SerializeField] private bool _madeByPlayer;
     public readonly bool MadeByPlayer => _madeByPlayer;
 
-    [SerializeField] private string _iconFilePath;
-    public readonly string IconFilePath => _iconFilePath;
-
     [SerializeField] private Sprite _iconOverride;
 
     private Sprite _icon;
@@ -44,7 +57,7 @@ public struct SerializableWrapper<T>
                 return _iconOverride;
 
             if (!_icon)
-                _icon = Helper.SpriteFromScreenshot(_iconFilePath, 512, 512);
+                _icon = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_ICON.png", IconDimensions.x, IconDimensions.y);
             else
                 Debug.Log("Icon already exists!");
 
@@ -52,8 +65,24 @@ public struct SerializableWrapper<T>
         }
     }
 
-    [SerializeField] private Sprite _preview;
-    public readonly Sprite Preview => _preview;
+    [SerializeField] private Sprite _previewOverride;
+
+    private Sprite _preview;
+    public Sprite Preview
+    {
+        get
+        {
+            if (_previewOverride)
+                return _previewOverride;
+
+            if (!_preview)
+                _preview = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_PREVIEW.png", PreviewDimensions.x, PreviewDimensions.y);
+            else
+                Debug.Log("Preview already exists!");
+
+            return _preview;
+        }
+    }
 
     [SerializeField] private string[] _filterTags;
     public readonly string[] FilterTags => _filterTags;
@@ -61,21 +90,55 @@ public struct SerializableWrapper<T>
     [SerializeField] private Tuple<string, string>[] _groupTags;
     public readonly Tuple<string, string>[] GroupTags => _groupTags;
 
-    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags, string iconFilePath, Sprite preview)
+    public readonly bool IsValid => _fileID != AssetGuid.Invalid;
+
+    public SerializableWrapper(T value, string directory, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags)
     {
         this.value = value;
+        _directory = directory;
         _name = name;
         _description = description;
         _creationDate = creationDate;
         _lastEditedDate = lastEditedDate;
         _fileID = fileID;
         _madeByPlayer = true;
-        _iconFilePath = iconFilePath;
         _iconOverride = null;
         _icon = null;
-        _preview = preview;
+        _previewOverride = null;
+        _preview = null;
         _filterTags = filterTags;
         _groupTags = groupTags;
+    }
+
+    public readonly void CreateIcon(Camera camera, Shader shader = null)
+    {
+        camera.RenderToScreenshot($"{_directory}/{FileID}_ICON.png", SerializableWrapperHelper.IconRT, Helper.ImageType.PNG, shader);
+    }
+
+    public readonly void CreatePreview(Camera camera, Shader shader = null)
+    {
+        camera.RenderToScreenshot($"{_directory}/{FileID}_PREVIEW.png", SerializableWrapperHelper.PreviewRT, Helper.ImageType.PNG, shader);
+    }
+
+    public readonly void Save()
+    {
+        FusionFighters.Serializer.Save(this, _fileID, _directory);
+    }
+
+    public readonly void Delete()
+    {
+        FusionFighters.Serializer.Delete($"{_directory}/{FileID}.json", _directory);
+
+        if (File.Exists($"{_directory}/{FileID}_ICON.png"))
+            File.Delete($"{_directory}/{FileID}_ICON.png");
+
+        if (File.Exists($"{_directory}/{FileID}_PREVIEW.png"))
+            File.Delete($"{_directory}/{FileID}_PREVIEW.png");
+    }
+
+    public static SerializableWrapper<T> LoadAs(string directory, AssetGuid fileID)
+    {
+        return FusionFighters.Serializer.LoadAs<SerializableWrapper<T>>($"{directory}/{fileID}.json", directory);
     }
 
     public static implicit operator T(SerializableWrapper<T> lhs)
@@ -83,21 +146,33 @@ public struct SerializableWrapper<T>
         return lhs.value;
     }
 
-    public readonly void Save(string directory)
+    public override readonly bool Equals(object obj)
     {
-        FusionFighters.Serializer.Save(this, _fileID, directory);
+        if (obj is not SerializableWrapper<T>)
+            return false;
+
+        return ((SerializableWrapper<T>)obj)._fileID.Equals(_fileID);
     }
 
-    public readonly void Delete(string directory)
+    public override readonly int GetHashCode()
     {
-        FusionFighters.Serializer.Delete($"{directory}/{FileID}.json", directory);
+        System.HashCode hash = new();
 
-        if (_iconFilePath is not null)
-            File.Delete(_iconFilePath);
-    }
+        hash.Add(value);
+        hash.Add(_directory);
+        hash.Add(_name);
+        hash.Add(_description);
+        hash.Add(_creationDate);
+        hash.Add(_lastEditedDate);
+        hash.Add(_fileID);
+        hash.Add(_madeByPlayer);
+        hash.Add(_iconOverride);
+        hash.Add(_icon);
+        hash.Add(_previewOverride);
+        hash.Add(_preview);
+        hash.Add(_filterTags);
+        hash.Add(_groupTags);
 
-    public static SerializableWrapper<T> LoadAs(string directory, AssetGuid fileID)
-    {
-        return FusionFighters.Serializer.LoadAs<SerializableWrapper<T>>($"{directory}/{fileID}.json", directory);
+        return hash.ToHashCode();
     }
 }

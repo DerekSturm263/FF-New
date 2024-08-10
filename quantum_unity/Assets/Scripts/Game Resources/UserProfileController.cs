@@ -21,12 +21,12 @@ public class UserProfileController : SpawnableController<UserProfile>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        return new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        return new(profile, GetPath(), _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
     }
 
     public void Save(SerializableWrapper<UserProfile> profile)
     {
-        profile.Save(GetPath());
+        profile.Save();
     }
 
     public void SaveNew()
@@ -35,8 +35,8 @@ public class UserProfileController : SpawnableController<UserProfile>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        SerializableWrapper<UserProfile> serialized = new(profile, _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
-        serialized.Save(GetPath());
+        SerializableWrapper<UserProfile> serialized = new(profile, GetPath(), _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
+        serialized.Save();
     }
 
     private SerializableWrapper<UserProfile> _currentlySelected;
@@ -46,7 +46,7 @@ public class UserProfileController : SpawnableController<UserProfile>
 
     private void Delete()
     {
-        _currentlySelected.Delete(GetPath());
+        _currentlySelected.Delete();
 
         if (UserProfilePopulator.Instance && UserProfilePopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);

@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Extensions.Components.Input
 {
@@ -18,6 +19,9 @@ namespace Extensions.Components.Input
 
         [SerializeField] private bool _readContinuous;
         [SerializeField] private bool _processWhenEmpty = true;
+
+        [SerializeField] private GameObject _parent;
+        [SerializeField] private bool _requiresFocus;
 
         [SerializeField] protected UnityEvent _onAction;
         public UnityEvent OnAction => _onAction;
@@ -39,9 +43,9 @@ namespace Extensions.Components.Input
 
             _action.performed += Type switch
             {
-                "Axis" => ctx => { if (!IsInputting()) Invoke(ctx.ReadValue<float>()); },
-                "Vector2" => ctx => { if (!IsInputting()) Invoke(ctx.ReadValue<Vector2>()); },
-                _ => ctx => { if (!IsInputting()) Invoke(); }
+                "Axis" => ctx => { if (HasFocus() && !IsInputting()) Invoke(ctx.ReadValue<float>()); },
+                "Vector2" => ctx => { if (HasFocus() && !IsInputting()) Invoke(ctx.ReadValue<Vector2>()); },
+                _ => ctx => { if (HasFocus() && !IsInputting()) Invoke(); }
             };
         }
 
@@ -54,20 +58,20 @@ namespace Extensions.Components.Input
             {
                 case "Axis":
                     float value = _action.ReadValue<float>();
-                    if ((_processWhenEmpty || value != 0) && !IsInputting())
+                    if ((_processWhenEmpty || value != 0) && HasFocus() && !IsInputting())
                         Invoke(value);
 
                     break;
 
                 case "Vector2":
                     Vector2 value2 = _action.ReadValue<Vector2>();
-                    if ((_processWhenEmpty || value2.x != 0 || value2.y != 0) && !IsInputting())
+                    if ((_processWhenEmpty || value2.x != 0 || value2.y != 0) && HasFocus() && !IsInputting())
                         Invoke(value2);
 
                     break;
 
                 default:
-                    if (_action.IsPressed() && !IsInputting())
+                    if (_action.IsPressed() && HasFocus() && !IsInputting())
                         Invoke();
                     
                     break;
@@ -89,6 +93,11 @@ namespace Extensions.Components.Input
         private void SetReady()
         {
             _isReady = true;
+        }
+
+        public bool HasFocus()
+        {
+            return !_requiresFocus || EventSystem.current.currentSelectedGameObject == _parent;
         }
 
         public static bool IsInputting()

@@ -112,8 +112,8 @@ public class SubController : Controller<SubController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{sub.FileGuid}_ICON.png", _template.Icon);
-        serializable.Save(GetPath());
+        SerializableWrapper<Sub> serializable = new(sub, GetPath(), _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        serializable.Save();
 
         _renderCamera.transform.position = _template.IconCameraPosition;
         _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
@@ -141,7 +141,7 @@ public class SubController : Controller<SubController>
         if (!_doAction)
             return;
 
-        _renderCamera.RenderToScreenshot($"{GetPath()}/{_lastSub.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
+        _lastSub.CreateIcon(_renderCamera, _renderShader);
 
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastSub);
@@ -161,7 +161,7 @@ public class SubController : Controller<SubController>
         SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
 
         _currentlySelected.SetName(_newName);
-        _currentlySelected.Save(GetPath());
+        _currentlySelected.Save();
 
         if (SubPopulator.Instance && button)
         {
@@ -186,10 +186,10 @@ public class SubController : Controller<SubController>
             if (build.value.Equipment.Weapons.SubWeapon.Equals(_currentlySelected))
                 newBuild.value.Equipment.Weapons.SubWeapon = _none.Sub;
              
-            newBuild.Save(BuildController.GetPath());
+            newBuild.Save();
         }
 
-        _currentlySelected.Delete(GetPath());
+        _currentlySelected.Delete();
 
         if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);

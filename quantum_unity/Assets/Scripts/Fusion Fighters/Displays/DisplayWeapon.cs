@@ -11,7 +11,7 @@ public class DisplayWeapon : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        if (!item.Equals(default(Type)))
+        if (item.IsValid)
             return new(string.Format(_format, item.Name, item.Description), item.Icon);
         else
             return new(string.Format(_format, "None", ""), null);

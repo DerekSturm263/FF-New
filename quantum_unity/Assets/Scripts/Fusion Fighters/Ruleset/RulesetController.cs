@@ -4,7 +4,6 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Types;
 using System;
-using System.Linq;
 using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
@@ -39,18 +38,18 @@ public class RulesetController : Controller<RulesetController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentRuleset = new(ruleset, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _currentRuleset = new(ruleset, GetPath(), "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
         _isDirty = true;
     }
 
     public void Save(SerializableWrapper<Ruleset> ruleset)
     {
-        ruleset.Save(GetPath());
+        ruleset.Save();
     }
 
     public void SaveCurrent()
     {
-        _currentRuleset.Save(GetPath());
+        _currentRuleset.Save();
         _isDirty = false;
 
         ToastController.Instance.Spawn("Ruleset saved");
@@ -83,7 +82,7 @@ public class RulesetController : Controller<RulesetController>
 
     public void Delete()
     {
-        _currentRuleset.Delete(GetPath());
+        _currentRuleset.Delete();
 
         if (RulesetPopulator.Instance && RulesetPopulator.Instance.TryGetButtonFromItem(_currentRuleset, out GameObject button))
             Destroy(button);
@@ -265,7 +264,7 @@ public class RulesetController : Controller<RulesetController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentRuleset = new(ruleset, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, string.Empty, null);
+        _currentRuleset = new(ruleset, GetPath(), "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }

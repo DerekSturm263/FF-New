@@ -191,8 +191,8 @@ public class ApparelController : Controller<ApparelController>
             new("Template Type", _template.name)
         };
 
-        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{apparel.FileGuid}_ICON.png", _template.Icon);
-        serializable.Save(GetPath());
+        SerializableWrapper<Apparel> serializable = new(apparel, GetPath(), _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        serializable.Save();
 
         _renderCamera.transform.position = _template.IconCameraPosition;
         _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
@@ -220,7 +220,7 @@ public class ApparelController : Controller<ApparelController>
         if (!_doAction)
             return;
 
-        _renderCamera.RenderToScreenshot($"{GetPath()}/{_lastApparel.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
+        _lastApparel.CreateIcon(_renderCamera, _renderShader);
 
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastApparel);
@@ -240,7 +240,7 @@ public class ApparelController : Controller<ApparelController>
         ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
 
         _currentlySelected.SetName(_newName);
-        _currentlySelected.Save(GetPath());
+        _currentlySelected.Save();
 
         if (ApparelPopulator.Instance && button)
         {
@@ -277,10 +277,10 @@ public class ApparelController : Controller<ApparelController>
             if (build.value.Equipment.Outfit.Legwear.Equals(_currentlySelected))
                 newBuild.value.Equipment.Outfit.Legwear = _none.Apparel;
 
-            newBuild.Save(BuildController.GetPath());
+            newBuild.Save();
         }
 
-        _currentlySelected.Delete(GetPath());
+        _currentlySelected.Delete();
 
         if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
             Destroy(button);

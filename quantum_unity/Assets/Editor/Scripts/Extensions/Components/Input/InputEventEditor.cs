@@ -29,6 +29,9 @@ namespace Editor.Extensions.Components.Input
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_readContinuous"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_processWhenEmpty"));
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_parent"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_requiresFocus"));
+
             switch ((target as InputEvent).Type)
             {
                 case "Axis":
