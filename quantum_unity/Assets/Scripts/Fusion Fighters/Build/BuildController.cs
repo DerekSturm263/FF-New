@@ -13,7 +13,6 @@ public class BuildController : Controller<BuildController>
     [SerializeField] private Popup _savePopup;
 
     [SerializeField] private Shader _renderShader;
-    [SerializeField] private AnimationClip _idle;
 
     private bool _isDirty;
 
@@ -74,24 +73,10 @@ public class BuildController : Controller<BuildController>
 
         Camera renderCamera = GameObject.FindWithTag("Render Camera").GetComponent<Camera>();
         GameObject player = FindFirstObjectByType<EntityViewUpdater>().GetView(FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human)).GetComponentInChildren<Animator>().gameObject;
-        
-        Vector3 oldScale = player.transform.parent.localScale;
-        Quaternion oldRotation = player.transform.localRotation;
-
-        player.GetComponent<Animator>().enabled = false;
-
-        _idle.SampleAnimation(player, 0.666f);
-
-        player.transform.parent.localScale = Vector3.one;
 
         renderCamera.GetComponent<Light>().enabled = true;
         renderCamera.RenderToScreenshot($"{GetPath()}/{_currentBuild.FileID}_ICON.png", Helper.ImageType.PNG, _renderShader);
         renderCamera.GetComponent<Light>().enabled = false;
-
-        player.transform.parent.localScale = oldScale;
-        player.transform.localRotation = oldRotation;
-
-        player.GetComponent<Animator>().enabled = true;
 
         ToastController.Instance.Spawn("Build saved");
     }

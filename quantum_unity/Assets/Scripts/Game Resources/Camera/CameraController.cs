@@ -1,4 +1,5 @@
 ﻿using Extensions.Components.Miscellaneous;
+using Extensions.Miscellaneous;
 using Extensions.Types;
 using Photon.Deterministic;
 using Quantum;
@@ -237,8 +238,11 @@ namespace GameResources.Camera
             if (_targets.Count > 0)
                 return;
 
+            EntityView entity = _instance._entityView.GetView(FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human));
+            GameObject head = entity.gameObject.FindChildWithTag(target, false);
+
             _targets.Clear();
-            _targets.Add(new(1, GameObject.Find(target).transform));
+            _targets.Add(new(1, head.transform));
         }
 
         public void FocusTarget(int globalIndex)

@@ -85,15 +85,15 @@ public class PlayerEventListener : MonoBehaviour
 
     private IEnumerator Blink(EntityRef player)
     {
-        for (int i = 0; i <= 10; ++i)
+        for (int i = 0; i <= 6; ++i)
         {
-            Blink(player, i * (1.0f / 10));
+            Blink(player, i * (1.0f / 6));
             yield return new WaitForEndOfFrame();
         }
 
-        for (int i = 10; i >= 0; --i)
+        for (int i = 6; i >= 0; --i)
         {
-            Blink(player, i * (1.0f / 10));
+            Blink(player, i * (1.0f / 6));
             yield return new WaitForEndOfFrame();
         }
 

@@ -23,6 +23,6 @@ public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfil
         };
     }
 
-    protected override bool IsEquipped(SerializableWrapper<UserProfile> item) => PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.Equals(item));
+    protected override bool IsEquipped(SerializableWrapper<UserProfile> item) => PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.FileID.Equals(item.FileID));
     protected override bool IsNone(SerializableWrapper<UserProfile> item) => !item.FileID.IsValid;
 }

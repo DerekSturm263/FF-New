@@ -3,6 +3,8 @@ using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
 using System.Collections;
+using static PlasticGui.LaunchDiffParameters;
+using System;
 
 public class LocalInputController : Controller<LocalInputController>
 {
@@ -105,6 +107,9 @@ public class LocalInputController : Controller<LocalInputController>
             Build = player.Profile.value.LastBuild,
             IsRealBattle = FindFirstObjectByType<PlayerReadyEventListener>()
         };
+
+        // TODO: MAKE ICON SET IMMEDIATELY
+        //PlayerStatController.Instance.HUDS.ForEach(item => item[player.Index.Global].SetPlayerIcon(player.Profile.value.LastBuild.icon));
 
         QuantumRunner.Default.Game.SendPlayerData(data.Index.Local, data);
 

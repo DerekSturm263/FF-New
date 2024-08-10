@@ -1,3 +1,4 @@
+using Extensions.Miscellaneous;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class SelectAuto : UIBehaviour
 
     protected override void OnEnable()
     {
-        Invoke(nameof(SetSelectedItem), _delay);
+        Helper.Delay(_delay, SetSelectedItem);
     }
 
     protected override void OnDisable()

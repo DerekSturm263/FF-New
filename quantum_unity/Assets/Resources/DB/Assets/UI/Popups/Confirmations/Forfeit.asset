@@ -21,16 +21,15 @@ MonoBehaviour:
       _item2:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+          - m_Target: {fileID: 7259386362456708021, guid: f5db7276356dff34298365f30a301102,
               type: 3}
-            m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-            m_MethodName: PlayAudioClip
-            m_Mode: 2
+            m_TargetAssemblyTypeName: SettingsController, FusionFighters
+            m_MethodName: SetTimeScale
+            m_Mode: 3
             m_Arguments:
-              m_ObjectArgument: {fileID: 8300000, guid: 76479c52ac6e6234ca03826e6d2d626a,
-                type: 3}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-              m_IntArgument: 0
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 2
               m_FloatArgument: 0
               m_StringArgument: 
               m_BoolArgument: 0
@@ -43,6 +42,20 @@ MonoBehaviour:
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+              type: 3}
+            m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+            m_MethodName: PlayAudioClip
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 8300000, guid: 76479c52ac6e6234ca03826e6d2d626a,
+                type: 3}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -95,3 +108,8 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+  _inputResponse:
+    _item1: 
+    _item2:
+      m_PersistentCalls:
+        m_Calls: []
