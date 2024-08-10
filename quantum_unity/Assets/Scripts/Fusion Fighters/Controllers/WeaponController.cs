@@ -126,6 +126,9 @@ public class WeaponController : Controller<WeaponController>
         SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), $"{GetPath()}/{weapon.FileGuid}_ICON.png", _template.Icon);
         serializable.Save(GetPath());
 
+        _renderCamera.transform.position = _template.IconCameraPosition;
+        _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
+
         Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
         Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
 

@@ -6,4 +6,7 @@ public partial class SubTemplateAsset : InfoAssetAsset
 
     public GameObject Instance;
     public GameObject Preview;
+
+    public Vector3 IconCameraPosition;
+    public Vector3 IconCameraRotation;
 }

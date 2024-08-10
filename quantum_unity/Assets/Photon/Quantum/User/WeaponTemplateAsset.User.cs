@@ -6,4 +6,7 @@ public partial class WeaponTemplateAsset : InfoAssetAsset
 
     public GameObject Alt;
     public GameObject Preview;
+
+    public Vector3 IconCameraPosition;
+    public Vector3 IconCameraRotation;
 }
