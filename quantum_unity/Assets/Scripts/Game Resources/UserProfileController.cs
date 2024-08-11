@@ -49,7 +49,10 @@ public class UserProfileController : SpawnableController<UserProfile>
         _currentlySelected.Delete();
 
         if (UserProfilePopulator.Instance && UserProfilePopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            UserProfilePopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
         ToastController.Instance.Spawn("User Profile deleted");
     }

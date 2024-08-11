@@ -132,9 +132,10 @@ public class BuildController : Controller<BuildController>
         _currentBuild.Delete();
 
         if (BuildPopulator.Instance && BuildPopulator.Instance.TryGetButtonFromItem(_currentBuild, out GameObject button))
-            Destroy(button);
-        
-        FindFirstObjectByType<BuildPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        {
+            DestroyImmediate(button);
+            BuildPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
         ToastController.Instance.Spawn("Build deleted");
     }

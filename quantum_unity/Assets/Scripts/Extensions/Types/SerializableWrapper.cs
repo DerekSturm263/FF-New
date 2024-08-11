@@ -127,13 +127,13 @@ public struct SerializableWrapper<T>
 
     public readonly void Delete()
     {
-        FusionFighters.Serializer.Delete($"{_directory}/{FileID}.json", _directory);
+        FusionFighters.Serializer.Delete($"{_directory}/{_fileID}.json", _directory);
 
-        if (File.Exists($"{_directory}/{FileID}_ICON.png"))
-            File.Delete($"{_directory}/{FileID}_ICON.png");
+        if (File.Exists($"{_directory}/{_fileID}_ICON.png"))
+            File.Delete($"{_directory}/{_fileID}_ICON.png");
 
-        if (File.Exists($"{_directory}/{FileID}_PREVIEW.png"))
-            File.Delete($"{_directory}/{FileID}_PREVIEW.png");
+        if (File.Exists($"{_directory}/{_fileID}_PREVIEW.png"))
+            File.Delete($"{_directory}/{_fileID}_PREVIEW.png");
     }
 
     public static SerializableWrapper<T> LoadAs(string directory, AssetGuid fileID)
@@ -158,21 +158,10 @@ public struct SerializableWrapper<T>
     {
         System.HashCode hash = new();
 
-        hash.Add(value);
-        hash.Add(_directory);
-        hash.Add(_name);
-        hash.Add(_description);
-        hash.Add(_creationDate);
-        hash.Add(_lastEditedDate);
         hash.Add(_fileID);
-        hash.Add(_madeByPlayer);
-        hash.Add(_iconOverride);
-        hash.Add(_icon);
-        hash.Add(_previewOverride);
-        hash.Add(_preview);
-        hash.Add(_filterTags);
-        hash.Add(_groupTags);
 
         return hash.ToHashCode();
     }
+
+    public override readonly string ToString() => value.ToString();
 }

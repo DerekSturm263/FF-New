@@ -158,12 +158,10 @@ public class SubController : Controller<SubController>
 
     public void Submit()
     {
-        SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
-
         _currentlySelected.SetName(_newName);
         _currentlySelected.Save();
 
-        if (SubPopulator.Instance && button)
+        if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
             SubPopulator.Instance.ClearEvents(button);
             SubPopulator.Instance.SetEvents(button, _currentlySelected);
@@ -192,7 +190,10 @@ public class SubController : Controller<SubController>
         _currentlySelected.Delete();
 
         if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            SubPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
         ToastController.Instance.Spawn("Sub deleted");
 

@@ -169,12 +169,10 @@ public class WeaponController : Controller<WeaponController>
 
     public void Submit()
     {
-        WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
-
         _currentlySelected.SetName(_newName);
         _currentlySelected.Save();
 
-        if (WeaponPopulator.Instance && button)
+        if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
             WeaponPopulator.Instance.ClearEvents(button);
             WeaponPopulator.Instance.SetEvents(button, _currentlySelected);
@@ -206,7 +204,10 @@ public class WeaponController : Controller<WeaponController>
         _currentlySelected.Delete();
 
         if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            WeaponPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
         ToastController.Instance.Spawn("Weapon deleted");
 

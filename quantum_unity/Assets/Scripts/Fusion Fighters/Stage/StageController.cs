@@ -82,9 +82,11 @@ public class StageController : Controller<StageController>
         _currentStage.Delete();
 
         if (StagePopulator.Instance && StagePopulator.Instance.TryGetButtonFromItem(_currentStage, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            StagePopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
-        FindFirstObjectByType<StagePopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
 
         ToastController.Instance.Spawn("Stage deleted");
     }

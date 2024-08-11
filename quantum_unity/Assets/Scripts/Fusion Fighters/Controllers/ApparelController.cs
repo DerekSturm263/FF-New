@@ -237,12 +237,10 @@ public class ApparelController : Controller<ApparelController>
 
     public void Submit()
     {
-        ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
-
         _currentlySelected.SetName(_newName);
         _currentlySelected.Save();
 
-        if (ApparelPopulator.Instance && button)
+        if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
             ApparelPopulator.Instance.ClearEvents(button);
             ApparelPopulator.Instance.SetEvents(button, _currentlySelected);
@@ -283,7 +281,10 @@ public class ApparelController : Controller<ApparelController>
         _currentlySelected.Delete();
 
         if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            ApparelPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
         ToastController.Instance.Spawn("Apparel deleted");
 

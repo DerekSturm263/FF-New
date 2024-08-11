@@ -85,9 +85,11 @@ public class RulesetController : Controller<RulesetController>
         _currentRuleset.Delete();
 
         if (RulesetPopulator.Instance && RulesetPopulator.Instance.TryGetButtonFromItem(_currentRuleset, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            RulesetPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
 
-        FindFirstObjectByType<RulesetPopulator>()?.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
 
         ToastController.Instance.Spawn("Ruleset deleted");
     }

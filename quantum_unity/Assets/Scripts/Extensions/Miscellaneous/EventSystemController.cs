@@ -56,7 +56,8 @@ public class EventSystemController : Controller<EventSystemController>
                 _oldEventSystem.gameObject.SetActive(true);
                 EventSystem.current = _oldEventSystem;
 
-                EventSystem.current.SetSelectedGameObject(_oldSelected);
+                if (_oldSelected)
+                    EventSystem.current.SetSelectedGameObject(_oldSelected);
             }
         }
 
@@ -74,7 +75,8 @@ public class EventSystemController : Controller<EventSystemController>
         {
             foreach (var kvp in _selectables)
             {
-                kvp.Key.navigation = kvp.Value.Item2;
+                if (kvp.Key)
+                    kvp.Key.navigation = kvp.Value.Item2;
             }
         }
 
@@ -92,7 +94,8 @@ public class EventSystemController : Controller<EventSystemController>
         {
             foreach (var kvp in _inputEvents)
             {
-                kvp.Key.enabled = kvp.Value;
+                if (kvp.Key)
+                    kvp.Key.enabled = kvp.Value;
             }
         }
     }
