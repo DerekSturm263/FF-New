@@ -1,6 +1,10 @@
 using Extensions.Components.Miscellaneous;
+using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
+using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PictureController : Controller<PictureController>
 {
@@ -30,5 +34,17 @@ public class PictureController : Controller<PictureController>
         }
 
         ToastController.Instance.Spawn("Picture deleted");
+    }
+
+    public void ExportSelected()
+    {
+        Sprite picture = Helper.SpriteFromScreenshot($"{GetPath()}/{_instance._currentSelected.FileID}_PICTURE.png", 3840, 2160, TextureFormat.RGBA32, true);
+        byte[] renderBytes = picture.texture.EncodeToPNG();
+
+        string pictureDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        string fullPath = $"{pictureDirectory}/{_instance._currentSelected.CreationDate.ToFileTimeUtc()}.png";
+        System.IO.File.WriteAllBytes(fullPath, renderBytes);
+
+        ToastController.Instance.Spawn($"Exported to {fullPath}");
     }
 }

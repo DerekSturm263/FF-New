@@ -366,7 +366,7 @@ namespace Quantum
                 stream.Serialize(count);
 
             fixed (byte* bytes = value.Bytes)
-                stream.SerializeBuffer(&bytes[0], value.ByteCount);
+                stream.SerializeBuffer(bytes, value.ByteCount);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref LayerMask value)

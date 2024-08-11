@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Runtime.InteropServices;
 
 namespace Quantum
 {
@@ -6,7 +7,6 @@ namespace Quantum
     {
         public AssetRefEntityPrototype prototype;
         public Bot bot;
-
         public string name;
         public FighterIndex index;
 

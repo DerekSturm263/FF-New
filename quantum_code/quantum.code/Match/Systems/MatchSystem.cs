@@ -165,7 +165,7 @@ namespace Quantum
                 }
             }
 
-            f.Events.OnStageSelect(old, stage);
+            f.Events.OnStageSelect(f.Global->CurrentStage, old, stage);
         }
 
         public static void SetRuleset(Frame f, Ruleset ruleset)

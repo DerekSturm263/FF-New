@@ -1,4 +1,5 @@
 ﻿using Quantum.Collections;
+using System.Runtime.InteropServices;
 
 namespace Quantum
 {
@@ -33,7 +34,7 @@ namespace Quantum
                 f.Add(entity, playerLink);
             }
 
-            f.Events.OnPlayerSpawn(entity, index, name);
+            f.Events.OnPlayerSpawn(new() { Entity = entity, Index = index, Name = name });
 
             var teams = f.ResolveList(f.Global->Teams);
 
@@ -64,7 +65,7 @@ namespace Quantum
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
             PlayerStats stats = f.Get<PlayerStats>(player);
-            f.Events.OnPlayerDespawn(player, stats.Index, stats.Name);
+            f.Events.OnPlayerDespawn(new() { Entity = player, Index = stats.Index, Name = stats.Name });
 
             RemovePlayerFromList(f, stats.Index);
             f.Destroy(player);

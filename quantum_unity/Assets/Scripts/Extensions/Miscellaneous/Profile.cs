@@ -41,7 +41,7 @@ namespace FusionFighters.Profile
 
                 try
                 {
-                    return Sprite.Create(icon, new(0, 0, icon.width, -icon.height), Vector2.one);
+                    return Sprite.Create(icon, new(0, 0, -icon.width, -icon.height), Vector2.one);
                 }
                 catch
                 {

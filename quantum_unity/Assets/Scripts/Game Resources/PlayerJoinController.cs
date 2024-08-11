@@ -1,7 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Linq;
-using FusionFighters.Profile;
 using Quantum;
 using System.Collections.Generic;
 using System.Collections;
@@ -10,7 +9,17 @@ using Extensions.Components.Input;
 public class PlayerJoinController : Extensions.Components.Miscellaneous.Controller<PlayerJoinController>
 {
     private List<LocalPlayerInfo> _localPlayers = new();
-    public List<LocalPlayerInfo> LocalPlayers => _localPlayers;
+
+    public IEnumerable<LocalPlayerInfo> GetAllLocalPlayers(bool limitCount)
+    {
+        for (int i = 0; i <  _localPlayers.Count; ++i)
+        {
+            if (limitCount && i == _playerLimit)
+                break;
+
+            yield return _localPlayers[i];
+        }
+    }
 
     private Controls _controls;
 
@@ -34,21 +43,10 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         _instance._isEnabled = _instance._wasEnabled;
     }
 
-    private bool _executeEvents = true;
-    public void SetExecuteEvents(bool isEnabled) => _executeEvents = isEnabled;
-
-    [SerializeField] private ProfileAsset _default;
-
-    private Profile _profile;
-    public Profile Profile => _profile;
-
     [System.NonSerialized] private bool _isInitialized = false;
 
-    public void SetProfileName(string name)
-    {
-        _profile.SetUsername(name);
-        FindFirstObjectByType<DisplayProfile>().UpdateDisplay();
-    }
+    private bool _executeEvents = true;
+    public void SetExecuteEvents(bool isEnabled) => _executeEvents = isEnabled;
 
     public override void Initialize()
     {
@@ -61,11 +59,6 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         if (!_isInitialized)
         {
-            if (FusionFighters.Serializer.TryLoadAs($"{Application.persistentDataPath}/SaveData/Misc/Profile.json", $"{Application.persistentDataPath}/SaveData/Misc", out Profile profile))
-                _profile = profile.DeepCopy();
-            else
-                _profile = _default.Profile.DeepCopy();
-
             _localPlayers.Clear();
 
             Application.quitting += Shutdown;
@@ -80,8 +73,6 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
         _localPlayers.Clear();
         _controls = null;
-
-        FusionFighters.Serializer.Save(_profile, "Profile", $"{Application.persistentDataPath}/SaveData/Misc");
 
         base.Shutdown();
     }

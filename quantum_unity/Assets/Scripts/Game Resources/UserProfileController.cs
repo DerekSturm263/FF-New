@@ -21,7 +21,7 @@ public class UserProfileController : SpawnableController<UserProfile>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        return new(profile, GetPath(), _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
+        return new(profile, GetPath(), _name, "", AssetGuid.NewGuid(), filterTags, groupTags);
     }
 
     public void Save(SerializableWrapper<UserProfile> profile)
@@ -35,7 +35,7 @@ public class UserProfileController : SpawnableController<UserProfile>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        SerializableWrapper<UserProfile> serialized = new(profile, GetPath(), _name, "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
+        SerializableWrapper<UserProfile> serialized = new(profile, GetPath(), _name, "", AssetGuid.NewGuid(), filterTags, groupTags);
         serialized.Save();
     }
 

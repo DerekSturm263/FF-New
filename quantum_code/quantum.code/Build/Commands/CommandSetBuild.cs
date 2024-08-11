@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Runtime.InteropServices;
 
 namespace Quantum
 {
@@ -18,7 +19,9 @@ namespace Quantum
             Log.Debug("Build applied!");
 
             if (f.Unsafe.TryGetPointer(entity, out PlayerStats* stats))
+            {
                 PlayerStatsSystem.SetBuild(f, entity, stats, build);
+            }
         }
     }
 }

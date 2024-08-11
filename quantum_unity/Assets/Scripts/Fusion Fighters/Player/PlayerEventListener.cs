@@ -75,12 +75,12 @@ public class PlayerEventListener : MonoBehaviour
     
     public void StartBlinking(EventOnPlayerSpawn e)
     {
-        StartCoroutine(Blink(e.Player));
+        StartCoroutine(Blink(e.Ctx.Entity));
     }
 
     public void StopBlinking(EventOnPlayerDespawn e)
     {
-        StopCoroutine(Blink(e.Player));
+        StopCoroutine(Blink(e.Ctx.Entity));
     }
 
     private IEnumerator Blink(EntityRef player)

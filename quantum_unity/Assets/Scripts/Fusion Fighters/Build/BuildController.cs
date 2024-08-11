@@ -1,5 +1,4 @@
 using Extensions.Components.Miscellaneous;
-using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
@@ -56,7 +55,7 @@ public class BuildController : Controller<BuildController>
         randomBuild.Cosmetics.Voice = new() { Id = voiceStyles[Random.Range(0, voiceStyles.Count)].AssetObject.Guid };
 
         AssetGuid newGuid = AssetGuid.NewGuid();
-        _currentBuild = new(randomBuild, GetPath(), "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, newGuid, filterTags, groupTags);
+        _currentBuild = new(randomBuild, GetPath(), "Untitled", "", newGuid, filterTags, groupTags);
 
         _isDirty = true;
     }
@@ -71,13 +70,11 @@ public class BuildController : Controller<BuildController>
         _currentBuild.Save();
         _isDirty = false;
 
-        Camera renderCamera = GameObject.FindWithTag("Render Camera").GetComponent<Camera>();
-        GameObject player = FindFirstObjectByType<EntityViewUpdater>().GetView(FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human)).GetComponentInChildren<Animator>().gameObject;
+        EntityRef player = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human);
+        FighterIndex index = FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human);
+        Camera renderCamera = FindFirstObjectByType<EntityViewUpdater>().GetView(player).gameObject.GetComponentInChildren<Camera>();
 
-        renderCamera.GetComponent<Light>().enabled = true;
-
-        _currentBuild.CreateIcon(renderCamera, _renderShader);
-        renderCamera.GetComponent<Light>().enabled = false;
+        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global]);
 
         foreach (var userProfile in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<UserProfile>>(UserProfileController.GetPath()))
         {
@@ -583,7 +580,6 @@ public class BuildController : Controller<BuildController>
         };
 
         QuantumRunner.Default.Game.SendCommand(setBuild);
-        PlayerStatController.Instance.HUDS.ForEach(item => item[index.Global].SetPlayerIcon(build.Icon));
 
         if (PlayerJoinController.Instance.TryGetPlayer(index, out LocalPlayerInfo player) && player.Profile.MadeByPlayer)
         {

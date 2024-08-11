@@ -38,7 +38,7 @@ public class RulesetController : Controller<RulesetController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentRuleset = new(ruleset, GetPath(), "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
+        _currentRuleset = new(ruleset, GetPath(), "Untitled", "", AssetGuid.NewGuid(), filterTags, groupTags);
         _isDirty = true;
     }
 
@@ -266,7 +266,7 @@ public class RulesetController : Controller<RulesetController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentRuleset = new(ruleset, GetPath(), "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags);
+        _currentRuleset = new(ruleset, GetPath(), "", "", AssetGuid.NewGuid(), filterTags, groupTags);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }

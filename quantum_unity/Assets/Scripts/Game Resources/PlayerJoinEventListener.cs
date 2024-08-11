@@ -38,7 +38,7 @@ public class PlayerJoinEventListener :  MonoBehaviour
     {
         _isEnabled = true;
 
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
         {
             InvokeOnPlayerJoin(player);
         }

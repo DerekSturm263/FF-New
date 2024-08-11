@@ -76,13 +76,13 @@ public class ManualCameraController : MonoBehaviour
     {
         AssetGuid guid = AssetGuid.NewGuid();
 
-        SerializableWrapper<Picture> picture = new(default, PictureController.GetPath(), DateTime.Now.ToUniversalTime().ToString("U"), "", DateTime.Now.Ticks, DateTime.Now.Ticks, guid, new string[] { }, new Extensions.Types.Tuple<string, string>[] { });
+        SerializableWrapper<Picture> picture = new(default, PictureController.GetPath(), DateTime.Now.ToUniversalTime().ToString("U"), "", guid, new string[] { }, new Extensions.Types.Tuple<string, string>[] { });
         picture.Save();
 
         picture.CreateIcon(_cam);
         picture.CreatePreview(_cam);
 
-        _cam.RenderToScreenshot($"{PictureController.GetPath()}/{guid}_PICTURE.png", _picture, Helper.ImageType.PNG);
+        _cam.RenderToScreenshot($"{PictureController.GetPath()}/{guid}_PICTURE.png", _picture, Helper.ImageType.PNG, TextureFormat.RGBA32, true);
 
         ToastController.Instance.Spawn("Picture taken");
     }

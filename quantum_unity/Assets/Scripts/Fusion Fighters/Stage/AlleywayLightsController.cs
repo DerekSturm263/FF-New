@@ -16,9 +16,9 @@ public class AlleywayLightsController : PlayerTracker<Transform>
         t.position = Vector3.Lerp(t.position, player.transform.position - t.forward * _followDistance, Time.deltaTime * _moveSpeed);
     }
 
-    protected override Transform GetT(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
+    protected override Transform GetT(QuantumGame game, PlayerInfoCallbackContext ctx)
     {
-        return Instantiate(_spotlight, _lights[index.Global]).transform;
+        return Instantiate(_spotlight, _lights[ctx.Index.Global]).transform;
     }
 
     protected override void CleanUp(Transform t)

@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1692,7 +1692,19 @@ MonoBehaviour:
   _requiresFocus: 0
   _onAction:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1444847108}
+        m_TargetAssemblyTypeName: PictureController, GameResources
+        m_MethodName: ExportSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onAxisAction:
     m_PersistentCalls:
       m_Calls: []
@@ -3817,7 +3829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 50, y: 900.5646}
+  m_AnchoredPosition: {x: 50, y: 900.36804}
   m_SizeDelta: {x: 0, y: 715}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4292554443527779035
@@ -4033,8 +4045,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5302094904291698307}
   m_HandleRect: {fileID: 5679948579217049109}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999984
+  m_Value: 0
+  m_Size: 0.9999966
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

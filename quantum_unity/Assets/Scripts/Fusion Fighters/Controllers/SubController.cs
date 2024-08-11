@@ -112,7 +112,7 @@ public class SubController : Controller<SubController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Sub> serializable = new(sub, GetPath(), _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        SerializableWrapper<Sub> serializable = new(sub, GetPath(), _name, _description, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray());
         serializable.Save();
 
         _renderCamera.transform.position = _template.IconCameraPosition;

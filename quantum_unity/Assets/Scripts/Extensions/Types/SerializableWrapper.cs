@@ -34,10 +34,10 @@ public struct SerializableWrapper<T>
     public void SetDescription(string description) => _description = description;
 
     [SerializeField] private long _creationDate;
-    public readonly long CreationDate => _creationDate;
+    public readonly System.DateTime CreationDate => new(_creationDate);
 
     [SerializeField] private long _lastEditedDate;
-    public readonly long LastEditedDate => _lastEditedDate;
+    public readonly System.DateTime LastEditedDate => new(_lastEditedDate);
     public void SetLastEditedDate(long lastEditedDate) => _lastEditedDate = lastEditedDate;
 
     [SerializeField] private AssetGuid _fileID;
@@ -57,7 +57,7 @@ public struct SerializableWrapper<T>
                 return _iconOverride;
 
             if (!_icon)
-                _icon = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_ICON.png", IconDimensions.x, IconDimensions.y);
+                _icon = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_ICON.png", IconDimensions.x, IconDimensions.y, TextureFormat.RGBA32, true);
             else
                 Debug.Log("Icon already exists!");
 
@@ -76,7 +76,7 @@ public struct SerializableWrapper<T>
                 return _previewOverride;
 
             if (!_preview)
-                _preview = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_PREVIEW.png", PreviewDimensions.x, PreviewDimensions.y);
+                _preview = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_PREVIEW.png", PreviewDimensions.x, PreviewDimensions.y, TextureFormat.RGBA32, true);
             else
                 Debug.Log("Preview already exists!");
 
@@ -92,14 +92,14 @@ public struct SerializableWrapper<T>
 
     public readonly bool IsValid => _fileID != AssetGuid.Invalid;
 
-    public SerializableWrapper(T value, string directory, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags)
+    public SerializableWrapper(T value, string directory, string name, string description, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags)
     {
         this.value = value;
         _directory = directory;
         _name = name;
         _description = description;
-        _creationDate = creationDate;
-        _lastEditedDate = lastEditedDate;
+        _creationDate = System.DateTime.Now.Ticks;
+        _lastEditedDate = System.DateTime.Now.Ticks;
         _fileID = fileID;
         _madeByPlayer = true;
         _iconOverride = null;
@@ -110,14 +110,14 @@ public struct SerializableWrapper<T>
         _groupTags = groupTags;
     }
 
-    public readonly void CreateIcon(Camera camera, Shader shader = null)
+    public readonly void CreateIcon(Camera camera, Shader shader = null, RenderTexture output = null)
     {
-        camera.RenderToScreenshot($"{_directory}/{FileID}_ICON.png", SerializableWrapperHelper.IconRT, Helper.ImageType.PNG, shader);
+        camera.RenderToScreenshot($"{_directory}/{FileID}_ICON.png", output ?? SerializableWrapperHelper.IconRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, shader);
     }
 
-    public readonly void CreatePreview(Camera camera, Shader shader = null)
+    public readonly void CreatePreview(Camera camera, Shader shader = null, RenderTexture output = null)
     {
-        camera.RenderToScreenshot($"{_directory}/{FileID}_PREVIEW.png", SerializableWrapperHelper.PreviewRT, Helper.ImageType.PNG, shader);
+        camera.RenderToScreenshot($"{_directory}/{FileID}_PREVIEW.png", output ?? SerializableWrapperHelper.PreviewRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, shader);
     }
 
     public readonly void Save()

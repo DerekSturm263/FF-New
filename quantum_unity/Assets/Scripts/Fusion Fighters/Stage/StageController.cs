@@ -35,7 +35,7 @@ public class StageController : Controller<StageController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentStage = new(stage, GetPath(), "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags);
+        _currentStage = new(stage, GetPath(), "Untitled", "", AssetGuid.NewGuid(), filterTags, groupTags);
         _isDirty = true;
     }
 
@@ -101,7 +101,7 @@ public class StageController : Controller<StageController>
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentStage = new(stage, GetPath(), "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags);
+        _currentStage = new(stage, GetPath(), "", "", AssetGuid.NewGuid(), filterTags, groupTags);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }

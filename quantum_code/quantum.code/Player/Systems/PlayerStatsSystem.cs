@@ -131,6 +131,8 @@ namespace Quantum
             SetVoice(f, user, stats, build.Cosmetics.Voice);
 
             ApplyBuild(f, user, stats, build);
+
+            f.Events.OnPlayerSetIcon(user, stats->Index);
         }
 
         public static void ApplyBuild(Frame f, EntityRef user, PlayerStats* stats, Build build)
@@ -193,7 +195,7 @@ namespace Quantum
             AvatarColorBinding oldAvatar = stats->Build.Cosmetics.Avatar;
             stats->Build.Cosmetics.Avatar.Avatar = avatar;
 
-            f.Events.OnPlayerSetAvatar(user, oldAvatar, stats->Build.Cosmetics.Avatar);
+            f.Events.OnPlayerSetAvatar(user, stats->Index, oldAvatar, stats->Build.Cosmetics.Avatar);
         }
 
         public static void SetAvatarColor(Frame f, EntityRef user, PlayerStats* stats, AssetRefColorPreset color)
@@ -201,7 +203,7 @@ namespace Quantum
             AvatarColorBinding oldAvatar = stats->Build.Cosmetics.Avatar;
             stats->Build.Cosmetics.Avatar.Color = color;
 
-            f.Events.OnPlayerSetAvatar(user, oldAvatar, stats->Build.Cosmetics.Avatar);
+            f.Events.OnPlayerSetAvatar(user, stats->Index, oldAvatar, stats->Build.Cosmetics.Avatar);
         }
 
         public static void SetVoice(Frame f, EntityRef user, PlayerStats* stats, AssetRefVoice voice)

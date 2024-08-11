@@ -123,7 +123,7 @@ public class WeaponController : Controller<WeaponController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Weapon> serializable = new(weapon, GetPath(), _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        SerializableWrapper<Weapon> serializable = new(weapon, GetPath(), _name, _description, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray());
         serializable.Save();
 
         _renderCamera.transform.position = _template.IconCameraPosition;

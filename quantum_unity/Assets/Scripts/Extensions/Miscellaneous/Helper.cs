@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -139,11 +138,11 @@ namespace Extensions.Miscellaneous
             TGA
         }
 
-        public static Texture2D RenderToTexture2D(this Camera camera, RenderTexture output, Shader shader = null, string replacementTag = "")
+        public static Texture2D RenderToTexture2D(this Camera camera, RenderTexture output, TextureFormat textureFormat, bool linear, Shader shader = null, string replacementTag = "")
         {
             camera.targetTexture = output;
 
-            var currentRT = RenderTexture.active;
+            RenderTexture currentRT = RenderTexture.active;
             RenderTexture.active = camera.targetTexture;
 
             if (shader)
@@ -151,7 +150,7 @@ namespace Extensions.Miscellaneous
             else
                 camera.Render();
 
-            Texture2D image = new(camera.targetTexture.width, camera.targetTexture.height);
+            Texture2D image = new(camera.targetTexture.width, camera.targetTexture.height, textureFormat, false, linear);
             image.ReadPixels(new Rect(0, 0, camera.targetTexture.width, camera.targetTexture.height), 0, 0);
             image.Apply();
 
@@ -159,9 +158,9 @@ namespace Extensions.Miscellaneous
             return image;
         }
 
-        public static void RenderToScreenshot(this Camera camera, string filePath, RenderTexture output, ImageType type, Shader shader = null, string replacementTag = "")
+        public static void RenderToScreenshot(this Camera camera, string filePath, RenderTexture output, ImageType type, TextureFormat textureFormat, bool linear, Shader shader = null, string replacementTag = "")
         {
-            Texture2D texture = RenderToTexture2D(camera, output, shader, replacementTag);
+            Texture2D texture = RenderToTexture2D(camera, output, textureFormat, linear, shader, replacementTag);
             byte[] renderBytes = type switch
             {
                 ImageType.PNG => texture.EncodeToPNG(),
@@ -175,15 +174,15 @@ namespace Extensions.Miscellaneous
             Debug.Log("Screenshot taken!");
         }
 
-        public static Sprite SpriteFromScreenshot(string filePath, int width, int height)
+        public static Sprite SpriteFromScreenshot(string filePath, int width, int height, TextureFormat textureFormat, bool linear)
         {
             Debug.Log("Getting sprite from a screenshot");
 
-            if (File.Exists(filePath))
+            if (System.IO.File.Exists(filePath))
             {
-                byte[] fileData = File.ReadAllBytes(filePath);
+                byte[] fileData = System.IO.File.ReadAllBytes(filePath);
 
-                Texture2D iconTexture = new(width, height, TextureFormat.RGBA32, false, true);
+                Texture2D iconTexture = new(width, height, textureFormat, false, linear);
                 iconTexture.LoadImage(fileData);
 
                 return Sprite.Create(iconTexture, new(0, 0, iconTexture.width, iconTexture.height), Vector2.one);

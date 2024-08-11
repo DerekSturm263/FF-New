@@ -191,7 +191,7 @@ public class ApparelController : Controller<ApparelController>
             new("Template Type", _template.name)
         };
 
-        SerializableWrapper<Apparel> serializable = new(apparel, GetPath(), _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        SerializableWrapper<Apparel> serializable = new(apparel, GetPath(), _name, _description, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray());
         serializable.Save();
 
         _renderCamera.transform.position = _template.IconCameraPosition;

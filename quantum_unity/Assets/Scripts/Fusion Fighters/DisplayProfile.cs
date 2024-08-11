@@ -6,7 +6,7 @@ namespace FusionFighters.Profile
 
     public class DisplayProfile : Extensions.Components.UI.DisplayTextAndImage<Type>
     {
-        protected override Type GetValue() => PlayerJoinController.Instance.Profile;
+        protected override Type GetValue() => (ProfileController.Instance as ProfileController).Profile;
 
         protected override Extensions.Types.Tuple<string, Sprite> GetInfo(Type item)
         {

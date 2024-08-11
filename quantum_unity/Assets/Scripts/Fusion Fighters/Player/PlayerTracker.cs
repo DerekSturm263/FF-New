@@ -16,7 +16,8 @@ public abstract class PlayerTracker<T> : MonoBehaviour
         {
             foreach (var stats in QuantumRunner.Default.Game.Frames.Verified.GetComponentIterator<PlayerStats>())
             {
-                TrackPlayer(QuantumRunner.Default.Game, stats.Entity, stats.Component.Name, stats.Component.Index);
+                TrackPlayer(QuantumRunner.Default.Game, new() { Entity = stats.Entity, Name = stats.Component.Name, Index = stats.Component.Index });
+                Debug.Log("Player tracked!");
             }
         }
     }
@@ -39,19 +40,19 @@ public abstract class PlayerTracker<T> : MonoBehaviour
 
     protected abstract void Action(GameObject player, T t);
 
-    public void TrackPlayer(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
+    public void TrackPlayer(QuantumGame game, PlayerInfoCallbackContext ctx)
     {
-        _playersToTs.TryAdd(player, GetT(game, player, name, index));
+        _playersToTs.TryAdd(ctx.Entity, GetT(game, ctx));
     }
 
-    public void UntrackPlayer(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
+    public void UntrackPlayer(QuantumGame game, PlayerInfoCallbackContext ctx)
     {
-        if (_playersToTs.TryGetValue(player, out T t))
+        if (_playersToTs.TryGetValue(ctx.Entity, out T t))
             CleanUp(t);
 
-        _playersToTs.Remove(player);
+        _playersToTs.Remove(ctx.Entity);
     }
 
-    protected abstract T GetT(QuantumGame game, EntityRef player, QString32 name, FighterIndex index);
+    protected abstract T GetT(QuantumGame game, PlayerInfoCallbackContext ctx);
     protected abstract void CleanUp(T t);
 }

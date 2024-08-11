@@ -71,12 +71,8 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void SpawnAllPlayers()
     {
-        int i = 0;
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
         {
-            if (i == PlayerJoinController.Instance.PlayerLimit)
-                break;
-
             SpawnPlayer(player);
         }
     }
@@ -111,8 +107,6 @@ public class LocalInputController : Controller<LocalInputController>
         if (!gameObject.activeInHierarchy)
             player?.Controls?.Menu.Disable();
 
-        PlayerStatController.Instance.HUDS.ForEach(item => item[player.Index.Global].SetPlayerIcon(player.Profile.value.LastBuild.Icon));
-
         Debug.Log($"Spawned player {player.Index}");
     }
 
@@ -145,13 +139,11 @@ public class LocalInputController : Controller<LocalInputController>
                 Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
                 GlobalNoBots = -1,
                 GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(QuantumRunner.Default.Game.Frames.Verified),
-                Type = FighterType.Bot
+                Type = FighterType.Bot,
             },
         };
 
         QuantumRunner.Default.Game.SendCommand(commandSpawnAI);
-
-        PlayerStatController.Instance.HUDS.ForEach(item => item[commandSpawnAI.index.Global].SetPlayerIcon(icon));
 
         Debug.Log($"Spawned bot {commandSpawnAI.index}");
     }
@@ -182,7 +174,7 @@ public class LocalInputController : Controller<LocalInputController>
         if (!PlayerJoinController.Instance)
             return;
 
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(false))
         {
             player.Controls?.Player.Enable();
         }
@@ -193,7 +185,7 @@ public class LocalInputController : Controller<LocalInputController>
         if (!PlayerJoinController.Instance)
             return;
 
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(false))
         {
             player.Controls?.Player.Disable();
         }
