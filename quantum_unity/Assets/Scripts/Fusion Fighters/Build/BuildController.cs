@@ -72,9 +72,10 @@ public class BuildController : Controller<BuildController>
 
         EntityRef player = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human);
         FighterIndex index = FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human);
-        Camera renderCamera = FindFirstObjectByType<EntityViewUpdater>().GetView(player).gameObject.GetComponentInChildren<Camera>();
+        GameObject playerObj = FindFirstObjectByType<EntityViewUpdater>().GetView(player).gameObject;
 
-        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global]);
+        Camera renderCamera = playerObj.GetComponentInChildren<Camera>();
+        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global], playerObj.transform.localScale.x == -1);
 
         foreach (var userProfile in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<UserProfile>>(UserProfileController.GetPath()))
         {

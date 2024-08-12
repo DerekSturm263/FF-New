@@ -28,6 +28,7 @@ namespace GameResources.Camera
             if (settings.Volume)
                 _instance.SetVolumeInternal(settings.Volume);
         }
+        public void SetCameraSettingsWithoutNotify(CameraSettingsAsset settings) => _settings = settings;
 
         [SerializeField] private bool _isMain = true;
 

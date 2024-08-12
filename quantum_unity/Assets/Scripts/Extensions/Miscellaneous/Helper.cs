@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Extensions.Miscellaneous
 {
@@ -138,7 +139,7 @@ namespace Extensions.Miscellaneous
             TGA
         }
 
-        public static Texture2D RenderToTexture2D(this Camera camera, RenderTexture output, TextureFormat textureFormat, bool linear, Shader shader = null, string replacementTag = "")
+        public static Texture2D RenderToTexture2D(this Camera camera, RenderTexture output, TextureFormat textureFormat, bool linear, bool flipX = false, Shader shader = null, string replacementTag = "")
         {
             camera.targetTexture = output;
 
@@ -150,17 +151,28 @@ namespace Extensions.Miscellaneous
             else
                 camera.Render();
 
+            if (flipX)
+            {
+                RenderTexture temp = RenderTexture.GetTemporary(RenderTexture.active.descriptor);
+
+                Graphics.Blit(RenderTexture.active, temp, new Vector2(-1, 1), new Vector2(1, 0));
+                Graphics.Blit(temp, RenderTexture.active);
+
+                RenderTexture.ReleaseTemporary(temp);
+            }
+
             Texture2D image = new(camera.targetTexture.width, camera.targetTexture.height, textureFormat, false, linear);
             image.ReadPixels(new Rect(0, 0, camera.targetTexture.width, camera.targetTexture.height), 0, 0);
             image.Apply();
 
             RenderTexture.active = currentRT;
+
             return image;
         }
 
-        public static void RenderToScreenshot(this Camera camera, string filePath, RenderTexture output, ImageType type, TextureFormat textureFormat, bool linear, Shader shader = null, string replacementTag = "")
+        public static void RenderToScreenshot(this Camera camera, string filePath, RenderTexture output, ImageType type, TextureFormat textureFormat, bool linear, bool flipX = false, Shader shader = null, string replacementTag = "")
         {
-            Texture2D texture = RenderToTexture2D(camera, output, textureFormat, linear, shader, replacementTag);
+            Texture2D texture = RenderToTexture2D(camera, output, textureFormat, linear, flipX, shader, replacementTag);
             byte[] renderBytes = type switch
             {
                 ImageType.PNG => texture.EncodeToPNG(),
