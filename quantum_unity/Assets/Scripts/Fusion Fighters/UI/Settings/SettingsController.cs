@@ -352,7 +352,7 @@ public class SettingsController : SpawnableController<Settings>
             }
         };
 
-        Time.timeScale = setTimeScale.scale.AsFloat;
+        //Time.timeScale = setTimeScale.scale.AsFloat;
         QuantumRunner.Default?.Game.SendCommand(setTimeScale);
     }
 

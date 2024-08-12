@@ -2,9 +2,7 @@ using Extensions.Components.Miscellaneous;
 using Extensions.Miscellaneous;
 using GameResources.UI.Popup;
 using System;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PictureController : Controller<PictureController>
 {

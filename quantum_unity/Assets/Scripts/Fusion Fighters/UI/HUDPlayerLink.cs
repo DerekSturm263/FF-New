@@ -20,6 +20,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text _ready;
     [SerializeField] private Image _readyFill;
     [SerializeField] private TMPro.TMP_Text _lifeCount;
+    [SerializeField] private Image _background;
 
     [SerializeField] private TMPro.TMP_Text _healthText;
     [SerializeField] private TMPro.TMP_Text _energyText;
@@ -31,6 +32,8 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Color _fullEnergy;
     [SerializeField] private Color _emptyStock;
     [SerializeField] private Color _fullStock;
+
+    [SerializeField] private Color[] _playerColors;
 
     private float _healthRatio, _energyRatio;
 
@@ -60,6 +63,14 @@ public class HUDPlayerLink : MonoBehaviour
     public void SetPlayerNumber(FighterIndex index)
     {
         _playerNum.SetText(index.Type == FighterType.Human ? $"P{index.GlobalNoBots + 1}" : "Bot");
+
+        if (_background)
+        {
+            if (index.Type == FighterType.Human)
+                _background.color = _playerColors[index.GlobalNoBots];
+            else
+                _background.color = _playerColors[4];
+        }
     }
 
     public void SetPlayerName(string name)
