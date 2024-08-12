@@ -34,10 +34,15 @@ namespace Quantum
             f.Global->PlayersReady = 0;
             f.Global->TotalPlayers = 0;
             f.Global->CanPlayersEdit = true;
+
+            f.Global->GizmoInstances = f.AllocateList<EntityRef>();
         }
 
         public override void OnDisabled(Frame f)
         {
+            f.FreeList(f.Global->GizmoInstances);
+            f.Global->GizmoInstances = default;
+
             f.FreeList(f.Global->Teams);
             f.Global->Teams = default;
         }
@@ -140,6 +145,13 @@ namespace Quantum
                 {
                     f.Destroy(f.Global->CurrentStage);
                     f.DisposeAsset(f.Map.Guid);
+
+                    var gizmoInstances = f.ResolveList(f.Global->GizmoInstances);
+                    while (gizmoInstances.Count > 0)
+                    {
+                        f.Destroy(gizmoInstances[0]);
+                        gizmoInstances.RemoveAt(0);
+                    }
                 }
 
                 f.Global->CurrentStage = f.Create(stage.Objects.Stage);
@@ -162,6 +174,9 @@ namespace Quantum
                     {
                         transform->Position = gizmo.Position;
                     }
+
+                    var gizmoInstances = f.ResolveList(f.Global->GizmoInstances);
+                    gizmoInstances.Add(newGizmo);
                 }
             }
 
