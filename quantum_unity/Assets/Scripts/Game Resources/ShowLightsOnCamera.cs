@@ -1,11 +1,15 @@
 using Quantum;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class ShowLightsOnCamera : MonoBehaviour
 {
     [SerializeField] private Light[] _includeLights;
+
     private Light[] _excludeLights = new Light[0];
+    private List<GameObject> _excludeGameObjects = new();
 
     private Camera _camera;
 
@@ -18,13 +22,26 @@ public class ShowLightsOnCamera : MonoBehaviour
 
         unsafe
         {
-            if (QuantumRunner.Default is not null && QuantumRunner.Default.Game.Frames.Verified.Global->CurrentStage.IsValid)
+            if (QuantumRunner.Default)
             {
-                _excludeLights = _entityViewUpdater.GetView(QuantumRunner.Default.Game.Frames.Verified.Global->CurrentStage).GetComponentsInChildren<Light>(true);
+                if (QuantumRunner.Default.Game.Frames.Verified.Global->CurrentStage.IsValid)
+                    _excludeLights = _entityViewUpdater.GetView(QuantumRunner.Default.Game.Frames.Verified.Global->CurrentStage).GetComponentsInChildren<Light>(true);
+
+                var players = FighterIndex.GetEntityList(QuantumRunner.Default.Game.Frames.Verified, item => true);
+
+                foreach (var playerEty in players)
+                {
+                    GameObject player = _entityViewUpdater.GetView(playerEty).gameObject;
+
+                    if (player != transform.parent.gameObject)
+                        _excludeGameObjects.Add(player);
+                }
             }
         }
 
         QuantumEvent.Subscribe<EventOnStageSelect>(listener: this, handler: LoadLights);
+        QuantumEvent.Subscribe<EventOnPlayerSpawn>(listener: this, handler: AddPlayer);
+        QuantumEvent.Subscribe<EventOnPlayerDespawn>(listener: this, handler: RemovePlayer);
 
         RenderPipelineManager.beginCameraRendering += RenderPipelineManager_beginCameraRendering;
         RenderPipelineManager.endCameraRendering += RenderPipelineManager_endCameraRendering;
@@ -35,6 +52,16 @@ public class ShowLightsOnCamera : MonoBehaviour
         _excludeLights = _entityViewUpdater.GetView(e.Stage).GetComponentsInChildren<Light>(true);
     }
 
+    private void AddPlayer(EventOnPlayerSpawn e)
+    {
+        _excludeGameObjects.Add(_entityViewUpdater.GetView(e.Ctx.Entity).gameObject);
+    }
+
+    private void RemovePlayer(EventOnPlayerDespawn e)
+    {
+        _excludeGameObjects.Remove(_entityViewUpdater.GetView(e.Ctx.Entity).gameObject);
+    }
+
     private void RenderPipelineManager_beginCameraRendering(ScriptableRenderContext arg1, Camera arg2)
     {
         if (arg2 != _camera)
@@ -43,6 +70,11 @@ public class ShowLightsOnCamera : MonoBehaviour
         for (int i = 0; i < _excludeLights.Length; ++i)
         {
             _excludeLights[i].enabled = false;
+        }
+
+        for (int i = 0; i < _excludeGameObjects.Count; ++i)
+        {
+            _excludeGameObjects[i].SetActive(false);
         }
 
         for (int i = 0; i < _includeLights.Length; ++i)
@@ -59,6 +91,11 @@ public class ShowLightsOnCamera : MonoBehaviour
         for (int i = 0; i < _excludeLights.Length; ++i)
         {
             _excludeLights[i].enabled = true;
+        }
+
+        for (int i = 0; i < _excludeGameObjects.Count; ++i)
+        {
+            _excludeGameObjects[i].SetActive(true);
         }
 
         for (int i = 0; i < _includeLights.Length; ++i)
