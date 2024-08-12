@@ -174,7 +174,7 @@ namespace Extensions.Miscellaneous
             Debug.Log("Screenshot taken!");
         }
 
-        public static Sprite SpriteFromScreenshot(string filePath, int width, int height, TextureFormat textureFormat, bool linear)
+        public static Sprite SpriteFromScreenshot(string filePath, int width, int height, TextureFormat textureFormat, bool linear, Texture2D defaultTexture)
         {
             Debug.Log("Getting sprite from a screenshot");
 
@@ -187,8 +187,11 @@ namespace Extensions.Miscellaneous
 
                 return Sprite.Create(iconTexture, new(0, 0, iconTexture.width, iconTexture.height), Vector2.one);
             }
-            
-            return Sprite.Create(Texture2D.whiteTexture, new(0, 0, Texture2D.whiteTexture.width, -Texture2D.whiteTexture.height), Vector2.one);
+
+            if (!defaultTexture)
+                return null;
+
+            return Sprite.Create(defaultTexture, new(0, 0, defaultTexture.width, -defaultTexture.height), Vector2.one);
         }
 
         #endregion

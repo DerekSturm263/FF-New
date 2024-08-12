@@ -57,7 +57,7 @@ public struct SerializableWrapper<T>
                 return _iconOverride;
 
             if (!_icon)
-                _icon = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_ICON.png", IconDimensions.x, IconDimensions.y, TextureFormat.RGBA32, true);
+                _icon = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_ICON.png", IconDimensions.x, IconDimensions.y, TextureFormat.RGBA32, true, null);
             else
                 Debug.Log("Icon already exists!");
 
@@ -76,7 +76,7 @@ public struct SerializableWrapper<T>
                 return _previewOverride;
 
             if (!_preview)
-                _preview = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_PREVIEW.png", PreviewDimensions.x, PreviewDimensions.y, TextureFormat.RGBA32, true);
+                _preview = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_PREVIEW.png", PreviewDimensions.x, PreviewDimensions.y, TextureFormat.RGBA32, true, null);
             else
                 Debug.Log("Preview already exists!");
 

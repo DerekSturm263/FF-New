@@ -449,17 +449,22 @@ namespace Extensions.Components.UI
             if (description)
                 description.SetText(Description(item));
 
-            Image icon = buttonObj.FindChildWithTag("Icon", false)?.GetComponent<Image>();
+            Image icon = buttonObj.FindChildWithTag("Icon", true)?.GetComponent<Image>();
             if (icon)
             {
-                try
-                {
-                    icon.sprite = Icon(item);
-                }
-                catch { }
+                Sprite iconSprite = Icon(item);
+                icon.gameObject.SetActive(iconSprite);
 
-                if (!icon.sprite)
-                    icon.enabled = false;
+                if (iconSprite)
+                {
+                    icon.sprite = iconSprite;
+                }
+                else if (label)
+                {
+                    label.rectTransform.anchorMin = new(0, label.rectTransform.anchorMin.y);
+                    label.rectTransform.anchoredPosition = new(0, label.rectTransform.anchoredPosition.y);
+                    label.rectTransform.sizeDelta = new(-130, label.rectTransform.sizeDelta.y);
+                }
             }
 
             Image background = buttonObj.FindChildWithTag("Background", false)?.GetComponent<Image>();

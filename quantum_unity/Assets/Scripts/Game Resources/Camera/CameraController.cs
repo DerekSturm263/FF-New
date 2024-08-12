@@ -283,6 +283,9 @@ namespace GameResources.Camera
 
         public void ResetAllWeights()
         {
+            if (!_instance)
+                return;
+
             for (int i = 0; i < _instance._targets.Count; ++i)
             {
                 _instance._targets[i] = new(1, _instance._targets[i].Item2);

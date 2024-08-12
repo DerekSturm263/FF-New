@@ -11,7 +11,7 @@ public class ShowLightsOnCamera : MonoBehaviour
 
     private EntityViewUpdater _entityViewUpdater;
 
-    private void Awake()
+    private void Start()
     {
         _camera = GetComponent<Camera>();
         _entityViewUpdater = FindFirstObjectByType<EntityViewUpdater>();
