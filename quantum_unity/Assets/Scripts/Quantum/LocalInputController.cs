@@ -69,8 +69,13 @@ public class LocalInputController : Controller<LocalInputController>
         callback.SetInput(input, DeterministicInputFlags.Repeatable);
     }
 
+    private int _globalOffset;
+
     public void SpawnAllPlayers()
     {
+        _globalOffset = 0;
+
+        // May be causing a bug
         foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
         {
             SpawnPlayer(player);
@@ -87,10 +92,12 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void SpawnPlayerImmediate(LocalPlayerInfo player)
     {
+        int offset = _globalOffset != -1 ? _globalOffset : 0;
+
         player.SetGlobalIndices
         (
-            FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
-            FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified)
+            FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified) + offset,
+            FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified) + offset
         );
 
         RuntimePlayer data = new()
@@ -108,6 +115,11 @@ public class LocalInputController : Controller<LocalInputController>
             player?.Controls?.Menu.Disable();
 
         Debug.Log($"Spawned player {player.Index}");
+
+        if (_globalOffset == PlayerJoinController.Instance.GetPlayerCount(true) - 1)
+            _globalOffset = -1;
+        else
+            ++_globalOffset;
     }
 
     public void SpawnAIDelayed(Bot bot, Sprite icon)

@@ -21,6 +21,8 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
         }
     }
 
+    public int GetPlayerCount(bool limitCount) => GetAllLocalPlayers(limitCount).Count();
+
     private Controls _controls;
 
     [SerializeField] private int _playerLimit;

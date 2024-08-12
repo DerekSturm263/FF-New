@@ -330,7 +330,7 @@ namespace GameResources.Camera
 
             if (doHaptics)
             {
-                foreach (LocalPlayerInfo player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
+                foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
                 {
                     PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
                 }
