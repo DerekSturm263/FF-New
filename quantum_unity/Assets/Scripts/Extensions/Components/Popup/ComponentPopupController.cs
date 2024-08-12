@@ -23,12 +23,6 @@ namespace GameResources.UI.Popup
         {
             _templateInstance.GetComponent<Animator>().SetTrigger("Exit");
 
-            if (_templateInstance.TryGetComponent(out FadeOutEvents fadeOutEvents))
-            {
-                fadeOutEvents.InvokeOnClose();
-                fadeOutEvents.DisableButtons();
-            }
-
             EventSystemController.Instance.Disable();
         }
 

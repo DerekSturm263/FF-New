@@ -37,12 +37,6 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
 
         _templateInstance.GetComponent<Animator>().SetTrigger("Exit");
 
-        if (_templateInstance.TryGetComponent(out FadeOutEvents fadeOutEvents))
-        {
-            fadeOutEvents.InvokeOnClose();
-            fadeOutEvents.DisableButtons();
-        }
-
         if (TakeAwayFocus())
             EventSystemController.Instance.Disable();
 

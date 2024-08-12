@@ -5,9 +5,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class EventSystemController : Controller<EventSystemController>
 {
+    [SerializeField] private UnityEvent _onPopupOpen;
+    public void InvokeOnPopupOpen() => _onPopupOpen?.Invoke();
+
+    [SerializeField] private UnityEvent _onPopupClose;
+    public void InvokeOnPopupClose() => _onPopupClose?.Invoke();
+
     [System.Serializable]
     public struct SavableData
     {
@@ -114,6 +121,9 @@ public class EventSystemController : Controller<EventSystemController>
         SavableData data = new(0);
         data.Enable();
 
+        if (_data.Count == 0)
+            InvokeOnPopupOpen();
+
         _data.Add(data);
     }
 
@@ -121,5 +131,8 @@ public class EventSystemController : Controller<EventSystemController>
     {
         _data[^1].Disable();
         _data.RemoveAt(_data.Count - 1);
+
+        if (_data.Count == 0)
+            InvokeOnPopupClose();
     }
 }

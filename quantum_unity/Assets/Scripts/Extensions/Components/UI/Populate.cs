@@ -42,6 +42,7 @@ namespace Extensions.Components.UI
 
         [SerializeField] protected UnityEvent _onIfEmpty;
         [SerializeField] protected UnityEvent _onIfNotEmpty;
+        [SerializeField] protected bool _resizeIfEmpty = true;
 
         public virtual List<string> AllFilterModeNames => new();
         public virtual List<string> AllGroupModeNames => new();
@@ -453,13 +454,13 @@ namespace Extensions.Components.UI
             if (icon)
             {
                 Sprite iconSprite = Icon(item);
-                icon.gameObject.SetActive(iconSprite);
+                icon.enabled = iconSprite;
 
                 if (iconSprite)
                 {
                     icon.sprite = iconSprite;
                 }
-                else if (label)
+                else if (_resizeIfEmpty && label)
                 {
                     label.rectTransform.anchorMin = new(0, label.rectTransform.anchorMin.y);
                     label.rectTransform.anchoredPosition = new(0, label.rectTransform.anchoredPosition.y);

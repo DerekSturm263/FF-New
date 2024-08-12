@@ -4603,8 +4603,8 @@ GameObject:
   - component: {fileID: 651084585}
   - component: {fileID: 651084589}
   - component: {fileID: 651084588}
-  - component: {fileID: 651084587}
   - component: {fileID: 651084586}
+  - component: {fileID: 651084590}
   m_Layer: 0
   m_Name: Items Populator
   m_TagString: Untagged
@@ -4658,32 +4658,6 @@ MonoBehaviour:
   _onVector2Action:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &651084587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651084584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 200
-    m_Right: 200
-    m_Top: 200
-    m_Bottom: 100
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
 --- !u!114 &651084588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4712,7 +4686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532c9f05f83dff147ae2c1ee3c6100ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be, type: 3}
+  _button: {fileID: 6066071934636821485, guid: d60f7c204c895e34fbd641e44215e939, type: 3}
   _checkmark: {fileID: 396646728035575179, guid: 3fc1df6da4f599946ad1113be75a66a6,
     type: 3}
   _multipleCheckmarks: 1
@@ -4728,6 +4702,7 @@ MonoBehaviour:
   _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _resizeIfEmpty: 1
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -4755,6 +4730,30 @@ MonoBehaviour:
   _reloadOnEachEnable: 0
   _spawnNoneButton: 0
   _type: 1
+--- !u!114 &651084590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651084584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 200
+    m_Right: 200
+    m_Top: 200
+    m_Bottom: 100
+  m_ChildAlignment: 1
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 200, y: 200}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 4
 --- !u!1 &687282744
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,7 +5739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69b50ea045b38e4bb9936397628a405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 6066071934636821485, guid: 3b3f2af6d1291e943b87fb49e5176e4d, type: 3}
+  _button: {fileID: 6066071934636821485, guid: d60f7c204c895e34fbd641e44215e939, type: 3}
   _checkmark: {fileID: 396646728035575179, guid: 3fc1df6da4f599946ad1113be75a66a6,
     type: 3}
   _multipleCheckmarks: 1
@@ -5756,6 +5755,7 @@ MonoBehaviour:
   _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _resizeIfEmpty: 1
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -5803,7 +5803,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 150, y: 150}
+  m_CellSize: {x: 200, y: 200}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 4
@@ -9065,6 +9065,7 @@ MonoBehaviour:
   _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _resizeIfEmpty: 1
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -9315,6 +9316,7 @@ MonoBehaviour:
   _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _resizeIfEmpty: 1
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -11929,7 +11931,7 @@ PrefabInstance:
     - target: {fileID: 4227720250461270146, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 780.5556
+      value: 779.8999
       objectReference: {fileID: 0}
     - target: {fileID: 4379083609298001418, guid: b3b80fd92abae0a4ca5f1eec31ec0254,
         type: 3}
@@ -13606,8 +13608,8 @@ GameObject:
   - component: {fileID: 1421607779}
   - component: {fileID: 1421607783}
   - component: {fileID: 1421607782}
-  - component: {fileID: 1421607781}
   - component: {fileID: 1421607780}
+  - component: {fileID: 1421607784}
   m_Layer: 0
   m_Name: Starting Item Populator
   m_TagString: Untagged
@@ -13661,32 +13663,6 @@ MonoBehaviour:
   _onVector2Action:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1421607781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421607778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 200
-    m_Right: 200
-    m_Top: 200
-    m_Bottom: 100
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
 --- !u!114 &1421607782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13715,7 +13691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532c9f05f83dff147ae2c1ee3c6100ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 6066071934636821485, guid: c9c593514fdddf641a4c63012f8450be, type: 3}
+  _button: {fileID: 6066071934636821485, guid: d60f7c204c895e34fbd641e44215e939, type: 3}
   _checkmark: {fileID: 396646728035575179, guid: 3fc1df6da4f599946ad1113be75a66a6,
     type: 3}
   _multipleCheckmarks: 0
@@ -13731,6 +13707,7 @@ MonoBehaviour:
   _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _resizeIfEmpty: 0
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -13758,6 +13735,30 @@ MonoBehaviour:
   _reloadOnEachEnable: 0
   _spawnNoneButton: 1
   _type: 0
+--- !u!114 &1421607784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421607778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 200
+    m_Right: 200
+    m_Top: 200
+    m_Bottom: 100
+  m_ChildAlignment: 1
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 200, y: 200}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 4
 --- !u!1 &1422085822
 GameObject:
   m_ObjectHideFlags: 0

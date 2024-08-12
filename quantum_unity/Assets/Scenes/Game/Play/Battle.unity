@@ -3388,7 +3388,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1183914064}
-  - component: {fileID: 1183914065}
   m_Layer: 5
   m_Name: CSS
   m_TagString: Untagged
@@ -3416,47 +3415,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1183914065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183914063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 11400000, guid: 027e677e13baa9e4eb50bd4c164d9dcf, type: 2}
-  _button2Optional: {fileID: 0}
-  _readContinuous: 0
-  _processWhenEmpty: 0
-  _parent: {fileID: 0}
-  _requiresFocus: 0
-  _onAction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7737329991338470777, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: Extensions.Components.Miscellaneous.MiscellaneousController,
-          Extensions
-        m_MethodName: ToggleGameObject
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 391401473}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _onAxisAction:
-    m_PersistentCalls:
-      m_Calls: []
-  _onVector2Action:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1210539046
 GameObject:
   m_ObjectHideFlags: 0
@@ -5571,6 +5529,47 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5023754801440757121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1999716995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999716994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: 027e677e13baa9e4eb50bd4c164d9dcf, type: 2}
+  _button2Optional: {fileID: 0}
+  _readContinuous: 0
+  _processWhenEmpty: 0
+  _parent: {fileID: 0}
+  _requiresFocus: 0
+  _onAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7737329991338470777, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.Miscellaneous.MiscellaneousController,
+          Extensions
+        m_MethodName: ToggleGameObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 391401473}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!224 &2051875955 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3126898175408384160, guid: e9342a1bccf731a4da405c66a98ff230,
@@ -10935,7 +10934,11 @@ PrefabInstance:
     - {fileID: 6418988993927542829, guid: c414bf125161ce1409de4374f7af879c, type: 3}
     - {fileID: 4535028809737183416, guid: c414bf125161ce1409de4374f7af879c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9184838739312799667, guid: c414bf125161ce1409de4374f7af879c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1999716995}
   m_SourcePrefab: {fileID: 100100000, guid: c414bf125161ce1409de4374f7af879c, type: 3}
 --- !u!1 &5023754801440757122 stripped
 GameObject:

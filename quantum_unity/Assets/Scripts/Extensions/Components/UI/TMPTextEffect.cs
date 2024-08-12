@@ -69,9 +69,9 @@ namespace Extensions.Components.UI
             _allVertices.AddRange(textInfo.meshInfo[0].vertices);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            ModifyTMP(Text.textInfo, _useScaledTime ? Time.fixedDeltaTime : Time.fixedUnscaledDeltaTime);
+            ModifyTMP(Text.textInfo, _useScaledTime ? Time.deltaTime : Time.unscaledDeltaTime);
         }
 
         public void ModifyTMP(TMPro.TMP_TextInfo textInfo, float deltaTime)

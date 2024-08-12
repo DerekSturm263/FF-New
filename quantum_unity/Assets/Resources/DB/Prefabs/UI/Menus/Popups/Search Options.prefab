@@ -196,8 +196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
+  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
+  _parent: {fileID: 0}
+  _requiresFocus: 0
   _onAction:
     m_PersistentCalls:
       m_Calls:
@@ -518,6 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resetOnTextChange: 0
+  _useScaledTime: 0
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -745,7 +749,6 @@ MonoBehaviour:
   _selectMethod: 4
   _dontSelect: []
   _resetIndexOnStart: 1
-  _executeOnSelect: 1
   _delay: 0.1
 --- !u!1 &9130855526157340096
 GameObject:
@@ -760,7 +763,6 @@ GameObject:
   - component: {fileID: 2540065318364774622}
   - component: {fileID: 364629958091422387}
   - component: {fileID: 7150174190159414887}
-  - component: {fileID: 8697696826696133979}
   m_Layer: 5
   m_Name: Search Options
   m_TagString: Untagged
@@ -861,131 +863,3 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8697696826696133979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9130855526157340096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c6d803572120384ca5e0faf574c8bf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onOpen:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-        m_MethodName: EnableSnapshot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: -4980061243674452760, guid: df8e81d8ae2e38f45960c330754d4911,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Audio.AudioMixerSnapshot,
-            UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-        m_MethodName: PlayAudioClip
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 8a20856ef353de84da565275c5a3baac,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: DisableJoin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: -8979094445783090270, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
-        m_MethodName: DisableInput
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onClose:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-        m_MethodName: EnableSnapshot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 24500006, guid: df8e81d8ae2e38f45960c330754d4911,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Audio.AudioMixerSnapshot,
-            UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
-        m_MethodName: PlayAudioClip
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3d230e3aaac96584a916950ed7565d0a,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3938291804223525914, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: PlayerJoinController, GameResources
-        m_MethodName: TryEnableJoin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: -8979094445783090270, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
-        m_MethodName: TryEnableInput
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2

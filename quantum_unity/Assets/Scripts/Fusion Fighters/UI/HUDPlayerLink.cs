@@ -87,6 +87,7 @@ public class HUDPlayerLink : MonoBehaviour
     IEnumerator TakePicture(GameObject player, int index)
     {
         yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
 
         Texture2D portraitTexture = player.GetComponentInChildren<Camera>().RenderToTexture2D(FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index], TextureFormat.RGBA32, true);
         Sprite portrait = Sprite.Create(portraitTexture, new(0, 0, portraitTexture.width, portraitTexture.height), Vector2.one);

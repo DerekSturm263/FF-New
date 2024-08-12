@@ -67,7 +67,8 @@ namespace Extensions.Components.UI
             TMPro.TMP_Text text = GetComponentInChildren<TMPro.TMP_Text>();
             Image image = gameObject.FindChildWithTag("Icon", true)?.GetComponent<Image>();
 
-            image?.gameObject.SetActive(values.Item2);
+            if (image)
+                image.enabled = values.Item2;
 
             if (!values.Item2)
             {
