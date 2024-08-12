@@ -135,4 +135,14 @@ public class EventSystemController : Controller<EventSystemController>
         if (_data.Count == 0)
             InvokeOnPopupClose();
     }
+
+    public void PushEmpty()
+    {
+        _data.Add(new());
+    }
+
+    public void PopEmpty()
+    {
+        _data.RemoveAt(_data.Count - 1);
+    }
 }

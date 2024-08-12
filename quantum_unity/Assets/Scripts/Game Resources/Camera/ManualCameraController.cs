@@ -3,6 +3,7 @@ using GameResources.UI.Popup;
 using Quantum;
 using System;
 using UnityEngine;
+using static CustomAnimatorGraphAsset;
 
 public class ManualCameraController : MonoBehaviour
 {
@@ -82,7 +83,10 @@ public class ManualCameraController : MonoBehaviour
         picture.CreateIcon(_cam);
         picture.CreatePreview(_cam);
 
-        _cam.RenderToScreenshot($"{PictureController.GetPath()}/{guid}_PICTURE.png", _picture, Helper.ImageType.PNG, TextureFormat.RGBA32, true);
+        RenderTextureDescriptor descriptor = new(_picture.width, _picture.height, RenderTextureFormat.ARGB32, 8, 0, RenderTextureReadWrite.sRGB);
+        RenderTexture pictureTexture = new(descriptor);
+
+        _cam.RenderToScreenshot($"{PictureController.GetPath()}/{guid}_PICTURE.png", pictureTexture, Helper.ImageType.PNG, TextureFormat.RGBA32, true);
 
         ToastController.Instance.Spawn("Picture taken");
     }

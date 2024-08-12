@@ -36,12 +36,10 @@ public class PictureController : Controller<PictureController>
 
     public void ExportSelected()
     {
-        Sprite picture = Helper.SpriteFromScreenshot($"{GetPath()}/{_instance._currentSelected.FileID}_PICTURE.png", 3840, 2160, TextureFormat.RGBA32, true, Texture2D.whiteTexture);
-        byte[] renderBytes = picture.texture.EncodeToPNG();
-
         string pictureDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         string fullPath = $"{pictureDirectory}/{_instance._currentSelected.CreationDate.ToFileTimeUtc()}.png";
-        System.IO.File.WriteAllBytes(fullPath, renderBytes);
+
+        System.IO.File.Copy($"{GetPath()}/{_instance._currentSelected.FileID}_PICTURE.png", fullPath);
 
         ToastController.Instance.Spawn($"Exported to {fullPath}");
     }
