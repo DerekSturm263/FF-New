@@ -13,6 +13,9 @@ public struct DisplayAllAvatarInfo
     {
         FFAvatarAsset avatarStyle = UnityDB.FindAsset<FFAvatarAsset>(item.Avatar.Id);
         ColorPresetAsset avatarColor = UnityDB.FindAsset<ColorPresetAsset>(item.Color.Id);
+
+        _displayStyle?.UpdateDisplay(avatarStyle);
+        _displayColor?.UpdateDisplay(avatarColor);
     }
 }
 
@@ -26,6 +29,9 @@ public struct DisplayAllEyesInfo
     {
         EyesAsset eyeStyle = UnityDB.FindAsset<EyesAsset>(item.Eyes.Id);
         ColorPresetAsset eyeColor = UnityDB.FindAsset<ColorPresetAsset>(item.Color.Id);
+
+        _displayStyle?.UpdateDisplay(eyeStyle);
+        _displayColor?.UpdateDisplay(eyeColor);
     }
 }
 
@@ -39,6 +45,9 @@ public struct DisplayAllHairInfo
     {
         HairAsset hairStyle = UnityDB.FindAsset<HairAsset>(item.Hair.Id);
         ColorPresetAsset hairColor = UnityDB.FindAsset<ColorPresetAsset>(item.Color.Id);
+
+        _displayStyle?.UpdateDisplay(hairStyle);
+        _displayColor?.UpdateDisplay(hairColor);
     }
 }
 
@@ -57,7 +66,7 @@ public struct DisplayAllFrameInfo
         _displayAvatar.UpdateDisplay(item.Avatar);
         _displayEyes.UpdateDisplay(item.Eyes);
         _displayHair.UpdateDisplay(item.Hair);
-        _displayVoice.UpdateDisplay(voice);
+        _displayVoice?.UpdateDisplay(voice);
     }
 }
 
@@ -74,9 +83,9 @@ public struct DisplayAllWeaponInfo
         WeaponMaterialAsset material = UnityDB.FindAsset<WeaponMaterialAsset>(weapon.Material.Id);
         WeaponEnhancerAsset enhancer = UnityDB.FindAsset<WeaponEnhancerAsset>(weapon.Enhancer.Id);
 
-        _displayTemplate.UpdateDisplay(template);
-        _displayMaterial.UpdateDisplay(material);
-        _displayEnhancer.UpdateDisplay(enhancer);
+        _displayTemplate?.UpdateDisplay(template);
+        _displayMaterial?.UpdateDisplay(material);
+        _displayEnhancer?.UpdateDisplay(enhancer);
     }
 }
 
@@ -91,8 +100,8 @@ public struct DisplayAllSubInfo
         SubTemplateAsset template = UnityDB.FindAsset<SubTemplateAsset>(item.Template.Id);
         SubEnhancerAsset enhancer = UnityDB.FindAsset<SubEnhancerAsset>(item.Enhancer.Id);
 
-        _displayTemplate.UpdateDisplay(template);
-        _displayEnhancer.UpdateDisplay(enhancer);
+        _displayTemplate?.UpdateDisplay(template);
+        _displayEnhancer?.UpdateDisplay(enhancer);
     }
 }
 
@@ -113,8 +122,8 @@ public struct DisplayAllGearInfo
         _displayMainWeapon.UpdateDisplay(item.MainWeapon);
         _displayAltWeapon.UpdateDisplay(item.AltWeapon);
         _displaySub.UpdateDisplay(item.SubWeapon);
-        _displayBadge.UpdateDisplay(badge);
-        _displayUltimate.UpdateDisplay(ultimate);
+        _displayBadge?.UpdateDisplay(badge);
+        _displayUltimate?.UpdateDisplay(ultimate);
     }
 }
 
@@ -135,11 +144,11 @@ public struct DisplayAllApparelInfo
         ApparelModifierAsset modifier3 = UnityDB.FindAsset<ApparelModifierAsset>(item.Modifiers.Modifier3.Id);
         ColorPresetAsset color = UnityDB.FindAsset<ColorPresetAsset>(item.Color.Id);
 
-        _displayTemplate.UpdateDisplay(template);
-        _displayModifier1.UpdateDisplay(modifier1);
-        _displayModifier2.UpdateDisplay(modifier2);
-        _displayModifier3.UpdateDisplay(modifier3);
-        _displayModifier1.UpdateDisplay(modifier1);
+        _displayTemplate?.UpdateDisplay(template);
+        _displayModifier1?.UpdateDisplay(modifier1);
+        _displayModifier2?.UpdateDisplay(modifier2);
+        _displayModifier3?.UpdateDisplay(modifier3);
+        _displayModifier1?.UpdateDisplay(modifier1);
     }
 }
 
@@ -169,8 +178,8 @@ public struct DisplayAllEmoteInfo
         EmoteAsset emote = UnityDB.FindAsset<EmoteAsset>(item.Emote.Id);
         MessagePresetAsset message = UnityDB.FindAsset<MessagePresetAsset>(item.Message.Id);
 
-        _displayEmote.UpdateDisplay(emote);
-        _displayMessage.UpdateDisplay(message);
+        _displayEmote?.UpdateDisplay(emote);
+        _displayMessage?.UpdateDisplay(message);
     }
 }
 

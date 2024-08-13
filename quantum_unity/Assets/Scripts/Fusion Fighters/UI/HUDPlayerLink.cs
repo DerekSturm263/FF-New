@@ -39,6 +39,7 @@ public class HUDPlayerLink : MonoBehaviour
     private EntityRef _entity;
     public void SetEntity(EntityRef entity) => _entity = entity;
 
+    [SerializeField] private GameObject _displayObj;
     [SerializeField] private DisplayAllBuildInfo _display;
 
     private void Update()
@@ -182,6 +183,9 @@ public class HUDPlayerLink : MonoBehaviour
 
     private void DisplayBuildInfo(Build build)
     {
+        EventSystemController.Instance.Enable();
+
+        _displayObj.SetActive(true);
         _display.UpdateDisplay(build);
     }
 }
