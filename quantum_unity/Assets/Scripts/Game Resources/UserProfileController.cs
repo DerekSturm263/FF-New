@@ -21,6 +21,15 @@ public class UserProfileController : SpawnableController<bool>
         _templateInstance.transform.GetChild(1).GetChild(2).gameObject.SetActive(!isJoining);
 
         _name = "Untitled";
+        _addedNew = false;
+    }
+
+    protected override void CleanUp(bool t)
+    {
+        if (_addedNew && UserProfilePopulator.RealInstance)
+        {
+            UserProfilePopulator.RealInstance.Refresh();
+        }
     }
 
     public SerializableWrapper<UserProfile> New()
@@ -37,6 +46,8 @@ public class UserProfileController : SpawnableController<bool>
         profile.Save();
     }
 
+    private bool _addedNew;
+
     public void SaveNew()
     {
         UserProfile profile = new(_hapticStrength, _default.Build);
@@ -46,10 +57,7 @@ public class UserProfileController : SpawnableController<bool>
         SerializableWrapper<UserProfile> serialized = new(profile, GetPath(), _name, "", AssetGuid.NewGuid(), filterTags, groupTags);
         serialized.Save();
 
-        if (UserProfilePopulator.RealInstance)
-        {
-            UserProfilePopulator.RealInstance.Refresh();
-        }
+        _addedNew = true;
     }
 
     private SerializableWrapper<UserProfile> _currentlySelected;

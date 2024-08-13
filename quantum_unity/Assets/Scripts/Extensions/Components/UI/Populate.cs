@@ -44,8 +44,6 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent _onIfNotEmpty;
         [SerializeField] protected bool _resizeIfEmpty = true;
 
-        protected bool _canNavigateButtons = true;
-
         public virtual List<string> AllFilterModeNames => new();
         public virtual List<string> AllGroupModeNames => new();
         public virtual List<string> AllSortModeNames => new();
@@ -66,7 +64,6 @@ namespace Extensions.Components.UI
             AssessList();
 
             EnableOrDisableItems();
-            EnableAllButtonNavigation(_canNavigateButtons);
         }
 
         public abstract void GenerateList();
@@ -422,8 +419,6 @@ namespace Extensions.Components.UI
 
         public override void EnableAllButtonNavigation(bool enabled)
         {
-            _canNavigateButtons = enabled;
-
             foreach (Button button in GetComponentsInChildren<Button>())
             {
                 button.navigation = new() { mode = enabled ? Navigation.Mode.Automatic : Navigation.Mode.None };
