@@ -39,8 +39,14 @@ public class PictureController : Controller<PictureController>
         string pictureDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         string fullPath = $"{pictureDirectory}/{_instance._currentSelected.CreationDate.ToFileTimeUtc()}.png";
 
-        System.IO.File.Copy($"{GetPath()}/{_instance._currentSelected.FileID}_PICTURE.png", fullPath);
-
-        ToastController.Instance.Spawn($"Exported to {fullPath}");
+        if (System.IO.File.Exists(fullPath))
+        {
+            ToastController.Instance.Spawn($"Picture already exported!");
+        }
+        else
+        {
+            System.IO.File.Copy($"{GetPath()}/{_instance._currentSelected.FileID}_PICTURE.png", fullPath);
+            ToastController.Instance.Spawn($"Exported to {fullPath}");
+        }
     }
 }

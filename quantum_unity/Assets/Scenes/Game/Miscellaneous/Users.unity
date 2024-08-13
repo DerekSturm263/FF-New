@@ -625,7 +625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Choose a Profile to Edit
+  m_text: Choose a User to Edit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 600fca3b3eb7ce14c88d54b5cd1175ca, type: 2}
   m_sharedMaterial: {fileID: -8968303483333786063, guid: 600fca3b3eb7ce14c88d54b5cd1175ca,
@@ -5936,21 +5936,7 @@ MonoBehaviour:
       - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
-        m_MethodName: SetTransition
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6398944209038441729, guid: cd9bd45f664011845845214d4d0e1313,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
-        m_MethodName: LoadScene
+        m_MethodName: LoadLastScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6826,7 +6812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 50, y: 779.9075}
+  m_AnchoredPosition: {x: 50, y: 779.907}
   m_SizeDelta: {x: 0, y: 715}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4379083608515986703
@@ -7034,7 +7020,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5679948579217049109}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9998958
+  m_Size: 0.99999684
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7211,7 +7197,7 @@ GameObject:
   - component: {fileID: 2210085025689430304}
   - component: {fileID: 8155450192490315680}
   m_Layer: 5
-  m_Name: Main Menu
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8262,7 +8248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite=29> Main Menu
+  m_text: <sprite=29> Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 296db103289837244af1815506372cb8, type: 2}
   m_sharedMaterial: {fileID: -8968303483333786063, guid: 296db103289837244af1815506372cb8,
@@ -8408,7 +8394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78771b8b690ac4c4a94c54505ead9a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _format: '{0} Main Menu'
+  _format: '{0} Back'
   _inputEvent: {fileID: 2210085025689430304}
 --- !u!222 &8205418795224902332
 CanvasRenderer:
