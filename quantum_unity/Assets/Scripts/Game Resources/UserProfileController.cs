@@ -60,6 +60,11 @@ public class UserProfileController : SpawnableController<bool>
         _addedNew = true;
     }
 
+    public void SaveExisting()
+    {
+        _currentlySelected.Save();
+    }
+
     private SerializableWrapper<UserProfile> _currentlySelected;
     public SerializableWrapper<UserProfile> CurrentlySelected => _currentlySelected;
     public void SetCurrentlySelected(SerializableWrapper<UserProfile> profile) => _currentlySelected = profile;
@@ -79,19 +84,20 @@ public class UserProfileController : SpawnableController<bool>
         ToastController.Instance.Spawn("User deleted");
     }
 
-    public void SetName(string name)
-    {
-        _currentlySelected.SetName(name);
-    }
-
     private string _name;
+    public void SetName(string name) => _currentlySelected.SetName(name);
     public void SetNameUnfinished(string name) => _name = name;
 
     private float _hapticStrength;
+    public void SetHapticStrength(float hapticStrength)
+    {
+        _currentlySelected.value.HapticStrength = hapticStrength;
+        PlayerJoinController.Instance.Rumble(_player, hapticStrength, 0.1f);
+    }
     public void SetHapticStrengthUnfinished(float hapticStrength)
     {
         _hapticStrength = hapticStrength;
-        PlayerJoinController.Instance.Rumble(_player, _hapticStrength, 0.1f);
+        PlayerJoinController.Instance.Rumble(_player, hapticStrength, 0.1f);
     }
 
     public void SetProfile(SerializableWrapper<UserProfile> profile)

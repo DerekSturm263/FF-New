@@ -8,6 +8,7 @@ public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfil
     public static UserProfilePopulator RealInstance;
 
     [SerializeField] private bool _isInstance;
+    [SerializeField] private bool _excludeCurrent = true;
 
     protected override void Awake()
     {
@@ -33,7 +34,7 @@ public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfil
     {
         return new()
         {
-            ["All"] = (value) => !IsEquipped(value)
+            ["All"] = (value) => !_excludeCurrent || !IsEquipped(value)
         };
     }
 
