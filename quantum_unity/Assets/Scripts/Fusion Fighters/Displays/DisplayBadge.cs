@@ -11,5 +11,5 @@ public class DisplayBadge : DisplayTextAndImage<Type>
         return new(string.Format(_format, item.name, item.Description), item.Icon);
     }
 
-    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Equipment.Badge.Id);
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Gear.Badge.Id);
 }

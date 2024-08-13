@@ -28,12 +28,12 @@ public class DisplayColorPreset : DisplayTextAndImage<Type>
     {
         AssetGuid id = _type switch
         {
-            ParentType.Avatar => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.Color.Id,
-            ParentType.Eyes => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.Color.Id,
-            ParentType.Hair => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.Color.Id,
-            ParentType.ApparelHeadgear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.Color.Id,
-            ParentType.ApparelClothing => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Clothing.Color.Id,
-            ParentType.ApparelLegwear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Legwear.Color.Id,
+            ParentType.Avatar => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.Color.Id,
+            ParentType.Eyes => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.Color.Id,
+            ParentType.Hair => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.Color.Id,
+            ParentType.ApparelHeadgear => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.Color.Id,
+            ParentType.ApparelClothing => BuildController.Instance.CurrentBuild.value.Outfit.Clothing.Color.Id,
+            ParentType.ApparelLegwear => BuildController.Instance.CurrentBuild.value.Outfit.Legwear.Color.Id,
             _ => default
         };
 

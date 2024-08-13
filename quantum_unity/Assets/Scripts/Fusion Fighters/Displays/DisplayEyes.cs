@@ -11,5 +11,5 @@ public class DisplayEyes : DisplayTextAndImage<Type>
         return new(string.Format(_format, item.name, item.Description), item.Icon);
     }
 
-    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Cosmetics.Eyes.Eyes.Id);
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Frame.Eyes.Eyes.Id);
 }

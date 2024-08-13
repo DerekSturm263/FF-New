@@ -21,8 +21,8 @@ public class DisplayWeapon : DisplayTextAndImage<Type>
     {
         AssetGuid id = _weaponType switch
         {
-            0 => BuildController.Instance.CurrentBuild.value.Equipment.Weapons.MainWeapon.FileGuid,
-            1 => BuildController.Instance.CurrentBuild.value.Equipment.Weapons.AltWeapon.FileGuid,
+            0 => BuildController.Instance.CurrentBuild.value.Gear.MainWeapon.FileGuid,
+            1 => BuildController.Instance.CurrentBuild.value.Gear.AltWeapon.FileGuid,
             _ => default
         };
 

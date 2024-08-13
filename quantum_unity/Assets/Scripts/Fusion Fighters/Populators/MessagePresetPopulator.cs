@@ -12,10 +12,10 @@ public class MessagePresetPopulator : PopulateAsset<MessagePresetAsset>
     {
         return _direction switch
         {
-            DisplayEmote.Direction.Up => BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Up.Message.Id == item.AssetObject.Guid,
-            DisplayEmote.Direction.Down => BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Down.Message.Id == item.AssetObject.Guid,
-            DisplayEmote.Direction.Left => BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Left.Message.Id == item.AssetObject.Guid,
-            DisplayEmote.Direction.Right => BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Right.Message.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Up => BuildController.Instance.CurrentBuild.value.Emotes.Up.Message.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Down => BuildController.Instance.CurrentBuild.value.Emotes.Down.Message.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Left => BuildController.Instance.CurrentBuild.value.Emotes.Left.Message.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Right => BuildController.Instance.CurrentBuild.value.Emotes.Right.Message.Id == item.AssetObject.Guid,
             _ => default
         };
     }

@@ -34,9 +34,9 @@ public class ApparelPopulator : PopulateSerializable<Quantum.Apparel, ApparelAss
     {
         return _type switch
         {
-            Quantum.ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.Equals(item.value),
-            Quantum.ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Clothing.Equals(item.value),
-            Quantum.ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Legwear.Equals(item.value),
+            Quantum.ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.Equals(item.value),
+            Quantum.ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentBuild.value.Outfit.Clothing.Equals(item.value),
+            Quantum.ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentBuild.value.Outfit.Legwear.Equals(item.value),
             _ => false
         };
     }

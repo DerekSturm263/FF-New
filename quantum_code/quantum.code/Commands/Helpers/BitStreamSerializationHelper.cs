@@ -8,23 +8,19 @@ namespace Quantum
 
         public static void Serialize(this IBitStream stream, ref Build value)
         {
-            stream.Serialize(ref value.Equipment);
-            stream.Serialize(ref value.Cosmetics);
-        }
-
-        public static void Serialize(this IBitStream stream, ref EquipmentSettings value)
-        {
-            stream.Serialize(ref value.Weapons);
-            stream.Serialize(ref value.Ultimate);
-            stream.Serialize(ref value.Badge);
+            stream.Serialize(ref value.Frame);
+            stream.Serialize(ref value.Gear);
             stream.Serialize(ref value.Outfit);
+            stream.Serialize(ref value.Emotes);
         }
 
-        public static void Serialize(this IBitStream stream, ref WeaponSet value)
+        public static void Serialize(this IBitStream stream, ref Gear value)
         {
             stream.Serialize(ref value.MainWeapon);
             stream.Serialize(ref value.AltWeapon);
             stream.Serialize(ref value.SubWeapon);
+            stream.Serialize(ref value.Ultimate);
+            stream.Serialize(ref value.Badge);
         }
 
         public static void Serialize(this IBitStream stream, ref Weapon value)
@@ -91,13 +87,12 @@ namespace Quantum
             stream.Serialize(ref value.Angle);
         }
 
-        public static void Serialize(this IBitStream stream, ref CosmeticSettings value)
+        public static void Serialize(this IBitStream stream, ref FFFrame value)
         {
             stream.Serialize(ref value.Avatar);
             stream.Serialize(ref value.Eyes);
             stream.Serialize(ref value.Hair);
             stream.Serialize(ref value.Voice);
-            stream.Serialize(ref value.Emotes);
         }
 
         public static void Serialize(this IBitStream stream, ref AvatarColorBinding value)

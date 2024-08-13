@@ -17,7 +17,7 @@ public class DisplaySub : DisplayTextAndImage<Type>
 
     protected override Type GetValue()
     {
-        AssetGuid id = BuildController.Instance.CurrentBuild.value.Equipment.Weapons.SubWeapon.FileGuid;
+        AssetGuid id = BuildController.Instance.CurrentBuild.value.Gear.SubWeapon.FileGuid;
 
         if (id.IsValid)
             return Type.LoadAs(SubController.GetPath(), id);

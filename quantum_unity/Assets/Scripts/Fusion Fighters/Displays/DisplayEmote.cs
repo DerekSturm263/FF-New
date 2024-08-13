@@ -23,10 +23,10 @@ public class DisplayEmote : DisplayTextAndImage<Type>
 
     protected override Type GetValue() => _direction switch
     {
-        Direction.Up => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Up.Emote.Id),
-        Direction.Down => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Down.Emote.Id),
-        Direction.Left => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Left.Emote.Id),
-        Direction.Right => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Cosmetics.Emotes.Right.Emote.Id),
+        Direction.Up => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Emotes.Up.Emote.Id),
+        Direction.Down => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Emotes.Down.Emote.Id),
+        Direction.Left => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Emotes.Left.Emote.Id),
+        Direction.Right => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Emotes.Right.Emote.Id),
         _ => default,
     };
 }

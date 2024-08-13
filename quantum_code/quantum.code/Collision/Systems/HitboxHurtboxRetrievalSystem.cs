@@ -90,9 +90,9 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats2))
                 {
-                    if (attackerPlayerStats2->Build.Equipment.Weapons.MainWeapon.Enhancer.Id.IsValid)
+                    if (attackerPlayerStats2->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
                     {
-                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats2->Build.Equipment.Weapons.MainWeapon.Enhancer.Id);
+                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats2->Build.Gear.MainWeapon.Enhancer.Id);
                         multiplier = (weaponEnhancer as ChargingWeaponEnhancer).Multiplier;
                     }
                 }

@@ -1,7 +1,6 @@
 ﻿using Extensions.Miscellaneous;
 using Photon.Deterministic;
 using Quantum;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +35,11 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Color[] _playerColors;
 
     private float _healthRatio, _energyRatio;
+
+    private EntityRef _entity;
+    public void SetEntity(EntityRef entity) => _entity = entity;
+
+    [SerializeField] private DisplayAllBuildInfo _display;
 
     private void Update()
     {
@@ -162,5 +166,22 @@ public class HUDPlayerLink : MonoBehaviour
             for (int i = 0; i < maxStocks; ++i)
                 _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
         }
+    }
+
+    public void DisplayInfo()
+    {
+        Build build = default;
+
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(_entity, out PlayerStats stats))
+        {
+            build = stats.Build;
+        }
+
+        DisplayBuildInfo(build);
+    }
+
+    private void DisplayBuildInfo(Build build)
+    {
+        _display.UpdateDisplay(build);
     }
 }

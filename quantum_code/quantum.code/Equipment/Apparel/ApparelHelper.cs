@@ -32,9 +32,9 @@ namespace Quantum
         {
             ApparelStats apparelStats = Default;
 
-            apparelStats = Add(FromApparel(f, stats->Build.Equipment.Outfit.Headgear), apparelStats);
-            apparelStats = Add(FromApparel(f, stats->Build.Equipment.Outfit.Clothing), apparelStats);
-            apparelStats = Add(FromApparel(f, stats->Build.Equipment.Outfit.Legwear), apparelStats);
+            apparelStats = Add(FromApparel(f, stats->Build.Outfit.Headgear), apparelStats);
+            apparelStats = Add(FromApparel(f, stats->Build.Outfit.Clothing), apparelStats);
+            apparelStats = Add(FromApparel(f, stats->Build.Outfit.Legwear), apparelStats);
 
             return Multiply(apparelStats, stats->ApparelStatsMultiplier);
         }

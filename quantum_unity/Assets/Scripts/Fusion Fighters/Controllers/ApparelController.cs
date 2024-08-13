@@ -268,12 +268,12 @@ public class ApparelController : Controller<ApparelController>
         {
             var newBuild = build;
 
-            if (build.value.Equipment.Outfit.Headgear.Equals(_currentlySelected))
-                newBuild.value.Equipment.Outfit.Headgear = _none.Apparel;
-            if (build.value.Equipment.Outfit.Clothing.Equals(_currentlySelected))
-                newBuild.value.Equipment.Outfit.Clothing = _none.Apparel;
-            if (build.value.Equipment.Outfit.Legwear.Equals(_currentlySelected))
-                newBuild.value.Equipment.Outfit.Legwear = _none.Apparel;
+            if (build.value.Outfit.Headgear.Equals(_currentlySelected))
+                newBuild.value.Outfit.Headgear = _none.Apparel;
+            if (build.value.Outfit.Clothing.Equals(_currentlySelected))
+                newBuild.value.Outfit.Clothing = _none.Apparel;
+            if (build.value.Outfit.Legwear.Equals(_currentlySelected))
+                newBuild.value.Outfit.Legwear = _none.Apparel;
 
             newBuild.Save();
         }

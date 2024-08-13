@@ -181,8 +181,8 @@ public class SubController : Controller<SubController>
         {
             var newBuild = build;
 
-            if (build.value.Equipment.Weapons.SubWeapon.Equals(_currentlySelected))
-                newBuild.value.Equipment.Weapons.SubWeapon = _none.Sub;
+            if (build.value.Gear.SubWeapon.Equals(_currentlySelected))
+                newBuild.value.Gear.SubWeapon = _none.Sub;
              
             newBuild.Save();
         }

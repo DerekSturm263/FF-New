@@ -26,7 +26,7 @@ namespace Quantum
             PlayerStats* playerStats = f.Unsafe.GetPointer<PlayerStats>(entity);
             playerStats->Index = index;
 
-            PlayerStatsSystem.SetBuild(f, entity, playerStats, playerStats->Build);
+            PlayerStatsSystem.SetBuild(f, entity, playerStats, defaultBuild);
             AddPlayerToList(f, entity, index);
 
             if (assignLink)
@@ -56,8 +56,6 @@ namespace Quantum
             {
                 transform->Position = Types.ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, index.Global);
             }
-
-            PlayerStatsSystem.SetBuild(f, entity, playerStats, defaultBuild);
 
             return entity;
         }

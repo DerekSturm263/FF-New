@@ -21,9 +21,9 @@ public class DisplayApparel : DisplayTextAndImage<Type>
     {
         AssetGuid id = _type switch
         {
-            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Headgear.FileGuid,
-            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Clothing.FileGuid,
-            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentBuild.value.Equipment.Outfit.Legwear.FileGuid,
+            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.FileGuid,
+            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentBuild.value.Outfit.Clothing.FileGuid,
+            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentBuild.value.Outfit.Legwear.FileGuid,
             _ => default
         };
 

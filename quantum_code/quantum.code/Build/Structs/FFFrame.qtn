@@ -1,10 +1,8 @@
 [Serializable]
-struct CosmeticSettings
+struct FFFrame
 {
 	AvatarColorBinding Avatar;
 	EyesColorBinding Eyes;
 	HairColorBinding Hair;
-
 	asset_ref<Voice> Voice;
-	DirectionalEmote Emotes;
 }

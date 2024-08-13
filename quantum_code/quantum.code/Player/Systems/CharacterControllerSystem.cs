@@ -157,7 +157,7 @@ namespace Quantum
             // Decrease the time left in the Ultimate state if the player is using their Ultimate.
             if (filter.CharacterController->UltimateTime > 0)
             {
-                if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Ultimate.Id, out Ultimate ultimate))
+                if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Ultimate.Id, out Ultimate ultimate))
                 {
                     filter.CharacterController->UltimateTime--;
 

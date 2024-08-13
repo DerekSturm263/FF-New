@@ -10,11 +10,15 @@ public class PlayerStatController : Controller<PlayerStatController>
 
     public void Initialize(QuantumGame game, PlayerInfoCallbackContext ctx)
     {
-        _huds.ForEach(item => item[ctx.Index.Global].gameObject.SetActive(true));
+        _huds.ForEach(item => 
+        {
+            item[ctx.Index.Global].gameObject.SetActive(true);
 
-        _huds.ForEach(item => item[ctx.Index.Global].SetPlayerName(ctx.Name));
-        _huds.ForEach(item => item[ctx.Index.Global].SetPlayerNumber(ctx.Index));
-        _huds.ForEach(item => item[ctx.Index.Global].SetPlayerIconIndex(ctx.Index));
+            item[ctx.Index.Global].SetEntity(ctx.Entity);
+            item[ctx.Index.Global].SetPlayerName(ctx.Name);
+            item[ctx.Index.Global].SetPlayerNumber(ctx.Index);
+            item[ctx.Index.Global].SetPlayerIconIndex(ctx.Index);
+        });
     }
 
     public void Destroy(QuantumGame game, PlayerInfoCallbackContext ctx)

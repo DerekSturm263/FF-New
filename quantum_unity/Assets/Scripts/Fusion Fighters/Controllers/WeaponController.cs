@@ -193,10 +193,10 @@ public class WeaponController : Controller<WeaponController>
         {
             var newBuild = build;
 
-            if (build.value.Equipment.Weapons.MainWeapon.Equals(_currentlySelected))
-                newBuild.value.Equipment.Weapons.MainWeapon = _none.Weapon;
-            if (build.value.Equipment.Weapons.AltWeapon.Equals(_currentlySelected))
-                newBuild.value.Equipment.Weapons.AltWeapon = _none.Weapon;
+            if (build.value.Gear.MainWeapon.Equals(_currentlySelected))
+                newBuild.value.Gear.MainWeapon = _none.Weapon;
+            if (build.value.Gear.AltWeapon.Equals(_currentlySelected))
+                newBuild.value.Gear.AltWeapon = _none.Weapon;
 
             newBuild.Save();
         }
