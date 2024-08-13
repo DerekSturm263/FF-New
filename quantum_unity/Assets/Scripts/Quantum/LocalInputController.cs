@@ -112,13 +112,13 @@ public class LocalInputController : Controller<LocalInputController>
         QuantumRunner.Default.Game.SendPlayerData(data.Index.Local, data);
 
         if (!gameObject.activeInHierarchy)
-            player?.Controls?.Menu.Disable();
+            player?.DisableMenus();
 
         Debug.Log($"Spawned player {player.Index}");
 
         if (_globalOffset == PlayerJoinController.Instance.GetPlayerCount(true) - 1)
             _globalOffset = -1;
-        else
+        else if (_globalOffset != -1)
             ++_globalOffset;
     }
 
@@ -188,7 +188,7 @@ public class LocalInputController : Controller<LocalInputController>
 
         foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(false))
         {
-            player.Controls?.Player.Enable();
+            player.EnableMovement();
         }
     }
 
@@ -199,7 +199,7 @@ public class LocalInputController : Controller<LocalInputController>
 
         foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(false))
         {
-            player.Controls?.Player.Disable();
+            player.DisableMovement();
         }
     }
 }

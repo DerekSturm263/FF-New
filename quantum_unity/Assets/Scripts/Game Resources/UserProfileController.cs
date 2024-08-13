@@ -2,7 +2,7 @@ using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
-public class UserProfileController : SpawnableController<UserProfile>
+public class UserProfileController : SpawnableController<bool>
 {
     [SerializeField] private BuildAssetAsset _default;
 
@@ -14,6 +14,12 @@ public class UserProfileController : SpawnableController<UserProfile>
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Profiles";
 
     protected override bool TakeAwayFocus() => true;
+
+    protected override void SetUp(bool isJoining)
+    {
+        _templateInstance.transform.GetChild(1).GetChild(1).gameObject.SetActive(isJoining);
+        _templateInstance.transform.GetChild(1).GetChild(2).gameObject.SetActive(!isJoining);
+    }
 
     public SerializableWrapper<UserProfile> New()
     {
@@ -82,17 +88,17 @@ public class UserProfileController : SpawnableController<UserProfile>
         FindFirstObjectByType<DisplayUsers>()?.UpdateDisplay();
     }
 
-    private System.Action _action;
+    private System.Action _joinEvents;
+    public void DeferJoinEvents(System.Action action) => _joinEvents = action;
+    public void ExecuteDeferredJoinEvents() => _joinEvents.Invoke();
 
-    public void DeferEvents(System.Action action)
-    {
-        _action = action;
-    }
+    private System.Action _changeEvents;
+    public void DeferChangeEvents(System.Action action) => _changeEvents = action;
+    public void ExecuteDeferredChangeEvents() => _changeEvents.Invoke();
 
-    public void ExecuteDeferredEvents()
-    {
-        _action.Invoke();
-    }
+    private System.Action _leaveEvents;
+    public void DeferLeaveEvents(System.Action action) => _leaveEvents = action;
+    public void ExecuteDeferredLeaveEvents() => _leaveEvents.Invoke();
 
     public void Cancel()
     {

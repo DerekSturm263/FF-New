@@ -34,7 +34,7 @@ public class LocalPlayerInfo
             _user = InputUser.PerformPairingWithDevice(device);
 
             BindControls();
-            Enable();
+            EnableAll();
         }
 
         _index = index;
@@ -52,6 +52,12 @@ public class LocalPlayerInfo
         }
     }
 
-    public void Enable() => _controls.Enable();
-    public void Disable() => _controls.Disable();
+    public void EnableAll() => _controls?.Enable();
+    public void DisableAll() => _controls?.Disable();
+
+    public void EnableMenus() => _controls?.Menu.Enable();
+    public void DisableMenus() => _controls?.Menu.Disable();
+
+    public void EnableMovement() => _controls?.Player.Enable();
+    public void DisableMovement() => _controls?.Player.Disable();
 }

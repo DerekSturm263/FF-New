@@ -1,5 +1,4 @@
 ﻿using Quantum.Collections;
-using System.Runtime.InteropServices;
 
 namespace Quantum
 {
@@ -66,6 +65,13 @@ namespace Quantum
             f.Events.OnPlayerDespawn(new() { Entity = player, Index = stats.Index, Name = stats.Name });
 
             RemovePlayerFromList(f, stats.Index);
+
+            if (stats.MainWeapon.IsValid)
+                f.Destroy(stats.MainWeapon);
+
+            if (stats.AltWeapon.IsValid)
+                f.Destroy(stats.AltWeapon);
+
             f.Destroy(player);
         }
 

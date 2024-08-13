@@ -67,7 +67,7 @@ public class PlayerJoinEventListener :  MonoBehaviour
     {
         foreach (var item in _menus[player])
         {
-            Destroy(item);
+            Destroy(item.gameObject);
         }
     }
 }

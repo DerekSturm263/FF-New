@@ -59,7 +59,7 @@ public class ShowLightsOnCamera : MonoBehaviour
 
     private void RemovePlayer(EventOnPlayerDespawn e)
     {
-        _excludeGameObjects.Remove(_entityViewUpdater.GetView(e.Ctx.Entity).gameObject);
+        //_excludeGameObjects.Remove(_entityViewUpdater.GetView(e.Ctx.Entity).gameObject);
     }
 
     private void RenderPipelineManager_beginCameraRendering(ScriptableRenderContext arg1, Camera arg2)
@@ -69,17 +69,20 @@ public class ShowLightsOnCamera : MonoBehaviour
 
         for (int i = 0; i < _excludeLights.Length; ++i)
         {
-            _excludeLights[i].enabled = false;
+            if (_excludeLights[i])
+                _excludeLights[i].enabled = false;
         }
 
         for (int i = 0; i < _excludeGameObjects.Count; ++i)
         {
-            _excludeGameObjects[i].SetActive(false);
+            if (_excludeGameObjects[i])
+                _excludeGameObjects[i].SetActive(false);
         }
 
         for (int i = 0; i < _includeLights.Length; ++i)
         {
-            _includeLights[i].enabled = true;
+            if (_includeLights[i])
+                _includeLights[i].enabled = true;
         }
     }
 
@@ -90,17 +93,20 @@ public class ShowLightsOnCamera : MonoBehaviour
 
         for (int i = 0; i < _excludeLights.Length; ++i)
         {
-            _excludeLights[i].enabled = true;
+            if (_excludeLights[i])
+                _excludeLights[i].enabled = true;
         }
 
         for (int i = 0; i < _excludeGameObjects.Count; ++i)
         {
-            _excludeGameObjects[i].SetActive(true);
+            if (_excludeGameObjects[i])
+                _excludeGameObjects[i].SetActive(true);
         }
 
         for (int i = 0; i < _includeLights.Length; ++i)
         {
-            _includeLights[i].enabled = false;
+            if (_includeLights[i])
+                _includeLights[i].enabled = false;
         }
     }
 }

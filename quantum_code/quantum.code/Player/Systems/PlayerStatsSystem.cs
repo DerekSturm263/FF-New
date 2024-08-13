@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Quantum
 {
-    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>, ISignalOnComponentRemoved<PlayerStats>
+    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>
     {
         public struct Filter
         {
@@ -25,11 +25,6 @@ namespace Quantum
             {
                 badge.OnUpdate(f, filter.Entity);
             }
-        }
-
-        public void OnRemoved(Frame f, EntityRef entity, PlayerStats* component)
-        {
-            RemoveBuild(f, entity, component);
         }
 
         public void UpdateMainWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)
