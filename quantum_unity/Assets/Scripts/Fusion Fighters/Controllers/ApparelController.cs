@@ -242,7 +242,7 @@ public class ApparelController : Controller<ApparelController>
 
         if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
-            ApparelPopulator.Instance.ClearEvents(button);
+            ApparelPopulator.Instance.ClearEvents(button, _currentlySelected);
             ApparelPopulator.Instance.SetEvents(button, _currentlySelected);
         }
 

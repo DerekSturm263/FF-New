@@ -125,6 +125,8 @@ public class EventSystemController : Controller<EventSystemController>
             InvokeOnPopupOpen();
 
         _data.Add(data);
+
+        Debug.Log($"Enabled! Old: {_data.Count - 1}, New: {_data.Count}");
     }
 
     public void Disable()
@@ -134,6 +136,8 @@ public class EventSystemController : Controller<EventSystemController>
 
         if (_data.Count == 0)
             InvokeOnPopupClose();
+
+        Debug.Log($"Disabled! Old: {_data.Count + 1}, New: {_data.Count}");
     }
 
     public void PushEmpty()

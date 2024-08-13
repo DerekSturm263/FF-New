@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfileAsset>
 {
+    public static UserProfilePopulator RealInstance;
+
+    [SerializeField] private bool _isInstance;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (_isInstance)
+            RealInstance = this;
+    }
+
     protected override Sprite Icon(SerializableWrapper<UserProfile> item) => item.value.LastBuild.Icon;
 
     protected override string BuiltInFilePath() => "DB/Assets/User Profiles";

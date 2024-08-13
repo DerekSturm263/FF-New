@@ -19,6 +19,8 @@ public class UserProfileController : SpawnableController<bool>
     {
         _templateInstance.transform.GetChild(1).GetChild(1).gameObject.SetActive(isJoining);
         _templateInstance.transform.GetChild(1).GetChild(2).gameObject.SetActive(!isJoining);
+
+        _name = "Untitled";
     }
 
     public SerializableWrapper<UserProfile> New()
@@ -43,9 +45,15 @@ public class UserProfileController : SpawnableController<bool>
 
         SerializableWrapper<UserProfile> serialized = new(profile, GetPath(), _name, "", AssetGuid.NewGuid(), filterTags, groupTags);
         serialized.Save();
+
+        if (UserProfilePopulator.RealInstance)
+        {
+            UserProfilePopulator.RealInstance.Refresh();
+        }
     }
 
     private SerializableWrapper<UserProfile> _currentlySelected;
+    public SerializableWrapper<UserProfile> CurrentlySelected => _currentlySelected;
     public void SetCurrentlySelected(SerializableWrapper<UserProfile> profile) => _currentlySelected = profile;
 
     public void InstanceDelete() => (Instance as UserProfileController).Delete();
@@ -54,13 +62,13 @@ public class UserProfileController : SpawnableController<bool>
     {
         _currentlySelected.Delete();
 
-        if (UserProfilePopulator.Instance && UserProfilePopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
+        if (UserProfilePopulator.RealInstance && UserProfilePopulator.RealInstance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
             DestroyImmediate(button);
-            UserProfilePopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+            UserProfilePopulator.RealInstance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
         }
 
-        ToastController.Instance.Spawn("User Profile deleted");
+        ToastController.Instance.Spawn("User deleted");
     }
 
     public void SetName(string name)

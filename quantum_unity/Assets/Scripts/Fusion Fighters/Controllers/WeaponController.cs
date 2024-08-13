@@ -174,7 +174,7 @@ public class WeaponController : Controller<WeaponController>
 
         if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
-            WeaponPopulator.Instance.ClearEvents(button);
+            WeaponPopulator.Instance.ClearEvents(button, _currentlySelected);
             WeaponPopulator.Instance.SetEvents(button, _currentlySelected);
         }
 

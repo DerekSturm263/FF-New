@@ -44,6 +44,8 @@ namespace Extensions.Components.UI
         [SerializeField] protected UnityEvent _onIfNotEmpty;
         [SerializeField] protected bool _resizeIfEmpty = true;
 
+        protected bool _canNavigateButtons = true;
+
         public virtual List<string> AllFilterModeNames => new();
         public virtual List<string> AllGroupModeNames => new();
         public virtual List<string> AllSortModeNames => new();
@@ -60,10 +62,17 @@ namespace Extensions.Components.UI
         {
             DestroyList();
             GenerateList();
+
+            AssessList();
+
+            EnableOrDisableItems();
+            EnableAllButtonNavigation(_canNavigateButtons);
         }
 
         public abstract void GenerateList();
         public abstract void DestroyList();
+
+        public abstract void AssessList();
 
         public abstract void EnableOrDisableItems();
         public abstract void EnableAllButtonNavigation(bool enabled);
@@ -176,8 +185,6 @@ namespace Extensions.Components.UI
             {
                 _searchOptions.onClick.AddListener(() => SearchOptionsController.Instance.Spawn(this));
             }
-
-            base.Awake();
         }
 
         protected override void OnEnable()
@@ -190,49 +197,7 @@ namespace Extensions.Components.UI
                 GenerateList();
             }
 
-            foreach (var kvp in _itemsToButtons)
-            {
-                ClearEvents(kvp.Value);
-                SetEvents(kvp.Value, kvp.Key);
-            }
-
-            _allFilterModes ??= GetAllFilterModes();
-            _allGroupModes ??= GetAllGroupModes();
-            _allSortModes ??= GetAllSortModes();
-
-            _currentFilterMode = GetDefaultFilterMode();
-            _currentGroupMode = GetDefaultGroupMode();
-            _currentSortMode = GetDefaultSortMode();
-
-            FilterList();
-            SortList(GroupList());
-
-            EnableOrDisableItems();
-
-            if (_checkmarkInstance)
-            {
-                var firstEquipped = _itemsToButtons.FirstOrDefault(item => IsEquipped(item.Key));
-
-                if (!firstEquipped.Equals(default(KeyValuePair<T, GameObject>)))
-                {
-                    ParentCheckmark(firstEquipped.Value, _checkmarkInstance);
-                }
-                else
-                {
-                    if (_itemsToButtons.Count(item => IsNone(item.Key)) > 0)
-                        ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value, _checkmarkInstance);
-                }
-            }
-            else if (_multipleCheckmarks)
-            {
-                foreach (var item in _itemsToButtons)
-                {
-                    RectTransform checkmarkInstance = Instantiate(_checkmark);
-                    ParentCheckmark(item.Value, checkmarkInstance);
-
-                    checkmarkInstance.gameObject.SetActive(IsEquipped(item.Key));
-                }
-            }
+            AssessList();
         }
 
         protected override void OnDisable()
@@ -395,6 +360,53 @@ namespace Extensions.Components.UI
             }
         }
 
+        public override void AssessList()
+        {
+            foreach (var kvp in _itemsToButtons)
+            {
+                ClearEvents(kvp.Value, kvp.Key);
+                SetEvents(kvp.Value, kvp.Key);
+            }
+
+            _allFilterModes ??= GetAllFilterModes();
+            _allGroupModes ??= GetAllGroupModes();
+            _allSortModes ??= GetAllSortModes();
+
+            _currentFilterMode = GetDefaultFilterMode();
+            _currentGroupMode = GetDefaultGroupMode();
+            _currentSortMode = GetDefaultSortMode();
+
+            FilterList();
+            SortList(GroupList());
+
+            EnableOrDisableItems();
+
+            if (_checkmarkInstance)
+            {
+                var firstEquipped = _itemsToButtons.FirstOrDefault(item => IsEquipped(item.Key));
+
+                if (!firstEquipped.Equals(default(KeyValuePair<T, GameObject>)))
+                {
+                    ParentCheckmark(firstEquipped.Value, _checkmarkInstance);
+                }
+                else
+                {
+                    if (_itemsToButtons.Count(item => IsNone(item.Key)) > 0)
+                        ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value, _checkmarkInstance);
+                }
+            }
+            else if (_multipleCheckmarks)
+            {
+                foreach (var item in _itemsToButtons)
+                {
+                    RectTransform checkmarkInstance = Instantiate(_checkmark);
+                    ParentCheckmark(item.Value, checkmarkInstance);
+
+                    checkmarkInstance.gameObject.SetActive(IsEquipped(item.Key));
+                }
+            }
+        }
+
         public override void EnableOrDisableItems()
         {
             foreach (var kvp in _itemsToButtons)
@@ -410,6 +422,8 @@ namespace Extensions.Components.UI
 
         public override void EnableAllButtonNavigation(bool enabled)
         {
+            _canNavigateButtons = enabled;
+
             foreach (Button button in GetComponentsInChildren<Button>())
             {
                 button.navigation = new() { mode = enabled ? Navigation.Mode.Automatic : Navigation.Mode.None };
@@ -535,7 +549,8 @@ namespace Extensions.Components.UI
                 deselect?.callback.AddListener(_ => _onButtonDeselect.Invoke(item));
             }
         }
-        public void ClearEvents(GameObject buttonObj)
+
+        public void ClearEvents(GameObject buttonObj, T item)
         {
             Button button = buttonObj.GetComponentInChildren<Button>();
             button?.onClick.RemoveAllListeners();
@@ -548,6 +563,16 @@ namespace Extensions.Components.UI
 
             Incremental incremental = buttonObj.GetComponentInChildren<Incremental>();
             incremental?.OnIncrementDecrement.RemoveAllListeners();
+
+            EventTrigger eventTrigger = buttonObj.GetComponentInChildren<EventTrigger>();
+            if (eventTrigger)
+            {
+                EventTrigger.Entry select = eventTrigger.triggers.FirstOrDefault(item => item.eventID == EventTriggerType.Select);
+                select?.callback.RemoveAllListeners();
+
+                EventTrigger.Entry deselect = eventTrigger.triggers.FirstOrDefault(item => item.eventID == EventTriggerType.Deselect);
+                deselect?.callback.RemoveAllListeners();
+            }
         }
 
         private void ParentCheckmark(GameObject parent, RectTransform checkmark)

@@ -38,7 +38,7 @@ namespace Extensions.Components.Input
         private void DisplayInputs(string deviceName)
         {
             if (!_text)
-                _text = GetComponentInChildren<TMPro.TMP_Text>();
+                _text = GetComponentInChildren<TMPro.TMP_Text>(true);
 
             if (!InputMapperController.Instance)
                 return;

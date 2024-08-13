@@ -163,7 +163,7 @@ public class SubController : Controller<SubController>
 
         if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
-            SubPopulator.Instance.ClearEvents(button);
+            SubPopulator.Instance.ClearEvents(button, _currentlySelected);
             SubPopulator.Instance.SetEvents(button, _currentlySelected);
         }
 
