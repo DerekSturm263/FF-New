@@ -1,32 +1,94 @@
 using Extensions.Components.Miscellaneous;
+using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
     [SerializeField] private StageAssetAsset _default;
+    [SerializeField] private StageAssetAsset _none;
 
-    private SerializableWrapper<Stage>? _stage;
-    public SerializableWrapper<Stage>? Stage => _stage;
+    [SerializeField] private Popup _savePopup;
+
+    private bool _isDirty;
 
     public static string GetPath() => $"{Application.persistentDataPath}/SaveData/Custom/Stages";
 
-    public SerializableWrapper<Stage> New()
+    private SerializableWrapper<Stage> _currentStage;
+    public SerializableWrapper<Stage> CurrentStage => _currentStage;
+    public void Select(SerializableWrapper<Stage> stage, FighterIndex index)
     {
+        _currentStage = stage;
+        _isDirty = false;
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        _currentStage = _none.Stage;
+    }
+
+    public void New()
+    {
+        Stage stage = _default.Stage;
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        return new(_default.Stage.value, "Untitled", "", System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
+        _currentStage = new(stage, GetPath(), "Untitled", "", AssetGuid.NewGuid(), filterTags, groupTags);
+        _isDirty = true;
     }
 
     public void Save(SerializableWrapper<Stage> stage)
     {
-        stage.Save(GetPath());
+        stage.Save();
     }
 
-    public void Select(SerializableWrapper<Stage> stage, FighterIndex index)
+    public void SaveCurrent()
     {
-        _stage = stage;
+        _currentStage.Save();
+        _isDirty = false;
+
+        ToastController.Instance.Spawn("Stage saved");
+    }
+
+    public void CloseOrSaveConfirm(InvokableGameObject invokable)
+    {
+        if (_isDirty)
+        {
+            (PopupController.Instance as PopupController).InsertEvent(invokable);
+            PopupController.Instance.Spawn(_savePopup);
+        }
+        else
+        {
+            invokable.Invoke();
+        }
+    }
+
+    public void SetName(string name)
+    {
+        _currentStage.SetName(name);
+        _isDirty = true;
+    }
+
+    public void SetDescription(string description)
+    {
+        _currentStage.SetDescription(description);
+        _isDirty = true;
+    }
+
+    public void Delete()
+    {
+        _currentStage.Delete();
+
+        if (StagePopulator.Instance && StagePopulator.Instance.TryGetButtonFromItem(_currentStage, out GameObject button))
+        {
+            DestroyImmediate(button);
+            StagePopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
+
+
+        ToastController.Instance.Spawn("Stage deleted");
     }
 
     public void LoadFromAsset(StageAssetAsset stage)
@@ -38,24 +100,22 @@ public class StageController : Controller<StageController>
     {
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
-        _stage = new(stage, "", "", 0, 0, AssetGuid.NewGuid(), filterTags, groupTags, null, null);
+
+        _currentStage = new(stage, GetPath(), "", "", AssetGuid.NewGuid(), filterTags, groupTags);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()
     {
-        _stage = null;
+        _currentStage = _none.Stage;
     }
 
     public void SendToSimulation()
     {
-        if (_stage is null)
-            return;
-
         CommandSetStage setStage = new()
         {
-            stage = _stage.GetValueOrDefault()
+            stage = _currentStage
         };
 
         QuantumRunner.Default.Game.SendCommand(setStage);

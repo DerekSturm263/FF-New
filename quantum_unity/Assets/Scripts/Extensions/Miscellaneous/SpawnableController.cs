@@ -8,9 +8,19 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
     protected GameObject _templateInstance;
     protected T _t;
 
+    protected abstract bool TakeAwayFocus();
+    protected virtual bool CanSpawn => true;
+    protected int _activeCount;
+
     public void Spawn(T t)
     {
-        EventSystemController.Instance.Enable();
+        if (!CanSpawn)
+            return;
+
+        ++_activeCount;
+
+        if (TakeAwayFocus())
+            EventSystemController.Instance.Enable();
 
         Transform parent = GameObject.FindWithTag("Popup Canvas").transform;
         _templateInstance = Instantiate(_template, parent);
@@ -27,13 +37,10 @@ public abstract class SpawnableController<T> : Controller<SpawnableController<T>
 
         _templateInstance.GetComponent<Animator>().SetTrigger("Exit");
 
-        if (_templateInstance.TryGetComponent(out FadeOutEvents fadeOutEvents))
-        {
-            fadeOutEvents.InvokeOnClose();
-            fadeOutEvents.DisableButtons();
-        }
+        if (TakeAwayFocus())
+            EventSystemController.Instance.Disable();
 
-        EventSystemController.Instance.Disable();
+        --_activeCount;
     }
 
     protected virtual void CleanUp(T t) { }

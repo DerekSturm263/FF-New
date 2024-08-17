@@ -24,8 +24,13 @@ namespace Editor.Extensions.Components.Input
                 EditorGUI.BeginDisabledGroup(true);
             }
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_button2Optional"));
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_readContinuous"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_processWhenEmpty"));
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_parent"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_requiresFocus"));
 
             switch ((target as InputEvent).Type)
             {

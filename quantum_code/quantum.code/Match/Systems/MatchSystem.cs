@@ -34,10 +34,15 @@ namespace Quantum
             f.Global->PlayersReady = 0;
             f.Global->TotalPlayers = 0;
             f.Global->CanPlayersEdit = true;
+
+            f.Global->GizmoInstances = f.AllocateList<EntityRef>();
         }
 
         public override void OnDisabled(Frame f)
         {
+            f.FreeList(f.Global->GizmoInstances);
+            f.Global->GizmoInstances = default;
+
             f.FreeList(f.Global->Teams);
             f.Global->Teams = default;
         }
@@ -66,9 +71,10 @@ namespace Quantum
 
             f.Events.OnMatchStart(new() { Count = teams.Count, Teams = teamsArray });
 
-            foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
+            Item item = f.FindAsset<Item>(f.Global->CurrentMatch.Ruleset.Items.StartingItem.Id);
+            if (item is not null && item.Prototype.Id.IsValid)
             {
-                if (f.Global->CurrentMatch.Ruleset.Items.StartingItem.Id != AssetGuid.Invalid)
+                foreach (var stats in f.Unsafe.GetComponentBlockIterator<Stats>())
                 {
                     ItemSpawnSettings settings = new()
                     {
@@ -130,7 +136,7 @@ namespace Quantum
         {
             Stage old = default;
 
-            if (f.TryFindAsset(stage.Objects.SourceMap.Id, out Map map))
+            if (f.TryFindAsset(f.RuntimeConfig.StageSourceMap.Id, out Map map))
             {
                 old = f.Global->CurrentMatch.Stage;
                 f.Global->CurrentMatch.Stage = stage;
@@ -139,11 +145,18 @@ namespace Quantum
                 {
                     f.Destroy(f.Global->CurrentStage);
                     f.DisposeAsset(f.Map.Guid);
+
+                    var gizmoInstances = f.ResolveList(f.Global->GizmoInstances);
+                    while (gizmoInstances.Count > 0)
+                    {
+                        f.Destroy(gizmoInstances[0]);
+                        gizmoInstances.RemoveAt(0);
+                    }
                 }
 
                 f.Global->CurrentStage = f.Create(stage.Objects.Stage);
 
-                Map newMap = MapGenerator.GenerateMapFromStage(stage, f.Context.AssetSerializer, f.FindAsset<Map>(stage.Objects.SourceMap.Id));
+                Map newMap = MapGenerator.GenerateMapFromStage(stage, f.Context.AssetSerializer, f.FindAsset<Map>(f.RuntimeConfig.StageSourceMap.Id));
 
                 f.AddAsset(newMap);
                 f.Map = newMap;
@@ -154,16 +167,20 @@ namespace Quantum
                     if (!gizmo.Gizmo.Id.IsValid)
                         continue;
 
-                    EntityRef newGizmo = f.Create(gizmo.Gizmo);
+                    Gizmo gizmoAsset = f.FindAsset<Gizmo>(gizmo.Gizmo.Id);
+                    EntityRef newGizmo = f.Create(gizmoAsset.Prototype);
 
                     if (f.Unsafe.TryGetPointer(newGizmo, out Transform2D* transform))
                     {
                         transform->Position = gizmo.Position;
                     }
+
+                    var gizmoInstances = f.ResolveList(f.Global->GizmoInstances);
+                    gizmoInstances.Add(newGizmo);
                 }
             }
 
-            f.Events.OnStageSelect(old, stage);
+            f.Events.OnStageSelect(f.Global->CurrentStage, old, stage);
         }
 
         public static void SetRuleset(Frame f, Ruleset ruleset)

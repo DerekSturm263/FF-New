@@ -1,19 +1,20 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MatchController : Controller<MatchController>
 {
     private Match _match;
-    private Bot[] _opponents;
+    private (Bot, Sprite)[] _opponents;
 
     public void LoadFromAsset(MatchAssetAsset match)
     {
         Match newMatch = Variate(match.Settings_MatchAsset.Match);
 
         _match = newMatch;
-        _opponents = match.Settings_MatchAsset.Opponents;
+        _opponents = match.Settings_MatchAsset.Opponents.Zip(match.BotSprites, (item1, item2) => (item1, item2)).ToArray();
 
         SceneManager.LoadScene("Gameplay", LoadSceneMode.Additive);
         SceneManager.sceneLoaded += LoadScene;
@@ -25,9 +26,9 @@ public class MatchController : Controller<MatchController>
         StageController.Instance.Load(_match.Stage);
 
         QuantumRunnerLocalDebug runner = FindFirstObjectByType<QuantumRunnerLocalDebug>();
-        foreach (Bot bot in _opponents)
+        foreach (var bot in _opponents)
         {
-            runner.OnStart.AddListener(_ => LocalInputController.Instance.SpawnAI(Variate(bot)));
+            runner.OnStart.AddListener(_ => LocalInputController.Instance.SpawnAIDelayed(Variate(bot.Item1), bot.Item2));
         }
 
         SceneManager.sceneLoaded -= LoadScene;

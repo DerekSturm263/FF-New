@@ -1,3 +1,4 @@
+using Extensions.Miscellaneous;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,15 +16,16 @@ public class SelectAuto : UIBehaviour
         Index = 1 << 0,
         Old = 1 << 1,
         First = 1 << 2,
-        Last = 1 << 3
+        Last = 1 << 3,
+        OldNum = 1 << 4
     }
 
     [SerializeField] private SelectType _selectMethod;
     [SerializeField] private List<Selectable> _dontSelect;
     [SerializeField] private bool _resetIndexOnStart = true;
-    [SerializeField] private bool _executeOnSelect = true;
     [SerializeField] private float _delay;
 
+    private int _oldSelectedIndex;
     private Selectable _oldSelected;
 
     protected override void Start()
@@ -34,7 +36,7 @@ public class SelectAuto : UIBehaviour
 
     protected override void OnEnable()
     {
-        Invoke(nameof(SetSelectedItem), _delay);
+        Helper.Delay(_delay, SetSelectedItem);
     }
 
     protected override void OnDisable()
@@ -43,9 +45,15 @@ public class SelectAuto : UIBehaviour
             _oldSelected = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
 
         if (_oldSelected)
+        {
             _selectedIndex = _oldSelected.transform.GetSiblingIndex();
+            _oldSelectedIndex = _oldSelected.transform.GetSiblingIndex();
+        }
         else
+        {
             _selectedIndex = -1;
+            _oldSelectedIndex = -1;
+        }
     }
 
     public void SetSelectedItem() => SetSelectedItem(_selectMethod);
@@ -67,6 +75,13 @@ public class SelectAuto : UIBehaviour
         else if (selectMethod.HasFlag(SelectType.Old) && _oldSelected && _oldSelected.interactable && !_dontSelect.Contains(_oldSelected))
         {
             selected = _oldSelected;
+        }
+        else if (selectMethod.HasFlag(SelectType.OldNum) && _oldSelectedIndex != -1)
+        {
+            if (_oldSelectedIndex >= transform.childCount)
+                selected = transform.GetChild(transform.childCount - 1).GetComponentInChildren<Selectable>();
+            else
+                selected = transform.GetChild(_oldSelectedIndex).GetComponentInChildren<Selectable>();
         }
 
         if (!selected || !selected.GetComponentInChildren<Selectable>().interactable)
@@ -107,10 +122,9 @@ public class SelectAuto : UIBehaviour
                     selector.ChildToSelected(selected.gameObject);
             }
             else
+            {
                 EventSystem.current.SetSelectedGameObject(selected.gameObject);
-
-            if (_executeOnSelect && selected.TryGetComponent(out EventTrigger eventTrigger))
-                eventTrigger.OnSelect(new(EventSystem.current));
+            }
         }
     }
 }

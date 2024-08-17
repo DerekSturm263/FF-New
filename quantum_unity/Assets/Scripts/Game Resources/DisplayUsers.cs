@@ -1,9 +1,11 @@
 using Extensions.Components.UI;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DisplayUsers : Display<LocalPlayerInfo[], UnityEvent<LocalPlayerInfo>[]>
 {
+    [SerializeField] private bool _letNewPlayersJoin = true;
     [SerializeField] private GameObject[] _slots;
 
     public override void UpdateDisplay(LocalPlayerInfo[] item)
@@ -18,10 +20,10 @@ public class DisplayUsers : Display<LocalPlayerInfo[], UnityEvent<LocalPlayerInf
 
         for (int i = item.Length; i < 4; ++i)
         {
-            _slots[i].transform.GetChild(0).gameObject.SetActive(true);
+            _slots[i].transform.GetChild(0).gameObject.SetActive(_letNewPlayersJoin && true);
             _slots[i].transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 
-    protected override LocalPlayerInfo[] GetValue() => PlayerJoinController.Instance.LocalPlayers.ToArray();
+    protected override LocalPlayerInfo[] GetValue() => PlayerJoinController.Instance.GetAllLocalPlayers(false).ToArray();
 }

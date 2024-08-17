@@ -13,6 +13,8 @@ namespace GameResources.UI.Popup
 
         private Action _filterAction, _groupAction, _sortAction;
 
+        protected override bool TakeAwayFocus() => true;
+
         public void Spawn()
         {
             Spawn(default);

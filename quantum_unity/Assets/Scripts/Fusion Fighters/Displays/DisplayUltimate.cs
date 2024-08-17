@@ -11,5 +11,5 @@ public class DisplayUltimate : DisplayTextAndImage<Type>
         return new(string.Format(_format, item.name, item.Description), item.Icon);
     }
 
-    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentlySelected.value.Equipment.Ultimate.Id);
+    protected override Type GetValue() => UnityDB.FindAsset<Type>(BuildController.Instance.CurrentBuild.value.Gear.Ultimate.Id);
 }

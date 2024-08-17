@@ -51,7 +51,7 @@ namespace Extensions.Components.Scene
             _isTransitioning = false;
         }
 
-        public void LoadLastScene(string fallback) => SceneManager.LoadScene(string.IsNullOrEmpty(_lastScene) ? fallback : _lastScene);
+        public void LoadLastScene(string fallback) => LoadScene(string.IsNullOrEmpty(_lastScene) ? fallback : _lastScene);
 
         public void LoadAsync()
         {

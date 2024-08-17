@@ -11,7 +11,7 @@ public class DisplayApparel : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        if (!item.Equals(default(Type)))
+        if (item.IsValid)
             return new(string.Format(_format, item.Name, item.Description), item.Icon);
         else
             return new(string.Format(_format, "None", ""), null);
@@ -21,9 +21,9 @@ public class DisplayApparel : DisplayTextAndImage<Type>
     {
         AssetGuid id = _type switch
         {
-            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Headgear.FileGuid,
-            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Clothing.FileGuid,
-            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentlySelected.value.Equipment.Outfit.Legwear.FileGuid,
+            ApparelTemplate.ApparelType.Headgear => BuildController.Instance.CurrentBuild.value.Outfit.Headgear.FileGuid,
+            ApparelTemplate.ApparelType.Clothing => BuildController.Instance.CurrentBuild.value.Outfit.Clothing.FileGuid,
+            ApparelTemplate.ApparelType.Legwear => BuildController.Instance.CurrentBuild.value.Outfit.Legwear.FileGuid,
             _ => default
         };
 

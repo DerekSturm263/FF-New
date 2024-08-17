@@ -71,12 +71,12 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(itemInstance->Owner, out PlayerStats* stats))
             {
-                if (f.TryFindAsset(stats->Build.Equipment.Weapons.SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
+                if (f.TryFindAsset(stats->Build.Gear.SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
                 {
-                    if (f.TryFindAsset(stats->Build.Equipment.Weapons.SubWeapon.Enhancer.Id, out SubEnhancer enhancer))
-                        enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Equipment.Weapons.SubWeapon);
+                    if (f.TryFindAsset(stats->Build.Gear.SubWeapon.Enhancer.Id, out SubEnhancer enhancer))
+                        enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Gear.SubWeapon);
 
-                    subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Equipment.Weapons.SubWeapon);
+                    subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Gear.SubWeapon);
                 }
             }
         }

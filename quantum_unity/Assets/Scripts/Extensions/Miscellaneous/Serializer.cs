@@ -1,13 +1,21 @@
 using Quantum;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System.Linq;
 using UnityEngine;
+using System.IO.Pipes;
 
 namespace FusionFighters
 {
     public static class Serializer
     {
+        private static readonly byte[] Key =
+        {
+            0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+            0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16
+        };
+
         public static void Save<T>(T item, AssetGuid fileName, string directory) where T : struct => SaveInternal(item, $"{directory}/{fileName}.json", directory);
         public static void Save<T>(T item, string fileName, string directory) where T : struct => SaveInternal(item, $"{directory}/{fileName}.json", directory);
 
@@ -19,7 +27,17 @@ namespace FusionFighters
             CreateDirectory(dataPath);
 
             FileMode writeMode = File.Exists(filePath) ? FileMode.Truncate : FileMode.Create;
-            using StreamWriter writer = new(File.Open(filePath, writeMode));
+            using FileStream stream = new(filePath, writeMode);
+            
+            using Aes aes = Aes.Create();
+            aes.Key = Key;
+
+            byte[] iv = aes.IV;
+            stream.Write(iv, 0, iv.Length);
+
+            using CryptoStream crypto = new(stream, aes.CreateEncryptor(), CryptoStreamMode.Write);
+            using StreamWriter writer = new(crypto);
+
             writer.Write(json);
             writer.Flush();
 
@@ -40,7 +58,26 @@ namespace FusionFighters
 
             if (File.Exists(filePath))
             {
-                using StreamReader reader = new(File.Open(filePath, FileMode.Open));
+                using FileStream stream = new(filePath, FileMode.Open);
+
+                using Aes aes = Aes.Create();
+
+                byte[] iv = new byte[aes.IV.Length];
+                int numBytesToRead = aes.IV.Length;
+                int numBytesRead = 0;
+
+                while (numBytesToRead > 0)
+                {
+                    int n = stream.Read(iv, numBytesRead, numBytesToRead);
+                    if (n == 0)
+                        break;
+
+                    numBytesRead += n;
+                    numBytesToRead -= n;
+                }
+
+                using CryptoStream crypto = new(stream, aes.CreateDecryptor(Key, iv), CryptoStreamMode.Read);
+                using StreamReader reader = new(crypto);
 
                 string json = reader.ReadToEnd();
                 item = FromJSON<T>(json);

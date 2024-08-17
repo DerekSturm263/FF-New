@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Quantum
 {
-    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>, ISignalOnComponentRemoved<PlayerStats>
+    public unsafe class PlayerStatsSystem : SystemMainThreadFilter<PlayerStatsSystem.Filter>
     {
         public struct Filter
         {
@@ -21,15 +21,10 @@ namespace Quantum
                 UpdateAltWeapon(f, ref filter, customAnimator, characterController);
             }
 
-            if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Badge.Id, out Badge badge))
+            if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Badge.Id, out Badge badge))
             {
                 badge.OnUpdate(f, filter.Entity);
             }
-        }
-
-        public void OnRemoved(Frame f, EntityRef entity, PlayerStats* component)
-        {
-            RemoveBuild(f, entity, component);
         }
 
         public void UpdateMainWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)
@@ -106,41 +101,43 @@ namespace Quantum
 
             Log.Debug("Applying build!");
 
-            SetAvatar(f, user, stats, build.Cosmetics.Avatar.Avatar);
-            SetAvatarColor(f, user, stats, build.Cosmetics.Avatar.Color);
-            SetAltWeapon(f, user, stats, build.Equipment.Weapons.AltWeapon);
-            SetBadge(f, user, stats, build.Equipment.Badge);
-            SetClothing(f, user, stats, build.Equipment.Outfit.Clothing);
-            SetEmoteDown(f, user, stats, build.Cosmetics.Emotes.Down.Emote);
-            SetEmoteDownMessage(f, user, stats, build.Cosmetics.Emotes.Down.Message);
-            SetEmoteLeft(f, user, stats, build.Cosmetics.Emotes.Left.Emote);
-            SetEmoteLeftMessage(f, user, stats, build.Cosmetics.Emotes.Left.Message);
-            SetEmoteRight(f, user, stats, build.Cosmetics.Emotes.Right.Emote);
-            SetEmoteRightMessage(f, user, stats, build.Cosmetics.Emotes.Right.Message);
-            SetEmoteUp(f, user, stats, build.Cosmetics.Emotes.Up.Emote);
-            SetEmoteUpMessage(f, user, stats, build.Cosmetics.Emotes.Up.Message);
-            SetEyes(f, user, stats, build.Cosmetics.Eyes.Eyes);
-            SetEyesColor(f, user, stats, build.Cosmetics.Eyes.Color);
-            SetHair(f, user, stats, build.Cosmetics.Hair.Hair);
-            SetHairColor(f, user, stats, build.Cosmetics.Hair.Color);
-            SetHeadgear(f, user, stats, build.Equipment.Outfit.Headgear);
-            SetLegwear(f, user, stats, build.Equipment.Outfit.Legwear);
-            SetMainWeapon(f, user, stats, build.Equipment.Weapons.MainWeapon);
-            SetSub(f, user, stats, build.Equipment.Weapons.SubWeapon);
-            SetUltimate(f, user, stats, build.Equipment.Ultimate);
-            SetVoice(f, user, stats, build.Cosmetics.Voice);
+            SetAvatar(f, user, stats, build.Frame.Avatar.Avatar);
+            SetAvatarColor(f, user, stats, build.Frame.Avatar.Color);
+            SetAltWeapon(f, user, stats, build.Gear.AltWeapon);
+            SetBadge(f, user, stats, build.Gear.Badge);
+            SetClothing(f, user, stats, build.Outfit.Clothing);
+            SetEmoteDown(f, user, stats, build.Emotes.Down.Emote);
+            SetEmoteDownMessage(f, user, stats, build.Emotes.Down.Message);
+            SetEmoteLeft(f, user, stats, build.Emotes.Left.Emote);
+            SetEmoteLeftMessage(f, user, stats, build.Emotes.Left.Message);
+            SetEmoteRight(f, user, stats, build.Emotes.Right.Emote);
+            SetEmoteRightMessage(f, user, stats, build.Emotes.Right.Message);
+            SetEmoteUp(f, user, stats, build.Emotes.Up.Emote);
+            SetEmoteUpMessage(f, user, stats, build.Emotes.Up.Message);
+            SetEyes(f, user, stats, build.Frame.Eyes.Eyes);
+            SetEyesColor(f, user, stats, build.Frame.Eyes.Color);
+            SetHair(f, user, stats, build.Frame.Hair.Hair);
+            SetHairColor(f, user, stats, build.Frame.Hair.Color);
+            SetHeadgear(f, user, stats, build.Outfit.Headgear);
+            SetLegwear(f, user, stats, build.Outfit.Legwear);
+            SetMainWeapon(f, user, stats, build.Gear.MainWeapon);
+            SetSub(f, user, stats, build.Gear.SubWeapon);
+            SetUltimate(f, user, stats, build.Gear.Ultimate);
+            SetVoice(f, user, stats, build.Frame.Voice);
 
             ApplyBuild(f, user, stats, build);
+
+            f.Events.OnPlayerSetIcon(user, stats->Index);
         }
 
         public static void ApplyBuild(Frame f, EntityRef user, PlayerStats* stats, Build build)
         {
-            ApplyBadge(f, user, stats->Build.Equipment.Badge);
+            ApplyBadge(f, user, stats->Build.Gear.Badge);
         }
 
         public static void UnapplyBuild(Frame f, EntityRef user, PlayerStats* stats)
         {
-            UnapplyBadge(f, user, stats->Build.Equipment.Badge);
+            UnapplyBadge(f, user, stats->Build.Gear.Badge);
         }
 
         public static void RemoveBuild(Frame f, EntityRef user, PlayerStats* stats)
@@ -174,16 +171,15 @@ namespace Quantum
             if (stats->AltWeapon.IsValid)
                 f.Destroy(stats->AltWeapon);
 
-            Weapon oldAltWeapon = stats->Build.Equipment.Weapons.AltWeapon;
-            stats->Build.Equipment.Weapons.AltWeapon = altWeapon;
+            Weapon oldAltWeapon = stats->Build.Gear.AltWeapon;
+            stats->Build.Gear.AltWeapon = altWeapon;
 
-            if (altWeapon.Template.Id.IsValid)
+            if (altWeapon.Template.Id.IsValid && f.Unsafe.TryGetPointer(user, out Stats* genericStats))
             {
-                if (f.Unsafe.TryGetPointer(user, out Stats* genericStats))
-                {
-                    WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
+                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
+
+                if (entity.Weapon.Id.IsValid)
                     stats->AltWeapon = f.CreateChilded(entity.Weapon, user);
-                }
             }
 
             f.Events.OnPlayerSetAltWeapon(user, oldAltWeapon, altWeapon);
@@ -191,32 +187,32 @@ namespace Quantum
 
         public static void SetAvatar(Frame f, EntityRef user, PlayerStats* stats, AssetRefFFAvatar avatar)
         {
-            AvatarColorBinding oldAvatar = stats->Build.Cosmetics.Avatar;
-            stats->Build.Cosmetics.Avatar.Avatar = avatar;
+            AvatarColorBinding oldAvatar = stats->Build.Frame.Avatar;
+            stats->Build.Frame.Avatar.Avatar = avatar;
 
-            f.Events.OnPlayerSetAvatar(user, oldAvatar, stats->Build.Cosmetics.Avatar);
+            f.Events.OnPlayerSetAvatar(user, stats->Index, oldAvatar, stats->Build.Frame.Avatar);
         }
 
         public static void SetAvatarColor(Frame f, EntityRef user, PlayerStats* stats, AssetRefColorPreset color)
         {
-            AvatarColorBinding oldAvatar = stats->Build.Cosmetics.Avatar;
-            stats->Build.Cosmetics.Avatar.Color = color;
+            AvatarColorBinding oldAvatar = stats->Build.Frame.Avatar;
+            stats->Build.Frame.Avatar.Color = color;
 
-            f.Events.OnPlayerSetAvatar(user, oldAvatar, stats->Build.Cosmetics.Avatar);
+            f.Events.OnPlayerSetAvatar(user, stats->Index, oldAvatar, stats->Build.Frame.Avatar);
         }
 
         public static void SetVoice(Frame f, EntityRef user, PlayerStats* stats, AssetRefVoice voice)
         {
-            AssetRefVoice oldVoice = stats->Build.Cosmetics.Voice;
-            stats->Build.Cosmetics.Voice = voice;
+            AssetRefVoice oldVoice = stats->Build.Frame.Voice;
+            stats->Build.Frame.Voice = voice;
 
             f.Events.OnPlayerSetVoice(user, oldVoice, voice);
         }
 
         public static void SetBadge(Frame f, EntityRef user, PlayerStats* stats, AssetRefBadge badge)
         {
-            AssetRefBadge oldBadge = stats->Build.Equipment.Badge;
-            stats->Build.Equipment.Badge = badge;
+            AssetRefBadge oldBadge = stats->Build.Gear.Badge;
+            stats->Build.Gear.Badge = badge;
 
             ApplyBadge(f, user, badge);
 
@@ -225,120 +221,120 @@ namespace Quantum
 
         public static void SetClothing(Frame f, EntityRef user, PlayerStats* stats, Apparel clothing)
         {
-            Apparel oldClothing = stats->Build.Equipment.Outfit.Clothing;
-            stats->Build.Equipment.Outfit.Clothing = clothing;
+            Apparel oldClothing = stats->Build.Outfit.Clothing;
+            stats->Build.Outfit.Clothing = clothing;
 
             f.Events.OnPlayerSetClothing(user, oldClothing, clothing);
         }
 
         public static void SetEmoteDown(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Down;
-            stats->Build.Cosmetics.Emotes.Down.Emote = emote;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Down;
+            stats->Build.Emotes.Down.Emote = emote;
 
-            f.Events.OnPlayerSetEmoteDown(user, oldEmote, stats->Build.Cosmetics.Emotes.Down);
+            f.Events.OnPlayerSetEmoteDown(user, oldEmote, stats->Build.Emotes.Down);
         }
 
         public static void SetEmoteDownMessage(Frame f, EntityRef user, PlayerStats* stats, AssetRefMessagePreset message)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Down;
-            stats->Build.Cosmetics.Emotes.Down.Message = message;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Down;
+            stats->Build.Emotes.Down.Message = message;
 
-            f.Events.OnPlayerSetEmoteDown(user, oldEmote, stats->Build.Cosmetics.Emotes.Down);
+            f.Events.OnPlayerSetEmoteDown(user, oldEmote, stats->Build.Emotes.Down);
         }
 
         public static void SetEmoteLeft(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Left;
-            stats->Build.Cosmetics.Emotes.Left.Emote = emote;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Left;
+            stats->Build.Emotes.Left.Emote = emote;
 
-            f.Events.OnPlayerSetEmoteLeft(user, oldEmote, stats->Build.Cosmetics.Emotes.Left);
+            f.Events.OnPlayerSetEmoteLeft(user, oldEmote, stats->Build.Emotes.Left);
         }
 
         public static void SetEmoteLeftMessage(Frame f, EntityRef user, PlayerStats* stats, AssetRefMessagePreset message)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Left;
-            stats->Build.Cosmetics.Emotes.Left.Message = message;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Left;
+            stats->Build.Emotes.Left.Message = message;
 
-            f.Events.OnPlayerSetEmoteLeft(user, oldEmote, stats->Build.Cosmetics.Emotes.Left);
+            f.Events.OnPlayerSetEmoteLeft(user, oldEmote, stats->Build.Emotes.Left);
         }
 
         public static void SetEmoteRight(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Right;
-            stats->Build.Cosmetics.Emotes.Right.Emote = emote;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Right;
+            stats->Build.Emotes.Right.Emote = emote;
 
-            f.Events.OnPlayerSetEmoteRight(user, oldEmote, stats->Build.Cosmetics.Emotes.Right);
+            f.Events.OnPlayerSetEmoteRight(user, oldEmote, stats->Build.Emotes.Right);
         }
 
         public static void SetEmoteRightMessage(Frame f, EntityRef user, PlayerStats* stats, AssetRefMessagePreset message)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Right;
-            stats->Build.Cosmetics.Emotes.Right.Message = message;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Right;
+            stats->Build.Emotes.Right.Message = message;
 
-            f.Events.OnPlayerSetEmoteRight(user, oldEmote, stats->Build.Cosmetics.Emotes.Right);
+            f.Events.OnPlayerSetEmoteRight(user, oldEmote, stats->Build.Emotes.Right);
         }
 
         public static void SetEmoteUp(Frame f, EntityRef user, PlayerStats* stats, AssetRefEmote emote)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Up;
-            stats->Build.Cosmetics.Emotes.Up.Emote = emote;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Up;
+            stats->Build.Emotes.Up.Emote = emote;
 
-            f.Events.OnPlayerSetEmoteUp(user, oldEmote, stats->Build.Cosmetics.Emotes.Up);
+            f.Events.OnPlayerSetEmoteUp(user, oldEmote, stats->Build.Emotes.Up);
         }
 
         public static void SetEmoteUpMessage(Frame f, EntityRef user, PlayerStats* stats, AssetRefMessagePreset message)
         {
-            EmoteMessageBinding oldEmote = stats->Build.Cosmetics.Emotes.Up;
-            stats->Build.Cosmetics.Emotes.Up.Message = message;
+            EmoteMessageBinding oldEmote = stats->Build.Emotes.Up;
+            stats->Build.Emotes.Up.Message = message;
 
-            f.Events.OnPlayerSetEmoteUp(user, oldEmote, stats->Build.Cosmetics.Emotes.Up);
+            f.Events.OnPlayerSetEmoteUp(user, oldEmote, stats->Build.Emotes.Up);
         }
 
         public static void SetEyes(Frame f, EntityRef user, PlayerStats* stats, AssetRefEyes eyes)
         {
-            EyesColorBinding oldEyes = stats->Build.Cosmetics.Eyes;
-            stats->Build.Cosmetics.Eyes.Eyes = eyes;
+            EyesColorBinding oldEyes = stats->Build.Frame.Eyes;
+            stats->Build.Frame.Eyes.Eyes = eyes;
 
-            f.Events.OnPlayerSetEyes(user, oldEyes, stats->Build.Cosmetics.Eyes);
+            f.Events.OnPlayerSetEyes(user, oldEyes, stats->Build.Frame.Eyes);
         }
 
         public static void SetEyesColor(Frame f, EntityRef user, PlayerStats* stats, AssetRefColorPreset color)
         {
-            EyesColorBinding oldEyes = stats->Build.Cosmetics.Eyes;
-            stats->Build.Cosmetics.Eyes.Color = color;
+            EyesColorBinding oldEyes = stats->Build.Frame.Eyes;
+            stats->Build.Frame.Eyes.Color = color;
 
-            f.Events.OnPlayerSetEyes(user, oldEyes, stats->Build.Cosmetics.Eyes);
+            f.Events.OnPlayerSetEyes(user, oldEyes, stats->Build.Frame.Eyes);
         }
 
         public static void SetHair(Frame f, EntityRef user, PlayerStats* stats, AssetRefHair hair)
         {
-            HairColorBinding oldHair = stats->Build.Cosmetics.Hair;
-            stats->Build.Cosmetics.Hair.Hair = hair;
+            HairColorBinding oldHair = stats->Build.Frame.Hair;
+            stats->Build.Frame.Hair.Hair = hair;
 
-            f.Events.OnPlayerSetHair(user, oldHair, stats->Build.Cosmetics.Hair);
+            f.Events.OnPlayerSetHair(user, oldHair, stats->Build.Frame.Hair);
         }
 
         public static void SetHairColor(Frame f, EntityRef user, PlayerStats* stats, AssetRefColorPreset color)
         {
-            HairColorBinding oldHair = stats->Build.Cosmetics.Hair;
-            stats->Build.Cosmetics.Hair.Color = color;
+            HairColorBinding oldHair = stats->Build.Frame.Hair;
+            stats->Build.Frame.Hair.Color = color;
 
-            f.Events.OnPlayerSetHair(user, oldHair, stats->Build.Cosmetics.Hair);
+            f.Events.OnPlayerSetHair(user, oldHair, stats->Build.Frame.Hair);
         }
 
         public static void SetHeadgear(Frame f, EntityRef user, PlayerStats* stats, Apparel headgear)
         {
-            Apparel oldHeadgear = stats->Build.Equipment.Outfit.Headgear;
-            stats->Build.Equipment.Outfit.Headgear = headgear;
+            Apparel oldHeadgear = stats->Build.Outfit.Headgear;
+            stats->Build.Outfit.Headgear = headgear;
 
             f.Events.OnPlayerSetHeadgear(user, oldHeadgear, headgear);
         }
 
         public static void SetLegwear(Frame f, EntityRef user, PlayerStats* stats, Apparel legwear)
         {
-            Apparel oldOutfit = stats->Build.Equipment.Outfit.Legwear;
-            stats->Build.Equipment.Outfit.Legwear = legwear;
+            Apparel oldOutfit = stats->Build.Outfit.Legwear;
+            stats->Build.Outfit.Legwear = legwear;
 
             f.Events.OnPlayerSetLegwear(user, oldOutfit, legwear);
         }
@@ -348,16 +344,15 @@ namespace Quantum
             if (stats->MainWeapon.IsValid)
                 f.Destroy(stats->MainWeapon);
 
-            Weapon oldMainWeapon = stats->Build.Equipment.Weapons.MainWeapon;
-            stats->Build.Equipment.Weapons.MainWeapon = mainWeapon;
+            Weapon oldMainWeapon = stats->Build.Gear.MainWeapon;
+            stats->Build.Gear.MainWeapon = mainWeapon;
 
-            if (mainWeapon.Template.Id.IsValid)
+            if (mainWeapon.Template.Id.IsValid && f.Unsafe.TryGetPointer(user, out Stats* genericStats))
             {
-                if (f.Unsafe.TryGetPointer(user, out Stats* genericStats))
-                {
-                    WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
+                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
+
+                if (entity.Weapon.Id.IsValid)
                     stats->MainWeapon = f.CreateChilded(entity.Weapon, user);
-                }
             }
 
             f.Events.OnPlayerSetMainWeapon(user, oldMainWeapon, mainWeapon);
@@ -365,16 +360,16 @@ namespace Quantum
 
         public static void SetSub(Frame f, EntityRef user, PlayerStats* stats, Sub sub)
         {
-            Sub oldSub = stats->Build.Equipment.Weapons.SubWeapon;
-            stats->Build.Equipment.Weapons.SubWeapon = sub;
+            Sub oldSub = stats->Build.Gear.SubWeapon;
+            stats->Build.Gear.SubWeapon = sub;
 
             f.Events.OnPlayerSetSub(user, oldSub, sub);
         }
 
         public static void SetUltimate(Frame f, EntityRef user, PlayerStats* stats, AssetRefUltimate ultimate)
         {
-            AssetRefUltimate oldUltimate = stats->Build.Equipment.Ultimate;
-            stats->Build.Equipment.Ultimate = ultimate;
+            AssetRefUltimate oldUltimate = stats->Build.Gear.Ultimate;
+            stats->Build.Gear.Ultimate = ultimate;
 
             f.Events.OnPlayerSetUltimate(user, oldUltimate, ultimate);
         }
@@ -393,17 +388,17 @@ namespace Quantum
 
         public static void RemoveBadge(Frame f, EntityRef user, PlayerStats* stats)
         {
-            UnapplyBadge(f, user, stats->Build.Equipment.Badge);
+            UnapplyBadge(f, user, stats->Build.Gear.Badge);
 
-            AssetRefBadge oldBadge = stats->Build.Equipment.Badge;
-            stats->Build.Equipment.Badge = default;
+            AssetRefBadge oldBadge = stats->Build.Gear.Badge;
+            stats->Build.Gear.Badge = default;
 
             f.Events.OnPlayerSetBadge(user, oldBadge, default);
         }
 
         public static void ResetTemporaryValues(Frame f, PlayerStats* playerStats)
         {
-            playerStats->WinStats = default;
+            playerStats->Stats = default;
             playerStats->HeldItem = EntityRef.None;
             playerStats->ApparelStatsMultiplier = ApparelHelper.Default;
             playerStats->WeaponStatsMultiplier = WeaponHelper.Default;

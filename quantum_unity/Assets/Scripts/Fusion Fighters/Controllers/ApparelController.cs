@@ -1,5 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
+using Extensions.Miscellaneous;
+using GameResources.Audio;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -9,6 +11,17 @@ using UnityEngine.Events;
 
 public class ApparelController : Controller<ApparelController>
 {
+    [SerializeField] private AudioClip _jingle;
+    [SerializeField] private AudioClip _defaultMusic;
+
+    [SerializeField] private ApparelAssetAsset _none;
+    public ApparelAssetAsset None => _none;
+
+    [SerializeField] private ApparelModifierAsset _noneMod;
+
+    [SerializeField] private Camera _renderCamera;
+    [SerializeField] private Shader _renderShader;
+
     private ApparelTemplateAsset _template;
     public void SetTemplate(ApparelTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
@@ -28,8 +41,14 @@ public class ApparelController : Controller<ApparelController>
         return modifiers;
     }
 
-    public ApparelModifierAsset GetModifierFromIndex(List<ApparelModifierAsset> modifiers, int index) => modifiers.ElementAtOrDefault(index);
-    
+    public ApparelModifierAsset GetModifierFromIndex(List<ApparelModifierAsset> modifiers, int index)
+    {
+        if (index >= modifiers.Count)
+            return _noneMod;
+
+        return modifiers[index];
+    }
+
     public void AdjustModifiers(ApparelModifierAsset modifier, int increment)
     {
         if ((increment > 0 && _modifiers.Sum(item => item.Value) == 3))
@@ -172,8 +191,14 @@ public class ApparelController : Controller<ApparelController>
             new("Template Type", _template.name)
         };
 
-        SerializableWrapper<Apparel> serializable = new(apparel, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
-        serializable.Save(GetPath());
+        SerializableWrapper<Apparel> serializable = new(apparel, GetPath(), _name, _description, apparel.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        serializable.Save();
+
+        _renderCamera.transform.position = _template.IconCameraPosition;
+        _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
+
+        Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
+        Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
 
         _lastApparel = serializable;
 
@@ -195,6 +220,8 @@ public class ApparelController : Controller<ApparelController>
         if (!_doAction)
             return;
 
+        _lastApparel.CreateIcon(_renderCamera, _renderShader);
+
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastApparel);
     }
@@ -210,14 +237,12 @@ public class ApparelController : Controller<ApparelController>
 
     public void Submit()
     {
-        ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
-
         _currentlySelected.SetName(_newName);
-        _currentlySelected.Save(GetPath());
+        _currentlySelected.Save();
 
-        if (ApparelPopulator.Instance && button)
+        if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
-            ApparelPopulator.Instance.ClearEvents(button);
+            ApparelPopulator.Instance.ClearEvents(button, _currentlySelected);
             ApparelPopulator.Instance.SetEvents(button, _currentlySelected);
         }
 
@@ -239,10 +264,29 @@ public class ApparelController : Controller<ApparelController>
         if (_currentlySelected.value.Modifiers.Modifier3.Id.IsValid)
             InventoryController.Instance.GainItem(_currentlySelected.value.Modifiers.Modifier3.Id, 1);
 
-        _currentlySelected.Delete(GetPath());
+        foreach (var build in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Build>>(BuildController.GetPath()))
+        {
+            var newBuild = build;
+
+            if (build.value.Outfit.Headgear.Equals(_currentlySelected))
+                newBuild.value.Outfit.Headgear = _none.Apparel;
+            if (build.value.Outfit.Clothing.Equals(_currentlySelected))
+                newBuild.value.Outfit.Clothing = _none.Apparel;
+            if (build.value.Outfit.Legwear.Equals(_currentlySelected))
+                newBuild.value.Outfit.Legwear = _none.Apparel;
+
+            newBuild.Save();
+        }
+
+        _currentlySelected.Delete();
 
         if (ApparelPopulator.Instance && ApparelPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            ApparelPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
+
+        ToastController.Instance.Spawn("Apparel deleted");
 
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }

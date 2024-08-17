@@ -27,6 +27,8 @@ public class SettingsController : SpawnableController<Settings>
 
     [System.NonSerialized] private bool _isInitialized = false;
 
+    protected override bool TakeAwayFocus() => true;
+
     public void Spawn()
     {
         Spawn(default);
@@ -351,7 +353,7 @@ public class SettingsController : SpawnableController<Settings>
         };
 
         Time.timeScale = setTimeScale.scale.AsFloat;
-        QuantumRunner.Default.Game.SendCommand(setTimeScale);
+        QuantumRunner.Default?.Game.SendCommand(setTimeScale);
     }
 
     public void EraseAllSaveData()

@@ -11,7 +11,7 @@ public class DisplayWeapon : DisplayTextAndImage<Type>
 
     protected override Tuple<string, Sprite> GetInfo(Type item)
     {
-        if (!item.Equals(default(Type)))
+        if (item.IsValid)
             return new(string.Format(_format, item.Name, item.Description), item.Icon);
         else
             return new(string.Format(_format, "None", ""), null);
@@ -21,8 +21,8 @@ public class DisplayWeapon : DisplayTextAndImage<Type>
     {
         AssetGuid id = _weaponType switch
         {
-            0 => BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.MainWeapon.FileGuid,
-            1 => BuildController.Instance.CurrentlySelected.value.Equipment.Weapons.AltWeapon.FileGuid,
+            0 => BuildController.Instance.CurrentBuild.value.Gear.MainWeapon.FileGuid,
+            1 => BuildController.Instance.CurrentBuild.value.Gear.AltWeapon.FileGuid,
             _ => default
         };
 

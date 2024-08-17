@@ -26,10 +26,10 @@ public class DisplayMessagePreset : DisplayTextAndImage<Type>
     {
         AssetGuid id = _type switch
         {
-            ParentType.EmoteUp => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Up.Message.Id,
-            ParentType.EmoteDown => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Down.Message.Id,
-            ParentType.EmoteLeft => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Left.Message.Id,
-            ParentType.EmoteRight => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Right.Message.Id,
+            ParentType.EmoteUp => BuildController.Instance.CurrentBuild.value.Emotes.Up.Message.Id,
+            ParentType.EmoteDown => BuildController.Instance.CurrentBuild.value.Emotes.Down.Message.Id,
+            ParentType.EmoteLeft => BuildController.Instance.CurrentBuild.value.Emotes.Left.Message.Id,
+            ParentType.EmoteRight => BuildController.Instance.CurrentBuild.value.Emotes.Right.Message.Id,
             _ => default
         };
 

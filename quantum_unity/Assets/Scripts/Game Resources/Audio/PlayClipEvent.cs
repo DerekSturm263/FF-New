@@ -15,7 +15,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
                 ClipSettings settings = characterController->LerpFromAnimationHold_UNSAFE(ClipSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                AudioSource.PlayClipAtPoint(settings.GetClip(f.Unsafe.GetPointer<PlayerStats>(entity)->Build.Cosmetics.Voice), Vector3.zero, settings.Volume);
+                AudioSource.PlayClipAtPoint(settings.GetClip(f.Unsafe.GetPointer<PlayerStats>(entity)->Build.Frame.Voice), Vector3.zero, settings.Volume);
             }
         }
     }

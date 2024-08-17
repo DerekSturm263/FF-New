@@ -1,9 +1,8 @@
 ﻿using Extensions.Components.Miscellaneous;
+using Extensions.Miscellaneous;
 using Extensions.Types;
 using Photon.Deterministic;
-using Photon.Realtime;
 using Quantum;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,9 +25,12 @@ namespace GameResources.Camera
 
             _instance._settings = settings;
 
-            if (_settings.Volume)
-                _instance.SetVolumeInternal(_settings.Volume);
+            if (settings.Volume)
+                _instance.SetVolumeInternal(settings.Volume);
         }
+        public void SetCameraSettingsWithoutNotify(CameraSettingsAsset settings) => _settings = settings;
+
+        [SerializeField] private bool _isMain = true;
 
         private void SetVolumeInternal(VolumeProfile volumeProfile) => _volume.sharedProfile = volumeProfile;
 
@@ -111,7 +113,12 @@ namespace GameResources.Camera
 
         private void Awake()
         {
-            Initialize();
+            if (_isMain)
+            {
+                Initialize();
+
+                QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
+            }
 
             _targetPosition = transform.position;
             _targetRotation = transform.rotation;
@@ -122,8 +129,6 @@ namespace GameResources.Camera
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
             _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
-
-            QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
         }
 
         private void LateUpdate()
@@ -131,24 +136,26 @@ namespace GameResources.Camera
             if (!_settings)
                 return;
 
-            CalculateTargetZoom();
+            float dt = Time.timeScale == 0 ? Time.unscaledDeltaTime : Time.deltaTime;
+
+            CalculateTargetZoom(dt);
             CalculateTargetPosition();
             CalculateTargetRotation();
             CalculateShake();
 
             foreach (UnityEngine.Camera cam in _internalCams)
             {
-                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, _settings.Settings.FOV, Time.deltaTime * _settings.Settings.TranslationSpeed.AsFloat);
+                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, _settings.Settings.FOV, dt * _settings.Settings.TranslationSpeed.AsFloat);
             }
 
-            ApplyPosition(Time.deltaTime);
-            ApplyRotation(Time.deltaTime);
+            ApplyPosition(dt);
+            ApplyRotation(dt);
 
             if (_shakeTime > 0)
-                _shakeTime -= Time.deltaTime;
+                _shakeTime -= dt;
         }
 
-        private void CalculateTargetZoom()
+        private void CalculateTargetZoom(float dt)
         {
             float zoom = _settings.Settings.ZoomOffset.AsFloat;
             _calculatedZoom = zoom;
@@ -161,7 +168,7 @@ namespace GameResources.Camera
 
             float distance = Vector3.Distance(firstPos, lastPos);
             _calculatedZoom = zoom + distance * _settings.Settings.ZoomScale.AsFloat;
-            _targetZoom = Mathf.Lerp(_targetZoom, _calculatedZoom, Time.deltaTime * _settings.Settings.ZoomSpeed.AsFloat);
+            _targetZoom = Mathf.Lerp(_targetZoom, _calculatedZoom, dt * _settings.Settings.ZoomSpeed.AsFloat);
         }
 
         private void CalculateTargetPosition()
@@ -227,6 +234,18 @@ namespace GameResources.Camera
             _instance._targets.Add(new(1, target));
         }
 
+        public void SetTarget(string target)
+        {
+            if (_targets.Count > 0)
+                return;
+
+            EntityView entity = _instance._entityView.GetView(FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human));
+            GameObject head = entity.gameObject.FindChildWithTag(target, false);
+
+            _targets.Clear();
+            _targets.Add(new(1, head.transform));
+        }
+
         public void FocusTarget(int globalIndex)
         {
             if (globalIndex >= _instance._targets.Count)
@@ -265,6 +284,9 @@ namespace GameResources.Camera
 
         public void ResetAllWeights()
         {
+            if (!_instance)
+                return;
+
             for (int i = 0; i < _instance._targets.Count; ++i)
             {
                 _instance._targets[i] = new(1, _instance._targets[i].Item2);
@@ -308,7 +330,7 @@ namespace GameResources.Camera
 
             if (doHaptics)
             {
-                foreach (LocalPlayerInfo player in PlayerJoinController.Instance.LocalPlayers)
+                foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
                 {
                     PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
                 }
@@ -321,6 +343,17 @@ namespace GameResources.Camera
 
             _instance._shakeTime = _shakeSettings.Length.AsFloat;
             _instance._shakeDirection = direction;
+        }
+
+        public void ToggleManualMode(bool useManual)
+        {
+            _instance.GetComponent<ManualCameraController>().enabled = useManual;
+            _instance.enabled = !useManual;
+        }
+
+        public void Snap()
+        {
+            _instance.GetComponent<ManualCameraController>().Snap();
         }
     }
 }

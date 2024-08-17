@@ -1,5 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
+using Extensions.Miscellaneous;
+using GameResources.Audio;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -8,6 +10,15 @@ using UnityEngine.Events;
 
 public class SubController : Controller<SubController>
 {
+    [SerializeField] private AudioClip _jingle;
+    [SerializeField] private AudioClip _defaultMusic;
+
+    [SerializeField] private SubAssetAsset _none;
+    public SubAssetAsset None => _none;
+
+    [SerializeField] private Camera _renderCamera;
+    [SerializeField] private Shader _renderShader;
+
     private SubTemplateAsset _template;
     public void SetTemplate(SubTemplateAsset template) => _template = template;
     public void ClearTemplate() => _template = null;
@@ -101,8 +112,14 @@ public class SubController : Controller<SubController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Sub> serializable = new(sub, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
-        serializable.Save(GetPath());
+        SerializableWrapper<Sub> serializable = new(sub, GetPath(), _name, _description, sub.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        serializable.Save();
+
+        _renderCamera.transform.position = _template.IconCameraPosition;
+        _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
+
+        Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
+        Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
 
         _lastSub = serializable;
 
@@ -123,7 +140,9 @@ public class SubController : Controller<SubController>
     {
         if (!_doAction)
             return;
-            
+
+        _lastSub.CreateIcon(_renderCamera, _renderShader);
+
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastSub);
     }
@@ -139,14 +158,12 @@ public class SubController : Controller<SubController>
 
     public void Submit()
     {
-        SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
-
         _currentlySelected.SetName(_newName);
-        _currentlySelected.Save(GetPath());
+        _currentlySelected.Save();
 
-        if (SubPopulator.Instance && button)
+        if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
-            SubPopulator.Instance.ClearEvents(button);
+            SubPopulator.Instance.ClearEvents(button, _currentlySelected);
             SubPopulator.Instance.SetEvents(button, _currentlySelected);
         }
 
@@ -160,10 +177,25 @@ public class SubController : Controller<SubController>
         InventoryController.Instance.GainItem(_currentlySelected.value.Template.Id, 1);
         InventoryController.Instance.GainItem(_currentlySelected.value.Enhancer.Id, 1);
 
-        _currentlySelected.Delete(GetPath());
+        foreach (var build in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Build>>(BuildController.GetPath()))
+        {
+            var newBuild = build;
+
+            if (build.value.Gear.SubWeapon.Equals(_currentlySelected))
+                newBuild.value.Gear.SubWeapon = _none.Sub;
+             
+            newBuild.Save();
+        }
+
+        _currentlySelected.Delete();
 
         if (SubPopulator.Instance && SubPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            SubPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
+
+        ToastController.Instance.Spawn("Sub deleted");
 
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }

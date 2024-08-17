@@ -1,5 +1,7 @@
+﻿using Extensions.Miscellaneous;
 using Photon.Deterministic;
 using Quantum;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +11,6 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text _playerNum;
     [SerializeField] private Image _health;
     [SerializeField] private HorizontalLayoutGroup _stocks;
-    [SerializeField] private GameObject _stock;
     [SerializeField] private Image _energy;
     [SerializeField] private Material _activateUltimate;
     [SerializeField] private Material _lowHealth;
@@ -17,10 +18,13 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Image _portrait;
     [SerializeField] private TMPro.TMP_Text _ready;
     [SerializeField] private Image _readyFill;
-    [SerializeField] private GameObject _infiniteLives;
+    [SerializeField] private TMPro.TMP_Text _lifeCount;
+    [SerializeField] private Image _background;
+
+    [SerializeField] private TMPro.TMP_Text _healthText;
+    [SerializeField] private TMPro.TMP_Text _energyText;
 
     [Header("Settings")]
-    [SerializeField] private float _lerpSpeed;
     [SerializeField] private Color _emptyHealth;
     [SerializeField] private Color _fullHealth;
     [SerializeField] private Color _emptyEnergy;
@@ -28,17 +32,50 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Color _emptyStock;
     [SerializeField] private Color _fullStock;
 
-    private float _healthFill, _energyFill;
+    [SerializeField] private Color[] _playerColors;
+
+    private float _healthRatio, _energyRatio;
+
+    private EntityRef _entity;
+    public void SetEntity(EntityRef entity) => _entity = entity;
+
+    [SerializeField] private GameObject _displayObj;
+    [SerializeField] private DisplayAllBuildInfo _display;
 
     private void Update()
     {
-        _health.fillAmount = _healthFill;
-        _energy.fillAmount = _energyFill;
+        _health.fillAmount = _healthRatio;
+        _energy.fillAmount = _energyRatio;
+
+        _health.color = Color.Lerp(_emptyHealth, _fullHealth, _health.fillAmount);
+        _energy.color = Color.Lerp(_emptyEnergy, _fullEnergy, _energy.fillAmount);
+
+        if (_energyRatio == 1)
+        {
+            _portrait.material = _activateUltimate;
+        }
+        else
+        {
+            if (_healthRatio > 0 && _healthRatio < 0.2f)
+                _portrait.material = _lowHealth;
+            else
+                _portrait.material = null;
+        }
+
+        _lowHealthObj.SetActive(_health.fillAmount <= 0.2f);
     }
 
     public void SetPlayerNumber(FighterIndex index)
     {
         _playerNum.SetText(index.Type == FighterType.Human ? $"P{index.GlobalNoBots + 1}" : "Bot");
+
+        if (_background)
+        {
+            if (index.Type == FighterType.Human)
+                _background.color = _playerColors[index.GlobalNoBots];
+            else
+                _background.color = _playerColors[4];
+        }
     }
 
     public void SetPlayerName(string name)
@@ -46,107 +83,109 @@ public class HUDPlayerLink : MonoBehaviour
         _name.SetText(name);
     }
 
-    public void SetPlayerIcon(Sprite icon)
+    public void SetPlayerIconIndex(FighterIndex index)
     {
-        _portrait.sprite = icon;
+        GameObject player = FindFirstObjectByType<EntityViewUpdater>().GetView(FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, index)).gameObject;
+        CoroutineRunner.Instance.StartCoroutine(TakePicture(player, index.Global));
+    }
+
+    IEnumerator TakePicture(GameObject player, int index)
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        Texture2D portraitTexture = player.GetComponentInChildren<Camera>().RenderToTexture2D(FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index], TextureFormat.RGBA32, true);
+        Sprite portrait = Sprite.Create(portraitTexture, new(0, 0, portraitTexture.width, portraitTexture.height), Vector2.one);
+        
+        _portrait.sprite = portrait;
     }
 
     public void UpdateReadiness(bool isReady)
     {
-        _ready.SetText(isReady ? "Ready!" : "Not Yet...");
+        if (_ready)
+            _ready.SetText(isReady ? "Ready!" : "Not Yet...");
     }
 
     public void UpdateReadinessValue(float value)
     {
-        _readyFill.fillAmount = value;
+        if (_readyFill)
+            _readyFill.fillAmount = value;
     }
 
     public void ShowReadiness(bool show)
     {
-        _readyFill.gameObject.SetActive(show);
+        if (_readyFill)
+            _readyFill.gameObject.SetActive(show);
     }
 
     public void UpdateHealth(FP newHealth, FP maxHealth)
     {
         if (maxHealth != 0)
-            _healthFill = (newHealth / maxHealth).AsFloat;
+            _healthRatio = (newHealth / maxHealth).AsFloat;
         else
-            _healthFill = 0;
+            _healthRatio = 0;
 
-        _health.color = Color.Lerp(_emptyHealth, _fullHealth, _health.fillAmount);
-
-        if (_portrait.material != _activateUltimate)
-        {
-            if (_health.fillAmount <= 0.2f)
-            {
-                _portrait.material = _lowHealth;
-            }
-            else
-            {
-                _portrait.material = null;
-            }
-        }
-
-        if (_health.fillAmount <= 0.2f)
-        {
-            _lowHealthObj.SetActive(true);
-        }
-        else
-        {
-            _lowHealthObj.SetActive(false);
-        }
+        _healthText?.SetText($"{newHealth}/{maxHealth}");
     }
 
     public void UpdateEnergy(FP newEnergy, FP maxEnergy)
     {
         if (maxEnergy != 0)
-            _energyFill = (newEnergy / maxEnergy).AsFloat;
+            _energyRatio = (newEnergy / maxEnergy).AsFloat;
         else
-            _energyFill = 0;
+            _energyRatio = 0;
 
-        _energy.color = Color.Lerp(_emptyEnergy, _fullEnergy, _energy.fillAmount);
-
-        if (newEnergy == maxEnergy)
-        {
-            _portrait.material = _activateUltimate;
-        }
-        else
-        {
-            if (_health.fillAmount <= 0.2f)
-            {
-                _portrait.material = _lowHealth;
-            }
-            else
-            {
-                _portrait.material = null;
-            }
-        }
-
-        if (_health.fillAmount <= 0.2f)
-        {
-            _lowHealthObj.SetActive(true);
-        }
-        else
-        {
-            _lowHealthObj.SetActive(false);
-        }
+        _energyText?.SetText($"{newEnergy}/{maxEnergy}");
     }
 
     public void UpdateStocks(int newStocks, int maxStocks)
     {
-        _infiniteLives.SetActive(maxStocks == -1);
+        bool showLifeAsNumber = maxStocks > 10 || maxStocks == -1;
 
-        if (maxStocks > _stocks.transform.childCount)
+        _stocks.gameObject.SetActive(!showLifeAsNumber);
+        _lifeCount.gameObject.SetActive(showLifeAsNumber);
+        
+        if (showLifeAsNumber)
         {
-            int count = maxStocks - _stocks.transform.childCount;
-
-            for (int i = 0; i < count; ++i)
+            if (maxStocks == -1)
+                _lifeCount.SetText($"Lives: \u221E");
+            else
+                _lifeCount.SetText($"Lives: {newStocks}/{maxStocks}");
+        }
+        else
+        {
+            for (int i = 0; i < maxStocks; ++i)
             {
-                Instantiate(_stock, _stocks.transform);
+                _stocks.transform.GetChild(i).gameObject.SetActive(true);
             }
+
+            for (int i = maxStocks; i < _stocks.transform.childCount; ++i)
+            {
+                _stocks.transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < maxStocks; ++i)
+                _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
+        }
+    }
+
+    public void DisplayInfo()
+    {
+        Build build = default;
+
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(_entity, out PlayerStats stats))
+        {
+            build = stats.Build;
         }
 
-        for (int i = 0; i < maxStocks; ++i)
-            _stocks.transform.GetChild(i).GetComponent<Image>().color = newStocks >= i + 1 ? _fullStock : _emptyStock;
+        DisplayBuildInfo(build);
+    }
+
+    private void DisplayBuildInfo(Build build)
+    {
+        EventSystemController.Instance.Enable();
+
+        _displayObj.SetActive(true);
+        _display.UpdateDisplay(build);
     }
 }

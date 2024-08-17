@@ -20,10 +20,10 @@ namespace Quantum
             if (filter.CharacterController->IsCommitted)
                 return false;
 
-            if (filter.PlayerStats->Build.Equipment.Weapons.SubWeapon.Equals(default(Sub)))
+            if (filter.PlayerStats->Build.Gear.SubWeapon.Equals(default(Sub)))
                 return false;
 
-            if (f.TryFindAsset(filter.PlayerStats->Build.Equipment.Weapons.SubWeapon.Template.Id, out SubTemplate subWeapon))
+            if (f.TryFindAsset(filter.PlayerStats->Build.Gear.SubWeapon.Template.Id, out SubTemplate subWeapon))
                 return filter.Stats->CurrentStats.Energy >= subWeapon.EnergyAmount;
 
             return false;
@@ -33,7 +33,7 @@ namespace Quantum
         {
             base.Enter(f, ref filter, ref input, settings, stats);
 
-            AssetRefSubTemplate itemAsset = filter.PlayerStats->Build.Equipment.Weapons.SubWeapon.Template;
+            AssetRefSubTemplate itemAsset = filter.PlayerStats->Build.Gear.SubWeapon.Template;
             if (f.TryFindAsset(itemAsset.Id, out SubTemplate subTemplate))
             {
                 StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -subTemplate.EnergyAmount);

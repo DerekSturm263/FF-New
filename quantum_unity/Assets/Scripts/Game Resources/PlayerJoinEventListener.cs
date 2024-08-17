@@ -38,7 +38,7 @@ public class PlayerJoinEventListener :  MonoBehaviour
     {
         _isEnabled = true;
 
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
         {
             InvokeOnPlayerJoin(player);
         }
@@ -67,7 +67,7 @@ public class PlayerJoinEventListener :  MonoBehaviour
     {
         foreach (var item in _menus[player])
         {
-            Destroy(item);
+            Destroy(item.gameObject);
         }
     }
 }

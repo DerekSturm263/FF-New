@@ -10,10 +10,10 @@ public class EmotePopulator : PopulateAsset<EmoteAsset>
     {
         return _direction switch
         {
-            DisplayEmote.Direction.Up => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Up.Emote.Id == item.AssetObject.Guid,
-            DisplayEmote.Direction.Down => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Down.Emote.Id == item.AssetObject.Guid,
-            DisplayEmote.Direction.Left => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Left.Emote.Id == item.AssetObject.Guid,
-            DisplayEmote.Direction.Right => BuildController.Instance.CurrentlySelected.value.Cosmetics.Emotes.Right.Emote.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Up => BuildController.Instance.CurrentBuild.value.Emotes.Up.Emote.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Down => BuildController.Instance.CurrentBuild.value.Emotes.Down.Emote.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Left => BuildController.Instance.CurrentBuild.value.Emotes.Left.Emote.Id == item.AssetObject.Guid,
+            DisplayEmote.Direction.Right => BuildController.Instance.CurrentBuild.value.Emotes.Right.Emote.Id == item.AssetObject.Guid,
             _ => default
         };
     }

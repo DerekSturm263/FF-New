@@ -40,6 +40,8 @@ namespace Quantum
 
                 for (int i = 0; i < hitCollection.Count; ++i)
                 {
+                    Log.Debug(hitCollection[i].Entity.Index);
+
                     if (f.Unsafe.TryGetPointer(hitCollection[i].Entity, out ItemInstance* itemInstance))
                     {
                         ItemSystem.Use(f, filter.Entity, hitCollection[i].Entity, itemInstance);

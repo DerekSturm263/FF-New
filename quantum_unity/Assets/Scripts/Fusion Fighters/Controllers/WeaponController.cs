@@ -1,5 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using Extensions.Components.UI;
+using Extensions.Miscellaneous;
+using GameResources.Audio;
 using GameResources.UI.Popup;
 using Quantum;
 using System.Collections.Generic;
@@ -9,6 +11,15 @@ using UnityEngine.Events;
 public class WeaponController : Controller<WeaponController>
 {
     public static GameObject TemplateObj;
+
+    [SerializeField] private AudioClip _jingle;
+    [SerializeField] private AudioClip _defaultMusic;
+
+    [SerializeField] private WeaponAssetAsset _none;
+    public WeaponAssetAsset None => _none;
+
+    [SerializeField] private Camera _renderCamera;
+    [SerializeField] private Shader _renderShader;
 
     private WeaponTemplateAsset _template;
     public void SetTemplate(WeaponTemplateAsset template) => _template = template;
@@ -112,8 +123,14 @@ public class WeaponController : Controller<WeaponController>
         if (_enhancer)
             groupTags.Add(new("Enhancer Type", _enhancer.name));
 
-        SerializableWrapper<Weapon> serializable = new(weapon, _name, _description, System.DateTime.Now.Ticks, System.DateTime.Now.Ticks, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray(), _template.Icon, _template.Icon);
-        serializable.Save(GetPath());
+        SerializableWrapper<Weapon> serializable = new(weapon, GetPath(), _name, _description, weapon.FileGuid, filterTags.ToArray(), groupTags.ToArray());
+        serializable.Save();
+
+        _renderCamera.transform.position = _template.IconCameraPosition;
+        _renderCamera.transform.rotation = Quaternion.Euler(_template.IconCameraRotation);
+
+        Helper.Delay(1.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_jingle));
+        Helper.Delay(10.8f, () => AudioController.Instance.PlayAudioClipAsTrack(_defaultMusic));
 
         _lastWeapon = serializable;
 
@@ -135,6 +152,8 @@ public class WeaponController : Controller<WeaponController>
         if (!_doAction)
             return;
 
+        _lastWeapon.CreateIcon(_renderCamera, _renderShader);
+
         PopupController.Instance.Spawn(_onSuccess);
         _onSuccessEventDelayed.Invoke(_lastWeapon);
     }
@@ -150,14 +169,12 @@ public class WeaponController : Controller<WeaponController>
 
     public void Submit()
     {
-        WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button);
-
         _currentlySelected.SetName(_newName);
-        _currentlySelected.Save(GetPath());
+        _currentlySelected.Save();
 
-        if (WeaponPopulator.Instance && button)
+        if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
         {
-            WeaponPopulator.Instance.ClearEvents(button);
+            WeaponPopulator.Instance.ClearEvents(button, _currentlySelected);
             WeaponPopulator.Instance.SetEvents(button, _currentlySelected);
         }
 
@@ -172,10 +189,27 @@ public class WeaponController : Controller<WeaponController>
         InventoryController.Instance.GainItem(_currentlySelected.value.Material.Id, 1);
         InventoryController.Instance.GainItem(_currentlySelected.value.Enhancer.Id, 1);
 
-        _currentlySelected.Delete(GetPath());
+        foreach (var build in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Build>>(BuildController.GetPath()))
+        {
+            var newBuild = build;
+
+            if (build.value.Gear.MainWeapon.Equals(_currentlySelected))
+                newBuild.value.Gear.MainWeapon = _none.Weapon;
+            if (build.value.Gear.AltWeapon.Equals(_currentlySelected))
+                newBuild.value.Gear.AltWeapon = _none.Weapon;
+
+            newBuild.Save();
+        }
+
+        _currentlySelected.Delete();
 
         if (WeaponPopulator.Instance && WeaponPopulator.Instance.TryGetButtonFromItem(_currentlySelected, out GameObject button))
-            Destroy(button);
+        {
+            DestroyImmediate(button);
+            WeaponPopulator.Instance.GetComponentInParent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First);
+        }
+
+        ToastController.Instance.Spawn("Weapon deleted");
 
         Extensions.Miscellaneous.Helper.Delay(0.1f, () => _populator.GetComponent<SelectAuto>().SetSelectedItem(SelectAuto.SelectType.First));
     }

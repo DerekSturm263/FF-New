@@ -132,7 +132,7 @@ namespace Quantum.Prototypes.Unity {
     public global::EntityPrototype MainWeapon;
     [Quantum.LocalReference]
     public global::EntityPrototype AltWeapon;
-    public Quantum.Prototypes.WinConditionStats_Prototype WinStats;
+    public Quantum.Prototypes.BattleStats_Prototype Stats;
     public Quantum.Prototypes.ApparelStats_Prototype ApparelStatsMultiplier;
     public Quantum.Prototypes.WeaponStats_Prototype WeaponStatsMultiplier;
     [Quantum.LocalReference]
@@ -147,7 +147,7 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.ActiveWeapon, out result.ActiveWeapon);
       converter.Convert(this.MainWeapon, out result.MainWeapon);
       converter.Convert(this.AltWeapon, out result.AltWeapon);
-      result.WinStats = this.WinStats;
+      result.Stats = this.Stats;
       result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
       result.WeaponStatsMultiplier = this.WeaponStatsMultiplier;
       converter.Convert(this.HeldItem, out result.HeldItem);
@@ -163,8 +163,8 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.DictionaryAttribute()]
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
-    public Quantum.Prototypes.MatchStats_Prototype CurrentStats;
-    public Quantum.Prototypes.MatchStats_Prototype MatchStatsMultiplier;
+    public Quantum.Prototypes.WellnessStats_Prototype CurrentStats;
+    public Quantum.Prototypes.WellnessStats_Prototype StatsMultiplier;
     public Quantum.AssetRefStatusEffect StatusEffect;
     public System.Int32 StatusEffectTimeLeft;
     public Photon.Deterministic.FP StatusEffectMultiplier;
@@ -174,7 +174,7 @@ namespace Quantum.Prototypes.Unity {
       result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
       result.CurrentStats = this.CurrentStats;
-      result.MatchStatsMultiplier = this.MatchStatsMultiplier;
+      result.StatsMultiplier = this.StatsMultiplier;
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
       result.StatusEffectMultiplier = this.StatusEffectMultiplier;

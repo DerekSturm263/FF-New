@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Extensions.Components.Miscellaneous;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,6 +10,20 @@ namespace GameResources.UI.Popup
     {
         [SerializeField] private GameObject _buttonTemplate;
         [SerializeField] private GameObject _inputFieldTemplate;
+
+        private PopupContinueContext _continueContext;
+
+        protected override bool TakeAwayFocus() => true;
+
+        public void InsertEvent(InvokableGameObject ctx)
+        {
+            _continueContext = new(() => ctx.Invoke());
+        }
+
+        public void ClearEvent()
+        {
+            _continueContext = null;
+        }
 
         protected override void SetUp(Popup popup)
         {
@@ -24,7 +39,7 @@ namespace GameResources.UI.Popup
                 Button button = Instantiate(_buttonTemplate, buttonParent).GetComponent<Button>();
 
                 button.GetComponentInChildren<TMPro.TMP_Text>().SetText(response.Key);
-                button.onClick.AddListener(() => response.Value.Invoke(null));
+                button.onClick.AddListener(() => response.Value.Invoke(_continueContext));
             }
 
             Transform inputFieldParent = layoutGroups[1].transform;
@@ -37,6 +52,10 @@ namespace GameResources.UI.Popup
             }
         }
 
-        public void ContinueAction(PopupContinueContext ctx) => ctx.InvokePreviousAction();
+        public void ContinueAction(PopupContinueContext ctx)
+        {
+            ctx?.InvokePreviousAction();
+            ClearEvent();
+        }
     }
 }

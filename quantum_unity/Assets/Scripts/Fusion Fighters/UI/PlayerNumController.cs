@@ -18,14 +18,14 @@ public class PlayerNumController : PlayerTracker<RectTransform>
             t.anchoredPosition = (CameraController.Instance.Cam.WorldToScreenPoint(player.transform.position + (Vector3)_offset) - (new Vector3(Screen.width, Screen.height) / 2)) / _canvas.scaleFactor;
     }
 
-    protected override RectTransform GetT(QuantumGame game, EntityRef player, QString32 name, FighterIndex index)
+    protected override RectTransform GetT(QuantumGame game, PlayerInfoCallbackContext ctx)
     {
-        _numbers[index.Global].SetActive(true);
+        _numbers[ctx.Index.Global].SetActive(true);
         
-        _numbers[index.Global].GetComponentInChildren<TMPro.TMP_Text>().SetText(index.Type == FighterType.Human ? $"P{index.GlobalNoBots + 1}" : "Bot");
-        _numbers[index.Global].GetComponentInChildren<Image>().color = index.Type == FighterType.Human ? _colors[index.GlobalNoBots] : _botColor;
+        _numbers[ctx.Index.Global].GetComponentInChildren<TMPro.TMP_Text>().SetText(ctx.Index.Type == FighterType.Human ? $"P{ctx.Index.GlobalNoBots + 1}" : "Bot");
+        _numbers[ctx.Index.Global].GetComponentInChildren<Image>().color = ctx.Index.Type == FighterType.Human ? _colors[ctx.Index.GlobalNoBots] : _botColor;
             
-        return _numbers[index.Global].GetComponent<RectTransform>();
+        return _numbers[ctx.Index.Global].GetComponent<RectTransform>();
     }
 
     protected override void CleanUp(RectTransform t)

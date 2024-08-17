@@ -9,10 +9,10 @@ namespace Quantum
             RuntimePlayer data = f.GetPlayerData(player);
             EntityPrototype prototype = f.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
 
-            SpawnPlayer(f, player, prototype, true, data.Name, data.Index, data.IsRealBattle);
+            SpawnPlayer(f, player, prototype, true, data.Name, data.Index, data.IsRealBattle, data.Build);
         }
 
-        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index, bool isRealBattle)
+        public static EntityRef SpawnPlayer(Frame f, PlayerRef player, AssetRefEntityPrototype prototype, bool assignLink, string name, FighterIndex index, bool isRealBattle, Build defaultBuild)
         {
             EntityRef entity = f.Create(prototype);
 
@@ -25,7 +25,7 @@ namespace Quantum
             PlayerStats* playerStats = f.Unsafe.GetPointer<PlayerStats>(entity);
             playerStats->Index = index;
 
-            PlayerStatsSystem.SetBuild(f, entity, playerStats, playerStats->Build);
+            PlayerStatsSystem.SetBuild(f, entity, playerStats, defaultBuild);
             AddPlayerToList(f, entity, index);
 
             if (assignLink)
@@ -33,7 +33,7 @@ namespace Quantum
                 f.Add(entity, playerLink);
             }
 
-            f.Events.OnPlayerSpawn(entity, index, name);
+            f.Events.OnPlayerSpawn(new() { Entity = entity, Index = index, Name = name });
 
             var teams = f.ResolveList(f.Global->Teams);
 
@@ -62,9 +62,16 @@ namespace Quantum
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
             PlayerStats stats = f.Get<PlayerStats>(player);
-            f.Events.OnPlayerDespawn(player, stats.Index, stats.Name);
+            f.Events.OnPlayerDespawn(new() { Entity = player, Index = stats.Index, Name = stats.Name });
 
             RemovePlayerFromList(f, stats.Index);
+
+            if (stats.MainWeapon.IsValid)
+                f.Destroy(stats.MainWeapon);
+
+            if (stats.AltWeapon.IsValid)
+                f.Destroy(stats.AltWeapon);
+
             f.Destroy(player);
         }
 

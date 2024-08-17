@@ -118,7 +118,7 @@ namespace Quantum
 
         public static bool ModifyHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount, bool triggerDeath)
         {
-            return SetHealth(f, entityRef, stats, stats->CurrentStats.Health + amount * stats->MatchStatsMultiplier.Health, triggerDeath);
+            return SetHealth(f, entityRef, stats, stats->CurrentStats.Health + amount * stats->StatsMultiplier.Health, triggerDeath);
         }
 
         public static bool SetHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount, bool triggerDeath)
@@ -167,7 +167,7 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
         {
-            SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + amount * stats->MatchStatsMultiplier.Energy * f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate);
+            SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + amount * stats->StatsMultiplier.Energy * f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate);
         }
 
         public static void SetEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
@@ -232,7 +232,7 @@ namespace Quantum
 
         public static void ResetTemporaryValues(Frame f, Stats* stats)
         {
-            stats->MatchStatsMultiplier = new() { Energy = 1, Health = 1 };
+            stats->StatsMultiplier = new() { Energy = 1, Health = 1 };
             stats->StatusEffect.Id = AssetGuid.Invalid;
             stats->StatusEffectMultiplier = 1;
             stats->StatusEffectTimeLeft = 0;

@@ -85,6 +85,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefGizmo))]
+  public class AssetRefGizmoPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(GizmoAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefHair))]
   public class AssetRefHairPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -180,6 +187,13 @@ namespace Quantum.Editor {
   public class AssetRefTieResolverPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(TieResolverAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefTile))]
+  public class AssetRefTilePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(TileAsset));
     }
   }
 

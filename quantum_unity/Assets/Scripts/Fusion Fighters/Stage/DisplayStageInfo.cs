@@ -9,7 +9,6 @@ public class DisplayStageInfo : Display<Type, Extensions.Types.Tuple<UnityEvent<
     [SerializeField] protected string _format = "{0}";
 
     protected (string[], Sprite) GetInfo(Type item) => (new string[] { item.Name, item.Description }, item.Preview);
-    protected override Type GetValue() => default;
     public override void UpdateDisplay(Type item)
     {
         var info = GetInfo(item);
@@ -19,4 +18,6 @@ public class DisplayStageInfo : Display<Type, Extensions.Types.Tuple<UnityEvent<
 
         _component.Item2.Invoke(info.Item2);
     }
+
+    protected override Type GetValue() => StageController.Instance.CurrentStage;
 }

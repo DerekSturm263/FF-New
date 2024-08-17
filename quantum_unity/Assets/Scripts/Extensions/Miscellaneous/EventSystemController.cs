@@ -5,9 +5,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class EventSystemController : Controller<EventSystemController>
 {
+    [SerializeField] private UnityEvent _onPopupOpen;
+    public void InvokeOnPopupOpen() => _onPopupOpen?.Invoke();
+
+    [SerializeField] private UnityEvent _onPopupClose;
+    public void InvokeOnPopupClose() => _onPopupClose?.Invoke();
+
     [System.Serializable]
     public struct SavableData
     {
@@ -56,7 +63,8 @@ public class EventSystemController : Controller<EventSystemController>
                 _oldEventSystem.gameObject.SetActive(true);
                 EventSystem.current = _oldEventSystem;
 
-                EventSystem.current.SetSelectedGameObject(_oldSelected);
+                if (_oldSelected)
+                    EventSystem.current.SetSelectedGameObject(_oldSelected);
             }
         }
 
@@ -74,7 +82,8 @@ public class EventSystemController : Controller<EventSystemController>
         {
             foreach (var kvp in _selectables)
             {
-                kvp.Key.navigation = kvp.Value.Item2;
+                if (kvp.Key)
+                    kvp.Key.navigation = kvp.Value.Item2;
             }
         }
 
@@ -92,7 +101,8 @@ public class EventSystemController : Controller<EventSystemController>
         {
             foreach (var kvp in _inputEvents)
             {
-                kvp.Key.enabled = kvp.Value;
+                if (kvp.Key)
+                    kvp.Key.enabled = kvp.Value;
             }
         }
     }
@@ -111,12 +121,32 @@ public class EventSystemController : Controller<EventSystemController>
         SavableData data = new(0);
         data.Enable();
 
+        if (_data.Count == 0)
+            InvokeOnPopupOpen();
+
         _data.Add(data);
+
+        Debug.Log($"Enabled! Old: {_data.Count - 1}, New: {_data.Count}");
     }
 
     public void Disable()
     {
         _data[^1].Disable();
+        _data.RemoveAt(_data.Count - 1);
+
+        if (_data.Count == 0)
+            InvokeOnPopupClose();
+
+        Debug.Log($"Disabled! Old: {_data.Count + 1}, New: {_data.Count}");
+    }
+
+    public void PushEmpty()
+    {
+        _data.Add(new());
+    }
+
+    public void PopEmpty()
+    {
         _data.RemoveAt(_data.Count - 1);
     }
 }

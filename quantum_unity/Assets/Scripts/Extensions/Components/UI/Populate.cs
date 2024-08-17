@@ -18,13 +18,16 @@ namespace Extensions.Components.UI
         {
             Awake,
             Lazy,
-            LazyWithParent
+            LazyWithParent,
+            Never
         }
 
         [SerializeField] protected GameObject _button;
 
         [SerializeField] protected RectTransform _checkmark;
+        [SerializeField] protected bool _multipleCheckmarks;
         protected RectTransform _checkmarkInstance;
+
         [SerializeField] protected TMPro.TMP_Text _sectionHeader;
 
         [SerializeField] protected Sprite _background;
@@ -39,6 +42,7 @@ namespace Extensions.Components.UI
 
         [SerializeField] protected UnityEvent _onIfEmpty;
         [SerializeField] protected UnityEvent _onIfNotEmpty;
+        [SerializeField] protected bool _resizeIfEmpty = true;
 
         public virtual List<string> AllFilterModeNames => new();
         public virtual List<string> AllGroupModeNames => new();
@@ -56,10 +60,16 @@ namespace Extensions.Components.UI
         {
             DestroyList();
             GenerateList();
+
+            AssessList();
+
+            EnableOrDisableItems();
         }
 
         public abstract void GenerateList();
         public abstract void DestroyList();
+
+        public abstract void AssessList();
 
         public abstract void EnableOrDisableItems();
         public abstract void EnableAllButtonNavigation(bool enabled);
@@ -67,7 +77,6 @@ namespace Extensions.Components.UI
         public abstract int Count();
     }
 
-    [RequireComponent(typeof(LayoutGroup))]
     public abstract class Populate<T> : PopulateBase
     {
         public enum SortDirection
@@ -80,19 +89,41 @@ namespace Extensions.Components.UI
         public static Populate<T> Instance => _instance;
 
         [SerializeField] protected UnityEvent<T> _onButtonSpawn;
+        public void SubscribeOnButtonSpawn(UnityAction<T> action) => _onButtonSpawn.AddListener(action);
+
         [SerializeField] protected UnityEvent<T> _onButtonHover;
+        public void SubscribeOnButtonHover(UnityAction<T> action)
+        {
+            _onButtonHover ??= new();
+            _onButtonHover.AddListener(action);
+        }
+
         [SerializeField] protected UnityEvent<T> _onButtonClick;
+        public void SubscribeOnButtonClick(UnityAction<T> action)
+        {
+            _onButtonClick ??= new();
+            _onButtonClick.AddListener(action);
+        }
+
         [SerializeField] protected UnityEvent<T> _onButtonClickError;
+        public void SubscribeOnButtonClickError(UnityAction<T> action) => _onButtonClickError.AddListener(action);
+
         [SerializeField] protected UnityEvent<T, Quantum.FighterIndex> _onButtonClickMultiplayer;
+        public void SubscribeOnButtonClickMultiplayer(UnityAction<T, Quantum.FighterIndex> action) => _onButtonClickMultiplayer.AddListener(action);
+
         [SerializeField] protected UnityEvent<T> _onButtonDeselect;
+        public void SubscribeOnButtonDeselect(UnityAction<T> action) => _onButtonDeselect.AddListener(action);
+
         [SerializeField] protected UnityEvent<T, int> _onIncrementalIncrementDecrement;
+        public void SubscribeIncrementalIncrementDecrement(UnityAction<T, int> action) => _onIncrementalIncrementDecrement.AddListener(action);
 
-        [SerializeField] private TMPro.TMP_InputField _searchbar;
+        [SerializeField] protected TMPro.TMP_InputField _searchbar;
 
-        [SerializeField] private bool _helpButton = true;
-        [SerializeField] private Button _searchOptions;
+        [SerializeField] protected bool _helpButton = true;
+        [SerializeField] protected Button _searchOptions;
 
         [SerializeField] protected bool _reloadOnEachEnable;
+        [SerializeField] protected bool _spawnNoneButton = true;
 
         protected Dictionary<T, GameObject> _itemsToButtons = new();
         protected List<GameObject> _headers = new();
@@ -136,7 +167,7 @@ namespace Extensions.Components.UI
         {
             _instance = this;
 
-            if (_checkmark)
+            if (!_multipleCheckmarks && _checkmark)
                 _checkmarkInstance = Instantiate(_checkmark);
 
             if (_searchbar)
@@ -151,39 +182,19 @@ namespace Extensions.Components.UI
             {
                 _searchOptions.onClick.AddListener(() => SearchOptionsController.Instance.Spawn(this));
             }
-
-            base.Awake();
         }
 
         protected override void OnEnable()
         {
+            if (_loadingType == LoadType.Never)
+                return;
+
             if (_loadingType == LoadType.Lazy)
             {
                 GenerateList();
             }
 
-            _allFilterModes ??= GetAllFilterModes();
-            _allGroupModes ??= GetAllGroupModes();
-            _allSortModes ??= GetAllSortModes();
-
-            _currentFilterMode = GetDefaultFilterMode();
-            _currentGroupMode = GetDefaultGroupMode();
-            _currentSortMode = GetDefaultSortMode();
-
-            FilterList();
-            SortList(GroupList());
-
-            EnableOrDisableItems();
-
-            if (_checkmarkInstance)
-            {
-                var firstEquipped = _itemsToButtons.FirstOrDefault(item => IsEquipped(item.Key));
-
-                if (!firstEquipped.Equals(default(KeyValuePair<T, GameObject>)))
-                    ParentCheckmark(firstEquipped.Value);
-                else
-                    ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value);
-            }
+            AssessList();
         }
 
         protected override void OnDisable()
@@ -200,6 +211,8 @@ namespace Extensions.Components.UI
                 return;
 
             IEnumerable<T> items = LoadAll();
+            if (!_spawnNoneButton)
+                items = items.Where(item => !IsNone(item));
 
             foreach (T item in items)
             {
@@ -222,7 +235,6 @@ namespace Extensions.Components.UI
             GameObject buttonObj = Instantiate(_button, transform);
 
             Decorate(buttonObj, item);
-            SetEvents(buttonObj, item);
             
             _onButtonSpawn.Invoke(item);
             _itemsToButtons.TryAdd(item, buttonObj);
@@ -264,9 +276,9 @@ namespace Extensions.Components.UI
             }
 
             if (filtered.Count() == 0)
-                _onIfEmpty.Invoke();
+                _onIfEmpty?.Invoke();
             else
-                _onIfNotEmpty.Invoke();
+                _onIfNotEmpty?.Invoke();
         }
 
         public IEnumerable<IGrouping<(string, object), T>> GroupList()
@@ -345,6 +357,53 @@ namespace Extensions.Components.UI
             }
         }
 
+        public override void AssessList()
+        {
+            foreach (var kvp in _itemsToButtons)
+            {
+                ClearEvents(kvp.Value, kvp.Key);
+                SetEvents(kvp.Value, kvp.Key);
+            }
+
+            _allFilterModes ??= GetAllFilterModes();
+            _allGroupModes ??= GetAllGroupModes();
+            _allSortModes ??= GetAllSortModes();
+
+            _currentFilterMode = GetDefaultFilterMode();
+            _currentGroupMode = GetDefaultGroupMode();
+            _currentSortMode = GetDefaultSortMode();
+
+            FilterList();
+            SortList(GroupList());
+
+            EnableOrDisableItems();
+
+            if (_checkmarkInstance)
+            {
+                var firstEquipped = _itemsToButtons.FirstOrDefault(item => IsEquipped(item.Key));
+
+                if (!firstEquipped.Equals(default(KeyValuePair<T, GameObject>)))
+                {
+                    ParentCheckmark(firstEquipped.Value, _checkmarkInstance);
+                }
+                else
+                {
+                    if (_itemsToButtons.Count(item => IsNone(item.Key)) > 0)
+                        ParentCheckmark(_itemsToButtons.FirstOrDefault(item => IsNone(item.Key)).Value, _checkmarkInstance);
+                }
+            }
+            else if (_multipleCheckmarks)
+            {
+                foreach (var item in _itemsToButtons)
+                {
+                    RectTransform checkmarkInstance = Instantiate(_checkmark);
+                    ParentCheckmark(item.Value, checkmarkInstance);
+
+                    checkmarkInstance.gameObject.SetActive(IsEquipped(item.Key));
+                }
+            }
+        }
+
         public override void EnableOrDisableItems()
         {
             foreach (var kvp in _itemsToButtons)
@@ -400,17 +459,22 @@ namespace Extensions.Components.UI
             if (description)
                 description.SetText(Description(item));
 
-            Image icon = buttonObj.FindChildWithTag("Icon", false)?.GetComponent<Image>();
+            Image icon = buttonObj.FindChildWithTag("Icon", true)?.GetComponent<Image>();
             if (icon)
             {
-                try
-                {
-                    icon.sprite = Icon(item);
-                }
-                catch { }
+                Sprite iconSprite = Icon(item);
+                icon.enabled = iconSprite;
 
-                if (!icon.sprite)
-                    icon.enabled = false;
+                if (iconSprite)
+                {
+                    icon.sprite = iconSprite;
+                }
+                else if (_resizeIfEmpty && label)
+                {
+                    label.rectTransform.anchorMin = new(0, label.rectTransform.anchorMin.y);
+                    label.rectTransform.anchoredPosition = new(0, label.rectTransform.anchoredPosition.y);
+                    label.rectTransform.sizeDelta = new(-130, label.rectTransform.sizeDelta.y);
+                }
             }
 
             Image background = buttonObj.FindChildWithTag("Background", false)?.GetComponent<Image>();
@@ -447,7 +511,11 @@ namespace Extensions.Components.UI
 
                         if (_checkmarkInstance)
                         {
-                            ParentCheckmark(button.gameObject);
+                            ParentCheckmark(button.gameObject, _checkmarkInstance);
+                        }
+                        else if (_multipleCheckmarks)
+                        {
+                            _itemsToButtons[item].FindChildWithTag("Checkmark", true).SetActive(IsEquipped(item));
                         }
                     });
                 }
@@ -476,7 +544,8 @@ namespace Extensions.Components.UI
                 deselect?.callback.AddListener(_ => _onButtonDeselect.Invoke(item));
             }
         }
-        public void ClearEvents(GameObject buttonObj)
+
+        public void ClearEvents(GameObject buttonObj, T item)
         {
             Button button = buttonObj.GetComponentInChildren<Button>();
             button?.onClick.RemoveAllListeners();
@@ -489,16 +558,26 @@ namespace Extensions.Components.UI
 
             Incremental incremental = buttonObj.GetComponentInChildren<Incremental>();
             incremental?.OnIncrementDecrement.RemoveAllListeners();
+
+            EventTrigger eventTrigger = buttonObj.GetComponentInChildren<EventTrigger>();
+            if (eventTrigger)
+            {
+                EventTrigger.Entry select = eventTrigger.triggers.FirstOrDefault(item => item.eventID == EventTriggerType.Select);
+                select?.callback.RemoveAllListeners();
+
+                EventTrigger.Entry deselect = eventTrigger.triggers.FirstOrDefault(item => item.eventID == EventTriggerType.Deselect);
+                deselect?.callback.RemoveAllListeners();
+            }
         }
 
-        private void ParentCheckmark(GameObject parent)
+        private void ParentCheckmark(GameObject parent, RectTransform checkmark)
         {
-            _checkmarkInstance.SetParent(parent.FindChildWithTag("Offset", true).transform);
-            _checkmarkInstance.localScale = Vector3.one;
+            checkmark.SetParent(parent.FindChildWithTag("Offset", true).transform);
+            checkmark.localScale = Vector3.one;
 
-            _checkmarkInstance.anchoredPosition = new(20, -30);
-            _checkmarkInstance.anchorMin = new(0, 1);
-            _checkmarkInstance.anchorMax = new(0, 1);
+            checkmark.anchoredPosition = new(20, -30);
+            checkmark.anchorMin = new(0, 1);
+            checkmark.anchorMax = new(0, 1);
         }
 
         public bool TryGetButtonFromItem(T item, out GameObject button)

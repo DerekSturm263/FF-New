@@ -38,14 +38,21 @@ namespace Extensions.Components.Input
         private void DisplayInputs(string deviceName)
         {
             if (!_text)
-                _text = GetComponentInChildren<TMPro.TMP_Text>();
+                _text = GetComponentInChildren<TMPro.TMP_Text>(true);
+
+            if (!InputMapperController.Instance)
+                return;
 
             TMP_SpriteAsset spriteAsset = InputMapperController.Instance.GetSpriteAsset(deviceName);
             if (!spriteAsset)
                 return;
 
             _text.spriteAsset = spriteAsset;
-            _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\">"));
+
+            if (_inputEvent.Button2Optional)
+                _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\"><sprite name=\"{_inputEvent.Button2Optional.GetID(deviceName)}\">"));
+            else
+                _text.SetText(string.Format(_format, $"<sprite name=\"{_inputEvent.Button.GetID(deviceName)}\">"));
         }
     }
 }

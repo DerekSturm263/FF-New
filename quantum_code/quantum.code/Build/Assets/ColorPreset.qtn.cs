@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -10,5 +6,8 @@ namespace Quantum
     public partial class ColorPreset : InfoAsset
     {
         public ColorRGBA Color;
+        public FP Smoothness = 1;
+        public FP Metallic = 1;
+        public FP FresnelStrength = 1;
     }
 }

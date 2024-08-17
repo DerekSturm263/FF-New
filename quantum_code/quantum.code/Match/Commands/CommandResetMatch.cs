@@ -28,6 +28,8 @@ namespace Quantum
             f.Global->CanPlayersEdit = true;
             f.Global->IsTimerOver = false;
             f.Global->PlayersReady = 0;
+
+            PlayerStatsSystem.SetAllReadiness(f, false);
         }
     }
 }

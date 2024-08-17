@@ -28,7 +28,7 @@ namespace Quantum
         {
             WeaponStats weaponStats = Default;
 
-            weaponStats = Add(FromWeapon(f, stats->Build.Equipment.Weapons.MainWeapon), weaponStats);
+            weaponStats = Add(FromWeapon(f, stats->Build.Gear.MainWeapon), weaponStats);
 
             return Multiply(weaponStats, stats->WeaponStatsMultiplier);
         }

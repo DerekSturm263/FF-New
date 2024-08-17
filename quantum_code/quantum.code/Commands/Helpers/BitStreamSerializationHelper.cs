@@ -8,23 +8,19 @@ namespace Quantum
 
         public static void Serialize(this IBitStream stream, ref Build value)
         {
-            stream.Serialize(ref value.Equipment);
-            stream.Serialize(ref value.Cosmetics);
-        }
-
-        public static void Serialize(this IBitStream stream, ref EquipmentSettings value)
-        {
-            stream.Serialize(ref value.Weapons);
-            stream.Serialize(ref value.Ultimate);
-            stream.Serialize(ref value.Badge);
+            stream.Serialize(ref value.Frame);
+            stream.Serialize(ref value.Gear);
             stream.Serialize(ref value.Outfit);
+            stream.Serialize(ref value.Emotes);
         }
 
-        public static void Serialize(this IBitStream stream, ref WeaponSet value)
+        public static void Serialize(this IBitStream stream, ref Gear value)
         {
             stream.Serialize(ref value.MainWeapon);
             stream.Serialize(ref value.AltWeapon);
             stream.Serialize(ref value.SubWeapon);
+            stream.Serialize(ref value.Ultimate);
+            stream.Serialize(ref value.Badge);
         }
 
         public static void Serialize(this IBitStream stream, ref Weapon value)
@@ -91,13 +87,12 @@ namespace Quantum
             stream.Serialize(ref value.Angle);
         }
 
-        public static void Serialize(this IBitStream stream, ref CosmeticSettings value)
+        public static void Serialize(this IBitStream stream, ref FFFrame value)
         {
             stream.Serialize(ref value.Avatar);
             stream.Serialize(ref value.Eyes);
             stream.Serialize(ref value.Hair);
             stream.Serialize(ref value.Voice);
-            stream.Serialize(ref value.Emotes);
         }
 
         public static void Serialize(this IBitStream stream, ref AvatarColorBinding value)
@@ -162,7 +157,6 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref ObjectSettings value)
         {
             stream.Serialize(ref value.Stage);
-            stream.Serialize(ref value.SourceMap);
             stream.Serialize(ref value.Colliders);
             stream.Serialize(ref value.Gizmos);
         }
@@ -282,8 +276,8 @@ namespace Quantum
             stream.Serialize(ref value.MaxEnergy);
             stream.Serialize(ref value.EnergyChargeRate);
             stream.Serialize(ref value.RespawnTime);
-            stream.Serialize(ref value.FriendlyFire);
-            stream.Serialize(ref value.DisallowDuplicateSelection);
+            stream.Serialize(ref value.AllowFriendlyFire);
+            stream.Serialize(ref value.AllowDuplicateSelection);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref StageSettings value)
@@ -292,7 +286,7 @@ namespace Quantum
             stream.Serialize(ref value.StagePicker);
             stream.Serialize(ref value.AllowGizmos);
             stream.Serialize(ref value.AllowCustomStages);
-            stream.Serialize(ref value.DisallowDuplicateSelection);
+            stream.Serialize(ref value.AllowDuplicateSelection);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref ArrayStages value)
@@ -367,7 +361,7 @@ namespace Quantum
                 stream.Serialize(count);
 
             fixed (byte* bytes = value.Bytes)
-                stream.SerializeBuffer(&bytes[0], value.ByteCount);
+                stream.SerializeBuffer(bytes, value.ByteCount);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref LayerMask value)

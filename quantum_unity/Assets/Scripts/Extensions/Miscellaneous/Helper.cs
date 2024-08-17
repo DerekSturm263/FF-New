@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Extensions.Miscellaneous
 {
@@ -128,6 +129,81 @@ namespace Extensions.Miscellaneous
 
             rectTransform.sizeDelta = sizeDelta + extraPadding;
             return;
+        }
+
+        public enum ImageType
+        {
+            PNG,
+            JPG,
+            EXR,
+            TGA
+        }
+
+        public static Texture2D RenderToTexture2D(this Camera camera, RenderTexture output, TextureFormat textureFormat, bool linear, bool flipX = false, Shader shader = null, string replacementTag = "")
+        {
+            camera.targetTexture = output;
+
+            RenderTexture currentRT = RenderTexture.active;
+            RenderTexture.active = camera.targetTexture;
+
+            if (shader)
+                camera.RenderWithShader(shader, replacementTag);
+            else
+                camera.Render();
+
+            if (flipX)
+            {
+                RenderTexture temp = RenderTexture.GetTemporary(RenderTexture.active.descriptor);
+
+                Graphics.Blit(RenderTexture.active, temp, new Vector2(-1, 1), new Vector2(1, 0));
+                Graphics.Blit(temp, RenderTexture.active);
+
+                RenderTexture.ReleaseTemporary(temp);
+            }
+
+            Texture2D image = new(camera.targetTexture.width, camera.targetTexture.height, textureFormat, false, linear);
+            image.ReadPixels(new Rect(0, 0, camera.targetTexture.width, camera.targetTexture.height), 0, 0);
+            image.Apply();
+
+            RenderTexture.active = currentRT;
+
+            return image;
+        }
+
+        public static void RenderToScreenshot(this Camera camera, string filePath, RenderTexture output, ImageType type, TextureFormat textureFormat, bool linear, bool flipX = false, Shader shader = null, string replacementTag = "")
+        {
+            Texture2D texture = RenderToTexture2D(camera, output, textureFormat, linear, flipX, shader, replacementTag);
+            byte[] renderBytes = type switch
+            {
+                ImageType.PNG => texture.EncodeToPNG(),
+                ImageType.JPG => texture.EncodeToJPG(),
+                ImageType.EXR => texture.EncodeToEXR(),
+                ImageType.TGA => texture.EncodeToTGA(),
+                _ => null
+            };
+
+            System.IO.File.WriteAllBytes(filePath, renderBytes);
+            Debug.Log("Screenshot taken!");
+        }
+
+        public static Sprite SpriteFromScreenshot(string filePath, int width, int height, TextureFormat textureFormat, bool linear, Texture2D defaultTexture)
+        {
+            Debug.Log("Getting sprite from a screenshot");
+
+            if (System.IO.File.Exists(filePath))
+            {
+                byte[] fileData = System.IO.File.ReadAllBytes(filePath);
+
+                Texture2D iconTexture = new(width, height, textureFormat, false, linear);
+                iconTexture.LoadImage(fileData);
+
+                return Sprite.Create(iconTexture, new(0, 0, iconTexture.width, iconTexture.height), Vector2.one);
+            }
+
+            if (!defaultTexture)
+                return null;
+
+            return Sprite.Create(defaultTexture, new(0, 0, defaultTexture.width, -defaultTexture.height), Vector2.one);
         }
 
         #endregion

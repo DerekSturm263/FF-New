@@ -1,22 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class UserProfilePopulator : PopulateSerializable<UserProfile, UserProfileAsset>
 {
-    protected override string BuiltInFilePath() => "Scriptable Objects/User Profiles";
+    public static UserProfilePopulator RealInstance;
+
+    [SerializeField] private bool _isInstance;
+    [SerializeField] private bool _excludeCurrent = true;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (_isInstance)
+            RealInstance = this;
+    }
+
+    protected override Sprite Icon(SerializableWrapper<UserProfile> item) => item.value.LastBuild.Icon;
+
+    protected override string BuiltInFilePath() => "DB/Assets/User Profiles";
     protected override string CustomFilePath() => UserProfileController.GetPath();
 
-    protected override SerializableWrapper<UserProfile> GetFromBuiltInAsset(UserProfileAsset asset) => asset.Profile;
+    protected override SerializableWrapper<UserProfile> GetFromBuiltInAsset(UserProfileAsset asset)
+    {
+        var item = asset.Profile;
+
+        return item;
+    }
 
     protected override Dictionary<string, Predicate<SerializableWrapper<UserProfile>>> GetAllFilterModes()
     {
         return new()
         {
-            ["All"] = (value) => !IsEquipped(value)
+            ["All"] = (value) => !_excludeCurrent || !IsEquipped(value)
         };
     }
 
-    protected override bool IsEquipped(SerializableWrapper<UserProfile> item) => PlayerJoinController.Instance.LocalPlayers.Any(user => user.Profile.Equals(item));
-    protected override bool IsNone(SerializableWrapper<UserProfile> item) => !item.FileID.IsValid;
+    protected override bool IsEquipped(SerializableWrapper<UserProfile> item) => PlayerJoinController.Instance.GetAllLocalPlayers(false).Any(user => user.Profile.Equals(item));
+    protected override bool IsNone(SerializableWrapper<UserProfile> item) => !item.IsValid;
 }

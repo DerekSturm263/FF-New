@@ -2,7 +2,7 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LocalInputController : Controller<LocalInputController>
 {
@@ -69,14 +69,15 @@ public class LocalInputController : Controller<LocalInputController>
         callback.SetInput(input, DeterministicInputFlags.Repeatable);
     }
 
+    private int _globalOffset;
+
     public void SpawnAllPlayers()
     {
-        int i = 0;
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
-        {
-            if (i == PlayerJoinController.Instance.PlayerLimit)
-                break;
+        _globalOffset = 0;
 
+        // May be causing a bug
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
+        {
             SpawnPlayer(player);
         }
     }
@@ -91,10 +92,12 @@ public class LocalInputController : Controller<LocalInputController>
 
     private void SpawnPlayerImmediate(LocalPlayerInfo player)
     {
+        int offset = _globalOffset != -1 ? _globalOffset : 0;
+
         player.SetGlobalIndices
         (
-            FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
-            FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified)
+            FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified) + offset,
+            FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified) + offset
         );
 
         RuntimePlayer data = new()
@@ -102,18 +105,35 @@ public class LocalInputController : Controller<LocalInputController>
             CharacterPrototype = _player.CharacterPrototype,
             Name = player.Profile.Name,
             Index = player.Index,
+            Build = player.Profile.value.LastBuild,
             IsRealBattle = FindFirstObjectByType<PlayerReadyEventListener>()
         };
 
         QuantumRunner.Default.Game.SendPlayerData(data.Index.Local, data);
 
         if (!gameObject.activeInHierarchy)
-            player?.Controls?.Menu.Disable();
+            player?.DisableMenus();
 
         Debug.Log($"Spawned player {player.Index}");
+
+        if (_globalOffset == PlayerJoinController.Instance.GetPlayerCount(true) - 1)
+            _globalOffset = -1;
+        else if (_globalOffset != -1)
+            ++_globalOffset;
     }
 
-    public void SpawnAI(Bot bot)
+    public void SpawnAIDelayed(Bot bot, Sprite icon)
+    {
+        StartCoroutine(SpawnAIDelayedEnum(bot, icon));
+    }
+
+    private IEnumerator SpawnAIDelayedEnum(Bot bot, Sprite icon)
+    {
+        yield return new WaitForSeconds(0.5f);
+        SpawnAI(bot, icon);
+    }
+
+    public void SpawnAI(Bot bot, Sprite icon)
     {
         int localIndex = PlayerJoinController.Instance.GetNextLocalIndex();
         if (localIndex == -1)
@@ -131,11 +151,12 @@ public class LocalInputController : Controller<LocalInputController>
                 Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
                 GlobalNoBots = -1,
                 GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(QuantumRunner.Default.Game.Frames.Verified),
-                Type = FighterType.Bot
-            }
+                Type = FighterType.Bot,
+            },
         };
 
         QuantumRunner.Default.Game.SendCommand(commandSpawnAI);
+
         Debug.Log($"Spawned bot {commandSpawnAI.index}");
     }
 
@@ -165,9 +186,9 @@ public class LocalInputController : Controller<LocalInputController>
         if (!PlayerJoinController.Instance)
             return;
 
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(false))
         {
-            player.Controls?.Player.Enable();
+            player.EnableMovement();
         }
     }
 
@@ -176,9 +197,9 @@ public class LocalInputController : Controller<LocalInputController>
         if (!PlayerJoinController.Instance)
             return;
 
-        foreach (var player in PlayerJoinController.Instance.LocalPlayers)
+        foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(false))
         {
-            player.Controls?.Player.Disable();
+            player.DisableMovement();
         }
     }
 }

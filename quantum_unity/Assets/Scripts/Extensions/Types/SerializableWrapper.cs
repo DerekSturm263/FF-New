@@ -1,11 +1,29 @@
+using Extensions.Miscellaneous;
 using Extensions.Types;
 using Quantum;
+using System.IO;
 using UnityEngine;
 
-[System.Serializable]
-public unsafe struct SerializableWrapper<T> where T : unmanaged
+public static class SerializableWrapperHelper
 {
+    public static RenderTexture IconRT, PreviewRT;
+
+    public static void SetRTs(RenderTexture icon, RenderTexture preview)
+    {
+        IconRT = icon;
+        PreviewRT = preview;
+    }
+}
+
+[System.Serializable]
+public struct SerializableWrapper<T>
+{
+    public static readonly Vector2Int IconDimensions = new(512, 512);
+    public static readonly Vector2Int PreviewDimensions = new(1920, 1080);
+
     public T value;
+
+    [SerializeField] private string _directory;
 
     [SerializeField] private string _name;
     public readonly string Name => _name;
@@ -16,10 +34,10 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     public void SetDescription(string description) => _description = description;
 
     [SerializeField] private long _creationDate;
-    public readonly long CreationDate => _creationDate;
+    public readonly System.DateTime CreationDate => new(_creationDate);
 
     [SerializeField] private long _lastEditedDate;
-    public readonly long LastEditedDate => _lastEditedDate;
+    public readonly System.DateTime LastEditedDate => new(_lastEditedDate);
     public void SetLastEditedDate(long lastEditedDate) => _lastEditedDate = lastEditedDate;
 
     [SerializeField] private AssetGuid _fileID;
@@ -28,11 +46,43 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private bool _madeByPlayer;
     public readonly bool MadeByPlayer => _madeByPlayer;
 
-    [SerializeField] private Sprite _icon;
-    public readonly Sprite Icon => _icon;
+    [SerializeField] private Sprite _iconOverride;
 
-    [SerializeField] private Sprite _preview;
-    public readonly Sprite Preview => _preview;
+    private Sprite _icon;
+    public Sprite Icon
+    {
+        get
+        {
+            if (_iconOverride)
+                return _iconOverride;
+
+            if (!_icon)
+                _icon = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_ICON.png", IconDimensions.x, IconDimensions.y, TextureFormat.RGBA32, true, null);
+            else
+                Debug.Log("Icon already exists!");
+
+            return _icon;
+        }
+    }
+
+    [SerializeField] private Sprite _previewOverride;
+
+    private Sprite _preview;
+    public Sprite Preview
+    {
+        get
+        {
+            if (_previewOverride)
+                return _previewOverride;
+
+            if (!_preview)
+                _preview = Helper.SpriteFromScreenshot($"{_directory}/{FileID}_PREVIEW.png", PreviewDimensions.x, PreviewDimensions.y, TextureFormat.RGBA32, true, null);
+            else
+                Debug.Log("Preview already exists!");
+
+            return _preview;
+        }
+    }
 
     [SerializeField] private string[] _filterTags;
     public readonly string[] FilterTags => _filterTags;
@@ -40,19 +90,55 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
     [SerializeField] private Tuple<string, string>[] _groupTags;
     public readonly Tuple<string, string>[] GroupTags => _groupTags;
 
-    public SerializableWrapper(T value, string name, string description, long creationDate, long lastEditedDate, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags, Sprite icon, Sprite preview)
+    public readonly bool IsValid => _fileID != AssetGuid.Invalid;
+
+    public SerializableWrapper(T value, string directory, string name, string description, AssetGuid fileID, string[] filterTags, Tuple<string, string>[] groupTags)
     {
         this.value = value;
+        _directory = directory;
         _name = name;
         _description = description;
-        _creationDate = creationDate;
-        _lastEditedDate = lastEditedDate;
+        _creationDate = System.DateTime.Now.Ticks;
+        _lastEditedDate = System.DateTime.Now.Ticks;
         _fileID = fileID;
         _madeByPlayer = true;
-        _icon = icon;
-        _preview = preview;
+        _iconOverride = null;
+        _icon = null;
+        _previewOverride = null;
+        _preview = null;
         _filterTags = filterTags;
         _groupTags = groupTags;
+    }
+
+    public readonly void CreateIcon(Camera camera, Shader shader = null, RenderTexture output = null, bool flipX = false)
+    {
+        camera.RenderToScreenshot($"{_directory}/{FileID}_ICON.png", output ?? SerializableWrapperHelper.IconRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, flipX, shader);
+    }
+
+    public readonly void CreatePreview(Camera camera, Shader shader = null, RenderTexture output = null, bool flipX = false)
+    {
+        camera.RenderToScreenshot($"{_directory}/{FileID}_PREVIEW.png", output ?? SerializableWrapperHelper.PreviewRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, flipX, shader);
+    }
+
+    public readonly void Save()
+    {
+        FusionFighters.Serializer.Save(this, _fileID, _directory);
+    }
+
+    public readonly void Delete()
+    {
+        FusionFighters.Serializer.Delete($"{_directory}/{_fileID}.json", _directory);
+
+        if (File.Exists($"{_directory}/{_fileID}_ICON.png"))
+            File.Delete($"{_directory}/{_fileID}_ICON.png");
+
+        if (File.Exists($"{_directory}/{_fileID}_PREVIEW.png"))
+            File.Delete($"{_directory}/{_fileID}_PREVIEW.png");
+    }
+
+    public static SerializableWrapper<T> LoadAs(string directory, AssetGuid fileID)
+    {
+        return FusionFighters.Serializer.LoadAs<SerializableWrapper<T>>($"{directory}/{fileID}.json", directory);
     }
 
     public static implicit operator T(SerializableWrapper<T> lhs)
@@ -60,18 +146,22 @@ public unsafe struct SerializableWrapper<T> where T : unmanaged
         return lhs.value;
     }
 
-    public readonly void Save(string directory)
+    public override readonly bool Equals(object obj)
     {
-        FusionFighters.Serializer.Save(this, _fileID, directory);
+        if (obj is not SerializableWrapper<T>)
+            return false;
+
+        return ((SerializableWrapper<T>)obj)._fileID.Equals(_fileID);
     }
 
-    public readonly void Delete(string directory)
+    public override readonly int GetHashCode()
     {
-        FusionFighters.Serializer.Delete($"{directory}/{FileID}.json", directory);
+        System.HashCode hash = new();
+
+        hash.Add(_fileID);
+
+        return hash.ToHashCode();
     }
 
-    public static SerializableWrapper<T> LoadAs(string directory, AssetGuid fileID)
-    {
-        return FusionFighters.Serializer.LoadAs<SerializableWrapper<T>>($"{directory}/{fileID}.json", directory);
-    }
+    public override readonly string ToString() => value.ToString();
 }

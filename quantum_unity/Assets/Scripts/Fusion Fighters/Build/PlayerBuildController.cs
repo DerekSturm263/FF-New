@@ -86,6 +86,9 @@ public class PlayerBuildController : MonoBehaviour
         if (color)
         {
             _head.materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            _head.materials[0].SetFloat("_Smoothness", color.Settings_ColorPreset.Smoothness.AsFloat * 0.1f);
+            _head.materials[0].SetFloat("_Metallic", color.Settings_ColorPreset.Metallic.AsFloat);
+            _head.materials[0].SetFloat("_Fresnel_Strength", color.Settings_ColorPreset.FresnelStrength.AsFloat * 0.15f);
         }
 
         if (_currentAltWeapon)
@@ -130,7 +133,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentClothing);
 
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentClothing = Instantiate(template.Instance, _clothing);
             _currentClothing.GetComponent<ParentClothing>().SetParent(_parentClothing);
@@ -146,7 +149,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentHeadgear);
 
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentHeadgear = Instantiate(template.Instance, _headgear);
             _currentHeadgear.GetComponent<ParentClothing>().SetParent(_parentClothing);
@@ -162,7 +165,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentLegwear);
 
         ApparelTemplateAsset template = UnityDB.FindAsset<ApparelTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentLegwear = Instantiate(template.Instance, _legwear);
             _currentLegwear.GetComponent<ParentClothing>().SetParent(_parentClothing);
@@ -175,7 +178,7 @@ public class PlayerBuildController : MonoBehaviour
             return;
 
         EyesAsset eyes = UnityDB.FindAsset<EyesAsset>(e.New.Eyes.Id);
-        if (eyes)
+        if (eyes && eyes.Texture)
         {
             _head.materials[2].SetTexture("_Base_Map", eyes.Texture);
         }
@@ -184,6 +187,9 @@ public class PlayerBuildController : MonoBehaviour
         if (color)
         {
             _head.materials[2].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            _head.materials[2].SetFloat("_Smoothness", color.Settings_ColorPreset.Smoothness.AsFloat * 0.15f);
+            _head.materials[2].SetFloat("_Metallic", color.Settings_ColorPreset.Metallic.AsFloat);
+            _head.materials[2].SetFloat("_Fresnel_Strength", color.Settings_ColorPreset.FresnelStrength.AsFloat * 0.2f);
         }
     }
 
@@ -196,7 +202,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentHair);
 
         HairAsset template = UnityDB.FindAsset<HairAsset>(e.New.Hair.Id);
-        if (template)
+        if (template && template.Hair)
         {
             _currentHair = Instantiate(template.Hair, _hair);
         }
@@ -204,7 +210,12 @@ public class PlayerBuildController : MonoBehaviour
         ColorPresetAsset color = UnityDB.FindAsset<ColorPresetAsset>(e.New.Color.Id);
         if (color)
         {
-            _currentHair.GetComponentInChildren<MeshRenderer>().materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            MeshRenderer meshRenderer = _currentHair.GetComponentInChildren<MeshRenderer>();
+
+            meshRenderer.materials[0].SetColor("_Base_Color", color.Settings_ColorPreset.Color.ToColor());
+            meshRenderer.materials[0].SetFloat("_Smoothness", color.Settings_ColorPreset.Smoothness.AsFloat * 0.15f);
+            meshRenderer.materials[0].SetFloat("_Metallic", color.Settings_ColorPreset.Metallic.AsFloat);
+            meshRenderer.materials[0].SetFloat("_Fresnel_Strength", color.Settings_ColorPreset.FresnelStrength.AsFloat * 0.2f);
         }
     }
 
@@ -224,7 +235,7 @@ public class PlayerBuildController : MonoBehaviour
             Destroy(_currentSubWeapon);
 
         SubTemplateAsset template = UnityDB.FindAsset<SubTemplateAsset>(e.New.Template.Id);
-        if (template)
+        if (template && template.Instance)
         {
             _currentSubWeapon = Instantiate(template.Instance, _subWeapon);
         }
