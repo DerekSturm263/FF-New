@@ -1,6 +1,5 @@
 ﻿using Photon.Deterministic;
 using Quantum.Types;
-using System.Diagnostics;
 
 namespace Quantum
 {

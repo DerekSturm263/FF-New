@@ -27,7 +27,7 @@ namespace Quantum
             new() { Destination = States.Default }
         ];
 
-        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => 10;
+        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => settings.InteractTime;
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {

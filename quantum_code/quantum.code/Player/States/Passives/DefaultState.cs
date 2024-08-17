@@ -12,15 +12,15 @@ namespace Quantum
         public override TransitionInfo[] GetTransitions() =>
         [
             new() { Destination = States.Burst },
-            new(false, (f, filter, input, settings) => !filter.CharacterController->GetNearbyCollider(Colliders.Ground)) { Destination = States.Dodge },
-            new() { Destination = States.Emote },
+            new() { Destination = States.Sub },
             new() { Destination = States.Interact },
-            new() { Destination = States.Jump },
+            new() { Destination = States.Emote },
+            new() { Destination = States.Ultimate },
             new() { Destination = States.Primary },
             new() { Destination = States.Secondary },
-            new() { Destination = States.Sub },
-            new() { Destination = States.Ultimate },
+            new(false, (f, filter, input, settings) => !filter.CharacterController->GetNearbyCollider(Colliders.Ground)) { Destination = States.Dodge },
             new() { Destination = States.Block },
+            new() { Destination = States.Jump },
             new(false, (f, filter, input, settings) => FPMath.Abs(input.Movement.X) < settings.DeadStickZone) { Destination = States.Crouch },
             new(false, (f, filter, input, settings) => FPMath.Abs(input.Movement.X) < settings.DeadStickZone) { Destination = States.LookUp },
         ];

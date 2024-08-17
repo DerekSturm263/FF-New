@@ -9,10 +9,12 @@
 
         public override TransitionInfo[] GetTransitions() =>
         [
-            new() { Destination = States.Burst },
             new(true) { Destination = States.Dodge },
             new(true) { Destination = States.Sub },
-            new(false, (f, filter, input, settings) => input.Movement.Magnitude < settings.DeadStickZone) { Destination = States.Default }
+            new() { Destination = States.Burst },
+            new() { Destination = States.Crouch },
+            new() { Destination = States.LookUp },
+            new() { Destination = States.Default }
         ];
 
         public override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)

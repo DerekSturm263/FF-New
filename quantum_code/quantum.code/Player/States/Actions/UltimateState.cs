@@ -29,7 +29,7 @@
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.Id);
 
-                if (animEvent.AnimID != 0)
+                if (animEvent is not null && animEvent.AnimID != 0)
                     return CustomAnimator.GetStateLength(f, filter.CustomAnimator, animEvent.AnimID);
             }
 
@@ -51,20 +51,13 @@
             if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Ultimate.Id, out Ultimate ultimate))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(ultimate.Move.Id);
-                CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
+                if (animEvent is not null)
+                    CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
 
                 ultimate.OnBegin(f, filter.Entity);
+                
                 filter.CharacterController->UltimateTime = ultimate.Length;
-
-                filter.CharacterController->PossibleStates = 0;
             }
-        }
-
-        public override void Exit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
-        {
-            filter.CharacterController->PossibleStates = (StatesFlag)511;
-
-            base.Exit(f, ref filter, input, settings);
         }
     }
 }

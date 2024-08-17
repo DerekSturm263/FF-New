@@ -177,7 +177,7 @@ namespace GameResources.Camera
         {
             Vector3 targetPosition = default;
             
-            if (_targets.Count > 0)
+            if (_targets.Count > 0 && _targets.Sum(item => item.Item1) > 0)
             {
                 float targetCountWeight = 0;
                 for (int i = 0; i < _targets.Count; ++i)
@@ -292,6 +292,17 @@ namespace GameResources.Camera
             for (int i = 0; i < _instance._targets.Count; ++i)
             {
                 _instance._targets[i] = new(1, _instance._targets[i].Item2);
+            }
+        }
+
+        public void ClearAllWeights()
+        {
+            if (!_instance)
+                return;
+
+            for (int i = 0; i < _instance._targets.Count; ++i)
+            {
+                _instance._targets[i] = new(0, _instance._targets[i].Item2);
             }
         }
 

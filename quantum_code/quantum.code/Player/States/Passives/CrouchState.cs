@@ -17,7 +17,7 @@
             new() { Destination = States.Secondary },
             new(true) { Destination = States.Sub },
             new() { Destination = States.LookUp },
-            new(false, (f, filter, input, settings) => input.Movement.Magnitude < settings.DeadStickZone) { Destination = States.Default }
+            new() { Destination = States.Default }
         ];
 
         public override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
