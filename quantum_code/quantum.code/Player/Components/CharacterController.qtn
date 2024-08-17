@@ -1,17 +1,18 @@
 enum States
 {
-    IsCrouching,
-    IsJumping,
-    IsFastFalling,
-    IsBursting,
-    IsDodging,
-    IsBlocking,
-    IsEmoting,
-    IsUsingSubWeapon,
-    IsUsingUltimate,
-    IsInteracting,
-    IsUsingMainWeapon,
-    IsUsingAltWeapon,
+    Default,
+    Jump,
+    Crouch,
+    LookUp,
+    Dodge,
+    Block,
+    Burst,
+    Emote,
+    Sub,
+    Ultimate,
+    Interact,
+    Primary,
+    Secondary
 }
 
 [System.Flags]
@@ -19,13 +20,14 @@ enum StatesFlag
 {
     Move = 1,
     Crouch = 2,
-    Jump = 4,
-    FastFall = 8,
-    Burst = 16,
-    Dodge = 32,
-    Block = 64,
-    Emote = 128,
-    Interact = 1024,
+    LookUp = 4,
+    Jump = 8,
+    FastFall = 16,
+    Burst = 32,
+    Dodge = 64,
+    Block = 128,
+    Emote = 256,
+    Interact = 512,
 }
 
 [System.Flags]
@@ -39,13 +41,22 @@ enum Colliders
 
 component CharacterController
 {
-    bool CanInput;
+    // General
 	asset_ref<MovementSettings> Settings;
-    bitset[12] States;
-    bitset[12] Holding;
-    int StateTime;
-
+    bool CanInput;
     Colliders NearbyColliders;
+
+    // State Handling
+    Direction DirectionEnum;
+    FPVector2 DirectionValue;
+    States CurrentState;
+    States NextState;
+    StatesFlag PossibleStates;
+    int StateTime;
+    int NextStateTime;
+    Input LastFrame;
+
+    // Knockback
     FP KnockbackVelocityX;
     FP KnockbackVelocityTime;
 
@@ -58,19 +69,14 @@ component CharacterController
     bool GroundedJump;
     short JumpCount;
     short JumpSettingsIndex;
-    int JumpTime;
     
     // Dodge
     bool GroundedDodge;
-    FPVector2 DodgeDirection;
     short DodgeCount;
     short DodgeSettingsIndex;
-    int DodgeTime;
 
     // Attacking/Emoting
-    Direction Direction;
     int MovementDirection;
-    StatesFlag PossibleStates;
     bool IsCommitted;
     
     // Holding Animations

@@ -94,7 +94,7 @@ public class HUDPlayerLink : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
-        Texture2D portraitTexture = player.GetComponentInChildren<Camera>().RenderToTexture2D(FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index], TextureFormat.RGBA32, true);
+        Texture2D portraitTexture = player.GetComponentInChildren<Camera>().RenderToTexture2D(FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index], TextureFormat.RGBA32, true, player.transform.localScale.x == -1);
         Sprite portrait = Sprite.Create(portraitTexture, new(0, 0, portraitTexture.width, portraitTexture.height), Vector2.one);
         
         _portrait.sprite = portrait;

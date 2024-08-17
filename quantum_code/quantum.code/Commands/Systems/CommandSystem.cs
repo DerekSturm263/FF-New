@@ -70,6 +70,8 @@
                     commandSetEmoteLeftMessage.Execute(f);
                 else if (command is CommandSetEmoteRightMessage commandSetEmoteRightMessage)
                     commandSetEmoteRightMessage.Execute(f);
+                else if (command is CommandSpawnItem commandSpawnItem)
+                    commandSpawnItem.Execute(f);
                 else if (command is CommandPause commandPause)
                     commandPause.Execute(f);
                 else if (command is CommandPlay commandPlay)

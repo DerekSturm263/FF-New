@@ -5,281 +5,14 @@ namespace Quantum.Types
 {
     public static class ArrayHelper
     {
-        public static Team Get(ArrayTeams array, int index)
-        {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                _ => default
-            };
-        }
-
-        public static void Set(ref ArrayTeams array, int index, Team value)
-        {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
-
-                case 1:
-                    array.Item2 = value;
-                    break;
-
-                case 2:
-                    array.Item3 = value;
-                    break;
-
-                case 3:
-                    array.Item4 = value;
-                    break;
-            }
-        }
-
-        public static unsafe Team* GetPointer(ArrayTeams array, int index)
-        {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                _ => default
-            };
-        }
-
-        public static IEnumerator<Team> Iterator(ArrayTeams array)
-        {
-            for (int i = 0; i < 4; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    _ => default
-                };
-            }
-        }
-
-        public static Team[] All(ArrayTeams array)
-        {
-            return [array.Item1, array.Item2, array.Item3, array.Item4];
-        }
-
-        public static FPVector2 Get(ArrayPlayerSpawnPoints array, int index)
-        {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                _ => default
-            };
-        }
-
-        public static void Set(ref ArrayPlayerSpawnPoints array, int index, FPVector2 value)
-        {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
-
-                case 1:
-                    array.Item2 = value;
-                    break;
-
-                case 2:
-                    array.Item3 = value;
-                    break;
-
-                case 3:
-                    array.Item4 = value;
-                    break;
-            }
-        }
-
-        public static unsafe FPVector2* GetPointer(ArrayPlayerSpawnPoints array, int index)
-        {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                _ => default
-            };
-        }
-
-        public static IEnumerator<FPVector2> Iterator(ArrayPlayerSpawnPoints array)
-        {
-            for (int i = 0; i < 4; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    _ => default
-                };
-            }
-        }
-
         public static FPVector2[] All(ArrayPlayerSpawnPoints array)
         {
             return [array.Item1, array.Item2, array.Item3, array.Item4];
         }
 
-        public static FPVector2 Get(ArrayItemSpawnPoints array, int index)
+        public static unsafe FPVector2*[] AllPtr(ArrayPlayerSpawnPoints array)
         {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                4 => array.Item5,
-                5 => array.Item6,
-                6 => array.Item7,
-                7 => array.Item8,
-                8 => array.Item9,
-                9 => array.Item10,
-                10 => array.Item11,
-                11 => array.Item12,
-                12 => array.Item13,
-                13 => array.Item14,
-                14 => array.Item15,
-                15 => array.Item16,
-                _ => default
-            };
-        }
-
-        public static void Set(ref ArrayItemSpawnPoints array, int index, FPVector2 value)
-        {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
-
-                case 1:
-                    array.Item2 = value;
-                    break;
-
-                case 2:
-                    array.Item3 = value;
-                    break;
-
-                case 3:
-                    array.Item4 = value;
-                    break;
-
-                case 4:
-                    array.Item5 = value;
-                    break;
-
-                case 5:
-                    array.Item6 = value;
-                    break;
-
-                case 6:
-                    array.Item7 = value;
-                    break;
-
-                case 7:
-                    array.Item8 = value;
-                    break;
-
-                case 8:
-                    array.Item9 = value;
-                    break;
-
-                case 9:
-                    array.Item10 = value;
-                    break;
-
-                case 10:
-                    array.Item11 = value;
-                    break;
-
-                case 11:
-                    array.Item12 = value;
-                    break;
-
-                case 12:
-                    array.Item13 = value;
-                    break;
-
-                case 13:
-                    array.Item14 = value;
-                    break;
-
-                case 14:
-                    array.Item15 = value;
-                    break;
-
-                case 15:
-                    array.Item16 = value;
-                    break;
-            }
-        }
-
-        public static unsafe FPVector2* GetPointer(ArrayItemSpawnPoints array, int index)
-        {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                4 => &array.Item5,
-                5 => &array.Item6,
-                6 => &array.Item7,
-                7 => &array.Item8,
-                8 => &array.Item9,
-                9 => &array.Item10,
-                10 => &array.Item11,
-                11 => &array.Item12,
-                12 => &array.Item13,
-                13 => &array.Item14,
-                14 => &array.Item15,
-                15 => &array.Item16,
-                _ => default
-            };
-        }
-
-        public static IEnumerator<FPVector2> Iterator(ArrayItemSpawnPoints array)
-        {
-            for (int i = 0; i < 16; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    4 => array.Item5,
-                    5 => array.Item6,
-                    6 => array.Item7,
-                    7 => array.Item8,
-                    8 => array.Item9,
-                    9 => array.Item10,
-                    10 => array.Item11,
-                    11 => array.Item12,
-                    12 => array.Item13,
-                    13 => array.Item14,
-                    14 => array.Item15,
-                    15 => array.Item16,
-                    _ => default
-                };
-            }
+            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4];
         }
 
         public static FPVector2[] All(ArrayItemSpawnPoints array)
@@ -287,365 +20,359 @@ namespace Quantum.Types
             return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
         }
 
-        public static AssetRefItem Get(ArrayItems array, int index)
+        public static unsafe FPVector2*[] AllPtr(ArrayItemSpawnPoints array)
         {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                4 => array.Item5,
-                5 => array.Item6,
-                6 => array.Item7,
-                7 => array.Item8,
-                8 => array.Item9,
-                9 => array.Item10,
-                10 => array.Item11,
-                11 => array.Item12,
-                12 => array.Item13,
-                13 => array.Item14,
-                14 => array.Item15,
-                15 => array.Item16,
-                _ => default
-            };
+            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4, &array.Item5, &array.Item6, &array.Item7, &array.Item8, &array.Item9, &array.Item10, &array.Item11, &array.Item12, &array.Item13, &array.Item14, &array.Item15, &array.Item16];
         }
 
-        public static void Set(ref ArrayItems array, int index, AssetRefItem value)
+        public static List<AssetRefItem> All(ArrayItems array)
         {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
+            List<AssetRefItem> items = [];
 
-                case 1:
-                    array.Item2 = value;
-                    break;
+            if (array.Item1.Id.IsValid)
+                items.Add(array.Item1);
 
-                case 2:
-                    array.Item3 = value;
-                    break;
+            if (array.Item2.Id.IsValid)
+                items.Add(array.Item2);
 
-                case 3:
-                    array.Item4 = value;
-                    break;
+            if (array.Item3.Id.IsValid)
+                items.Add(array.Item3);
 
-                case 4:
-                    array.Item5 = value;
-                    break;
+            if (array.Item4.Id.IsValid)
+                items.Add(array.Item4);
 
-                case 5:
-                    array.Item6 = value;
-                    break;
+            if (array.Item5.Id.IsValid)
+                items.Add(array.Item5);
 
-                case 6:
-                    array.Item7 = value;
-                    break;
+            if (array.Item6.Id.IsValid)
+                items.Add(array.Item6);
 
-                case 7:
-                    array.Item8 = value;
-                    break;
+            if (array.Item7.Id.IsValid)
+                items.Add(array.Item7);
 
-                case 8:
-                    array.Item9 = value;
-                    break;
+            if (array.Item8.Id.IsValid)
+                items.Add(array.Item8);
 
-                case 9:
-                    array.Item10 = value;
-                    break;
+            if (array.Item9.Id.IsValid)
+                items.Add(array.Item9);
 
-                case 10:
-                    array.Item11 = value;
-                    break;
+            if (array.Item10.Id.IsValid)
+                items.Add(array.Item10);
 
-                case 11:
-                    array.Item12 = value;
-                    break;
+            if (array.Item11.Id.IsValid)
+                items.Add(array.Item11);
 
-                case 12:
-                    array.Item13 = value;
-                    break;
+            if (array.Item12.Id.IsValid)
+                items.Add(array.Item12);
 
-                case 13:
-                    array.Item14 = value;
-                    break;
+            if (array.Item13.Id.IsValid)
+                items.Add(array.Item13);
 
-                case 14:
-                    array.Item15 = value;
-                    break;
+            if (array.Item14.Id.IsValid)
+                items.Add(array.Item14);
 
-                case 15:
-                    array.Item16 = value;
-                    break;
-            }
+            if (array.Item15.Id.IsValid)
+                items.Add(array.Item15);
+
+            if (array.Item16.Id.IsValid)
+                items.Add(array.Item16);
+
+            return items;
         }
 
-        public static unsafe AssetRefItem* GetPointer(ArrayItems array, int index)
+        public static unsafe AssetRefItem*[] AllPtr(ArrayItems array)
         {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                4 => &array.Item5,
-                5 => &array.Item6,
-                6 => &array.Item7,
-                7 => &array.Item8,
-                8 => &array.Item9,
-                9 => &array.Item10,
-                10 => &array.Item11,
-                11 => &array.Item12,
-                12 => &array.Item13,
-                13 => &array.Item14,
-                14 => &array.Item15,
-                15 => &array.Item16,
-                _ => default
-            };
+            AssetRefItem*[] items = new AssetRefItem*[16];
+
+            if (array.Item1.Id.IsValid)
+                items[0] = &array.Item1;
+
+            if (array.Item2.Id.IsValid)
+                items[1] = &array.Item2;
+
+            if (array.Item3.Id.IsValid)
+                items[2] = &array.Item3;
+
+            if (array.Item4.Id.IsValid)
+                items[3] = &array.Item4;
+
+            if (array.Item5.Id.IsValid)
+                items[4] = &array.Item5;
+
+            if (array.Item6.Id.IsValid)
+                items[5] = &array.Item6;
+
+            if (array.Item7.Id.IsValid)
+                items[6] = &array.Item7;
+
+            if (array.Item8.Id.IsValid)
+                items[7] = &array.Item8;
+
+            if (array.Item9.Id.IsValid)
+                items[8] = &array.Item9;
+
+            if (array.Item10.Id.IsValid)
+                items[9] = &array.Item10;
+
+            if (array.Item11.Id.IsValid)
+                items[10] = &array.Item11;
+
+            if (array.Item12.Id.IsValid)
+                items[11] = &array.Item12;
+
+            if (array.Item13.Id.IsValid)
+                items[12] = &array.Item13;
+
+            if (array.Item14.Id.IsValid)
+                items[13] = &array.Item14;
+
+            if (array.Item15.Id.IsValid)
+                items[14] = &array.Item15;
+
+            if (array.Item16.Id.IsValid)
+                items[15] = &array.Item16;
+
+            return items;
         }
 
-        public static IEnumerator<AssetRefItem> Iterator(ArrayItems array)
+        public static void Set(ref ArrayItems destination, AssetRefItem[] source)
         {
-            for (int i = 0; i < 16; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    4 => array.Item5,
-                    5 => array.Item6,
-                    6 => array.Item7,
-                    7 => array.Item8,
-                    8 => array.Item9,
-                    9 => array.Item10,
-                    10 => array.Item11,
-                    11 => array.Item12,
-                    12 => array.Item13,
-                    13 => array.Item14,
-                    14 => array.Item15,
-                    15 => array.Item16,
-                    _ => default
-                };
-            }
+            destination = default;
+
+            if (source.Length == 0)
+                return;
+            destination.Item1 = source[0];
+
+            if (source.Length == 1)
+                return;
+            destination.Item2 = source[1];
+
+            if (source.Length == 2)
+                return;
+            destination.Item3 = source[2];
+
+            if (source.Length == 3)
+                return;
+            destination.Item4 = source[3];
+
+            if (source.Length == 4)
+                return;
+            destination.Item5 = source[4];
+
+            if (source.Length == 5)
+                return;
+            destination.Item6 = source[5];
+
+            if (source.Length == 6)
+                return;
+            destination.Item7 = source[6];
+
+            if (source.Length == 7)
+                return;
+            destination.Item8 = source[7];
+
+            if (source.Length == 8)
+                return;
+            destination.Item9 = source[8];
+
+            if (source.Length == 9)
+                return;
+            destination.Item10 = source[9];
+
+            if (source.Length == 10)
+                return;
+            destination.Item11 = source[10];
+
+            if (source.Length == 11)
+                return;
+            destination.Item12 = source[11];
+
+            if (source.Length == 12)
+                return;
+            destination.Item13 = source[12];
+
+            if (source.Length == 13)
+                return;
+            destination.Item14 = source[13];
+
+            if (source.Length == 14)
+                return;
+            destination.Item15 = source[14];
+
+            if (source.Length == 15)
+                return;
+            destination.Item16 = source[15];
         }
 
-        public static AssetRefItem[] All(ArrayItems array)
+        public static void Add(ref ArrayItems array, AssetRefItem item)
         {
-            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
+            List<AssetRefItem> items = All(array);
+            items.Add(item);
+
+            Set(ref array, [.. items]);
         }
 
-        public static AssetRefStageAsset Get(ArrayStages array, int index)
+        public static void Remove(ref ArrayItems array, AssetRefItem item)
         {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                4 => array.Item5,
-                5 => array.Item6,
-                6 => array.Item7,
-                7 => array.Item8,
-                8 => array.Item9,
-                9 => array.Item10,
-                10 => array.Item11,
-                11 => array.Item12,
-                _ => default
-            };
+            List<AssetRefItem> items = All(array);
+            items.Remove(item);
+
+            Set(ref array, [.. items]);
         }
 
-        public static void Set(ref ArrayStages array, int index, AssetRefStageAsset value)
+        public static List<AssetRefStageAsset> All(ArrayStages array)
         {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
+            List<AssetRefStageAsset> stages = [];
 
-                case 1:
-                    array.Item2 = value;
-                    break;
+            if (array.Item1.Id.IsValid)
+                stages.Add(array.Item1);
 
-                case 2:
-                    array.Item3 = value;
-                    break;
+            if (array.Item2.Id.IsValid)
+                stages.Add(array.Item2);
 
-                case 3:
-                    array.Item4 = value;
-                    break;
+            if (array.Item3.Id.IsValid)
+                stages.Add(array.Item3);
 
-                case 4:
-                    array.Item5 = value;
-                    break;
+            if (array.Item4.Id.IsValid)
+                stages.Add(array.Item4);
 
-                case 5:
-                    array.Item6 = value;
-                    break;
+            if (array.Item5.Id.IsValid)
+                stages.Add(array.Item5);
 
-                case 6:
-                    array.Item7 = value;
-                    break;
+            if (array.Item6.Id.IsValid)
+                stages.Add(array.Item6);
 
-                case 7:
-                    array.Item8 = value;
-                    break;
+            if (array.Item7.Id.IsValid)
+                stages.Add(array.Item7);
 
-                case 8:
-                    array.Item9 = value;
-                    break;
+            if (array.Item8.Id.IsValid)
+                stages.Add(array.Item8);
 
-                case 9:
-                    array.Item10 = value;
-                    break;
+            if (array.Item9.Id.IsValid)
+                stages.Add(array.Item9);
 
-                case 10:
-                    array.Item11 = value;
-                    break;
+            if (array.Item10.Id.IsValid)
+                stages.Add(array.Item10);
 
-                case 11:
-                    array.Item12 = value;
-                    break;
-            }
+            if (array.Item11.Id.IsValid)
+                stages.Add(array.Item11);
+
+            if (array.Item12.Id.IsValid)
+                stages.Add(array.Item12);
+
+            return stages;
         }
 
-        public static unsafe AssetRefStageAsset* GetPointer(ArrayStages array, int index)
+        public static unsafe AssetRefStageAsset*[] AllPtr(ArrayStages array)
         {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                4 => &array.Item5,
-                5 => &array.Item6,
-                6 => &array.Item7,
-                7 => &array.Item8,
-                8 => &array.Item9,
-                9 => &array.Item10,
-                10 => &array.Item11,
-                11 => &array.Item12,
-                _ => default
-            };
+            AssetRefStageAsset*[] stages = new AssetRefStageAsset*[12];
+
+            if (array.Item1.Id.IsValid)
+                stages[0] = &array.Item1;
+
+            if (array.Item2.Id.IsValid)
+                stages[1] = &array.Item2;
+
+            if (array.Item3.Id.IsValid)
+                stages[2] = &array.Item3;
+
+            if (array.Item4.Id.IsValid)
+                stages[3] = &array.Item4;
+
+            if (array.Item5.Id.IsValid)
+                stages[4] = &array.Item5;
+
+            if (array.Item6.Id.IsValid)
+                stages[5] = &array.Item6;
+
+            if (array.Item7.Id.IsValid)
+                stages[6] = &array.Item7;
+
+            if (array.Item8.Id.IsValid)
+                stages[7] = &array.Item8;
+
+            if (array.Item9.Id.IsValid)
+                stages[8] = &array.Item9;
+
+            if (array.Item10.Id.IsValid)
+                stages[9] = &array.Item10;
+
+            if (array.Item11.Id.IsValid)
+                stages[10] = &array.Item11;
+
+            if (array.Item12.Id.IsValid)
+                stages[11] = &array.Item12;
+
+            return stages;
         }
 
-        public static IEnumerator<AssetRefStageAsset> Iterator(ArrayStages array)
+        public static void Set(ref ArrayStages destination, AssetRefStageAsset[] source)
         {
-            for (int i = 0; i < 12; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    4 => array.Item5,
-                    5 => array.Item6,
-                    6 => array.Item7,
-                    7 => array.Item8,
-                    8 => array.Item9,
-                    9 => array.Item10,
-                    10 => array.Item11,
-                    11 => array.Item12,
-                    _ => default
-                };
-            }
+            destination = default;
+
+            if (source.Length == 0)
+                return;
+            destination.Item1 = source[0];
+
+            if (source.Length == 1)
+                return;
+            destination.Item2 = source[1];
+
+            if (source.Length == 2)
+                return;
+            destination.Item3 = source[2];
+
+            if (source.Length == 3)
+                return;
+            destination.Item4 = source[3];
+
+            if (source.Length == 4)
+                return;
+            destination.Item5 = source[4];
+
+            if (source.Length == 5)
+                return;
+            destination.Item6 = source[5];
+
+            if (source.Length == 6)
+                return;
+            destination.Item7 = source[6];
+
+            if (source.Length == 7)
+                return;
+            destination.Item8 = source[7];
+
+            if (source.Length == 8)
+                return;
+            destination.Item9 = source[8];
+
+            if (source.Length == 9)
+                return;
+            destination.Item10 = source[9];
+
+            if (source.Length == 10)
+                return;
+            destination.Item11 = source[10];
+
+            if (source.Length == 11)
+                return;
+            destination.Item12 = source[11];
         }
 
-        public static AssetRefStageAsset[] All(ArrayStages array)
+        public static void Add(ref ArrayStages array, AssetRefStageAsset item)
         {
-            return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12];
+            List<AssetRefStageAsset> items = All(array);
+            items.Add(item);
+
+            Set(ref array, [.. items]);
         }
 
-        public static StaticColliderInfo Get(ArrayStaticColliderInfo array, int index)
+        public static void Remove(ref ArrayStages array, AssetRefStageAsset item)
         {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                4 => array.Item5,
-                5 => array.Item6,
-                6 => array.Item7,
-                7 => array.Item8,
-                _ => default
-            };
-        }
+            List<AssetRefStageAsset> items = All(array);
+            items.Remove(item);
 
-        public static void Set(ref ArrayStaticColliderInfo array, int index, StaticColliderInfo value)
-        {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
-
-                case 1:
-                    array.Item2 = value;
-                    break;
-
-                case 2:
-                    array.Item3 = value;
-                    break;
-
-                case 3:
-                    array.Item4 = value;
-                    break;
-
-                case 4:
-                    array.Item5 = value;
-                    break;
-
-                case 5:
-                    array.Item6 = value;
-                    break;
-
-                case 6:
-                    array.Item7 = value;
-                    break;
-
-                case 7:
-                    array.Item8 = value;
-                    break;
-            }
-        }
-
-        public static unsafe StaticColliderInfo* GetPointer(ArrayStaticColliderInfo array, int index)
-        {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                4 => &array.Item5,
-                5 => &array.Item6,
-                6 => &array.Item7,
-                7 => &array.Item8,
-                _ => default
-            };
-        }
-
-        public static IEnumerator<StaticColliderInfo> Iterator(ArrayStaticColliderInfo array)
-        {
-            for (int i = 0; i < 4; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    4 => array.Item5,
-                    5 => array.Item6,
-                    6 => array.Item7,
-                    7 => array.Item8,
-                    _ => default
-                };
-            }
+            Set(ref array, [.. items]);
         }
 
         public static StaticColliderInfo[] All(ArrayStaticColliderInfo array)
@@ -653,154 +380,19 @@ namespace Quantum.Types
             return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8];
         }
 
-        public static PositionalGizmo Get(ArrayPositionalGizmoInfo array, int index)
+        public static unsafe StaticColliderInfo*[] AllPtr(ArrayStaticColliderInfo array)
         {
-            return index switch
-            {
-                0 => array.Item1,
-                1 => array.Item2,
-                2 => array.Item3,
-                3 => array.Item4,
-                4 => array.Item5,
-                5 => array.Item6,
-                6 => array.Item7,
-                7 => array.Item8,
-                8 => array.Item9,
-                9 => array.Item10,
-                10 => array.Item11,
-                11 => array.Item12,
-                12 => array.Item13,
-                13 => array.Item14,
-                14 => array.Item15,
-                15 => array.Item16,
-                _ => default
-            };
-        }
-
-        public static void Set(ref ArrayPositionalGizmoInfo array, int index, PositionalGizmo value)
-        {
-            switch (index)
-            {
-                case 0:
-                    array.Item1 = value;
-                    break;
-
-                case 1:
-                    array.Item2 = value;
-                    break;
-
-                case 2:
-                    array.Item3 = value;
-                    break;
-
-                case 3:
-                    array.Item4 = value;
-                    break;
-
-                case 4:
-                    array.Item5 = value;
-                    break;
-
-                case 5:
-                    array.Item6 = value;
-                    break;
-
-                case 6:
-                    array.Item7 = value;
-                    break;
-
-                case 7:
-                    array.Item8 = value;
-                    break;
-
-                case 8:
-                    array.Item9 = value;
-                    break;
-
-                case 9:
-                    array.Item10 = value;
-                    break;
-
-                case 10:
-                    array.Item11 = value;
-                    break;
-
-                case 11:
-                    array.Item12 = value;
-                    break;
-
-                case 12:
-                    array.Item13 = value;
-                    break;
-
-                case 13:
-                    array.Item14 = value;
-                    break;
-
-                case 14:
-                    array.Item15 = value;
-                    break;
-
-                case 15:
-                    array.Item16 = value;
-                    break;
-            }
-        }
-
-        public static unsafe PositionalGizmo* GetPointer(ArrayPositionalGizmoInfo array, int index)
-        {
-            return index switch
-            {
-                0 => &array.Item1,
-                1 => &array.Item2,
-                2 => &array.Item3,
-                3 => &array.Item4,
-                4 => &array.Item5,
-                5 => &array.Item6,
-                6 => &array.Item7,
-                7 => &array.Item8,
-                8 => &array.Item9,
-                9 => &array.Item10,
-                10 => &array.Item11,
-                11 => &array.Item12,
-                12 => &array.Item13,
-                13 => &array.Item14,
-                14 => &array.Item15,
-                15 => &array.Item16,
-                _ => default
-            };
-        }
-
-        public static IEnumerator<PositionalGizmo> Iterator(ArrayPositionalGizmoInfo array)
-        {
-            for (int i = 0; i < 16; ++i)
-            {
-                yield return i switch
-                {
-                    0 => array.Item1,
-                    1 => array.Item2,
-                    2 => array.Item3,
-                    3 => array.Item4,
-                    4 => array.Item5,
-                    5 => array.Item6,
-                    6 => array.Item7,
-                    7 => array.Item8,
-                    8 => array.Item9,
-                    9 => array.Item10,
-                    10 => array.Item11,
-                    11 => array.Item12,
-                    12 => array.Item13,
-                    13 => array.Item14,
-                    14 => array.Item15,
-                    15 => array.Item16,
-                    _ => default
-                };
-            }
+            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4, &array.Item5, &array.Item6, &array.Item7, &array.Item8];
         }
 
         public static PositionalGizmo[] All(ArrayPositionalGizmoInfo array)
         {
             return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
+        }
+
+        public static unsafe PositionalGizmo*[] AllPtr(ArrayPositionalGizmoInfo array)
+        {
+            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4, &array.Item5, &array.Item6, &array.Item7, &array.Item8, &array.Item9, &array.Item10, &array.Item11, &array.Item12, &array.Item13, &array.Item14, &array.Item15, &array.Item16];
         }
     }
 }

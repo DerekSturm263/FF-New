@@ -4,41 +4,8 @@ namespace Quantum
 {
     public unsafe partial struct CharacterController
     {
-        public void SetState(States state, bool isSet)
-        {
-            if (isSet)
-                States.Set((int)state);
-            else
-                States.Clear((int)state);
-        }
-
-        public readonly bool IsInState(States state) => States.IsSet((int)state);
-        public readonly bool IsInState(params States[] states)
-        {
-            for (int i = 0; i < states.Length; ++i)
-                if (States.IsSet((int)states[i]))
-                    return true;
-
-            return false;
-        }
-
-        public void SetIsHolding(States state, bool isHolding)
-        {
-            if (isHolding)
-                Holding.Set((int)state);
-            else
-                Holding.Clear((int)state);
-        }
-
-        public readonly bool IsHolding(States state) => Holding.IsSet((int)state);
-        public readonly bool IsHolding(params States[] states)
-        {
-            for (int i = 0; i < states.Length; ++i)
-                if (Holding.IsSet((int)states[i]))
-                    return true;
-
-            return false;
-        }
+        public readonly bool WasPressedThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button) && !LastFrame.InputButtons.HasFlag(button);
+        public readonly bool IsHeldThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button);
 
         public readonly Colliders GetNearbyColliders(Frame f, MovementSettings movementSettings, Transform2D* parent)
         {
@@ -90,6 +57,9 @@ namespace Quantum
 
         public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, ApparelStats stats)
         {
+            if (!CanInput)
+                return;
+
             MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
 
             //bool isTurning = false;
@@ -143,6 +113,8 @@ namespace Quantum
             }
 
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity / 10));
+
+            filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * filter.CharacterController->Influence * stats.Agility) + filter.CharacterController->KnockbackVelocityX;
         }
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);

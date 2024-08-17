@@ -1,7 +1,7 @@
 [Serializable]
 struct MatchResults
 {
-    ArrayTeams Teams;
+    array<Team>[4] Teams;
     int Count;
 
     bool WasForfeited;

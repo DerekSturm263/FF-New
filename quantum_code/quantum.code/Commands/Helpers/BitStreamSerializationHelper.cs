@@ -332,13 +332,6 @@ namespace Quantum
             stream.Serialize(ref value.Item16);
         }
 
-        public static void Serialize(this IBitStream stream, ref StagePickerType value)
-        {
-            int intValue = (int)value;
-            stream.Serialize(ref intValue);
-            value = (StagePickerType)intValue;
-        }
-
         #endregion
 
         #region Misc
@@ -392,6 +385,14 @@ namespace Quantum
             stream.Serialize(ref value.G);
             stream.Serialize(ref value.B);
             stream.Serialize(ref value.A);
+        }
+
+        public static void Serialize(this IBitStream stream, ref ItemSpawnSettings value)
+        {
+            stream.Serialize(ref value.Item);
+            stream.Serialize(ref value.Velocity);
+            stream.Serialize(ref value.Offset);
+            stream.Serialize(ref value.StartHolding);
         }
 
         #endregion

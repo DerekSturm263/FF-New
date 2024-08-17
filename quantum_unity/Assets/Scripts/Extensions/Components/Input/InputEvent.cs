@@ -2,7 +2,6 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace Extensions.Components.Input
 {
@@ -11,9 +10,6 @@ namespace Extensions.Components.Input
         [SerializeField] protected InputButton _button;
         public InputButton Button => _button;
         public void SetButton(InputButton button) => _button = button;
-
-        [SerializeField] protected InputButton _button2Optional;
-        public InputButton Button2Optional => _button2Optional;
 
         private InputAction _action;
 

@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class EnergyConversionBadge : Badge
@@ -9,7 +7,7 @@ namespace Quantum
         {
             if (                f.Unsafe.TryGetPointer(user, out CharacterController* characterController) &&
                 f.Unsafe.TryGetPointer(user, out Stats* stats) &&
-                characterController->IsInState(States.IsBlocking))
+                characterController->CurrentState == States.Block)
             {
                 if (stats->CurrentStats.Energy > 0 && stats->CurrentStats.Health < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 {

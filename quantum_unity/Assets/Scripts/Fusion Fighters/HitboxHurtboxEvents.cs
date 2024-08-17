@@ -24,6 +24,9 @@ public class HitboxHurtboxEvents : MonoBehaviour
 
     private void HandleHitboxSpawnDespawn(EventOnHitboxSpawnDespawn e)
     {
-        _viewUpdater.GetView(e.Owner).gameObject.GetComponentInChildren<TrailRenderer>().emitting = e.IsEnabled;
+        TrailRenderer trailRenderer = _viewUpdater.GetView(e.Owner).gameObject.GetComponentInChildren<TrailRenderer>();
+
+        if (trailRenderer)
+            trailRenderer.emitting = e.IsEnabled;
     }
 }

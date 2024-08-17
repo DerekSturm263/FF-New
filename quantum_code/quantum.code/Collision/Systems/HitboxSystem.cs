@@ -1,4 +1,5 @@
-﻿using Quantum.Collections;
+﻿using Photon.Deterministic;
+using Quantum.Collections;
 using System.Diagnostics;
 
 namespace Quantum
@@ -53,7 +54,7 @@ namespace Quantum
             }
         }
 
-        public static void SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user, EntityRef parent = default)
+        public static void SpawnHitbox(Frame f, HitboxSettings settings, Shape2DConfig shape, int lifetime, EntityRef user, EntityRef parent = default, FPVector2 position = default)
         {
             Log.Debug("Spawning hitbox!");
 
@@ -75,6 +76,9 @@ namespace Quantum
                 };
             }
 
+            if (!settings.Visual.OnlyShakeOnHit)
+                f.Events.OnCameraShake(settings.Visual.CameraShake, settings.Offensive.Knockback.Normalized, true);
+
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
                 for (int i = 0; i < shape3D.CompoundShapes.Length; ++i)
@@ -92,6 +96,11 @@ namespace Quantum
                         hitboxLists.Add(hitboxEntity);
 
                         f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, true);
+                    }
+
+                    if (position != default && f.Unsafe.TryGetPointer(hitboxEntity, out Transform3D* transform))
+                    {
+                        transform->Position = position.XYO;
                     }
                 }
             }

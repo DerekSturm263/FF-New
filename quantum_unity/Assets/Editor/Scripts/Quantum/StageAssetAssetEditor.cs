@@ -40,12 +40,12 @@ public class StageAssetAssetEditor : Editor
     {
         for (int i = 0; i < staticCollider2Ds.Length; ++i)
         {
-            ArrayHelper.Set(ref *colliders, i, BakeCollider(staticCollider2Ds[i]));
+            *ArrayHelper.AllPtr(*colliders)[i] = BakeCollider(staticCollider2Ds[i]);
         }
 
         for (int i = staticCollider2Ds.Length; i < 8; ++i)
         {
-            ArrayHelper.Set(ref *colliders, i, default);
+            *ArrayHelper.AllPtr(*colliders)[i] = default;
         }
     }
 

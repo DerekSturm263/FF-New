@@ -38,7 +38,8 @@ namespace Quantum
 
         [Header("Throw Settings")]
         public DirectionalFPVector2 ThrowOffset;
-        public DirectionalFPVector2 ThrowForce;
+        public FP ThrowForce;
+        public FPVector2 ThrowForceOffset;
 
         [Header("Knockback Settings")]
         public FP DirectionalInfluenceForce;

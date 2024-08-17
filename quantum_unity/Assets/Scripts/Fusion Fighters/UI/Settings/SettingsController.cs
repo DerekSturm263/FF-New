@@ -356,6 +356,24 @@ public class SettingsController : SpawnableController<Settings>
         QuantumRunner.Default?.Game.SendCommand(setTimeScale);
     }
 
+    public void SpawnItem(ItemAsset item)
+    {
+        CommandSpawnItem command = new()
+        {
+            settings = new()
+            {
+                Item = new AssetRefItem() { Id = item.AssetObject.Guid },
+                Offset = FPVector2.Zero,
+                StartHolding = false,
+                Velocity = FPVector2.Zero
+            },
+            // TODO: LET THIS WORK ONLINE
+            owner = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Human)
+        };
+
+        QuantumRunner.Default?.Game.SendCommand(command);
+    }
+
     public void EraseAllSaveData()
     {
         System.IO.Directory.Delete($"{Application.persistentDataPath}/SaveData", true);

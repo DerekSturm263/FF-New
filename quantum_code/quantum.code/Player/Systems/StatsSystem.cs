@@ -167,7 +167,7 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
         {
-            SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + amount * stats->StatsMultiplier.Energy * f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate);
+            SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + (amount * stats->StatsMultiplier.Energy * (amount > 0 ? f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate : f.Global->CurrentMatch.Ruleset.Players.EnergyConsumptionRate)));
         }
 
         public static void SetEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)

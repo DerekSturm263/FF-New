@@ -24,8 +24,6 @@ namespace Editor.Extensions.Components.Input
                 EditorGUI.BeginDisabledGroup(true);
             }
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_button2Optional"));
-
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_readContinuous"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_processWhenEmpty"));
 

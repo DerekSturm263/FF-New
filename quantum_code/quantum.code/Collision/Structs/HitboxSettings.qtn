@@ -24,6 +24,7 @@ struct DelaySettings
 [Serializable]
 struct VisualSettings
 {
+    [Tooltip("Whether or not the camera should only shake if the hit lands")] bool OnlyShakeOnHit;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> CameraShake;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> TargetShake;
 }

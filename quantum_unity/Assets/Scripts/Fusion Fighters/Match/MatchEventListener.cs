@@ -48,14 +48,14 @@ public class MatchEventListener : MonoBehaviour
         {
             List<Team> teams = new();
 
-            if (!e.Results.Teams.Item1.Equals(default(Team)))
-                teams.Add(e.Results.Teams.Item1);
-            if (!e.Results.Teams.Item2.Equals(default(Team)))
-                teams.Add(e.Results.Teams.Item2);
-            if (!e.Results.Teams.Item3.Equals(default(Team)))
-                teams.Add(e.Results.Teams.Item3);
-            if (!e.Results.Teams.Item4.Equals(default(Team)))
-                teams.Add(e.Results.Teams.Item4);
+            if (!e.Results.Teams[0].Equals(default(Team)))
+                teams.Add(e.Results.Teams[0]);
+            if (!e.Results.Teams[1].Equals(default(Team)))
+                teams.Add(e.Results.Teams[1]);
+            if (!e.Results.Teams[2].Equals(default(Team)))
+                teams.Add(e.Results.Teams[2]);
+            if (!e.Results.Teams[3].Equals(default(Team)))
+                teams.Add(e.Results.Teams[3]);
 
             _onMatchEnd.Invoke(e.Game, _entityView, teams, e.Results.WasForfeited);
         });

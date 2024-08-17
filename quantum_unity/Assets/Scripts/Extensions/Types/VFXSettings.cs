@@ -19,7 +19,7 @@ public struct VFXSettings
 
     public Vector3 Offset;
     public Vector3 Direction;
-    public Vector2 ScaleMultiplier;
+    public Vector3 ScaleMultiplier;
 
     public static VFXSettings Lerp(VFXSettings a, VFXSettings b, float t)
     {

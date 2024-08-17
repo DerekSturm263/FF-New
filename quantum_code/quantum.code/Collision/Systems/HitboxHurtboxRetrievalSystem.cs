@@ -40,7 +40,8 @@ namespace Quantum
             ResolveDamage(f, hitbox, hurtbox, attacker, defender);
             ResolveKnockback(f, hitbox, hurtbox, attacker, defender);
 
-            f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false);
+            if (hitbox.Visual.OnlyShakeOnHit)
+                f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false);
 
             if (f.TryGet(attacker, out PlayerStats attackerStats) && f.TryGet(defender, out PlayerStats defenderStats))
             {

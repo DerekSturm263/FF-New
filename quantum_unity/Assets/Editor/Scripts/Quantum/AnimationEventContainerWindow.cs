@@ -85,6 +85,11 @@ public class AnimationEventContainerWindow : EditorWindow
             startingFrame = hold.Settings.StartingFrame;
             endingFrame = hold.Settings.EndingFrame;
         }
+        else if (frameEvent is ContinueAnimationEventAsset continueAnim)
+        {
+            startingFrame = continueAnim.Settings.StartingFrame;
+            endingFrame = continueAnim.Settings.EndingFrame;
+        }
         else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
         {
             startingFrame = unityEvent.Settings.StartingFrame;
@@ -152,6 +157,11 @@ public class AnimationEventContainerWindow : EditorWindow
         {
             hold.Settings.StartingFrame = (int)startingFrame;
             hold.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is ContinueAnimationEventAsset continueAnim)
+        {
+            continueAnim.Settings.StartingFrame = (int)startingFrame;
+            continueAnim.Settings.EndingFrame = (int)endingFrame;
         }
         else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
         {
@@ -295,6 +305,9 @@ public class AnimationEventContainerWindow : EditorWindow
     {
         if (!_previewPlayer)
             _previewPlayer = GameObject.FindGameObjectWithTag("Player");
+
+        if (!_previewWeapon)
+            _previewWeapon = GameObject.Find("Main");
         
         _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
     }
@@ -347,6 +360,11 @@ public class AnimationEventContainerWindow : EditorWindow
             {
                 startingFrame = hold.Settings.StartingFrame;
                 endingFrame = hold.Settings.EndingFrame;
+            }
+            else if (frameEvent is ContinueAnimationEventAsset continueAnim)
+            {
+                startingFrame = continueAnim.Settings.StartingFrame;
+                endingFrame = continueAnim.Settings.EndingFrame;
             }
             else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
             {

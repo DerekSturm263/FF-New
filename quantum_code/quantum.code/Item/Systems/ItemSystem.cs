@@ -2,7 +2,7 @@
 
 namespace Quantum
 {
-    public unsafe class ItemSystem : SystemMainThreadFilter<ItemSystem.Filter>, ISignalOnCollisionEnter2D
+    public unsafe class ItemSystem : SystemMainThreadFilter<ItemSystem.Filter>, ISignalOnCollisionEnter2D, ISignalOnComponentRemoved<ItemInstance>
     {
         public struct Filter
         {
@@ -33,7 +33,18 @@ namespace Quantum
             if (f.TryFindAsset(filter.ItemInstance->Item.Id, out Item item))
             {
                 if (item is UpdateableItem updateableItem)
-                    updateableItem.OnUpdate(f, filter.ItemInstance->Owner, filter.ItemInstance->Target, filter.Entity, filter.ItemInstance);
+                    updateableItem.OnUpdate(f, filter.ItemInstance->Owner, filter.Entity, filter.ItemInstance);
+            }
+
+            filter.ItemInstance->ActiveTime += f.DeltaTime;
+        }
+
+        public void OnRemoved(Frame f, EntityRef entity, ItemInstance* component)
+        {
+            if (f.TryFindAsset(component->Item.Id, out Item item))
+            {
+                if (item is UpdateableItem updateableItem)
+                    updateableItem.OnExit(f, component->Owner, entity, component);
             }
         }
 
@@ -57,14 +68,14 @@ namespace Quantum
                 if (itemInstance->Holder.IsValid)
                     return;
 
-                if (info.Other == itemInstance->Owner)
-                    return;
-
                 if (f.TryFindAsset(itemInstance->Item.Id, out Item item))
                 {
-                    if (item is HoldableItem holdableItem)
+                    if (!item.CanInteractWithOwner && info.Other == itemInstance->Owner)
+                        return;
+
+                    if (itemInstance->IsActive)
                     {
-                        holdableItem.OnHit(f, itemInstance->Owner, info.Other, info.Entity, itemInstance);
+                        item.OnHit(f, itemInstance->Owner, info.Other, info.Entity, itemInstance);
                     }
                 }
             }
@@ -97,7 +108,10 @@ namespace Quantum
                 if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody))
                 {
                     physicsBody->Enabled = true;
-                    physicsBody->GravityScale = 1;
+
+                    Item itemAsset = f.FindAsset<Item>(itemInstance->Item.Id);
+                    if (itemAsset is not SeekingItem seekingItem)
+                        physicsBody->GravityScale = 1;
                 }
 
                 itemInstance->FallState = false;
@@ -121,6 +135,8 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
                     transform->Position += offset;
+
+                itemInstance->IsActive = true;
             }
         }
 
@@ -130,6 +146,7 @@ namespace Quantum
             item.Invoke(f, user, itemEntity, itemInstance);
 
             itemInstance->FallState = false;
+            itemInstance->IsActive = true;
         }
     }
 }

@@ -94,6 +94,7 @@ namespace GameResources.Camera
         private EntityViewUpdater _entityView;
         private ParticleSystem _particleSystem;
         private Volume _volume;
+        private ManualCameraController _manualMode;
 
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
@@ -126,6 +127,7 @@ namespace GameResources.Camera
             _cam = GetComponent<UnityEngine.Camera>();
             _particleSystem = GetComponentInChildren<ParticleSystem>();
             _volume = GetComponent<Volume>();
+            _manualMode = GetComponent<ManualCameraController>();
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
             _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
@@ -345,9 +347,29 @@ namespace GameResources.Camera
             _instance._shakeDirection = direction;
         }
 
+        public void Move(Vector2 input)
+        {
+            _instance._manualMode.Move(input);
+        }
+
+        public void Orbit(Vector2 input)
+        {
+            _instance._manualMode.Orbit(input);
+        }
+
+        public void Zoom(float input)
+        {
+            _instance._manualMode.Zoom(input);
+        }
+
+        public void Tilt(float input)
+        {
+            _instance._manualMode.Tilt(input);
+        }
+
         public void ToggleManualMode(bool useManual)
         {
-            _instance.GetComponent<ManualCameraController>().enabled = useManual;
+            _instance._manualMode.enabled = useManual;
             _instance.enabled = !useManual;
         }
 

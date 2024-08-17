@@ -14,7 +14,7 @@ namespace Quantum
 
             for (int i = 0; i < 8; ++i)
             {
-                StaticColliderInfo collider = ArrayHelper.Get(stage.Objects.Colliders, i);
+                StaticColliderInfo collider = ArrayHelper.All(stage.Objects.Colliders)[i];
                 if (collider.Equals(default(StaticColliderInfo)))
                     continue;
 

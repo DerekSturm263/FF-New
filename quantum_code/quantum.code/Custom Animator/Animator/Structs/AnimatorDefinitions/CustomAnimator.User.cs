@@ -385,5 +385,10 @@ namespace Quantum
             CustomAnimatorGraph graph = f.FindAsset<CustomAnimatorGraph>(anim->animatorGraph.Id);
             return graph.GetState(stateId);
         }
+
+        public static int GetStateLength(Frame f, CustomAnimator* anim, int stateId)
+        {
+            return (GetStateFromId(f, anim, stateId).motion as AnimatorClip).data.frameCount;
+        }
     }
 }

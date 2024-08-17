@@ -37,8 +37,15 @@ namespace Quantum.Editor {
       public Quantum.SubAsset[] SubAsset = {};
       public Quantum.WeaponAsset[] WeaponAsset = {};
       public Quantum.AllowMovementEvent[] AllowMovementEvent = {};
+      public Quantum.ContinueAnimationEvent[] ContinueAnimationEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
       public Quantum.ProjectileSpawningItem[] ProjectileSpawningItem = {};
+      public Quantum.AnyoneStagePicker[] AnyoneStagePicker = {};
+      public Quantum.LoserStagePicker[] LoserStagePicker = {};
+      public Quantum.RandomStagePicker[] RandomStagePicker = {};
+      public Quantum.TurnsStagePicker[] TurnsStagePicker = {};
+      public Quantum.VoteStagePicker[] VoteStagePicker = {};
+      public Quantum.WinnerStagePicker[] WinnerStagePicker = {};
       public Quantum.LeastDeathsTieResolver[] LeastDeathsTieResolver = {};
       public Quantum.MostHealthTieResolver[] MostHealthTieResolver = {};
       public Quantum.FirstToXKillsWinCondition[] FirstToXKillsWinCondition = {};

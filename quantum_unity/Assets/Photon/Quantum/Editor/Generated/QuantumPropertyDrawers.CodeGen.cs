@@ -155,6 +155,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefStagePicker))]
+  public class AssetRefStagePickerPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(StagePickerAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefStatusEffect))]
   public class AssetRefStatusEffectPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -255,7 +262,6 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.FighterType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Goal_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
-  [CustomPropertyDrawer(typeof(Quantum.Prototypes.StagePickerType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.States_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StatesFlag_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]

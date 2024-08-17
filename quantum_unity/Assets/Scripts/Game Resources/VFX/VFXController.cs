@@ -35,8 +35,10 @@ namespace GameResources
             }
 
             effect.transform.right = settings.Direction.normalized;
-            effect.transform.localScale *= settings.ScaleMultiplier;
+            effect.transform.localScale = Vector3.Scale(effect.transform.localScale, settings.ScaleMultiplier);
             effect.transform.localPosition += settings.Offset;
+
+            Debug.Log($"Spawning VFX {settings.VFXObject.name}");
 
             return effect;
         }
@@ -49,8 +51,10 @@ namespace GameResources
             GameObject effect = Instantiate(settings.Settings.VFXObject, settings.Settings.Offset, Quaternion.identity);
 
             effect.transform.right = settings.Settings.Direction.normalized;
-            effect.transform.localScale *= settings.Settings.ScaleMultiplier;
+            effect.transform.localScale = Vector3.Scale(effect.transform.localScale, settings.Settings.ScaleMultiplier);
             effect.transform.localPosition += settings.Settings.Offset;
+
+            Debug.Log($"Spawning VFX {settings.Settings.VFXObject.name}");
 
             return effect;
         }
@@ -66,7 +70,7 @@ namespace GameResources
             }
             if (tuple.itemAsset.UserVFX)
             {
-                SpawnEffectParented(tuple.itemAsset.ItemVFX.Settings, user.transform);
+                SpawnEffectParented(tuple.itemAsset.UserVFX.Settings, user.transform);
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using System.Runtime.InteropServices;
 
 namespace Quantum
 {

@@ -29,11 +29,38 @@ MonoBehaviour:
   GroupTags: []
   SFX:
     _kvps: []
-  ItemVFX: {fileID: 0}
+  ItemVFX: {fileID: 11400000, guid: 55d739b70a0f6a640afb0f457c30dbbe, type: 2}
   UserVFX: {fileID: 0}
   OnUse:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 98af428dc52106244892ababdd6054df,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6943285021381643808, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.VFXController, GameResources
+        m_MethodName: SpawnItemVFX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Settings_SeekingItem:
     Identifier:
       Path: 
@@ -43,10 +70,28 @@ MonoBehaviour:
       Id:
         Value: 0
     DestroySelfOnHit: 0
-    Speed:
+    CanInteractWithOwner: 0
+    SpeedOverTime:
+      Samples: []
+      PreWrapMode: 0
+      PostWrapMode: 0
+      StartTime:
+        RawValue: 0
+      EndTime:
+        RawValue: 0
+      Resolution: 0
+      OriginalPreWrapMode: 0
+      OriginalPostWrapMode: 0
+      Keys: []
+    SpeedMultiplier:
       RawValue: 0
     LerpTime:
       RawValue: 0
+    Offset:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
   Settings_SeekingExplodingItem:
     Identifier:
       Path: Resources/DB/Assets/Item/Subs/Missile
@@ -56,34 +101,109 @@ MonoBehaviour:
       Id:
         Value: 3923951510283189538
     DestroySelfOnHit: 1
-    Speed:
+    CanInteractWithOwner: 1
+    SpeedOverTime:
+      Samples:
+      - RawValue: 16384
+      - RawValue: 17283
+      - RawValue: 18388
+      - RawValue: 19695
+      - RawValue: 21203
+      - RawValue: 22906
+      - RawValue: 24802
+      - RawValue: 26887
+      - RawValue: 29159
+      - RawValue: 31614
+      - RawValue: 34248
+      - RawValue: 37059
+      - RawValue: 40043
+      - RawValue: 43198
+      - RawValue: 46518
+      - RawValue: 50003
+      - RawValue: 53647
+      - RawValue: 57448
+      - RawValue: 61403
+      - RawValue: 65509
+      - RawValue: 69761
+      - RawValue: 74157
+      - RawValue: 78694
+      - RawValue: 83368
+      - RawValue: 88176
+      - RawValue: 93114
+      - RawValue: 98180
+      - RawValue: 103371
+      - RawValue: 108682
+      - RawValue: 114111
+      - RawValue: 119655
+      - RawValue: 125309
+      - RawValue: 131072
+      PreWrapMode: 0
+      PostWrapMode: 0
+      StartTime:
+        RawValue: 0
+      EndTime:
+        RawValue: 131072
+      Resolution: 32
+      OriginalPreWrapMode: 8
+      OriginalPostWrapMode: 8
+      Keys:
+      - Time:
+          RawValue: 0
+        Value:
+          RawValue: 16384
+        InTangent:
+          RawValue: 12722
+        OutTangent:
+          RawValue: 12722
+        TangentMode: 0
+        TangentModeLeft: 0
+        TangentModeRight: 0
+      - Time:
+          RawValue: 131072
+        Value:
+          RawValue: 131072
+        InTangent:
+          RawValue: 93044
+        OutTangent:
+          RawValue: 93044
+        TangentMode: 0
+        TangentModeLeft: 0
+        TangentModeRight: 0
+    SpeedMultiplier:
       RawValue: 327680
     LerpTime:
       RawValue: 327680
+    Offset:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 65536
     HitboxSettings:
       Delay:
-        TargetFreezeFrames: 0
+        TargetFreezeFrames: 3
         UserFreezeFrames: 0
       Offensive:
         Damage:
-          RawValue: 0
+          RawValue: 655360
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 327680
           Y:
-            RawValue: 0
+            RawValue: 327680
         StatusEffect:
           Id:
             Value: 0
       Visual:
         CameraShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
+        OnlyShakeOnHit:
+          Value: 0
         TargetShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
     Shape:
-      ShapeType: 0
+      ShapeType: 16
       PolygonCollider:
         Id:
           Value: 0
@@ -105,6 +225,28 @@ MonoBehaviour:
         RawValue: 0
       UserTag: 0
       IsPersistent: 1
-      CompoundShapes: []
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 147456
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
-    Lifetime: 20
+    Lifetime: 15

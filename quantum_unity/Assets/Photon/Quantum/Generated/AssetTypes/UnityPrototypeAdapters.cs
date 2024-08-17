@@ -87,8 +87,10 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.LocalReference]
     public global::EntityPrototype Target;
     public Quantum.QBoolean FallState;
+    public Quantum.QBoolean IsActive;
     public Photon.Deterministic.FP FallSpeed;
     public Photon.Deterministic.FP FallY;
+    public Photon.Deterministic.FP ActiveTime;
     public System.Int32 Uses;
 
     public sealed override Quantum.Prototypes.ItemInstance_Prototype Convert(EntityPrototypeConverter converter) {
@@ -98,8 +100,10 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.Holder, out result.Holder);
       converter.Convert(this.Target, out result.Target);
       result.FallState = this.FallState;
+      result.IsActive = this.IsActive;
       result.FallSpeed = this.FallSpeed;
       result.FallY = this.FallY;
+      result.ActiveTime = this.ActiveTime;
       result.Uses = this.Uses;
       return result;
     }

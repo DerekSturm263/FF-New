@@ -15,6 +15,7 @@ public class DisplayRulesetPlayerSettings : Display<Type, List<Selectable>>
         (_component[4] as TMPro.TMP_InputField).SetTextWithoutNotify(item.RespawnTime.ToString());
         (_component[5] as Toggle).isOn = item.AllowFriendlyFire;
         (_component[6] as Toggle).isOn = item.AllowDuplicateSelection;
+        (_component[7] as Slider).value = item.EnergyConsumptionRate.AsFloat;
     }
 
     protected override Type GetValue() => RulesetController.Instance.CurrentRuleset.value.Players;

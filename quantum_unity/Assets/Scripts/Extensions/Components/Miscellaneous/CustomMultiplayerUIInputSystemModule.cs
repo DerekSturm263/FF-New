@@ -132,10 +132,7 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
         _selector = Instantiate(_selectorAsset, transform);
         _selector.Initialize(_playerInfo.Index);
 
-        if (gameObject.activeInHierarchy)
-            _playerInfo?.EnableMenus();
-        else
-            _playerInfo?.DisableMenus();
+        _playerInfo?.EnableMenus();
     }
 
     private void OnEnable() => _playerInfo?.EnableMenus();

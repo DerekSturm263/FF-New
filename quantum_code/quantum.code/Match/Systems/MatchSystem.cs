@@ -24,7 +24,6 @@ namespace Quantum
 
         public override void OnEnabled(Frame f)
         {
-            f.Global->LastSelector = FighterIndex.Invalid;
             f.Global->CurrentMatch = default;
             f.Global->Teams = f.AllocateList<Team>();
             f.Global->IsTimerOver = false;
@@ -84,7 +83,7 @@ namespace Quantum
                         StartHolding = true
                     };
 
-                    EntityRef newItem = ItemSpawnSystem.SpawnWithOwner(f, settings, stats.Entity);
+                    EntityRef newItem = ItemSpawnSystem.SpawnParented(f, settings, stats.Entity);
                 }
             }
 
@@ -110,20 +109,23 @@ namespace Quantum
             ItemSpawnSystem.DespawnAll(f);
 
             IOrderedEnumerable<Team> winners = teams.OrderBy(winCondition.SortTeams(f, teams)).ThenBy(tieResolver.ResolveTie(f, teams));
-            ArrayTeams teamsArray = teams.Count switch
-            {
-                1 => new() { Item1 = winners.ElementAt(0) },
-                2 => new() { Item1 = winners.ElementAt(0), Item2 = winners.ElementAt(1) },
-                3 => new() { Item1 = winners.ElementAt(0), Item2 = winners.ElementAt(1), Item3 = winners.ElementAt(2) },
-                4 => new() { Item1 = winners.ElementAt(0), Item2 = winners.ElementAt(1), Item3 = winners.ElementAt(2), Item4 = winners.ElementAt(3) },
-                _ => default
-            };
 
             MatchResults results = new()
             {
-                Count = teams.Count,
-                Teams = teamsArray
+                Count = winners.Count()
             };
+
+            if (results.Count > 0)
+                results.Teams[0] = winners.ElementAt(0);
+            
+            if (results.Count > 1)
+                results.Teams[1] = winners.ElementAt(1);
+            
+            if (results.Count > 2)
+                results.Teams[2] = winners.ElementAt(2);
+            
+            if (results.Count > 3)
+                results.Teams[3] = winners.ElementAt(3);
 
             PlayerStatsSystem.SetAllShowReadiness(f, true);
             PlayerStatsSystem.SetAllReadiness(f, false);
@@ -163,7 +165,7 @@ namespace Quantum
 
                 for (int i = 0; i < 16; ++i)
                 {
-                    PositionalGizmo gizmo = ArrayHelper.Get(stage.Objects.Gizmos, i);
+                    PositionalGizmo gizmo = ArrayHelper.All(stage.Objects.Gizmos)[i];
                     if (!gizmo.Gizmo.Id.IsValid)
                         continue;
 

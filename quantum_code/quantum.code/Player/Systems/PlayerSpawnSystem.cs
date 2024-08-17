@@ -45,6 +45,13 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {
+                if (f.Global->CurrentMatch.Ruleset.Match.Time == -1)
+                {
+                    stats->CurrentStats.Health = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
+                    stats->CurrentStats.Energy = f.Global->CurrentMatch.Ruleset.Players.MaxEnergy;
+                    stats->CurrentStats.Stocks = f.Global->CurrentMatch.Ruleset.Players.StockCount;
+                }
+
                 f.Events.OnPlayerModifyHealth(entity, index, stats->CurrentStats.Health, stats->CurrentStats.Health, f.Global->CurrentMatch.Ruleset.Players.MaxHealth);
                 f.Events.OnPlayerModifyEnergy(entity, index, stats->CurrentStats.Energy, stats->CurrentStats.Energy, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
                 f.Events.OnPlayerModifyStocks(entity, index, stats->CurrentStats.Stocks, stats->CurrentStats.Stocks, f.Global->CurrentMatch.Ruleset.Players.StockCount);
@@ -53,7 +60,15 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
-                transform->Position = Types.ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, index.Global);
+                transform->Position = Types.ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[index.Global];
+
+                if (index.Global % 2 != 0)
+                {
+                    if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
+                        characterController->MovementDirection = -1;
+
+                    f.Events.OnPlayerChangeDirection(entity, index, -1);
+                }
             }
 
             return entity;

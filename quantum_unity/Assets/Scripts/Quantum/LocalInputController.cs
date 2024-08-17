@@ -50,18 +50,20 @@ public class LocalInputController : Controller<LocalInputController>
             Movement = player.Controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
 
             Jump = player.Controls.Player.Jump.IsPressed(),
-            FastFall = player.Controls.Player.FastFall.IsPressed(),
-            Crouch = player.Controls.Player.Crouch.IsPressed(),
+            LookUp = player.Controls.Player.LookUp.IsPressed(),
+            Burst = player.Controls.Player.Sub1.IsPressed() && player.Controls.Player.Sub2.IsPressed(),
             Block = player.Controls.Player.Block.IsPressed(),
 
-            MainWeapon = player.Controls.Player.MainWeapon.IsPressed(),
-            AlternateWeapon = player.Controls.Player.AlternateWeapon.IsPressed(),
-            SubWeapon1 = player.Controls.Player.Subweapon1.IsPressed(),
-            SubWeapon2 = player.Controls.Player.Subweapon2.IsPressed(),
+            MainWeapon = player.Controls.Player.Primary.IsPressed(),
+            AlternateWeapon = player.Controls.Player.Secondary.IsPressed(),
+            SubWeapon = player.Controls.Player.Sub1.IsPressed() || player.Controls.Player.Sub2.IsPressed(),
+            Ultimate = player.Controls.Player.Primary.IsPressed() && player.Controls.Player.Secondary.IsPressed(),
 
             Emote = player.Controls.Player.Emote.IsPressed(),
             Interact = player.Controls.Player.Interact.IsPressed(),
 
+            Dodge = player.Controls.Player.Dodge.IsPressed(),
+            Crouch = player.Controls.Player.Crouch.IsPressed(),
             Ready = player.Controls.Player.Ready.IsPressed(),
             Cancel = player.Controls.Player.Cancel.IsPressed()
         };

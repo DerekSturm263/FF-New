@@ -70,31 +70,34 @@ MonoBehaviour:
       Id:
         Value: 4483199492598129514
     DestroySelfOnHit: 1
+    CanInteractWithOwner: 1
     HandednessType: 0
     HitboxSettings:
       Delay:
-        TargetFreezeFrames: 0
+        TargetFreezeFrames: 3
         UserFreezeFrames: 0
       Offensive:
         Damage:
-          RawValue: 0
+          RawValue: 983040
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 327680
           Y:
-            RawValue: 0
+            RawValue: 327680
         StatusEffect:
           Id:
             Value: 0
       Visual:
         CameraShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
+        OnlyShakeOnHit:
+          Value: 0
         TargetShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
     Shape:
-      ShapeType: 0
+      ShapeType: 16
       PolygonCollider:
         Id:
           Value: 0
@@ -116,6 +119,28 @@ MonoBehaviour:
         RawValue: 0
       UserTag: 0
       IsPersistent: 1
-      CompoundShapes: []
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 147456
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
-    Lifetime: 20
+    Lifetime: 15
