@@ -7,12 +7,17 @@ namespace Extensions.Components.Input
     public class InputButton : ScriptableObject
     {
         [SerializeField] private Types.Dictionary<string, Sprite> _idsToIcons;
-        public string GetID(string controlName) => _idsToIcons[controlName].name;
+        public string GetID(string controlName)
+        {
+            if (_idsToIcons.TryGetValue(controlName, out Sprite sprite) && sprite)
+                return sprite.name;
 
+            return string.Empty;
+        }
         [SerializeField] private Types.Dictionary<string, Sprite> _idsToIconsPositive;
         public string GetIDPositive(string controlName)
         {
-            if (_idsToIconsPositive.TryGetValue(controlName, out Sprite sprite))
+            if (_idsToIconsPositive.TryGetValue(controlName, out Sprite sprite) && sprite)
                 return sprite.name;
 
             return string.Empty;

@@ -356,6 +356,17 @@ public class SettingsController : SpawnableController<Settings>
         QuantumRunner.Default?.Game.SendCommand(setTimeScale);
     }
 
+    public void SetTimeScale60(float timeScale)
+    {
+        CommandSetTimeScale setTimeScale = new()
+        {
+            scale = (FP)(int)timeScale / 60
+        };
+
+        Time.timeScale = setTimeScale.scale.AsFloat;
+        QuantumRunner.Default?.Game.SendCommand(setTimeScale);
+    }
+
     public void SpawnItem(ItemAsset item)
     {
         CommandSpawnItem command = new()
