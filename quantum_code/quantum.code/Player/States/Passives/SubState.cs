@@ -23,7 +23,7 @@ namespace Quantum
             new(destination: States.Block, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Crouch, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
+            new(destination: States.Default, transitionTime: 0, overrideExit: true, overrideEnter: true)
         ];
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)

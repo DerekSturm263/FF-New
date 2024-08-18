@@ -1,6 +1,7 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using Quantum.Custom.Animator;
+using System.Diagnostics;
 
 namespace Quantum
 {
@@ -67,8 +68,11 @@ namespace Quantum
 
                 if (motion is AnimatorClip clip)
                     return clip.data.GetFrameAtTime(a->time);
+                else if (motion is AnimatorBlendTree blendTree)
+                    return (blendTree.motions[0] as AnimatorClip).data.GetFrameAtTime(a->time);
             }
-            
+
+            Log.Debug("ERROR");
             return new() { hurtboxPositions = new HurtboxTransformInfo[17] };
         }
 

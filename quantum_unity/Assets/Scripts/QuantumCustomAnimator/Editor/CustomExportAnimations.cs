@@ -473,7 +473,6 @@ public class CustomExportAnimations : MonoBehaviour
             }
 
             frameData.hurtboxPositions = new HurtboxTransformInfo[17];
-            Debug.Log($"Created hurtbox positions array for frame {i}");
 
             clip.SampleAnimation(player, (float)i / frameCount);
             for (int j = 0; j < frameData.hurtboxPositions.Length; ++j)
@@ -484,11 +483,9 @@ public class CustomExportAnimations : MonoBehaviour
                 FPQuaternion rotation = hurtboxTransform.rotation.ToFPQuaternion();
 
                 frameData.hurtboxPositions[j] = new() { position = position, rotation = rotation };
-                Debug.Log($"Set hurtbox position in array at {j} to {frameData.hurtboxPositions[j]}");
             }
 
             animationData.frames[i] = frameData;
-            Debug.Log(animationData.frames[i]);
         }
 
         var curves = AnimationUtility.GetCurveBindings(clip).Where(item => item.propertyName switch
@@ -501,21 +498,6 @@ public class CustomExportAnimations : MonoBehaviour
 
         for (int i = 0; i < curves.Length; ++i)
         {
-            switch (i)
-            {
-                case 0:
-                    Debug.Log("LFoot");
-                    break;
-
-                case 1:
-                    Debug.Log("RFoot");
-                    break;
-
-                default:
-                    Debug.Log("Head");
-                    break;
-            }
-
             AnimationCurve curve = AnimationUtility.GetEditorCurve(clip, curves[i]);
             float multiplier = 1.0f / curve[curve.length - 1].time;
 
@@ -528,11 +510,6 @@ public class CustomExportAnimations : MonoBehaviour
 
             FPAnimationCurve fpCurve = ConvertAnimationCurve(curve);
             animationData.curves[i] = fpCurve;
-
-            for (int j = 0; j < curve.length; ++j)
-            {
-                Debug.Log($"Unity:   [{curve[j].time}] -> {curve[j].value}");
-            }
         }
 
         return animationData;
