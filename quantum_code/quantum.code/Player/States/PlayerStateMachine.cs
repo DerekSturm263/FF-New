@@ -1,6 +1,5 @@
 ﻿using Quantum.Types;
 using System.Collections.Generic;
-using static Quantum.PlayerState;
 
 namespace Quantum
 {
@@ -20,20 +19,24 @@ namespace Quantum
         public void Resolve(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             // Set some values that any state might check.
-            filter.CharacterController->DirectionValue = input.SnapMovementTo8Directions;
-            filter.CharacterController->DirectionEnum = DirectionalHelper.GetEnumFromDirection(input.Movement);
+            if (!_states[filter.CharacterController->CurrentState].OverrideDirection())
+            {
+                filter.CharacterController->DirectionValue = input.SnapMovementTo8Directions;
+                filter.CharacterController->DirectionEnum = DirectionalHelper.GetEnumFromDirection(input.Movement);
+            }
 
             // Determine the next state to transition to (only if not currently transitioning).
-            if (filter.CharacterController->NextState == (Quantum.States)(-1) && _states[filter.CharacterController->CurrentState].TryResolve(f, ref filter, input, settings, this, out States newState))
+            if (filter.CharacterController->NextState == (Quantum.States)(-1) && _states[filter.CharacterController->CurrentState].TryResolve(f, ref filter, input, settings, this, out TransitionInfo transition))
             {
-                // Set the next state.
-                filter.CharacterController->NextState = newState;
+                // Set the next state and transition time.
+                filter.CharacterController->NextState = transition.Destination;
+                filter.CharacterController->NextStateTime = filter.CharacterController->StateTime + transition.TransitionTime;
 
-                // Get how long to take to transition.
-                int entranceTime = _states[filter.CharacterController->NextState].GetEntranceTime(f, ref filter, input, settings);
-                filter.CharacterController->NextStateTime = filter.CharacterController->StateTime + entranceTime;
+                // Start exiting the current state and entering the new state.
+                _states[filter.CharacterController->CurrentState].BeginExit(f, ref filter, input, settings, filter.CharacterController->NextState);
+                _states[filter.CharacterController->NextState].BeginEnter(f, ref filter, input, settings, filter.CharacterController->CurrentState);
 
-                Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} in {entranceTime} frames");
+                Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} for {transition.TransitionTime} frames");
             }
             // If there was no transition...
             else
@@ -47,21 +50,34 @@ namespace Quantum
             {
                 Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} now!");
 
-                // Exit the current state.
-                _states[filter.CharacterController->CurrentState].Exit(f, ref filter, input, settings);
+                // Finish exiting the current state.
+                _states[filter.CharacterController->CurrentState].FinishExit(f, ref filter, input, settings, filter.CharacterController->NextState);
+                States previousState = filter.CharacterController->CurrentState;
 
                 // Set the new state and and reset the state time.
                 filter.CharacterController->CurrentState = filter.CharacterController->NextState;
                 filter.CharacterController->NextState = (Quantum.States)(-1);
                 filter.CharacterController->StateTime = 0;
 
-                // Enter the new state.
-                _states[filter.CharacterController->CurrentState].Enter(f, ref filter, input, settings);
+                // Finish entering the new state.
+                _states[filter.CharacterController->CurrentState].FinishEnter(f, ref filter, input, settings, previousState);
             }
 
             // Increment the state frame.
             ++filter.CharacterController->StateTime;
             filter.CharacterController->LastFrame = input;
+
+            // Update some global animation values.
+            bool isGrounded = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", isGrounded);
+
+            if (isGrounded)
+                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", 0);
+            else
+                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", filter.PhysicsBody->Velocity.Y);
+
+            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "XDirection", filter.CharacterController->DirectionValue.X);
+            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YDirection", filter.CharacterController->DirectionValue.Y);
         }
     }
 }

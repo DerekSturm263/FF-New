@@ -49,7 +49,12 @@ namespace Quantum
             else
                 input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
 
+            Log.Debug(input.Movement);
             Log.Debug(input.InputButtons);
+
+            // Handle some miscellaneous logic.
+            HandleGround(f, filter, settings);
+            HandleUltimate(f, filter);
 
             // Resolve the State Machine to determine which state the player should be in.
             AllStates.Resolve(f, ref filter, input, settings);
@@ -67,10 +72,6 @@ namespace Quantum
                     filter.CharacterController->Influence = 1;
                 }
             }
-
-            // Do everything.
-            HandleGround(f, filter, settings);
-            HandleUltimate(f, filter);
         }
 
         public void OnMapChanged(Frame f, AssetRefMap previousMap)
@@ -90,8 +91,6 @@ namespace Quantum
 
             // Get all the nearby colliders.
             filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, movementSettings, filter.Transform);
-            if (filter.CharacterController->CurrentState == States.Default && filter.PhysicsBody->Velocity.Y > 0)
-                filter.CharacterController->NearbyColliders &= ~Colliders.Ground;
 
             // Get if the player is grounded or not...
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
@@ -100,15 +99,6 @@ namespace Quantum
                 filter.CharacterController->JumpCount = stats.Jump.AsShort;
                 filter.CharacterController->DodgeCount = stats.Dodge.AsShort;
             }
-
-            // Update any miscellaneous CustomAnimator values.
-            bool isGrounded = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
-            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", isGrounded);
-
-            if (isGrounded)
-                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", 0);
-            else
-                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", filter.PhysicsBody->Velocity.Y);
         }
 
         private void HandleUltimate(Frame f, Filter filter)

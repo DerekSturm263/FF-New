@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public unsafe sealed class DefaultState : PassiveState
     {
@@ -9,20 +7,20 @@ namespace Quantum
         public override (States, StatesFlag) GetStateInfo() => (States.Default, StatesFlag.Move | StatesFlag.Jump | StatesFlag.FastFall);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions() =>
+        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
-            new() { Destination = States.Burst },
-            new() { Destination = States.Sub },
-            new() { Destination = States.Interact },
-            new() { Destination = States.Emote },
-            new() { Destination = States.Ultimate },
-            new() { Destination = States.Primary },
-            new() { Destination = States.Secondary },
-            new(false, (f, filter, input, settings) => !filter.CharacterController->GetNearbyCollider(Colliders.Ground)) { Destination = States.Dodge },
-            new() { Destination = States.Block },
-            new() { Destination = States.Jump },
-            new(false, (f, filter, input, settings) => FPMath.Abs(input.Movement.X) < settings.DeadStickZone) { Destination = States.Crouch },
-            new(false, (f, filter, input, settings) => FPMath.Abs(input.Movement.X) < settings.DeadStickZone) { Destination = States.LookUp },
+            new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Sub, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Emote, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Ultimate, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Block, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Crouch, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
         ];
 
         public override void Update(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)

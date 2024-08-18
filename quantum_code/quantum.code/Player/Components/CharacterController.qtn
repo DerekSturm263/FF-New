@@ -12,7 +12,8 @@ enum States
     Ultimate,
     Interact,
     Primary,
-    Secondary
+    Secondary,
+    Dead
 }
 
 [System.Flags]
@@ -39,12 +40,27 @@ enum Colliders
     Ceiling = 8
 }
 
+enum JumpType
+{
+    ShortHop,
+    FullHop,
+    Aerial
+}
+
+enum DodgeType
+{
+    Spot,
+    Roll,
+    Aerial
+}
+
 component CharacterController
 {
     // General
 	asset_ref<MovementSettings> Settings;
     bool CanInput;
     Colliders NearbyColliders;
+    int MovementDirection;
 
     // State Handling
     Direction DirectionEnum;
@@ -67,17 +83,19 @@ component CharacterController
 
     // Jump
     bool GroundedJump;
+    JumpType JumpType;
     short JumpCount;
-    short JumpSettingsIndex;
     
     // Dodge
     bool GroundedDodge;
+    DodgeType DodgeType;
     short DodgeCount;
-    short DodgeSettingsIndex;
 
     // Attacking/Emoting
-    int MovementDirection;
     bool IsCommitted;
+    
+    // Interacting
+    bool IsThrowing;
     
     // Holding Animations
 	int HeldAnimationFrameTime;

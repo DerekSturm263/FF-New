@@ -35,22 +35,22 @@ namespace Quantum
 
         public readonly MovementCurveSettings GetJumpSettings(MovementSettings movementSettings)
         {
-            return JumpSettingsIndex switch
+            return JumpType switch
             {
-                0 => movementSettings.ShortHopSettings,
-                1 => movementSettings.FullHopSettings,
-                2 => movementSettings.AerialJumpSettings,
-                3 => movementSettings.WallJumpSettings,
+                JumpType.ShortHop => movementSettings.ShortHopSettings,
+                JumpType.FullHop => movementSettings.FullHopSettings,
+                JumpType.Aerial => movementSettings.AerialSettings,
                 _ => default,
             };
         }
 
-        public readonly MovementCurveSettings GetDodgeSettings(MovementSettings movementSettings)
+        public readonly MovementCurveSettingsXY GetDodgeSettings(MovementSettings movementSettings)
         {
-            return DodgeSettingsIndex switch
+            return DodgeType switch
             {
-                0 => movementSettings.GroundedDodgeSettings,
-                1 => movementSettings.AerialDodgeSettings,
+                DodgeType.Spot => movementSettings.SpotDodgeSettings,
+                DodgeType.Roll => movementSettings.RollDodgeSettings,
+                DodgeType.Aerial => movementSettings.AerialDodgeSettings,
                 _ => default,
             };
         }
@@ -79,7 +79,7 @@ namespace Quantum
                 FP topSpeed = CalculateTopSpeed(moveSettings, amount);
 
                 // Apply the target velocity based on their speed.
-                if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.Sign(amount) != FPMath.Sign(Velocity))
+                if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.SignInt(amount) != FPMath.SignInt(Velocity))
                 {
                     Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.TurnAroundSpeed);
                     //isTurning = true;

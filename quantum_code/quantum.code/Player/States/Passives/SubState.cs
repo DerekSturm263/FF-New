@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using Quantum.Types;
 
 namespace Quantum
 {
@@ -10,26 +9,26 @@ namespace Quantum
         public override (States, StatesFlag) GetStateInfo() => (States.Sub, 0);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions() =>
+        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
-            new() { Destination = States.Burst },
-            new() { Destination = States.Dodge },
-            new() { Destination = States.Emote },
-            new() { Destination = States.Interact },
-            new() { Destination = States.Jump },
-            new() { Destination = States.Primary },
-            new() { Destination = States.Secondary },
-            new() { Destination = States.Sub },
-            new() { Destination = States.Ultimate },
-            new() { Destination = States.Block },
-            new() { Destination = States.Crouch },
-            new() { Destination = States.LookUp },
-            new() { Destination = States.Default }
+            new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Emote, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: true),
+            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Sub, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Ultimate, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Block, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Crouch, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
         ];
 
         protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            if (!base.CanEnter(f, ref filter, input, settings))
+            if (!base.CanEnter(f, ref filter, input, settings) || filter.PlayerStats->HeldItem.IsValid)
                 return false;
 
             if (f.TryFindAsset(filter.PlayerStats->Build.Gear.SubWeapon.Template.Id, out SubTemplate subWeapon))
@@ -38,9 +37,9 @@ namespace Quantum
             return false;
         }
 
-        public override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.Enter(f, ref filter, input, settings);
+            base.FinishEnter(f, ref filter, input, settings, previousState);
 
             AssetRefSubTemplate itemAsset = filter.PlayerStats->Build.Gear.SubWeapon.Template;
             if (f.TryFindAsset(itemAsset.Id, out SubTemplate subTemplate))
@@ -57,22 +56,6 @@ namespace Quantum
 
                 ItemSpawnSystem.SpawnParented(f, itemSpawnSettings, filter.Entity);
             }
-        }
-
-        public override void Exit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
-        {
-            if (filter.CharacterController->DirectionEnum == Direction.Neutral)
-            {
-                filter.CharacterController->DirectionEnum = DirectionalHelper.GetEnumFromDirection(new(filter.CharacterController->MovementDirection, 0));
-            }
-            if (filter.CharacterController->DirectionValue == FPVector2.Zero)
-            {
-                filter.CharacterController->DirectionValue = new(filter.CharacterController->MovementDirection, 0);
-            }
-
-            ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->DirectionEnum), filter.CharacterController->DirectionValue * settings.ThrowForce + settings.ThrowForceOffset);
-
-            base.Exit(f, ref filter, input, settings);
         }
     }
 }

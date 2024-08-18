@@ -1,28 +1,12 @@
 ﻿namespace Quantum
 {
-    public struct TransitionInfo
+    public struct TransitionInfo(States destination, int transitionTime, bool overrideExit, bool overrideEnter)
     {
-        public States Destination;
-        public bool OverrideDefaultTransitionConditions;
-        public System.Func<Frame, CharacterControllerSystem.Filter, Input, MovementSettings, bool> CanTransition;
+        public States Destination = destination;
+        public int TransitionTime = transitionTime;
 
-        public TransitionInfo()
-        {
-            OverrideDefaultTransitionConditions = false;
-            CanTransition = (_, _, _, _) => true;
-        }
-
-        public TransitionInfo(bool overrideDefaultTransitionConditions)
-        {
-            OverrideDefaultTransitionConditions = overrideDefaultTransitionConditions;
-            CanTransition = (_, _, _, _) => true;
-        }
-
-        public TransitionInfo(bool overrideDefaultTransitionConditions, System.Func<Frame, CharacterControllerSystem.Filter, Input, MovementSettings, bool> canTransition)
-        {
-            OverrideDefaultTransitionConditions = overrideDefaultTransitionConditions;
-            CanTransition = canTransition;
-        }
+        public bool OverrideExit = overrideExit;
+        public bool OverrideEnter = overrideEnter;
     }
 
     public unsafe abstract class PlayerState
@@ -46,29 +30,29 @@
         public abstract EntranceType GetEntranceType();
         public abstract AnimationType GetAnimationType();
 
-        public abstract TransitionInfo[] GetTransitions();
+        public virtual bool OverrideDirection() => false;
 
-        public bool TryResolve(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, PlayerStateMachine stateMachine, out States newState)
+        public abstract TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
+
+        public bool TryResolve(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, PlayerStateMachine stateMachine, out TransitionInfo outTransition)
         {
             bool canExit = CanExit(f, ref filter, input, settings);
 
-            foreach (var transition in GetTransitions())
+            foreach (var transition in GetTransitions(f, ref filter, input, settings))
             {
-                if (!transition.OverrideDefaultTransitionConditions && !canExit)
+                if (!transition.OverrideExit && !canExit)
                     continue;
 
-                if (stateMachine.States[transition.Destination].CanEnter(f, ref filter, input, settings) && transition.CanTransition.Invoke(f, filter, input, settings))
+                if (transition.OverrideEnter || stateMachine.States[transition.Destination].CanEnter(f, ref filter, input, settings))
                 {
-                    newState = transition.Destination;
+                    outTransition = transition;
                     return true;
                 }
             }
 
-            newState = GetStateInfo().Item1;
+            outTransition = default;
             return false;
         }
-
-        public virtual int GetEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => 0;
 
         protected virtual bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
@@ -80,9 +64,14 @@
                    DoesStateTypeMatch(ref filter);
         }
 
-        public virtual void Enter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public virtual void BeginEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            Log.Debug($"Entered state: {GetType()}");
+            Log.Debug($"Beginning entering state: {GetType()}");
+        }
+
+        public virtual void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        {
+            Log.Debug($"Finishing entering state: {GetType()}");
 
             InitializeAnimator(f, filter.CustomAnimator);
         }
@@ -94,11 +83,16 @@
 
         protected abstract bool CanExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
 
-        public virtual void Exit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public virtual void BeginExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
         {
             ShutdownAnimator(f, filter.CustomAnimator);
 
-            Log.Debug($"Exited state: {GetType()}");
+            Log.Debug($"Beginning exiting state: {GetType()}");
+        }
+
+        public virtual void FinishExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        {
+            Log.Debug($"Finishing exiting state: {GetType()}");
         }
 
         private bool DoesStateTypeMatch(ref CharacterControllerSystem.Filter filter)
@@ -149,10 +143,5 @@
 
         protected abstract int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
         protected override sealed bool CanExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->StateTime >= StateTime(f, ref filter, input, settings);
-    }
-
-    public unsafe abstract class DirectionalActionState : ActionState
-    {
-        public sealed override int GetEntranceTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => settings.DirectionChangeTime;
     }
 }

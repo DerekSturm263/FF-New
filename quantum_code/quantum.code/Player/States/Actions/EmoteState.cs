@@ -2,28 +2,28 @@
 
 namespace Quantum
 {
-    public unsafe sealed class EmoteState : DirectionalActionState
+    public unsafe sealed class EmoteState : ActionState
     {
         protected override Input.Buttons GetInput() => Input.Buttons.Emote;
 
         public override (States, StatesFlag) GetStateInfo() => (States.Emote, StatesFlag.Emote);
         public override EntranceType GetEntranceType() => EntranceType.Grounded;
 
-        public override TransitionInfo[] GetTransitions() =>
+        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
-            new() { Destination = States.Burst },
-            new() { Destination = States.Dodge },
-            new() { Destination = States.Emote },
-            new() { Destination = States.Interact },
-            new() { Destination = States.Jump },
-            new() { Destination = States.Primary },
-            new() { Destination = States.Secondary },
-            new() { Destination = States.Sub },
-            new() { Destination = States.Ultimate },
-            new() { Destination = States.Block },
-            new() { Destination = States.Crouch },
-            new() { Destination = States.LookUp },
-            new() { Destination = States.Default }
+            new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Emote, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Sub, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Ultimate, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Block, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Crouch, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
+            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
         ];
 
         protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
@@ -49,9 +49,9 @@ namespace Quantum
             return f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote) && emote.Animation.Id.IsValid;
         }
 
-        public override void Enter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.Enter(f, ref filter, input, settings);
+            base.FinishEnter(f, ref filter, input, settings, previousState);
 
             EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Emotes, filter.CharacterController->DirectionEnum);
             if (f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote))
