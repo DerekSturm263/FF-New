@@ -30,7 +30,8 @@ namespace Quantum
 
         [Header("Dodge Settings")]
         public MovementCurveSettingsXY SpotDodgeSettings;
-        public MovementCurveSettingsXY RollDodgeSettings;
+        public MovementCurveSettingsXY ForwardRollSettings;
+        public MovementCurveSettingsXY BackwardRollSettings;
         public MovementCurveSettingsXY AerialDodgeSettings;
         public MovementCurveSettings AerialGravity;
 

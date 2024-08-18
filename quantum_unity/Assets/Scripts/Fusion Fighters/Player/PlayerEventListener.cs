@@ -105,6 +105,9 @@ public class PlayerEventListener : MonoBehaviour
     {
         foreach (SkinnedMeshRenderer renderer in _meshRenderers[owner])
         {
+            if (!renderer)
+                continue;
+
             Material[] materials = renderer.materials;
 
             for (int i = 0; i < materials.Length; ++i)

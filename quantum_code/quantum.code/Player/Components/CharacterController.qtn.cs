@@ -49,7 +49,8 @@ namespace Quantum
             return DodgeType switch
             {
                 DodgeType.Spot => movementSettings.SpotDodgeSettings,
-                DodgeType.Roll => movementSettings.RollDodgeSettings,
+                DodgeType.RollForward => movementSettings.ForwardRollSettings,
+                DodgeType.RollBackward => movementSettings.BackwardRollSettings,
                 DodgeType.Aerial => movementSettings.AerialDodgeSettings,
                 _ => default,
             };

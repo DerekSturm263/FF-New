@@ -45,6 +45,7 @@ namespace Quantum
         {
             base.FinishEnter(f, ref filter, input, settings, previousState);
 
+            bool wasMoving = previousState == States.Default && filter.CharacterController->GroundedDodge;
             filter.PhysicsBody->GravityScale = 0;
 
             filter.CharacterController->GroundedDodge = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
@@ -57,8 +58,10 @@ namespace Quantum
 
                 if (filter.CharacterController->DirectionValue.X == 0)
                     filter.CharacterController->DodgeType = DodgeType.Spot;
+                else if (wasMoving)
+                    filter.CharacterController->DodgeType = DodgeType.RollForward;
                 else
-                    filter.CharacterController->DodgeType = DodgeType.Roll;
+                    filter.CharacterController->DodgeType = DodgeType.RollBackward;
             }
             else
             {
@@ -67,13 +70,13 @@ namespace Quantum
 
             --filter.CharacterController->DodgeCount;
 
-            bool wasMoving = previousState == States.Default && filter.CharacterController->GroundedDodge;
-
             if (!wasMoving && filter.CharacterController->DirectionValue.X != 0)
             {
                 filter.CharacterController->MovementDirection = -FPMath.SignInt(filter.CharacterController->DirectionValue.X);
                 f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, filter.CharacterController->MovementDirection);
             }
+
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "Roll Forward", wasMoving);
 
             filter.CharacterController->Velocity = 0;
         }
