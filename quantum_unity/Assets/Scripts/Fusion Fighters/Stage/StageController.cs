@@ -98,18 +98,19 @@ public class StageController : Controller<StageController>
 
     public void LoadFromSerializable(SerializableWrapper<Stage> stage)
     {
-        Load(stage.value, stage.FileID);
+        Load(stage.value, stage.FileID, false);
         SendToSimulation();
     }
 
-    public void Load(Stage stage, AssetGuid? guid = null)
+    public void Load(Stage stage, AssetGuid? guid = null, bool deferSimulation = true)
     {
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
         _currentStage = new(stage, GetPath(), "", "", guid.GetValueOrDefault(AssetGuid.NewGuid()), filterTags, groupTags);
 
-        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
+        if (deferSimulation)
+            FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()

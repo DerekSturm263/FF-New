@@ -32,6 +32,8 @@ public class StageAssetAssetEditor : Editor
 
             stage.Stage.value.Spawn.MinPoint = spawnBounds.GetChild(0).transform.position.ToFPVector2();
             stage.Stage.value.Spawn.MaxPoint = spawnBounds.GetChild(1).transform.position.ToFPVector2();
+
+            EditorUtility.SetDirty(stage);
         }
 
         base.OnInspectorGUI();
