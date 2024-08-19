@@ -55,7 +55,6 @@ namespace Quantum
             StatsSystem.SetAllStocks(f, f.Global->CurrentMatch.Ruleset.Players.StockCount);
             PlayerStatsSystem.SetAllShowReadiness(f, false);
 
-            f.SystemEnable<CharacterControllerSystem>();
             f.SystemEnable<ItemSpawnSystem>();
 
             var teams = f.ResolveList(f.Global->Teams);
@@ -103,7 +102,6 @@ namespace Quantum
             f.Global->DeltaTime = (FP._1 / f.UpdateRate) * FP._0_25;
             f.Global->IsMatchRunning = false;
 
-            f.SystemDisable<CharacterControllerSystem>();
             f.SystemDisable<ItemSpawnSystem>();
 
             ItemSpawnSystem.DespawnAll(f);

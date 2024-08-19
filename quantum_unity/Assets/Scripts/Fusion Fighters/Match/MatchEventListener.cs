@@ -4,6 +4,7 @@ using Quantum.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MatchEventListener : MonoBehaviour
 {
@@ -11,18 +12,16 @@ public class MatchEventListener : MonoBehaviour
 
     [SerializeField] private GameObject _transition;
     [SerializeField] private float _delayTime;
-    [SerializeField] private CameraSettingsAsset _camSettings;
 
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>> _onMatchStart;
     [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>, bool> _onMatchEnd;
     [SerializeField] private UnityEvent _onMatchEndDelayed;
+    [SerializeField] private UnityEvent _onMatchEndDelayed2;
+
     [SerializeField] private UnityEvent _onMatchSetup;
 
-    [SerializeField] private UnityEvent _onChangeFighters;
-    [SerializeField] private UnityEvent _onChangeStage;
-    [SerializeField] private UnityEvent _onQuit;
-
-    [SerializeField] private List<Camera> _runnerUpCams;
+    [SerializeField] private Image[] _runnerUpImages;
+    [SerializeField] private Material[] _playerIconMats;
 
     private void Awake()
     {
@@ -70,17 +69,26 @@ public class MatchEventListener : MonoBehaviour
         matchResults = (entityViewUpdater, teams, wasForfeited);
     }
 
-    public void LoadWinner(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
+    public unsafe void LoadWinner(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
     {
         Invoke(nameof(LoadWinnerDelayed), _delayTime);
         Invoke(nameof(InvokeEventsDelayed), _delayTime + 1);
+        Invoke(nameof(InvokeEventsDelayed2), _delayTime + 3);
 
         for (int i = 1; i < teams.Count; ++i)
         {
-            //var team = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[i].Players);
+            var team = QuantumRunner.Default.Game.Frames.Verified.ResolveList(teams[i].Players);
 
-            //Transform entityTransform = _entityView.GetEntity(team[0]).transform;
-            //_runnerUpCams[i - 1].transform.SetParent(entityTransform);
+            if (game.Frames.Verified.Unsafe.TryGetPointer(team[0], out PlayerStats* playerStats))
+            {
+                _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(true);
+                _runnerUpImages[i - 1].material = _playerIconMats[playerStats->Index.Global];
+            }
+        }
+
+        for (int i = teams.Count; i < 4; ++i)
+        {
+            _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -97,12 +105,15 @@ public class MatchEventListener : MonoBehaviour
         CameraController.Instance.FocusTarget(QuantumRunner.Default.Game.Frames.Verified.Get<PlayerStats>(firstPlaceTeam[0]).Index.Global);
     }
 
+    private void InvokeEventsDelayed2()
+    {
+        _onMatchEndDelayed2.Invoke();
+    }
+
     public void ResetMatch()
     {
         CommandResetMatch command = new();
         QuantumRunner.Default.Game.SendCommand(command);
-
-        _onChangeFighters.Invoke();
     }
 
     public void SetupMatch()
@@ -115,7 +126,5 @@ public class MatchEventListener : MonoBehaviour
     {
         CommandResetMatch command = new();
         QuantumRunner.Default.Game.SendCommand(command);
-
-        _onQuit.Invoke();
     }
 }

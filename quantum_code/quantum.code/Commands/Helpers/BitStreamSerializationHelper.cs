@@ -262,6 +262,7 @@ namespace Quantum
         public static void Serialize(this IBitStream stream, ref MatchSettings value)
         {
             stream.Serialize(ref value.WinCondition);
+            stream.Serialize(ref value.TieResolver);
             stream.Serialize(ref value.Time);
             stream.Serialize(ref value.ShowTimer);
             stream.Serialize(ref value.MatchCount);
@@ -276,6 +277,7 @@ namespace Quantum
             stream.Serialize(ref value.MaxHealth);
             stream.Serialize(ref value.MaxEnergy);
             stream.Serialize(ref value.EnergyChargeRate);
+            stream.Serialize(ref value.EnergyConsumptionRate);
             stream.Serialize(ref value.RespawnTime);
             stream.Serialize(ref value.AllowFriendlyFire);
             stream.Serialize(ref value.AllowDuplicateSelection);

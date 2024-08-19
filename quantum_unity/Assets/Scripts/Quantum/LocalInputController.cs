@@ -3,6 +3,7 @@ using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
 using System.Collections;
+using UnityEngine.Windows;
 
 public class LocalInputController : Controller<LocalInputController>
 {
@@ -36,16 +37,13 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void PollInput(CallbackPollInput callback)
     {
-        if (!_canInput)
-            return;
-
         if (!PlayerJoinController.Instance.TryGetPlayer(callback.Player, out LocalPlayerInfo player))
         {
-            callback.SetInput(new(), DeterministicInputFlags.Repeatable);
+            callback.SetInput(default, DeterministicInputFlags.Repeatable);
             return;
         }
 
-        Quantum.Input input = new()
+        Quantum.Input input = _canInput ? new()
         {
             Movement = player.Controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
 
@@ -64,6 +62,10 @@ public class LocalInputController : Controller<LocalInputController>
 
             Dodge = player.Controls.Player.Dodge.IsPressed(),
             Crouch = player.Controls.Player.Crouch.IsPressed(),
+            Ready = player.Controls.Player.Ready.IsPressed(),
+            Cancel = player.Controls.Player.Cancel.IsPressed()
+        } : new()
+        {
             Ready = player.Controls.Player.Ready.IsPressed(),
             Cancel = player.Controls.Player.Cancel.IsPressed()
         };
