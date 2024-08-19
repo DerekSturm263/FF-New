@@ -8,6 +8,29 @@ public abstract class PopulateAsset<T> : Populate<T> where T : InfoAssetAsset
 {
     protected override IEnumerable<T> LoadAll() => Resources.LoadAll<T>(FilePath()).Where(item => item.IncludeInLists);
 
+    protected override T Random(IEnumerable<T> items)
+    {
+        T newSO = Instantiate(items.ElementAt(UnityEngine.Random.Range(0, items.Count())));
+
+        newSO.name = "Random";
+        newSO.Description = $"Selects a random {typeof(T).Name.ToLower()}.";
+        newSO.isRandom = true;
+
+        return newSO;
+    }
+    protected override void ReassignRandom(ref T random, IEnumerable<T> items)
+    {
+        // TODO: FIX. THIS WILL REASSIGN THE REFERENCE
+        random = Instantiate(items.ElementAt(UnityEngine.Random.Range(0, items.Count())));
+
+        random.name = "Random";
+        random.Description = $"Selects a random {typeof(T).Name.ToLower()}.";
+        random.isRandom = true;
+        random.Icon = Resources.Load<Sprite>("DB/Textures/Random.png");
+    }
+
+    protected override bool IsRandom(T item) => item.isRandom;
+
     protected override string Name(T item) => item.name;
     protected override string Description(T item) => item.Description;
     protected override Sprite Icon(T item) => item.Icon;

@@ -47,6 +47,7 @@ public struct SerializableWrapper<T>
     public readonly bool MadeByPlayer => _madeByPlayer;
 
     [SerializeField] private Sprite _iconOverride;
+    public void SetIconOverride(Sprite iconOverride) => _iconOverride = iconOverride;
 
     private Sprite _icon;
     public Sprite Icon

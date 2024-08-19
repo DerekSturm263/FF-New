@@ -27,6 +27,20 @@ public abstract class PopulateSerializable<T, TAssetAsset> : Populate<Serializab
         return results;
     }
 
+    protected override SerializableWrapper<T> Random(IEnumerable<SerializableWrapper<T>> items)
+    {
+        SerializableWrapper<T> random = new(items.ElementAt(UnityEngine.Random.Range(0, items.Count())).value, string.Empty, "Random", $"Selects a random {typeof(T).Name.ToLower()}.", new(010101010101010), new string[] { }, new Extensions.Types.Tuple<string, string>[] { });
+        random.SetIconOverride(Resources.Load<Sprite>("DB/Textures/Random"));
+
+        return random;
+    }
+    protected override void ReassignRandom(ref SerializableWrapper<T> random, IEnumerable<SerializableWrapper<T>> items)
+    {
+        random.value = items.ElementAt(UnityEngine.Random.Range(0, items.Count())).value;
+    }
+
+    protected override bool IsRandom(SerializableWrapper<T> item) => item.FileID.Value == 010101010101010;
+
     protected override string Name(SerializableWrapper<T> item) => item.Name;
     protected override string Description(SerializableWrapper<T> item) => item.Description;
     protected override Sprite Icon(SerializableWrapper<T> item) => item.Icon;
