@@ -12,7 +12,7 @@ public class StageAssetAssetEditor : Editor
     {
         StageAssetAsset stage = target as StageAssetAsset;
 
-        if (GUILayout.Button("Bake Colliders"))
+        if (GUILayout.Button("Bake Data"))
         {
             GameObject stageObj = UnityDB.FindAssetForInspector(stage.Stage.value.Objects.Stage.Id).FindNestedObjectParent() as GameObject;
 
@@ -20,6 +20,18 @@ public class StageAssetAssetEditor : Editor
             {
                 BakeColliders(colliders, stageObj);
             }
+
+            Transform spawnPoints = stageObj.transform.Find("Player Spawn Points");
+
+            stage.Stage.value.Spawn.PlayerSpawnPoints.Item1 = spawnPoints.GetChild(0).transform.position.ToFPVector2();
+            stage.Stage.value.Spawn.PlayerSpawnPoints.Item2 = spawnPoints.GetChild(1).transform.position.ToFPVector2();
+            stage.Stage.value.Spawn.PlayerSpawnPoints.Item3 = spawnPoints.GetChild(2).transform.position.ToFPVector2();
+            stage.Stage.value.Spawn.PlayerSpawnPoints.Item4 = spawnPoints.GetChild(3).transform.position.ToFPVector2();
+
+            Transform spawnBounds = stageObj.transform.Find("Spawn Bounds");
+
+            stage.Stage.value.Spawn.MinPoint = spawnBounds.GetChild(0).transform.position.ToFPVector2();
+            stage.Stage.value.Spawn.MaxPoint = spawnBounds.GetChild(1).transform.position.ToFPVector2();
         }
 
         base.OnInspectorGUI();

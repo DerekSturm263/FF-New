@@ -32,7 +32,7 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
         var item = default(HitboxSystem.Filter);
 
         MaterialPropertyBlock properties = new();
-        properties.SetColor("_BaseColor", Color.red);
+        properties.SetColor("_BaseColor", new(1, 0, 0, 0.35f));
         
         Matrix4x4 transform = Matrix4x4.identity;
 
@@ -76,7 +76,7 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
                 r = item.HurtboxInstance->Settings.CanBeDamaged ? 1 : 0,
                 g = item.HurtboxInstance->Settings.CanBeKnockedBack ? 1 : 0,
                 b = item.HurtboxInstance->Settings.CanBeInterrupted ? 1 : 0,
-                a = 0.25f
+                a = 0.35f
             };
             properties.SetColor("_BaseColor", color);
 

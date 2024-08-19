@@ -215,7 +215,8 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref SpawnSettings value)
         {
             stream.Serialize(ref value.PlayerSpawnPoints);
-            stream.Serialize(ref value.ItemSpawnPoints);
+            stream.Serialize(ref value.MinPoint);
+            stream.Serialize(ref value.MaxPoint);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref ArrayPlayerSpawnPoints value)

@@ -17,6 +17,9 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
+            if (f.Global->CurrentMatch.Ruleset.Items.SpawnFrequency == 0)
+                return;
+
             if (filter.ItemSpawner->TimeSinceLastSpawned <= 0)
             {
                 if (filter.ItemSpawner->CurrentSpawned == filter.ItemSpawner->MaxAllowed)
@@ -37,18 +40,30 @@ namespace Quantum
             AssetRefItem itemAsset = default;
 
             List<AssetRefItem> allItems = ArrayHelper.All(f.Global->CurrentMatch.Ruleset.Items.Items);
-            itemAsset = allItems[f.Global->RngSession.Next(0, allItems.Count)];
+            if (allItems.Count == 0)
+                return EntityRef.None;
             
-            FPVector2 spawnPosition = ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.ItemSpawnPoints)[f.Global->RngSession.Next(0, 16)];
-            ItemSpawnSettings settings = new()
-            {
-                Item = itemAsset,
-                Velocity = FPVector2.Zero,
-                Offset = spawnPosition + new FPVector2(0, 4),
-                StartHolding = false
-            };
+            itemAsset = allItems[f.Global->RngSession.Next(0, allItems.Count)];
 
-            return Spawn(f, settings);
+            FP x = f.Global->RngSession.Next(f.Global->CurrentMatch.Stage.Spawn.MinPoint.X, f.Global->CurrentMatch.Stage.Spawn.MaxPoint.X);
+            FP y = f.Global->RngSession.Next(f.Global->CurrentMatch.Stage.Spawn.MinPoint.Y, f.Global->CurrentMatch.Stage.Spawn.MaxPoint.Y);
+            FPVector2 spawnPosition = new(x, y);
+
+            var hit = f.Physics2D.Linecast(spawnPosition, spawnPosition + FPVector2.Down * 10, f.RuntimeConfig.GroundLayer);
+            if (hit.HasValue)
+            {
+                ItemSpawnSettings settings = new()
+                {
+                    Item = itemAsset,
+                    Velocity = FPVector2.Zero,
+                    Offset = hit.Value.Point + new FPVector2(0, 4),
+                    StartHolding = false
+                };
+
+                return Spawn(f, settings);
+            }
+
+            return EntityRef.None;
         }
 
         public static EntityRef Spawn(Frame f, ItemSpawnSettings settings, EntityRef owner = default)

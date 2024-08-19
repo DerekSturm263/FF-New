@@ -123,7 +123,7 @@ namespace Quantum
                 }
                 else
                 {
-                    CustomAnimator.SetTrigger(f, customAnimator, "Hurt");
+                    CustomAnimator.SetTrigger(f, customAnimator, "Hit");
                 }
             }
         }

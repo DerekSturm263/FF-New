@@ -1,4 +1,5 @@
-﻿using Quantum.Collections;
+﻿using Photon.Deterministic;
+using Quantum.Collections;
 
 namespace Quantum
 {
@@ -60,7 +61,13 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
-                transform->Position = Types.ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[index.Global];
+                FPVector2 position = Types.ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[index.Global];
+
+                var hit = f.Physics2D.Linecast(position, position + FPVector2.Down * 10, f.RuntimeConfig.GroundLayer);
+                if (hit.HasValue)
+                {
+                    transform->Position = hit.Value.Point + new FPVector2(0, FP._1_50);
+                }
 
                 if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
                 {
