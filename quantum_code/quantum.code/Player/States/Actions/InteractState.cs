@@ -5,12 +5,12 @@ namespace Quantum
 {
     public unsafe sealed class InteractState : ActionState
     {
-        protected override Input.Buttons GetInput() => Input.Buttons.Interact;
+        protected override Input.Buttons GetInput() => Input.Buttons.MainWeapon;
 
         public override (States, StatesFlag) GetStateInfo() => (States.Interact, StatesFlag.Interact);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
+        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
             new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
@@ -27,18 +27,18 @@ namespace Quantum
             new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
         ];
 
-        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->IsThrowing ? settings.ThrowTime : settings.UseTime;
+        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->IsThrowing ? settings.ThrowTime : settings.UseTime;
 
-        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            return base.CanEnter(f, ref filter, input, settings) &&
+            return base.CanEnter(f, stateMachine, ref filter, input, settings) &&
                 (filter.PlayerStats->HeldItem.IsValid ||
                 settings.InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0) * settings.InteractCastDistanceMultiplier).Count > 0);
         }
 
-        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.FinishEnter(f, ref filter, input, settings, previousState);
+            base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             filter.CharacterController->Velocity = 0;
             
@@ -65,12 +65,14 @@ namespace Quantum
             {
                 filter.CharacterController->IsThrowing = true;
                 CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsThrowing", true);
+
+                filter.CharacterController->HasSubWeapon = false;
             }
         }
 
-        public override void Update(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public override void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            base.Update(f, ref filter, input, settings);
+            base.Update(f, stateMachine, ref filter, input, settings);
 
             if (filter.CharacterController->IsThrowing && filter.CharacterController->StateTime == 12)
             {

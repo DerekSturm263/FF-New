@@ -60,7 +60,7 @@ public class LocalInputController : Controller<LocalInputController>
             Ultimate = player.Controls.Player.Primary.IsPressed() && player.Controls.Player.Secondary.IsPressed(),
 
             Emote = player.Controls.Player.Emote.IsPressed(),
-            Interact = player.Controls.Player.Interact.IsPressed(),
+            LeftRight = player.Controls.Player.LeftRight.IsPressed(),
 
             Dodge = player.Controls.Player.Dodge.IsPressed(),
             Crouch = player.Controls.Player.Crouch.IsPressed(),

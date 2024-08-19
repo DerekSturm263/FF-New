@@ -92,6 +92,9 @@ namespace Quantum
             // Get all the nearby colliders.
             filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, movementSettings, filter.Transform);
 
+            if (filter.CharacterController->CurrentState == States.Jump)
+                filter.CharacterController->NearbyColliders &= ~Colliders.Ground;
+
             // Get if the player is grounded or not...
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {

@@ -9,7 +9,7 @@ namespace Quantum
         public override (States, StatesFlag) GetStateInfo() => (States.Emote, StatesFlag.Emote);
         public override EntranceType GetEntranceType() => EntranceType.Grounded;
 
-        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
+        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
             new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
@@ -26,7 +26,7 @@ namespace Quantum
             new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
         ];
 
-        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Emotes, filter.CharacterController->DirectionEnum);
             if (f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote))
@@ -40,26 +40,24 @@ namespace Quantum
             return 0;
         }
 
-        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            if (!base.CanEnter(f, ref filter, input, settings))
+            if (!base.CanEnter(f, stateMachine, ref filter, input, settings))
                 return false;
 
             EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Emotes, filter.CharacterController->DirectionEnum);
             return f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote) && emote.Animation.Id.IsValid;
         }
 
-        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.FinishEnter(f, ref filter, input, settings, previousState);
+            base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             EmoteMessageBinding emoteAsset = DirectionalHelper.GetFromDirection(filter.PlayerStats->Build.Emotes, filter.CharacterController->DirectionEnum);
             if (f.TryFindAsset(emoteAsset.Emote.Id, out Emote emote))
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(emote.Animation.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
-
-                filter.CharacterController->PossibleStates = 0;
             }
 
             if (f.TryFindAsset(emoteAsset.Message.Id, out MessagePreset message))

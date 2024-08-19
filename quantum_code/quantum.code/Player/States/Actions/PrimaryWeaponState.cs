@@ -9,7 +9,7 @@ namespace Quantum
         public override (States, StatesFlag) GetStateInfo() => (States.Primary, 0);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
+        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
             new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
@@ -26,7 +26,7 @@ namespace Quantum
             new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
         ];
 
-        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             Log.Debug("Tyring to get the time...");
 
@@ -53,9 +53,9 @@ namespace Quantum
             return 0;
         }
 
-        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            if (!base.CanEnter(f, ref filter, input, settings))
+            if (!base.CanEnter(f, stateMachine, ref filter, input, settings))
                 return false;
 
             Weapon weaponAsset = filter.PlayerStats->Build.Gear.MainWeapon;
@@ -66,9 +66,9 @@ namespace Quantum
             return f.TryFindAsset(animRef.Animation.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0;
         }
 
-        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.FinishEnter(f, ref filter, input, settings, previousState);
+            base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             filter.PlayerStats->ActiveWeapon = filter.PlayerStats->MainWeapon;
 
@@ -86,12 +86,12 @@ namespace Quantum
             }
         }
 
-        public override void FinishExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
         {
             filter.CharacterController->PossibleStates = (StatesFlag)511;
             filter.PlayerStats->ActiveWeapon = EntityRef.None;
 
-            base.FinishExit(f, ref filter, input, settings, nextState);
+            base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);
         }
     }
 }

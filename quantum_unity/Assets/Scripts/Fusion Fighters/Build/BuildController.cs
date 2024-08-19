@@ -75,7 +75,7 @@ public class BuildController : Controller<BuildController>
         GameObject playerObj = FindFirstObjectByType<EntityViewUpdater>().GetView(player).gameObject;
 
         Camera renderCamera = playerObj.GetComponentInChildren<Camera>();
-        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global], playerObj.transform.localScale.x == -1);
+        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global], playerObj.GetComponent<CustomQuantumAnimator>().Direction == -1);
 
         foreach (var userProfile in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<UserProfile>>(UserProfileController.GetPath()))
         {

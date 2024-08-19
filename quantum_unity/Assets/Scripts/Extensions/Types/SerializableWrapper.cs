@@ -115,9 +115,9 @@ public struct SerializableWrapper<T>
         camera.RenderToScreenshot($"{_directory}/{FileID}_ICON.png", output ?? SerializableWrapperHelper.IconRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, flipX, shader);
     }
 
-    public readonly void CreatePreview(Camera camera, Shader shader = null, RenderTexture output = null, bool flipX = false)
+    public readonly void CreatePreview(Camera camera, Shader shader = null, RenderTexture output = null)
     {
-        camera.RenderToScreenshot($"{_directory}/{FileID}_PREVIEW.png", output ?? SerializableWrapperHelper.PreviewRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, flipX, shader);
+        camera.RenderToScreenshot($"{_directory}/{FileID}_PREVIEW.png", output ?? SerializableWrapperHelper.PreviewRT, Helper.ImageType.PNG, TextureFormat.RGBA32, true, false, shader);
     }
 
     public readonly void Save()

@@ -7,7 +7,7 @@
         public override (States, StatesFlag) GetStateInfo() => (States.Ultimate, 0);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
+        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
             new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
@@ -23,7 +23,7 @@
             new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
         ];
 
-        protected override int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Ultimate.Id, out Ultimate ultimate))
             {
@@ -36,17 +36,17 @@
             return 0;
         }
 
-        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            return base.CanEnter(f, ref filter, input, settings) &&
+            return base.CanEnter(f, stateMachine, ref filter, input, settings) &&
                 f.TryFindAsset(filter.PlayerStats->Build.Gear.Ultimate.Id, out Ultimate _) &&
                 filter.Stats->CurrentStats.Energy >= f.Global->CurrentMatch.Ruleset.Players.MaxEnergy &&
                 filter.CharacterController->UltimateTime == 0;
         }
 
-        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.FinishEnter(f, ref filter, input, settings, previousState);
+            base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Ultimate.Id, out Ultimate ultimate))
             {

@@ -9,7 +9,7 @@ namespace Quantum
         public override (States, StatesFlag) GetStateInfo() => (States.Sub, 0);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
+        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
             new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
@@ -26,9 +26,9 @@ namespace Quantum
             new(destination: States.Default, transitionTime: 0, overrideExit: true, overrideEnter: true)
         ];
 
-        protected override bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            if (!base.CanEnter(f, ref filter, input, settings) || filter.PlayerStats->HeldItem.IsValid)
+            if (!base.CanEnter(f, stateMachine, ref filter, input, settings) || filter.PlayerStats->HeldItem.IsValid)
                 return false;
 
             if (f.TryFindAsset(filter.PlayerStats->Build.Gear.SubWeapon.Template.Id, out SubTemplate subWeapon))
@@ -37,9 +37,9 @@ namespace Quantum
             return false;
         }
 
-        public override void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
-            base.FinishEnter(f, ref filter, input, settings, previousState);
+            base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             AssetRefSubTemplate itemAsset = filter.PlayerStats->Build.Gear.SubWeapon.Template;
             if (f.TryFindAsset(itemAsset.Id, out SubTemplate subTemplate))
@@ -55,6 +55,7 @@ namespace Quantum
                 };
 
                 ItemSpawnSystem.SpawnParented(f, itemSpawnSettings, filter.Entity);
+                filter.CharacterController->HasSubWeapon = true;
             }
         }
     }

@@ -62,14 +62,18 @@ namespace Quantum
             {
                 transform->Position = Types.ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[index.Global];
 
-                if (index.Global % 2 != 0)
+                if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
                 {
-                    if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
+                    if (index.Global % 2 != 0)
                         characterController->MovementDirection = -1;
+                    else
+                        characterController->MovementDirection = 1;
 
-                    f.Events.OnPlayerChangeDirection(entity, index, -1);
+                    f.Events.OnPlayerChangeDirection(entity, index, characterController->MovementDirection);
                 }
             }
+
+            f.Events.OnHurtboxStateChange(entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
 
             return entity;
         }

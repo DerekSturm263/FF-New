@@ -18,7 +18,7 @@ namespace Quantum
             Ultimate = 1 << 8,       // Player pressed the “ultimate” button this tick
 
             Emote = 1 << 9,          // Player pressed the “emote” button this tick
-            Interact = 1 << 10,      // Player pressed the “interact” button this tick
+            LeftRight = 1 << 10,      // Player pressed the “interact” button this tick
 
             Dodge = 1 << 11,         // Player pressed the “dodge” button this tick
             Crouch = 1 << 12,        // Player pressed the “leave” button this tick
@@ -247,18 +247,18 @@ namespace Quantum
             }
         }
 
-        public bool Interact
+        public bool LeftRight
         {
             readonly get
             {
-                return (InputButtons & Buttons.Interact) != 0;
+                return (InputButtons & Buttons.LeftRight) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.Interact;
+                    InputButtons |= Buttons.LeftRight;
                 else
-                    InputButtons &= ~Buttons.Interact;
+                    InputButtons &= ~Buttons.LeftRight;
             }
         }
 

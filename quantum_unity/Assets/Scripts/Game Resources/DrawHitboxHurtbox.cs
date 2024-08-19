@@ -7,7 +7,6 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
 {
     [SerializeField] private Mesh _circle, _box;
     [SerializeField][FormerlySerializedAs("_hitbox")] private Material _material;
-    [SerializeField] private UnityEngine.LayerMask _layer;
 
     private bool _drawHitboxes;
     public void SetDrawHitboxes(bool drawHitboxes) => _drawHitboxes = drawHitboxes;
@@ -41,7 +40,7 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
         {
             transform = Matrix4x4.TRS(item.Transform->Position.ToUnityVector3(), item.Transform->Rotation.ToUnityQuaternion(), 4 * item.HitboxInstance->Shape.BroadRadius.AsFloat * Vector3.one);
             
-            Graphics.DrawMesh(_circle, transform, _material, _layer, Camera.main, 0, properties);
+            Graphics.DrawMesh(_circle, transform, _material, 0, Camera.main, 0, properties);
         }
     }
 
@@ -81,7 +80,7 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
             };
             properties.SetColor("_BaseColor", color);
 
-            Graphics.DrawMesh(mesh, transform, _material, _layer, Camera.main, 0, properties);
+            Graphics.DrawMesh(mesh, transform, _material, 0, Camera.main, 0, properties);
         }
     }
 }

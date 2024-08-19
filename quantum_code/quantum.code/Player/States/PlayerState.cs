@@ -24,7 +24,7 @@
             Trigger
         }
 
-        protected abstract bool IsInputting(ref CharacterControllerSystem.Filter filter, ref Input input);
+        protected abstract bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input);
 
         public abstract (States, StatesFlag) GetStateInfo();
         public abstract EntranceType GetEntranceType();
@@ -32,18 +32,18 @@
 
         public virtual bool OverrideDirection() => false;
 
-        public abstract TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
+        public abstract TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
 
-        public bool TryResolve(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, PlayerStateMachine stateMachine, out TransitionInfo outTransition)
+        public bool TryResolve(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, out TransitionInfo outTransition)
         {
-            bool canExit = CanExit(f, ref filter, input, settings);
+            bool canExit = CanExit(f, stateMachine, ref filter, input, settings);
 
-            foreach (var transition in GetTransitions(f, ref filter, input, settings))
+            foreach (var transition in GetTransitions(f, stateMachine, ref filter, input, settings))
             {
                 if (!transition.OverrideExit && !canExit)
                     continue;
 
-                if (transition.OverrideEnter || stateMachine.States[transition.Destination].CanEnter(f, ref filter, input, settings))
+                if (transition.OverrideEnter || stateMachine.States[transition.Destination].CanEnter(f, stateMachine, ref filter, input, settings))
                 {
                     outTransition = transition;
                     return true;
@@ -54,48 +54,48 @@
             return false;
         }
 
-        protected virtual bool CanEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected virtual bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             var stateInfo = GetStateInfo();
 
             return filter.CharacterController->CanInput &&
                    filter.CharacterController->PossibleStates.HasFlag(stateInfo.Item2) &&
-                   IsInputting(ref filter, ref input) &&
-                   DoesStateTypeMatch(ref filter);
+                   IsInputting(stateMachine, ref filter, ref input) &&
+                   DoesStateTypeMatch(stateMachine, ref filter);
         }
 
-        public virtual void BeginEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public virtual void BeginEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
             Log.Debug($"Beginning entering state: {GetType()}");
         }
 
-        public virtual void FinishEnter(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public virtual void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
         {
             Log.Debug($"Finishing entering state: {GetType()}");
 
             InitializeAnimator(f, filter.CustomAnimator);
         }
 
-        public virtual void Update(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public virtual void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             Log.Debug($"Update state: {GetType()}");
         }
 
-        protected abstract bool CanExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
+        protected abstract bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
 
-        public virtual void BeginExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public virtual void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
         {
             ShutdownAnimator(f, filter.CustomAnimator);
 
             Log.Debug($"Beginning exiting state: {GetType()}");
         }
 
-        public virtual void FinishExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public virtual void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
         {
             Log.Debug($"Finishing exiting state: {GetType()}");
         }
 
-        private bool DoesStateTypeMatch(ref CharacterControllerSystem.Filter filter)
+        private bool DoesStateTypeMatch(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter)
         {
             EntranceType state = GetEntranceType();
 
@@ -105,16 +105,12 @@
 
         private void InitializeAnimator(Frame f, CustomAnimator* customAnimator)
         {
-            if (GetAnimationType() == AnimationType.Hold)
-                CustomAnimator.SetBoolean(f, customAnimator, (int)GetStateInfo().Item1, true);
-            else
-                CustomAnimator.SetTrigger(f, customAnimator, (int)GetStateInfo().Item1);
+            CustomAnimator.SetBoolean(f, customAnimator, (int)GetStateInfo().Item1, true);
         }
         
         private void ShutdownAnimator(Frame f, CustomAnimator* customAnimator)
         {
-            if (GetAnimationType() == AnimationType.Hold)
-                CustomAnimator.SetBoolean(f, customAnimator, (int)GetStateInfo().Item1, false);
+            CustomAnimator.SetBoolean(f, customAnimator, (int)GetStateInfo().Item1, false);
         }
     }
 
@@ -122,26 +118,26 @@
     {
         public sealed override AnimationType GetAnimationType() => AnimationType.Hold;
 
-        protected abstract bool DoExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
-        protected sealed override bool CanExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => DoExit(f, ref filter, input, settings);
+        protected abstract bool DoExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
+        protected sealed override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => DoExit(f, stateMachine, ref filter, input, settings);
     }
 
     public unsafe abstract class ExclusivePassiveState : PassiveState
     {
         protected abstract Input.Buttons GetInput();
-        protected override bool IsInputting(ref CharacterControllerSystem.Filter filter, ref Input input) => filter.CharacterController->IsHeldThisFrame(input, GetInput());
+        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => filter.CharacterController->WasPressedThisFrame(input, GetInput());
 
-        protected override sealed bool DoExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => !IsInputting(ref filter, ref input);
+        protected override sealed bool DoExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => !filter.CharacterController->IsHeldThisFrame(input, GetInput());
     }
 
     public unsafe abstract class ActionState : PlayerState
     {
         protected abstract Input.Buttons GetInput();
-        protected override bool IsInputting(ref CharacterControllerSystem.Filter filter, ref Input input) => filter.CharacterController->WasPressedThisFrame(input, GetInput());
+        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => filter.CharacterController->WasPressedThisFrame(input, GetInput());
 
         public sealed override AnimationType GetAnimationType() => AnimationType.Trigger;
 
-        protected abstract int StateTime(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
-        protected override sealed bool CanExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->StateTime >= StateTime(f, ref filter, input, settings);
+        protected abstract int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings);
+        protected override sealed bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->StateTime >= StateTime(f, stateMachine, ref filter, input, settings);
     }
 }

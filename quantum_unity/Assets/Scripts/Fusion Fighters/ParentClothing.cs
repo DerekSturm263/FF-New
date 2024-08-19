@@ -11,7 +11,8 @@ public class ParentClothing : MonoBehaviour
 
     private void Awake()
     {
-        SetupHurtboxes();
+        if (!_isParent)
+            SetupHurtboxes();
     }
 
     private void LateUpdate()

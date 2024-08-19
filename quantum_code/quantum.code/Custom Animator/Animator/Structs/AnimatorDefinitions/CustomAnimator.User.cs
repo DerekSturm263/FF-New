@@ -69,7 +69,7 @@ namespace Quantum
                 if (motion is AnimatorClip clip)
                     return clip.data.GetFrameAtTime(a->time);
                 else if (motion is AnimatorBlendTree blendTree)
-                    return (blendTree.motions[0] as AnimatorClip).data.GetFrameAtTime(a->time);
+                    return AnimatorFrame.Lerp((blendTree.motions[0] as AnimatorClip).data.GetFrameAtTime(a->time), (blendTree.motions[1] as AnimatorClip).data.GetFrameAtTime(a->time), GetFixedPoint(f, a, "Speed"));
             }
 
             Log.Debug("ERROR");

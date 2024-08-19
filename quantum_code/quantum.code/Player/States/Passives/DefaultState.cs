@@ -2,12 +2,12 @@
 {
     public unsafe sealed class DefaultState : PassiveState
     {
-        protected override bool IsInputting(ref CharacterControllerSystem.Filter filter, ref Input input) => true;
+        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => true;
 
         public override (States, StatesFlag) GetStateInfo() => (States.Default, StatesFlag.Move | StatesFlag.Jump | StatesFlag.FastFall);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
-        public override TransitionInfo[] GetTransitions(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
+        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
         [
             new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Sub, transitionTime: 0, overrideExit: false, overrideEnter: false),
@@ -23,23 +23,28 @@
             new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
         ];
 
-        public override void Update(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        public override void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            base.Update(f, ref filter, input, settings);
+            base.Update(f, stateMachine, ref filter, input, settings);
 
             // Calculate the player's stats.
             ApparelStats stats = ApparelHelper.FromStats(f, filter.PlayerStats);
 
-            HandleMovement(f, ref filter, input, settings, stats);
-            HandleFastFalling(f, ref filter, input, settings, stats);
+            HandleMovement(f, stateMachine, ref filter, input, settings, stats);
+            HandleFastFalling(f, stateMachine, ref filter, input, settings, stats);
+
+            if (filter.CharacterController->WasReleasedThisFrame(input, Input.Buttons.SubWeapon) && filter.CharacterController->HasSubWeapon)
+            {
+                stateMachine.BeginTransition(f, ref filter, input, settings, new(States.Interact, settings.InputCheckTime, true, true));
+            }
         }
 
-        private void HandleMovement(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
+        private void HandleMovement(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
         {
             filter.CharacterController->Move(f, input.Movement.X, ref filter, settings, stats);
         }
 
-        private void HandleFastFalling(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
+        private void HandleFastFalling(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
         {
             if (filter.CharacterController->WasPressedThisFrame(input, Input.Buttons.Crouch) && filter.PhysicsBody->Velocity.Y < settings.MinimumYVelocity)
             {
@@ -47,6 +52,6 @@
             }
         }
 
-        protected override bool DoExit(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => true;
+        protected override bool DoExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => true;
     }
 }

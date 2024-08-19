@@ -6,7 +6,6 @@ namespace Extensions.Components.UI
 {
     [ExecuteAlways]
     [RequireComponent(typeof(TMPro.TMP_Text), typeof(RectTransform))]
-    [DisallowMultipleComponent]
     public abstract class TMPTextEffect : UIBehaviour
     {
         [SerializeField] private bool _resetOnTextChange;

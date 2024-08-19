@@ -4,8 +4,9 @@ namespace Quantum
 {
     public unsafe partial struct CharacterController
     {
-        public readonly bool WasPressedThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button) && !LastFrame.InputButtons.HasFlag(button);
         public readonly bool IsHeldThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button);
+        public readonly bool WasPressedThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button) && !LastFrame.InputButtons.HasFlag(button);
+        public readonly bool WasReleasedThisFrame(Input input, Input.Buttons button) => !input.InputButtons.HasFlag(button) && LastFrame.InputButtons.HasFlag(button);
 
         public readonly Colliders GetNearbyColliders(Frame f, MovementSettings movementSettings, Transform2D* parent)
         {
