@@ -598,4 +598,15 @@ public class BuildController : Controller<BuildController>
     {
         SetOnPlayer(_currentBuild, FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, index => index.Type == FighterType.Human));
     }
+
+    public void SetBehaviorOnBotDefault(BehaviorAsset behavior)
+    {
+        CommandSetBehavior command = new()
+        {
+            entity = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Bot),
+            behavior = new() { Id = behavior.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(command);
+    }
 }

@@ -14,7 +14,8 @@ public class DisplayStageInfo : Display<Type, Extensions.Types.Tuple<UnityEvent<
     {
         var info = GetInfo(item);
 
-        _sprite.SetActive(info.Item2);
+        if (_sprite)
+            _sprite.SetActive(info.Item2);
 
         _component.Item1[0].Invoke(string.Format(_format, info.Item1[0]));
         _component.Item1[1].Invoke(string.Format(_format, info.Item1[1]));

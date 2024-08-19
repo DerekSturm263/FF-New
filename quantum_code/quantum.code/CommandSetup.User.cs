@@ -40,6 +40,7 @@ namespace Quantum
             factories.Add(new CommandSetEmoteLeftMessage());
             factories.Add(new CommandSetEmoteRightMessage());
             factories.Add(new CommandSpawnItem());
+            factories.Add(new CommandSetBehavior());
             factories.Add(new CommandPause());
             factories.Add(new CommandPlay());
             factories.Add(new CommandSetTimeScale());

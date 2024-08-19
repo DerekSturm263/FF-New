@@ -72,6 +72,8 @@
                     commandSetEmoteRightMessage.Execute(f);
                 else if (command is CommandSpawnItem commandSpawnItem)
                     commandSpawnItem.Execute(f);
+                else if (command is CommandSetBehavior commandSetBehavior)
+                    commandSetBehavior.Execute(f);
                 else if (command is CommandPause commandPause)
                     commandPause.Execute(f);
                 else if (command is CommandPlay commandPlay)
