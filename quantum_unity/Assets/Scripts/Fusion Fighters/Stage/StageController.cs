@@ -40,7 +40,8 @@ public class StageController : Controller<StageController>
 
         if (RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id == _vote.Id)
         {
-            FindFirstObjectByType<DisplayStagePickerInfo>().SetText($"Waiting on {selectors.Count(item => item.IsActive)} player(s) to vote");
+            int count = QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers - QuantumRunner.Default.Game.Frames.Verified.Global->SelectedPlayerCount - 1;
+            FindFirstObjectByType<DisplayStagePickerInfo>().SetText($"Waiting on {count} player(s) to vote");
         }
     }
 
