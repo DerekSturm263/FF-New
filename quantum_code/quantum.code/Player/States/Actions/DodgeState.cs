@@ -96,20 +96,22 @@ namespace Quantum
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
                 {
                     if (filter.CharacterController->StateTime < 20)
-                    {
                         stateMachine.BeginTransition(f, ref filter, input, settings, new(States.Dodge, settings.InputCheckTime, true, true));
-                    }
                     else
-                    {
                         stateMachine.BeginTransition(f, ref filter, input, settings, new(States.Default, settings.InputCheckTime, true, true));
-                        StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767 , new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
-                    }
 
                     filter.CharacterController->NextStateTime = filter.CharacterController->StateTime;
                 }
             }
 
             filter.PhysicsBody->Velocity = dodge;
+        }
+
+        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        {
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
+
+            base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }
 
         public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)

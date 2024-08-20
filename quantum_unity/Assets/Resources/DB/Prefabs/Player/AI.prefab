@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 971157763094037022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0, z: 0}
+  m_LocalPosition: {x: -0.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3081,6 +3081,7 @@ MonoBehaviour:
   _sub: {fileID: 6477090122441347849}
   _hair: {fileID: 5538882868099018679}
   _head: {fileID: 1452425703420025927}
+  _defaultExpression: {fileID: 11400000, guid: 55103ffc18807644eb051c8cdf7495d0, type: 2}
 --- !u!114 &3454896217246235171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3088,7 +3089,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3794725640075648181}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b21c87c5c4a2be47ad5370ad279b085, type: 3}
   m_Name: 
@@ -3097,11 +3098,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _footWeight: 1
-  _footCastLength: 5
+  _footCastLength: 0.75
   _footOffset: 0.075
   _headWeight: 1
   _headOffset: 1
   _lerpSpeed: 100
+  _index: 1
 --- !u!4 &3896126195340639071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8180461972985947461, guid: 7fd2767357a19344e9a9a75e458ef356,
@@ -6389,6 +6391,7 @@ MonoBehaviour:
   _sub: {fileID: 2388251748345811222}
   _hair: {fileID: 1496051704445448022}
   _head: {fileID: 5729568528069957334}
+  _defaultExpression: {fileID: 11400000, guid: 55103ffc18807644eb051c8cdf7495d0, type: 2}
 --- !u!114 &126352775277658468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6396,7 +6399,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7998986254016828964}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b21c87c5c4a2be47ad5370ad279b085, type: 3}
   m_Name: 
@@ -6405,11 +6408,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _footWeight: 1
-  _footCastLength: 5
+  _footCastLength: 0.75
   _footOffset: 0.075
   _headWeight: 1
   _headOffset: 1
   _lerpSpeed: 100
+  _index: 0
 --- !u!4 &8503448598699278329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7655799144528112500, guid: 95ec925256b97b9469c593dc4e2a2dde,

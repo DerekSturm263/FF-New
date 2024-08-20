@@ -4,36 +4,39 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Expression", menuName = "Fusion Fighters/Expression")]
 public class Expression : ScriptableObject
 {
-    [SerializeField] private Nullable<float> _openEyesAmount;
-    public Nullable<float> OpenEyesAmount => _openEyesAmount;
+    [SerializeField] private Range<float> _length;
+    public Range<float> Length => _length;
 
-    [SerializeField] private Nullable<float> _openMouthAmount;
-    public Nullable<float> OpenMouthAmount => _openMouthAmount;
+    [SerializeField] private Nullable<AnimationCurve> _openEyesAmount;
+    public Nullable<AnimationCurve> OpenEyesAmount => _openEyesAmount;
 
-    [SerializeField] private Nullable<float> _smileAmount;
-    public Nullable<float> SmileAmount => _smileAmount;
+    [SerializeField] private Nullable<AnimationCurve> _openMouthAmount;
+    public Nullable<AnimationCurve> OpenMouthAmount => _openMouthAmount;
 
-    [SerializeField] private Nullable<float> _cuteMouthAmount;
-    public Nullable<float> CuteMouthAmount => _cuteMouthAmount;
+    [SerializeField] private Nullable<AnimationCurve> _smileAmount;
+    public Nullable<AnimationCurve> SmileAmount => _smileAmount;
 
-    [SerializeField] private Nullable<float> _happyMouthAmount;
-    public Nullable<float> HappyMouthAmount => _happyMouthAmount;
+    [SerializeField] private Nullable<AnimationCurve> _cuteMouthAmount;
+    public Nullable<AnimationCurve> CuteMouthAmount => _cuteMouthAmount;
 
-    [SerializeField] private Nullable<float> _tongueStickAmount;
-    public Nullable<float> TongueStickAmount => _tongueStickAmount;
+    [SerializeField] private Nullable<AnimationCurve> _happyMouthAmount;
+    public Nullable<AnimationCurve> HappyMouthAmount => _happyMouthAmount;
 
-    [SerializeField] private Nullable<float> _angryEyesAmount;
-    public Nullable<float> AngryEyesAmount => _angryEyesAmount;
+    [SerializeField] private Nullable<AnimationCurve> _tongueStickAmount;
+    public Nullable<AnimationCurve> TongueStickAmount => _tongueStickAmount;
 
-    [SerializeField] private Nullable<float> _angryMouthAmount;
-    public Nullable<float> AngryMouthAmount => _angryMouthAmount;
+    [SerializeField] private Nullable<AnimationCurve> _angryEyesAmount;
+    public Nullable<AnimationCurve> AngryEyesAmount => _angryEyesAmount;
 
-    [SerializeField] private Nullable<float> _sadEyesAmount;
-    public Nullable<float> SadEyesAmount => _sadEyesAmount;
+    [SerializeField] private Nullable<AnimationCurve> _angryMouthAmount;
+    public Nullable<AnimationCurve> AngryMouthAmount => _angryMouthAmount;
 
-    [SerializeField] private Nullable<float> _sadMouthAmount;
-    public Nullable<float> SadMouthAmount => _sadMouthAmount;
+    [SerializeField] private Nullable<AnimationCurve> _sadEyesAmount;
+    public Nullable<AnimationCurve> SadEyesAmount => _sadEyesAmount;
 
-    [SerializeField] private Nullable<float> _wideEyesAmount;
-    public Nullable<float> WideEyesAmount => _wideEyesAmount;
+    [SerializeField] private Nullable<AnimationCurve> _sadMouthAmount;
+    public Nullable<AnimationCurve> SadMouthAmount => _sadMouthAmount;
+
+    [SerializeField] private Nullable<AnimationCurve> _wideEyesAmount;
+    public Nullable<AnimationCurve> WideEyesAmount => _wideEyesAmount;
 }

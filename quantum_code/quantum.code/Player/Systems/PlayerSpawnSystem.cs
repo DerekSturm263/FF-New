@@ -38,9 +38,9 @@ namespace Quantum
 
             var teams = f.ResolveList(f.Global->Teams);
 
-            QListPtr<EntityRef> newTeamPtr = f.AllocateList<EntityRef>();
+            QListPtr<FighterIndex> newTeamPtr = f.AllocateList<FighterIndex>();
             var newTeam = f.ResolveList(newTeamPtr);
-            newTeam.Add(entity);
+            newTeam.Add(index);
 
             teams.Add(new() { Players = newTeam });
 

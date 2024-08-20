@@ -1,6 +1,7 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using Quantum.Types;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Quantum
@@ -30,6 +31,9 @@ namespace Quantum
             f.Global->IsMatchRunning = false;
             f.Global->CurrentStage = default;
 
+            f.Global->SelectedPlayerCount = 0;
+            f.Global->StagesPicked = f.AllocateList<Stage>();
+
             f.Global->PlayersReady = 0;
             f.Global->TotalPlayers = 0;
             f.Global->CanPlayersEdit = true;
@@ -44,6 +48,9 @@ namespace Quantum
 
             f.FreeList(f.Global->Teams);
             f.Global->Teams = default;
+
+            f.FreeList(f.Global->StagesPicked);
+            f.Global->StagesPicked = default;
         }
 
         public static void StartOfMatch(Frame f)
@@ -107,7 +114,6 @@ namespace Quantum
             ItemSpawnSystem.DespawnAll(f);
 
             IOrderedEnumerable<Team> winners = teams.OrderBy(winCondition.SortTeams(f, teams)).ThenBy(tieResolver.ResolveTie(f, teams));
-
             MatchResults results = new()
             {
                 Count = winners.Count()
@@ -129,12 +135,17 @@ namespace Quantum
             PlayerStatsSystem.SetAllReadiness(f, false);
 
             f.Global->Results = results;
+            ++f.Global->SelectionIndex;
+
             f.Events.OnMatchEnd(results);
         }
 
         public static void SetStage(Frame f, Stage stage)
         {
             Stage old = default;
+
+            f.Global->SelectedPlayerCount = 0;
+            f.ResolveList(f.Global->StagesPicked).Clear();
 
             if (f.TryFindAsset(f.RuntimeConfig.StageSourceMap.Id, out Map map))
             {
@@ -192,6 +203,28 @@ namespace Quantum
 
             TimerSystem.SetTime(f, new(0, 0, ruleset.Match.Time), true);
             f.Events.OnRulesetSelect(old, ruleset);
+        }
+
+        public static (QList<Team> unsorted, List<Team> sorted) GetTeams(Frame f)
+        {
+            StagePicker stagePicker = f.FindAsset<StagePicker>(f.Global->CurrentMatch.Ruleset.Stage.StagePicker.Id);
+
+            var unsortedTeamsPtr = f.Global->Teams;
+            var unsortedTeams = f.ResolveList(unsortedTeamsPtr);
+
+            var sortedTeamsArray = f.Global->Results.Teams;
+            List<Team> sortedTeams = [];
+
+            if (!sortedTeamsArray[0].Equals(default(Team)))
+                sortedTeams.Add(sortedTeamsArray[0]);
+            if (!sortedTeamsArray[1].Equals(default(Team)))
+                sortedTeams.Add(sortedTeamsArray[1]);
+            if (!sortedTeamsArray[2].Equals(default(Team)))
+                sortedTeams.Add(sortedTeamsArray[2]);
+            if (!sortedTeamsArray[3].Equals(default(Team)))
+                sortedTeams.Add(sortedTeamsArray[3]);
+
+            return (unsortedTeams, sortedTeams);
         }
     }
 }

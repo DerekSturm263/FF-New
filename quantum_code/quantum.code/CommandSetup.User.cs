@@ -10,6 +10,9 @@ namespace Quantum
             // user commands go here
             factories.Add(new CommandSetBuild());
             factories.Add(new CommandSetStage());
+            factories.Add(new CommandMakeStageSelection());
+            factories.Add(new CommandResetStageSelection());
+            factories.Add(new CommandResetSelectionIndex());
             factories.Add(new CommandSetRuleset());
             factories.Add(new CommandSpawnAI());
             factories.Add(new CommandDespawnPlayer());

@@ -103,6 +103,12 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             (UserProfileController.Instance as UserProfileController).SetPlayer(player);
             UserProfileController.Instance.Spawn(true);
 
+            if (QuantumRunner.Default && QuantumRunner.Default.IsRunning)
+            {
+                CommandResetSelectionIndex command = new();
+                QuantumRunner.Default.Game.SendCommand(command);
+            }
+
             (UserProfileController.Instance as UserProfileController).DeferJoinEvents(() =>
             {
                 if (_executeEvents)

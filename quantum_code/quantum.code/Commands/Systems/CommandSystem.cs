@@ -12,6 +12,12 @@
                     commandSetBuild.Execute(f);
                 else if (command is CommandSetStage commandSetStage)
                     commandSetStage.Execute(f);
+                else if (command is CommandMakeStageSelection commandMakeStageSelection)
+                    commandMakeStageSelection.Execute(f);
+                else if (command is CommandResetStageSelection commandResetStageSelection)
+                    commandResetStageSelection.Execute(f);
+                else if (command is CommandResetSelectionIndex commandResetSelectionIndex)
+                    commandResetSelectionIndex.Execute(f);
                 else if (command is CommandSetRuleset commandSetRuleset)
                     commandSetRuleset.Execute(f);
                 else if (command is CommandSpawnAI commandSpawnAI)

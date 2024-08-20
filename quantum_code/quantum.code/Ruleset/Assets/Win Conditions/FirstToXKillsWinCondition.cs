@@ -13,7 +13,7 @@ namespace Quantum
             // Get if one team has X kills.
             bool isOneTeamWinning = teams.Any(team => {
                 var players = f.ResolveList(team.Players);
-                return players.Sum(item => f.Unsafe.GetPointer<PlayerStats>(item)->Stats.Kills) >= Count;
+                return players.Sum(item => f.Unsafe.GetPointer<PlayerStats>(FighterIndex.GetPlayerFromIndex(f, item))->Stats.Kills) >= Count;
             });
 
             // Return true if the match would normally be over OR if 1 team hits X kills.
@@ -25,7 +25,7 @@ namespace Quantum
             return team =>
             {
                 var players = f.ResolveList(team.Players);
-                return -players.Sum(item => f.Unsafe.GetPointer<PlayerStats>(item)->Stats.Kills);
+                return -players.Sum(item => f.Unsafe.GetPointer<PlayerStats>(FighterIndex.GetPlayerFromIndex(f, item))->Stats.Kills);
             };
         }
     }

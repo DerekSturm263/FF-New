@@ -43,6 +43,9 @@ public class CustomMultiplayerUIInputSystemModule : MonoBehaviour
 
     private void Navigate(Vector2 dir)
     {
+        if (!_eventSystem.currentSelectedGameObject)
+            return;
+
         Selectable selectable = _eventSystem.currentSelectedGameObject.GetComponent<Selectable>();
         if (!selectable)
             return;

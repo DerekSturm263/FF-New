@@ -11,7 +11,7 @@ namespace Quantum
             return team =>
             {
                 var players = f.ResolveList(team.Players);
-                return -players.Sum(item => f.Unsafe.GetPointer<Stats>(item)->CurrentStats.Health.AsInt);
+                return -players.Sum(item => f.Unsafe.GetPointer<Stats>(FighterIndex.GetPlayerFromIndex(f, item))->CurrentStats.Health.AsInt);
             };
         }
     }

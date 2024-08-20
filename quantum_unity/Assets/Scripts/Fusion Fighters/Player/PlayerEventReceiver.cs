@@ -17,20 +17,22 @@ public class PlayerEventReceiver : MonoBehaviour
 
     private ParentClothing _clothingParent;
 
+    [SerializeField] private Expression _defaultExpression;
+
+    private Expression _expression;
+    private float _expressionCurrentTime;
+    private float _expressionMaxLength;
+
     private void Awake()
     {
         _parent = GetComponentInParent<PlayerEventReceiverParent>();
         _clothingParent = GetComponent<ParentClothing>();
     }
 
-    private void Start()
-    {
-        StartCoroutine(Blink());
-    }
-
     private void Update()
     {
         UpdateHurtboxVisuals(Mathf.PingPong(Time.time * _parent.FlashSpeed, 1));
+        UpdateExpression();
     }
 
     public void SetAvatar(AvatarColorBinding avatar, PlayerEventReceiver newAvatarObj, EntityRef entity)
@@ -253,52 +255,10 @@ public class PlayerEventReceiver : MonoBehaviour
 
     public void SetPlayerExpression(Expression expression)
     {
-        if (expression.OpenEyesAmount.HasValue)
-        {
-            _head.SetBlendShapeWeight(0, 100 - expression.OpenEyesAmount.Value * 100);
-            _head.SetBlendShapeWeight(1, 100 - expression.OpenEyesAmount.Value * 100);
-        }
+        _expression = expression;
 
-        int offset = _parent.Avatar == _female ? 1 : 0;
-
-        if (expression.SmileAmount.HasValue)
-            _head.SetBlendShapeWeight(2 + offset, expression.SmileAmount.Value * 100);
-
-        if (expression.OpenMouthAmount.HasValue)
-            _head.SetBlendShapeWeight(3 + offset, expression.OpenMouthAmount.Value * 100);
-
-        if (expression.CuteMouthAmount.HasValue)
-            _head.SetBlendShapeWeight(4 + offset, expression.CuteMouthAmount.Value * 100);
-
-        if (expression.AngryEyesAmount.HasValue)
-        {
-            _head.SetBlendShapeWeight(5 + offset, expression.AngryEyesAmount.Value * 100);
-            _head.SetBlendShapeWeight(6 + offset, expression.AngryEyesAmount.Value * 100);
-        }
-
-        if (expression.SadEyesAmount.HasValue)
-        {
-            _head.SetBlendShapeWeight(7 + offset, expression.SadEyesAmount.Value * 100);
-            _head.SetBlendShapeWeight(8 + offset, expression.SadEyesAmount.Value * 100);
-        }
-
-        if (expression.SadMouthAmount.HasValue)
-            _head.SetBlendShapeWeight(9 + offset, expression.SadMouthAmount.Value * 100);
-
-        if (expression.AngryMouthAmount.HasValue)
-            _head.SetBlendShapeWeight(10 + offset, expression.AngryMouthAmount.Value * 100);
-
-        if (expression.TongueStickAmount.HasValue)
-            _head.SetBlendShapeWeight(11 + offset, expression.TongueStickAmount.Value * 100);
-        
-        if (expression.HappyMouthAmount.HasValue)
-            _head.SetBlendShapeWeight(12 + offset, expression.HappyMouthAmount.Value * 100);
-
-        if (expression.WideEyesAmount.HasValue)
-        {
-            _head.SetBlendShapeWeight(13 + offset, expression.WideEyesAmount.Value * 100);
-            _head.SetBlendShapeWeight(14 + offset, expression.WideEyesAmount.Value * 100);
-        }
+        _expressionCurrentTime = 0;
+        _expressionMaxLength = Random.Range(expression.Length.Min, expression.Length.Max);
     }
 
     public void SetHurtboxState(HurtboxSettings settings)
@@ -338,6 +298,68 @@ public class PlayerEventReceiver : MonoBehaviour
             {
                 _parent.Default.Apply(materials[i], t);
             }
+        }
+    }
+
+    private void UpdateExpression()
+    {
+        if (_expressionCurrentTime >= _expressionMaxLength)
+        {
+            SetPlayerExpression(_defaultExpression);
+        }
+
+        EvaluateExpression(_expressionCurrentTime);
+
+        _expressionCurrentTime += Time.deltaTime;
+    }
+
+    private void EvaluateExpression(float t)
+    {
+        if (_expression.OpenEyesAmount.HasValue)
+        {
+            _head.SetBlendShapeWeight(0, 100 - _expression.OpenEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+            _head.SetBlendShapeWeight(1, 100 - _expression.OpenEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+        }
+
+        int offset = _parent.Avatar == _female ? 1 : 0;
+
+        if (_expression.SmileAmount.HasValue)
+            _head.SetBlendShapeWeight(2 + offset, _expression.SmileAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.OpenMouthAmount.HasValue)
+            _head.SetBlendShapeWeight(3 + offset, _expression.OpenMouthAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.CuteMouthAmount.HasValue)
+            _head.SetBlendShapeWeight(4 + offset, _expression.CuteMouthAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.AngryEyesAmount.HasValue)
+        {
+            _head.SetBlendShapeWeight(5 + offset, _expression.AngryEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+            _head.SetBlendShapeWeight(6 + offset, _expression.AngryEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+        }
+
+        if (_expression.SadEyesAmount.HasValue)
+        {
+            _head.SetBlendShapeWeight(7 + offset, _expression.SadEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+            _head.SetBlendShapeWeight(8 + offset, _expression.SadEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+        }
+
+        if (_expression.SadMouthAmount.HasValue)
+            _head.SetBlendShapeWeight(9 + offset, _expression.SadMouthAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.AngryMouthAmount.HasValue)
+            _head.SetBlendShapeWeight(10 + offset, _expression.AngryMouthAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.TongueStickAmount.HasValue)
+            _head.SetBlendShapeWeight(11 + offset, _expression.TongueStickAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.HappyMouthAmount.HasValue)
+            _head.SetBlendShapeWeight(12 + offset, _expression.HappyMouthAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+
+        if (_expression.WideEyesAmount.HasValue)
+        {
+            _head.SetBlendShapeWeight(13 + offset, _expression.WideEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
+            _head.SetBlendShapeWeight(14 + offset, _expression.WideEyesAmount.Value.Evaluate(t / _expressionMaxLength) * 100);
         }
     }
 

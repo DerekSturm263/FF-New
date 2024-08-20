@@ -1,12 +1,15 @@
 using Extensions.Components.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Linq;
 using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
     [SerializeField] private StageAssetAsset _default;
     [SerializeField] private StageAssetAsset _none;
+
+    [SerializeField] private AssetRefStagePicker _vote;
 
     [SerializeField] private Popup _savePopup;
 
@@ -20,6 +23,31 @@ public class StageController : Controller<StageController>
     {
         _currentStage = stage;
         _isDirty = false;
+    }
+
+    public unsafe void MakeSelection(SerializableWrapper<Stage> stage, FighterIndex index)
+    {
+        CommandMakeStageSelection command = new()
+        {
+            fighterIndex = index,
+            stage = stage
+        };
+
+        QuantumRunner.Default.Game.SendCommand(command);
+
+        var selectors = FindObjectsByType<ChooseSelector>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        selectors.First(item => item.Binding.Player.Index.Equals(index)).SetActive(false);
+
+        if (RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id == _vote.Id)
+        {
+            FindFirstObjectByType<DisplayStagePickerInfo>().SetText($"Waiting on {selectors.Count(item => item.IsActive)} player(s) to vote");
+        }
+    }
+
+    public unsafe void ResetSelection()
+    {
+        CommandResetStageSelection command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
     }
 
     public override void Initialize()

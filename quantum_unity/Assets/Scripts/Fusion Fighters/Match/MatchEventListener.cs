@@ -79,20 +79,14 @@ public class MatchEventListener : MonoBehaviour
 
         var winningTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(teams[0].Players);
 
-        if (game.Frames.Verified.Unsafe.TryGetPointer(winningTeam[0], out PlayerStats* winnerStats))
-        {
-            _line.color = _playerColors[winnerStats->Index.Global];
-        }
+        _line.color = _playerColors[winningTeam[0].Global];
 
         for (int i = 1; i < teams.Count; ++i)
         {
             var team = QuantumRunner.Default.Game.Frames.Verified.ResolveList(teams[i].Players);
 
-            if (game.Frames.Verified.Unsafe.TryGetPointer(team[0], out PlayerStats* playerStats))
-            {
-                _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(true);
-                _runnerUpImages[i - 1].material = _playerIconMats[playerStats->Index.Global];
-            }
+            _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(true);
+            _runnerUpImages[i - 1].material = _playerIconMats[team[0].Global];
         }
 
         for (int i = teams.Count; i < 4; ++i)
@@ -110,8 +104,8 @@ public class MatchEventListener : MonoBehaviour
     {
         _onMatchEndDelayed.Invoke();
 
-        QList<EntityRef> firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
-        CameraController.Instance.FocusTarget(QuantumRunner.Default.Game.Frames.Verified.Get<PlayerStats>(firstPlaceTeam[0]).Index.Global);
+        QList<FighterIndex> firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
+        CameraController.Instance.FocusTarget(firstPlaceTeam[0].Global);
     }
 
     private void InvokeEventsDelayed2()
