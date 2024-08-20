@@ -64,6 +64,11 @@ namespace Quantum
 
             MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
 
+            if (GetNearbyCollider(Colliders.LeftWall) && amount < 0)
+                amount = 0;
+            if (GetNearbyCollider(Colliders.RightWall) && amount > 0)
+                amount = 0;
+
             //bool isTurning = false;
 
             // Exit if the player is holding too much up or down.

@@ -10,9 +10,9 @@ namespace Quantum.Types
             return [array.Item1, array.Item2, array.Item3, array.Item4];
         }
 
-        public static unsafe FPVector2*[] AllPtr(ArrayPlayerSpawnPoints array)
+        public static unsafe FPVector2*[] AllPtr(ArrayPlayerSpawnPoints* array)
         {
-            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4];
+            return [&array->Item1, &array->Item2, &array->Item3, &array->Item4];
         }
 
         public static FPVector2[] All(ArrayItemSpawnPoints array)
@@ -20,9 +20,9 @@ namespace Quantum.Types
             return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
         }
 
-        public static unsafe FPVector2*[] AllPtr(ArrayItemSpawnPoints array)
+        public static unsafe FPVector2*[] AllPtr(ArrayItemSpawnPoints* array)
         {
-            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4, &array.Item5, &array.Item6, &array.Item7, &array.Item8, &array.Item9, &array.Item10, &array.Item11, &array.Item12, &array.Item13, &array.Item14, &array.Item15, &array.Item16];
+            return [&array->Item1, &array->Item2, &array->Item3, &array->Item4, &array->Item5, &array->Item6, &array->Item7, &array->Item8, &array->Item9, &array->Item10, &array->Item11, &array->Item12, &array->Item13, &array->Item14, &array->Item15, &array->Item16];
         }
 
         public static List<AssetRefItem> All(ArrayItems array)
@@ -380,9 +380,9 @@ namespace Quantum.Types
             return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8];
         }
 
-        public static unsafe StaticColliderInfo*[] AllPtr(ArrayStaticColliderInfo array)
+        public static unsafe StaticColliderInfo*[] AllPtr(ArrayStaticColliderInfo* array)
         {
-            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4, &array.Item5, &array.Item6, &array.Item7, &array.Item8];
+            return [&array->Item1, &array->Item2, &array->Item3, &array->Item4, &array->Item5, &array->Item6, &array->Item7, &array->Item8];
         }
 
         public static PositionalGizmo[] All(ArrayPositionalGizmoInfo array)
@@ -390,9 +390,9 @@ namespace Quantum.Types
             return [array.Item1, array.Item2, array.Item3, array.Item4, array.Item5, array.Item6, array.Item7, array.Item8, array.Item9, array.Item10, array.Item11, array.Item12, array.Item13, array.Item14, array.Item15, array.Item16];
         }
 
-        public static unsafe PositionalGizmo*[] AllPtr(ArrayPositionalGizmoInfo array)
+        public static unsafe PositionalGizmo*[] AllPtr(ArrayPositionalGizmoInfo* array)
         {
-            return [&array.Item1, &array.Item2, &array.Item3, &array.Item4, &array.Item5, &array.Item6, &array.Item7, &array.Item8, &array.Item9, &array.Item10, &array.Item11, &array.Item12, &array.Item13, &array.Item14, &array.Item15, &array.Item16];
+            return [&array->Item1, &array->Item2, &array->Item3, &array->Item4, &array->Item5, &array->Item6, &array->Item7, &array->Item8, &array->Item9, &array->Item10, &array->Item11, &array->Item12, &array->Item13, &array->Item14, &array->Item15, &array->Item16];
         }
     }
 }

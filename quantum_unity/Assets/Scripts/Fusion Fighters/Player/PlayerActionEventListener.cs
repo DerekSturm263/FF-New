@@ -33,7 +33,7 @@ public class PlayerActionEventListener : MonoBehaviour
         GameObject effect = VFXController.Instance.SpawnEffect(_spawnDespawn);
 
         if (effect)
-            effect.transform.position = _entityViewUpdater.GetView(e.Ctx.Entity).transform.position;
+            effect.transform.position = e.Ctx.Position.ToUnityVector3();
     }
 
     public void Jump(EventOnPlayerJump e)

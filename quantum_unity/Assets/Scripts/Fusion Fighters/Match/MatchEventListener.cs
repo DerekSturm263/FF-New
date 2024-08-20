@@ -20,8 +20,10 @@ public class MatchEventListener : MonoBehaviour
 
     [SerializeField] private UnityEvent _onMatchSetup;
 
+    [SerializeField] private Image _line;
     [SerializeField] private Image[] _runnerUpImages;
     [SerializeField] private Material[] _playerIconMats;
+    [SerializeField] private Color[] _playerColors;
 
     private void Awake()
     {
@@ -74,6 +76,13 @@ public class MatchEventListener : MonoBehaviour
         Invoke(nameof(LoadWinnerDelayed), _delayTime);
         Invoke(nameof(InvokeEventsDelayed), _delayTime + 1);
         Invoke(nameof(InvokeEventsDelayed2), _delayTime + 3);
+
+        var winningTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(teams[0].Players);
+
+        if (game.Frames.Verified.Unsafe.TryGetPointer(winningTeam[0], out PlayerStats* winnerStats))
+        {
+            _line.color = _playerColors[winnerStats->Index.Global];
+        }
 
         for (int i = 1; i < teams.Count; ++i)
         {

@@ -88,7 +88,8 @@ namespace Quantum
         public static void DespawnPlayer(Frame f, EntityRef player)
         {
             PlayerStats stats = f.Get<PlayerStats>(player);
-            f.Events.OnPlayerDespawn(new() { Entity = player, Index = stats.Index, Name = stats.Name });
+            Transform2D transform = f.Get<Transform2D>(player);
+            f.Events.OnPlayerDespawn(new() { Entity = player, Index = stats.Index, Name = stats.Name, Position = transform.Position });
 
             RemovePlayerFromList(f, stats.Index);
 
