@@ -45,6 +45,8 @@ namespace Editor.Extensions.Components.Input
                     break;
             }
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_onCtxAction"), new GUIContent("On Ctx Action"));
+
             EditorGUI.EndDisabledGroup();
             serializedObject.ApplyModifiedProperties();
         }

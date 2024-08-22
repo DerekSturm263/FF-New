@@ -47,6 +47,7 @@ namespace Quantum
             factories.Add(new CommandPause());
             factories.Add(new CommandPlay());
             factories.Add(new CommandSetTimeScale());
+            factories.Add(new CommandChangeTeam());
         }
     }
 }

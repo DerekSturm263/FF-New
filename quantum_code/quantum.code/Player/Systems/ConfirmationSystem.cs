@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -45,7 +46,7 @@ namespace Quantum
                 ++f.Global->PlayersReady;
                 f.Events.OnPlayerReady(filter.Entity, filter.PlayerStats->Index);
 
-                if (f.Global->TotalPlayers > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
+                if (FighterIndex.GetAllTeams(f).Count() > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
                 {
                     HandleAllPlayersReady(f);
                 }

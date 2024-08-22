@@ -32,6 +32,7 @@ public class PlayerStatController : Controller<PlayerStatController>
 
         QuantumEvent.Subscribe<EventOnPlayerSetName>(listener: this, handler: (e) => _huds.ForEach(item => item[e.Index.Global].SetPlayerName(e.Name)));
         QuantumEvent.Subscribe<EventOnPlayerSetIcon>(listener: this, handler: (e) => _huds.ForEach(item => item[e.Index.Global].SetPlayerIconIndex(e.Index)));
+        QuantumEvent.Subscribe<EventOnPlayerChangeTeam>(listener: this, handler: (e) => _huds.ForEach(item => item[e.Index.Global].SetPlayerColor(e.Index)));
         QuantumEvent.Subscribe<EventOnPlayerReady>(listener: this, handler: (e) => _huds.ForEach(item => item[e.Index.Global].UpdateReadiness(true)));
         QuantumEvent.Subscribe<EventOnPlayerCancel>(listener: this, handler: (e) => _huds.ForEach(item => item[e.Index.Global].UpdateReadiness(false)));
         QuantumEvent.Subscribe<EventOnPlayerUpdateReady>(listener: this, handler: (e) => _huds.ForEach(item => item[e.Index.Global].UpdateReadinessValue(e.Readiness.AsFloat)));

@@ -2,6 +2,7 @@ using Extensions.Components.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildController : Controller<BuildController>
 {
@@ -586,6 +587,25 @@ public class BuildController : Controller<BuildController>
         {
             player.Profile.value.SetLastBuild(build);
             player.Profile.Save();
+        }
+    }
+
+    public unsafe void ChangeTeam(InputAction.CallbackContext ctx)
+    {
+        if (!PlayerJoinController.Instance.TryGetPlayer(ctx.control.device, out LocalPlayerInfo player))
+            return;
+
+        EntityRef entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index);
+
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(entity, out PlayerStats stats))
+        {
+            CommandChangeTeam command = new()
+            {
+                player = entity,
+                teamIndex = (stats.Index.Team + 1) % QuantumRunner.Default.Game.Frames.Verified.Global->PlayersReady
+            };
+
+            QuantumRunner.Default.Game.SendCommand(command);
         }
     }
 

@@ -141,5 +141,14 @@ namespace Quantum
         }
 
         public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Team {Team}, Device: {Device}, Type: {Type})";
+
+        public override readonly bool Equals(object obj)
+        {
+            if (obj is not FighterIndex)
+                return false;
+
+            FighterIndex objF = (FighterIndex)obj;
+            return objF.Local == Local && objF.Global == Global && objF.GlobalNoBots == GlobalNoBots && objF.GlobalNoHumans == GlobalNoHumans && objF.Device == Device && objF.Type == Type;
+        }
     }
 }

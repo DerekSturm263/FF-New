@@ -28,6 +28,9 @@ namespace Extensions.Components.Input
         [SerializeField] protected UnityEvent<Vector2> _onVector2Action;
         public UnityEvent<Vector2> OnVector2Action => _onVector2Action;
 
+        [SerializeField] protected UnityEvent<InputAction.CallbackContext> _onCtxAction;
+        public UnityEvent<InputAction.CallbackContext> OnCtxAction => _onCtxAction;
+
         protected bool _isReady;
 
         private void Awake()
@@ -43,6 +46,8 @@ namespace Extensions.Components.Input
                 "Vector2" => ctx => { if (HasFocus() && !IsInputting()) Invoke(ctx.ReadValue<Vector2>()); },
                 _ => ctx => { if (HasFocus() && !IsInputting()) Invoke(); }
             };
+
+            _action.performed += _onCtxAction.Invoke;
         }
 
         private void Update()

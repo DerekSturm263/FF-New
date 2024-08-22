@@ -7,18 +7,24 @@ public class Selector : MonoBehaviour
     [SerializeField] private Image _arrow;
     [SerializeField] private TMPro.TMP_Text _label;
 
-    [SerializeField] private Color[] _colors;
-
     private RectTransform _rect;
+    private FighterIndex _playerIndex;
 
     private void Awake()
     {
         _rect = GetComponent<RectTransform>();
     }
 
+    private void OnEnable()
+    {
+
+    }
+
     public void Initialize(FighterIndex playerIndex)
     {
-        _arrow.color = _colors[playerIndex.GlobalNoBots];
+        _playerIndex = playerIndex;
+
+        //_arrow.color = playerIndex.GetLightColor();
         _label.SetText($"P{playerIndex.GlobalNoBots + 1}");
     }
 

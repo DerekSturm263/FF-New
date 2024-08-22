@@ -76,6 +76,14 @@ public class HUDPlayerLink : MonoBehaviour
         }
     }
 
+    public void SetPlayerColor(FighterIndex index)
+    {
+        if (_background)
+        {
+            _background.color = index.GetDarkColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
+        }
+    }
+
     public void SetPlayerName(string name)
     {
         _name.SetText(name);

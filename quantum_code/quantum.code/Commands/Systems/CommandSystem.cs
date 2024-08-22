@@ -86,6 +86,8 @@
                     commandPlay.Execute(f);
                 else if (command is CommandSetTimeScale commandSetTimeScale)
                     commandSetTimeScale.Execute(f);
+                else if (command is CommandChangeTeam commandChangeTeam)
+                    commandChangeTeam.Execute(f);
             }
         }
     }
