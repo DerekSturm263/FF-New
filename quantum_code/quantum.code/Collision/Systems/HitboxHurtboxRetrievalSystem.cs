@@ -69,21 +69,23 @@ namespace Quantum
                     f.Events.OnPlayerHit(defender, playerStats2->Index, damage);
                 }
 
-                if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
+                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
                 {
-                    if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
+                    attackerPlayerStats->Stats.TotalDamageDealt += damage;
+
+                    if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
                     {
                         ++attackerPlayerStats->Stats.Kills;
-                    }
 
-                    if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
-                    {
-                        ++defenderPlayerStats->Stats.Deaths;
+                        if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
+                        {
+                            ++defenderPlayerStats->Stats.Deaths;
+                        }
                     }
-                }
-                else
-                {
-                    StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, attackerStats);
+                    else
+                    {
+                        StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, attackerStats);
+                    }
                 }
 
                 // Increase energy.

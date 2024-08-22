@@ -10,6 +10,9 @@ namespace Quantum {
         public LayerMask HitboxLayer;
         public LayerMask GroundLayer;
 
+        public ArrayColors TeamColors;
+        public ArrayColors DarkTeamColors;
+
         partial void SerializeUserData(BitStream stream)
         {
             stream.Serialize(ref StageSourceMap);
@@ -17,6 +20,8 @@ namespace Quantum {
             stream.Serialize(ref Hitbox);
             stream.Serialize(ref HitboxLayer);
             stream.Serialize(ref GroundLayer);
+            stream.Serialize(ref TeamColors);
+            stream.Serialize(ref DarkTeamColors);
         }
     }
 }

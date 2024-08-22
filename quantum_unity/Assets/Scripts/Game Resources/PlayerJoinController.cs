@@ -13,7 +13,7 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
 
     public IEnumerable<LocalPlayerInfo> GetAllLocalPlayers(bool limitCount)
     {
-        for (int i = 0; i <  _localPlayers.Count; ++i)
+        for (int i = 0; i < _localPlayers.Count; ++i)
         {
             if (limitCount && i == _playerLimit)
                 break;
@@ -31,7 +31,12 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     public void SetPlayerLimit(int playerLimit) => _instance._playerLimit = playerLimit;
 
     [SerializeField] private bool _isEnabled;
-    public void Enable(bool isEnabled) => _instance._isEnabled = isEnabled;
+    public void Enable(bool isEnabled)
+    {
+        _instance._isEnabled = isEnabled;
+
+        FindFirstObjectByType<DisplayUsers>()?.SetPromptsEnabled(_instance._isEnabled);
+    }
 
     private bool _wasEnabled;
 
@@ -39,11 +44,15 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
     {
         _instance._wasEnabled = _instance._isEnabled;
         _instance._isEnabled = false;
+
+        FindFirstObjectByType<DisplayUsers>()?.SetPromptsEnabled(_instance._isEnabled);
     }
 
     public void TryEnableJoin()
     {
         _instance._isEnabled = _instance._wasEnabled;
+
+        FindFirstObjectByType<DisplayUsers>()?.SetPromptsEnabled(_instance._isEnabled);
     }
 
     [System.NonSerialized] private bool _isInitialized = false;
@@ -170,8 +179,9 @@ public class PlayerJoinController : Extensions.Components.Miscellaneous.Controll
             Local = localIndex,
             Global = localIndex,
             GlobalNoBots = localIndex,
-            Device = HostClientEvents.DeviceIndex,
             GlobalNoHumans = -1,
+            Team = localIndex,
+            Device = HostClientEvents.DeviceIndex,
             Type = FighterType.Human
         };
 

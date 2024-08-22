@@ -368,10 +368,11 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref FighterIndex value)
         {
             stream.Serialize(ref value.Local);
-            stream.Serialize(ref value.Device);
             stream.Serialize(ref value.Global);
             stream.Serialize(ref value.GlobalNoBots);
             stream.Serialize(ref value.GlobalNoHumans);
+            stream.Serialize(ref value.Team);
+            stream.Serialize(ref value.Device);
             stream.Serialize(ref value.Type);
         }
 
@@ -396,6 +397,14 @@ namespace Quantum
             stream.Serialize(ref value.Velocity);
             stream.Serialize(ref value.Offset);
             stream.Serialize(ref value.StartHolding);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayColors value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
         }
 
         #endregion

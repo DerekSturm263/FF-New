@@ -2,19 +2,20 @@ using GameResources.Camera;
 using Quantum;
 using Quantum.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MatchEventListener : MonoBehaviour
 {
-    private EntityViewUpdater _entityView;
+    private EntityViewUpdater _entityViewUpdater;
 
     [SerializeField] private GameObject _transition;
     [SerializeField] private float _delayTime;
 
-    [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>> _onMatchStart;
-    [SerializeField] private UnityEvent<QuantumGame, EntityViewUpdater, List<Team>, bool> _onMatchEnd;
+    [SerializeField] private UnityEvent<EventOnMatchStart> _onMatchStart;
+    [SerializeField] private UnityEvent<EventOnMatchEnd> _onMatchEnd;
     [SerializeField] private UnityEvent _onMatchEndDelayed;
     [SerializeField] private UnityEvent _onMatchEndDelayed2;
 
@@ -23,73 +24,44 @@ public class MatchEventListener : MonoBehaviour
     [SerializeField] private Image _line;
     [SerializeField] private Image[] _runnerUpImages;
     [SerializeField] private Material[] _playerIconMats;
-    [SerializeField] private Color[] _playerColors;
 
     private void Awake()
     {
-        _entityView = FindFirstObjectByType<EntityViewUpdater>();
+        _entityViewUpdater = FindFirstObjectByType<EntityViewUpdater>();
 
-        QuantumEvent.Subscribe<EventOnMatchStart>(listener: this, handler: e =>
-        {
-            List<Team> teams = new();
-
-            if (!e.Setup.Teams.Item1.Equals(default(Team)))
-                teams.Add(e.Setup.Teams.Item1);
-            if (!e.Setup.Teams.Item2.Equals(default(Team)))
-                teams.Add(e.Setup.Teams.Item2);
-            if (!e.Setup.Teams.Item3.Equals(default(Team)))
-                teams.Add(e.Setup.Teams.Item3);
-            if (!e.Setup.Teams.Item4.Equals(default(Team)))
-                teams.Add(e.Setup.Teams.Item4);
-
-            _onMatchStart.Invoke(e.Game, _entityView, teams);
-        });
-
-        QuantumEvent.Subscribe<EventOnMatchEnd>(listener: this, handler: e =>
-        {
-            List<Team> teams = new();
-
-            if (!e.Results.Teams[0].Equals(default(Team)))
-                teams.Add(e.Results.Teams[0]);
-            if (!e.Results.Teams[1].Equals(default(Team)))
-                teams.Add(e.Results.Teams[1]);
-            if (!e.Results.Teams[2].Equals(default(Team)))
-                teams.Add(e.Results.Teams[2]);
-            if (!e.Results.Teams[3].Equals(default(Team)))
-                teams.Add(e.Results.Teams[3]);
-
-            _onMatchEnd.Invoke(e.Game, _entityView, teams, e.Results.WasForfeited);
-        });
+        QuantumEvent.Subscribe<EventOnMatchStart>(listener: this, handler: _onMatchStart.Invoke);
+        QuantumEvent.Subscribe<EventOnMatchEnd>(listener: this, handler: _onMatchEnd.Invoke);
 
         QuantumEvent.Subscribe<EventOnMatchSetup>(listener: this, handler: e => _onMatchSetup.Invoke());
     }
 
-    private (EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited) matchResults;
+    private MatchResults matchResults;
 
-    public void ZoomInOnWinners(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
+    public void ZoomInOnWinners(EventOnMatchEnd e)
     {
-        matchResults = (entityViewUpdater, teams, wasForfeited);
+        matchResults = e.Results;
     }
 
-    public unsafe void LoadWinner(QuantumGame game, EntityViewUpdater entityViewUpdater, List<Team> teams, bool wasForfeited)
+    public unsafe void LoadWinner(EventOnMatchEnd e)
     {
         Invoke(nameof(LoadWinnerDelayed), _delayTime);
         Invoke(nameof(InvokeEventsDelayed), _delayTime + 1);
         Invoke(nameof(InvokeEventsDelayed2), _delayTime + 3);
 
-        var winningTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(teams[0].Players);
+        var teams = e.Results.SortedTeams.Get(QuantumRunner.Default.Game.Frames.Verified);
 
-        _line.color = _playerColors[winningTeam[0].Global];
+        var winningTeam = teams.ElementAt(0).Get(QuantumRunner.Default.Game.Frames.Verified);
+        _line.color = winningTeam.ElementAt(0).GetDarkColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
 
-        for (int i = 1; i < teams.Count; ++i)
+        for (int i = 1; i < teams.Count(); ++i)
         {
-            var team = QuantumRunner.Default.Game.Frames.Verified.ResolveList(teams[i].Players);
+            var team = teams.ElementAt(i).Get(QuantumRunner.Default.Game.Frames.Verified);
 
             _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(true);
-            _runnerUpImages[i - 1].material = _playerIconMats[team[0].Global];
+            _runnerUpImages[i - 1].material = _playerIconMats[team.ElementAt(0).Global];
         }
 
-        for (int i = teams.Count; i < 4; ++i)
+        for (int i = teams.Count(); i < 4; ++i)
         {
             _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(false);
         }
@@ -104,8 +76,10 @@ public class MatchEventListener : MonoBehaviour
     {
         _onMatchEndDelayed.Invoke();
 
-        QList<FighterIndex> firstPlaceTeam = QuantumRunner.Default.Game.Frames.Verified.ResolveList(matchResults.teams[0].Players);
-        CameraController.Instance.FocusTarget(firstPlaceTeam[0].Global);
+        var teams = matchResults.SortedTeams.Get(QuantumRunner.Default.Game.Frames.Verified);
+
+        var firstPlaceTeam = teams.ElementAt(0).Get(QuantumRunner.Default.Game.Frames.Verified);
+        CameraController.Instance.FocusTarget(firstPlaceTeam.ElementAt(0).Global);
     }
 
     private void InvokeEventsDelayed2()

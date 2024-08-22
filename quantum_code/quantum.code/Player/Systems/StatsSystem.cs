@@ -118,6 +118,14 @@ namespace Quantum
 
         public static bool ModifyHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount, bool triggerDeath)
         {
+            if (f.Unsafe.TryGetPointer(entityRef, out PlayerStats* playerStats))
+            {
+                if (amount < 0)
+                    playerStats->Stats.TotalDamageTaken += amount;
+                else
+                    playerStats->Stats.TotalDamageHealed += amount;
+            }
+
             return SetHealth(f, entityRef, stats, stats->CurrentStats.Health + amount * stats->StatsMultiplier.Health, triggerDeath);
         }
 
@@ -167,6 +175,14 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
         {
+            if (f.Unsafe.TryGetPointer(entityRef, out PlayerStats* playerStats))
+            {
+                if (amount > 0)
+                    playerStats->Stats.TotalEnergyGenerated += amount;
+                else
+                    playerStats->Stats.TotalEnergyConsumed += amount;
+            }
+
             SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + (amount * stats->StatsMultiplier.Energy * (amount > 0 ? f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate : f.Global->CurrentMatch.Ruleset.Players.EnergyConsumptionRate)));
         }
 

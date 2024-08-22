@@ -32,8 +32,6 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Color _emptyStock;
     [SerializeField] private Color _fullStock;
 
-    [SerializeField] private Color[] _playerColors;
-
     private float _healthRatio, _energyRatio;
 
     private EntityRef _entity;
@@ -44,6 +42,9 @@ public class HUDPlayerLink : MonoBehaviour
 
     private void Update()
     {
+        if (!_health || !_energy)
+            return;
+
         _health.fillAmount = _healthRatio;
         _energy.fillAmount = _energyRatio;
 
@@ -71,10 +72,7 @@ public class HUDPlayerLink : MonoBehaviour
 
         if (_background)
         {
-            if (index.Type == FighterType.Human)
-                _background.color = _playerColors[index.GlobalNoBots];
-            else
-                _background.color = _playerColors[4];
+            _background.color = index.GetDarkColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
         }
     }
 
@@ -142,8 +140,13 @@ public class HUDPlayerLink : MonoBehaviour
     {
         bool showLifeAsNumber = maxStocks > 10 || maxStocks == -1;
 
+        if (!_stocks)
+            return;
+
         _stocks.gameObject.SetActive(!showLifeAsNumber);
-        _lifeCount.gameObject.SetActive(showLifeAsNumber);
+        
+        if (_lifeCount)
+            _lifeCount.gameObject.SetActive(showLifeAsNumber);
         
         if (showLifeAsNumber)
         {

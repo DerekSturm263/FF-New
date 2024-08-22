@@ -5,6 +5,16 @@ namespace Quantum.Types
 {
     public static class ArrayHelper
     {
+        public static ColorRGBA[] All(ArrayColors array)
+        {
+            return [array.Item1, array.Item2, array.Item3, array.Item4];
+        }
+
+        public static unsafe ColorRGBA*[] AllPtr(ArrayColors* array)
+        {
+            return [&array->Item1, &array->Item2, &array->Item3, &array->Item4];
+        }
+
         public static FPVector2[] All(ArrayPlayerSpawnPoints array)
         {
             return [array.Item1, array.Item2, array.Item3, array.Item4];

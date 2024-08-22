@@ -6,11 +6,18 @@ using UnityEngine.UI;
 public class PlayerNumController : PlayerTracker<RectTransform>
 {
     [SerializeField] private GameObject[] _numbers;
-    [SerializeField] private Color[] _colors;
-    [SerializeField] private Color _botColor;
     [SerializeField] private Vector2 _offset;
 
     [SerializeField] private Canvas _canvas;
+
+    private static PlayerNumController _instance;
+
+    protected override void Awake()
+    {
+        _instance = this;
+
+        base.Awake();
+    }
 
     protected override void Action(GameObject player, RectTransform t)
     {
@@ -23,7 +30,7 @@ public class PlayerNumController : PlayerTracker<RectTransform>
         _numbers[ctx.Index.Global].SetActive(true);
         
         _numbers[ctx.Index.Global].GetComponentInChildren<TMPro.TMP_Text>().SetText(ctx.Index.Type == FighterType.Human ? $"P{ctx.Index.GlobalNoBots + 1}" : "Bot");
-        _numbers[ctx.Index.Global].GetComponentInChildren<Image>().color = ctx.Index.Type == FighterType.Human ? _colors[ctx.Index.GlobalNoBots] : _botColor;
+        _numbers[ctx.Index.Global].GetComponentInChildren<Image>().color = ctx.Index.GetLightColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
             
         return _numbers[ctx.Index.Global].GetComponent<RectTransform>();
     }
@@ -31,5 +38,13 @@ public class PlayerNumController : PlayerTracker<RectTransform>
     protected override void CleanUp(RectTransform t)
     {
         t.gameObject.SetActive(false);
+    }
+
+    public void SetEnabled(bool isEnabled)
+    {
+        if (!_instance)
+            return;
+
+        _instance.gameObject.SetActive(isEnabled);
     }
 }

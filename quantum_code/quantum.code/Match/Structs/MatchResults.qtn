@@ -1,8 +1,13 @@
+enum MatchEndType
+{
+    Default,
+    Forfeit,
+    Disconnect
+}
+
 [Serializable]
 struct MatchResults
 {
-    array<Team>[4] Teams;
-    int Count;
-
-    bool WasForfeited;
+    TeamList SortedTeams;
+    MatchEndType EndType;
 }

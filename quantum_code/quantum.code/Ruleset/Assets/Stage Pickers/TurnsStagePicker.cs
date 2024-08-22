@@ -1,16 +1,15 @@
-﻿using Quantum.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class TurnsStagePicker : StagePicker
     {
-        public override List<Team> GetInitialPickers(Frame f, QList<Team> teams) => [teams[0]];
-        public override List<Team> GetAllowedPickers(Frame f, List<Team> sortedTeams)
+        public override IEnumerable<Team> GetInitialPickers(Frame f, IEnumerable<Team> teams) => [teams.ElementAt(0)];
+        public override IEnumerable<Team> GetAllowedPickers(Frame f, IEnumerable<Team> sortedTeams)
         {
-            List<Team> team = [f.ResolveList(f.Global->Teams)[f.Global->SelectionIndex % f.Global->TotalPlayers]];
-            return team;
+            return [FighterIndex.GetAllTeams(f).ElementAt(f.Global->SelectionIndex % f.Global->TotalPlayers)];
         }
 
         public override int GetPlayerCountToDecide(Frame f, int playerCount) => 1;

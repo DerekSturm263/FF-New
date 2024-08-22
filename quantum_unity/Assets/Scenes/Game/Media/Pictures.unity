@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -201,6 +200,20 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8863819846853489486, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: GameResources.Audio.AudioController, GameResources
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 76479c52ac6e6234ca03826e6d2d626a,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -954,7 +967,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 8e03715a782c6984ea9fdb8f86f4eb20, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -1425,7 +1437,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 0ea54a8d90d721249b36e55d3b805483, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -2665,7 +2676,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 0ea54a8d90d721249b36e55d3b805483, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -3847,7 +3857,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -4465,7 +4474,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 598cb1eeed7991440ade1a486db5b571, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -4518,7 +4526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: c6a108bf84334f1449fdb8f36ea8722c, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 1
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -4946,7 +4953,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 50, y: 900.2089}
+  m_AnchoredPosition: {x: 50, y: 899.7638}
   m_SizeDelta: {x: 0, y: 715}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4292554443527779035
@@ -5163,7 +5170,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5679948579217049109}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999897
+  m_Size: 0.9999903
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6206,6 +6213,7 @@ MonoBehaviour:
   _searchOptions: {fileID: 6056931579311901808}
   _reloadOnEachEnable: 0
   _spawnNoneButton: 0
+  _spawnRandom: 0
   _loadType: -1
 --- !u!114 &7242401331254573165
 MonoBehaviour:

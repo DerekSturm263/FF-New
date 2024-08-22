@@ -25,6 +25,9 @@ namespace Quantum
             {
                 badge.OnUpdate(f, filter.Entity);
             }
+
+            if (f.Global->IsMatchRunning)
+                filter.PlayerStats->Stats.TimeSurvived += f.DeltaTime;
         }
 
         public void UpdateMainWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)

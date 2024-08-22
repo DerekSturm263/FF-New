@@ -55,7 +55,9 @@ namespace Quantum
                 };
 
                 ItemSpawnSystem.SpawnParented(f, itemSpawnSettings, filter.Entity);
+                
                 filter.CharacterController->HasSubWeapon = true;
+                ++filter.PlayerStats->Stats.SubUses;
             }
         }
     }

@@ -20,11 +20,11 @@ public class DisplayStagePickerInfo : UIBehaviour
         StagePicker stagePicker = QuantumRunner.Default.Game.Frames.Verified.FindAsset<StagePicker>(RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id);
         var (unsorted, sorted) = MatchSystem.GetTeams(QuantumRunner.Default.Game.Frames.Verified);
 
-        List<Team> allowedPickers = sorted.Count == 0 ?
-            stagePicker.GetInitialPickers(QuantumRunner.Default.Game.Frames.Verified, unsorted).ToList() :
+        var allowedPickers = sorted.Count() == 0 ?
+            stagePicker.GetInitialPickers(QuantumRunner.Default.Game.Frames.Verified, unsorted) :
             stagePicker.GetAllowedPickers(QuantumRunner.Default.Game.Frames.Verified, sorted);
 
-        if (allowedPickers.Count == 0)
+        if (allowedPickers.Count() == 0)
         {
             SetText(stagePicker.FallbackMessage);
 
@@ -38,9 +38,9 @@ public class DisplayStagePickerInfo : UIBehaviour
             return;
         }
 
-        if (allowedPickers.Count == QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers)
+        if (allowedPickers.Count() == QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers)
         {
-            SetText(string.Format(stagePicker.FallbackMessage, 0, allowedPickers.Count));
+            SetText(string.Format(stagePicker.FallbackMessage, 0, allowedPickers.Count()));
             return;
         }
 
@@ -48,7 +48,7 @@ public class DisplayStagePickerInfo : UIBehaviour
 
         foreach (var team in allowedPickers)
         {
-            QList<FighterIndex> players = QuantumRunner.Default.Game.Frames.Verified.ResolveList(team.Players);
+            var players = team.Get(QuantumRunner.Default.Game.Frames.Verified);
 
             foreach (var player in players)
             {

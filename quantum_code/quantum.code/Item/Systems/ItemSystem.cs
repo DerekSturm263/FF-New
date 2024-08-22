@@ -147,6 +147,9 @@ namespace Quantum
 
             itemInstance->FallState = false;
             itemInstance->IsActive = true;
+
+            if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
+                ++stats->Stats.ItemUses;
         }
     }
 }

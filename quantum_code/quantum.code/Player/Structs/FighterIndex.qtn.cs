@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Quantum.Types;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -11,6 +13,7 @@ namespace Quantum
             Global = -1,
             GlobalNoBots = -1,
             GlobalNoHumans = -1,
+            Team = -1,
             Device = -1,
             Type = FighterType.Human
         };
@@ -107,6 +110,36 @@ namespace Quantum
             return result;
         }
 
-        public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Device: {Device}, Type: {Type})";
+        public readonly ColorRGBA GetLightColor(Frame f) => ArrayHelper.All(f.RuntimeConfig.TeamColors)[Team];
+        public readonly ColorRGBA GetDarkColor(Frame f) => ArrayHelper.All(f.RuntimeConfig.DarkTeamColors)[Team];
+
+        public static IEnumerable<Team> GetAllTeams(Frame f)
+        {
+            // Create a new list of teams for players to be assigned to.
+            Dictionary<int, Team> teams = [];
+
+            // Go through each player in the game.
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
+            {
+                if (teams.ContainsKey(stats.Component.Index.Team))
+                {
+                    teams[stats.Component.Index.Team].AddPlayer(stats.Component.Index);
+                }
+                else
+                {
+                    Team newTeam = new()
+                    {
+                        Item1 = stats.Component.Index
+                    };
+
+                    teams.Add(stats.Component.Index.Team, newTeam);
+                }
+            }
+
+            // Return the list of teams.
+            return [.. teams.Values];
+        }
+
+        public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Team {Team}, Device: {Device}, Type: {Type})";
     }
 }

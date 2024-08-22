@@ -1,5 +1,4 @@
-﻿using Quantum.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Quantum
@@ -10,11 +9,11 @@ namespace Quantum
         public string SelectingMessage;
         public string FallbackMessage;
 
-        public virtual List<Team> GetInitialPickers(Frame f, QList<Team> teams) => teams.ToList();
-        public abstract List<Team> GetAllowedPickers(Frame f, List<Team> sortedTeams);
+        public virtual IEnumerable<Team> GetInitialPickers(Frame f, IEnumerable<Team> teams) => teams.ToList();
+        public abstract IEnumerable<Team> GetAllowedPickers(Frame f, IEnumerable<Team> sortedTeams);
 
         public abstract int GetPlayerCountToDecide(Frame f, int playerCount);
 
-        public virtual Stage GetStageFromSelected(Frame f, QList<Stage> stages) => stages[0];
+        public virtual Stage GetStageFromSelected(Frame f, IEnumerable<Stage> stages) => stages.ElementAt(0);
     }
 }

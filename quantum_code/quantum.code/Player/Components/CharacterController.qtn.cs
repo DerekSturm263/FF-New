@@ -103,12 +103,12 @@ namespace Quantum
                 // Set the player's look direction.
                 if (GetNearbyCollider(Colliders.Ground))
                 {
-                    if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0)
+                    if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0 && !GetNearbyCollider(Colliders.RightWall))
                     {
                         MovementDirection = -1;
                         f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
                     }
-                    else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0)
+                    else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0 && !GetNearbyCollider(Colliders.LeftWall))
                     {
                         MovementDirection = 1;
                         f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);

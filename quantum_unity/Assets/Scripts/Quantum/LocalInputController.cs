@@ -143,6 +143,8 @@ public class LocalInputController : Controller<LocalInputController>
         if (localIndex == -1)
             return;
 
+        int nextGlobalIndex = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified);
+
         CommandSpawnAI commandSpawnAI = new()
         {
             prototype = _bot.CharacterPrototype,
@@ -151,10 +153,11 @@ public class LocalInputController : Controller<LocalInputController>
             index = new()
             {
                 Local = localIndex,
-                Device = HostClientEvents.DeviceIndex,
-                Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
+                Global = nextGlobalIndex,
                 GlobalNoBots = -1,
                 GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(QuantumRunner.Default.Game.Frames.Verified),
+                Team = nextGlobalIndex,
+                Device = HostClientEvents.DeviceIndex,
                 Type = FighterType.Bot,
             },
         };

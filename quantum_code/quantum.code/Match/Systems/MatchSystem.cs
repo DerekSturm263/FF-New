@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using Quantum.Collections;
 using Quantum.Types;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace Quantum
                 if (f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.WinCondition.Id, out WinCondition winCondition) &&
                     f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.TieResolver.Id, out TieResolver tieResolver))
                 {
-                    var teams = f.ResolveList(f.Global->Teams);
+                    var teams = FighterIndex.GetAllTeams(f);
 
                     if (winCondition.IsMatchOver(f, teams))
                         EndOfMatch(f, teams, winCondition, tieResolver);
@@ -26,7 +25,6 @@ namespace Quantum
         public override void OnEnabled(Frame f)
         {
             f.Global->CurrentMatch = default;
-            f.Global->Teams = f.AllocateList<Team>();
             f.Global->IsTimerOver = false;
             f.Global->IsMatchRunning = false;
             f.Global->CurrentStage = default;
@@ -46,14 +44,11 @@ namespace Quantum
             f.FreeList(f.Global->GizmoInstances);
             f.Global->GizmoInstances = default;
 
-            f.FreeList(f.Global->Teams);
-            f.Global->Teams = default;
-
             f.FreeList(f.Global->StagesPicked);
             f.Global->StagesPicked = default;
         }
 
-        public static void StartOfMatch(Frame f)
+        public static void StartOfMatch(Frame f, IEnumerable<Team> teams)
         {
             f.Global->CanPlayersEdit = false;
 
@@ -64,17 +59,15 @@ namespace Quantum
 
             f.SystemEnable<ItemSpawnSystem>();
 
-            var teams = f.ResolveList(f.Global->Teams);
-            ArrayTeams teamsArray = teams.Count switch
-            {
-                1 => new() { Item1 = teams[0] },
-                2 => new() { Item1 = teams[0], Item2 = teams[1] },
-                3 => new() { Item1 = teams[0], Item2 = teams[1], Item3 = teams[2] },
-                4 => new() { Item1 = teams[0], Item2 = teams[1], Item3 = teams[2], Item4 = teams[3] },
-                _ => default
-            };
+            MatchSetup setup = new();
+            setup.Teams.Set(teams);
 
-            f.Events.OnMatchStart(new() { Count = teams.Count, Teams = teamsArray });
+            foreach (var stats in f.Unsafe.GetComponentBlockIterator<PlayerStats>())
+            {
+                stats.Component->Stats = default;
+            }
+
+            f.Events.OnMatchStart(setup);
 
             Item item = f.FindAsset<Item>(f.Global->CurrentMatch.Ruleset.Items.StartingItem.Id);
             if (item is not null && item.Prototype.Id.IsValid)
@@ -104,7 +97,7 @@ namespace Quantum
             f.Global->IsMatchRunning = true;
         }
 
-        public static void EndOfMatch(Frame f, QList<Team> teams, WinCondition winCondition, TieResolver tieResolver)
+        public static void EndOfMatch(Frame f, IEnumerable<Team> teams, WinCondition winCondition, TieResolver tieResolver)
         {
             f.Global->DeltaTime = (FP._1 / f.UpdateRate) * FP._0_25;
             f.Global->IsMatchRunning = false;
@@ -113,23 +106,8 @@ namespace Quantum
 
             ItemSpawnSystem.DespawnAll(f);
 
-            IOrderedEnumerable<Team> winners = teams.OrderBy(winCondition.SortTeams(f, teams)).ThenBy(tieResolver.ResolveTie(f, teams));
-            MatchResults results = new()
-            {
-                Count = winners.Count()
-            };
-
-            if (results.Count > 0)
-                results.Teams[0] = winners.ElementAt(0);
-            
-            if (results.Count > 1)
-                results.Teams[1] = winners.ElementAt(1);
-            
-            if (results.Count > 2)
-                results.Teams[2] = winners.ElementAt(2);
-            
-            if (results.Count > 3)
-                results.Teams[3] = winners.ElementAt(3);
+            MatchResults results = new();
+            results.SortedTeams.Set(teams.OrderBy(winCondition.SortTeams(f, teams)).ThenBy(tieResolver.ResolveTie(f, teams)));
 
             PlayerStatsSystem.SetAllShowReadiness(f, true);
             PlayerStatsSystem.SetAllReadiness(f, false);
@@ -205,24 +183,12 @@ namespace Quantum
             f.Events.OnRulesetSelect(old, ruleset);
         }
 
-        public static (QList<Team> unsorted, List<Team> sorted) GetTeams(Frame f)
+        public static (IEnumerable<Team> unsorted, IEnumerable<Team> sorted) GetTeams(Frame f)
         {
             StagePicker stagePicker = f.FindAsset<StagePicker>(f.Global->CurrentMatch.Ruleset.Stage.StagePicker.Id);
 
-            var unsortedTeamsPtr = f.Global->Teams;
-            var unsortedTeams = f.ResolveList(unsortedTeamsPtr);
-
-            var sortedTeamsArray = f.Global->Results.Teams;
-            List<Team> sortedTeams = [];
-
-            if (!sortedTeamsArray[0].Equals(default(Team)))
-                sortedTeams.Add(sortedTeamsArray[0]);
-            if (!sortedTeamsArray[1].Equals(default(Team)))
-                sortedTeams.Add(sortedTeamsArray[1]);
-            if (!sortedTeamsArray[2].Equals(default(Team)))
-                sortedTeams.Add(sortedTeamsArray[2]);
-            if (!sortedTeamsArray[3].Equals(default(Team)))
-                sortedTeams.Add(sortedTeamsArray[3]);
+            var unsortedTeams = FighterIndex.GetAllTeams(f);
+            var sortedTeams = f.Global->Results.SortedTeams.Get(f);
 
             return (unsortedTeams, sortedTeams);
         }

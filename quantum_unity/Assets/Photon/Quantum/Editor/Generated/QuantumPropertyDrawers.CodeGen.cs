@@ -264,6 +264,7 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Goal_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.JumpType_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.MatchEndType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.States_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StatesFlag_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]

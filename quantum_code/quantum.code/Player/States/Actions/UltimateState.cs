@@ -57,6 +57,7 @@
                 ultimate.OnBegin(f, filter.Entity);
                 
                 filter.CharacterController->UltimateTime = ultimate.Length;
+                ++filter.PlayerStats->Stats.UltimateUses;
             }
         }
     }

@@ -130,7 +130,7 @@ namespace GameResources.Camera
             _manualMode = GetComponent<ManualCameraController>();
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
-            _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
+            _internalCams = GetComponentsInChildren<UnityEngine.Camera>(true);
         }
 
         private void LateUpdate()

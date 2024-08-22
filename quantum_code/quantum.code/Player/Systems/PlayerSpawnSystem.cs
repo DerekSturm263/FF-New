@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using Quantum.Collections;
 
 namespace Quantum
 {
@@ -35,14 +34,6 @@ namespace Quantum
             }
 
             f.Events.OnPlayerSpawn(new() { Entity = entity, Index = index, Name = name });
-
-            var teams = f.ResolveList(f.Global->Teams);
-
-            QListPtr<FighterIndex> newTeamPtr = f.AllocateList<FighterIndex>();
-            var newTeam = f.ResolveList(newTeamPtr);
-            newTeam.Add(index);
-
-            teams.Add(new() { Players = newTeam });
 
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {

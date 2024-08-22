@@ -1,5 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
+using System.Linq;
 
 namespace Quantum
 {
@@ -29,7 +30,7 @@ namespace Quantum
             if (f.Global->SelectedPlayerCount == stagePicker.GetPlayerCountToDecide(f, f.Global->TotalPlayers))
             {
                 QList<Stage> stagesPicked = f.ResolveList(f.Global->StagesPicked);
-                MatchSystem.SetStage(f, stagePicker.GetStageFromSelected(f, stagesPicked));
+                MatchSystem.SetStage(f, stagePicker.GetStageFromSelected(f, [.. stagesPicked]));
             }
         }
     }
