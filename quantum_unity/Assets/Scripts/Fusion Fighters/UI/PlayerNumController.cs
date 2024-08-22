@@ -17,6 +17,8 @@ public class PlayerNumController : PlayerTracker<RectTransform>
         _instance = this;
 
         base.Awake();
+        
+        QuantumEvent.Subscribe<EventOnPlayerChangeTeam>(listener: this, handler: e => _numbers[e.Index.Global].GetComponentInChildren<Image>().color = e.Index.GetLightColor(QuantumRunner.Default.Game.Frames.Verified).ToColor());
     }
 
     protected override void Action(GameObject player, RectTransform t)

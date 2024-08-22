@@ -1,6 +1,7 @@
 using Extensions.Components.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -599,12 +600,16 @@ public class BuildController : Controller<BuildController>
 
         if (QuantumRunner.Default.Game.Frames.Verified.TryGet(entity, out PlayerStats stats))
         {
+            int teamIndex = (stats.Index.Team + 1) % QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers;
+            player.SetTeamIndex(teamIndex);
+
             CommandChangeTeam command = new()
             {
                 player = entity,
-                teamIndex = (stats.Index.Team + 1) % QuantumRunner.Default.Game.Frames.Verified.Global->PlayersReady
+                teamIndex = teamIndex
             };
 
+            FindObjectsByType<Selector>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).First(item => item.PlayerInfo.Equals(player)).UpdateColors();
             QuantumRunner.Default.Game.SendCommand(command);
         }
     }

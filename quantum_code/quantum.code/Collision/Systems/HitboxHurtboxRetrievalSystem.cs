@@ -27,6 +27,12 @@ namespace Quantum
                         if (defender == hitbox.HitboxInstance->Owner)
                             continue;
 
+                        if (f.Global->CurrentMatch.Ruleset.Players.AllowFriendlyFire &&
+                            f.TryGet(defender, out PlayerStats defenderStats) &&
+                            f.TryGet(hitbox.HitboxInstance->Owner, out PlayerStats attackerStats) &&
+                            defenderStats.Index.Team == attackerStats.Index.Team)
+                            continue;
+
                         ResolveHit(f, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender);
                     }
                 }
