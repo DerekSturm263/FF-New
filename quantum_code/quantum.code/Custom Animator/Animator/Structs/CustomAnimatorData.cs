@@ -91,8 +91,6 @@ namespace Quantum.Custom.Animator
                 FP frameTime = frameB.time - frameA.time;
                 FP lerp = currentTime / frameTime;
 
-                Log.Debug($"I: {timeIndex}");
-
                 //      Log.Info(clipName+" "+time.AsFloat()+" "+ frame_a + " "+ frame_b + " "+lerp.AsFloat());
                 return output + AnimatorFrame.Lerp(frameA, frameB, lerp);
             }

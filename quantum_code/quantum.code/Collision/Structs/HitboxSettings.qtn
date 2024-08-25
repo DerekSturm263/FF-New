@@ -19,6 +19,7 @@ struct DelaySettings
 {
     [Tooltip("How many frames to freeze the user for when the hitbox hits")] uint UserFreezeFrames;
     [Tooltip("How many frames to freeze the opponent for when the hitbox hits")] uint TargetFreezeFrames;
+    [Tooltip("How much to shake the target by when the hitbox hits")] FP TargetShakeStrength;
 }
 
 [Serializable]

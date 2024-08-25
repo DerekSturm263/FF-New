@@ -546,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e8abe18ff1dd59a4a9d81ee5b68007be,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1620098882267029497, guid: e8abe18ff1dd59a4a9d81ee5b68007be,
         type: 3}
@@ -838,6 +838,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2794667625202912990}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8abe18ff1dd59a4a9d81ee5b68007be,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9009176117367430274}
   m_SourcePrefab: {fileID: 100100000, guid: e8abe18ff1dd59a4a9d81ee5b68007be, type: 3}
 --- !u!1 &629706158494732437 stripped
 GameObject:
@@ -925,7 +929,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 6
+    Layer: 9
     CallbackFlags:
       Value: 0
   PhysicsBody:
@@ -1080,6 +1084,39 @@ MonoBehaviour:
         Value: 1
     Index: 0
     Owner: {fileID: 0}
+--- !u!114 &9009176117367430274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629706158494732437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8fd6fccea09a14783e8aa65d65d6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Settings:
+      Id:
+        Value: 0
+    Time:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    Amount:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    Direction:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
 --- !u!114 &-7833460452793283147
 MonoBehaviour:
   m_ObjectHideFlags: 0

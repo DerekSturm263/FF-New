@@ -46,14 +46,17 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 PathQueryIndex;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
+    [Quantum.Inspector.DynamicCollectionAttribute()]
+    public Photon.Deterministic.FPVector2[] Positions = System.Array.Empty<Photon.Deterministic.FPVector2>();
     public Quantum.Prototypes.HitboxSettings_Prototype Settings;
-    public Quantum.Shape3D Shape;
+    public Quantum.Shape2D Shape;
     public System.Int32 Lifetime;
 
     public sealed override Quantum.Prototypes.HitboxInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.HitboxInstance_Prototype();
       result.PathQueryIndex = this.PathQueryIndex;
       converter.Convert(this.Owner, out result.Owner);
+      result.Positions = this.Positions;
       result.Settings = this.Settings;
       result.Shape = this.Shape;
       result.Lifetime = this.Lifetime;
@@ -130,12 +133,7 @@ namespace Quantum.Prototypes.Unity {
     public System.String Name;
     public Quantum.Prototypes.FighterIndex_Prototype Index;
     public Quantum.AssetRefHurtboxSetup HurtboxSetup;
-    [Quantum.LocalReference]
-    public global::EntityPrototype ActiveWeapon;
-    [Quantum.LocalReference]
-    public global::EntityPrototype MainWeapon;
-    [Quantum.LocalReference]
-    public global::EntityPrototype AltWeapon;
+    public Quantum.Prototypes.ActiveWeaponType_Prototype ActiveWeapon;
     public Quantum.Prototypes.BattleStats_Prototype Stats;
     public Quantum.Prototypes.ApparelStats_Prototype ApparelStatsMultiplier;
     public Quantum.Prototypes.WeaponStats_Prototype WeaponStatsMultiplier;
@@ -148,9 +146,7 @@ namespace Quantum.Prototypes.Unity {
       result.Name = this.Name;
       result.Index = this.Index;
       result.HurtboxSetup = this.HurtboxSetup;
-      converter.Convert(this.ActiveWeapon, out result.ActiveWeapon);
-      converter.Convert(this.MainWeapon, out result.MainWeapon);
-      converter.Convert(this.AltWeapon, out result.AltWeapon);
+      result.ActiveWeapon = this.ActiveWeapon;
       result.Stats = this.Stats;
       result.ApparelStatsMultiplier = this.ApparelStatsMultiplier;
       result.WeaponStatsMultiplier = this.WeaponStatsMultiplier;

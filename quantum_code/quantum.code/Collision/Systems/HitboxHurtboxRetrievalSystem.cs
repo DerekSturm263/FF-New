@@ -6,7 +6,7 @@ namespace Quantum
     {
         public override void Update(Frame f)
         {
-            if (!f.Global->IsMatchRunning)
+            if (!f.Global->IsMatchRunning && f.Global->CurrentMatch.Ruleset.Match.Time != -1)
                 return;
 
             var hitboxFilter = f.Unsafe.FilterStruct<HitboxHurtboxQueryInjectionSystem.Filter>();
@@ -47,7 +47,7 @@ namespace Quantum
             ResolveKnockback(f, hitbox, hurtbox, attacker, defender);
 
             if (hitbox.Visual.OnlyShakeOnHit)
-                f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false);
+                f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false, defender);
 
             if (f.TryGet(attacker, out PlayerStats attackerStats) && f.TryGet(defender, out PlayerStats defenderStats))
             {
@@ -92,35 +92,42 @@ namespace Quantum
                     {
                         StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, attackerStats);
                     }
-                }
 
-                // Increase energy.
-                FP multiplier = 1;
+                    // Increase energy.
+                    FP multiplier = 1;
 
-                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats2))
-                {
-                    if (attackerPlayerStats2->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
+                    if (attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
                     {
-                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats2->Build.Gear.MainWeapon.Enhancer.Id);
-                        multiplier = (weaponEnhancer as ChargingWeaponEnhancer).Multiplier;
-                    }
-                }
+                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id);
 
-                StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 5) * multiplier);
+                        if (weaponEnhancer is ChargingWeaponEnhancer chargingWeaponEnhancer)
+                            multiplier = chargingWeaponEnhancer.Multiplier;
+                    }
+
+                    StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 5) * multiplier);
+                }
             }
         }
 
         private void ResolveKnockback(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
         {
-            if (hurtbox.CanBeKnockedBack &&
-                f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) &&
-                f.Unsafe.TryGetPointer(defender, out CharacterController* characterController))
+            if (hurtbox.CanBeKnockedBack && f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController2))
             {
-                characterController->KnockbackVelocityX = hitbox.Offensive.Knockback.X;
-                physicsBody->Velocity.Y = hitbox.Offensive.Knockback.Y;
+                FPVector2 updatedDirection = new(hitbox.Offensive.Knockback.X * characterController2->MovementDirection, hitbox.Offensive.Knockback.Y);
 
-                characterController->KnockbackVelocityTime = 1;
-                characterController->Influence = 0;
+                ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.UserFreezeFrames, 0);
+                ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.TargetFreezeFrames, hitbox.Delay.TargetShakeStrength);
+
+                if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) &&
+                    f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) &&
+                    f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
+                {
+                    characterController->DeferredKnockback = new() { Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
+                    characterController->OldKnockback = characterController->DeferredKnockback;
+                    characterController->OriginalPosition = transform->Position;
+
+                    characterController->Influence = 0;
+                }
             }
 
             if (hurtbox.CanBeInterrupted && f.Unsafe.TryGetPointer(defender, out CustomAnimator* customAnimator))

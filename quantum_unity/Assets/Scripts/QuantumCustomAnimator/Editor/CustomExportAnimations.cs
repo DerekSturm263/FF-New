@@ -475,6 +475,8 @@ public class CustomExportAnimations : MonoBehaviour
             frameData.hurtboxPositions = new HurtboxTransformInfo[17];
 
             clip.SampleAnimation(player, (float)i / frameCount);
+            Debug.Log(i);
+
             for (int j = 0; j < frameData.hurtboxPositions.Length; ++j)
             {
                 Transform hurtboxTransform = tracker.GetHurtbox((Quantum.HurtboxType)(1 << j));

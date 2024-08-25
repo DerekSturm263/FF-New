@@ -1,5 +1,6 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,6 +15,16 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
     private bool _drawHurtboxes;
     public void SetDrawHurtboxes(bool drawHurtboxes) => _drawHurtboxes = drawHurtboxes;
 
+    private bool _drawKnockback;
+    public void SetDrawKnockback(bool drawKnockback) => _drawKnockback = drawKnockback;
+
+    private LineRenderer[] _lineRenderers;
+
+    private void Awake()
+    {
+        _lineRenderers = GetComponentsInChildren<LineRenderer>();
+    }
+
     private unsafe void LateUpdate()
     {
         if (!QuantumRunner.Default || !QuantumRunner.Default.IsRunning)
@@ -24,6 +35,14 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
 
         if (_drawHurtboxes)
             DrawAllHurtboxes();
+
+        foreach (var item in _lineRenderers)
+        {
+            item.gameObject.SetActive(_drawKnockback);   
+        }
+
+        if (_drawKnockback)
+            DrawAllKnockback();
     }
 
     private unsafe void DrawAllHitboxes()
@@ -82,5 +101,48 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
 
             Graphics.DrawMesh(mesh, transform, _material, 0, Camera.main, 0, properties);
         }
+    }
+
+    private unsafe void DrawAllKnockback()
+    {
+        var filter = QuantumRunner.Default.Game.Frames.Verified.Unsafe.FilterStruct<CharacterControllerSystem.Filter>();
+        var item = default(CharacterControllerSystem.Filter);
+
+        MaterialPropertyBlock properties = new();
+        properties.SetColor("_BaseColor", new(1, 0, 0, 0.35f));
+
+        int i = 0;
+        while (filter.Next(&item))
+        {
+            var positions = CalculateArcPositions(20, item.CharacterController->OldKnockback.Direction.ToUnityVector2(), item.CharacterController->OriginalPosition.ToUnityVector2());
+            _lineRenderers[i].positionCount = 20;
+            _lineRenderers[i].SetPositions(positions);
+
+            ++i;
+        }
+    }
+
+    private static Vector3[] CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)
+    {
+        Vector3[] positions = new Vector3[resolution];
+
+        for (int i = 0; i < resolution; ++i)
+        {
+            float t = (float)i / resolution;
+            positions[i] = CalculateArcPoint(t, 20, 1, amount) + offset;
+        }
+
+        return positions;
+    }
+
+    private static Vector2 CalculateArcPoint(float t, float gravity, float scalar, Vector2 amount)
+    {
+        amount.x += 0.0001f;
+        float angle = Mathf.Atan2(amount.y, amount.x);
+
+        float x = t * amount.x;
+        float y = x * Mathf.Tan(angle) - (gravity * x * x / (2 * amount.magnitude * amount.magnitude * Mathf.Cos(angle) * Mathf.Cos(angle)));
+
+        return new Vector2(x, y) * scalar;
     }
 }

@@ -1,3 +1,10 @@
+enum ActiveWeaponType
+{
+	None,
+	Primary,
+	Secondary
+}
+
 component PlayerStats
 {
 	Build Build;
@@ -5,10 +12,7 @@ component PlayerStats
 	FighterIndex Index;
 
 	asset_ref<HurtboxSetup> HurtboxSetup;
-
-	entity_ref ActiveWeapon;
-	entity_ref MainWeapon;
-	entity_ref AltWeapon;
+	ActiveWeaponType ActiveWeapon;
 
 	BattleStats Stats;
 

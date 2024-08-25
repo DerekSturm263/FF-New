@@ -13,8 +13,8 @@
             new(destination: States.Emote, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
             new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
             new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
+            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
+            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
             new(destination: States.Sub, transitionTime: 0, overrideExit: true, overrideEnter: false),
             new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
             new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)

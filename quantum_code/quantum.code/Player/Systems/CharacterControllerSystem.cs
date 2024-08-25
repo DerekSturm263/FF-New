@@ -1,5 +1,8 @@
 ﻿using Photon.Deterministic;
 using Quantum.Types;
+using System.Numerics;
+using System;
+using System.Diagnostics;
 
 namespace Quantum
 {
@@ -34,6 +37,7 @@ namespace Quantum
             public CustomAnimator* CustomAnimator;
             public PlayerStats* PlayerStats;
             public Stats* Stats;
+            public Shakeable* Shakeable;
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -49,7 +53,6 @@ namespace Quantum
             else
                 input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
 
-            Log.Debug(input.Movement);
             Log.Debug(input.InputButtons);
 
             // Handle some miscellaneous logic.
@@ -59,18 +62,30 @@ namespace Quantum
             // Resolve the State Machine to determine which state the player should be in.
             AllStates.Resolve(f, ref filter, input, settings);
 
-            // Apply knockback velocity.
-            if (filter.CharacterController->KnockbackVelocityTime > 0)
+            // Set the user's knockback velocity once they stop shaking.
+            if (filter.Shakeable->Time <= 0 && !filter.CharacterController->DeferredKnockback.Equals(default(KnockbackInfo)))
             {
-                filter.CharacterController->KnockbackVelocityTime -= f.DeltaTime;
-                filter.CharacterController->KnockbackVelocityX -= f.DeltaTime;
+                filter.CharacterController->CurrentKnockback = filter.CharacterController->DeferredKnockback;
+                filter.CharacterController->DeferredKnockback = default;
+
+                filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
+            }
+
+            // Apply the knockback velocity.
+            if (filter.CharacterController->CurrentKnockback.Time > 0)
+            {
+                filter.CharacterController->CurrentKnockback.Time -= f.DeltaTime;
+                filter.CharacterController->CurrentKnockback.Direction.X -= f.DeltaTime;
+
                 filter.CharacterController->Influence += f.DeltaTime;
 
-                if (filter.CharacterController->KnockbackVelocityTime <= 0)
+                if (filter.CharacterController->CurrentKnockback.Time <= 0)
                 {
-                    filter.CharacterController->KnockbackVelocityX = 0;
+                    filter.CharacterController->CurrentKnockback.Direction.X = 0;
                     filter.CharacterController->Influence = 1;
                 }
+
+                PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
             }
         }
 
@@ -123,6 +138,40 @@ namespace Quantum
                 // Set the user's energy to show how much time they have left.
                 StatsSystem.SetEnergy(f, filter.Entity, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
             }
+        }
+
+        private void PreviewKnockback(FPVector2 amount, FPVector2 offset)
+        {
+            var lineList = CalculateArcPositions(20, amount, offset);
+
+            for (int i = 0; i < lineList.Length - 1; ++i)
+            {
+                Draw.Line(lineList[i], lineList[i + 1]);
+            }
+        }
+
+        private ReadOnlySpan<FPVector3> CalculateArcPositions(int resolution, FPVector2 amount, FPVector2 offset)
+        {
+            FPVector3[] positions = new FPVector3[resolution];
+
+            for (int i = 0; i < resolution; ++i)
+            {
+                FP t = (FP)i / resolution;
+                positions[i] = (CalculateArcPoint(t, 20, 1, amount) + offset).XYO;
+            }
+
+            return positions;
+        }
+
+        private FPVector2 CalculateArcPoint(FP t, FP gravity, FP scalar, FPVector2 amount)
+        {
+            amount.X += FP._1 / 10000;
+            FP angle = FPMath.Atan2(amount.Y, amount.X);
+
+            FP x = t * amount.X;
+            FP y = x * FPMath.Tan(angle) - (gravity * x * x / (2 * amount.Magnitude * amount.Magnitude * FPMath.Cos(angle) * FPMath.Cos(angle)));
+
+            return new FPVector2(x, y) * scalar;
         }
     }
 }

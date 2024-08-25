@@ -257,6 +257,7 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Quantum.QString64))]
   partial class QStringDrawer {}
 
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.ActiveWeaponType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Direction_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.DodgeType_Prototype))]

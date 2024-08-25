@@ -191,6 +191,7 @@ MonoBehaviour:
         TargetShake:
           Id:
             Value: 0
+    BakedShapePositions: []
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -203,50 +204,6 @@ MonoBehaviour:
       _kvps: []
     Mixer: {fileID: 0}
     Volume: 0
---- !u!114 &-3766457606064499481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ede89f12f440ff49a7194688928d3b6, type: 3}
-  m_Name: Player Voice
-  m_EditorClassIdentifier: 
-  Description: 
-  Color: {r: 1, g: 0.98889333, b: 0.6084906, a: 1}
-  Settings:
-    Identifier:
-      Path: Resources/DB/AnimationEvents/Player States/Burst|Player Voice
-      Guid:
-        Value: 2780693054942364073
-    StartingFrame: 7
-    EndingFrame: 7
-    UnchargedSettings:
-      Variants:
-        _kvps:
-        - _item1:
-            Id:
-              Value: 167286258291661986
-          _item2:
-            _list:
-            - {fileID: 8300000, guid: 000dfbd05a274ef4c8ce66f069415079, type: 3}
-        - _item1:
-            Id:
-              Value: 4454130895091048546
-          _item2:
-            _list:
-            - {fileID: 8300000, guid: 12053da1d7b66c846a45419543fe2cea, type: 3}
-      Mixer: {fileID: 7326994074086932327, guid: a4704c5dd4fad3946a8e83ef4d0d9890,
-        type: 2}
-      Volume: 1
-    FullyChargedSettings:
-      Variants:
-        _kvps: []
-      Mixer: {fileID: 0}
-      Volume: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,8 +231,6 @@ MonoBehaviour:
         Value: 4304257987884511478
     - Id:
         Value: 1947709660078885561
-    - Id:
-        Value: 2780693054942364073
     Committed:
       Max: 0
       Min: 0

@@ -4,7 +4,7 @@
     {
         protected override Input.Buttons GetInput() => Input.Buttons.Ultimate;
 
-        public override (States, StatesFlag) GetStateInfo() => (States.Ultimate, 0);
+        public override (States, StatesFlag) GetStateInfo() => (States.Ultimate, StatesFlag.Ultimate);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
         public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>

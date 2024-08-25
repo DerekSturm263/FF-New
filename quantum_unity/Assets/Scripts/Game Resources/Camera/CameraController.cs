@@ -118,7 +118,7 @@ namespace GameResources.Camera
             {
                 Initialize();
 
-                QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
+                QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global, e.Defender));
             }
 
             _targetPosition = transform.position;
@@ -333,7 +333,7 @@ namespace GameResources.Camera
             _instance._targets.Clear();
         }
 
-        private void Shake(AssetRefShakeSettings settings, Vector2 direction, bool doHaptics)
+        private void Shake(AssetRefShakeSettings settings, Vector2 direction, bool isGlobal, EntityRef defender)
         {
             if (!settings.Id.IsValid)
                 return;
@@ -341,12 +341,17 @@ namespace GameResources.Camera
             ShakeSettingsAsset shakeSettings = UnityDB.FindAsset<ShakeSettingsAsset>(settings.Id);
             Shake(shakeSettings.Settings, direction);
 
-            if (doHaptics)
+            if (isGlobal)
             {
                 foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
                 {
                     PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
                 }
+            }
+            else if (QuantumRunner.Default.Game.Frames.Verified.TryGet(defender, out PlayerStats stats))
+            {
+                if (PlayerJoinController.Instance.TryGetPlayer(stats.Index, out LocalPlayerInfo player))
+                    PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
             }
         }
 

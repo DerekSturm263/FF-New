@@ -4,7 +4,7 @@
     {
         protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => true;
 
-        public override (States, StatesFlag) GetStateInfo() => (States.Default, StatesFlag.Move | StatesFlag.Jump | StatesFlag.FastFall);
+        public override (States, StatesFlag) GetStateInfo() => (States.Default, StatesFlag.Default);
         public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
 
         public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>

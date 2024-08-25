@@ -1,5 +1,4 @@
 ﻿using Photon.Deterministic;
-using Quantum.Custom.Animator;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,12 +14,6 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(filter.Entity, out CustomAnimator* customAnimator) && f.Unsafe.TryGetPointer(filter.Entity, out CharacterController* characterController))
-            {
-                UpdateMainWeapon(f, ref filter, customAnimator, characterController);
-                UpdateAltWeapon(f, ref filter, customAnimator, characterController);
-            }
-
             if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Badge.Id, out Badge badge))
             {
                 badge.OnUpdate(f, filter.Entity);
@@ -28,34 +21,6 @@ namespace Quantum
 
             if (f.Global->IsMatchRunning)
                 filter.PlayerStats->Stats.TimeSurvived += f.DeltaTime;
-        }
-
-        public void UpdateMainWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)
-        {
-            if (f.Unsafe.TryGetPointer(filter.PlayerStats->MainWeapon, out ChildParentLink* childParentLink))
-            {
-                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[15];
-
-                childParentLink->LocalPosition = transform.position;
-                childParentLink->LocalRotation = transform.rotation;
-
-                if (characterController->MovementDirection < 0)
-                    childParentLink->LocalPosition.X *= -1;
-            }
-        }
-
-        public void UpdateAltWeapon(Frame f, ref Filter filter, CustomAnimator* customAnimator, CharacterController* characterController)
-        {
-            if (f.Unsafe.TryGetPointer(filter.PlayerStats->AltWeapon, out ChildParentLink* childParentLink))
-            {
-                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[16];
-
-                childParentLink->LocalPosition = transform.position;
-                childParentLink->LocalRotation = transform.rotation;
-
-                if (characterController->MovementDirection < 0)
-                    childParentLink->LocalPosition.X *= -1;
-            }
         }
 
         public static void SetShowReadiness(Frame f, EntityRef entityRef, PlayerStats* stats, bool showReadiness)
@@ -171,19 +136,8 @@ namespace Quantum
 
         public static void SetAltWeapon(Frame f, EntityRef user, PlayerStats* stats, Weapon altWeapon)
         {
-            if (stats->AltWeapon.IsValid)
-                f.Destroy(stats->AltWeapon);
-
             Weapon oldAltWeapon = stats->Build.Gear.AltWeapon;
             stats->Build.Gear.AltWeapon = altWeapon;
-
-            if (altWeapon.Template.Id.IsValid && f.Unsafe.TryGetPointer(user, out Stats* genericStats))
-            {
-                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(altWeapon.Template.Id);
-
-                if (entity.Weapon.Id.IsValid)
-                    stats->AltWeapon = f.CreateChilded(entity.Weapon, user);
-            }
 
             f.Events.OnPlayerSetAltWeapon(user, oldAltWeapon, altWeapon);
         }
@@ -344,19 +298,8 @@ namespace Quantum
 
         public static void SetMainWeapon(Frame f, EntityRef user, PlayerStats* stats, Weapon mainWeapon)
         {
-            if (stats->MainWeapon.IsValid)
-                f.Destroy(stats->MainWeapon);
-
             Weapon oldMainWeapon = stats->Build.Gear.MainWeapon;
             stats->Build.Gear.MainWeapon = mainWeapon;
-
-            if (mainWeapon.Template.Id.IsValid && f.Unsafe.TryGetPointer(user, out Stats* genericStats))
-            {
-                WeaponTemplate entity = f.FindAsset<WeaponTemplate>(mainWeapon.Template.Id);
-
-                if (entity.Weapon.Id.IsValid)
-                    stats->MainWeapon = f.CreateChilded(entity.Weapon, user);
-            }
 
             f.Events.OnPlayerSetMainWeapon(user, oldMainWeapon, mainWeapon);
         }

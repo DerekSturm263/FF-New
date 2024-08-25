@@ -19,8 +19,12 @@ public class AnimationEventContainerWindow : EditorWindow
     private QuantumAnimationEventAsset _eventAsset;
 
     private GameObject _previewPlayer;
+    public GameObject PreviewPlayer => _previewPlayer;
+
     private HurtboxTracker _previewTracker;
+
     private GameObject _previewWeapon;
+    public GameObject PreviewWeapon => _previewWeapon;
 
     private float _initialTime;
     private bool _isPreviewing;
@@ -473,7 +477,7 @@ public class AnimationEventContainerWindow : EditorWindow
         _previewPlayer.transform.parent.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime).ToUnityVector2();
     }
 
-    private ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)
+    private static ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)
     {
         Vector3[] positions = new Vector3[resolution];
 
@@ -486,7 +490,7 @@ public class AnimationEventContainerWindow : EditorWindow
         return positions;
     }
 
-    private Vector2 CalculateArcPoint(float t, float gravity, float scalar, Vector2 amount)
+    private static Vector2 CalculateArcPoint(float t, float gravity, float scalar, Vector2 amount)
     {
         amount.x += 0.0001f;
         float angle = Mathf.Atan2(amount.y, amount.x);

@@ -32,6 +32,7 @@
                 new MatchSystem(),
                 new TimerSystem(),
                 new PlayerSpawnSystem(),
+                new ShakeableSystem(),
                 new CharacterControllerSystem(),
                 new ConfirmationSystem(),
                 new StatsSystem(),

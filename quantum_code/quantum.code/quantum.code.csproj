@@ -115,9 +115,13 @@
     <Compile Include="Equipment\Weapons\Sub\SubAsset.qtn.cs" />
     <Compile Include="Equipment\Weapons\Weapon\WeaponAsset.qtn.cs" />
     <Compile Include="Item\Commands\CommandSpawnItem.cs" />
+    <Compile Include="Miscellaneous\Components\Shakeable.qtn.cs" />
     <Compile Include="Miscellaneous\Extensions\Extensions.cs" />
+    <None Include="Miscellaneous\Components\Shakeable.qtn" />
     <None Include="Miscellaneous\Structs\Array2D.qtn" />
     <Compile Include="Miscellaneous\Helpers\Array2DHelper.cs" />
+    <Compile Include="Miscellaneous\Structs\ListHelper.qtn.cs" />
+    <Compile Include="Miscellaneous\Systems\ShakeableSystem.cs" />
     <Compile Include="Player\Animation Events\AllowMovementEvent.cs" />
     <Compile Include="Player\Animation Events\ContinueAnimationEvent.cs" />
     <Compile Include="Player\Animation Events\HoldAnimationEvent.cs" />
@@ -140,6 +144,7 @@
     <None Include="Player\Components\PlayerStats.qtn" />
     <None Include="Player\Events\Stats\OnPlayerChangeTeam.qtn" />
     <None Include="Player\Events\Stats\OnPlayerSetIcon.qtn" />
+    <None Include="Player\Structs\KnockbackInfo.qtn" />
     <None Include="Player\Structs\PlayerInfoCallbackContext.qtn" />
     <None Include="Player\Structs\TeamList.qtn" />
     <None Include="Player\Structs\WellnessStats.qtn" />

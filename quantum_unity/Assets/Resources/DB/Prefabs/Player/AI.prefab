@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 8159925403664128699}
   - component: {fileID: 983809175495928598}
   - component: {fileID: 6032280303940230509}
+  - component: {fileID: -3667562257951265389}
   m_Layer: 3
   m_Name: AI
   m_TagString: Player
@@ -1307,29 +1308,34 @@ MonoBehaviour:
     Name: 
     Index:
       Local: 0
-      Device: 0
       Global: 0
       GlobalNoBots: 0
       GlobalNoHumans: 0
+      Team: 0
+      Device: 0
       Type:
         Value: 0
     HurtboxSetup:
       Id:
         Value: 2622519728145133298
-    ActiveWeapon: {fileID: 0}
-    MainWeapon: {fileID: 0}
-    AltWeapon: {fileID: 0}
+    ActiveWeapon:
+      Value: 0
     Stats:
       Kills: 0
       Deaths: 0
+      TimeSurvived:
+        RawValue: 0
       TotalDamageDealt:
         RawValue: 0
-      TotalDamageReceived:
+      TotalDamageTaken:
         RawValue: 0
       TotalDamageHealed:
         RawValue: 0
-      TimeSurvived:
+      TotalEnergyGenerated:
         RawValue: 0
+      TotalEnergyConsumed:
+        RawValue: 0
+      SubUses: 0
       UltimateUses: 0
       ItemUses: 0
     ApparelStatsMultiplier:
@@ -1512,11 +1518,16 @@ MonoBehaviour:
     NextState:
       Value: 0
     PossibleStates:
-      Value: 8191
+      Value: 16383
     StateTime: 0
     NextStateTime: 0
     LastFrame:
       _encodedInformation: 0
+    DeferredKnockback:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
     KnockbackVelocityX:
       RawValue: 0
     KnockbackVelocityTime:
@@ -1537,8 +1548,6 @@ MonoBehaviour:
     DodgeType:
       Value: 0
     DodgeCount: 0
-    IsCommitted:
-      Value: 0
     IsThrowing:
       Value: 0
     HasSubWeapon:
@@ -1718,6 +1727,34 @@ MonoBehaviour:
   _invincible: {fileID: 11400000, guid: 2b0a79b26e0dc08438e6d9d0f33f04b5, type: 2}
   _intangible: {fileID: 11400000, guid: 83406c630d1cdb64e957412f63782a8b, type: 2}
   _superArmor: {fileID: 11400000, guid: 38bfacd83d631074c9c9421876176bbb, type: 2}
+--- !u!114 &-3667562257951265389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2967317518420762171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8fd6fccea09a14783e8aa65d65d6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Settings:
+      Id:
+        Value: 0
+    Time:
+      RawValue: 0
+    Amount:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    Direction:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
 --- !u!1 &4632668213109643038
 GameObject:
   m_ObjectHideFlags: 0

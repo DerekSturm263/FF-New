@@ -103,9 +103,9 @@ public class PlayerEventReceiver : MonoBehaviour
             Destroy(_parent.PrimaryWeaponInstance);
 
         WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(mainWeapon.Template.Id);
-        if (template && template.Alt)
+        if (template && template.Main)
         {
-            _parent.SetPrimaryWeaponInstance(Instantiate(template.Alt, _primaryWeapon));
+            _parent.SetPrimaryWeaponInstance(Instantiate(template.Main, _primaryWeapon));
         }
     }
 

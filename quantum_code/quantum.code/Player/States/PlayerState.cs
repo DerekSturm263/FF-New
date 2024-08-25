@@ -60,6 +60,7 @@
 
             return filter.CharacterController->CanInput &&
                    filter.CharacterController->PossibleStates.HasFlag(stateInfo.Item2) &&
+                   filter.Shakeable->Time <= 0 &&
                    IsInputting(stateMachine, ref filter, ref input) &&
                    DoesStateTypeMatch(stateMachine, ref filter);
         }
@@ -125,7 +126,7 @@
     public unsafe abstract class ExclusivePassiveState : PassiveState
     {
         protected abstract Input.Buttons GetInput();
-        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => filter.CharacterController->WasPressedThisFrame(input, GetInput());
+        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => filter.CharacterController->IsHeldThisFrame(input, GetInput());
 
         protected override sealed bool DoExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => !filter.CharacterController->IsHeldThisFrame(input, GetInput());
     }

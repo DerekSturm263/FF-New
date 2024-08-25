@@ -18,6 +18,7 @@ public class QuantumAOT {
   }
 #pragma warning restore IDE0051 // Remove unused private members
 
+  public List<ListHelper<Photon.Deterministic.FPVector2>> ListHelper;
   public List<Photon.Deterministic.DeterministicTickInputSet> DeterministicTickInputSet;
   public List<Photon.Deterministic.FP> FP;
   public List<Photon.Deterministic.FPVector2> FPVector2;

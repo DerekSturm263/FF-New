@@ -19,16 +19,20 @@ enum States
 [System.Flags]
 enum StatesFlag
 {
-    Move = 1,
-    Crouch = 2,
-    LookUp = 4,
-    Jump = 8,
-    FastFall = 16,
-    Burst = 32,
-    Dodge = 64,
-    Block = 128,
-    Emote = 256,
-    Interact = 512,
+    Default = 1,
+    Jump = 2,
+    Crouch = 4,
+    LookUp = 8,
+    Dodge = 16,
+    Block = 32,
+    Burst = 64,
+    Emote = 128,
+    Sub = 256,
+    Ultimate = 512,
+    Interact = 1024,
+    Primary = 2048,
+    Secondary = 4096,
+    Dead = 8192
 }
 
 [System.Flags]
@@ -74,8 +78,10 @@ component CharacterController
     Input LastFrame;
 
     // Knockback
-    FP KnockbackVelocityX;
-    FP KnockbackVelocityTime;
+    FPVector2 OriginalPosition;
+    KnockbackInfo DeferredKnockback;
+    KnockbackInfo CurrentKnockback;
+    KnockbackInfo OldKnockback;
 
     // Move
     FP Velocity;
@@ -92,9 +98,6 @@ component CharacterController
     DodgeType DodgeType;
     short DodgeCount;
 
-    // Attacking/Emoting
-    bool IsCommitted;
-    
     // Interacting
     bool IsThrowing;
     bool HasSubWeapon;

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class StagePopulator : PopulateSerializable<Quantum.Stage, StageAssetAsset>
 {
+    [SerializeField] private bool _showAll = false;
+
     public enum CheckmarkType
     {
         InList,
@@ -71,5 +73,5 @@ public class StagePopulator : PopulateSerializable<Quantum.Stage, StageAssetAsse
         return baseFilters.Concat(tagGroups).ToDictionary(item => item.Key, item => item.Value);
     }
 
-    private bool IsInList(SerializableWrapper<Quantum.Stage> item) => ArrayHelper.All(RulesetController.Instance.CurrentRuleset.value.Stage.Stages).Contains(new() { Id = item.FileID });
+    private bool IsInList(SerializableWrapper<Quantum.Stage> item) => _showAll || ArrayHelper.All(RulesetController.Instance.CurrentRuleset.value.Stage.Stages).Contains(new() { Id = item.FileID });
 }
