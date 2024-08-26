@@ -85,7 +85,7 @@ namespace Quantum
                     filter.CharacterController->DirectionValue = new(filter.CharacterController->MovementDirection, 0);
                 }
                 
-                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->DirectionEnum), filter.CharacterController->DirectionValue * settings.ThrowForce + settings.ThrowForceOffset);
+                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalHelper.GetFromDirection(settings.ThrowOffset, filter.CharacterController->DirectionEnum),( filter.CharacterController->DirectionValue * settings.ThrowForce + settings.ThrowForceOffset) * filter.CharacterController->ThrowMultiplier);
 
                 if (filter.CharacterController->DirectionValue.X != 0)
                 {

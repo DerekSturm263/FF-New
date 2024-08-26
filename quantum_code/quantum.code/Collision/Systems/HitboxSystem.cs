@@ -19,7 +19,9 @@ namespace Quantum
         {
             var list = f.ResolveList(filter.HitboxInstance->Positions);
 
-            if (filter.HitboxInstance->Lifetime > 0 && filter.HitboxInstance->Lifetime < list.Count)
+            if (list.Count == 1)
+                filter.Transform->Position = list[0];
+            else if (filter.HitboxInstance->Lifetime > 0 && filter.HitboxInstance->Lifetime < list.Count)
                 filter.Transform->Position = list[filter.HitboxInstance->Lifetime - 1];
 
             --filter.HitboxInstance->Lifetime;
@@ -63,7 +65,7 @@ namespace Quantum
             }
         }
 
-        public static void SpawnHitbox(Frame f, HitboxSettings settings, Shape2D shape, int lifetime, EntityRef user, List<FPVector2> positions)
+        public static void SpawnHitbox(Frame f, HitboxSettings settings, Shape2D shape, int lifetime, EntityRef user, List<FPVector2> positions, bool parentToUser)
         {
             Log.Debug("Spawning hitbox!");
 
@@ -88,10 +90,14 @@ namespace Quantum
                     hitboxInstance->Positions = f.AllocateList<FPVector2>();
                     QList<FPVector2> positionsComponent = f.ResolveList(hitboxInstance->Positions);
 
-                    if (f.Unsafe.TryGetPointer(user, out Transform2D* transform))
+                    FPVector2 offset = default;
+
+                    if (parentToUser && f.Unsafe.TryGetPointer(user, out Transform2D* transform))
+                        offset = transform->Position;
+
+                    for (int i = 0; i < positions.Count; ++i)
                     {
-                        for (int i = 0; i < positions.Count; ++i)
-                            positionsComponent.Add(transform->Position + new FPVector2(positions[i].X * characterController->MovementDirection, positions[i].Y));
+                        positionsComponent.Add(offset + new FPVector2(positions[i].X * (parentToUser ? characterController->MovementDirection : 1), positions[i].Y));
                     }
 
                     QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);

@@ -1,8 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Types;
-using System.Numerics;
 using System;
-using System.Diagnostics;
 
 namespace Quantum
 {
@@ -47,13 +45,10 @@ namespace Quantum
 
             // Get the entity's input before we do anything with it.
             Input input;
-            if (f.Unsafe.TryGetPointer(filter.Entity, out AIData* aiData) &&
-                f.TryFindAsset(aiData->Behavior.Id, out Behavior behavior))
+            if (f.Unsafe.TryGetPointer(filter.Entity, out AIData* aiData) && f.TryFindAsset(aiData->Behavior.Id, out Behavior behavior))
                 input = behavior.GetInput(f, filter);
             else
                 input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
-
-            Log.Debug(input.InputButtons);
 
             // Handle some miscellaneous logic.
             HandleGround(f, filter, settings);

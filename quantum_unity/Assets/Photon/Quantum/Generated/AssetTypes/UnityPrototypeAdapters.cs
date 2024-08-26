@@ -13,6 +13,7 @@ namespace Quantum.Prototypes.Unity {
     public global::EntityPrototype Target;
     public Quantum.Prototypes.Goal_Prototype CurrentGoal;
     public Photon.Deterministic.FP TimeSinceAction;
+    public Photon.Deterministic.FP TimeSinceTargetSwitch;
 
     public sealed override Quantum.Prototypes.AIData_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.AIData_Prototype();
@@ -20,6 +21,85 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.Target, out result.Target);
       result.CurrentGoal = this.CurrentGoal;
       result.TimeSinceAction = this.TimeSinceAction;
+      result.TimeSinceTargetSwitch = this.TimeSinceTargetSwitch;
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.CharacterController))]
+  public class CharacterController_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.CharacterController_Prototype> {
+    public Quantum.AssetRefMovementSettings Settings;
+    public Quantum.QBoolean CanInput;
+    public Quantum.Prototypes.Colliders_Prototype NearbyColliders;
+    public System.Int32 MovementDirection;
+    public Quantum.Prototypes.Direction_Prototype DirectionEnum;
+    public Photon.Deterministic.FPVector2 DirectionValue;
+    public Quantum.Prototypes.States_Prototype CurrentState;
+    public Quantum.Prototypes.States_Prototype NextState;
+    public Quantum.Prototypes.StatesFlag_Prototype PossibleStates;
+    public System.Int32 StateTime;
+    public System.Int32 NextStateTime;
+    public Quantum.Prototypes.Input_Prototype LastFrame;
+    public Photon.Deterministic.FPVector2 OriginalPosition;
+    public Quantum.Prototypes.KnockbackInfo_Prototype DeferredKnockback;
+    public Quantum.Prototypes.KnockbackInfo_Prototype CurrentKnockback;
+    public Quantum.Prototypes.KnockbackInfo_Prototype OldKnockback;
+    public Photon.Deterministic.FP Velocity;
+    public Photon.Deterministic.FP MovingLerp;
+    public Photon.Deterministic.FP Influence;
+    public Quantum.QBoolean GroundedJump;
+    public Quantum.Prototypes.JumpType_Prototype JumpType;
+    public System.Int16 JumpCount;
+    public Quantum.QBoolean GroundedDodge;
+    public Quantum.Prototypes.DodgeType_Prototype DodgeType;
+    public System.Int16 DodgeCount;
+    public Quantum.QBoolean IsThrowing;
+    public Quantum.QBoolean HasSubWeapon;
+    public Photon.Deterministic.FP ThrowMultiplier;
+    public System.Int32 HeldAnimationFrameTime;
+    public System.Int32 MaxHoldAnimationFrameTime;
+    public Quantum.QBoolean IsReady;
+    public Photon.Deterministic.FP ReadyTime;
+    public System.Int32 UltimateTime;
+    [Quantum.LocalReference]
+    public global::EntityPrototype DigitalDouble;
+
+    public sealed override Quantum.Prototypes.CharacterController_Prototype Convert(EntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.CharacterController_Prototype();
+      result.Settings = this.Settings;
+      result.CanInput = this.CanInput;
+      result.NearbyColliders = this.NearbyColliders;
+      result.MovementDirection = this.MovementDirection;
+      result.DirectionEnum = this.DirectionEnum;
+      result.DirectionValue = this.DirectionValue;
+      result.CurrentState = this.CurrentState;
+      result.NextState = this.NextState;
+      result.PossibleStates = this.PossibleStates;
+      result.StateTime = this.StateTime;
+      result.NextStateTime = this.NextStateTime;
+      result.LastFrame = this.LastFrame;
+      result.OriginalPosition = this.OriginalPosition;
+      result.DeferredKnockback = this.DeferredKnockback;
+      result.CurrentKnockback = this.CurrentKnockback;
+      result.OldKnockback = this.OldKnockback;
+      result.Velocity = this.Velocity;
+      result.MovingLerp = this.MovingLerp;
+      result.Influence = this.Influence;
+      result.GroundedJump = this.GroundedJump;
+      result.JumpType = this.JumpType;
+      result.JumpCount = this.JumpCount;
+      result.GroundedDodge = this.GroundedDodge;
+      result.DodgeType = this.DodgeType;
+      result.DodgeCount = this.DodgeCount;
+      result.IsThrowing = this.IsThrowing;
+      result.HasSubWeapon = this.HasSubWeapon;
+      result.ThrowMultiplier = this.ThrowMultiplier;
+      result.HeldAnimationFrameTime = this.HeldAnimationFrameTime;
+      result.MaxHoldAnimationFrameTime = this.MaxHoldAnimationFrameTime;
+      result.IsReady = this.IsReady;
+      result.ReadyTime = this.ReadyTime;
+      result.UltimateTime = this.UltimateTime;
+      converter.Convert(this.DigitalDouble, out result.DigitalDouble);
       return result;
     }
   }

@@ -60,7 +60,10 @@ namespace Quantum
         public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, ApparelStats stats)
         {
             if (!CanInput || filter.Shakeable->Time > 0)
+            {
+                filter.PhysicsBody->Velocity.X = filter.CharacterController->CurrentKnockback.Direction.X;
                 return;
+            }
 
             MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
 

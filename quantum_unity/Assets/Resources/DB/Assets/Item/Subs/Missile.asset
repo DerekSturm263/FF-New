@@ -181,16 +181,18 @@ MonoBehaviour:
         RawValue: 65536
     HitboxSettings:
       Delay:
-        TargetFreezeFrames: 3
+        TargetFreezeFrames: 4
+        TargetShakeStrength:
+          RawValue: 6553
         UserFreezeFrames: 0
       Offensive:
         Damage:
           RawValue: 655360
         Knockback:
           X:
-            RawValue: 327680
+            RawValue: 491520
           Y:
-            RawValue: 327680
+            RawValue: 819200
         StatusEffect:
           Id:
             Value: 0
@@ -202,7 +204,7 @@ MonoBehaviour:
           Value: 0
         TargetShake:
           Id:
-            Value: 2339117124231534448
+            Value: 3639855575441814804
     Shape:
       ShapeType: 16
       PolygonCollider:
@@ -232,7 +234,7 @@ MonoBehaviour:
           Id:
             Value: 0
         CircleRadius:
-          RawValue: 147456
+          RawValue: 73728
         EdgeExtent:
           RawValue: 0
         BoxExtents:

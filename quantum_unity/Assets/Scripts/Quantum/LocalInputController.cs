@@ -104,6 +104,8 @@ public class LocalInputController : Controller<LocalInputController>
             FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified) + offset
         );
 
+        player.SetTeamIndex(player.Index.Global);
+
         RuntimePlayer data = new()
         {
             CharacterPrototype = _player.CharacterPrototype,

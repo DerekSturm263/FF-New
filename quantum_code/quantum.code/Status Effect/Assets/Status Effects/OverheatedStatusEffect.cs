@@ -22,10 +22,5 @@ namespace Quantum
                 stats->CurrentStats.Health -= Damage * stats->StatusEffectMultiplier;
             }
         }
-
-        public override void OnRemove(Frame f, EntityRef user)
-        {
-
-        }
     }
 }

@@ -108,6 +108,7 @@ namespace Quantum
                 if (stats->StatusEffectTimeLeft == 0)
                 {
                     statusEffect.OnRemove(f, entity);
+                    stats->StatusEffect.Id = AssetGuid.Invalid;
                 }
                 else if (stats->StatusEffectTimeLeft % statusEffect.TickRate == 0)
                 {

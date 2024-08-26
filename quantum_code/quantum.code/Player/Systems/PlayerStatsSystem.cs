@@ -309,6 +309,9 @@ namespace Quantum
             Sub oldSub = stats->Build.Gear.SubWeapon;
             stats->Build.Gear.SubWeapon = sub;
 
+            f.FindAsset<SubEnhancer>(oldSub.Enhancer.Id)?.OnRemove(f, user);
+            f.FindAsset<SubEnhancer>(sub.Enhancer.Id)?.OnApply(f, user);
+
             f.Events.OnPlayerSetSub(user, oldSub, sub);
         }
 

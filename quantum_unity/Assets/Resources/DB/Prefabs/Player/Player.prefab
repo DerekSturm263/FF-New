@@ -1402,15 +1402,35 @@ MonoBehaviour:
     NextStateTime: 0
     LastFrame:
       _encodedInformation: 0
-    DeferredKnockback:
+    OriginalPosition:
       X:
         RawValue: 0
       Y:
         RawValue: 0
-    KnockbackVelocityX:
-      RawValue: 0
-    KnockbackVelocityTime:
-      RawValue: 0
+    DeferredKnockback:
+      Direction:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Time:
+        RawValue: 0
+    CurrentKnockback:
+      Direction:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Time:
+        RawValue: 0
+    OldKnockback:
+      Direction:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Time:
+        RawValue: 0
     Velocity:
       RawValue: 0
     MovingLerp:
@@ -1431,6 +1451,8 @@ MonoBehaviour:
       Value: 0
     HasSubWeapon:
       Value: 0
+    ThrowMultiplier:
+      RawValue: 65536
     HeldAnimationFrameTime: 0
     MaxHoldAnimationFrameTime: 0
     IsReady:
@@ -1438,6 +1460,7 @@ MonoBehaviour:
     ReadyTime:
       RawValue: 0
     UltimateTime: 0
+    DigitalDouble: {fileID: 0}
 --- !u!114 &8318716123870308168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1601,8 +1624,15 @@ MonoBehaviour:
     Settings:
       Id:
         Value: 0
-    Time:
+    Time: 0
+    MaxTime: 0
+    Strength:
       RawValue: 0
+    Position:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
     Amount:
       X:
         RawValue: 0

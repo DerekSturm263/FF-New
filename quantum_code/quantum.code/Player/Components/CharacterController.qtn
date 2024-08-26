@@ -101,6 +101,7 @@ component CharacterController
     // Interacting
     bool IsThrowing;
     bool HasSubWeapon;
+    FP ThrowMultiplier;
 
     // Holding Animations
 	int HeldAnimationFrameTime;
@@ -112,4 +113,7 @@ component CharacterController
 	
     // Ultimate
     int UltimateTime;
+
+    // Ultimate Specifics
+    entity_ref DigitalDouble;
 }

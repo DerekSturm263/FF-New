@@ -89,7 +89,7 @@ namespace Quantum.Editor {
       public Quantum.VampiricWeaponEnhancer[] VampiricWeaponEnhancer = {};
       public Quantum.WeaponMaterial[] WeaponMaterial = {};
       public Quantum.WeaponTemplate[] WeaponTemplate = {};
-      public Quantum.ElectrifiedSubEnhancer[] ElectrifiedSubEnhancer = {};
+      public Quantum.StatusEffectSubEnhancer[] StatusEffectSubEnhancer = {};
       public Quantum.PiercingSubEnhancer[] PiercingSubEnhancer = {};
       public Quantum.SubTemplate[] SubTemplate = {};
       public Quantum.RulesetAsset[] RulesetAsset = {};

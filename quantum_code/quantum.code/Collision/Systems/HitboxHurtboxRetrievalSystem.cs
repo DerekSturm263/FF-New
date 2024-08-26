@@ -90,7 +90,7 @@ namespace Quantum
                     }
                     else
                     {
-                        StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, attackerStats);
+                        StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, defenderStats);
                     }
 
                     // Increase energy.

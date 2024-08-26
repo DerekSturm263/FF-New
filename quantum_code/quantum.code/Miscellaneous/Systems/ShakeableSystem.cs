@@ -32,6 +32,11 @@ namespace Quantum
                 if (filter.Shakeable->Time <= 0)
                 {
                     filter.Transform->Position = filter.Shakeable->Position;
+
+                    if (f.Unsafe.TryGetPointer(filter.Entity, out CustomAnimator* customAnimator))
+                    {
+                        customAnimator->speed = FP._1;
+                    }
                 }
             }
             else
@@ -42,6 +47,9 @@ namespace Quantum
 
         public static void Shake(Frame f, EntityRef shakeableEntity, AssetRefShakeSettings settings, FPVector2 direction, uint time, FP strength)
         {
+            if (time == 0)
+                return;
+
             if (f.Unsafe.TryGetPointer(shakeableEntity, out Shakeable* shakeable) && f.Unsafe.TryGetPointer(shakeableEntity, out Transform2D* transform))
             {
                 shakeable->Settings = settings;
@@ -52,6 +60,11 @@ namespace Quantum
                 shakeable->Strength = strength;
                 shakeable->Position = transform->Position;
                 shakeable->Direction = direction;
+
+                if (f.Unsafe.TryGetPointer(shakeableEntity, out CustomAnimator* customAnimator))
+                {
+                    customAnimator->speed = 0;
+                }
             }
         }
     }

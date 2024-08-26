@@ -28,6 +28,7 @@ MonoBehaviour:
   Price: 0
   FilterTags: []
   GroupTags: []
+  isRandom: 0
   SFX:
     _kvps: []
   ItemVFX: {fileID: 11400000, guid: 55d739b70a0f6a640afb0f457c30dbbe, type: 2}
@@ -75,16 +76,18 @@ MonoBehaviour:
     HandednessType: 0
     HitboxSettings:
       Delay:
-        TargetFreezeFrames: 3
+        TargetFreezeFrames: 4
+        TargetShakeStrength:
+          RawValue: 6553
         UserFreezeFrames: 0
       Offensive:
         Damage:
           RawValue: 327680
         Knockback:
           X:
-            RawValue: 327680
+            RawValue: 65536
           Y:
-            RawValue: 327680
+            RawValue: 65536
         StatusEffect:
           Id:
             Value: 1871826951402697938
@@ -126,7 +129,7 @@ MonoBehaviour:
           Id:
             Value: 0
         CircleRadius:
-          RawValue: 147456
+          RawValue: 73728
         EdgeExtent:
           RawValue: 0
         BoxExtents:

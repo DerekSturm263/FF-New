@@ -11,6 +11,7 @@
 
                 // physics querying
                 new HitboxSystem(),
+                new ItemSystem(),
                 new HitboxHurtboxQueryInjectionSystem(),
 
                 new Core.PhysicsSystem2D(),
@@ -38,7 +39,6 @@
                 new StatsSystem(),
                 new PlayerStatsSystem(),
                 new ItemSpawnSystem(),
-                new ItemSystem(),
                 new HurtboxSystem(),
 
                 // animation-related systems
