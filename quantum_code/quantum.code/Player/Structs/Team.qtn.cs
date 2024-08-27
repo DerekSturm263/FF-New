@@ -6,23 +6,23 @@ namespace Quantum
 {
     public unsafe partial struct Team
     {
-        public IEnumerable<FighterIndex> Get(Frame f)
+        public IEnumerable<PlayerNameIndex> Get(Frame f)
         {
-            List<FighterIndex> list = [];
+            List<PlayerNameIndex> list = [];
 
-            if (!Item1.Equals(default(FighterIndex)))
+            if (!Item1.Equals(default(PlayerNameIndex)))
                 list.Add(Item1);
-            if (!Item2.Equals(default(FighterIndex)))
+            if (!Item2.Equals(default(PlayerNameIndex)))
                 list.Add(Item2);
-            if (!Item3.Equals(default(FighterIndex)))
+            if (!Item3.Equals(default(PlayerNameIndex)))
                 list.Add(Item3);
-            if (!Item4.Equals(default(FighterIndex)))
+            if (!Item4.Equals(default(PlayerNameIndex)))
                 list.Add(Item4);
 
             return [.. list];
         }
 
-        public void Set(IEnumerable<FighterIndex> list)
+        public void Set(IEnumerable<PlayerNameIndex> list)
         {
             Item1 = list.ElementAtOrDefault(0);
             Item2 = list.ElementAtOrDefault(1);
@@ -30,19 +30,19 @@ namespace Quantum
             Item4 = list.ElementAtOrDefault(3);
         }
 
-        public void AddPlayer(FighterIndex index)
+        public void AddPlayer(PlayerNameIndex index)
         {
-            if (Item1.Equals(default(FighterIndex)))
+            if (Item1.Equals(default(PlayerNameIndex)))
                 Item1 = index;
-            else if (Item2.Equals(default(FighterIndex)))
+            else if (Item2.Equals(default(PlayerNameIndex)))
                 Item2 = index;
-            else if (Item3.Equals(default(FighterIndex)))
+            else if (Item3.Equals(default(PlayerNameIndex)))
                 Item3 = index;
-            else if (Item4.Equals(default(FighterIndex)))
+            else if (Item4.Equals(default(PlayerNameIndex)))
                 Item4 = index;
         }
 
-        public void RemovePlayer(FighterIndex index)
+        public void RemovePlayer(PlayerNameIndex index)
         {
             if (Item1.Equals(index))
                 Item1 = default;
@@ -54,7 +54,7 @@ namespace Quantum
                 Item4 = default;
         }
 
-        public override string ToString()
+        public override readonly string ToString()
         {
             StringBuilder output = new();
 

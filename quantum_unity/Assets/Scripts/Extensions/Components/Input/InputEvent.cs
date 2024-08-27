@@ -66,7 +66,7 @@ namespace Extensions.Components.Input
 
                 case "Vector2":
                     Vector2 value2 = _action.ReadValue<Vector2>();
-                    if ((_processWhenEmpty || value2.x != 0 || value2.y != 0) && HasFocus() && !IsInputting())
+                    if ((_processWhenEmpty || value2 != Vector2.zero) && HasFocus() && !IsInputting())
                         Invoke(value2);
 
                     break;

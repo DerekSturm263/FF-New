@@ -39,7 +39,7 @@ namespace Quantum.Editor {
       public Quantum.AllowMovementEvent[] AllowMovementEvent = {};
       public Quantum.ContinueAnimationEvent[] ContinueAnimationEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
-      public Quantum.ProjectileSpawningItem[] ProjectileSpawningItem = {};
+      public Quantum.ItemSpawningItem[] ItemSpawningItem = {};
       public Quantum.AnyoneStagePicker[] AnyoneStagePicker = {};
       public Quantum.LoserStagePicker[] LoserStagePicker = {};
       public Quantum.RandomStagePicker[] RandomStagePicker = {};

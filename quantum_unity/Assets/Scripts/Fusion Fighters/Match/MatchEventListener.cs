@@ -1,6 +1,6 @@
+using Extensions.Miscellaneous;
 using GameResources.Camera;
 using Quantum;
-using Quantum.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,7 +22,11 @@ public class MatchEventListener : MonoBehaviour
     [SerializeField] private UnityEvent _onMatchSetup;
 
     [SerializeField] private Image _line;
+    [SerializeField] private TMPro.TMP_Text _text;
+    [SerializeField] private Image[] _runnerUpFrames;
     [SerializeField] private Image[] _runnerUpImages;
+    [SerializeField] private TMPro.TMP_Text[] _runnerUpNames;
+    [SerializeField] private TMPro.TMP_Text[] _runnerUpPlaces;
     [SerializeField] private Material[] _playerIconMats;
 
     private void Awake()
@@ -51,19 +55,31 @@ public class MatchEventListener : MonoBehaviour
         var teams = e.Results.SortedTeams.Get(QuantumRunner.Default.Game.Frames.Verified);
 
         var winningTeam = teams.ElementAt(0).Get(QuantumRunner.Default.Game.Frames.Verified);
-        _line.color = winningTeam.ElementAt(0).GetDarkColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
+        _line.color = winningTeam.ElementAt(0).Index.GetDarkColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
+        _line.color = new(_line.color.r, _line.color.g, _line.color.b, 0.75f);
 
-        for (int i = 1; i < teams.Count(); ++i)
+        string winningPlayers = Helper.PrintNames(winningTeam, item => item.Name, "No one");
+
+        if (winningTeam.Count() == 1)
+            _text.SetText($"{winningPlayers} wins!");
+        else
+            _text.SetText($"{winningPlayers} win!");
+
+        IEnumerable<PlayerNameIndex> runnerUps = teams.Where(item => !item.Equals(teams.ElementAt(0))).Select(item => item.Get(QuantumRunner.Default.Game.Frames.Verified)).SelectMany(item => item.ToList());
+
+        for (int i = 0; i < runnerUps.Count(); ++i)
         {
-            var team = teams.ElementAt(i).Get(QuantumRunner.Default.Game.Frames.Verified);
+            _runnerUpFrames[i].transform.parent.gameObject.SetActive(true);
 
-            _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(true);
-            _runnerUpImages[i - 1].material = _playerIconMats[team.ElementAt(0).Global];
+            _runnerUpFrames[i].color = runnerUps.ElementAt(i).Index.GetLightColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
+            _runnerUpImages[i].material = _playerIconMats[runnerUps.ElementAt(i).Index.Global];
+            _runnerUpNames[i].SetText(runnerUps.ElementAt(i).Name);
+            _runnerUpPlaces[i].SetText(i == 0 ? "2<sup>nd</sup>" : i == 1 ? "3<sup>rd</sup>" : "4<sup>th</sup>");
         }
 
-        for (int i = teams.Count(); i < 4; ++i)
+        for (int i = runnerUps.Count(); i < 3; ++i)
         {
-            _runnerUpImages[i - 1].transform.parent.gameObject.SetActive(false);
+            _runnerUpFrames[i].transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -79,7 +95,7 @@ public class MatchEventListener : MonoBehaviour
         var teams = matchResults.SortedTeams.Get(QuantumRunner.Default.Game.Frames.Verified);
 
         var firstPlaceTeam = teams.ElementAt(0).Get(QuantumRunner.Default.Game.Frames.Verified);
-        CameraController.Instance.FocusTarget(firstPlaceTeam.ElementAt(0).Global);
+        CameraController.Instance.FocusTarget(firstPlaceTeam.ElementAt(0).Index.Global);
     }
 
     private void InvokeEventsDelayed2()

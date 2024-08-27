@@ -14,7 +14,7 @@ namespace Quantum
                 return isMatchOver;
 
             // Get if 1 or fewer teams have any players left alive.
-            bool isOneTeamLeft = teams.Count(team => team.Get(f).Any(item => f.Unsafe.GetPointer<Stats>(FighterIndex.GetPlayerFromIndex(f, item))->CurrentStats.Stocks > 0)) < 2;
+            bool isOneTeamLeft = teams.Count(team => team.Get(f).Any(item => f.Unsafe.GetPointer<Stats>(FighterIndex.GetPlayerFromIndex(f, item.Index))->CurrentStats.Stocks > 0)) < 2;
 
             // Return true (match is over) if the match timer hits 0 OR if 1 or fewer teams have any players left alive.
             return isMatchOver || isOneTeamLeft;

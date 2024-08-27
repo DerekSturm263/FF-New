@@ -1,16 +1,14 @@
 ﻿namespace Quantum
 {
     [System.Serializable]
-    public unsafe partial class ProjectileSpawningItem : UsableItem
+    public unsafe partial class ItemSpawningItem : UsableItem
     {
-        public int Amount;
+        public ItemSpawnSettings SpawnSettings;
+        public int MaxUses;
 
         public override void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-
-            }
+            ItemSpawnSystem.Spawn(f, SpawnSettings, user);
 
             base.Invoke(f, user, item, itemInstance);
         }

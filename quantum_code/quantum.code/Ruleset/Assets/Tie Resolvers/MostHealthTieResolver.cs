@@ -8,7 +8,7 @@ namespace Quantum
     {
         public override System.Func<Team, int> ResolveTie(Frame f, IEnumerable<Team> teams)
         {
-            return team => -team.Get(f).Sum(item => f.Unsafe.GetPointer<Stats>(FighterIndex.GetPlayerFromIndex(f, item))->CurrentStats.Health.AsInt);
+            return team => -team.Get(f).Sum(item => f.Unsafe.GetPointer<Stats>(FighterIndex.GetPlayerFromIndex(f, item.Index))->CurrentStats.Health.AsInt);
         }
     }
 }

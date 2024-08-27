@@ -23,6 +23,7 @@ namespace Quantum
             };
 
             PlayerStats* playerStats = f.Unsafe.GetPointer<PlayerStats>(entity);
+            playerStats->Name = name;
             playerStats->Index = index;
 
             PlayerStatsSystem.SetBuild(f, entity, playerStats, defaultBuild);

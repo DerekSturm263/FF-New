@@ -3,7 +3,6 @@ using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
 using System.Collections;
-using UnityEngine.Windows;
 
 public class LocalInputController : Controller<LocalInputController>
 {

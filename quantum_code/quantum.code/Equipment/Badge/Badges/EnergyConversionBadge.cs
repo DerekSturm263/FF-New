@@ -5,7 +5,8 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class EnergyConversionBadge : Badge
     {
-        public FP ConversionSpeed;
+        public FP HealthGain;
+        public FP EnergyLoss;
 
         public override void OnUpdate(Frame f, EntityRef user)
         {
@@ -15,8 +16,8 @@ namespace Quantum
             {
                 if (stats->CurrentStats.Energy > 0 && stats->CurrentStats.Health < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 {
-                    StatsSystem.ModifyHealth(f, user, stats, ConversionSpeed, true);
-                    StatsSystem.ModifyEnergy(f, user, stats, -ConversionSpeed);
+                    StatsSystem.ModifyHealth(f, user, stats, HealthGain, true);
+                    StatsSystem.ModifyEnergy(f, user, stats, -EnergyLoss);
                 }
             }
         }

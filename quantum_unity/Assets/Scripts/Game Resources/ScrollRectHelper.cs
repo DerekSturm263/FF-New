@@ -4,6 +4,7 @@ using Extensions.Miscellaneous;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect), typeof(InputEvent))]
@@ -103,6 +104,14 @@ public class ScrollRectHelper : MonoBehaviour
             return;
 
         ScrollInternal(amount, true);
+    }
+
+    public void Scroll(InputAction.CallbackContext ctx)
+    {
+        if (PlayerJoinController.Instance.TryGetPlayer(ctx.control.device, out LocalPlayerInfo player))
+        {
+            transform.parent.parent.parent.GetComponentsInChildren<ScrollRectHelper>(true)[player.Index.Global].Scroll(ctx.ReadValue<Vector2>());
+        }
     }
 
     public Vector2 GetScreenPos(RectTransform rect)

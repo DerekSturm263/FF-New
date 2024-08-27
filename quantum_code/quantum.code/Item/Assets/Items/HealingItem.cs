@@ -1,4 +1,6 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class HealingItem : UsableItem

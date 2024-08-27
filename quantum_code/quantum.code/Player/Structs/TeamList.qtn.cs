@@ -54,7 +54,7 @@ namespace Quantum
                 Item4 = default;
         }
 
-        public override string ToString()
+        public override readonly string ToString()
         {
             StringBuilder output = new();
 

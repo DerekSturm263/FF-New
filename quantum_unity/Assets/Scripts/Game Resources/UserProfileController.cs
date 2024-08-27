@@ -102,6 +102,9 @@ public class UserProfileController : SpawnableController<bool>
 
     public void SetProfile(SerializableWrapper<UserProfile> profile)
     {
+        if (!profile.MadeByPlayer)
+            profile.SetName($"Guest {_player.Index.Local + 1}");
+
         _player.SetProfile(profile);
     }
 

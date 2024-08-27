@@ -115,29 +115,23 @@ namespace Quantum
 
         public static IEnumerable<Team> GetAllTeams(Frame f)
         {
-            // Create a new list of teams for players to be assigned to.
-            Dictionary<int, Team> teams = [];
+            // Create a new list of players.
+            List<PlayerNameIndex> players = [];
 
-            // Go through each player in the game.
+            // Add each player to the list of players
             foreach (var stats in f.GetComponentIterator<PlayerStats>())
             {
-                if (teams.ContainsKey(stats.Component.Index.Team))
-                {
-                    teams[stats.Component.Index.Team].AddPlayer(stats.Component.Index);
-                }
-                else
-                {
-                    Team newTeam = new()
-                    {
-                        Item1 = stats.Component.Index
-                    };
-
-                    teams.Add(stats.Component.Index.Team, newTeam);
-                }
+                players.Add(new() { Index = stats.Component.Index, Name = stats.Component.Name });
             }
 
-            // Return the list of teams.
-            return [.. teams.Values];
+            // Return the list grouped by their teams.
+            return players.GroupBy(item => item.Index.Team).Select(item =>
+            {
+                Team team = new();
+                team.Set(item);
+
+                return team;
+            });
         }
 
         public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Team {Team}, Device: {Device}, Type: {Type})";

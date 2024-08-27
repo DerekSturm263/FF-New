@@ -1,3 +1,5 @@
+using Extensions.Miscellaneous;
+using Photon.Realtime;
 using Quantum;
 using Quantum.Collections;
 using System.Collections.Generic;
@@ -44,19 +46,8 @@ public class DisplayStagePickerInfo : UIBehaviour
             return;
         }
 
-        StringBuilder playerNumbers = new();
+        string playerNumbers = Helper.PrintNames(allowedPickers, item => Helper.PrintNames(item.Get(QuantumRunner.Default.Game.Frames.Verified), item2 => item2.Name));
 
-        foreach (var team in allowedPickers)
-        {
-            var players = team.Get(QuantumRunner.Default.Game.Frames.Verified);
-
-            foreach (var player in players)
-            {
-                playerNumbers.Append($"Player {player.Global + 1}, ");
-            }
-        }
-
-        playerNumbers.Remove(playerNumbers.Length - 2, 2);
         SetText(string.Format(stagePicker.SelectingMessage, playerNumbers.ToString(), 0));
     }
 

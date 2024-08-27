@@ -122,7 +122,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entityRef, out PlayerStats* playerStats))
             {
                 if (amount < 0)
-                    playerStats->Stats.TotalDamageTaken += amount;
+                    playerStats->Stats.TotalDamageTaken -= amount;
                 else
                     playerStats->Stats.TotalDamageHealed += amount;
             }
