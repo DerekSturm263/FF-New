@@ -88,6 +88,10 @@
                     commandSetTimeScale.Execute(f);
                 else if (command is CommandChangeTeam commandChangeTeam)
                     commandChangeTeam.Execute(f);
+                else if (command is CommandTeleport commandTeleport)
+                    commandTeleport.Execute(f);
+                else if (command is CommandResetAllPlayerPositions commandResetAllPlayerPositions)
+                    commandResetAllPlayerPositions.Execute(f);
             }
         }
     }

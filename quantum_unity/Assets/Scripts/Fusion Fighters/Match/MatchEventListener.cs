@@ -1,5 +1,6 @@
 using Extensions.Miscellaneous;
 using GameResources.Camera;
+using Photon.Realtime;
 using Quantum;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,11 @@ public class MatchEventListener : MonoBehaviour
     [SerializeField] private Image[] _runnerUpImages;
     [SerializeField] private TMPro.TMP_Text[] _runnerUpNames;
     [SerializeField] private TMPro.TMP_Text[] _runnerUpPlaces;
+    [SerializeField] private TMPro.VertexGradient[] _placeColors;
     [SerializeField] private Material[] _playerIconMats;
 
     private void Awake()
     {
-        _entityViewUpdater = FindFirstObjectByType<EntityViewUpdater>();
-
         QuantumEvent.Subscribe<EventOnMatchStart>(listener: this, handler: _onMatchStart.Invoke);
         QuantumEvent.Subscribe<EventOnMatchEnd>(listener: this, handler: _onMatchEnd.Invoke);
 
@@ -65,19 +65,30 @@ public class MatchEventListener : MonoBehaviour
         else
             _text.SetText($"{winningPlayers} win!");
 
-        IEnumerable<PlayerNameIndex> runnerUps = teams.Where(item => !item.Equals(teams.ElementAt(0))).Select(item => item.Get(QuantumRunner.Default.Game.Frames.Verified)).SelectMany(item => item.ToList());
+        int playerIndex = 0, teamIndex = 0;
 
-        for (int i = 0; i < runnerUps.Count(); ++i)
+        var runnerUps = teams.Where(item => !item.Equals(teams.ElementAt(0)));
+
+        foreach (var runnerUp in runnerUps)
         {
-            _runnerUpFrames[i].transform.parent.gameObject.SetActive(true);
+            foreach (var player in runnerUp.Get(QuantumRunner.Default.Game.Frames.Verified))
+            {
+                _runnerUpFrames[playerIndex].transform.parent.gameObject.SetActive(true);
 
-            _runnerUpFrames[i].color = runnerUps.ElementAt(i).Index.GetLightColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
-            _runnerUpImages[i].material = _playerIconMats[runnerUps.ElementAt(i).Index.Global];
-            _runnerUpNames[i].SetText(runnerUps.ElementAt(i).Name);
-            _runnerUpPlaces[i].SetText(i == 0 ? "2<sup>nd</sup>" : i == 1 ? "3<sup>rd</sup>" : "4<sup>th</sup>");
+                _runnerUpFrames[playerIndex].color = player.Index.GetLightColor(QuantumRunner.Default.Game.Frames.Verified).ToColor();
+                _runnerUpImages[playerIndex].material = _playerIconMats[player.Index.Global];
+                _runnerUpNames[playerIndex].SetText(player.Name);
+
+                _runnerUpPlaces[playerIndex].SetText(teamIndex == 0 ? "2<sup>nd</sup>" : teamIndex == 1 ? "3<sup>rd</sup>" : "4<sup>th</sup>");
+                _runnerUpPlaces[playerIndex].colorGradient = _placeColors[teamIndex];
+
+                ++playerIndex;
+            }
+
+            ++teamIndex;
         }
 
-        for (int i = runnerUps.Count(); i < 3; ++i)
+        for (int i = runnerUps.Sum(item => item.Get(QuantumRunner.Default.Game.Frames.Verified).Count()); i < 3; ++i)
         {
             _runnerUpFrames[i].transform.parent.gameObject.SetActive(false);
         }
@@ -91,11 +102,28 @@ public class MatchEventListener : MonoBehaviour
     private void InvokeEventsDelayed()
     {
         _onMatchEndDelayed.Invoke();
+        _entityViewUpdater ??= FindFirstObjectByType<EntityViewUpdater>();
 
         var teams = matchResults.SortedTeams.Get(QuantumRunner.Default.Game.Frames.Verified);
 
-        var firstPlaceTeam = teams.ElementAt(0).Get(QuantumRunner.Default.Game.Frames.Verified);
-        CameraController.Instance.FocusTarget(firstPlaceTeam.ElementAt(0).Index.Global);
+        var winningTeam = teams.ElementAt(0).Get(QuantumRunner.Default.Game.Frames.Verified);
+        CameraController.Instance.FocusTarget(winningTeam.ElementAt(0).Index.Global);
+
+        var runnerUps = teams.Where(item => !item.Equals(teams.ElementAt(0)));
+        List<GameObject> runnerUpGameObjects = new();
+
+        foreach (var runnerUp in runnerUps)
+        {
+            foreach (var player in runnerUp.Get(QuantumRunner.Default.Game.Frames.Verified))
+            {
+                runnerUpGameObjects.Add(_entityViewUpdater.GetView(FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index)).gameObject);
+            }
+        }
+
+        ExcludeGameObjectsFromCamera.Instance.SetExclude(runnerUpGameObjects);
+
+        CommandResetAllPlayerPositions command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
     }
 
     private void InvokeEventsDelayed2()
