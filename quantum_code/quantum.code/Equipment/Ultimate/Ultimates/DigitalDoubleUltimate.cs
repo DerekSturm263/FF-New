@@ -9,6 +9,8 @@
 
         public override void OnBegin(Frame f, EntityRef user)
         {
+            base.OnBegin(f, user);
+
             if (!f.TryGet(user, out PlayerStats playerStats))
                 return;
 

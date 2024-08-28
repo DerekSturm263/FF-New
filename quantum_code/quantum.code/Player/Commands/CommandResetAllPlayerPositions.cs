@@ -5,9 +5,11 @@ namespace Quantum
 {
     public unsafe class CommandResetAllPlayerPositions : DeterministicCommand
     {
+        public bool resetDirection;
+
         public override void Serialize(BitStream stream)
         {
-
+            stream.Serialize(ref resetDirection);
         }
 
         public void Execute(Frame f)
@@ -20,6 +22,12 @@ namespace Quantum
             while (playerFilter.Next(&player))
             {
                 player.Transform->Position = ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[player.PlayerStats->Index.Global];
+
+                if (resetDirection)
+                {
+                    player.CharacterController->MovementDirection = 1;
+                    f.Events.OnPlayerChangeDirection(player.Entity, player.PlayerStats->Index, player.CharacterController->MovementDirection);
+                }
             }
         }
     }

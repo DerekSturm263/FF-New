@@ -34348,6 +34348,7 @@ GameObject:
   - component: {fileID: 684706202}
   - component: {fileID: 684706201}
   - component: {fileID: 684706200}
+  - component: {fileID: 684706205}
   m_Layer: 5
   m_Name: Forge
   m_TagString: Untagged
@@ -34408,30 +34409,18 @@ MonoBehaviour:
   _onAction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7259386362456708021, guid: f5db7276356dff34298365f30a301102,
+      - m_Target: {fileID: -9217173508759806490, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: SettingsController, FusionFighters
-        m_MethodName: Quit
-        m_Mode: 1
+        m_TargetAssemblyTypeName: BuildController, FusionFighters
+        m_MethodName: CloseOrSaveConfirm
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 684706205}
+          m_ObjectArgumentAssemblyTypeName: Extensions.Components.Miscellaneous.InvokableGameObject,
+            Extensions
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Equipment
           m_BoolArgument: 0
         m_CallState: 2
   _onAxisAction:
@@ -34587,6 +34576,47 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684706198}
   m_CullTransparentMesh: 1
+--- !u!114 &684706205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684706198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fff84736810faf4286ad40db932d5f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7259386362456708021, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: SettingsController, FusionFighters
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
+          type: 3}
+        m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Equipment
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &688743918
 GameObject:
   m_ObjectHideFlags: 0
@@ -38655,30 +38685,18 @@ MonoBehaviour:
   _onAction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7259386362456708021, guid: f5db7276356dff34298365f30a301102,
+      - m_Target: {fileID: -9217173508759806490, guid: f5db7276356dff34298365f30a301102,
           type: 3}
-        m_TargetAssemblyTypeName: SettingsController, FusionFighters
-        m_MethodName: Quit
-        m_Mode: 1
+        m_TargetAssemblyTypeName: BuildController, FusionFighters
+        m_MethodName: CloseOrSaveConfirm
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 684706205}
+          m_ObjectArgumentAssemblyTypeName: Extensions.Components.Miscellaneous.InvokableGameObject,
+            Extensions
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5449440467717962511, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: Extensions.Components.Scene.SceneController, Extensions
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Equipment
           m_BoolArgument: 0
         m_CallState: 2
   _onAxisAction:

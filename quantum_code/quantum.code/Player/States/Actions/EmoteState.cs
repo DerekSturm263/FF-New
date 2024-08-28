@@ -33,7 +33,7 @@ namespace Quantum
             {
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(emote.Animation.Id);
 
-                if (animEvent.AnimID != 0)
+                if (animEvent is not null && animEvent.AnimID != 0)
                     return CustomAnimator.GetStateLength(f, filter.CustomAnimator, animEvent.AnimID);
             }
 

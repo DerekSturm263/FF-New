@@ -1,10 +1,7 @@
 using Extensions.Miscellaneous;
-using Photon.Realtime;
 using Quantum;
-using Quantum.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -37,18 +34,42 @@ public class DisplayStagePickerInfo : UIBehaviour
             };
 
             QuantumRunner.Default.Game.SendCommand(command);
-            return;
         }
-
-        if (allowedPickers.Count() == QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers)
+        else if (stagePicker.GetPlayerCountToDecide(QuantumRunner.Default.Game.Frames.Verified, QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers) == QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers)
         {
-            SetText(string.Format(stagePicker.FallbackMessage, 0, allowedPickers.Count()));
-            return;
+            string message = stagePicker.FallbackMessage;
+
+            if (QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers > 1)
+                message = message.Replace("is", "are");
+
+            string playerNames = string.Format(message, 0, QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers);
+
+            SetText(playerNames);
         }
+        else if (allowedPickers.Count() == QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers)
+        {
+            string message = stagePicker.FallbackMessage;
 
-        string playerNumbers = Helper.PrintNames(allowedPickers, item => Helper.PrintNames(item.Get(QuantumRunner.Default.Game.Frames.Verified), item2 => item2.Name));
+            if (allowedPickers.Count() > 1)
+                message = message.Replace("is", "are");
+            
+            string playerNames = string.Format(message, 0, allowedPickers.Count());
 
-        SetText(string.Format(stagePicker.SelectingMessage, playerNumbers.ToString(), 0));
+            SetText(playerNames);
+        }
+        else
+        {
+            string message = stagePicker.SelectingMessage;
+            
+            string playerNumbers = Helper.PrintNames(allowedPickers, item => Helper.PrintNames(item.Get(QuantumRunner.Default.Game.Frames.Verified), item2 => item2.Name, and: "and"), and: "and");
+
+            if (allowedPickers.Sum(item => item.Get(QuantumRunner.Default.Game.Frames.Verified).Count()) > 1)
+                message = message.Replace("is", "are");
+            
+            string playerNames = string.Format(message, playerNumbers.ToString(), 0);
+
+            SetText(playerNames);
+        }
     }
 
     public void SetText(string text)
@@ -67,5 +88,4 @@ public class DisplayStagePickerInfo : UIBehaviour
 
         return results[Random.Range(0, results.Count)];
     }
-
 }

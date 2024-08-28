@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class UpgradeUltimate : Ultimate
@@ -10,6 +8,8 @@ namespace Quantum
 
         public override void OnBegin(Frame f, EntityRef user)
         {
+            base.OnBegin(f, user);
+
             if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
             {
                 stats->ApparelStatsMultiplier = ApparelHelper.Multiply(stats->ApparelStatsMultiplier, ApparelStatsMultiplier);

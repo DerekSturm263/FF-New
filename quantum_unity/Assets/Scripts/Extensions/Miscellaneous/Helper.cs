@@ -266,11 +266,10 @@ namespace Extensions.Miscellaneous
             action.Invoke(t);
         }
 
-        public static string PrintNames<T>(IEnumerable<T> list, System.Func<T, string> nameGetter, string emptyMessage = "None")
+        public static string PrintNames<T>(IEnumerable<T> list, System.Func<T, string> nameGetter, string emptyMessage = "None", string and = "&")
         {
             StringBuilder items = new();
 
-            string and = "&";
             if (list.Count() == 2)
             {
                 items.Append($"{nameGetter.Invoke(list.ElementAt(0))} {and} {nameGetter.Invoke(list.ElementAt(1))}");

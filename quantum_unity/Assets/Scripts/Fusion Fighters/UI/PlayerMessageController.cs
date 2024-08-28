@@ -1,5 +1,7 @@
+using Extensions.Miscellaneous;
 using GameResources.Camera;
 using Quantum;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMessageController : PlayerTracker<RectTransform>
@@ -8,6 +10,7 @@ public class PlayerMessageController : PlayerTracker<RectTransform>
     [SerializeField] private Vector2 _offset;
 
     [SerializeField] private Canvas _canvas;
+    [SerializeField] private float _messageTime;
 
     protected override void Awake()
     {
@@ -15,9 +18,21 @@ public class PlayerMessageController : PlayerTracker<RectTransform>
 
         QuantumEvent.Subscribe<EventOnSendMessage>(listener: this, handler: e =>
         {
+            if (e.Message.Length == 0)
+                return;
+
             _messageBubbles[e.Index.Global].SetActive(true);
             _messageBubbles[e.Index.Global].GetComponentInChildren<TMPro.TMP_Text>().SetText(e.Message);
+
+            StopAllCoroutines();
+            StartCoroutine(HideBubble(e.Index.Global));
         });
+    }
+
+    private IEnumerator HideBubble(int index)
+    {
+        yield return new WaitForSeconds(_messageTime);
+        _messageBubbles[index].SetActive(false);
     }
 
     protected override void Action(GameObject player, RectTransform t)

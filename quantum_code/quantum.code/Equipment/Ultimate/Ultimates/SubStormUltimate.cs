@@ -5,6 +5,8 @@
     {
         public override void OnBegin(Frame f, EntityRef user)
         {
+            base.OnBegin(f, user);
+
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
                 stats->StatsMultiplier.Energy = 0;

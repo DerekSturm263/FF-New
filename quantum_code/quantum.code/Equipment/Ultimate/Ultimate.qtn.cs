@@ -1,12 +1,21 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     [System.Serializable]
     public abstract unsafe partial class Ultimate : InfoAsset
     {
+        public AssetRefCameraSettings CameraSettings;
+        public FP CameraSettingsTime;
+
         public AssetRefQuantumAnimationEvent Move;
         public int Length;
 
-        public abstract void OnBegin(Frame f, EntityRef user);
+        public virtual void OnBegin(Frame f, EntityRef user)
+        {
+            f.Events.OnSetCameraSettings(CameraSettings, CameraSettingsTime);
+        }
+
         public abstract void OnEnd(Frame f, EntityRef user);
     }
 }

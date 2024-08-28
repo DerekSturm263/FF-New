@@ -119,6 +119,13 @@ namespace GameResources.Camera
                 Initialize();
 
                 QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global, e.Defender));
+                QuantumEvent.Subscribe<EventOnSetCameraSettings>(listener: this, handler: e =>
+                {
+                    var oldSettings = _settings;
+                    //SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(e.Settings.Id));
+
+                    //Helper.Delay(e.Time.AsFloat, () => SetCameraSettings(oldSettings));
+                });
             }
 
             _targetPosition = transform.position;

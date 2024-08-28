@@ -8,6 +8,8 @@
 
         public override void OnBegin(Frame f, EntityRef user)
         {
+            base.OnBegin(f, user);
+
             if (f.Unsafe.TryGetPointer(user, out PlayerStats* playerStats))
             {
                 playerStats->ApparelStatsMultiplier = ApparelStatsMultiplier;
