@@ -146,7 +146,7 @@ namespace Quantum
             if (triggerDeath && stats->CurrentStats.Health <= 0)
             {
                 ModifyStocks(f, entityRef, stats, -1);
-                stats->CurrentStats.Health = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
+                stats->IsDead = true;
 
                 didDie = true;
             }
@@ -263,10 +263,13 @@ namespace Quantum
             }
         }
 
-        public static void ModifyHurtboxes(Frame f, EntityRef entity, HurtboxType hurtboxesType, HurtboxSettings settings)
+        public static void ModifyHurtboxes(Frame f, EntityRef entity, HurtboxType hurtboxesType, HurtboxSettings settings, bool doReset)
         {
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {
+                if (!doReset && stats->IsRespawning)
+                    return;
+
                 var hurtboxes = f.ResolveDictionary(stats->Hurtboxes);
 
                 for (int i = 0; i < 15; ++i)

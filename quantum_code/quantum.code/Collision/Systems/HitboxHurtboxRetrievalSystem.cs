@@ -33,18 +33,18 @@ namespace Quantum
                             defenderStats.Index.Team == attackerStats.Index.Team)
                             continue;
 
-                        ResolveHit(f, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender);
+                        ResolveHit(f, hitbox.Transform->Position, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender);
                     }
                 }
             }
         }
 
-        private void ResolveHit(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveHit(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
         {
             Log.Debug($"{attacker.Index} hit {defender.Index}");
 
             ResolveDamage(f, hitbox, hurtbox, attacker, defender);
-            ResolveKnockback(f, hitbox, hurtbox, attacker, defender);
+            ResolveKnockback(f, hitboxPosition, hitbox, hurtbox, attacker, defender);
 
             if (hitbox.Visual.OnlyShakeOnHit)
                 f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false, defender);
@@ -109,25 +109,25 @@ namespace Quantum
             }
         }
 
-        private void ResolveKnockback(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveKnockback(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
         {
-            if (hurtbox.CanBeKnockedBack && f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController2))
+            if (hurtbox.CanBeKnockedBack && f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController) && f.TryGet(defender, out Transform2D transform))
             {
-                FPVector2 updatedDirection = new(hitbox.Offensive.Knockback.X * characterController2->MovementDirection, hitbox.Offensive.Knockback.Y);
+                int directionMultiplier;
 
-                ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.UserFreezeFrames, 0);
-                ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.TargetFreezeFrames, hitbox.Delay.TargetShakeStrength);
-
-                if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) &&
-                    f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) &&
-                    f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
+                if (hitbox.Offensive.AlignKnockbackToPlayerDirection)
                 {
-                    characterController->DeferredKnockback = new() { Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
-                    characterController->OldKnockback = characterController->DeferredKnockback;
-                    characterController->OriginalPosition = transform->Position;
-
-                    characterController->Influence = 0;
+                    directionMultiplier = characterController->MovementDirection;
                 }
+                else
+                {
+                    if (hitboxPosition.X > transform.Position.X)
+                        directionMultiplier = -1;
+                    else
+                        directionMultiplier = 1;
+                }
+
+                CharacterControllerSystem.ApplyKnockback(f, hitbox, attacker, defender, directionMultiplier);
             }
 
             if (hurtbox.CanBeInterrupted && f.Unsafe.TryGetPointer(defender, out CustomAnimator* customAnimator))

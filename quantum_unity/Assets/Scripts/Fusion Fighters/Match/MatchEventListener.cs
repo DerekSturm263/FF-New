@@ -122,7 +122,7 @@ public class MatchEventListener : MonoBehaviour
 
         ExcludeGameObjectsFromCamera.Instance.SetExclude(runnerUpGameObjects);
 
-        CommandResetAllPlayerPositions command = new();
+        CommandResetAllPlayerPositions command = new() { resetDirection = true };
         QuantumRunner.Default.Game.SendCommand(command);
     }
 

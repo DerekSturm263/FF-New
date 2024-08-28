@@ -313,7 +313,8 @@ public class AnimationEventContainerWindow : EditorWindow
         if (!_previewWeapon)
             _previewWeapon = GameObject.Find("Main");
         
-        _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
+        if (_eventAsset)
+            _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
     }
 
     public unsafe void DrawGizmos(AssetRefHurtboxSetup hurtboxSetup)

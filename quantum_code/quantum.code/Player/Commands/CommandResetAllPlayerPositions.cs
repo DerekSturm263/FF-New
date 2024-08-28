@@ -21,7 +21,7 @@ namespace Quantum
 
             while (playerFilter.Next(&player))
             {
-                player.Transform->Position = ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[player.PlayerStats->Index.Global];
+                PlayerSpawnSystem.SetPosition(f, player.Entity, 0);
 
                 if (resetDirection)
                 {

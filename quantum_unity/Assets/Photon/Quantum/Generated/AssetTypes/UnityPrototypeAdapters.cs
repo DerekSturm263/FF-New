@@ -46,7 +46,6 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.Prototypes.KnockbackInfo_Prototype OldKnockback;
     public Photon.Deterministic.FP Velocity;
     public Photon.Deterministic.FP MovingLerp;
-    public Photon.Deterministic.FP Influence;
     public Quantum.QBoolean GroundedJump;
     public Quantum.Prototypes.JumpType_Prototype JumpType;
     public System.Int16 JumpCount;
@@ -84,7 +83,6 @@ namespace Quantum.Prototypes.Unity {
       result.OldKnockback = this.OldKnockback;
       result.Velocity = this.Velocity;
       result.MovingLerp = this.MovingLerp;
-      result.Influence = this.Influence;
       result.GroundedJump = this.GroundedJump;
       result.JumpType = this.JumpType;
       result.JumpCount = this.JumpCount;
@@ -248,6 +246,8 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.AssetRefStatusEffect StatusEffect;
     public System.Int32 StatusEffectTimeLeft;
     public Photon.Deterministic.FP StatusEffectMultiplier;
+    public Quantum.QBoolean IsDead;
+    public Quantum.QBoolean IsRespawning;
 
     public sealed override Quantum.Prototypes.Stats_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.Stats_Prototype();
@@ -258,6 +258,8 @@ namespace Quantum.Prototypes.Unity {
       result.StatusEffect = this.StatusEffect;
       result.StatusEffectTimeLeft = this.StatusEffectTimeLeft;
       result.StatusEffectMultiplier = this.StatusEffectMultiplier;
+      result.IsDead = this.IsDead;
+      result.IsRespawning = this.IsRespawning;
       return result;
     }
   }

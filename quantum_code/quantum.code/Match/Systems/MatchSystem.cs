@@ -167,6 +167,14 @@ namespace Quantum
                     var gizmoInstances = f.ResolveList(f.Global->GizmoInstances);
                     gizmoInstances.Add(newGizmo);
                 }
+
+                var playerFilter = f.Unsafe.FilterStruct<CharacterControllerSystem.Filter>();
+                var player = default(CharacterControllerSystem.Filter);
+
+                while (playerFilter.Next(&player))
+                {
+                    PlayerSpawnSystem.SetPosition(f, player.Entity, FP._1_50);
+                }
             }
 
             f.Events.OnStageSelect(f.Global->CurrentStage, old, stage);

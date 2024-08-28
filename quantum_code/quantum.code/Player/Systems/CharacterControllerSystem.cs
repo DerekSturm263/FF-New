@@ -1,10 +1,9 @@
 ﻿using Photon.Deterministic;
-using Quantum.Types;
 using System;
 
 namespace Quantum
 {
-    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>, ISignalOnMapChanged
+    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>
     {
         public static PlayerStateMachine AllStates =
         new(
@@ -21,7 +20,10 @@ namespace Quantum
                 new UltimateState(),
                 new InteractState(),
                 new PrimaryWeaponState(),
-                new SecondaryWeaponState()
+                new SecondaryWeaponState(),
+                new DeadState(),
+                new KnockbackState(),
+                new KnockedOverState()
             ]
         );
 
@@ -52,6 +54,7 @@ namespace Quantum
 
             // Handle some miscellaneous logic.
             HandleGround(f, filter, settings);
+            HandleRespawning(f, ref filter, settings);
             HandleUltimate(f, filter);
 
             // Resolve the State Machine to determine which state the player should be in.
@@ -72,26 +75,12 @@ namespace Quantum
                 filter.CharacterController->CurrentKnockback.Time -= f.DeltaTime;
                 filter.CharacterController->CurrentKnockback.Direction.X -= f.DeltaTime;
 
-                filter.CharacterController->Influence += f.DeltaTime;
-
                 if (filter.CharacterController->CurrentKnockback.Time <= 0)
                 {
                     filter.CharacterController->CurrentKnockback.Direction.X = 0;
-                    filter.CharacterController->Influence = 1;
                 }
 
                 PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
-            }
-        }
-
-        public void OnMapChanged(Frame f, AssetRefMap previousMap)
-        {
-            var playerFilter = f.Unsafe.FilterStruct<Filter>();
-            var player = default(Filter);
-
-            while (playerFilter.Next(&player))
-            {
-                player.Transform->Position = ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[player.PlayerStats->Index.Global];
             }
         }
 
@@ -114,6 +103,20 @@ namespace Quantum
             }
         }
 
+        private void HandleRespawning(Frame f, ref Filter filter, MovementSettings movementSettings)
+        {
+            if (!filter.Stats->IsRespawning)
+                return;
+
+            StatsSystem.ModifyHealth(f, filter.Entity, filter.Stats, movementSettings.RespawnHealRate, false);
+
+            if (filter.Stats->CurrentStats.Health >= f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
+            {
+                filter.Stats->IsRespawning = false;
+                StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, true);
+            }
+        }
+        
         private void HandleUltimate(Frame f, Filter filter)
         {
             // Decrease the time left in the Ultimate state if the player is using their Ultimate.
@@ -167,6 +170,21 @@ namespace Quantum
             FP y = x * FPMath.Tan(angle) - (gravity * x * x / (2 * amount.Magnitude * amount.Magnitude * FPMath.Cos(angle) * FPMath.Cos(angle)));
 
             return new FPVector2(x, y) * scalar;
+        }
+
+        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier)
+        {
+            FPVector2 updatedDirection = new(hitbox.Offensive.Knockback.X * directionMultiplier, hitbox.Offensive.Knockback.Y);
+
+            ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.UserFreezeFrames, 0);
+            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.TargetFreezeFrames, hitbox.Delay.TargetShakeStrength);
+
+            if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
+            {
+                characterController->DeferredKnockback = new() { Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
+                characterController->OldKnockback = characterController->DeferredKnockback;
+                characterController->OriginalPosition = transform->Position;
+            }
         }
     }
 }

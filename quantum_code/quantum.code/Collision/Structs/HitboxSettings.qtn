@@ -12,6 +12,7 @@ struct OffensiveSettings
     [Tooltip("How much damage the hitbox should do")] FP Damage;
     [Tooltip("How much knockback the hitbox should give and what direction to give it in")] FPVector2 Knockback;
     [Tooltip("The status effect that opponents hit by this hitbox will be affected by, if any")] asset_ref<StatusEffect> StatusEffect;
+    [Tooltip("Whether or not to multiply the knockback direction based on the player's direction")] bool AlignKnockbackToPlayerDirection;
 }
 
 [Serializable]

@@ -56,7 +56,14 @@ namespace Quantum
         public ShapeCastHelper WallCastRight;
         public ShapeCastHelper CeilingCast;
 
+        [Header("Death/Respawn Settings")]
+        public int DeathTime;
+        public FP RespawnHealRate;
+
         [Header("Knockback Settings")]
         public FP DirectionalInfluenceForce;
+        public FP DirectionalInfluenceGainSpeed;
+        public int KnockbackTime;
+        public FP MinimumYVelocityForKnockbackExit;
     }
 }

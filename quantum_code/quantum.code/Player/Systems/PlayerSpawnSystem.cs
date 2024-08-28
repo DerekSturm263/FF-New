@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Reflection;
 
 namespace Quantum
 {
@@ -51,27 +52,7 @@ namespace Quantum
                 f.Events.OnHideShowReadiness(entity, index, isRealBattle);
             }
 
-            if (f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
-            {
-                FPVector2 position = Types.ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[index.Global];
-
-                var hit = f.Physics2D.Linecast(position, position + FPVector2.Down * 10, f.RuntimeConfig.GroundLayer);
-                if (hit.HasValue)
-                {
-                    transform->Position = hit.Value.Point + new FPVector2(0, FP._1_50);
-                }
-
-                if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-                {
-                    if (index.Global % 2 != 0)
-                        characterController->MovementDirection = -1;
-                    else
-                        characterController->MovementDirection = 1;
-
-                    f.Events.OnPlayerChangeDirection(entity, index, characterController->MovementDirection);
-                }
-            }
-
+            SetPosition(f, entity, FP._1_50);
             f.Events.OnHurtboxStateChange(entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
 
             return entity;
@@ -86,6 +67,37 @@ namespace Quantum
             RemovePlayerFromList(f, stats.Index);
 
             f.Destroy(player);
+        }
+
+        public static void SetPosition(Frame f, EntityRef player, FP offset)
+        {
+            if (!f.Unsafe.TryGetPointer(player, out Transform2D* transform))
+                return;
+
+            FighterIndex index = f.Unsafe.GetPointer<PlayerStats>(player)->Index;
+            FPVector2 position = Types.ArrayHelper.All(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints)[index.Global];
+
+            var hit = f.Physics2D.Linecast(position, position + FPVector2.Down * 5, f.RuntimeConfig.GroundLayer);
+            if (hit.HasValue)
+            {
+                Log.Debug("Linecast hit!");
+                transform->Position = hit.Value.Point + new FPVector2(0, offset);
+            }
+            else
+            {
+                Log.Debug("Linecast failed!");
+                transform->Position = position;
+            }
+
+            if (f.Unsafe.TryGetPointer(player, out CharacterController* characterController))
+            {
+                if (index.Global % 2 != 0)
+                    characterController->MovementDirection = -1;
+                else
+                    characterController->MovementDirection = 1;
+
+                f.Events.OnPlayerChangeDirection(player, index, characterController->MovementDirection);
+            }
         }
 
         public static void AddPlayerToList(Frame f, EntityRef player, FighterIndex index)

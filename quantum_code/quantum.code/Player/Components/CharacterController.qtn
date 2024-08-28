@@ -13,7 +13,9 @@ enum States
     Interact,
     Primary,
     Secondary,
-    Dead
+    Dead,
+    Knockback,
+    KnockedOver
 }
 
 [System.Flags]
@@ -32,7 +34,9 @@ enum StatesFlag
     Interact = 1024,
     Primary = 2048,
     Secondary = 4096,
-    Dead = 8192
+    Dead = 8192,
+    Knockback = 16384,
+    KnockedOver = 32768
 }
 
 [System.Flags]
@@ -86,7 +90,6 @@ component CharacterController
     // Move
     FP Velocity;
     FP MovingLerp;
-    FP Influence;
 
     // Jump
     bool GroundedJump;
