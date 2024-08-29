@@ -27,6 +27,8 @@ public class AnimationEventEditor : Editor
                     }
                 }
             }
+
+            EditorUtility.SetDirty(animationEvent);
         }
     }
 }

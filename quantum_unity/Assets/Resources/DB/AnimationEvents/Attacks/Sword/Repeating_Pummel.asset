@@ -20,7 +20,7 @@ MonoBehaviour:
         1
       Guid:
         Value: 2500658401770375813
-    StartingFrame: 14
+    StartingFrame: 11
     EndingFrame: 20
     Default:
       Id:
@@ -199,55 +199,67 @@ MonoBehaviour:
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -75184
+          RawValue: 87554
         Y:
-          RawValue: 182172
+          RawValue: 68225
       - X:
-          RawValue: -30906
+          RawValue: 131832
         Y:
-          RawValue: 191359
+          RawValue: 77411
       - X:
-          RawValue: -11327
+          RawValue: 151411
         Y:
-          RawValue: 179029
+          RawValue: 65082
       - X:
-          RawValue: -37536
+          RawValue: 125202
         Y:
-          RawValue: 164889
+          RawValue: 50942
+      - X:
+          RawValue: 32146
+        Y:
+          RawValue: 67203
     - List:
       - X:
-          RawValue: -101574
+          RawValue: 61164
         Y:
-          RawValue: 191387
+          RawValue: 77439
       - X:
-          RawValue: -78792
+          RawValue: 83946
         Y:
-          RawValue: 187486
+          RawValue: 73538
       - X:
-          RawValue: -66999
+          RawValue: 95739
         Y:
-          RawValue: 179386
+          RawValue: 65439
       - X:
-          RawValue: -73171
+          RawValue: 89567
         Y:
-          RawValue: 171980
+          RawValue: 58033
+      - X:
+          RawValue: 59684
+        Y:
+          RawValue: 59396
     - List:
       - X:
-          RawValue: -88845
+          RawValue: 73893
         Y:
-          RawValue: 186942
+          RawValue: 72995
       - X:
-          RawValue: -55694
+          RawValue: 107044
         Y:
-          RawValue: 189354
+          RawValue: 75406
       - X:
-          RawValue: -40145
+          RawValue: 122592
         Y:
-          RawValue: 179214
+          RawValue: 65267
       - X:
-          RawValue: -55982
+          RawValue: 106756
         Y:
-          RawValue: 168560
+          RawValue: 54612
+      - X:
+          RawValue: 46401
+        Y:
+          RawValue: 63162
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -280,7 +292,7 @@ MonoBehaviour:
         2
       Guid:
         Value: 3106732780624124521
-    StartingFrame: 32
+    StartingFrame: 29
     EndingFrame: 37
     Default:
       Id:
@@ -306,15 +318,17 @@ MonoBehaviour:
     AnimID: -1999281888
     Events:
     - Id:
+        Value: 2500658401770375813
+    - Id:
+        Value: 3106732780624124521
+    - Id:
         Value: 4496634824278882052
     - Id:
         Value: 32928122085297703
     - Id:
         Value: 223009796430257811
     - Id:
-        Value: 2500658401770375813
-    - Id:
-        Value: 3106732780624124521
+        Value: 2382624350789218751
     Committed:
       Max: 76
       Min: 0
@@ -489,7 +503,58 @@ MonoBehaviour:
         TargetShake:
           Id:
             Value: 0
-    BakedShapePositions: []
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -31565
+        Y:
+          RawValue: 20681
+      - X:
+          RawValue: 131093
+        Y:
+          RawValue: 36181
+      - X:
+          RawValue: 46330
+        Y:
+          RawValue: 119863
+      - X:
+          RawValue: 21690
+        Y:
+          RawValue: 117771
+    - List:
+      - X:
+          RawValue: 21346
+        Y:
+          RawValue: 30391
+      - X:
+          RawValue: 77061
+        Y:
+          RawValue: 49489
+      - X:
+          RawValue: 35321
+        Y:
+          RawValue: 87249
+      - X:
+          RawValue: 22246
+        Y:
+          RawValue: 86332
+    - List:
+      - X:
+          RawValue: -4176
+        Y:
+          RawValue: 25707
+      - X:
+          RawValue: 103123
+        Y:
+          RawValue: 43070
+      - X:
+          RawValue: 40631
+        Y:
+          RawValue: 102980
+      - X:
+          RawValue: 21978
+        Y:
+          RawValue: 101497
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -631,25 +696,29 @@ MonoBehaviour:
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -120257
+          RawValue: 42481
         Y:
-          RawValue: 181344
+          RawValue: 67396
       - X:
-          RawValue: -100220
+          RawValue: 62518
         Y:
-          RawValue: 179942
+          RawValue: 65995
       - X:
-          RawValue: -84817
+          RawValue: 77921
         Y:
-          RawValue: 179783
+          RawValue: 65835
       - X:
-          RawValue: -82267
+          RawValue: 80471
         Y:
-          RawValue: 179525
+          RawValue: 65577
       - X:
-          RawValue: -82095
+          RawValue: 80642
         Y:
-          RawValue: 178963
+          RawValue: 65016
+      - X:
+          RawValue: 79132
+        Y:
+          RawValue: 64475
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -682,23 +751,78 @@ MonoBehaviour:
       Guid:
         Value: 2382624350789218751
     StartingFrame: 23
-    EndingFrame: 24
+    EndingFrame: 52
     UsabilityType: 0
     UnchargedSettings:
       XCurve:
-        Samples: []
+        Samples:
+        - RawValue: 0
+        - RawValue: 2039
+        - RawValue: 4078
+        - RawValue: 6118
+        - RawValue: 8157
+        - RawValue: 10197
+        - RawValue: 12237
+        - RawValue: 14277
+        - RawValue: 16318
+        - RawValue: 18359
+        - RawValue: 20400
+        - RawValue: 22442
+        - RawValue: 24484
+        - RawValue: 26527
+        - RawValue: 28571
+        - RawValue: 30615
+        - RawValue: 32660
+        - RawValue: 34706
+        - RawValue: 36753
+        - RawValue: 38801
+        - RawValue: 40850
+        - RawValue: 42900
+        - RawValue: 44951
+        - RawValue: 47003
+        - RawValue: 49057
+        - RawValue: 51111
+        - RawValue: 53167
+        - RawValue: 55225
+        - RawValue: 57284
+        - RawValue: 59344
+        - RawValue: 61406
+        - RawValue: 63470
+        - RawValue: 0
         PreWrapMode: 0
         PostWrapMode: 0
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
-        Keys: []
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 65264
+          OutTangent:
+            RawValue: 65264
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 66120
+          OutTangent:
+            RawValue: 66120
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
       XForce:
-        RawValue: 65536
+        RawValue: 98304
       YCurve:
         Samples: []
         PreWrapMode: 0
@@ -706,8 +830,8 @@ MonoBehaviour:
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
         Keys: []
@@ -721,8 +845,8 @@ MonoBehaviour:
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
         Keys: []
@@ -735,8 +859,8 @@ MonoBehaviour:
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
         Keys: []

@@ -35,7 +35,7 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(filter.Entity, out CustomAnimator* customAnimator))
                     {
-                        customAnimator->speed = FP._1;
+                        customAnimator->speed = 1;
                     }
                 }
             }

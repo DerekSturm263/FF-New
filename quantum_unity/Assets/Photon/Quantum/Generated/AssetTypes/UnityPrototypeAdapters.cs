@@ -39,6 +39,7 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 StateTime;
     public System.Int32 NextStateTime;
     public Quantum.Prototypes.Input_Prototype LastFrame;
+    public Quantum.QBoolean StartedInAir;
     public Photon.Deterministic.FPVector2 OriginalPosition;
     public Quantum.Prototypes.KnockbackInfo_Prototype DeferredKnockback;
     public Quantum.Prototypes.KnockbackInfo_Prototype CurrentKnockback;
@@ -81,6 +82,7 @@ namespace Quantum.Prototypes.Unity {
       result.StateTime = this.StateTime;
       result.NextStateTime = this.NextStateTime;
       result.LastFrame = this.LastFrame;
+      result.StartedInAir = this.StartedInAir;
       result.OriginalPosition = this.OriginalPosition;
       result.DeferredKnockback = this.DeferredKnockback;
       result.CurrentKnockback = this.CurrentKnockback;

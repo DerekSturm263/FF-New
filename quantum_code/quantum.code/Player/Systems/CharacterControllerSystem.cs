@@ -59,7 +59,7 @@ namespace Quantum
                 filter.CharacterController->CurrentKnockback.Time -= f.DeltaTime;
                 filter.CharacterController->CurrentKnockback.Direction.X -= f.DeltaTime;
 
-                if (filter.CharacterController->CurrentKnockback.Time <= 0)
+                if (filter.CharacterController->CurrentKnockback.Time <= 0 || (filter.CharacterController->GetNearbyCollider(Colliders.Ground) && filter.CharacterController->CurrentKnockback.Time < FP._0_50))
                 {
                     filter.CharacterController->CurrentKnockback = default;
                 }
@@ -101,7 +101,7 @@ namespace Quantum
 
         private void HandleButtonHolding(Frame f, ref Filter filter, Input input)
         {
-            if (filter.CharacterController->HoldButton == -1)
+            if (filter.CharacterController->HoldButton == 0)
                 return;
 
             bool buttonHeld = filter.CharacterController->IsHeldThisFrame(input, (Input.Buttons)filter.CharacterController->HoldButton);

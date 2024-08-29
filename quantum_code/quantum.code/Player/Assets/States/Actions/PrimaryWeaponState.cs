@@ -6,6 +6,7 @@ namespace Quantum
     [System.Serializable]
     public unsafe sealed class PrimaryWeaponState : ActionState
     {
+        public AssetRefPlayerState Default;
         public FP MinimumDashAttackSpeed;
 
         protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
@@ -24,7 +25,7 @@ namespace Quantum
 
                 if (f.TryFindAsset(animRef.Animation.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0)
                 {
-                    int frameCount = CustomAnimator.GetStateLength(f, filter.CustomAnimator, animEvent.AnimID);
+                    int frameCount = CustomAnimator.GetStateLength(f, filter.CustomAnimator, filter.CustomAnimator->current_state_id);
                     Log.Debug(frameCount);
 
                     return frameCount;
@@ -59,11 +60,25 @@ namespace Quantum
             if (f.TryFindAsset(weaponAsset.Template.Id, out WeaponTemplate weaponTemplate))
             {
                 MoveRef animRef = filter.CharacterController->GetNearbyCollider(Colliders.Ground) ?
+                    FPMath.Abs(filter.CharacterController->Velocity) > MinimumDashAttackSpeed ? weaponTemplate.Dash :
                     DirectionalHelper.GetFromDirection(weaponTemplate.Primaries, filter.CharacterController->DirectionEnum) :
                     DirectionalHelper.GetFromDirection(weaponTemplate.Aerials, filter.CharacterController->DirectionEnum, filter.CharacterController->MovementDirection == 1);
 
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.Animation.Id);
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
+            }
+
+            filter.CharacterController->StartedInAir = !filter.CharacterController->GetNearbyCollider(Colliders.Ground);
+        }
+
+        public override void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        {
+            base.Update(f, stateMachine, ref filter, input, settings);
+
+            if (filter.CharacterController->StartedInAir && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
+            {
+                stateMachine.ForceTransition(f, ref filter, input, settings, Default, 0);
+                filter.CharacterController->PossibleStates = (StatesFlag)16383;
             }
         }
 

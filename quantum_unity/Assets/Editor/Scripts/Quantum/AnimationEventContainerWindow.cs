@@ -231,6 +231,12 @@ public class AnimationEventContainerWindow : EditorWindow
 
         GUILayout.EndHorizontal();
 
+        if (!_eventAsset)
+        {
+            EditorGUILayout.HelpBox("Please assign an AnimationEvent for editing", MessageType.Error);
+            return;
+        }
+
         _events ??= new(_eventAsset.Settings.Events, typeof(AssetRefFrameEvent), true, false, true, true)
         {
             drawElementCallback = EventListDrawElementCallback,
@@ -239,10 +245,9 @@ public class AnimationEventContainerWindow : EditorWindow
             onRemoveCallback = EventListOnRemoveCallback
         };
 
-        if (!_eventAsset || !_previewPlayer || !_previewWeapon)
+        if (!_previewPlayer || !_previewWeapon)
         {
-            EditorGUILayout.HelpBox("Please assign a\n- AnimationEvent for editting\n- Player GameObject for previewing\n- Weapon GameObject for previewing", MessageType.Warning);
-            return;
+            EditorGUILayout.HelpBox("Please assign a\n- Player GameObject for previewing\n- Weapon GameObject for previewing", MessageType.Warning);
         }
 
         GUILayout.Space(10);
@@ -310,9 +315,9 @@ public class AnimationEventContainerWindow : EditorWindow
             _previewPlayer = GameObject.FindGameObjectWithTag("Player");
 
         if (!_previewWeapon)
-            _previewWeapon = GameObject.Find("Main");
+            _previewWeapon = GameObject.Find("HANDLE_GRIP");
         
-        if (_eventAsset)
+        if (_eventAsset && _previewPlayer)
             _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
     }
 
