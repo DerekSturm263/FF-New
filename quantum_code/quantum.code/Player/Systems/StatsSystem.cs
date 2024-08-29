@@ -11,15 +11,15 @@ namespace Quantum
             public EntityRef Entity;
 
             public Transform2D* Transform;
-            public CharacterController* CharacterController;
-            public CustomAnimator* CustomAnimator;
             public Stats* Stats;
         }
 
         public override void Update(Frame f, ref Filter filter)
         {
-            UpdateHurtboxes(f, ref filter);
+            if (filter.Stats->IFrameTime > 0)
+                --filter.Stats->IFrameTime;
 
+            UpdateHurtboxes(f, ref filter);
             UpdateStatusEffect(f, filter.Entity, filter.Stats);
         }
 
@@ -72,14 +72,14 @@ namespace Quantum
 
         private void UpdateHurtbox(Frame f, ref Filter filter, EntityRef hurtbox)
         {
-            if (f.Unsafe.TryGetPointer(hurtbox, out ChildParentLink* childParentLink) && f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance))
+            if (f.Unsafe.TryGetPointer(hurtbox, out ChildParentLink* childParentLink) && f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance) && f.Unsafe.TryGetPointer(filter.Entity, out CustomAnimator* customAnimator) && f.Unsafe.TryGetPointer(filter.Entity, out CharacterController* characterController))
             {
-                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, filter.CustomAnimator).hurtboxPositions[hurtboxInstance->Index];
+                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[hurtboxInstance->Index];
 
                 childParentLink->LocalPosition = transform.position;
                 childParentLink->LocalRotation = transform.rotation;
 
-                if (filter.CharacterController->MovementDirection < 0)
+                if (characterController->MovementDirection < 0)
                     childParentLink->LocalPosition.X *= -1;
             }
         }

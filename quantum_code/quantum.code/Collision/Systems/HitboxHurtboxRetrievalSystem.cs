@@ -33,25 +33,36 @@ namespace Quantum
                             defenderStats.Index.Team == attackerStats.Index.Team)
                             continue;
 
-                        ResolveHit(f, hitbox.Transform->Position, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender);
+                        FPVector2 positionHit = (hitbox.Transform->Position + f.Get<Transform2D>(entityHit).Position) / 2;
+
+                        ResolveHit(f, hitbox.Transform->Position, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender, positionHit, hitbox.HitboxInstance->Settings.Offensive.Knockback);
                     }
                 }
             }
         }
 
-        private void ResolveHit(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveHit(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender, FPVector2 position, FPVector2 direction)
         {
+            if (f.TryGet(defender, out Stats stats) && stats.IFrameTime > 0)
+                return;
+
             Log.Debug($"{attacker.Index} hit {defender.Index}");
 
             ResolveDamage(f, hitbox, hurtbox, attacker, defender);
             ResolveKnockback(f, hitboxPosition, hitbox, hurtbox, attacker, defender);
 
-            if (hitbox.Visual.OnlyShakeOnHit)
-                f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false, defender);
-
-            if (f.TryGet(attacker, out PlayerStats attackerStats) && f.TryGet(defender, out PlayerStats defenderStats))
+            if (hurtbox.CanBeDamaged)
             {
-                f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, defenderStats.Index, hitbox);
+                if (hitbox.Visual.OnlyShakeOnHit)
+                    f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false, defender);
+
+                if (f.TryGet(attacker, out PlayerStats attackerStats))
+                {
+                    if (f.TryGet(defender, out PlayerStats defenderStats))
+                        f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, defenderStats.Index, hitbox, position, direction);
+                    else
+                        f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, FighterIndex.Invalid, hitbox, position, direction);
+                }
             }
         }
 
@@ -78,6 +89,7 @@ namespace Quantum
                 if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
                 {
                     attackerPlayerStats->Stats.TotalDamageDealt += damage;
+                    defenderStats->IFrameTime = 15;
 
                     if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
                     {
@@ -128,18 +140,6 @@ namespace Quantum
                 }
 
                 CharacterControllerSystem.ApplyKnockback(f, hitbox, attacker, defender, directionMultiplier);
-            }
-
-            if (hurtbox.CanBeInterrupted && f.Unsafe.TryGetPointer(defender, out CustomAnimator* customAnimator))
-            {
-                if (hitbox.Offensive.Knockback.SqrMagnitude > 5 * 5)
-                {
-                    CustomAnimator.SetTrigger(f, customAnimator, "Knocked Back");
-                }
-                else
-                {
-                    CustomAnimator.SetTrigger(f, customAnimator, "Hit");
-                }
             }
         }
     }

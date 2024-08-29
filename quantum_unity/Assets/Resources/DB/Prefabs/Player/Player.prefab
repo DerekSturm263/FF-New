@@ -1407,6 +1407,8 @@ MonoBehaviour:
     NextStateTime: 0
     LastFrame:
       _encodedInformation: 0
+    StartedInAir:
+      Value: 0
     OriginalPosition:
       X:
         RawValue: 0
@@ -1458,6 +1460,16 @@ MonoBehaviour:
       RawValue: 65536
     HeldAnimationFrameTime: 0
     MaxHoldAnimationFrameTime: 0
+    HoldButton: 0
+    ButtonHeld:
+      Value: 0
+    ApplyPhysicsPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    PressedButton:
+      Value: 0
     IsReady:
       Value: 0
     ReadyTime:
@@ -1486,11 +1498,11 @@ MonoBehaviour:
       Energy:
         RawValue: 0
     StatsMultiplier:
-      Stocks: 0
+      Stocks: 1
       Health:
-        RawValue: 0
+        RawValue: 65536
       Energy:
-        RawValue: 0
+        RawValue: 65536
     StatusEffect:
       Id:
         Value: 0

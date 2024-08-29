@@ -1,9 +1,10 @@
 ﻿using Photon.Deterministic;
 using System;
+using System.Diagnostics;
 
 namespace Quantum
 {
-    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>, ISignalOnComponentAdded<CharacterController>
+    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>
     {
         public static PlayerStateMachine StateMachine = new();
 
@@ -18,12 +19,6 @@ namespace Quantum
             public PlayerStats* PlayerStats;
             public Stats* Stats;
             public Shakeable* Shakeable;
-        }
-
-        public void OnAdded(Frame f, EntityRef entity, CharacterController* component)
-        {
-            if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
-                CustomAnimator.SetBoolean(f, customAnimator, (int)States.Default, true);
         }
 
         public override void Update(Frame f, ref Filter filter)
@@ -136,6 +131,7 @@ namespace Quantum
             }
         }
 
+        [Conditional("DEBUG")]
         private void PreviewKnockback(FPVector2 amount, FPVector2 offset)
         {
             var lineList = CalculateArcPositions(20, amount, offset);

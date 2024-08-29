@@ -145,9 +145,13 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        TargetFreezeFrames: 6
+        TargetFreezeFrames: 15
+        TargetShakeStrength:
+          RawValue: 65536
         UserFreezeFrames: 0
       Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
         Damage:
           RawValue: 327680
         Knockback:
@@ -169,29 +173,86 @@ MonoBehaviour:
             Value: 2339117124231534448
     FullyChargedSettings:
       Delay:
-        TargetFreezeFrames: 0
+        TargetFreezeFrames: 15
+        TargetShakeStrength:
+          RawValue: 65536
         UserFreezeFrames: 0
       Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
         Damage:
           RawValue: 0
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 327680
           Y:
-            RawValue: 0
+            RawValue: 491520
         StatusEffect:
           Id:
             Value: 0
       Visual:
         CameraShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
         OnlyShakeOnHit:
           Value: 0
         TargetShake:
           Id:
-            Value: 0
-    BakedShapePositions: []
+            Value: 2339117124231534448
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
+      - X:
+          RawValue: 0
+        Y:
+          RawValue: 136314
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -232,7 +293,7 @@ MonoBehaviour:
     - Id:
         Value: 1947709660078885561
     Committed:
-      Max: 0
+      Max: 47
       Min: 0
   Clip: {fileID: -4045831500588228705, guid: 95ec925256b97b9469c593dc4e2a2dde, type: 3}
 --- !u!114 &8465067848498162736

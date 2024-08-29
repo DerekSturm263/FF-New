@@ -1043,6 +1043,7 @@ MonoBehaviour:
   Prototype:
     Hitboxes: []
     Hurtboxes: []
+    IFrameTime: 0
     CurrentStats:
       Stocks: 1
       Health:
@@ -1061,6 +1062,10 @@ MonoBehaviour:
     StatusEffectTimeLeft: 0
     StatusEffectMultiplier:
       RawValue: 65536
+    IsDead:
+      Value: 0
+    IsRespawning:
+      Value: 0
 --- !u!114 &2794667625202912990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,7 +1105,9 @@ MonoBehaviour:
     Settings:
       Id:
         Value: 0
-    Time:
+    Time: 0
+    MaxTime: 0
+    Strength:
       RawValue: 0
     Position:
       X:

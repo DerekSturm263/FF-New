@@ -251,6 +251,7 @@ namespace Quantum.Prototypes.Unity {
     [Quantum.Inspector.DictionaryAttribute()]
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public DictionaryEntry_HurtboxType_EntityRef_Prototype[] Hurtboxes = System.Array.Empty<DictionaryEntry_HurtboxType_EntityRef_Prototype>();
+    public System.Int32 IFrameTime;
     public Quantum.Prototypes.WellnessStats_Prototype CurrentStats;
     public Quantum.Prototypes.WellnessStats_Prototype StatsMultiplier;
     public Quantum.AssetRefStatusEffect StatusEffect;
@@ -263,6 +264,7 @@ namespace Quantum.Prototypes.Unity {
       var result = new Quantum.Prototypes.Stats_Prototype();
       result.Hitboxes = System.Array.ConvertAll(this.Hitboxes, x => { converter.Convert(x, out Quantum.MapEntityId tmp); return tmp; });
       result.Hurtboxes = System.Array.ConvertAll(this.Hurtboxes, x => x.Convert(converter));
+      result.IFrameTime = this.IFrameTime;
       result.CurrentStats = this.CurrentStats;
       result.StatsMultiplier = this.StatsMultiplier;
       result.StatusEffect = this.StatusEffect;

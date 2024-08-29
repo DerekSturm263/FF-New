@@ -21,6 +21,8 @@ namespace Quantum
             StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = false, CanBeInterrupted = false, CanBeKnockedBack = false, DamageToBreak = int.MaxValue }, true);
             PlayerSpawnSystem.SetPosition(f, filter.Entity, FP._2 + FP._0_50);
 
+            filter.Stats->IsDead = false;
+
             base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }
     }

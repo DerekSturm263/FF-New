@@ -43,6 +43,21 @@ namespace GameResources
             return effect;
         }
 
+        public GameObject SpawnEffectUnparented(VFXSettings settings)
+        {
+            if (!_isEnabled)
+                return null;
+
+            GameObject effect = Instantiate(settings.VFXObject, settings.Offset, Quaternion.identity);
+
+            effect.transform.right = settings.Direction.normalized;
+            effect.transform.localScale = Vector3.Scale(effect.transform.localScale, settings.ScaleMultiplier);
+
+            Debug.Log($"Spawning VFX {settings.VFXObject.name}");
+
+            return effect;
+        }
+
         public GameObject SpawnEffect(VFX settings)
         {
             if (!_isEnabled)
