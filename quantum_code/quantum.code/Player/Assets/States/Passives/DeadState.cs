@@ -2,23 +2,19 @@
 
 namespace Quantum
 {
-    public unsafe sealed class DeadState : PassiveState
+    [System.Serializable]
+    public unsafe sealed class DeadState : PlayerState
     {
-        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => filter.Stats->IsDead;
+        public int Time;
 
-        public override (States, StatesFlag) GetStateInfo() => (States.Dead, StatesFlag.Dead);
-        public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        {
+            return base.CanEnter(f, stateMachine, ref filter, input, settings) && filter.Stats->IsDead;
+        }
 
-        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
-        [
-            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
-        ];
+        protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->StateTime >= Time;
 
-        private int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => settings.DeathTime;
-
-        protected override bool DoExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->StateTime >= StateTime(f, stateMachine, ref filter, input, settings);
-
-        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             filter.Stats->IsRespawning = true;
 

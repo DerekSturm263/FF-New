@@ -2,34 +2,9 @@
 
 namespace Quantum
 {
+    [System.Serializable]
     public unsafe sealed class SecondaryWeaponState : ActionState
     {
-        protected override Input.Buttons GetInput() => Input.Buttons.AlternateWeapon;
-
-        public override (States, StatesFlag) GetStateInfo() => (States.Secondary, StatesFlag.Secondary);
-        public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
-
-        public override bool OverrideDirection() => true;
-
-        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
-        [
-            new(destination: States.Dead, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Knockback, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Burst, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Emote, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Sub, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Ultimate, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Block, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Crouch, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.LookUp, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Default, transitionTime: 0, overrideExit: true, overrideEnter: false)
-        ];
-
         protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             Log.Debug("Tyring to get the time...");
@@ -67,7 +42,7 @@ namespace Quantum
             return f.TryFindAsset(animRef.Animation.Id, out QuantumAnimationEvent animEvent) && animEvent.AnimID != 0;
         }
 
-        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
         {
             base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
@@ -83,7 +58,7 @@ namespace Quantum
             }
         }
 
-        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             filter.PlayerStats->ActiveWeapon = ActiveWeaponType.None;
 

@@ -17,8 +17,8 @@ namespace Quantum
         {
             Log.Debug("AI behavior set!");
 
-            if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
-                aiData->Behavior = behavior;
+            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
+                characterController->Behavior = behavior;
         }
     }
 }

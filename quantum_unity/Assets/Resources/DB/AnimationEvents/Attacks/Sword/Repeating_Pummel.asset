@@ -1,0 +1,744 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3485595227643849542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb92bcded5eada84a9ffecf113ad721f, type: 3}
+  m_Name: Button Press 1
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel|Button Press
+        1
+      Guid:
+        Value: 2500658401770375813
+    StartingFrame: 14
+    EndingFrame: 20
+    Default:
+      Id:
+        Value: 328942225980547397
+    Button: 32
+--- !u!114 &-2593210091110669147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot 1
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel|Sweetspot
+        1
+      Guid:
+        Value: 32928122085297703
+    StartingFrame: 31
+    EndingFrame: 35
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -75184
+        Y:
+          RawValue: 182172
+      - X:
+          RawValue: -30906
+        Y:
+          RawValue: 191359
+      - X:
+          RawValue: -11327
+        Y:
+          RawValue: 179029
+      - X:
+          RawValue: -37536
+        Y:
+          RawValue: 164889
+    - List:
+      - X:
+          RawValue: -101574
+        Y:
+          RawValue: 191387
+      - X:
+          RawValue: -78792
+        Y:
+          RawValue: 187486
+      - X:
+          RawValue: -66999
+        Y:
+          RawValue: 179386
+      - X:
+          RawValue: -73171
+        Y:
+          RawValue: 171980
+    - List:
+      - X:
+          RawValue: -88845
+        Y:
+          RawValue: 186942
+      - X:
+          RawValue: -55694
+        Y:
+          RawValue: 189354
+      - X:
+          RawValue: -40145
+        Y:
+          RawValue: 179214
+      - X:
+          RawValue: -55982
+        Y:
+          RawValue: 168560
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &-779799418191943220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb92bcded5eada84a9ffecf113ad721f, type: 3}
+  m_Name: Button Press 2
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel|Button Press
+        2
+      Guid:
+        Value: 3106732780624124521
+    StartingFrame: 32
+    EndingFrame: 37
+    Default:
+      Id:
+        Value: 328942225980547397
+    Button: 32
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Repeating_Pummel
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel
+      Guid:
+        Value: 2178979117682719594
+    AnimID: -1999281888
+    Events:
+    - Id:
+        Value: 4496634824278882052
+    - Id:
+        Value: 32928122085297703
+    - Id:
+        Value: 223009796430257811
+    - Id:
+        Value: 2500658401770375813
+    - Id:
+        Value: 3106732780624124521
+    Committed:
+      Max: 76
+      Min: 0
+  Clip: {fileID: -4154260412854162603, guid: 9b009e8a416d92844baad388169d44d8, type: 3}
+--- !u!114 &384823466523591934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot 2
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel|Sweetspot
+        2
+      Guid:
+        Value: 223009796430257811
+    StartingFrame: 49
+    EndingFrame: 52
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 543948
+          Y:
+            RawValue: 462684
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &7885616707923461754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot 1
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 0.0061826706, g: 0, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel|Sourspot
+        1
+      Guid:
+        Value: 4496634824278882052
+    StartingFrame: 13
+    EndingFrame: 18
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 3276
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -120257
+        Y:
+          RawValue: 181344
+      - X:
+          RawValue: -100220
+        Y:
+          RawValue: 179942
+      - X:
+          RawValue: -84817
+        Y:
+          RawValue: 179783
+      - X:
+          RawValue: -82267
+        Y:
+          RawValue: 179525
+      - X:
+          RawValue: -82095
+        Y:
+          RawValue: 178963
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &9201720604558377803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685eb21e2c122c040b7b7414c5210823, type: 3}
+  m_Name: Movement
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Repeating_Pummel|Movement
+      Guid:
+        Value: 2382624350789218751
+    StartingFrame: 23
+    EndingFrame: 24
+    UsabilityType: 0
+    UnchargedSettings:
+      XCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 0
+        Resolution: 0
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 65536
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 0
+        Resolution: 0
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 65536
+    FullyChargedSettings:
+      XCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 0
+        Resolution: 0
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 0
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 0
+        Resolution: 0
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 0

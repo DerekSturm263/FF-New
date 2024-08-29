@@ -2,34 +2,20 @@
 
 namespace Quantum
 {
+    [System.Serializable]
     public unsafe sealed class DodgeState : ActionState
     {
-        protected override Input.Buttons GetInput() => Input.Buttons.Dodge;
+        public AssetRefPlayerState Default;
 
-        public override (States, StatesFlag) GetStateInfo() => (States.Dodge, StatesFlag.Dodge);
-        public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
+        public MovementCurveSettingsXY SpotDodge;
+        public MovementCurveSettingsXY ForwardRoll;
+        public MovementCurveSettingsXY BackwardRoll;
+        public MovementCurveSettingsXY AerialDodge;
 
-        public override bool OverrideDirection() => true;
+        public MovementCurveSettings AerialGravity;
+        public int MaxTimeToRoll = 20;
 
-        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
-        [
-            new(destination: States.Dead, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Emote, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Sub, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Ultimate, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Block, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Crouch, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
-        ];
-
-        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->GetDodgeSettings(settings).Frames;
+        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->GetDodgeSettings(this).Frames;
 
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
@@ -40,12 +26,11 @@ namespace Quantum
             return canEnter;
         }
 
-        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
         {
             base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
-            bool wasMoving = previousState == States.Default && filter.CharacterController->GroundedDodge;
-            filter.PhysicsBody->GravityScale = 0;
+            bool wasMoving = previousState == Default && filter.CharacterController->GroundedDodge;
 
             filter.CharacterController->GroundedDodge = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
             if (filter.CharacterController->GroundedDodge)
@@ -84,7 +69,7 @@ namespace Quantum
         {
             base.Update(f, stateMachine, ref filter, input, settings);
 
-            MovementCurveSettingsXY dodgeSettings = filter.CharacterController->GetDodgeSettings(settings);
+            MovementCurveSettingsXY dodgeSettings = filter.CharacterController->GetDodgeSettings(this);
 
             FP x = dodgeSettings.XCurve.Evaluate(filter.CharacterController->StateTime) * dodgeSettings.XForce;
             FP y = dodgeSettings.YCurve.Evaluate(filter.CharacterController->StateTime) * dodgeSettings.YForce;
@@ -92,14 +77,14 @@ namespace Quantum
 
             if (filter.CharacterController->DodgeType == DodgeType.Aerial)
             {
-                dodge.Y += settings.AerialGravity.Curve.Evaluate(filter.CharacterController->StateTime) * settings.AerialGravity.Force;
+                dodge.Y += AerialGravity.Curve.Evaluate(filter.CharacterController->StateTime) * AerialGravity.Force;
 
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
                 {
-                    if (filter.CharacterController->StateTime < 20)
-                        stateMachine.BeginTransition(f, ref filter, input, settings, new(States.Dodge, settings.InputCheckTime, true, true));
+                    if (filter.CharacterController->StateTime < MaxTimeToRoll)
+                        stateMachine.ForceTransition(f, ref filter, input, settings, this, settings.InputCheckTime);
                     else
-                        stateMachine.BeginTransition(f, ref filter, input, settings, new(States.Default, settings.InputCheckTime, true, true));
+                        stateMachine.ForceTransition(f, ref filter, input, settings, Default, settings.InputCheckTime);
 
                     filter.CharacterController->NextStateTime = filter.CharacterController->StateTime;
                 }
@@ -108,16 +93,15 @@ namespace Quantum
             filter.PhysicsBody->Velocity = dodge;
         }
 
-        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, false);
 
             base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }
 
-        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
+        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
-            filter.PhysicsBody->GravityScale = 1;
             filter.CharacterController->DodgeType = (DodgeType)(-1);
 
             base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);

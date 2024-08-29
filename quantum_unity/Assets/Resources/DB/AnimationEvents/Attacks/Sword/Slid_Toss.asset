@@ -1,0 +1,497 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7420011611719290033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685eb21e2c122c040b7b7414c5210823, type: 3}
+  m_Name: Momentum
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Slid_Toss|Momentum
+      Guid:
+        Value: 1641035285030600135
+    StartingFrame: 3
+    EndingFrame: 14
+    UsabilityType: 0
+    UnchargedSettings:
+      XCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 0
+      YCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 6446
+        - RawValue: 12506
+        - RawValue: 18176
+        - RawValue: 23453
+        - RawValue: 28335
+        - RawValue: 32818
+        - RawValue: 36900
+        - RawValue: 40577
+        - RawValue: 43847
+        - RawValue: 46707
+        - RawValue: 49154
+        - RawValue: 51185
+        - RawValue: 52797
+        - RawValue: 53988
+        - RawValue: 54754
+        - RawValue: 55092
+        - RawValue: 55000
+        - RawValue: 54475
+        - RawValue: 53513
+        - RawValue: 52112
+        - RawValue: 50270
+        - RawValue: 47982
+        - RawValue: 45247
+        - RawValue: 42061
+        - RawValue: 38421
+        - RawValue: 34325
+        - RawValue: 29769
+        - RawValue: 24752
+        - RawValue: 19269
+        - RawValue: 13317
+        - RawValue: 6895
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 212458
+          OutTangent:
+            RawValue: 212458
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: -228282
+          OutTangent:
+            RawValue: -228282
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      YForce:
+        RawValue: 65536
+    FullyChargedSettings:
+      XCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 0
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Slid_Toss
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Slid_Toss
+      Guid:
+        Value: 4454286589825151145
+    AnimID: -681517358
+    Events:
+    - Id:
+        Value: 3433307425612831456
+    - Id:
+        Value: 465417826427021789
+    - Id:
+        Value: 1641035285030600135
+    Committed:
+      Max: 21
+      Min: 0
+  Clip: {fileID: -8397765584718433026, guid: ee3a856bbd11d5244b49bc385e3f260a, type: 3}
+--- !u!114 &502822467806786059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Slid_Toss|Sweetspot
+      Guid:
+        Value: 3433307425612831456
+    StartingFrame: 5
+    EndingFrame: 12
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 864419
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &614791322089612712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.4669811, b: 0.4669811, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Slid_Toss|Sourspot
+      Guid:
+        Value: 465417826427021789
+    StartingFrame: 5
+    EndingFrame: 12
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 525598
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0

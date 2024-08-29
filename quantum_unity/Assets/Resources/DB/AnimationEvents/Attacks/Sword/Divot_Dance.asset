@@ -1,0 +1,327 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1560185414859064416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Divot_Dance|Sweetspot
+      Guid:
+        Value: 3123313836264161406
+    StartingFrame: 4
+    EndingFrame: 20
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 332922
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Divot_Dance
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Divot_Dance
+      Guid:
+        Value: 4136701055838317166
+    AnimID: 1354864415
+    Events:
+    - Id:
+        Value: 3123313836264161406
+    - Id:
+        Value: 2113364088954793814
+    Committed:
+      Max: 33
+      Min: 0
+  Clip: {fileID: -6288326178230111398, guid: c960976570613334fbbeed2582e2fac0, type: 3}
+--- !u!114 &3895872914231776175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.504717, b: 0.504717, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Divot_Dance|Sourspot
+      Guid:
+        Value: 2113364088954793814
+    StartingFrame: 4
+    EndingFrame: 20
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 242483
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0

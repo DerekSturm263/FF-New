@@ -1,32 +1,22 @@
 ﻿using Quantum.Types;
-using System.Collections.Generic;
 
 namespace Quantum
 {
     public unsafe class PlayerStateMachine
     {
-        private readonly Dictionary<States, PlayerState> _states = [];
-        public Dictionary<States, PlayerState> States => _states;
-
-        public PlayerStateMachine(PlayerState[] states)
-        {
-            foreach (PlayerState state in states)
-            {
-                _states.Add(state.GetStateInfo().Item1, state);
-            }
-        }
-
         public void Resolve(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
+            Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
+
             // Set some values that any state might check.
-            if (!_states[filter.CharacterController->CurrentState].OverrideDirection())
+            if (!f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).OverrideDirection)
             {
                 filter.CharacterController->DirectionValue = input.SnapMovementTo8Directions;
                 filter.CharacterController->DirectionEnum = DirectionalHelper.GetEnumFromDirection(input.Movement);
             }
 
             // Determine the next state to transition to (only if not currently transitioning).
-            if (filter.CharacterController->NextState == (Quantum.States)(-1) && _states[filter.CharacterController->CurrentState].TryResolve(f, this, ref filter, input, settings, out TransitionInfo transition))
+            if (!filter.CharacterController->NextState.Id.IsValid && f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).TryResolve(f, this, ref filter, input, settings, out TransitionInfo transition))
             {
                 BeginTransition(f, ref filter, input, settings, transition);
             }
@@ -34,18 +24,17 @@ namespace Quantum
             else
             {
                 // Update current state.
-                _states[filter.CharacterController->CurrentState].Update(f, this, ref filter, input, settings);
+                f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).Update(f, this, ref filter, input, settings);
             }
 
             // See if the player needs to transition states.
-            if (filter.CharacterController->NextState != (Quantum.States)(-1) && filter.CharacterController->StateTime == filter.CharacterController->NextStateTime)
+            if (filter.CharacterController->NextState.Id.IsValid && filter.CharacterController->StateTime == filter.CharacterController->NextStateTime)
             {
                 EndTransition(f, ref filter, input, settings);
             }
 
             // Increment the state frame.
             ++filter.CharacterController->StateTime;
-            filter.CharacterController->LastFrame = input;
 
             // Update some global animation values.
             bool isGrounded = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
@@ -67,10 +56,23 @@ namespace Quantum
             filter.CharacterController->NextStateTime = filter.CharacterController->StateTime + transition.TransitionTime;
 
             // Start exiting the current state and entering the new state.
-            _states[filter.CharacterController->CurrentState].BeginExit(f, this, ref filter, input, settings, filter.CharacterController->NextState);
-            _states[filter.CharacterController->NextState].BeginEnter(f, this, ref filter, input, settings, filter.CharacterController->CurrentState);
+            f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).BeginExit(f, this, ref filter, input, settings, filter.CharacterController->NextState);
+            f.FindAsset<PlayerState>(filter.CharacterController->NextState.Id).BeginEnter(f, this, ref filter, input, settings, filter.CharacterController->CurrentState);
 
             Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} for {transition.TransitionTime} frames");
+        }
+
+        public void ForceTransition(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState state, int transitionTime)
+        {
+            // Set the next state and transition time.
+            filter.CharacterController->NextState = state;
+            filter.CharacterController->NextStateTime = filter.CharacterController->StateTime + transitionTime;
+
+            // Start exiting the current state and entering the new state.
+            f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).BeginExit(f, this, ref filter, input, settings, filter.CharacterController->NextState);
+            f.FindAsset<PlayerState>(filter.CharacterController->NextState.Id).BeginEnter(f, this, ref filter, input, settings, filter.CharacterController->CurrentState);
+
+            Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} for {transitionTime} frames");
         }
 
         public void EndTransition(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
@@ -78,16 +80,16 @@ namespace Quantum
             Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} now!");
 
             // Finish exiting the current state.
-            _states[filter.CharacterController->CurrentState].FinishExit(f, this, ref filter, input, settings, filter.CharacterController->NextState);
-            States previousState = filter.CharacterController->CurrentState;
+            f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).FinishExit(f, this, ref filter, input, settings, filter.CharacterController->NextState);
+            AssetRefPlayerState previousState = filter.CharacterController->CurrentState;
 
             // Set the new state and and reset the state time.
             filter.CharacterController->CurrentState = filter.CharacterController->NextState;
-            filter.CharacterController->NextState = (Quantum.States)(-1);
+            filter.CharacterController->NextState.Id = 0;
             filter.CharacterController->StateTime = 0;
 
             // Finish entering the new state.
-            _states[filter.CharacterController->CurrentState].FinishEnter(f, this, ref filter, input, settings, previousState);
+            f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).FinishEnter(f, this, ref filter, input, settings, previousState);
         }
     }
 }

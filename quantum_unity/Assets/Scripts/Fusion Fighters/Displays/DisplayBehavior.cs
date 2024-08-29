@@ -16,8 +16,8 @@ public class DisplayBehavior : DisplayTextAndImage<Type>
     {
         EntityRef bot = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Bot);
 
-        if (QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointer(bot, out AIData* aiData))
-            return UnityDB.FindAsset<Type>(aiData->Behavior.Id);
+        if (QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointer(bot, out Quantum.CharacterController* characterController))
+            return UnityDB.FindAsset<Type>(characterController->Behavior.Id);
 
         return null;
     }

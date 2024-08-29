@@ -26,38 +26,38 @@ namespace Quantum
 
         public readonly bool GetNearbyCollider(Colliders collider) => NearbyColliders.HasFlag(collider);
 
-        public readonly MovementMoveSettings GetMoveSettings(MovementSettings movementSettings)
+        public readonly MovementMoveSettings GetMoveSettings(PlayerState state)
         {
             if (GetNearbyCollider(Colliders.Ground))
-                return movementSettings.GroundedMoveSettings;
+                return state.GroundedMovement;
             else
-                return movementSettings.AerialMoveSettings;
+                return state.AerialMovement;
         }
 
-        public readonly MovementCurveSettings GetJumpSettings(MovementSettings movementSettings)
+        public readonly MovementCurveSettings GetJumpSettings(JumpState state)
         {
             return JumpType switch
             {
-                JumpType.ShortHop => movementSettings.ShortHopSettings,
-                JumpType.FullHop => movementSettings.FullHopSettings,
-                JumpType.Aerial => movementSettings.AerialSettings,
+                JumpType.ShortHop => state.ShortJump,
+                JumpType.FullHop => state.FullJump,
+                JumpType.Aerial => state.AerialJump,
                 _ => default,
             };
         }
 
-        public readonly MovementCurveSettingsXY GetDodgeSettings(MovementSettings movementSettings)
+        public readonly MovementCurveSettingsXY GetDodgeSettings(DodgeState state)
         {
             return DodgeType switch
             {
-                DodgeType.Spot => movementSettings.SpotDodgeSettings,
-                DodgeType.RollForward => movementSettings.ForwardRollSettings,
-                DodgeType.RollBackward => movementSettings.BackwardRollSettings,
-                DodgeType.Aerial => movementSettings.AerialDodgeSettings,
+                DodgeType.Spot => state.SpotDodge,
+                DodgeType.RollForward => state.ForwardRoll,
+                DodgeType.RollBackward => state.BackwardRoll,
+                DodgeType.Aerial => state.AerialDodge,
                 _ => default,
             };
         }
 
-        public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, ApparelStats stats, FP multiplier)
+        public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, PlayerState state, ApparelStats stats, FP multiplier)
         {
             if (!CanInput || filter.Shakeable->Time > 0)
             {
@@ -65,7 +65,7 @@ namespace Quantum
                 return;
             }
 
-            MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
+            MovementMoveSettings moveSettings = GetMoveSettings(state);
 
             if (GetNearbyCollider(Colliders.LeftWall) && amount < 0)
                 amount = 0;

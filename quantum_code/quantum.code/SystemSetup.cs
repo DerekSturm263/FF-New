@@ -44,7 +44,9 @@
                 // animation-related systems
                 new CustomAnimatorSystem(),
                 new CustomAnimatorStateSystem(),
-                new CustomAnimatorResetTriggersSystem()
+                new CustomAnimatorResetTriggersSystem(),
+
+                new CharacterControllerButtonResetSystem()
             ];
         }
     }

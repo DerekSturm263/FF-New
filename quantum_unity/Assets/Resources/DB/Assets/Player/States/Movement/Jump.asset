@@ -1,0 +1,419 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c55dd6eaef3084884309d71dd0181b, type: 3}
+  m_Name: Jump
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/Assets/Player/States/Movement/Jump
+      Guid:
+        Value: 3324217043794129396
+    StateType: 1
+    EntranceAvailability: -1
+    Transitions:
+    - Destination:
+        Id:
+          Value: 465073245602432142
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 1168556265468863481
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 3546671476055600932
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 8
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 628293921427931570
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 2048
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 1924883501020756908
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 32
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 3324217043794129396
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 2
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3192026892342397567
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 32
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 4451811439850391496
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 64
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 3506845103799130783
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 128
+        Condition: 1
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 609323575392403005
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 256
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 328942225980547397
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    OverrideDirection: 0
+    MutuallyExclusiveColliders: 1
+    GroundedMovement:
+      Acceleration:
+        RawValue: 3276800
+      Deceleration:
+        RawValue: 655360
+      TopSpeed:
+        RawValue: 655360
+      TurnAroundSpeed:
+        RawValue: 131072
+    AerialMovement:
+      Acceleration:
+        RawValue: 655360
+      Deceleration:
+        RawValue: 655360
+      TopSpeed:
+        RawValue: 655360
+      TurnAroundSpeed:
+        RawValue: 98304
+    MinimumYVelocity:
+      RawValue: 65536
+    FastFallForce:
+      RawValue: -655360
+    OnEnter:
+      ManipulateVelocity: 0
+      Velocity:
+        RawValue: 0
+      ManipulateGravity: 0
+      Gravity:
+        RawValue: 0
+    OnExit:
+      ManipulateVelocity: 0
+      Velocity:
+        RawValue: 0
+      ManipulateGravity: 0
+      Gravity:
+        RawValue: 0
+    Interact:
+      Id:
+        Value: 1924883501020756908
+    ShortJump:
+      Curve:
+        Samples:
+        - RawValue: 131072
+        - RawValue: 130760
+        - RawValue: 129904
+        - RawValue: 128535
+        - RawValue: 126681
+        - RawValue: 124374
+        - RawValue: 121642
+        - RawValue: 118517
+        - RawValue: 115027
+        - RawValue: 111203
+        - RawValue: 107075
+        - RawValue: 102673
+        - RawValue: 98026
+        - RawValue: 93166
+        - RawValue: 88121
+        - RawValue: 82922
+        - RawValue: 77599
+        - RawValue: 72182
+        - RawValue: 66700
+        - RawValue: 61184
+        - RawValue: 55664
+        - RawValue: 50170
+        - RawValue: 44731
+        - RawValue: 39377
+        - RawValue: 34140
+        - RawValue: 29048
+        - RawValue: 24131
+        - RawValue: 19421
+        - RawValue: 14945
+        - RawValue: 10736
+        - RawValue: 6821
+        - RawValue: 3233
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 983040
+        Resolution: 32
+        OriginalPreWrapMode: 8
+        OriginalPostWrapMode: 8
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 131072
+          InTangent:
+            RawValue: -63
+          OutTangent:
+            RawValue: -63
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 983040
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: -6497
+          OutTangent:
+            RawValue: -6497
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      Force:
+        RawValue: 393216
+      Frames: 16
+    FullJump:
+      Curve:
+        Samples:
+        - RawValue: 131072
+        - RawValue: 131026
+        - RawValue: 130932
+        - RawValue: 130763
+        - RawValue: 130490
+        - RawValue: 130087
+        - RawValue: 129528
+        - RawValue: 128785
+        - RawValue: 127832
+        - RawValue: 126641
+        - RawValue: 125185
+        - RawValue: 123439
+        - RawValue: 121374
+        - RawValue: 118964
+        - RawValue: 116181
+        - RawValue: 113000
+        - RawValue: 109392
+        - RawValue: 105332
+        - RawValue: 100792
+        - RawValue: 95745
+        - RawValue: 90164
+        - RawValue: 83529
+        - RawValue: 75456
+        - RawValue: 66328
+        - RawValue: 56528
+        - RawValue: 46440
+        - RawValue: 36447
+        - RawValue: 26934
+        - RawValue: 18285
+        - RawValue: 10883
+        - RawValue: 5112
+        - RawValue: 1356
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 983040
+        Resolution: 32
+        OriginalPreWrapMode: 8
+        OriginalPostWrapMode: 8
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 131072
+          InTangent:
+            RawValue: -63
+          OutTangent:
+            RawValue: -63
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 616146
+          Value:
+            RawValue: 89831
+          InTangent:
+            RawValue: -12562
+          OutTangent:
+            RawValue: -12562
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 983040
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: -63
+          OutTangent:
+            RawValue: -63
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      Force:
+        RawValue: 557056
+      Frames: 18
+    AerialJump:
+      Curve:
+        Samples:
+        - RawValue: 131072
+        - RawValue: 131026
+        - RawValue: 130932
+        - RawValue: 130763
+        - RawValue: 130490
+        - RawValue: 130087
+        - RawValue: 129528
+        - RawValue: 128785
+        - RawValue: 127832
+        - RawValue: 126641
+        - RawValue: 125185
+        - RawValue: 123439
+        - RawValue: 121374
+        - RawValue: 118964
+        - RawValue: 116181
+        - RawValue: 113000
+        - RawValue: 109392
+        - RawValue: 105332
+        - RawValue: 100792
+        - RawValue: 95745
+        - RawValue: 90164
+        - RawValue: 83529
+        - RawValue: 75456
+        - RawValue: 66328
+        - RawValue: 56528
+        - RawValue: 46440
+        - RawValue: 36447
+        - RawValue: 26934
+        - RawValue: 18285
+        - RawValue: 10883
+        - RawValue: 5112
+        - RawValue: 1356
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 983040
+        Resolution: 32
+        OriginalPreWrapMode: 8
+        OriginalPostWrapMode: 8
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 131072
+          InTangent:
+            RawValue: -63
+          OutTangent:
+            RawValue: -63
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 616146
+          Value:
+            RawValue: 89831
+          InTangent:
+            RawValue: -12562
+          OutTangent:
+            RawValue: -12562
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 983040
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: -63
+          OutTangent:
+            RawValue: -63
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      Force:
+        RawValue: 557056
+      Frames: 18
+    StatesToResetVelocity:
+    - Id:
+        Value: 1924883501020756908
+    - Id:
+        Value: 3506845103799130783
+    - Id:
+        Value: 3192026892342397567
+    - Id:
+        Value: 4451811439850391496
+    - Id:
+        Value: 609323575392403005

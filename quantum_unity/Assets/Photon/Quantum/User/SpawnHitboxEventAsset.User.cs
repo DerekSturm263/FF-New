@@ -23,7 +23,7 @@ public unsafe partial class SpawnHitboxEventAsset
             Vector3 position = Settings.Parent == SpawnHitboxEvent.ParentType.Player ? player .transform.position : mainWeapon.transform.position;
 
             if (Settings.Parent == SpawnHitboxEvent.ParentType.Weapon)
-                position += mainWeapon.transform.forward * Settings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + mainWeapon.transform.right * Settings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
+                position += mainWeapon.transform.up * Settings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + mainWeapon.transform.right * Settings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
             else
                 position += new Vector3(Settings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat, Settings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat);
 

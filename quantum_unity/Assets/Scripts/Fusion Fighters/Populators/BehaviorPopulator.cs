@@ -8,8 +8,8 @@ public class BehaviorPopulator : PopulateAsset<BehaviorAsset>
     {
         EntityRef bot = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Bot);
 
-        if (QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointer(bot, out AIData* aiData))
-            return aiData->Behavior.Id == item.AssetObject.Guid;
+        if (QuantumRunner.Default.Game.Frames.Verified.Unsafe.TryGetPointer(bot, out Quantum.CharacterController* characterController))
+            return characterController->Behavior.Id == item.AssetObject.Guid;
 
         return false;
     }

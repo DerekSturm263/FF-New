@@ -1,0 +1,446 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2279102355419701651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b124538649fe5ce4ca94f40fc96fe75b, type: 3}
+  m_Name: Hold
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Shift_Swing|Hold
+      Guid:
+        Value: 1707852699367576652
+    StartingFrame: 5
+    EndingFrame: 6
+    Button: 0
+    MinLength: 0
+    MaxLength: 120
+--- !u!114 &-1968447492429118249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Shift_Swing|Sweetspot
+      Guid:
+        Value: 1425235152427852262
+    StartingFrame: 27
+    EndingFrame: 31
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 154009
+          Y:
+            RawValue: 756940
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Shift_Swing
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Shift_Swing
+      Guid:
+        Value: 569437924331451248
+    AnimID: -1381633577
+    Events:
+    - Id:
+        Value: 2473319254123403965
+    - Id:
+        Value: 1425235152427852262
+    - Id:
+        Value: 1707852699367576652
+    - Id:
+        Value: 1790043285046040849
+    Committed:
+      Max: 45
+      Min: 0
+  Clip: {fileID: 9035271255994829348, guid: 9e483b209dadb1d4cb847f4a5e526704, type: 3}
+--- !u!114 &745607214028779835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb92bcded5eada84a9ffecf113ad721f, type: 3}
+  m_Name: Button Press
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Shift_Swing|Button Press
+      Guid:
+        Value: 1790043285046040849
+    StartingFrame: 14
+    EndingFrame: 22
+    Default:
+      Id:
+        Value: 328942225980547397
+    Button: 32
+--- !u!114 &3173532611413318881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Shift_Swing|Sourspot
+      Guid:
+        Value: 2473319254123403965
+    StartingFrame: 10
+    EndingFrame: 18
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 48496
+          Y:
+            RawValue: 593100
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions: []
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0

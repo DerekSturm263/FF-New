@@ -23,8 +23,8 @@ namespace Quantum
 
             EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, prototype, false, name, index, false, bot.Build);
 
-            if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
-                aiData->Behavior = bot.Behavior;
+            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
+                characterController->Behavior = bot.Behavior;
         }
     }
 }

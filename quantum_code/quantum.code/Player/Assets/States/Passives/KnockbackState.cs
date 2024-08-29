@@ -2,30 +2,29 @@
 
 namespace Quantum
 {
-    public unsafe sealed class KnockbackState : PassiveState
+    [System.Serializable]
+    public unsafe sealed class KnockbackState : PlayerState
     {
-        protected override bool IsInputting(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, ref Input input) => !filter.CharacterController->DeferredKnockback.Equals(default(FPVector2));
+        public FP MaximumYVelocity;
+        public int MaxInfluence;
 
-        public override (States, StatesFlag) GetStateInfo() => (States.Knockback, StatesFlag.Knockback);
-        public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
-
-        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
-        [
-            new(destination: States.Dead, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Burst, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Ultimate, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Sub, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.KnockedOver, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
-        ];
-
-        protected override bool DoExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            return filter.PhysicsBody->Velocity.Y < settings.MinimumYVelocityForKnockbackExit;
+            return base.CanEnter(f, stateMachine, ref filter, input, settings) && !filter.CharacterController->CurrentKnockback.Equals(default(KnockbackInfo));
+        }
+
+        public override void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        {
+            base.Update(f, stateMachine, ref filter, input, settings);
+
+            CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "KnockbackY", filter.PhysicsBody->Velocity.Normalized.Y);
+        }
+
+        protected override FP MovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => FPMath.Clamp(filter.CharacterController->StateTime / MaxInfluence, 0, 1);
+
+        protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
+        {
+            return filter.PhysicsBody->Velocity.Y < MaximumYVelocity || filter.CharacterController->GetNearbyCollider(Colliders.Ground);
         }
     }
 }

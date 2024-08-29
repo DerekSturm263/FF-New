@@ -3,29 +3,9 @@ using System;
 
 namespace Quantum
 {
-    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>
+    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>, ISignalOnComponentAdded<CharacterController>
     {
-        public static PlayerStateMachine AllStates =
-        new(
-            [
-                new DefaultState(),
-                new CrouchState(),
-                new LookUpState(),
-                new JumpState(),
-                new DodgeState(),
-                new BlockState(),
-                new BurstState(),
-                new EmoteState(),
-                new SubState(),
-                new UltimateState(),
-                new InteractState(),
-                new PrimaryWeaponState(),
-                new SecondaryWeaponState(),
-                new DeadState(),
-                new KnockbackState(),
-                new KnockedOverState()
-            ]
-        );
+        public static PlayerStateMachine StateMachine = new();
 
         public struct Filter
         {
@@ -40,25 +20,29 @@ namespace Quantum
             public Shakeable* Shakeable;
         }
 
+        public void OnAdded(Frame f, EntityRef entity, CharacterController* component)
+        {
+            if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
+                CustomAnimator.SetBoolean(f, customAnimator, (int)States.Default, true);
+        }
+
         public override void Update(Frame f, ref Filter filter)
         {
-            // Grab the player's movement settings.
+            // Grab the player's behavior and movement settings.
+            Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
             MovementSettings settings = f.FindAsset<MovementSettings>(filter.CharacterController->Settings.Id);
 
             // Get the entity's input before we do anything with it.
-            Input input;
-            if (f.Unsafe.TryGetPointer(filter.Entity, out AIData* aiData) && f.TryFindAsset(aiData->Behavior.Id, out Behavior behavior))
-                input = behavior.GetInput(f, filter);
-            else
-                input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
+            Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player) : behavior.GetInput(f, filter);
 
             // Handle some miscellaneous logic.
             HandleGround(f, filter, settings);
             HandleRespawning(f, ref filter, settings);
+            HandleButtonHolding(f, ref filter, input);
             HandleUltimate(f, filter);
 
             // Resolve the State Machine to determine which state the player should be in.
-            AllStates.Resolve(f, ref filter, input, settings);
+            StateMachine.Resolve(f, ref filter, input, settings);
 
             // Set the user's knockback velocity once they stop shaking.
             if (filter.Shakeable->Time <= 0 && !filter.CharacterController->DeferredKnockback.Equals(default(KnockbackInfo)))
@@ -77,7 +61,7 @@ namespace Quantum
 
                 if (filter.CharacterController->CurrentKnockback.Time <= 0)
                 {
-                    filter.CharacterController->CurrentKnockback.Direction.X = 0;
+                    filter.CharacterController->CurrentKnockback = default;
                 }
 
                 PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
@@ -90,9 +74,7 @@ namespace Quantum
 
             // Get all the nearby colliders.
             filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, movementSettings, filter.Transform);
-
-            if (filter.CharacterController->CurrentState == States.Jump)
-                filter.CharacterController->NearbyColliders &= ~Colliders.Ground;
+            filter.CharacterController->NearbyColliders &= ~f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).MutuallyExclusiveColliders;
 
             // Get if the player is grounded or not...
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
@@ -116,7 +98,23 @@ namespace Quantum
                 StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, true);
             }
         }
-        
+
+        private void HandleButtonHolding(Frame f, ref Filter filter, Input input)
+        {
+            if (filter.CharacterController->HoldButton == -1)
+                return;
+
+            bool buttonHeld = filter.CharacterController->IsHeldThisFrame(input, (Input.Buttons)filter.CharacterController->HoldButton);
+
+            if (buttonHeld)
+            {
+                ++filter.CharacterController->HeldAnimationFrameTime;
+            }
+
+            if (!buttonHeld || filter.CharacterController->HeldAnimationFrameTime >= filter.CharacterController->MaxHoldAnimationFrameTime)
+                filter.CustomAnimator->speed = 1;
+        }
+
         private void HandleUltimate(Frame f, Filter filter)
         {
             // Decrease the time left in the Ultimate state if the player is using their Ultimate.
@@ -184,6 +182,12 @@ namespace Quantum
                 characterController->DeferredKnockback = new() { Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
                 characterController->OldKnockback = characterController->DeferredKnockback;
                 characterController->OriginalPosition = transform->Position;
+
+                if (f.TryGet(defender, out PlayerStats stats))
+                {
+                    characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
+                    f.Events.OnPlayerChangeDirection(defender, stats.Index, characterController->MovementDirection);
+                }
             }
         }
     }

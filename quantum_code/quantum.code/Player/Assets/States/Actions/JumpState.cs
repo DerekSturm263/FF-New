@@ -1,31 +1,19 @@
-﻿namespace Quantum
+﻿using System.Collections.Generic;
+
+namespace Quantum
 {
+    [System.Serializable]
     public unsafe sealed class JumpState : ActionState
     {
-        protected override Input.Buttons GetInput() => Input.Buttons.Jump;
+        public AssetRefPlayerState Interact;
 
-        public override (States, StatesFlag) GetStateInfo() => (States.Jump, StatesFlag.Jump);
-        public override EntranceType GetEntranceType() => EntranceType.Grounded | EntranceType.Aerial;
+        public MovementCurveSettings ShortJump;
+        public MovementCurveSettings FullJump;
+        public MovementCurveSettings AerialJump;
 
-        public override TransitionInfo[] GetTransitions(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) =>
-        [
-            new(destination: States.Dead, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Knockback, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Burst, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Dodge, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Interact, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Jump, transitionTime: settings.InputCheckTime, overrideExit: true, overrideEnter: false),
-            new(destination: States.Primary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Secondary, transitionTime: settings.InputCheckTime, overrideExit: false, overrideEnter: false),
-            new(destination: States.Sub, transitionTime: 0, overrideExit: true, overrideEnter: false),
-            new(destination: States.Ultimate, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Block, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Crouch, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.LookUp, transitionTime: 0, overrideExit: false, overrideEnter: false),
-            new(destination: States.Default, transitionTime: 0, overrideExit: false, overrideEnter: false)
-        ];
+        public List<AssetRefPlayerState> StatesToResetVelocity;
 
-        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->GetJumpSettings(settings).Frames;
+        protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->GetJumpSettings(this).Frames;
 
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
@@ -33,7 +21,7 @@
                 filter.CharacterController->JumpCount > 0;
         }
 
-        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States previousState)
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
         {
             base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
@@ -67,38 +55,23 @@
             // Calculate the player's stats.
             ApparelStats stats = ApparelHelper.FromStats(f, filter.PlayerStats);
 
-            HandleMovement(f, stateMachine, ref filter, input, settings, stats);
             HandleJumping(f, stateMachine, ref filter, input, settings, stats);
-            HandleFastFalling(f, stateMachine, ref filter, input, settings, stats);
 
             if (filter.CharacterController->WasReleasedThisFrame(input, Input.Buttons.SubWeapon) && filter.CharacterController->HasSubWeapon)
             {
-                stateMachine.BeginTransition(f, ref filter, input, settings, new(States.Interact, settings.InputCheckTime, true, true));
+                stateMachine.ForceTransition(f, ref filter, input, settings, Interact, settings.InputCheckTime);
             }
-        }
-
-        private void HandleMovement(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
-        {
-            filter.CharacterController->Move(f, input.Movement.X, ref filter, settings, stats, 1);
         }
 
         private void HandleJumping(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
         {
-            MovementCurveSettings jumpSettings = filter.CharacterController->GetJumpSettings(settings);
+            MovementCurveSettings jumpSettings = filter.CharacterController->GetJumpSettings(this);
             filter.PhysicsBody->Velocity.Y = jumpSettings.Curve.Evaluate(filter.CharacterController->StateTime) * (jumpSettings.Force * (1 / stats.Weight));
         }
 
-        private void HandleFastFalling(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
+        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
-            if (filter.CharacterController->WasPressedThisFrame(input, Input.Buttons.Crouch) && filter.PhysicsBody->Velocity.Y < settings.MinimumYVelocity)
-            {
-                filter.PhysicsBody->Velocity.Y = settings.FastFallForce;
-            }
-        }
-
-        public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, States nextState)
-        {
-            if (nextState == States.Interact || nextState == States.Sub || nextState == States.Primary || nextState == States.Secondary || nextState == States.Ultimate)
+            if (StatesToResetVelocity.Contains(nextState))
                 filter.PhysicsBody->Velocity.Y = 0;
 
             filter.CharacterController->JumpType = (JumpType)(-1);

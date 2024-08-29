@@ -27,8 +27,8 @@
 
             EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, Prototype, false, Name, index, false, playerStats.Build);
 
-            if (f.Unsafe.TryGetPointer(entity, out AIData* aiData))
-                aiData->Behavior = Bot.Behavior;
+            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController2))
+                characterController2->Behavior = Bot.Behavior;
 
             if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
                 characterController->DigitalDouble = entity;

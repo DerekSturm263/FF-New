@@ -1,7 +1,6 @@
 using Extensions.Miscellaneous;
 using Photon.Deterministic;
 using Quantum;
-using Quantum.Editor;
 using System;
 using UnityEditor;
 using UnityEditorInternal;
@@ -422,7 +421,7 @@ public class AnimationEventContainerWindow : EditorWindow
 
             if (eventSettings.Parent == SpawnHitboxEvent.ParentType.Weapon)
             {
-                position += _previewWeapon.transform.forward * eventSettings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + _previewWeapon.transform.right * eventSettings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
+                position += _previewWeapon.transform.up * eventSettings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + _previewWeapon.transform.right * eventSettings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
             }
             else
             {
@@ -475,7 +474,7 @@ public class AnimationEventContainerWindow : EditorWindow
         int elapsedFrames = _scrubFrame - eventSettings.StartingFrame;
         FP normalizedTime = (FP)elapsedFrames / eventSettings.Length;
 
-        _previewPlayer.transform.parent.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime).ToUnityVector2();
+        _previewPlayer.transform.parent.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime, 1).ToUnityVector2();
     }
 
     private static ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)

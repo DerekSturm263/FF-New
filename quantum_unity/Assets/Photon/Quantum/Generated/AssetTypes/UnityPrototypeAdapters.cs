@@ -8,7 +8,6 @@ namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.AIData))]
   public class AIData_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.AIData_Prototype> {
-    public Quantum.AssetRefBehavior Behavior;
     [Quantum.LocalReference]
     public global::EntityPrototype Target;
     public Quantum.Prototypes.Goal_Prototype CurrentGoal;
@@ -17,7 +16,6 @@ namespace Quantum.Prototypes.Unity {
 
     public sealed override Quantum.Prototypes.AIData_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.AIData_Prototype();
-      result.Behavior = this.Behavior;
       converter.Convert(this.Target, out result.Target);
       result.CurrentGoal = this.CurrentGoal;
       result.TimeSinceAction = this.TimeSinceAction;
@@ -28,14 +26,15 @@ namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.CharacterController))]
   public class CharacterController_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.CharacterController_Prototype> {
+    public Quantum.AssetRefBehavior Behavior;
     public Quantum.AssetRefMovementSettings Settings;
     public Quantum.QBoolean CanInput;
     public Quantum.Prototypes.Colliders_Prototype NearbyColliders;
     public System.Int32 MovementDirection;
     public Quantum.Prototypes.Direction_Prototype DirectionEnum;
     public Photon.Deterministic.FPVector2 DirectionValue;
-    public Quantum.Prototypes.States_Prototype CurrentState;
-    public Quantum.Prototypes.States_Prototype NextState;
+    public Quantum.AssetRefPlayerState CurrentState;
+    public Quantum.AssetRefPlayerState NextState;
     public Quantum.Prototypes.StatesFlag_Prototype PossibleStates;
     public System.Int32 StateTime;
     public System.Int32 NextStateTime;
@@ -57,6 +56,10 @@ namespace Quantum.Prototypes.Unity {
     public Photon.Deterministic.FP ThrowMultiplier;
     public System.Int32 HeldAnimationFrameTime;
     public System.Int32 MaxHoldAnimationFrameTime;
+    public System.Int32 HoldButton;
+    public Quantum.QBoolean ButtonHeld;
+    public Photon.Deterministic.FPVector2 ApplyPhysicsPosition;
+    public Quantum.QBoolean PressedButton;
     public Quantum.QBoolean IsReady;
     public Photon.Deterministic.FP ReadyTime;
     public System.Int32 UltimateTime;
@@ -65,6 +68,7 @@ namespace Quantum.Prototypes.Unity {
 
     public sealed override Quantum.Prototypes.CharacterController_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.CharacterController_Prototype();
+      result.Behavior = this.Behavior;
       result.Settings = this.Settings;
       result.CanInput = this.CanInput;
       result.NearbyColliders = this.NearbyColliders;
@@ -94,6 +98,10 @@ namespace Quantum.Prototypes.Unity {
       result.ThrowMultiplier = this.ThrowMultiplier;
       result.HeldAnimationFrameTime = this.HeldAnimationFrameTime;
       result.MaxHoldAnimationFrameTime = this.MaxHoldAnimationFrameTime;
+      result.HoldButton = this.HoldButton;
+      result.ButtonHeld = this.ButtonHeld;
+      result.ApplyPhysicsPosition = this.ApplyPhysicsPosition;
+      result.PressedButton = this.PressedButton;
       result.IsReady = this.IsReady;
       result.ReadyTime = this.ReadyTime;
       result.UltimateTime = this.UltimateTime;

@@ -46,76 +46,18 @@ namespace Quantum.Types
             };
         }
 
-        public static void SetFromDirection(DirectionalEmote asset, EmoteMessageBinding value, Direction direction)
+        public static MoveRef GetFromDirection(DirectionalAerialMoveRef asset, Direction direction, bool isFacingRight)
         {
-            switch (direction)
+            return direction switch
             {
-                case Direction.Up:
-                    asset.Up = value;
-                    break;
-
-                case Direction.Down:
-                    asset.Down = value;
-                    break;
-
-                case Direction.Left:
-                    asset.Left = value;
-                    break;
-
-                case Direction.Right:
-                    asset.Right = value;
-                    break;
-            }
+                Direction.Neutral => asset.Neutral,
+                Direction.Left => isFacingRight ? asset.Backward : asset.Forward,
+                Direction.Right => isFacingRight ? asset.Forward : asset.Backward,
+                Direction.Up => asset.Up,
+                Direction.Down => asset.Down,
+                _ => default
+            };
         }
-
-        public static void SetFromDirection(DirectionalFPVector2 asset, FPVector2 value, Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Up:
-                    asset.Up = value;
-                    break;
-
-                case Direction.Down:
-                    asset.Down = value;
-                    break;
-
-                case Direction.Left:
-                    asset.Left = value;
-                    break;
-
-                case Direction.Right:
-                    asset.Right = value;
-                    break;
-            }
-        }
-
-        public static void SetFromDirection(DirectionalMoveRef asset, MoveRef value, Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Neutral:
-                    asset.Neutral = value;
-                    break;
-
-                case Direction.Left:
-                case Direction.Right:
-                    asset.Horizontal = value;
-                    break;
-
-                case Direction.Up:
-                    asset.Up = value;
-                    break;
-
-                case Direction.Down:
-                    asset.Down = value;
-                    break;
-            }
-        }
-
-        public static EmoteMessageBinding GetValueFromDirection(DirectionalEmote asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
-        public static FPVector2 GetValueFromDirection(DirectionalFPVector2 asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
-        public static MoveRef GetValueFromDirection(DirectionalMoveRef asset, FPVector2 direction) => GetFromDirection(asset, GetEnumFromDirection(direction));
 
         public static Direction GetEnumFromDirection(FPVector2 direction)
         {

@@ -1,0 +1,578 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8231062196736658744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot 2
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.4862745, b: 0.4862745, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Piercing_Pursuit|Sourspot
+        2
+      Guid:
+        Value: 1960007462964435920
+    StartingFrame: 11
+    EndingFrame: 13
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: -320471
+          Y:
+            RawValue: 435159
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -286650
+        Y:
+          RawValue: 169045
+      - X:
+          RawValue: -287114
+        Y:
+          RawValue: 168729
+    - List:
+      - X:
+          RawValue: -231273
+        Y:
+          RawValue: 163128
+      - X:
+          RawValue: -231681
+        Y:
+          RawValue: 163392
+    - List:
+      - X:
+          RawValue: -257984
+        Y:
+          RawValue: 165982
+      - X:
+          RawValue: -258419
+        Y:
+          RawValue: 165967
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Piercing_Pursuit
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Piercing_Pursuit
+      Guid:
+        Value: 4459672976787377181
+    AnimID: -20393761
+    Events:
+    - Id:
+        Value: 1500442341472940035
+    - Id:
+        Value: 2360284148380291939
+    - Id:
+        Value: 1960007462964435920
+    Committed:
+      Max: 24
+      Min: 0
+  Clip: {fileID: 3120188353759353460, guid: a496643343512f048a07e1fde30cb32c, type: 3}
+--- !u!114 &2129961402216444597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Piercing_Pursuit|Sweetspot
+      Guid:
+        Value: 1500442341472940035
+    StartingFrame: 7
+    EndingFrame: 10
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: -350617
+          Y:
+            RawValue: 595722
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -220637
+        Y:
+          RawValue: 194959
+      - X:
+          RawValue: -256477
+        Y:
+          RawValue: 176525
+      - X:
+          RawValue: -284585
+        Y:
+          RawValue: 168804
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &9111278250168115978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.48584908, b: 0.48584908, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Piercing_Pursuit|Sourspot
+      Guid:
+        Value: 2360284148380291939
+    StartingFrame: 7
+    EndingFrame: 10
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 5
+        TargetShakeStrength:
+          RawValue: 6553
+        UserFreezeFrames: 3
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: -320471
+          Y:
+            RawValue: 435159
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 0
+        TargetShakeStrength:
+          RawValue: 0
+        UserFreezeFrames: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -168909
+        Y:
+          RawValue: 185783
+      - X:
+          RawValue: -201805
+        Y:
+          RawValue: 181530
+      - X:
+          RawValue: -228960
+        Y:
+          RawValue: 165898
+    - List:
+      - X:
+          RawValue: -193860
+        Y:
+          RawValue: 190209
+      - X:
+          RawValue: -228176
+        Y:
+          RawValue: 179115
+      - X:
+          RawValue: -255791
+        Y:
+          RawValue: 167300
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0

@@ -25,6 +25,11 @@ namespace Quantum
             {
                 physicsBody->GravityScale = 0;
             }
+
+            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController) && f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
+            {
+                characterController->ApplyPhysicsPosition = transform->Position;
+            }
         }
 
         public override void Update(Frame f, EntityRef entity, int frame, int elapsedFrames)
@@ -34,13 +39,13 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController) && f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
                 PhysicsSettings settings = characterController->LerpFromAnimationHold(PhysicsSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                transform->Position = GetPositionAtTime(settings, (FP)elapsedFrames / Length);
+                transform->Position = characterController->ApplyPhysicsPosition + GetPositionAtTime(settings, (FP)elapsedFrames / Length, characterController->MovementDirection);
             }
         }
 
-        public static FPVector2 GetPositionAtTime(PhysicsSettings settings, FP normalizedTime)
+        public static FPVector2 GetPositionAtTime(PhysicsSettings settings, FP normalizedTime, int direction)
         {
-            return new FPVector2(settings.XCurve.Evaluate(normalizedTime) * settings.XForce, settings.YCurve.Evaluate(normalizedTime) * settings.YForce);
+            return new FPVector2(settings.XCurve.Evaluate(normalizedTime) * settings.XForce * direction, settings.YCurve.Evaluate(normalizedTime) * settings.YForce);
         }
 
         public override void End(Frame f, EntityRef entity, int frame)

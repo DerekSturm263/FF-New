@@ -1377,6 +1377,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
+    Behavior:
+      Id:
+        Value: 1196182695199876919
     Settings:
       Id:
         Value: 887067288549751597
@@ -1393,11 +1396,13 @@ MonoBehaviour:
       Y:
         RawValue: 0
     CurrentState:
-      Value: 0
+      Id:
+        Value: 328942225980547397
     NextState:
-      Value: 0
+      Id:
+        Value: 0
     PossibleStates:
-      Value: 16383
+      Value: 65535
     StateTime: 0
     NextStateTime: 0
     LastFrame:
@@ -1435,8 +1440,6 @@ MonoBehaviour:
       RawValue: 0
     MovingLerp:
       RawValue: 0
-    Influence:
-      RawValue: 65536
     GroundedJump:
       Value: 0
     JumpType:
@@ -1494,6 +1497,10 @@ MonoBehaviour:
     StatusEffectTimeLeft: 0
     StatusEffectMultiplier:
       RawValue: 65536
+    IsDead:
+      Value: 0
+    IsRespawning:
+      Value: 0
 --- !u!82 &6156056419381767952
 AudioSource:
   m_ObjectHideFlags: 0

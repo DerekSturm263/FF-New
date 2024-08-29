@@ -66,6 +66,7 @@ enum DodgeType
 component CharacterController
 {
     // General
+	asset_ref<Behavior> Behavior;
 	asset_ref<MovementSettings> Settings;
     bool CanInput;
     Colliders NearbyColliders;
@@ -74,8 +75,8 @@ component CharacterController
     // State Handling
     Direction DirectionEnum;
     FPVector2 DirectionValue;
-    States CurrentState;
-    States NextState;
+    asset_ref<PlayerState> CurrentState;
+    asset_ref<PlayerState> NextState;
     StatesFlag PossibleStates;
     int StateTime;
     int NextStateTime;
@@ -106,9 +107,13 @@ component CharacterController
     bool HasSubWeapon;
     FP ThrowMultiplier;
 
-    // Holding Animations
+    // Animation Events
 	int HeldAnimationFrameTime;
 	int MaxHoldAnimationFrameTime;
+    int HoldButton;
+    bool ButtonHeld;
+    FPVector2 ApplyPhysicsPosition;
+    bool PressedButton;
 
     // Readiness
     bool IsReady;

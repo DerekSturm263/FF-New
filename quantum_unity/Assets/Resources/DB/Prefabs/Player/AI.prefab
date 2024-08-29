@@ -1498,6 +1498,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
+    Behavior:
+      Id:
+        Value: 370751721026680101
     Settings:
       Id:
         Value: 887067288549751597
@@ -1514,11 +1517,13 @@ MonoBehaviour:
       Y:
         RawValue: 0
     CurrentState:
-      Value: 0
+      Id:
+        Value: 328942225980547397
     NextState:
-      Value: 0
+      Id:
+        Value: 0
     PossibleStates:
-      Value: 16383
+      Value: 65535
     StateTime: 0
     NextStateTime: 0
     LastFrame:
@@ -1556,8 +1561,6 @@ MonoBehaviour:
       RawValue: 0
     MovingLerp:
       RawValue: 0
-    Influence:
-      RawValue: 65536
     GroundedJump:
       Value: 0
     JumpType:
@@ -1615,6 +1618,10 @@ MonoBehaviour:
     StatusEffectTimeLeft: 0
     StatusEffectMultiplier:
       RawValue: 65536
+    IsDead:
+      Value: 0
+    IsRespawning:
+      Value: 0
 --- !u!114 &8159925403664128699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,9 +1635,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    Behavior:
-      Id:
-        Value: 3566195221435127687
     Target: {fileID: 0}
     CurrentGoal:
       Value: 0
@@ -2353,6 +2357,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -8523332306768126884, guid: 7fd2767357a19344e9a9a75e458ef356,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8501086047012564654, guid: 7fd2767357a19344e9a9a75e458ef356,
         type: 3}
       propertyPath: m_Layer
@@ -2417,6 +2426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7477935017051228118, guid: 7fd2767357a19344e9a9a75e458ef356,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7409684369892828907, guid: 7fd2767357a19344e9a9a75e458ef356,
         type: 3}
@@ -2602,6 +2616,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1821113601047545405, guid: 7fd2767357a19344e9a9a75e458ef356,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1643438901719467372, guid: 7fd2767357a19344e9a9a75e458ef356,
         type: 3}

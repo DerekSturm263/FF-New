@@ -1,4 +1,3 @@
-using Extensions.Miscellaneous;
 using Quantum;
 using UnityEditor;
 using UnityEngine;
@@ -21,7 +20,7 @@ public class AnimationEventEditor : Editor
                 {
                     eventAsset.InitForBaking();
 
-                    for (int i = 0; i < eventAsset.Settings.Length; ++i)
+                    for (int i = 0; i <= eventAsset.Settings.Length; ++i)
                     {
                         animationEvent.Clip.SampleAnimation(AnimationEventContainerWindow.Instance.PreviewPlayer, (i + eventAsset.Settings.StartingFrame) / animationEvent.Clip.frameRate);
                         eventAsset.Bake(i, AnimationEventContainerWindow.Instance.PreviewPlayer, AnimationEventContainerWindow.Instance.PreviewWeapon);
