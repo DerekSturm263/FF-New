@@ -1,140 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1950636010729298735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 685eb21e2c122c040b7b7414c5210823, type: 3}
-  m_Name: Momentum
-  m_EditorClassIdentifier: 
-  Description: 
-  Color: {r: 1, g: 1, b: 1, a: 1}
-  Settings:
-    Identifier:
-      Path: Resources/DB/AnimationEvents/Attacks/Sword/Divot_Dance|Momentum
-      Guid:
-        Value: 326052419953282297
-    StartingFrame: 2
-    EndingFrame: 22
-    UsabilityType: 0
-    UnchargedSettings:
-      XCurve:
-        Samples: []
-        PreWrapMode: 0
-        PostWrapMode: 0
-        StartTime:
-          RawValue: 0
-        EndTime:
-          RawValue: 65536
-        Resolution: 32
-        OriginalPreWrapMode: 0
-        OriginalPostWrapMode: 0
-        Keys: []
-      XForce:
-        RawValue: 65536
-      YCurve:
-        Samples:
-        - RawValue: 0
-        - RawValue: 6446
-        - RawValue: 12506
-        - RawValue: 18176
-        - RawValue: 23453
-        - RawValue: 28335
-        - RawValue: 32818
-        - RawValue: 36900
-        - RawValue: 40577
-        - RawValue: 43847
-        - RawValue: 46707
-        - RawValue: 49154
-        - RawValue: 51185
-        - RawValue: 52797
-        - RawValue: 53988
-        - RawValue: 54754
-        - RawValue: 55092
-        - RawValue: 55000
-        - RawValue: 54475
-        - RawValue: 53513
-        - RawValue: 52112
-        - RawValue: 50270
-        - RawValue: 47982
-        - RawValue: 45247
-        - RawValue: 42061
-        - RawValue: 38421
-        - RawValue: 34325
-        - RawValue: 29769
-        - RawValue: 24752
-        - RawValue: 19269
-        - RawValue: 13317
-        - RawValue: 6895
-        - RawValue: 0
-        PreWrapMode: 0
-        PostWrapMode: 0
-        StartTime:
-          RawValue: 0
-        EndTime:
-          RawValue: 65536
-        Resolution: 32
-        OriginalPreWrapMode: 0
-        OriginalPostWrapMode: 0
-        Keys:
-        - Time:
-            RawValue: 0
-          Value:
-            RawValue: 0
-          InTangent:
-            RawValue: 212458
-          OutTangent:
-            RawValue: 212458
-          TangentMode: 0
-          TangentModeLeft: 0
-          TangentModeRight: 0
-        - Time:
-            RawValue: 65536
-          Value:
-            RawValue: 0
-          InTangent:
-            RawValue: -228282
-          OutTangent:
-            RawValue: -228282
-          TangentMode: 0
-          TangentModeLeft: 0
-          TangentModeRight: 0
-      YForce:
-        RawValue: 32768
-    FullyChargedSettings:
-      XCurve:
-        Samples: []
-        PreWrapMode: 0
-        PostWrapMode: 0
-        StartTime:
-          RawValue: 0
-        EndTime:
-          RawValue: 65536
-        Resolution: 32
-        OriginalPreWrapMode: 0
-        OriginalPostWrapMode: 0
-        Keys: []
-      XForce:
-        RawValue: 0
-      YCurve:
-        Samples: []
-        PreWrapMode: 0
-        PostWrapMode: 0
-        StartTime:
-          RawValue: 0
-        EndTime:
-          RawValue: 65536
-        Resolution: 32
-        OriginalPreWrapMode: 0
-        OriginalPostWrapMode: 0
-        Keys: []
-      YForce:
-        RawValue: 0
 --- !u!114 &-1560185414859064416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +79,7 @@ MonoBehaviour:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
-          RawValue: 655360
+          RawValue: 327680
         Knockback:
           X:
             RawValue: 0
@@ -240,9 +105,9 @@ MonoBehaviour:
         UserFreezeFrames: 6
       Offensive:
         AlignKnockbackToPlayerDirection:
-          Value: 0
+          Value: 1
         Damage:
-          RawValue: 983040
+          RawValue: 655360
         Knockback:
           X:
             RawValue: 0
@@ -365,11 +230,11 @@ MonoBehaviour:
         Value: 3123313836264161406
     - Id:
         Value: 2113364088954793814
-    - Id:
-        Value: 326052419953282297
     Committed:
       Max: 33
       Min: 0
+    CanMove: 1
+    MaintainVelocity: 0
   Clip: {fileID: -6288326178230111398, guid: c960976570613334fbbeed2582e2fac0, type: 3}
 --- !u!114 &3895872914231776175
 MonoBehaviour:
@@ -472,7 +337,7 @@ MonoBehaviour:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
-          RawValue: 655360
+          RawValue: 327680
         Knockback:
           X:
             RawValue: 0
@@ -498,9 +363,9 @@ MonoBehaviour:
         UserFreezeFrames: 6
       Offensive:
         AlignKnockbackToPlayerDirection:
-          Value: 0
+          Value: 1
         Damage:
-          RawValue: 983040
+          RawValue: 655360
         Knockback:
           X:
             RawValue: 0

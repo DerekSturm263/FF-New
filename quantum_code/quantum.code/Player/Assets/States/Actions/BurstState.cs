@@ -22,6 +22,9 @@ namespace Quantum
 
             filter.PhysicsBody->Velocity = FPVector2.Zero;
 
+            filter.CharacterController->CanMove = true;
+            filter.CharacterController->MaintainVelocity = false;
+
             StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -EnergyCost);
         }
     }

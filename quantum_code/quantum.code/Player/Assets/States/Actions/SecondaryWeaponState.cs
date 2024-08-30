@@ -62,6 +62,10 @@ namespace Quantum
         {
             filter.PlayerStats->ActiveWeapon = ActiveWeaponType.None;
 
+            filter.CharacterController->CanMove = true;
+            filter.CharacterController->MaintainVelocity = false;
+            filter.PhysicsBody->GravityScale = 1;
+
             base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);
         }
     }

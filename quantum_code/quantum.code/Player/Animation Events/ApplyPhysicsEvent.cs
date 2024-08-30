@@ -17,7 +17,7 @@ namespace Quantum
         public PhysicsSettings UnchargedSettings;
         public PhysicsSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Applying physics!");
 
@@ -32,7 +32,7 @@ namespace Quantum
             }
         }
 
-        public override void Update(Frame f, EntityRef entity, int frame, int elapsedFrames)
+        public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
         {
             Log.Debug("Updating physics!");
 
@@ -48,7 +48,7 @@ namespace Quantum
             return new FPVector2(settings.XCurve.Evaluate(normalizedTime) * settings.XForce * direction, settings.YCurve.Evaluate(normalizedTime) * settings.YForce);
         }
 
-        public override void End(Frame f, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Cleaning up physics!");
 

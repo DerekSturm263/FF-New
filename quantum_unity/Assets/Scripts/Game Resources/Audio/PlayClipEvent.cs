@@ -8,7 +8,7 @@ namespace Quantum
         public ClipSettings UnchargedSettings;
         public ClipSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Playing clip!");
 

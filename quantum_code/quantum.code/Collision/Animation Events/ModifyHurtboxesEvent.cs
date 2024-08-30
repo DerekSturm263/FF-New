@@ -6,14 +6,14 @@
         public HurtboxType Hurtboxes;
         public HurtboxSettings Settings;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Modifying hurtboxes!");
 
             StatsSystem.ModifyHurtboxes(f, entity, Hurtboxes, Settings, false);
         }
 
-        public override void End(Frame f, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Cleaning up hurtboxes!");
 

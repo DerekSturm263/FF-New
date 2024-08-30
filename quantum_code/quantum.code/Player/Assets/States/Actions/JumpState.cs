@@ -72,7 +72,7 @@ namespace Quantum
         public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             if (StatesToResetVelocity.Contains(nextState))
-                filter.PhysicsBody->Velocity.Y = 0;
+                filter.PhysicsBody->Velocity.Y /= 2;
 
             filter.CharacterController->JumpType = (JumpType)(-1);
 

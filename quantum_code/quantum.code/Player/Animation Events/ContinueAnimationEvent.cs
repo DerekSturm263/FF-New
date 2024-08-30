@@ -6,7 +6,7 @@
         public AssetRefPlayerState Default;
         public Input.Buttons Button;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Continuing animation!");
 
@@ -14,7 +14,7 @@
                 characterController->PressedButton = false;
         }
 
-        public override void Update(Frame f, EntityRef entity, int frame, int elapsedFrames)
+        public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
         {
             if (!f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
                 return;
@@ -27,7 +27,7 @@
                 characterController->PressedButton = true;
         }
 
-        public override void End(Frame f, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Cleaning up animation continuing!");
 
@@ -55,7 +55,7 @@
                 if (!characterController->PressedButton)
                 {
                     CharacterControllerSystem.StateMachine.ForceTransition(f, ref filter, input, settings, Default, 0);
-                    characterController->PossibleStates = (StatesFlag)16383;
+                    characterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
                 }
 
                 characterController->PressedButton = false;

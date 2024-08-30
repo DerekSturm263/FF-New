@@ -92,6 +92,8 @@ component CharacterController
     // Move
     FP Velocity;
     FP MovingLerp;
+    bool CanMove;
+    bool MaintainVelocity;
 
     // Jump
     bool GroundedJump;

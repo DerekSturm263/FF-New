@@ -9,7 +9,7 @@ namespace Quantum
         public VFXSettings UnchargedSettings;
         public VFXSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Spawning VFX!");
 

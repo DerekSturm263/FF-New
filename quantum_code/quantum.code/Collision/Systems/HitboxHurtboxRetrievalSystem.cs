@@ -88,7 +88,7 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
                 {
-                    attackerPlayerStats->Stats.TotalDamageDealt += damage;
+                    attackerPlayerStats->Stats.TotalDamageDealt -= damage;
                     defenderStats->IFrameTime = 15;
 
                     if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
@@ -116,7 +116,7 @@ namespace Quantum
                             multiplier = chargingWeaponEnhancer.Multiplier;
                     }
 
-                    StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 5) * multiplier);
+                    StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 3) * multiplier);
                 }
             }
         }

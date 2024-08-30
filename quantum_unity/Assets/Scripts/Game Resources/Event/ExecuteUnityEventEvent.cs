@@ -24,7 +24,7 @@ namespace Quantum
         public UnityEventSettings UnchargedSettings;
         public UnityEventSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Executing event!");
 
@@ -35,7 +35,7 @@ namespace Quantum
             }
         }
 
-        public override void Update(Frame f, EntityRef entity, int frame, int elapsedFrames)
+        public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
         {
             Log.Debug("Updating event!");
 
@@ -46,7 +46,7 @@ namespace Quantum
             }
         }
 
-        public override void End(Frame f, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Cleaning up event!");
 

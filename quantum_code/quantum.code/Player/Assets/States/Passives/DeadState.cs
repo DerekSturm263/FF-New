@@ -19,7 +19,10 @@ namespace Quantum
             filter.Stats->IsRespawning = true;
 
             StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = false, CanBeInterrupted = false, CanBeKnockedBack = false, DamageToBreak = int.MaxValue }, true);
+            StatsSystem.SetEnergy(f, filter.Entity, filter.Stats, f.Global->CurrentMatch.Ruleset.Players.MaxEnergy / 5);
             PlayerSpawnSystem.SetPosition(f, filter.Entity, FP._2 + FP._0_50);
+
+            f.Events.OnPlayerRespawn(new() { Entity = filter.Entity, Index = filter.PlayerStats->Index, Position = filter.Transform->Position });
 
             filter.Stats->IsDead = false;
 

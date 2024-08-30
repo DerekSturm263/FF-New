@@ -8,7 +8,7 @@ namespace Quantum
         public ItemSpawnSettings UnchargedSettings;
         public ItemSpawnSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Spawning projectile!");
 

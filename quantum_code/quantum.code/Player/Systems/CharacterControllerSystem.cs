@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Quantum
 {
-    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>
+    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>, ISignalOnComponentAdded<PlayerLink>
     {
         public static PlayerStateMachine StateMachine = new();
 
@@ -19,6 +19,12 @@ namespace Quantum
             public PlayerStats* PlayerStats;
             public Stats* Stats;
             public Shakeable* Shakeable;
+        }
+
+        public void OnAdded(Frame f, EntityRef entity, PlayerLink* component)
+        {
+            if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
+                CustomAnimator.SetBoolean(f, customAnimator, (int)States.Default, true);
         }
 
         public override void Update(Frame f, ref Filter filter)

@@ -46,6 +46,8 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.Prototypes.KnockbackInfo_Prototype OldKnockback;
     public Photon.Deterministic.FP Velocity;
     public Photon.Deterministic.FP MovingLerp;
+    public Quantum.QBoolean CanMove;
+    public Quantum.QBoolean MaintainVelocity;
     public Quantum.QBoolean GroundedJump;
     public Quantum.Prototypes.JumpType_Prototype JumpType;
     public System.Int16 JumpCount;
@@ -89,6 +91,8 @@ namespace Quantum.Prototypes.Unity {
       result.OldKnockback = this.OldKnockback;
       result.Velocity = this.Velocity;
       result.MovingLerp = this.MovingLerp;
+      result.CanMove = this.CanMove;
+      result.MaintainVelocity = this.MaintainVelocity;
       result.GroundedJump = this.GroundedJump;
       result.JumpType = this.JumpType;
       result.JumpCount = this.JumpCount;

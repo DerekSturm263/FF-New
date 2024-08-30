@@ -7,10 +7,10 @@
 
         public int Length => EndingFrame - StartingFrame;
 
-        public abstract void Begin(Frame f, EntityRef entity, int frame);
+        public abstract void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame);
 
-        public virtual void Update(Frame f, EntityRef entity, int frame, int elapsedFrames) { }
+        public virtual void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames) { }
 
-        public virtual void End(Frame f, EntityRef entity, int frame) { }
+        public virtual void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame) { }
     }
 }

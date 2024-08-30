@@ -59,11 +59,22 @@ namespace Quantum
 
         public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, PlayerState state, ApparelStats stats, FP multiplier)
         {
+            if (MaintainVelocity)
+                return;
+
+            if (!CanMove)
+            {
+                filter.PhysicsBody->Velocity.X = 0;
+                return;
+            }
+
             if (!CanInput || filter.Shakeable->Time > 0)
             {
                 filter.PhysicsBody->Velocity.X = filter.CharacterController->CurrentKnockback.Direction.X;
                 return;
             }
+
+            amount *= multiplier;
 
             MovementMoveSettings moveSettings = GetMoveSettings(state);
 
@@ -124,7 +135,7 @@ namespace Quantum
 
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity / 10));
 
-            filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * multiplier * stats.Agility) + filter.CharacterController->CurrentKnockback.Direction.X;
+            filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * stats.Agility) + filter.CharacterController->CurrentKnockback.Direction.X;
         }
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);

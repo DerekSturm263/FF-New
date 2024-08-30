@@ -5,7 +5,7 @@
     {
         public StatesFlag AllowedStates;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Allowing movement!");
 
@@ -15,7 +15,7 @@
             }
         }
 
-        public override void End(Frame f, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Cleaning up movement allowance!");
 

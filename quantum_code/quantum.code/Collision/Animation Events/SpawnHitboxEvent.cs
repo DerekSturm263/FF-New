@@ -20,7 +20,7 @@ namespace Quantum
 
         [HideInInspector] public ListHelper<FPVector2>[] BakedShapePositions;
 
-        public override void Begin(Frame f, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
             Log.Debug("Spawning hitbox!");
 

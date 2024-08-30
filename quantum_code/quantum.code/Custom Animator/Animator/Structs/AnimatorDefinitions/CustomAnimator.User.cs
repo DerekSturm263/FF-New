@@ -2,6 +2,7 @@
 using Quantum.Collections;
 using Quantum.Custom.Animator;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Quantum
 {
@@ -369,19 +370,29 @@ namespace Quantum
                 return f.FindAsset<CustomAnimatorGraph>(anim->animatorGraph.Id).GetState(anim->to_state_id);
         }
 
-        public static void SetCurrentState(Frame f, CustomAnimator* anim, int stateId)
+        public static void SetCurrentState(Frame f, CustomAnimator* a, int stateId)
         {
-            anim->from_state_id = anim->current_state_id;
-            anim->from_state_time = anim->time;
-            anim->from_state_last_time = anim->last_time;
-            anim->from_state_normalized_time = anim->normalized_time;
-            anim->from_length = anim->length;
+            a->to_state_id = stateId;
+            a->to_state_time = FP._0;
+            a->to_state_last_time = FP._0;
+            a->to_state_normalized_time = FP._0;
+            a->to_length = GetStateFromId(f, a, stateId).motion.CalculateLength(f, a, 1, GetStateFromId(f, a, stateId));
 
-            anim->to_state_id = stateId;
-            anim->to_state_time = 0;
-            anim->to_state_last_time = 0;
+            //reset transition state
+            a->from_state_id = a->current_state_id;
+            a->from_state_time = a->time;
+            a->from_state_last_time = a->last_time;
+            a->from_state_normalized_time = a->normalized_time;
+            a->from_length = a->length;
 
-            anim->normalized_time = 0;
+            a->current_state_id = a->to_state_id;
+            a->time = a->to_state_time;
+            a->last_time = a->to_state_last_time;
+            a->normalized_time = FPMath.Clamp(a->to_state_time / a->to_length, FP._0, FP._1);
+            
+            a->transition_index = 0;
+            a->transition_time = FP._0;
+            a->transition_duration = FP._0;
         }
 
         public static AnimatorState GetStateFromId(Frame f, CustomAnimator* anim, int stateId)

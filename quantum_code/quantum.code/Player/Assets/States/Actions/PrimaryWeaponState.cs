@@ -78,13 +78,17 @@ namespace Quantum
             if (filter.CharacterController->StartedInAir && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {
                 stateMachine.ForceTransition(f, ref filter, input, settings, Default, 0);
-                filter.CharacterController->PossibleStates = (StatesFlag)16383;
+                filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
             }
         }
 
         public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             filter.PlayerStats->ActiveWeapon = ActiveWeaponType.None;
+
+            filter.CharacterController->CanMove = true;
+            filter.CharacterController->MaintainVelocity = false;
+            filter.PhysicsBody->GravityScale = 1;
 
             base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);
         }

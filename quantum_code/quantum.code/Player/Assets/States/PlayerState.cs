@@ -68,6 +68,8 @@ namespace Quantum
         public StatekeepingInfo OnEnter;
         public StatekeepingInfo OnExit;
 
+        public FP MovementInfluence;
+
         public bool TryResolve(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, out TransitionInfo outTransition)
         {
             bool canExit = CanExit(f, stateMachine, ref filter, input, settings);
@@ -149,11 +151,11 @@ namespace Quantum
             HandleFastFalling(f, stateMachine, ref filter, input, settings);
         }
 
-        protected virtual FP MovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => 1;
+        protected virtual FP GetMovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => MovementInfluence;
 
         private void HandleMovement(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
         {
-            filter.CharacterController->Move(f, input.Movement.X, ref filter, settings, this, stats, MovementInfluence(f, stateMachine, ref filter, input, settings));
+            filter.CharacterController->Move(f, input.Movement.X, ref filter, settings, this, stats, GetMovementInfluence(f, stateMachine, ref filter, input, settings));
         }
 
         private void HandleFastFalling(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
