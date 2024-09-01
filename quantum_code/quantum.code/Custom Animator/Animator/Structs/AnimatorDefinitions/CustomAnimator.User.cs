@@ -1,6 +1,7 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using Quantum.Custom.Animator;
+using System.Diagnostics;
 
 namespace Quantum
 {
@@ -67,8 +68,11 @@ namespace Quantum
 
                 if (motion is AnimatorClip clip)
                     return clip.data.GetFrameAtTime(a->time);
+                else if (motion is AnimatorBlendTree blendTree)
+                    return AnimatorFrame.Lerp((blendTree.motions[0] as AnimatorClip).data.GetFrameAtTime(a->time), (blendTree.motions[1] as AnimatorClip).data.GetFrameAtTime(a->time), GetFixedPoint(f, a, "Speed"));
             }
-            
+
+            Log.Debug("ERROR");
             return new() { hurtboxPositions = new HurtboxTransformInfo[17] };
         }
 
@@ -384,6 +388,11 @@ namespace Quantum
         {
             CustomAnimatorGraph graph = f.FindAsset<CustomAnimatorGraph>(anim->animatorGraph.Id);
             return graph.GetState(stateId);
+        }
+
+        public static int GetStateLength(Frame f, CustomAnimator* anim, int stateId)
+        {
+            return (GetStateFromId(f, anim, stateId).motion as AnimatorClip).data.frameCount;
         }
     }
 }

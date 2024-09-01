@@ -134,6 +134,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefPlayerState))]
+  public class AssetRefPlayerStatePropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(PlayerStateAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefQuantumAnimationEvent))]
   public class AssetRefQuantumAnimationEventPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -152,6 +159,13 @@ namespace Quantum.Editor {
   public class AssetRefStageAssetPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
       AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(StageAssetAsset));
+    }
+  }
+
+  [CustomPropertyDrawer(typeof(AssetRefStagePicker))]
+  public class AssetRefStagePickerPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(StagePickerAsset));
     }
   }
 
@@ -250,12 +264,15 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Quantum.QString64))]
   partial class QStringDrawer {}
 
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.ActiveWeaponType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Colliders_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Direction_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.DodgeType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.FighterType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Goal_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
-  [CustomPropertyDrawer(typeof(Quantum.Prototypes.StagePickerType_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.JumpType_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.MatchEndType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.States_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StatesFlag_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]

@@ -12,6 +12,12 @@
                     commandSetBuild.Execute(f);
                 else if (command is CommandSetStage commandSetStage)
                     commandSetStage.Execute(f);
+                else if (command is CommandMakeStageSelection commandMakeStageSelection)
+                    commandMakeStageSelection.Execute(f);
+                else if (command is CommandResetStageSelection commandResetStageSelection)
+                    commandResetStageSelection.Execute(f);
+                else if (command is CommandResetSelectionIndex commandResetSelectionIndex)
+                    commandResetSelectionIndex.Execute(f);
                 else if (command is CommandSetRuleset commandSetRuleset)
                     commandSetRuleset.Execute(f);
                 else if (command is CommandSpawnAI commandSpawnAI)
@@ -70,12 +76,22 @@
                     commandSetEmoteLeftMessage.Execute(f);
                 else if (command is CommandSetEmoteRightMessage commandSetEmoteRightMessage)
                     commandSetEmoteRightMessage.Execute(f);
+                else if (command is CommandSpawnItem commandSpawnItem)
+                    commandSpawnItem.Execute(f);
+                else if (command is CommandSetBehavior commandSetBehavior)
+                    commandSetBehavior.Execute(f);
                 else if (command is CommandPause commandPause)
                     commandPause.Execute(f);
                 else if (command is CommandPlay commandPlay)
                     commandPlay.Execute(f);
                 else if (command is CommandSetTimeScale commandSetTimeScale)
                     commandSetTimeScale.Execute(f);
+                else if (command is CommandChangeTeam commandChangeTeam)
+                    commandChangeTeam.Execute(f);
+                else if (command is CommandTeleport commandTeleport)
+                    commandTeleport.Execute(f);
+                else if (command is CommandResetAllPlayerPositions commandResetAllPlayerPositions)
+                    commandResetAllPlayerPositions.Execute(f);
             }
         }
     }

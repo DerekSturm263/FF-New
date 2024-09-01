@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Extensions.Miscellaneous
 {
@@ -264,6 +264,32 @@ namespace Extensions.Miscellaneous
         {
             await Task.Delay((int)(seconds * 1000));
             action.Invoke(t);
+        }
+
+        public static string PrintNames<T>(IEnumerable<T> list, System.Func<T, string> nameGetter, string emptyMessage = "None", string and = "&")
+        {
+            StringBuilder items = new();
+
+            if (list.Count() == 2)
+            {
+                items.Append($"{nameGetter.Invoke(list.ElementAt(0))} {and} {nameGetter.Invoke(list.ElementAt(1))}");
+            }
+            else if (list.Count() > 0)
+            {
+                for (int i = 0; i < list.Count(); ++i)
+                {
+                    string separator = i != list.Count() - 2 ? ", " : $", {and} ";
+                    items.Append(nameGetter.Invoke(list.ElementAt(i)) + separator);
+                }
+
+                items.Remove(items.Length - 2, 2);
+            }
+            else
+            {
+                items.Append(emptyMessage);
+            }
+
+            return items.ToString();
         }
 
         public static void NoOp() { }

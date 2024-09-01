@@ -7,7 +7,9 @@
 
         // Primary
         public DirectionalMoveRef Primaries;
-        public DirectionalMoveRef Aerials;
+        public DirectionalAerialMoveRef Aerials;
+
+        public MoveRef Dash;
         
         // Secondary
         public DirectionalMoveRef Secondaries;

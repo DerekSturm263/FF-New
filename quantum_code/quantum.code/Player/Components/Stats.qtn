@@ -3,10 +3,14 @@ component Stats
 	list<entity_ref> Hitboxes;
 	dictionary<HurtboxType, entity_ref> Hurtboxes;
 
+	int IFrameTime;
 	WellnessStats CurrentStats;
 	WellnessStats StatsMultiplier;
 
 	asset_ref<StatusEffect> StatusEffect;
 	int StatusEffectTimeLeft;
 	FP StatusEffectMultiplier;
+
+	bool IsDead;
+	bool IsRespawning;
 }

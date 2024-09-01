@@ -1,25 +1,12 @@
 ﻿using Photon.Deterministic;
-using Quantum.Types;
+using System;
+using System.Diagnostics;
 
 namespace Quantum
 {
-    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>, ISignalOnMapChanged
+    public unsafe class CharacterControllerSystem : SystemMainThreadFilter<CharacterControllerSystem.Filter>
     {
-        public static PlayerStateDictionary AllStates =
-        new(
-            new CrouchState(),
-            new JumpState(),
-            new FastFallState(),
-            new BurstState(),
-            new DodgeState(),
-            new BlockState(),
-            new EmoteState(),
-            new SubState(),
-            new UltimateState(),
-            new InteractState(),
-            new MainWeaponState(),
-            new AltWeaponState()
-        );
+        public static PlayerStateMachine StateMachine = new();
 
         public struct Filter
         {
@@ -31,48 +18,58 @@ namespace Quantum
             public CustomAnimator* CustomAnimator;
             public PlayerStats* PlayerStats;
             public Stats* Stats;
+            public Shakeable* Shakeable;
         }
 
         public override void Update(Frame f, ref Filter filter)
         {
-            // Grab the player's movement settings.
+            // Grab the player's behavior and movement settings.
+            Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
             MovementSettings settings = f.FindAsset<MovementSettings>(filter.CharacterController->Settings.Id);
 
             // Get the entity's input before we do anything with it.
-            Input input;
-            if (f.Unsafe.TryGetPointer(filter.Entity, out AIData* aiData) &&
-                f.TryFindAsset(aiData->Behavior.Id, out Behavior behavior))
-                input = behavior.GetInput(f, filter);
-            else
-                input = *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player);
+            Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player) : behavior.GetInput(f, filter);
 
-            // Calculate the player's stats.
-            ApparelStats stats = ApparelHelper.FromStats(f, filter.PlayerStats);
+            // Handle some miscellaneous logic.
+            HandleGround(f, filter, settings);
+            HandleRespawning(f, ref filter, settings);
+            HandleButtonHolding(f, ref filter, input);
+            HandleUltimate(f, filter);
 
-            // Do everything.
-            HandleGround(f, ref filter, settings, stats);
-            HandleStateSwitching(f, ref filter, ref input, settings, stats);
-            HandleMovement(f, ref filter, ref input, settings, stats);
-            HandleUltimate(f, ref filter, ref input, settings, stats);
-        }
+            // Resolve the State Machine to determine which state the player should be in.
+            StateMachine.Resolve(f, ref filter, input, settings);
 
-        public void OnMapChanged(Frame f, AssetRefMap previousMap)
-        {
-            var playerFilter = f.Unsafe.FilterStruct<Filter>();
-            var player = default(Filter);
-
-            while (playerFilter.Next(&player))
+            // Set the user's knockback velocity once they stop shaking.
+            if (filter.Shakeable->Time <= 0 && !filter.CharacterController->DeferredKnockback.Equals(default(KnockbackInfo)))
             {
-                player.Transform->Position = ArrayHelper.Get(f.Global->CurrentMatch.Stage.Spawn.PlayerSpawnPoints, player.PlayerStats->Index.Global);
+                filter.CharacterController->CurrentKnockback = filter.CharacterController->DeferredKnockback;
+                filter.CharacterController->DeferredKnockback = default;
+
+                filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
+            }
+
+            // Apply the knockback velocity.
+            if (filter.CharacterController->CurrentKnockback.Time > 0)
+            {
+                filter.CharacterController->CurrentKnockback.Time -= f.DeltaTime;
+                filter.CharacterController->CurrentKnockback.Direction.X -= f.DeltaTime;
+
+                if (filter.CharacterController->CurrentKnockback.Time <= 0 || (filter.CharacterController->GetNearbyCollider(Colliders.Ground) && filter.CharacterController->CurrentKnockback.Time < FP._0_50))
+                {
+                    filter.CharacterController->CurrentKnockback = default;
+                }
+
+                PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
             }
         }
 
-        private void HandleGround(Frame f, ref Filter filter, MovementSettings movementSettings, ApparelStats stats)
+        private void HandleGround(Frame f, Filter filter, MovementSettings movementSettings)
         {
+            ApparelStats stats = ApparelHelper.FromStats(f, filter.PlayerStats);
+
             // Get all the nearby colliders.
             filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, movementSettings, filter.Transform);
-            if (filter.CharacterController->IsInState(States.IsJumping))
-                filter.CharacterController->NearbyColliders &= ~Colliders.Ground;
+            filter.CharacterController->NearbyColliders &= ~f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).MutuallyExclusiveColliders;
 
             // Get if the player is grounded or not...
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
@@ -81,79 +78,40 @@ namespace Quantum
                 filter.CharacterController->JumpCount = stats.Jump.AsShort;
                 filter.CharacterController->DodgeCount = stats.Dodge.AsShort;
             }
-
-            // Update any miscellaneous CustomAnimator values.
-            bool isGrounded = filter.CharacterController->GetNearbyCollider(Colliders.Ground);
-            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsGrounded", isGrounded);
-
-            if (isGrounded)
-                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", 0);
-            else
-                CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "YVelocity", filter.PhysicsBody->Velocity.Y);
         }
 
-        private void HandleStateSwitching(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)
+        private void HandleRespawning(Frame f, ref Filter filter, MovementSettings movementSettings)
         {
-            // Iterate through all possible states the player can be in.
-            foreach (States state in AllStates.Keys)
-            {
-                // Check if they're in a given state...
-                if (filter.CharacterController->IsInState(state))
-                {
-                    // If they are, try to see if they should leave the state...
-                    if (!AllStates[state].TryExitAndResolveState(f, ref filter, ref input, movementSettings, stats))
-                    {
-                        // Some states can be interrupted by themselves, this lets that happen.
-                        if (!AllStates[state].CanInterruptSelf || !AllStates[state].TryEnterAndResolveState(f, ref filter, ref input, movementSettings, stats))
-                        {
-                            // If they shouldn't, update the state.
-                            AllStates[state].Update(f, ref filter, ref input, movementSettings, stats);
-                        }
-                    }
-                }
-                else
-                {
-                    // If they aren't, try to see if the should enter the state...
-                    AllStates[state].TryEnterAndResolveState(f, ref filter, ref input, movementSettings, stats);
-                }
-
-                // Set whether or not a given button is being held to prevent states from triggering multiple times.
-                filter.CharacterController->SetIsHolding(state, AllStates[state].GetInput(ref input));
-            }
-        }
-
-        private void HandleMovement(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)
-        {
-            if (filter.CharacterController->KnockbackVelocityTime > 0)
-            {
-                filter.CharacterController->KnockbackVelocityTime -= f.DeltaTime;
-                filter.CharacterController->KnockbackVelocityX -= f.DeltaTime;
-                filter.CharacterController->Influence += f.DeltaTime;
-
-                if (filter.CharacterController->KnockbackVelocityTime <= 0)
-                {
-                    filter.CharacterController->KnockbackVelocityX = 0;
-                    filter.CharacterController->Influence = 1;
-                }
-            }
-
-            // Make sure the user can input.
-            if (!filter.CharacterController->CanInput)
+            if (!filter.Stats->IsRespawning)
                 return;
 
-            // Check to see if the user is in any non-moving state, and if they aren't, let them move.
-            if (filter.CharacterController->PossibleStates.HasFlag(StatesFlag.Move) && !filter.CharacterController->IsInState(States.IsCrouching, States.IsInteracting, States.IsBlocking, States.IsBursting, States.IsDodging))
-                filter.CharacterController->Move(f, input.Movement.X, ref filter, movementSettings, stats);
+            StatsSystem.ModifyHealth(f, filter.Entity, filter.Stats, movementSettings.RespawnHealRate, false);
 
-            // Apply velocity to the player.
-            filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * filter.CharacterController->Influence * stats.Agility) + filter.CharacterController->KnockbackVelocityX;
+            if (filter.Stats->CurrentStats.Health >= f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
+            {
+                filter.Stats->IsRespawning = false;
+                StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, true);
+            }
         }
 
-        private void HandleUltimate(Frame f, ref Filter filter, ref Input input, MovementSettings movementSettings, ApparelStats stats)
+        private void HandleButtonHolding(Frame f, ref Filter filter, Input input)
         {
-            // Increment the state number.
-            ++filter.CharacterController->StateTime;
+            if (filter.CharacterController->HoldButton == 0)
+                return;
 
+            bool buttonHeld = filter.CharacterController->IsHeldThisFrame(input, (Input.Buttons)filter.CharacterController->HoldButton);
+
+            if (buttonHeld)
+            {
+                ++filter.CharacterController->HeldAnimationFrameTime;
+            }
+
+            if (!buttonHeld || filter.CharacterController->HeldAnimationFrameTime >= filter.CharacterController->MaxHoldAnimationFrameTime)
+                filter.CustomAnimator->speed = 1;
+        }
+
+        private void HandleUltimate(Frame f, Filter filter)
+        {
             // Decrease the time left in the Ultimate state if the player is using their Ultimate.
             if (filter.CharacterController->UltimateTime > 0)
             {
@@ -170,6 +128,62 @@ namespace Quantum
 
                 // Set the user's energy to show how much time they have left.
                 StatsSystem.SetEnergy(f, filter.Entity, filter.Stats, ((FP)filter.CharacterController->UltimateTime / ultimate.Length) * f.Global->CurrentMatch.Ruleset.Players.MaxEnergy);
+            }
+        }
+
+        [Conditional("DEBUG")]
+        private void PreviewKnockback(FPVector2 amount, FPVector2 offset)
+        {
+            var lineList = CalculateArcPositions(20, amount, offset);
+
+            for (int i = 0; i < lineList.Length - 1; ++i)
+            {
+                Draw.Line(lineList[i], lineList[i + 1]);
+            }
+        }
+
+        private ReadOnlySpan<FPVector3> CalculateArcPositions(int resolution, FPVector2 amount, FPVector2 offset)
+        {
+            FPVector3[] positions = new FPVector3[resolution];
+
+            for (int i = 0; i < resolution; ++i)
+            {
+                FP t = (FP)i / resolution;
+                positions[i] = (CalculateArcPoint(t, 20, 1, amount) + offset).XYO;
+            }
+
+            return positions;
+        }
+
+        private FPVector2 CalculateArcPoint(FP t, FP gravity, FP scalar, FPVector2 amount)
+        {
+            amount.X += FP._1 / 10000;
+            FP angle = FPMath.Atan2(amount.Y, amount.X);
+
+            FP x = t * amount.X;
+            FP y = x * FPMath.Tan(angle) - (gravity * x * x / (2 * amount.Magnitude * amount.Magnitude * FPMath.Cos(angle) * FPMath.Cos(angle)));
+
+            return new FPVector2(x, y) * scalar;
+        }
+
+        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier)
+        {
+            FPVector2 updatedDirection = new(hitbox.Offensive.Knockback.X * directionMultiplier, hitbox.Offensive.Knockback.Y);
+
+            ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.UserFreezeFrames, 0);
+            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.TargetFreezeFrames, hitbox.Delay.TargetShakeStrength);
+
+            if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
+            {
+                characterController->DeferredKnockback = new() { Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
+                characterController->OldKnockback = characterController->DeferredKnockback;
+                characterController->OriginalPosition = transform->Position;
+
+                if (f.TryGet(defender, out PlayerStats stats))
+                {
+                    characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
+                    f.Events.OnPlayerChangeDirection(defender, stats.Index, characterController->MovementDirection);
+                }
             }
         }
     }

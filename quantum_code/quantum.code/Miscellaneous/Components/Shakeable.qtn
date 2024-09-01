@@ -1,0 +1,12 @@
+component Shakeable
+{
+	asset_ref<ShakeSettings> Settings;
+
+	int Time;
+	int MaxTime;
+
+	FP Strength;
+	FPVector2 Position;
+	FPVector2 Amount;
+	FPVector2 Direction;
+}

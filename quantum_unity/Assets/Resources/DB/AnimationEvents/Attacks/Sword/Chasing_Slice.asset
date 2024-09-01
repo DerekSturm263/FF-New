@@ -1,0 +1,1145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7824880389461433433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b124538649fe5ce4ca94f40fc96fe75b, type: 3}
+  m_Name: Hold
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Chasing_Slice|Hold
+      Guid:
+        Value: 3686125898823597747
+    StartingFrame: 8
+    EndingFrame: 10
+    Button: 64
+    MinLength: 10
+    MaxLength: 120
+--- !u!114 &-5196283275001943903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sourspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.514151, b: 0.514151, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Chasing_Slice|Sourspot
+      Guid:
+        Value: 1414204831665080715
+    StartingFrame: 20
+    EndingFrame: 56
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 10
+        TargetShakeStrength:
+          RawValue: 65536
+        UserFreezeFrames: 6
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 655360
+        Knockback:
+          X:
+            RawValue: 239206
+          Y:
+            RawValue: 378798
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 10
+        TargetShakeStrength:
+          RawValue: 65536
+        UserFreezeFrames: 6
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 983040
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: 11167
+        Y:
+          RawValue: -34768
+      - X:
+          RawValue: -17328
+        Y:
+          RawValue: -36162
+      - X:
+          RawValue: -44328
+        Y:
+          RawValue: -25803
+      - X:
+          RawValue: -63892
+        Y:
+          RawValue: -7817
+      - X:
+          RawValue: -73723
+        Y:
+          RawValue: 15329
+      - X:
+          RawValue: -75132
+        Y:
+          RawValue: 40052
+      - X:
+          RawValue: -69041
+        Y:
+          RawValue: 62946
+      - X:
+          RawValue: -56080
+        Y:
+          RawValue: 82838
+      - X:
+          RawValue: -37578
+        Y:
+          RawValue: 98572
+      - X:
+          RawValue: -14263
+        Y:
+          RawValue: 107648
+      - X:
+          RawValue: 11390
+        Y:
+          RawValue: 109399
+      - X:
+          RawValue: 36243
+        Y:
+          RawValue: 101950
+      - X:
+          RawValue: 57285
+        Y:
+          RawValue: 86015
+      - X:
+          RawValue: 71424
+        Y:
+          RawValue: 65772
+      - X:
+          RawValue: 75617
+        Y:
+          RawValue: 40727
+      - X:
+          RawValue: 70054
+        Y:
+          RawValue: 13893
+      - X:
+          RawValue: 54355
+        Y:
+          RawValue: -7994
+      - X:
+          RawValue: 30933
+        Y:
+          RawValue: -21479
+      - X:
+          RawValue: 5420
+        Y:
+          RawValue: -26540
+      - X:
+          RawValue: -21729
+        Y:
+          RawValue: -20690
+      - X:
+          RawValue: -47371
+        Y:
+          RawValue: -5765
+      - X:
+          RawValue: -66012
+        Y:
+          RawValue: 16418
+      - X:
+          RawValue: -75108
+        Y:
+          RawValue: 43255
+      - X:
+          RawValue: -76313
+        Y:
+          RawValue: 70239
+      - X:
+          RawValue: -69050
+        Y:
+          RawValue: 95560
+      - X:
+          RawValue: -55197
+        Y:
+          RawValue: 117552
+      - X:
+          RawValue: -36900
+        Y:
+          RawValue: 133329
+      - X:
+          RawValue: -16646
+        Y:
+          RawValue: 141786
+      - X:
+          RawValue: 2854
+        Y:
+          RawValue: 144706
+      - X:
+          RawValue: 21586
+        Y:
+          RawValue: 142317
+      - X:
+          RawValue: 38958
+        Y:
+          RawValue: 135760
+      - X:
+          RawValue: 53183
+        Y:
+          RawValue: 126000
+      - X:
+          RawValue: 63713
+        Y:
+          RawValue: 113862
+      - X:
+          RawValue: 71485
+        Y:
+          RawValue: 100624
+      - X:
+          RawValue: 76014
+        Y:
+          RawValue: 87314
+      - X:
+          RawValue: 78179
+        Y:
+          RawValue: 75221
+      - X:
+          RawValue: 78953
+        Y:
+          RawValue: 64625
+    - List:
+      - X:
+          RawValue: -9619
+        Y:
+          RawValue: 16663
+      - X:
+          RawValue: -16937
+        Y:
+          RawValue: 19314
+      - X:
+          RawValue: -23173
+        Y:
+          RawValue: 25480
+      - X:
+          RawValue: -25969
+        Y:
+          RawValue: 32665
+      - X:
+          RawValue: -24301
+        Y:
+          RawValue: 40510
+      - X:
+          RawValue: -20191
+        Y:
+          RawValue: 47696
+      - X:
+          RawValue: -14450
+        Y:
+          RawValue: 53093
+      - X:
+          RawValue: -7142
+        Y:
+          RawValue: 56719
+      - X:
+          RawValue: 656
+        Y:
+          RawValue: 58388
+      - X:
+          RawValue: 8959
+        Y:
+          RawValue: 57281
+      - X:
+          RawValue: 16554
+        Y:
+          RawValue: 54172
+      - X:
+          RawValue: 22080
+        Y:
+          RawValue: 48315
+      - X:
+          RawValue: 25121
+        Y:
+          RawValue: 40820
+      - X:
+          RawValue: 25283
+        Y:
+          RawValue: 34995
+      - X:
+          RawValue: 21473
+        Y:
+          RawValue: 28667
+      - X:
+          RawValue: 15219
+        Y:
+          RawValue: 22439
+      - X:
+          RawValue: 6386
+        Y:
+          RawValue: 19947
+      - X:
+          RawValue: -3557
+        Y:
+          RawValue: 22003
+      - X:
+          RawValue: -10831
+        Y:
+          RawValue: 26504
+      - X:
+          RawValue: -17814
+        Y:
+          RawValue: 34642
+      - X:
+          RawValue: -24129
+        Y:
+          RawValue: 44605
+      - X:
+          RawValue: -26628
+        Y:
+          RawValue: 55493
+      - X:
+          RawValue: -24759
+        Y:
+          RawValue: 66554
+      - X:
+          RawValue: -21096
+        Y:
+          RawValue: 75594
+      - X:
+          RawValue: -15038
+        Y:
+          RawValue: 82885
+      - X:
+          RawValue: -7792
+        Y:
+          RawValue: 88720
+      - X:
+          RawValue: -158
+        Y:
+          RawValue: 91747
+      - X:
+          RawValue: 7141
+        Y:
+          RawValue: 91649
+      - X:
+          RawValue: 12825
+        Y:
+          RawValue: 90110
+      - X:
+          RawValue: 17857
+        Y:
+          RawValue: 86942
+      - X:
+          RawValue: 22410
+        Y:
+          RawValue: 82790
+      - X:
+          RawValue: 25296
+        Y:
+          RawValue: 78039
+      - X:
+          RawValue: 26322
+        Y:
+          RawValue: 72918
+      - X:
+          RawValue: 26666
+        Y:
+          RawValue: 68061
+      - X:
+          RawValue: 25975
+        Y:
+          RawValue: 63672
+      - X:
+          RawValue: 24975
+        Y:
+          RawValue: 60181
+      - X:
+          RawValue: 24169
+        Y:
+          RawValue: 57478
+    - List:
+      - X:
+          RawValue: 407
+        Y:
+          RawValue: -8144
+      - X:
+          RawValue: -17125
+        Y:
+          RawValue: -7445
+      - X:
+          RawValue: -33377
+        Y:
+          RawValue: 743
+      - X:
+          RawValue: -44261
+        Y:
+          RawValue: 13138
+      - X:
+          RawValue: -48140
+        Y:
+          RawValue: 28364
+      - X:
+          RawValue: -46692
+        Y:
+          RawValue: 44009
+      - X:
+          RawValue: -40782
+        Y:
+          RawValue: 57846
+      - X:
+          RawValue: -30747
+        Y:
+          RawValue: 69317
+      - X:
+          RawValue: -17786
+        Y:
+          RawValue: 77771
+      - X:
+          RawValue: -2242
+        Y:
+          RawValue: 81576
+      - X:
+          RawValue: 14063
+        Y:
+          RawValue: 80811
+      - X:
+          RawValue: 28912
+        Y:
+          RawValue: 74186
+      - X:
+          RawValue: 40635
+        Y:
+          RawValue: 62620
+      - X:
+          RawValue: 47539
+        Y:
+          RawValue: 49840
+      - X:
+          RawValue: 47590
+        Y:
+          RawValue: 34484
+      - X:
+          RawValue: 41669
+        Y:
+          RawValue: 18317
+      - X:
+          RawValue: 29524
+        Y:
+          RawValue: 6469
+      - X:
+          RawValue: 13079
+        Y:
+          RawValue: 1029
+      - X:
+          RawValue: -2992
+        Y:
+          RawValue: 918
+      - X:
+          RawValue: -19702
+        Y:
+          RawValue: 7952
+      - X:
+          RawValue: -35340
+        Y:
+          RawValue: 20309
+      - X:
+          RawValue: -45625
+        Y:
+          RawValue: 36645
+      - X:
+          RawValue: -49045
+        Y:
+          RawValue: 55315
+      - X:
+          RawValue: -47730
+        Y:
+          RawValue: 73011
+      - X:
+          RawValue: -41091
+        Y:
+          RawValue: 88999
+      - X:
+          RawValue: -30658
+        Y:
+          RawValue: 102627
+      - X:
+          RawValue: -17881
+        Y:
+          RawValue: 111804
+      - X:
+          RawValue: -4332
+        Y:
+          RawValue: 115833
+      - X:
+          RawValue: 8015
+        Y:
+          RawValue: 116444
+      - X:
+          RawValue: 19656
+        Y:
+          RawValue: 113652
+      - X:
+          RawValue: 30392
+        Y:
+          RawValue: 108340
+      - X:
+          RawValue: 38747
+        Y:
+          RawValue: 101173
+      - X:
+          RawValue: 44358
+        Y:
+          RawValue: 92668
+      - X:
+          RawValue: 48285
+        Y:
+          RawValue: 83768
+      - X:
+          RawValue: 50112
+        Y:
+          RawValue: 75076
+      - X:
+          RawValue: 50639
+        Y:
+          RawValue: 67436
+      - X:
+          RawValue: 50595
+        Y:
+          RawValue: 60925
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0
+--- !u!114 &-1001453871489171638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685eb21e2c122c040b7b7414c5210823, type: 3}
+  m_Name: Toss Forward
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Chasing_Slice|Toss Forward
+      Guid:
+        Value: 1662894310962574079
+    StartingFrame: 13
+    EndingFrame: 57
+    UsabilityType: 0
+    UnchargedSettings:
+      XCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 6031
+        - RawValue: 11672
+        - RawValue: 16937
+        - RawValue: 21838
+        - RawValue: 26389
+        - RawValue: 30603
+        - RawValue: 34494
+        - RawValue: 38074
+        - RawValue: 41358
+        - RawValue: 44357
+        - RawValue: 47087
+        - RawValue: 49559
+        - RawValue: 51788
+        - RawValue: 53787
+        - RawValue: 55568
+        - RawValue: 57146
+        - RawValue: 58533
+        - RawValue: 59743
+        - RawValue: 60789
+        - RawValue: 61685
+        - RawValue: 62443
+        - RawValue: 63078
+        - RawValue: 63602
+        - RawValue: 64028
+        - RawValue: 64371
+        - RawValue: 64643
+        - RawValue: 64857
+        - RawValue: 65028
+        - RawValue: 65168
+        - RawValue: 65290
+        - RawValue: 65408
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 199390
+          OutTangent:
+            RawValue: 199390
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 4364
+          OutTangent:
+            RawValue: 4364
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      XForce:
+        RawValue: 196608
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 65536
+    FullyChargedSettings:
+      XCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 6031
+        - RawValue: 11672
+        - RawValue: 16937
+        - RawValue: 21838
+        - RawValue: 26389
+        - RawValue: 30603
+        - RawValue: 34494
+        - RawValue: 38074
+        - RawValue: 41358
+        - RawValue: 44357
+        - RawValue: 47087
+        - RawValue: 49559
+        - RawValue: 51788
+        - RawValue: 53787
+        - RawValue: 55568
+        - RawValue: 57146
+        - RawValue: 58533
+        - RawValue: 59743
+        - RawValue: 60789
+        - RawValue: 61685
+        - RawValue: 62443
+        - RawValue: 63078
+        - RawValue: 63602
+        - RawValue: 64028
+        - RawValue: 64371
+        - RawValue: 64643
+        - RawValue: 64857
+        - RawValue: 65028
+        - RawValue: 65168
+        - RawValue: 65290
+        - RawValue: 65408
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 199390
+          OutTangent:
+            RawValue: 199390
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 4364
+          OutTangent:
+            RawValue: 4364
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      XForce:
+        RawValue: 458752
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Chasing_Slice
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Chasing_Slice
+      Guid:
+        Value: 2867213110893801618
+    AnimID: 292305905
+    Events:
+    - Id:
+        Value: 1414204831665080715
+    - Id:
+        Value: 3230995086527496219
+    - Id:
+        Value: 1662894310962574079
+    - Id:
+        Value: 3686125898823597747
+    Committed:
+      Max: 81
+      Min: 0
+  Clip: {fileID: -9135600551345049214, guid: 7fe0e85f248e4d047ab51b0354179aa0, type: 3}
+--- !u!114 &7867398850605049384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Chasing_Slice|Sweetspot
+      Guid:
+        Value: 3230995086527496219
+    StartingFrame: 13
+    EndingFrame: 19
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        TargetFreezeFrames: 10
+        TargetShakeStrength:
+          RawValue: 65536
+        UserFreezeFrames: 6
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 655360
+        Knockback:
+          X:
+            RawValue: 412221
+          Y:
+            RawValue: 640942
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        TargetFreezeFrames: 10
+        TargetShakeStrength:
+          RawValue: 65536
+        UserFreezeFrames: 6
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 983040
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -88313
+        Y:
+          RawValue: 64801
+      - X:
+          RawValue: -54373
+        Y:
+          RawValue: 128337
+      - X:
+          RawValue: 38390
+        Y:
+          RawValue: 145436
+      - X:
+          RawValue: 78281
+        Y:
+          RawValue: 100511
+      - X:
+          RawValue: 79780
+        Y:
+          RawValue: 41789
+      - X:
+          RawValue: 62142
+        Y:
+          RawValue: 1180
+      - X:
+          RawValue: 37637
+        Y:
+          RawValue: -22081
+    - List:
+      - X:
+          RawValue: -43000
+        Y:
+          RawValue: 96358
+      - X:
+          RawValue: -5478
+        Y:
+          RawValue: 101795
+      - X:
+          RawValue: 37269
+        Y:
+          RawValue: 92846
+      - X:
+          RawValue: 39478
+        Y:
+          RawValue: 65434
+      - X:
+          RawValue: 24885
+        Y:
+          RawValue: 35765
+      - X:
+          RawValue: 11053
+        Y:
+          RawValue: 22906
+      - X:
+          RawValue: -726
+        Y:
+          RawValue: 18008
+    - List:
+      - X:
+          RawValue: -64857
+        Y:
+          RawValue: 81136
+      - X:
+          RawValue: -29063
+        Y:
+          RawValue: 114598
+      - X:
+          RawValue: 37810
+        Y:
+          RawValue: 118213
+      - X:
+          RawValue: 58194
+        Y:
+          RawValue: 82354
+      - X:
+          RawValue: 51364
+        Y:
+          RawValue: 38671
+      - X:
+          RawValue: 35696
+        Y:
+          RawValue: 12427
+      - X:
+          RawValue: 17778
+        Y:
+          RawValue: -1328
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit:
+    Variants:
+      _kvps: []
+    Mixer: {fileID: 0}
+    Volume: 0

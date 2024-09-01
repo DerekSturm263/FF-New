@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fa0fdc1d4e0a94ebf48a9fa32d4d5c, type: 3}
+  m_Name: Bladed_Crasher
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Bladed_Crasher
+      Guid:
+        Value: 3293940520248556559
+    AnimID: 34379230
+    Events:
+    - Id:
+        Value: 4225804794267766823
+    Committed:
+      Max: 58
+      Min: 0
+  Clip: {fileID: -7635598400918682647, guid: 4e428c4804cba3d4f860b1ba5f923560, type: 3}
+--- !u!114 &5586645069287467140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Throw Sword
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Bladed_Crasher|Throw Sword
+      Guid:
+        Value: 4225804794267766823
+    StartingFrame: 18
+    EndingFrame: 18
+    UnchargedSettings:
+      Item:
+        Id:
+          Value: 2013112306673559321
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -327680
+    FullyChargedSettings:
+      Item:
+        Id:
+          Value: 0
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0

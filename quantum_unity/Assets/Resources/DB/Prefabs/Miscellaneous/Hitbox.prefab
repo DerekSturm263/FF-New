@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3752432560751321733}
   - component: {fileID: 6049013337113849420}
-  - component: {fileID: 6827526823731206715}
   - component: {fileID: 2944449349986038832}
   m_Layer: 8
   m_Name: Hitbox
@@ -46,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformMode: 1
+  TransformMode: 0
   Transform2DVertical:
     IsEnabled: 0
     Height:
@@ -182,37 +181,6 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
---- !u!114 &6827526823731206715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4112116602947518751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BindBehaviour: 0
-  CustomQuantumAnimator: {fileID: 0}
-  ManualDisposal: 0
-  GameObjectNameIsEntityRef: 1
-  ErrorCorrectionRateMin: 3.3
-  ErrorCorrectionRateMax: 10
-  ErrorPositionBlendStart: 0.25
-  ErrorPositionBlendEnd: 1
-  ErrorRotationBlendStart: 0.1
-  ErrorRotationBlendEnd: 0.5
-  ErrorPositionMinCorrection: 0.025
-  ErrorPositionTeleportDistance: 2
-  ErrorRotationTeleportDistance: 0.5
-  OnEntityInstantiated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEntityDestroyed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2944449349986038832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +212,8 @@ MonoBehaviour:
         UserFreezeFrames: 0
         TargetFreezeFrames: 0
       Visual:
+        OnlyShakeOnHit:
+          Value: 0
         CameraShake:
           Id:
             Value: 0
@@ -251,24 +221,6 @@ MonoBehaviour:
           Id:
             Value: 0
     Lifetime: 0
---- !u!114 &-2529971104628218342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d5baec4de8d2754a864a680181831e8, type: 3}
-  m_Name: HitboxEntityView
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: Resources/DB/Prefabs/Miscellaneous/Hitbox|EntityView
-      Guid:
-        Value: 252688321732629635
-  Parent: {fileID: 6827526823731206715}
 --- !u!114 &3605869440020088222
 MonoBehaviour:
   m_ObjectHideFlags: 0

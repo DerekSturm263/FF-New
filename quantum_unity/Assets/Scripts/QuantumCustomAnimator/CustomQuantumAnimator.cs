@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
+
 using UE = UnityEngine;
 
 public struct AnimationData
@@ -37,6 +38,7 @@ public struct AnimationData
 public unsafe class CustomQuantumAnimator : MonoBehaviour
 {
     private AnimationData[] _animData;
+    public AnimationData[] AnimData => _animData;
 
     private readonly List<int> _activeInputs = new(64);
     private static readonly List<AnimatorRuntimeBlendData> _blendData = new(64);
@@ -130,8 +132,8 @@ public unsafe class CustomQuantumAnimator : MonoBehaviour
                     {
                         AnimationClipPlayable clip = AnimationClipPlayable.Create(_animData[i].graph, clipList[j]);
                         
-                        //clip.SetApplyFootIK(true);
-                        //clip.SetApplyPlayableIK(true);
+                        clip.SetApplyFootIK(true);
+                        clip.SetApplyPlayableIK(true);
 
                         _animData[i].clips.Add
                         (

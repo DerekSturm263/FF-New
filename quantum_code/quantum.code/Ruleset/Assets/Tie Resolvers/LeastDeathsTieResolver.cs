@@ -1,4 +1,4 @@
-﻿using Quantum.Collections;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Quantum
@@ -6,13 +6,9 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class LeastDeathsTieResolver : TieResolver
     {
-        public override System.Func<Team, int> ResolveTie(Frame f, QList<Team> teams)
+        public override System.Func<Team, int> ResolveTie(Frame f, IEnumerable<Team> teams)
         {
-            return team =>
-            {
-                var players = f.ResolveList(team.Players);
-                return players.Sum(item => f.Unsafe.GetPointer<PlayerStats>(item)->Stats.Deaths);
-            };
+            return team => team.Get(f).Sum(item => f.Unsafe.GetPointer<PlayerStats>(FighterIndex.GetPlayerFromIndex(f, item.Index))->Stats.Deaths);
         }
     }
 }

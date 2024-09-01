@@ -1,7 +1,6 @@
 using Extensions.Miscellaneous;
 using Photon.Deterministic;
 using Quantum;
-using Quantum.Editor;
 using System;
 using UnityEditor;
 using UnityEditorInternal;
@@ -19,8 +18,12 @@ public class AnimationEventContainerWindow : EditorWindow
     private QuantumAnimationEventAsset _eventAsset;
 
     private GameObject _previewPlayer;
+    public GameObject PreviewPlayer => _previewPlayer;
+
     private HurtboxTracker _previewTracker;
+
     private GameObject _previewWeapon;
+    public GameObject PreviewWeapon => _previewWeapon;
 
     private float _initialTime;
     private bool _isPreviewing;
@@ -84,6 +87,11 @@ public class AnimationEventContainerWindow : EditorWindow
         {
             startingFrame = hold.Settings.StartingFrame;
             endingFrame = hold.Settings.EndingFrame;
+        }
+        else if (frameEvent is ContinueAnimationEventAsset continueAnim)
+        {
+            startingFrame = continueAnim.Settings.StartingFrame;
+            endingFrame = continueAnim.Settings.EndingFrame;
         }
         else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
         {
@@ -153,6 +161,11 @@ public class AnimationEventContainerWindow : EditorWindow
             hold.Settings.StartingFrame = (int)startingFrame;
             hold.Settings.EndingFrame = (int)endingFrame;
         }
+        else if (frameEvent is ContinueAnimationEventAsset continueAnim)
+        {
+            continueAnim.Settings.StartingFrame = (int)startingFrame;
+            continueAnim.Settings.EndingFrame = (int)endingFrame;
+        }
         else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
         {
             unityEvent.Settings.StartingFrame = (int)startingFrame;
@@ -218,6 +231,12 @@ public class AnimationEventContainerWindow : EditorWindow
 
         GUILayout.EndHorizontal();
 
+        if (!_eventAsset)
+        {
+            EditorGUILayout.HelpBox("Please assign an AnimationEvent for editing", MessageType.Error);
+            return;
+        }
+
         _events ??= new(_eventAsset.Settings.Events, typeof(AssetRefFrameEvent), true, false, true, true)
         {
             drawElementCallback = EventListDrawElementCallback,
@@ -226,10 +245,9 @@ public class AnimationEventContainerWindow : EditorWindow
             onRemoveCallback = EventListOnRemoveCallback
         };
 
-        if (!_eventAsset || !_previewPlayer || !_previewWeapon)
+        if (!_previewPlayer || !_previewWeapon)
         {
-            EditorGUILayout.HelpBox("Please assign a\n- AnimationEvent for editting\n- Player GameObject for previewing\n- Weapon GameObject for previewing", MessageType.Warning);
-            return;
+            EditorGUILayout.HelpBox("Please assign a\n- Player GameObject for previewing\n- Weapon GameObject for previewing", MessageType.Warning);
         }
 
         GUILayout.Space(10);
@@ -295,8 +313,12 @@ public class AnimationEventContainerWindow : EditorWindow
     {
         if (!_previewPlayer)
             _previewPlayer = GameObject.FindGameObjectWithTag("Player");
+
+        if (!_previewWeapon)
+            _previewWeapon = GameObject.Find("HANDLE_GRIP");
         
-        _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
+        if (_eventAsset && _previewPlayer)
+            _eventAsset.Clip.SampleAnimation(_previewPlayer, _scrubFrame / _eventAsset.Clip.frameRate);
     }
 
     public unsafe void DrawGizmos(AssetRefHurtboxSetup hurtboxSetup)
@@ -347,6 +369,11 @@ public class AnimationEventContainerWindow : EditorWindow
             {
                 startingFrame = hold.Settings.StartingFrame;
                 endingFrame = hold.Settings.EndingFrame;
+            }
+            else if (frameEvent is ContinueAnimationEventAsset continueAnim)
+            {
+                startingFrame = continueAnim.Settings.StartingFrame;
+                endingFrame = continueAnim.Settings.EndingFrame;
             }
             else if (frameEvent is ExecuteUnityEventEventAsset unityEvent)
             {
@@ -399,7 +426,7 @@ public class AnimationEventContainerWindow : EditorWindow
 
             if (eventSettings.Parent == SpawnHitboxEvent.ParentType.Weapon)
             {
-                position += _previewWeapon.transform.forward * eventSettings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + _previewWeapon.transform.right * eventSettings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
+                position += _previewWeapon.transform.up * eventSettings.Shape.CompoundShapes[i].PositionOffset.Y.AsFloat + _previewWeapon.transform.right * eventSettings.Shape.CompoundShapes[i].PositionOffset.X.AsFloat;
             }
             else
             {
@@ -452,10 +479,10 @@ public class AnimationEventContainerWindow : EditorWindow
         int elapsedFrames = _scrubFrame - eventSettings.StartingFrame;
         FP normalizedTime = (FP)elapsedFrames / eventSettings.Length;
 
-        _previewPlayer.transform.parent.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime).ToUnityVector2();
+        _previewPlayer.transform.parent.position = ApplyPhysicsEvent.GetPositionAtTime(eventSettings.UnchargedSettings, normalizedTime, 1).ToUnityVector2();
     }
 
-    private ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)
+    private static ReadOnlySpan<Vector3> CalculateArcPositions(int resolution, Vector2 amount, Vector2 offset)
     {
         Vector3[] positions = new Vector3[resolution];
 
@@ -468,7 +495,7 @@ public class AnimationEventContainerWindow : EditorWindow
         return positions;
     }
 
-    private Vector2 CalculateArcPoint(float t, float gravity, float scalar, Vector2 amount)
+    private static Vector2 CalculateArcPoint(float t, float gravity, float scalar, Vector2 amount)
     {
         amount.x += 0.0001f;
         float angle = Mathf.Atan2(amount.y, amount.x);

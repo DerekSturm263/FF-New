@@ -18,7 +18,8 @@ MonoBehaviour:
       Guid:
         Value: 747311310536561844
   Icon: {fileID: 21300000, guid: da7d1eee44ce5c54884ee3400523da74, type: 3}
-  Description: 
+  Description: The player can throw this in any direction. All players caught in
+    the blast will become temporarily stunned.
   IncludeInLists: 1
   IsUnlocked: 1
   StartingCount:
@@ -27,6 +28,7 @@ MonoBehaviour:
   Price: 0
   FilterTags: []
   GroupTags: []
+  isRandom: 0
   SFX:
     _kvps: []
   ItemVFX: {fileID: 11400000, guid: 55d739b70a0f6a640afb0f457c30dbbe, type: 2}
@@ -70,31 +72,36 @@ MonoBehaviour:
       Id:
         Value: 1893760561789642782
     DestroySelfOnHit: 1
+    CanInteractWithOwner: 1
     HandednessType: 0
     HitboxSettings:
       Delay:
-        TargetFreezeFrames: 0
+        TargetFreezeFrames: 6
+        TargetShakeStrength:
+          RawValue: 6553
         UserFreezeFrames: 0
       Offensive:
         Damage:
-          RawValue: 0
+          RawValue: 327680
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 65536
           Y:
-            RawValue: 0
+            RawValue: 65536
         StatusEffect:
           Id:
-            Value: 0
+            Value: 1871826951402697938
       Visual:
         CameraShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
+        OnlyShakeOnHit:
+          Value: 0
         TargetShake:
           Id:
-            Value: 0
+            Value: 2339117124231534448
     Shape:
-      ShapeType: 0
+      ShapeType: 16
       PolygonCollider:
         Id:
           Value: 0
@@ -116,6 +123,28 @@ MonoBehaviour:
         RawValue: 0
       UserTag: 0
       IsPersistent: 1
-      CompoundShapes: []
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 73728
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
-    Lifetime: 30
+    Lifetime: 15

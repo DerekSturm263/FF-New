@@ -1,6 +1,8 @@
+using Extensions.Miscellaneous;
+using UnityEditor;
 using UnityEngine;
 
-public class SetIK : StateMachineBehaviour
+public class SetIK : MonoBehaviour
 {
     [SerializeField] private LayerMask _ground;
 
@@ -12,48 +14,67 @@ public class SetIK : StateMachineBehaviour
     [SerializeField] private float _headOffset;
 
     [SerializeField] private float _lerpSpeed;
+    [SerializeField] private int _index;
 
-    private CustomQuantumAnimator _animator;
+    private CustomQuantumAnimator _customAnimator;
+    private Animator _animator;
 
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private void Awake()
     {
-        _animator = animator.transform.parent.GetComponent<CustomQuantumAnimator>();
+        _customAnimator = GetComponentInParent<CustomQuantumAnimator>();
+        _animator = _customAnimator.AnimData[_index].animator;
     }
 
-    public override void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private void OnAnimatorIK(int layerIndex)
     {
-        SetFootIK(animator, AvatarIKGoal.LeftFoot, _animator.Direction < 0);
-        SetFootIK(animator, AvatarIKGoal.RightFoot, _animator.Direction < 0);
-        SetHeadIK(animator);
+        var leftFoot = GetFootIK(AvatarIKGoal.LeftFoot, Color.red);
+        var rightFoot = GetFootIK(AvatarIKGoal.RightFoot, Color.blue);
+
+        if (leftFoot.HasValue)
+        {
+            var newFoot = _customAnimator.Direction < 0 ? (leftFoot.Value.Item1, new(leftFoot.Value.Item2.x, rightFoot.HasValue ? rightFoot.Value.Item2.y : leftFoot.Value.Item2.y)) : leftFoot;
+
+            _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, newFoot.Value.Item1);
+            _animator.SetIKPosition(AvatarIKGoal.LeftFoot, newFoot.Value.Item2);
+        }
+        if (rightFoot.HasValue)
+        {
+            var newFoot = _customAnimator.Direction < 0 ? (rightFoot.Value.Item1, new(rightFoot.Value.Item2.x, leftFoot.HasValue ? leftFoot.Value.Item2.y : rightFoot.Value.Item2.y)) : rightFoot;
+
+            _animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, newFoot.Value.Item1);
+            _animator.SetIKPosition(AvatarIKGoal.RightFoot, newFoot.Value.Item2);
+        }
+
+        SetHeadIK(_animator);
     }
 
-    public void SetFootIK(Animator animator, AvatarIKGoal goal, bool isReversed)
+    public (float, Vector3)? GetFootIK(AvatarIKGoal goal, Color color)
     {
-        Vector3 footPos = goal == AvatarIKGoal.LeftFoot ^ isReversed ? _animator.LFoot.position : _animator.RFoot.position;
+        float weight = _footWeight * _customAnimator.GetFloat(goal == AvatarIKGoal.LeftFoot ? 0 : 1);
+        Vector3 footPos = goal == AvatarIKGoal.LeftFoot ? _customAnimator.LFoot.position : _customAnimator.RFoot.position;
 
-        Debug.DrawLine(footPos, footPos - new Vector3(0, _footCastLength, 0));
+        Debug.DrawLine(footPos, footPos - new Vector3(0, _footCastLength, 0), color);
         if (Physics.Linecast(footPos, footPos - new Vector3(0, _footCastLength, 0), out RaycastHit hit, _ground))
         {
-            Vector3 oldPos = animator.GetIKPosition(goal);
             Vector3 newPos = hit.point + new Vector3(0, _footOffset, 0);
+            Debug.DrawLine(newPos - new Vector3(0.1f, 0, 0.1f), newPos + new Vector3(0.1f, 0, 0.1f), color);
 
-            Debug.DrawLine(newPos - new Vector3(0.1f, 0, 0.1f), newPos + new Vector3(0.1f, 0, 0.1f));
-
-            animator.SetIKPositionWeight(goal, _footWeight * _animator.GetFloat(goal == AvatarIKGoal.LeftFoot ? 0 : 1));
-            animator.SetIKPosition(goal, Vector3.Lerp(oldPos, newPos, Time.deltaTime * _lerpSpeed));
+            return (weight, newPos);
         }
+
+        return null;
     }
 
     public void SetHeadIK(Animator animator)
     {
-        if (!_animator.Target)
+        if (!_customAnimator.Target)
             return;
 
-        Vector3 newPos = _animator.Target.Head.transform.position - _animator.Head.transform.position + new Vector3(0, _headOffset, 0);
+        Vector3 newPos = _customAnimator.Target.Head.transform.position - _customAnimator.Head.transform.position + new Vector3(0, _headOffset, 0);
 
-        Debug.DrawLine(_animator.Head.transform.position, newPos);
+        Debug.DrawLine(_customAnimator.Head.transform.position, newPos);
 
-        animator.SetLookAtWeight(_headWeight * _animator.GetFloat(2));
+        animator.SetLookAtWeight(_headWeight * _customAnimator.GetFloat(2));
         animator.SetLookAtPosition(newPos);
     }
 }

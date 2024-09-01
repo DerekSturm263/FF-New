@@ -10,6 +10,6 @@
                 CurrentGoal &= ~goal;
         }
 
-        public bool GetGoal(Goal goal) => CurrentGoal.HasFlag(goal);
+        public readonly bool GetGoal(Goal goal) => CurrentGoal.HasFlag(goal);
     }
 }

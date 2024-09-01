@@ -17,12 +17,12 @@ namespace Quantum
                 Log.Debug("Committed!");
 
                 if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-                    characterController->IsCommitted = true;
+                    characterController->PossibleStates = 0;
             }
             if (frame == Committed.Max)
             {
                 if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-                    characterController->IsCommitted = false;
+                    characterController->PossibleStates = (StatesFlag)16383;
 
                 Log.Debug("Not committed!");
             }

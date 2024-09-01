@@ -9,11 +9,13 @@ public class HUDController : Controller<HUDController>
 
     public void Enable()
     {
-        _instance.gameObject.SetActive(true);
+        if (_instance)
+            _instance.gameObject.SetActive(true);
     }
 
     public void Disable()
     {
-        _instance.gameObject.SetActive(false);
+        if (_instance)
+            _instance.gameObject.SetActive(false);
     }
 }

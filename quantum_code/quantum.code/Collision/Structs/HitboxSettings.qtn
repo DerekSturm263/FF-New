@@ -12,6 +12,7 @@ struct OffensiveSettings
     [Tooltip("How much damage the hitbox should do")] FP Damage;
     [Tooltip("How much knockback the hitbox should give and what direction to give it in")] FPVector2 Knockback;
     [Tooltip("The status effect that opponents hit by this hitbox will be affected by, if any")] asset_ref<StatusEffect> StatusEffect;
+    [Tooltip("Whether or not to multiply the knockback direction based on the player's direction")] bool AlignKnockbackToPlayerDirection;
 }
 
 [Serializable]
@@ -19,11 +20,13 @@ struct DelaySettings
 {
     [Tooltip("How many frames to freeze the user for when the hitbox hits")] uint UserFreezeFrames;
     [Tooltip("How many frames to freeze the opponent for when the hitbox hits")] uint TargetFreezeFrames;
+    [Tooltip("How much to shake the target by when the hitbox hits")] FP TargetShakeStrength;
 }
 
 [Serializable]
 struct VisualSettings
 {
+    [Tooltip("Whether or not the camera should only shake if the hit lands")] bool OnlyShakeOnHit;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> CameraShake;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> TargetShake;
 }

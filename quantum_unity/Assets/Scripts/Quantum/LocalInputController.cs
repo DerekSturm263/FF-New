@@ -36,32 +36,35 @@ public class LocalInputController : Controller<LocalInputController>
 
     public void PollInput(CallbackPollInput callback)
     {
-        if (!_canInput)
-            return;
-
         if (!PlayerJoinController.Instance.TryGetPlayer(callback.Player, out LocalPlayerInfo player))
         {
-            callback.SetInput(new(), DeterministicInputFlags.Repeatable);
+            callback.SetInput(default, DeterministicInputFlags.Repeatable);
             return;
         }
 
-        Quantum.Input input = new()
+        Quantum.Input input = _canInput ? new()
         {
             Movement = player.Controls.Player.Move.ReadValue<Vector2>().ToFPVector2(),
 
             Jump = player.Controls.Player.Jump.IsPressed(),
-            FastFall = player.Controls.Player.FastFall.IsPressed(),
-            Crouch = player.Controls.Player.Crouch.IsPressed(),
+            LookUp = player.Controls.Player.LookUp.IsPressed(),
+            Burst = player.Controls.Player.Sub1.IsPressed() && player.Controls.Player.Sub2.IsPressed(),
             Block = player.Controls.Player.Block.IsPressed(),
 
-            MainWeapon = player.Controls.Player.MainWeapon.IsPressed(),
-            AlternateWeapon = player.Controls.Player.AlternateWeapon.IsPressed(),
-            SubWeapon1 = player.Controls.Player.Subweapon1.IsPressed(),
-            SubWeapon2 = player.Controls.Player.Subweapon2.IsPressed(),
+            MainWeapon = player.Controls.Player.Primary.IsPressed(),
+            AlternateWeapon = player.Controls.Player.Secondary.IsPressed(),
+            SubWeapon = player.Controls.Player.Sub1.IsPressed() || player.Controls.Player.Sub2.IsPressed(),
+            Ultimate = player.Controls.Player.Primary.IsPressed() && player.Controls.Player.Secondary.IsPressed(),
 
             Emote = player.Controls.Player.Emote.IsPressed(),
-            Interact = player.Controls.Player.Interact.IsPressed(),
+            LeftRight = player.Controls.Player.LeftRight.IsPressed(),
 
+            Dodge = player.Controls.Player.Dodge.IsPressed(),
+            Crouch = player.Controls.Player.Crouch.IsPressed(),
+            Ready = player.Controls.Player.Ready.IsPressed(),
+            Cancel = player.Controls.Player.Cancel.IsPressed()
+        } : new()
+        {
             Ready = player.Controls.Player.Ready.IsPressed(),
             Cancel = player.Controls.Player.Cancel.IsPressed()
         };
@@ -99,6 +102,8 @@ public class LocalInputController : Controller<LocalInputController>
             FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified) + offset,
             FighterIndex.GetNextGlobalIndexNoBots(QuantumRunner.Default.Game.Frames.Verified) + offset
         );
+
+        player.SetTeamIndex(player.Index.Global);
 
         RuntimePlayer data = new()
         {
@@ -139,6 +144,8 @@ public class LocalInputController : Controller<LocalInputController>
         if (localIndex == -1)
             return;
 
+        int nextGlobalIndex = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified);
+
         CommandSpawnAI commandSpawnAI = new()
         {
             prototype = _bot.CharacterPrototype,
@@ -147,10 +154,11 @@ public class LocalInputController : Controller<LocalInputController>
             index = new()
             {
                 Local = localIndex,
-                Device = HostClientEvents.DeviceIndex,
-                Global = FighterIndex.GetNextGlobalIndex(QuantumRunner.Default.Game.Frames.Verified),
+                Global = nextGlobalIndex,
                 GlobalNoBots = -1,
                 GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(QuantumRunner.Default.Game.Frames.Verified),
+                Team = nextGlobalIndex,
+                Device = HostClientEvents.DeviceIndex,
                 Type = FighterType.Bot,
             },
         };

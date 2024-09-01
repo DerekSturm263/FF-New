@@ -89,6 +89,7 @@ MonoBehaviour:
   _onIfNotEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _resizeIfEmpty: 1
   _onButtonSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -120,21 +121,8 @@ MonoBehaviour:
       - m_Target: {fileID: 1278303187033888724, guid: f5db7276356dff34298365f30a301102,
           type: 3}
         m_TargetAssemblyTypeName: StageController, FusionFighters
-        m_MethodName: Select
+        m_MethodName: MakeSelection
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1278303187033888724, guid: f5db7276356dff34298365f30a301102,
-          type: 3}
-        m_TargetAssemblyTypeName: StageController, FusionFighters
-        m_MethodName: SendToSimulation
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -154,7 +142,9 @@ MonoBehaviour:
   _searchOptions: {fileID: 0}
   _reloadOnEachEnable: 0
   _spawnNoneButton: 1
+  _spawnRandom: 1
   _loadType: -1
+  _type: 0
 --- !u!114 &1921163039228476754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b46cf269cf59564bba08aa2b9b531bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectMethod: 6
+  _selectMethod: 4
   _dontSelect: []
   _resetIndexOnStart: 1
   _delay: 0
@@ -267,3 +257,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stages: {fileID: 7051374468021888189}
+  _isStageSelector: 1

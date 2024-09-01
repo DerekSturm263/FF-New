@@ -3,7 +3,6 @@ using GameResources.UI.Popup;
 using Quantum;
 using System;
 using UnityEngine;
-using static CustomAnimatorGraphAsset;
 
 public class ManualCameraController : MonoBehaviour
 {
@@ -25,16 +24,10 @@ public class ManualCameraController : MonoBehaviour
 
     private void Update()
     {
-        Move(_controls.Camera.Move.ReadValue<Vector2>());
-        Orbit(_controls.Camera.Orbit.ReadValue<Vector2>());
-
-        Zoom(_controls.Camera.Zoom.ReadValue<float>());
-        Tilt(_controls.Camera.Tilt.ReadValue<float>());
-
         transform.rotation = Quaternion.Euler(_rotation);
     }
 
-    private void Move(Vector2 input)
+    public void Move(Vector2 input)
     {
         if (input.magnitude < 0.1f)
             return;
@@ -46,7 +39,7 @@ public class ManualCameraController : MonoBehaviour
         transform.Translate(direction * (dt * _settings.Settings.TranslationSpeed.AsFloat), Space.Self);
     }
 
-    private void Orbit(Vector2 input)
+    public void Orbit(Vector2 input)
     {
         if (input.magnitude < 0.1f)
             return;
@@ -57,7 +50,7 @@ public class ManualCameraController : MonoBehaviour
         _rotation.y += input.x * dt * _settings.Settings.RotationSpeed.AsFloat;
     }
 
-    private void Zoom(float input)
+    public void Zoom(float input)
     {
         Vector3 direction = new(0, 0, input);
 
@@ -66,7 +59,7 @@ public class ManualCameraController : MonoBehaviour
         transform.Translate(direction * (dt * _settings.Settings.ZoomSpeed.AsFloat), Space.Self);
     }
 
-    private void Tilt(float input)
+    public void Tilt(float input)
     {
         float dt = Time.unscaledDeltaTime;
 

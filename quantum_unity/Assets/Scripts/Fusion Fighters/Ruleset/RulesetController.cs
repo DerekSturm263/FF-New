@@ -4,6 +4,8 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Types;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RulesetController : Controller<RulesetController>
@@ -166,6 +168,12 @@ public class RulesetController : Controller<RulesetController>
         _isDirty = true;
     }
 
+    public void SetEnergyConsumptionRate(float energyConsumptionRate)
+    {
+        _currentRuleset.value.Players.EnergyConsumptionRate = FP.FromFloat_UNSAFE(energyConsumptionRate);
+        _isDirty = true;
+    }
+
     public void SetRespawnTime(string respawnTime)
     {
         _currentRuleset.value.Players.RespawnTime = Convert.ToInt32(respawnTime);
@@ -186,25 +194,25 @@ public class RulesetController : Controller<RulesetController>
 
     public unsafe void ToggleStageAvailability(SerializableWrapper<Stage> stage)
     {
-        AssetRefStageAsset[] stages = ArrayHelper.All(_currentRuleset.value.Stage.Stages);
-        int index = Array.IndexOf(stages, new() { Id = stage.FileID });
+        List<AssetRefStageAsset> stages = ArrayHelper.All(_currentRuleset.value.Stage.Stages);
 
-        if (index >= 0)
+        if (stages.Contains(new() { Id = stage.FileID }))
         {
-            ArrayHelper.Set(ref _currentRuleset.value.Stage.Stages, index, new() { Id = 0 });
+            // The stage is in the list and needs to be removed.
+            ArrayHelper.Remove(ref _currentRuleset.value.Stage.Stages, new() { Id = stage.FileID });
         }
         else
         {
-            int firstIndex = Array.FindIndex(stages, item => !item.Id.IsValid);
-            ArrayHelper.Set(ref _currentRuleset.value.Stage.Stages, firstIndex, new() { Id = stage.FileID });
+            // The stage is not in the list and needs to be added.
+            ArrayHelper.Add(ref _currentRuleset.value.Stage.Stages, new() { Id = stage.FileID });
         }
 
         _isDirty = true;
     }
 
-    public void SetStagePicker(int stagePickerType)
+    public void SetStagePicker(StagePickerAsset stagePicker)
     {
-        _currentRuleset.value.Stage.StagePicker = (StagePickerType)stagePickerType;
+        _currentRuleset.value.Stage.StagePicker = new() { Id = stagePicker.AssetObject.Guid };
         _isDirty = true;
     }
 
@@ -234,17 +242,17 @@ public class RulesetController : Controller<RulesetController>
 
     public unsafe void ToggleItemAvailability(ItemAsset item)
     {
-        AssetRefItem[] items = ArrayHelper.All(_currentRuleset.value.Items.Items);
-        int index = Array.IndexOf(items, new() { Id = item.AssetObject.Guid });
+        List<AssetRefItem> items = ArrayHelper.All(_currentRuleset.value.Items.Items);
 
-        if (index >= 0)
+        if (items.Contains(new() { Id = item.AssetObject.Guid }))
         {
-            ArrayHelper.Set(ref _currentRuleset.value.Items.Items, index, new() { Id = 0 });
+            // The item is in the list and needs to be removed.
+            ArrayHelper.Remove(ref _currentRuleset.value.Items.Items, new() { Id = item.AssetObject.Guid });
         }
         else
         {
-            int firstIndex = Array.FindIndex(items, item => !item.Id.IsValid);
-            ArrayHelper.Set(ref _currentRuleset.value.Items.Items, firstIndex, new() { Id = item.AssetObject.Guid });
+            // The item is not in the list and needs to be added.
+            ArrayHelper.Add(ref _currentRuleset.value.Items.Items, new() { Id = item.AssetObject.Guid });
         }
 
         _isDirty = true;
@@ -258,15 +266,21 @@ public class RulesetController : Controller<RulesetController>
 
     public void LoadFromAsset(RulesetAssetAsset ruleset)
     {
-        Load(ruleset.Ruleset);
+        Load(ruleset.Ruleset, ruleset.AssetObject.Guid);
     }
 
-    public void Load(Ruleset ruleset)
+    public void LoadFromSerializable(SerializableWrapper<Ruleset> ruleset)
+    {
+        Load(ruleset.value, ruleset.FileID);
+        SendToSimulation();
+    }
+
+    public void Load(Ruleset ruleset, AssetGuid? guid = null)
     {
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentRuleset = new(ruleset, GetPath(), "", "", AssetGuid.NewGuid(), filterTags, groupTags);
+        _currentRuleset = new(ruleset, GetPath(), "", "", guid.GetValueOrDefault(AssetGuid.NewGuid()), filterTags, groupTags);
 
         FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }

@@ -4,41 +4,9 @@ namespace Quantum
 {
     public unsafe partial struct CharacterController
     {
-        public void SetState(States state, bool isSet)
-        {
-            if (isSet)
-                States.Set((int)state);
-            else
-                States.Clear((int)state);
-        }
-
-        public readonly bool IsInState(States state) => States.IsSet((int)state);
-        public readonly bool IsInState(params States[] states)
-        {
-            for (int i = 0; i < states.Length; ++i)
-                if (States.IsSet((int)states[i]))
-                    return true;
-
-            return false;
-        }
-
-        public void SetIsHolding(States state, bool isHolding)
-        {
-            if (isHolding)
-                Holding.Set((int)state);
-            else
-                Holding.Clear((int)state);
-        }
-
-        public readonly bool IsHolding(States state) => Holding.IsSet((int)state);
-        public readonly bool IsHolding(params States[] states)
-        {
-            for (int i = 0; i < states.Length; ++i)
-                if (Holding.IsSet((int)states[i]))
-                    return true;
-
-            return false;
-        }
+        public readonly bool IsHeldThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button);
+        public readonly bool WasPressedThisFrame(Input input, Input.Buttons button) => input.InputButtons.HasFlag(button) && !LastFrame.InputButtons.HasFlag(button);
+        public readonly bool WasReleasedThisFrame(Input input, Input.Buttons button) => !input.InputButtons.HasFlag(button) && LastFrame.InputButtons.HasFlag(button);
 
         public readonly Colliders GetNearbyColliders(Frame f, MovementSettings movementSettings, Transform2D* parent)
         {
@@ -58,39 +26,51 @@ namespace Quantum
 
         public readonly bool GetNearbyCollider(Colliders collider) => NearbyColliders.HasFlag(collider);
 
-        public readonly MovementMoveSettings GetMoveSettings(MovementSettings movementSettings)
+        public readonly MovementMoveSettings GetMoveSettings(PlayerState state)
         {
             if (GetNearbyCollider(Colliders.Ground))
-                return movementSettings.GroundedMoveSettings;
+                return state.GroundedMovement;
             else
-                return movementSettings.AerialMoveSettings;
+                return state.AerialMovement;
         }
 
-        public readonly MovementCurveSettings GetJumpSettings(MovementSettings movementSettings)
+        public readonly MovementCurveSettings GetJumpSettings(JumpState state)
         {
-            return JumpSettingsIndex switch
+            return JumpType switch
             {
-                0 => movementSettings.ShortHopSettings,
-                1 => movementSettings.FullHopSettings,
-                2 => movementSettings.AerialJumpSettings,
-                3 => movementSettings.WallJumpSettings,
+                JumpType.ShortHop => state.ShortJump,
+                JumpType.FullHop => state.FullJump,
+                JumpType.Aerial => state.AerialJump,
                 _ => default,
             };
         }
 
-        public readonly MovementCurveSettings GetDodgeSettings(MovementSettings movementSettings)
+        public readonly MovementCurveSettingsXY GetDodgeSettings(DodgeState state)
         {
-            return DodgeSettingsIndex switch
+            return DodgeType switch
             {
-                0 => movementSettings.GroundedDodgeSettings,
-                1 => movementSettings.AerialDodgeSettings,
+                DodgeType.Spot => state.SpotDodge,
+                DodgeType.RollForward => state.ForwardRoll,
+                DodgeType.RollBackward => state.BackwardRoll,
+                DodgeType.Aerial => state.AerialDodge,
                 _ => default,
             };
         }
 
-        public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, ApparelStats stats)
+        public void Move(Frame f, FP amount, ref CharacterControllerSystem.Filter filter, MovementSettings movementSettings, PlayerState state, ApparelStats stats, FP multiplier)
         {
-            MovementMoveSettings moveSettings = GetMoveSettings(movementSettings);
+            if (!CanInput || filter.Shakeable->Time > 0)
+            {
+                filter.PhysicsBody->Velocity.X = filter.CharacterController->CurrentKnockback.Direction.X;
+                return;
+            }
+
+            MovementMoveSettings moveSettings = GetMoveSettings(state);
+
+            if (GetNearbyCollider(Colliders.LeftWall) && amount < 0)
+                amount = 0;
+            if (GetNearbyCollider(Colliders.RightWall) && amount > 0)
+                amount = 0;
 
             //bool isTurning = false;
 
@@ -109,7 +89,7 @@ namespace Quantum
                 FP topSpeed = CalculateTopSpeed(moveSettings, amount);
 
                 // Apply the target velocity based on their speed.
-                if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.Sign(amount) != FPMath.Sign(Velocity))
+                if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.SignInt(amount) != FPMath.SignInt(Velocity))
                 {
                     Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.TurnAroundSpeed);
                     //isTurning = true;
@@ -126,12 +106,12 @@ namespace Quantum
                 // Set the player's look direction.
                 if (GetNearbyCollider(Colliders.Ground))
                 {
-                    if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0)
+                    if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0 && !GetNearbyCollider(Colliders.RightWall))
                     {
                         MovementDirection = -1;
                         f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
                     }
-                    else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0)
+                    else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0 && !GetNearbyCollider(Colliders.LeftWall))
                     {
                         MovementDirection = 1;
                         f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
@@ -143,6 +123,8 @@ namespace Quantum
             }
 
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity / 10));
+
+            filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * multiplier * stats.Agility) + filter.CharacterController->CurrentKnockback.Direction.X;
         }
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);

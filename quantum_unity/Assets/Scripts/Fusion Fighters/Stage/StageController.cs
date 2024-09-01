@@ -1,12 +1,15 @@
 using Extensions.Components.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Linq;
 using UnityEngine;
 
 public class StageController : Controller<StageController>
 {
     [SerializeField] private StageAssetAsset _default;
     [SerializeField] private StageAssetAsset _none;
+
+    [SerializeField] private AssetRefStagePicker _vote;
 
     [SerializeField] private Popup _savePopup;
 
@@ -20,6 +23,32 @@ public class StageController : Controller<StageController>
     {
         _currentStage = stage;
         _isDirty = false;
+    }
+
+    public unsafe void MakeSelection(SerializableWrapper<Stage> stage, FighterIndex index)
+    {
+        CommandMakeStageSelection command = new()
+        {
+            fighterIndex = index,
+            stage = stage
+        };
+
+        QuantumRunner.Default.Game.SendCommand(command);
+
+        var selectors = FindObjectsByType<ChooseSelector>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        selectors.First(item => item.Binding.Player.Index.Equals(index)).SetActive(false);
+
+        if (RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id == _vote.Id)
+        {
+            int count = QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers - QuantumRunner.Default.Game.Frames.Verified.Global->SelectedPlayerCount - 1;
+            FindFirstObjectByType<DisplayStagePickerInfo>().SetText($"Waiting on {count} player(s) to vote");
+        }
+    }
+
+    public unsafe void ResetSelection()
+    {
+        CommandResetStageSelection command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
     }
 
     public override void Initialize()
@@ -93,17 +122,24 @@ public class StageController : Controller<StageController>
 
     public void LoadFromAsset(StageAssetAsset stage)
     {
-        Load(stage.Stage);
+        Load(stage.Stage, stage.AssetObject.Guid);
     }
 
-    public void Load(Stage stage)
+    public void LoadFromSerializable(SerializableWrapper<Stage> stage)
+    {
+        Load(stage.value, stage.FileID, false);
+        SendToSimulation();
+    }
+
+    public void Load(Stage stage, AssetGuid? guid = null, bool deferSimulation = true)
     {
         string[] filterTags = new string[] { };
         Extensions.Types.Tuple<string, string>[] groupTags = new Extensions.Types.Tuple<string, string>[] { };
 
-        _currentStage = new(stage, GetPath(), "", "", AssetGuid.NewGuid(), filterTags, groupTags);
+        _currentStage = new(stage, GetPath(), "", "", guid.GetValueOrDefault(AssetGuid.NewGuid()), filterTags, groupTags);
 
-        FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
+        if (deferSimulation)
+            FindFirstObjectByType<QuantumRunnerLocalDebug>().OnStart.AddListener(_ => SendToSimulation());
     }
 
     public void ResetValue()

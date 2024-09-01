@@ -124,6 +124,7 @@ namespace Extensions.Components.UI
 
         [SerializeField] protected bool _reloadOnEachEnable;
         [SerializeField] protected bool _spawnNoneButton = true;
+        [SerializeField] protected bool _spawnRandom = false;
 
         protected Dictionary<T, GameObject> _itemsToButtons = new();
         protected List<GameObject> _headers = new();
@@ -214,6 +215,12 @@ namespace Extensions.Components.UI
             if (!_spawnNoneButton)
                 items = items.Where(item => !IsNone(item));
 
+            if (_spawnRandom)
+            {
+                T random = Random(items);
+                items = items.Append(random);
+            }
+
             foreach (T item in items)
             {
                 AddItem(item);
@@ -256,7 +263,7 @@ namespace Extensions.Components.UI
 
         public void FilterList(params Func<T, bool>[] extraFunctions)
         {
-            List<T> filtered = _itemsToButtons.Keys.Where(item => _currentFilterMode.Invoke(item) || IsNone(item)).ToList();
+            List<T> filtered = _itemsToButtons.Keys.Where(item => _currentFilterMode.Invoke(item) || IsNone(item) || IsRandom(item)).ToList();
             foreach (var func in extraFunctions)
             {
                 filtered = filtered.Where(func).ToList();
@@ -324,6 +331,10 @@ namespace Extensions.Components.UI
             var none = _itemsToButtons.FirstOrDefault(item => IsNone(item.Key));
             if (none.Key is not null && none.Value)
                 none.Value.transform.SetSiblingIndex(_headers.Count > 0 ? 1 : 0);
+
+            var random = _itemsToButtons.FirstOrDefault(item => IsRandom(item.Key));
+            if (random.Key is not null && random.Value)
+                random.Value.transform.SetSiblingIndex(_headers.Count > 0 ? 1 : 0);
 
             var top = gameObject.FindChildWithTag("Top", false);
             if (top)
@@ -426,6 +437,8 @@ namespace Extensions.Components.UI
         }
 
         protected abstract IEnumerable<T> LoadAll();
+        protected abstract T Random(IEnumerable<T> items);
+        protected abstract void ReassignRandom(ref T random, IEnumerable<T> items);
 
         protected abstract string Name(T item);
         protected abstract string Description(T item);
@@ -444,6 +457,7 @@ namespace Extensions.Components.UI
         protected virtual bool GiveEvents(T item) => true;
         protected abstract bool IsEquipped(T item);
         protected abstract bool IsNone(T item);
+        protected abstract bool IsRandom(T item);
 
         protected virtual void Decorate(GameObject buttonObj, T item)
         {
@@ -517,11 +531,22 @@ namespace Extensions.Components.UI
                         {
                             _itemsToButtons[item].FindChildWithTag("Checkmark", true).SetActive(IsEquipped(item));
                         }
+
+                        if (IsRandom(item))
+                            ReassignRandom(ref item, _itemsToButtons.Keys.Where(item => !IsRandom(item)));
                     });
                 }
 
                 if (multiplayerButton)
-                    multiplayerButton.onClick.AddListener((playerNum) => _onButtonClickMultiplayer.Invoke(item, playerNum));
+                {
+                    multiplayerButton.onClick.AddListener((playerNum) =>
+                    {
+                        _onButtonClickMultiplayer.Invoke(item, playerNum);
+
+                        if (IsRandom(item))
+                            ReassignRandom(ref item, _itemsToButtons.Keys.Where(item => !IsRandom(item)));
+                    });
+                }
 
                 if (dragAndDrop)
                     dragAndDrop.SetValue(item);

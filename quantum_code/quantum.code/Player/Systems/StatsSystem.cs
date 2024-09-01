@@ -11,15 +11,15 @@ namespace Quantum
             public EntityRef Entity;
 
             public Transform2D* Transform;
-            public CharacterController* CharacterController;
-            public CustomAnimator* CustomAnimator;
             public Stats* Stats;
         }
 
         public override void Update(Frame f, ref Filter filter)
         {
-            UpdateHurtboxes(f, ref filter);
+            if (filter.Stats->IFrameTime > 0)
+                --filter.Stats->IFrameTime;
 
+            UpdateHurtboxes(f, ref filter);
             UpdateStatusEffect(f, filter.Entity, filter.Stats);
         }
 
@@ -72,14 +72,14 @@ namespace Quantum
 
         private void UpdateHurtbox(Frame f, ref Filter filter, EntityRef hurtbox)
         {
-            if (f.Unsafe.TryGetPointer(hurtbox, out ChildParentLink* childParentLink) && f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance))
+            if (f.Unsafe.TryGetPointer(hurtbox, out ChildParentLink* childParentLink) && f.Unsafe.TryGetPointer(hurtbox, out HurtboxInstance* hurtboxInstance) && f.Unsafe.TryGetPointer(filter.Entity, out CustomAnimator* customAnimator) && f.Unsafe.TryGetPointer(filter.Entity, out CharacterController* characterController))
             {
-                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, filter.CustomAnimator).hurtboxPositions[hurtboxInstance->Index];
+                HurtboxTransformInfo transform = CustomAnimator.GetFrame(f, customAnimator).hurtboxPositions[hurtboxInstance->Index];
 
                 childParentLink->LocalPosition = transform.position;
                 childParentLink->LocalRotation = transform.rotation;
 
-                if (filter.CharacterController->MovementDirection < 0)
+                if (characterController->MovementDirection < 0)
                     childParentLink->LocalPosition.X *= -1;
             }
         }
@@ -108,6 +108,7 @@ namespace Quantum
                 if (stats->StatusEffectTimeLeft == 0)
                 {
                     statusEffect.OnRemove(f, entity);
+                    stats->StatusEffect.Id = AssetGuid.Invalid;
                 }
                 else if (stats->StatusEffectTimeLeft % statusEffect.TickRate == 0)
                 {
@@ -118,6 +119,14 @@ namespace Quantum
 
         public static bool ModifyHealth(Frame f, EntityRef entityRef, Stats* stats, FP amount, bool triggerDeath)
         {
+            if (f.Unsafe.TryGetPointer(entityRef, out PlayerStats* playerStats))
+            {
+                if (amount < 0)
+                    playerStats->Stats.TotalDamageTaken -= amount;
+                else
+                    playerStats->Stats.TotalDamageHealed += amount;
+            }
+
             return SetHealth(f, entityRef, stats, stats->CurrentStats.Health + amount * stats->StatsMultiplier.Health, triggerDeath);
         }
 
@@ -137,7 +146,7 @@ namespace Quantum
             if (triggerDeath && stats->CurrentStats.Health <= 0)
             {
                 ModifyStocks(f, entityRef, stats, -1);
-                stats->CurrentStats.Health = f.Global->CurrentMatch.Ruleset.Players.MaxHealth;
+                stats->IsDead = true;
 
                 didDie = true;
             }
@@ -167,7 +176,15 @@ namespace Quantum
 
         public static void ModifyEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
         {
-            SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + amount * stats->StatsMultiplier.Energy * f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate);
+            if (f.Unsafe.TryGetPointer(entityRef, out PlayerStats* playerStats))
+            {
+                if (amount > 0)
+                    playerStats->Stats.TotalEnergyGenerated += amount;
+                else
+                    playerStats->Stats.TotalEnergyConsumed += amount;
+            }
+
+            SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + (amount * stats->StatsMultiplier.Energy * (amount > 0 ? f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate : f.Global->CurrentMatch.Ruleset.Players.EnergyConsumptionRate)));
         }
 
         public static void SetEnergy(Frame f, EntityRef entityRef, Stats* stats, FP amount)
@@ -246,10 +263,13 @@ namespace Quantum
             }
         }
 
-        public static void ModifyHurtboxes(Frame f, EntityRef entity, HurtboxType hurtboxesType, HurtboxSettings settings)
+        public static void ModifyHurtboxes(Frame f, EntityRef entity, HurtboxType hurtboxesType, HurtboxSettings settings, bool doReset)
         {
             if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
             {
+                if (!doReset && stats->IsRespawning)
+                    return;
+
                 var hurtboxes = f.ResolveDictionary(stats->Hurtboxes);
 
                 for (int i = 0; i < 15; ++i)

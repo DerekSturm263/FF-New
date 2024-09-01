@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -45,7 +46,7 @@ namespace Quantum
                 ++f.Global->PlayersReady;
                 f.Events.OnPlayerReady(filter.Entity, filter.PlayerStats->Index);
 
-                if (f.Global->TotalPlayers > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
+                if (FighterIndex.GetAllTeams(f).Count() > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
                 {
                     HandleAllPlayersReady(f);
                 }
@@ -75,16 +76,12 @@ namespace Quantum
         {
             f.Events.OnAllPlayersReady();
 
-            f.SystemDisable<CharacterControllerSystem>();
-
             TimerSystem.ResumeCountdown(f);
             TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time + 3), true);
         }
 
         private void HandleAllPlayersCancel(Frame f)
         {
-            f.SystemEnable<CharacterControllerSystem>();
-
             TimerSystem.StopCountdown(f);
             TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), false);
 

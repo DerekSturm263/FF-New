@@ -17,18 +17,25 @@ MonoBehaviour:
       Path: 
       Guid:
         Value: 0
-  Description: Automatically gravitate nearby items to you.
+  Icon: {fileID: 21300000, guid: 33c42582bd986ac4480c2120207f1b32, type: 3}
+  Description: Automatically gravitate nearby items to you and use them.
   IncludeInLists: 1
   IsUnlocked: 0
   StartingCount:
     _nonNullValue: 0
     _hasValue: 0
   Price: 0
-  Icon: {fileID: 21300000, guid: 33c42582bd986ac4480c2120207f1b32, type: 3}
-  Background: {fileID: 0}
-  SortingID: 0
+  FilterTags: []
+  GroupTags: []
+  isRandom: 0
   Settings_MagneticBadge:
     Identifier:
       Path: Resources/DB/Assets/Build/Equipment/Badges/Magnetic
       Guid:
         Value: 3812080008090441664
+    Speed:
+      RawValue: 327680
+    FollowRadius:
+      RawValue: 327680
+    GrabRadius:
+      RawValue: 98304

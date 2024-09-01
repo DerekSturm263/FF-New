@@ -2,5 +2,7 @@ event OnCameraShake
 {
 	asset_ref<ShakeSettings> Settings;
 	FPVector2 Direction;
+
 	bool Global;
+	EntityRef Defender;
 }

@@ -7,22 +7,21 @@ namespace Quantum
         [System.Flags]
         public enum Buttons : ushort
         {
-            None = 1 << 0,           // Player is not pressing any buttons
             Jump = 1 << 1,           // Player pressed the “jump” button this tick
-            FastFall = 1 << 2,       // Player pressed the “fast fall” button this tick
-            Crouch = 1 << 3,         // Player pressed the “crouch” button this tick
+            LookUp = 1 << 2,         // Player pressed the “look up” button this tick
+            Burst = 1 << 3,          // Player pressed the “burst” button this tick
             Block = 1 << 4,          // Player pressed the “block” button this tick
 
             MainWeapon = 1 << 5,     // Player pressed the “main weapon” button this tick
             AlternateWeapon = 1 << 6,// Player pressed the “skill” button this tick
-            SubWeapon1 = 1 << 7,     // Player pressed the “sub-weapon” button this tick
-            SubWeapon2 = 1 << 8,     // Player pressed the “sub-weapon” button this tick
+            SubWeapon = 1 << 7,      // Player pressed the “sub-weapon” button this tick
+            Ultimate = 1 << 8,       // Player pressed the “ultimate” button this tick
 
             Emote = 1 << 9,          // Player pressed the “emote” button this tick
-            Interact = 1 << 10,      // Player pressed the “interact” button this tick
+            LeftRight = 1 << 10,     // Player pressed the “interact” button this tick
 
-            Join = 1 << 11,          // Player pressed the “join” button this tick
-            Leave = 1 << 12,         // Player pressed the “leave” button this tick
+            Dodge = 1 << 11,         // Player pressed the “dodge” button this tick
+            Crouch = 1 << 12,        // Player pressed the “leave” button this tick
             Ready = 1 << 13,         // Player pressed the “ready” button this tick
             Cancel = 1 << 14         // Player pressed the “cancel” button this tick
         }
@@ -87,7 +86,7 @@ namespace Quantum
 
         private static FP DOT_SUCCESS = FP._0_50;
 
-        public FPVector2 SnapMovementTo8Directions
+        public readonly FPVector2 SnapMovementTo8Directions
         {
             get
             {
@@ -108,10 +107,10 @@ namespace Quantum
             }
         }
 
-        public bool MovementUp => SnapMovementTo8Directions == FPVector2.Up;
-        public bool MovementDown => SnapMovementTo8Directions == FPVector2.Down;
-        public bool MovementLeft => SnapMovementTo8Directions == FPVector2.Left;
-        public bool MovementRight => SnapMovementTo8Directions == FPVector2.Right;
+        public readonly bool MovementUp => SnapMovementTo8Directions == FPVector2.Up;
+        public readonly bool MovementDown => SnapMovementTo8Directions == FPVector2.Down;
+        public readonly bool MovementLeft => SnapMovementTo8Directions == FPVector2.Left;
+        public readonly bool MovementRight => SnapMovementTo8Directions == FPVector2.Right;
 
         public bool Jump
         {
@@ -128,33 +127,33 @@ namespace Quantum
             }
         }
 
-        public bool FastFall
+        public bool LookUp
         {
             readonly get
             {
-                return (InputButtons & Buttons.FastFall) != 0;
+                return (InputButtons & Buttons.LookUp) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.FastFall;
+                    InputButtons |= Buttons.LookUp;
                 else
-                    InputButtons &= ~Buttons.FastFall;
+                    InputButtons &= ~Buttons.LookUp;
             }
         }
 
-        public bool Crouch
+        public bool Burst
         {
             readonly get
             {
-                return (InputButtons & Buttons.Crouch) != 0;
+                return (InputButtons & Buttons.Burst) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.Crouch;
+                    InputButtons |= Buttons.Burst;
                 else
-                    InputButtons &= ~Buttons.Crouch;
+                    InputButtons &= ~Buttons.Burst;
             }
         }
 
@@ -172,8 +171,6 @@ namespace Quantum
                     InputButtons &= ~Buttons.Block;
             }
         }
-
-        public readonly bool Dodge => Block && Magnitude > FP._0_05;
 
         public bool MainWeapon
         {
@@ -205,41 +202,35 @@ namespace Quantum
             }
         }
 
-        public bool SubWeapon1
+        public bool SubWeapon
         {
             private readonly get
             {
-                return (InputButtons & Buttons.SubWeapon1) != 0;
+                return (InputButtons & Buttons.SubWeapon) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.SubWeapon1;
+                    InputButtons |= Buttons.SubWeapon;
                 else
-                    InputButtons &= ~Buttons.SubWeapon1;
+                    InputButtons &= ~Buttons.SubWeapon;
             }
         }
 
-        public bool SubWeapon2
+        public bool Ultimate
         {
             private readonly get
             {
-                return (InputButtons & Buttons.SubWeapon2) != 0;
+                return (InputButtons & Buttons.Ultimate) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.SubWeapon2;
+                    InputButtons |= Buttons.Ultimate;
                 else
-                    InputButtons &= ~Buttons.SubWeapon2;
+                    InputButtons &= ~Buttons.Ultimate;
             }
         }
-
-        public readonly bool SubWeapon => SubWeapon1 || SubWeapon2;
-
-        public readonly bool Ultimate => MainWeapon && AlternateWeapon;
-
-        public readonly bool Burst => SubWeapon1 && SubWeapon2;
 
         public bool Emote
         {
@@ -256,48 +247,48 @@ namespace Quantum
             }
         }
 
-        public bool Interact
+        public bool LeftRight
         {
             readonly get
             {
-                return (InputButtons & Buttons.Interact) != 0;
+                return (InputButtons & Buttons.LeftRight) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.Interact;
+                    InputButtons |= Buttons.LeftRight;
                 else
-                    InputButtons &= ~Buttons.Interact;
+                    InputButtons &= ~Buttons.LeftRight;
             }
         }
 
-        public bool Join
+        public bool Dodge
         {
             readonly get
             {
-                return (InputButtons & Buttons.Join) != 0;
+                return (InputButtons & Buttons.Dodge) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.Join;
+                    InputButtons |= Buttons.Dodge;
                 else
-                    InputButtons &= ~Buttons.Join;
+                    InputButtons &= ~Buttons.Dodge;
             }
         }
 
-        public bool Leave
+        public bool Crouch
         {
             readonly get
             {
-                return (InputButtons & Buttons.Leave) != 0;
+                return (InputButtons & Buttons.Crouch) != 0;
             }
             set
             {
                 if (value == true)
-                    InputButtons |= Buttons.Leave;
+                    InputButtons |= Buttons.Crouch;
                 else
-                    InputButtons &= ~Buttons.Leave;
+                    InputButtons &= ~Buttons.Crouch;
             }
         }
 

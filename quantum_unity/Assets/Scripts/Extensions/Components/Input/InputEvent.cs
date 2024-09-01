@@ -2,7 +2,6 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace Extensions.Components.Input
 {
@@ -11,9 +10,6 @@ namespace Extensions.Components.Input
         [SerializeField] protected InputButton _button;
         public InputButton Button => _button;
         public void SetButton(InputButton button) => _button = button;
-
-        [SerializeField] protected InputButton _button2Optional;
-        public InputButton Button2Optional => _button2Optional;
 
         private InputAction _action;
 
@@ -32,6 +28,9 @@ namespace Extensions.Components.Input
         [SerializeField] protected UnityEvent<Vector2> _onVector2Action;
         public UnityEvent<Vector2> OnVector2Action => _onVector2Action;
 
+        [SerializeField] protected UnityEvent<InputAction.CallbackContext> _onCtxAction;
+        public UnityEvent<InputAction.CallbackContext> OnCtxAction => _onCtxAction;
+
         protected bool _isReady;
 
         private void Awake()
@@ -47,6 +46,8 @@ namespace Extensions.Components.Input
                 "Vector2" => ctx => { if (HasFocus() && !IsInputting()) Invoke(ctx.ReadValue<Vector2>()); },
                 _ => ctx => { if (HasFocus() && !IsInputting()) Invoke(); }
             };
+
+            _action.performed += _onCtxAction.Invoke;
         }
 
         private void Update()
@@ -65,7 +66,7 @@ namespace Extensions.Components.Input
 
                 case "Vector2":
                     Vector2 value2 = _action.ReadValue<Vector2>();
-                    if ((_processWhenEmpty || value2.x != 0 || value2.y != 0) && HasFocus() && !IsInputting())
+                    if ((_processWhenEmpty || value2 != Vector2.zero) && HasFocus() && !IsInputting())
                         Invoke(value2);
 
                     break;

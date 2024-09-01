@@ -23,9 +23,9 @@ enum Goal
 
 component AIData
 {
-	asset_ref<Behavior> Behavior;
 
 	entity_ref Target;
 	Goal CurrentGoal;
 	FP TimeSinceAction;
+	FP TimeSinceTargetSwitch;
 }

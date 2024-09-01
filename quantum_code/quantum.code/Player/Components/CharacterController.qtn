@@ -1,31 +1,42 @@
 enum States
 {
-    IsCrouching,
-    IsJumping,
-    IsFastFalling,
-    IsBursting,
-    IsDodging,
-    IsBlocking,
-    IsEmoting,
-    IsUsingSubWeapon,
-    IsUsingUltimate,
-    IsInteracting,
-    IsUsingMainWeapon,
-    IsUsingAltWeapon,
+    Default,
+    Jump,
+    Crouch,
+    LookUp,
+    Dodge,
+    Block,
+    Burst,
+    Emote,
+    Sub,
+    Ultimate,
+    Interact,
+    Primary,
+    Secondary,
+    Dead,
+    Knockback,
+    KnockedOver
 }
 
 [System.Flags]
 enum StatesFlag
 {
-    Move = 1,
-    Crouch = 2,
-    Jump = 4,
-    FastFall = 8,
-    Burst = 16,
-    Dodge = 32,
-    Block = 64,
+    Default = 1,
+    Jump = 2,
+    Crouch = 4,
+    LookUp = 8,
+    Dodge = 16,
+    Block = 32,
+    Burst = 64,
     Emote = 128,
+    Sub = 256,
+    Ultimate = 512,
     Interact = 1024,
+    Primary = 2048,
+    Secondary = 4096,
+    Dead = 8192,
+    Knockback = 16384,
+    KnockedOver = 32768
 }
 
 [System.Flags]
@@ -37,45 +48,73 @@ enum Colliders
     Ceiling = 8
 }
 
+enum JumpType
+{
+    ShortHop,
+    FullHop,
+    Aerial
+}
+
+enum DodgeType
+{
+    Spot,
+    RollForward,
+    RollBackward,
+    Aerial
+}
+
 component CharacterController
 {
-    bool CanInput;
+    // General
+	asset_ref<Behavior> Behavior;
 	asset_ref<MovementSettings> Settings;
-    bitset[12] States;
-    bitset[12] Holding;
-    int StateTime;
-
+    bool CanInput;
     Colliders NearbyColliders;
-    FP KnockbackVelocityX;
-    FP KnockbackVelocityTime;
+    int MovementDirection;
+
+    // State Handling
+    Direction DirectionEnum;
+    FPVector2 DirectionValue;
+    asset_ref<PlayerState> CurrentState;
+    asset_ref<PlayerState> NextState;
+    StatesFlag PossibleStates;
+    int StateTime;
+    int NextStateTime;
+    Input LastFrame;
+    bool StartedInAir;
+
+    // Knockback
+    FPVector2 OriginalPosition;
+    KnockbackInfo DeferredKnockback;
+    KnockbackInfo CurrentKnockback;
+    KnockbackInfo OldKnockback;
 
     // Move
     FP Velocity;
     FP MovingLerp;
-    FP Influence;
 
     // Jump
     bool GroundedJump;
+    JumpType JumpType;
     short JumpCount;
-    short JumpSettingsIndex;
-    int JumpTime;
     
     // Dodge
     bool GroundedDodge;
-    FPVector2 DodgeDirection;
+    DodgeType DodgeType;
     short DodgeCount;
-    short DodgeSettingsIndex;
-    int DodgeTime;
 
-    // Attacking/Emoting
-    Direction Direction;
-    int MovementDirection;
-    StatesFlag PossibleStates;
-    bool IsCommitted;
-    
-    // Holding Animations
+    // Interacting
+    bool IsThrowing;
+    bool HasSubWeapon;
+    FP ThrowMultiplier;
+
+    // Animation Events
 	int HeldAnimationFrameTime;
 	int MaxHoldAnimationFrameTime;
+    int HoldButton;
+    bool ButtonHeld;
+    FPVector2 ApplyPhysicsPosition;
+    bool PressedButton;
 
     // Readiness
     bool IsReady;
@@ -83,4 +122,7 @@ component CharacterController
 	
     // Ultimate
     int UltimateTime;
+
+    // Miscellaneous
+    entity_ref DigitalDouble;
 }

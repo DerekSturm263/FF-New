@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0faede8a365ff94e9e7540698611055, type: 3}
+  m_Name: Switch Menus
+  m_EditorClassIdentifier: 
+  _idsToIcons:
+    _kvps:
+    - _item1: Keyboard
+      _item2: {fileID: -819934211, guid: 99e28aec0a8f67143b4b4782ab1e4310, type: 3}
+    - _item1: Xbox Controller
+      _item2: {fileID: 21300048, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+    - _item1: PlayStation Controller
+      _item2: {fileID: 21300046, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+    - _item1: Switch Pro Controller
+      _item2: {fileID: 21300046, guid: e35b1509688e6294cad1ada6c91b7693, type: 3}
+  _action:
+    m_Name: Action
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 6a4a20b2-1b0c-4841-86db-976280f5a03d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: adb906d8-a6e8-4916-a11f-fe715fb86516
+      m_Path: <Keyboard>/ctrl
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: b2165e24-3591-4d88-baf6-de8a9f3e0ec1
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Gamepad
+      m_Action: Action
+      m_Flags: 0
+    m_Flags: 0

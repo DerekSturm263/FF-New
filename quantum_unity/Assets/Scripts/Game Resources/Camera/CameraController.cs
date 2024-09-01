@@ -94,6 +94,7 @@ namespace GameResources.Camera
         private EntityViewUpdater _entityView;
         private ParticleSystem _particleSystem;
         private Volume _volume;
+        private ManualCameraController _manualMode;
 
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
@@ -117,7 +118,14 @@ namespace GameResources.Camera
             {
                 Initialize();
 
-                QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global));
+                QuantumEvent.Subscribe<EventOnCameraShake>(listener: this, handler: e => Shake(e.Settings, e.Direction.ToUnityVector2(), e.Global, e.Defender));
+                QuantumEvent.Subscribe<EventOnSetCameraSettings>(listener: this, handler: e =>
+                {
+                    var oldSettings = _settings;
+                    //SetCameraSettings(UnityDB.FindAsset<CameraSettingsAsset>(e.Settings.Id));
+
+                    //Helper.Delay(e.Time.AsFloat, () => SetCameraSettings(oldSettings));
+                });
             }
 
             _targetPosition = transform.position;
@@ -126,9 +134,10 @@ namespace GameResources.Camera
             _cam = GetComponent<UnityEngine.Camera>();
             _particleSystem = GetComponentInChildren<ParticleSystem>();
             _volume = GetComponent<Volume>();
+            _manualMode = GetComponent<ManualCameraController>();
 
             _entityView = FindFirstObjectByType<EntityViewUpdater>();
-            _internalCams = GetComponentsInChildren<UnityEngine.Camera>();
+            _internalCams = GetComponentsInChildren<UnityEngine.Camera>(true);
         }
 
         private void LateUpdate()
@@ -175,7 +184,7 @@ namespace GameResources.Camera
         {
             Vector3 targetPosition = default;
             
-            if (_targets.Count > 0)
+            if (_targets.Count > 0 && _targets.Sum(item => item.Item1) > 0)
             {
                 float targetCountWeight = 0;
                 for (int i = 0; i < _targets.Count; ++i)
@@ -293,6 +302,17 @@ namespace GameResources.Camera
             }
         }
 
+        public void ClearAllWeights()
+        {
+            if (!_instance)
+                return;
+
+            for (int i = 0; i < _instance._targets.Count; ++i)
+            {
+                _instance._targets[i] = new(0, _instance._targets[i].Item2);
+            }
+        }
+
         public void SetTargets(IEnumerable<Transform> targets)
         {
             _instance._targets.Clear();
@@ -320,7 +340,7 @@ namespace GameResources.Camera
             _instance._targets.Clear();
         }
 
-        private void Shake(AssetRefShakeSettings settings, Vector2 direction, bool doHaptics)
+        private void Shake(AssetRefShakeSettings settings, Vector2 direction, bool isGlobal, EntityRef defender)
         {
             if (!settings.Id.IsValid)
                 return;
@@ -328,12 +348,17 @@ namespace GameResources.Camera
             ShakeSettingsAsset shakeSettings = UnityDB.FindAsset<ShakeSettingsAsset>(settings.Id);
             Shake(shakeSettings.Settings, direction);
 
-            if (doHaptics)
+            if (isGlobal)
             {
                 foreach (var player in PlayerJoinController.Instance.GetAllLocalPlayers(true))
                 {
                     PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
                 }
+            }
+            else if (QuantumRunner.Default.Game.Frames.Verified.TryGet(defender, out PlayerStats stats))
+            {
+                if (PlayerJoinController.Instance.TryGetPlayer(stats.Index, out LocalPlayerInfo player))
+                    PlayerJoinController.Instance.Rumble(player, player.Profile.value.HapticStrength * shakeSettings.Settings.Strength.AsFloat * 0.1f, 0.3f);
             }
         }
 
@@ -345,9 +370,29 @@ namespace GameResources.Camera
             _instance._shakeDirection = direction;
         }
 
+        public void Move(Vector2 input)
+        {
+            _instance._manualMode.Move(input);
+        }
+
+        public void Orbit(Vector2 input)
+        {
+            _instance._manualMode.Orbit(input);
+        }
+
+        public void Zoom(float input)
+        {
+            _instance._manualMode.Zoom(input);
+        }
+
+        public void Tilt(float input)
+        {
+            _instance._manualMode.Tilt(input);
+        }
+
         public void ToggleManualMode(bool useManual)
         {
-            _instance.GetComponent<ManualCameraController>().enabled = useManual;
+            _instance._manualMode.enabled = useManual;
             _instance.enabled = !useManual;
         }
 

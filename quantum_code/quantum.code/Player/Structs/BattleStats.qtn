@@ -2,13 +2,16 @@ struct BattleStats
 {
 	int Kills;
 	int Deaths;
-
-	FP TotalDamageDealt;
-	FP TotalDamageReceived;
-	FP TotalDamageHealed;
-
 	FP TimeSurvived;
 
+	FP TotalDamageDealt;
+	FP TotalDamageTaken;
+	FP TotalDamageHealed;
+
+	FP TotalEnergyGenerated;
+	FP TotalEnergyConsumed;
+
+	int SubUses;
 	int UltimateUses;
 	int ItemUses;
 }

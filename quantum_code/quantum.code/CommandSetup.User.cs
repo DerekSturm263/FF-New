@@ -10,6 +10,9 @@ namespace Quantum
             // user commands go here
             factories.Add(new CommandSetBuild());
             factories.Add(new CommandSetStage());
+            factories.Add(new CommandMakeStageSelection());
+            factories.Add(new CommandResetStageSelection());
+            factories.Add(new CommandResetSelectionIndex());
             factories.Add(new CommandSetRuleset());
             factories.Add(new CommandSpawnAI());
             factories.Add(new CommandDespawnPlayer());
@@ -39,9 +42,14 @@ namespace Quantum
             factories.Add(new CommandSetEmoteDownMessage());
             factories.Add(new CommandSetEmoteLeftMessage());
             factories.Add(new CommandSetEmoteRightMessage());
+            factories.Add(new CommandSpawnItem());
+            factories.Add(new CommandSetBehavior());
             factories.Add(new CommandPause());
             factories.Add(new CommandPlay());
             factories.Add(new CommandSetTimeScale());
+            factories.Add(new CommandChangeTeam());
+            factories.Add(new CommandTeleport());
+            factories.Add(new CommandResetAllPlayerPositions());
         }
     }
 }

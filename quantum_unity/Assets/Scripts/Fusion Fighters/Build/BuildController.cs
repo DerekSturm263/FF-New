@@ -1,7 +1,9 @@
 using Extensions.Components.Miscellaneous;
 using GameResources.UI.Popup;
 using Quantum;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildController : Controller<BuildController>
 {
@@ -75,7 +77,7 @@ public class BuildController : Controller<BuildController>
         GameObject playerObj = FindFirstObjectByType<EntityViewUpdater>().GetView(player).gameObject;
 
         Camera renderCamera = playerObj.GetComponentInChildren<Camera>();
-        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global], playerObj.transform.localScale.x == -1);
+        _currentBuild.CreateIcon(renderCamera, _renderShader, FindFirstObjectByType<PlayerSpawnEventListener>().PlayerIcons[index.Global], playerObj.GetComponent<CustomQuantumAnimator>().Direction == -1);
 
         foreach (var userProfile in FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<UserProfile>>(UserProfileController.GetPath()))
         {
@@ -589,6 +591,29 @@ public class BuildController : Controller<BuildController>
         }
     }
 
+    public unsafe void ChangeTeam(InputAction.CallbackContext ctx)
+    {
+        if (!PlayerJoinController.Instance.TryGetPlayer(ctx.control.device, out LocalPlayerInfo player))
+            return;
+
+        EntityRef entity = FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, player.Index);
+
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(entity, out PlayerStats stats))
+        {
+            int teamIndex = (stats.Index.Team + 1) % QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers;
+            player.SetTeamIndex(teamIndex);
+
+            CommandChangeTeam command = new()
+            {
+                player = entity,
+                teamIndex = teamIndex
+            };
+
+            FindObjectsByType<Selector>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).First(item => item.PlayerInfo.Equals(player)).UpdateColors();
+            QuantumRunner.Default.Game.SendCommand(command);
+        }
+    }
+
     public void SetOnPlayerDefault(SerializableWrapper<Build> build)
     {
         SetOnPlayer(build, FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, index => index.Type == FighterType.Human));
@@ -597,5 +622,16 @@ public class BuildController : Controller<BuildController>
     public void SetOnPlayerDefault()
     {
         SetOnPlayer(_currentBuild, FighterIndex.GetFirstFighterIndex(QuantumRunner.Default.Game.Frames.Verified, index => index.Type == FighterType.Human));
+    }
+
+    public void SetBehaviorOnBotDefault(BehaviorAsset behavior)
+    {
+        CommandSetBehavior command = new()
+        {
+            entity = FighterIndex.GetFirstEntity(QuantumRunner.Default.Game.Frames.Verified, item => item.Type == FighterType.Bot),
+            behavior = new() { Id = behavior.AssetObject.Guid }
+        };
+
+        QuantumRunner.Default.Game.SendCommand(command);
     }
 }

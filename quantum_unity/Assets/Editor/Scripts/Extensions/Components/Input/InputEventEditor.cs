@@ -24,8 +24,6 @@ namespace Editor.Extensions.Components.Input
                 EditorGUI.BeginDisabledGroup(true);
             }
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_button2Optional"));
-
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_readContinuous"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_processWhenEmpty"));
 
@@ -46,6 +44,8 @@ namespace Editor.Extensions.Components.Input
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_onAction"), new GUIContent("On Action"));
                     break;
             }
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_onCtxAction"), new GUIContent("On Ctx Action"));
 
             EditorGUI.EndDisabledGroup();
             serializedObject.ApplyModifiedProperties();

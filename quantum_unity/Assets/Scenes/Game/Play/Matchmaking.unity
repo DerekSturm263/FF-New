@@ -4417,6 +4417,50 @@ MonoBehaviour:
         Value: 3156569685704267981
     HitboxLayer:
       BitMask: 256
+    GroundLayer:
+      BitMask: 64
+    TeamColors:
+      Item1:
+        R: 183
+        G: 68
+        B: 68
+        A: 255
+      Item2:
+        R: 68
+        G: 100
+        B: 183
+        A: 255
+      Item3:
+        R: 182
+        G: 183
+        B: 68
+        A: 255
+      Item4:
+        R: 68
+        G: 183
+        B: 121
+        A: 255
+    DarkTeamColors:
+      Item1:
+        R: 64
+        G: 24
+        B: 24
+        A: 255
+      Item2:
+        R: 28
+        G: 42
+        B: 76
+        A: 255
+      Item3:
+        R: 63
+        G: 64
+        B: 24
+        A: 255
+      Item4:
+        R: 24
+        G: 64
+        B: 42
+        A: 255
 --- !u!224 &833318423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6662,7 +6706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 598cb1eeed7991440ade1a486db5b571, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -6887,7 +6930,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 11400000, guid: 3117544ac505fb946a09aca98ff68f80, type: 2}
-  _button2Optional: {fileID: 0}
   _readContinuous: 0
   _processWhenEmpty: 1
   _parent: {fileID: 0}
@@ -7900,9 +7942,39 @@ MonoBehaviour:
       GlobalNoBots: 0
       GlobalNoHumans: 0
       Local: 0
+      Team: 0
       Type: 0
     Build:
-      Cosmetics:
+      Emotes:
+        Down:
+          Emote:
+            Id:
+              Value: 0
+          Message:
+            Id:
+              Value: 0
+        Left:
+          Emote:
+            Id:
+              Value: 0
+          Message:
+            Id:
+              Value: 0
+        Right:
+          Emote:
+            Id:
+              Value: 0
+          Message:
+            Id:
+              Value: 0
+        Up:
+          Emote:
+            Id:
+              Value: 0
+          Message:
+            Id:
+              Value: 0
+      Frame:
         Avatar:
           Avatar:
             Id:
@@ -7910,35 +7982,6 @@ MonoBehaviour:
           Color:
             Id:
               Value: 0
-        Emotes:
-          Down:
-            Emote:
-              Id:
-                Value: 0
-            Message:
-              Id:
-                Value: 0
-          Left:
-            Emote:
-              Id:
-                Value: 0
-            Message:
-              Id:
-                Value: 0
-          Right:
-            Emote:
-              Id:
-                Value: 0
-            Message:
-              Id:
-                Value: 0
-          Up:
-            Emote:
-              Id:
-                Value: 0
-            Message:
-              Id:
-                Value: 0
         Eyes:
           Color:
             Id:
@@ -7956,734 +7999,732 @@ MonoBehaviour:
         Voice:
           Id:
             Value: 0
-      Equipment:
+      Gear:
+        AltWeapon:
+          Enhancer:
+            Id:
+              Value: 0
+          FileGuid:
+            Value: 0
+          Material:
+            Id:
+              Value: 0
+          Template:
+            Id:
+              Value: 0
         Badge:
           Id:
             Value: 0
-        Outfit:
-          Clothing:
-            Color:
-              Id:
-                Value: 0
-            FileGuid:
+        MainWeapon:
+          Enhancer:
+            Id:
               Value: 0
-            Modifiers:
-              Modifier1:
-                Id:
-                  Value: 0
-              Modifier2:
-                Id:
-                  Value: 0
-              Modifier3:
-                Id:
-                  Value: 0
-            Stickers:
-              Item1:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item10:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item11:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item12:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item13:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item14:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item15:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item16:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item2:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item3:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item4:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item5:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item6:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item7:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item8:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item9:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-            Template:
-              Id:
-                Value: 0
-          Headgear:
-            Color:
-              Id:
-                Value: 0
-            FileGuid:
+          FileGuid:
+            Value: 0
+          Material:
+            Id:
               Value: 0
-            Modifiers:
-              Modifier1:
-                Id:
-                  Value: 0
-              Modifier2:
-                Id:
-                  Value: 0
-              Modifier3:
-                Id:
-                  Value: 0
-            Stickers:
-              Item1:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item10:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item11:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item12:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item13:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item14:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item15:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item16:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item2:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item3:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item4:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item5:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item6:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item7:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item8:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item9:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-            Template:
-              Id:
-                Value: 0
-          Legwear:
-            Color:
-              Id:
-                Value: 0
-            FileGuid:
+          Template:
+            Id:
               Value: 0
-            Modifiers:
-              Modifier1:
-                Id:
-                  Value: 0
-              Modifier2:
-                Id:
-                  Value: 0
-              Modifier3:
-                Id:
-                  Value: 0
-            Stickers:
-              Item1:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item10:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item11:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item12:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item13:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item14:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item15:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item16:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item2:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item3:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item4:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item5:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item6:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item7:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item8:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-              Item9:
-                Angle:
-                  X:
-                    RawValue: 0
-                  Y:
-                    RawValue: 0
-                  Z:
-                    RawValue: 0
-                  W:
-                    RawValue: 0
-                Sticker:
-                  Id:
-                    Value: 0
-            Template:
-              Id:
-                Value: 0
+        SubWeapon:
+          Enhancer:
+            Id:
+              Value: 0
+          FileGuid:
+            Value: 0
+          Template:
+            Id:
+              Value: 0
         Ultimate:
           Id:
             Value: 0
-        Weapons:
-          AltWeapon:
-            Enhancer:
-              Id:
-                Value: 0
-            FileGuid:
+      Outfit:
+        Clothing:
+          Color:
+            Id:
               Value: 0
-            Material:
+          FileGuid:
+            Value: 0
+          Modifiers:
+            Modifier1:
               Id:
                 Value: 0
-            Template:
+            Modifier2:
               Id:
                 Value: 0
-          MainWeapon:
-            Enhancer:
+            Modifier3:
               Id:
                 Value: 0
-            FileGuid:
+          Stickers:
+            Item1:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item10:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item11:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item12:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item13:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item14:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item15:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item16:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item2:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item3:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item4:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item5:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item6:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item7:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item8:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item9:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+          Template:
+            Id:
               Value: 0
-            Material:
-              Id:
-                Value: 0
-            Template:
-              Id:
-                Value: 0
-          SubWeapon:
-            Enhancer:
-              Id:
-                Value: 0
-            FileGuid:
+        Headgear:
+          Color:
+            Id:
               Value: 0
-            Template:
+          FileGuid:
+            Value: 0
+          Modifiers:
+            Modifier1:
               Id:
                 Value: 0
+            Modifier2:
+              Id:
+                Value: 0
+            Modifier3:
+              Id:
+                Value: 0
+          Stickers:
+            Item1:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item10:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item11:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item12:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item13:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item14:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item15:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item16:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item2:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item3:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item4:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item5:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item6:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item7:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item8:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item9:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+          Template:
+            Id:
+              Value: 0
+        Legwear:
+          Color:
+            Id:
+              Value: 0
+          FileGuid:
+            Value: 0
+          Modifiers:
+            Modifier1:
+              Id:
+                Value: 0
+            Modifier2:
+              Id:
+                Value: 0
+            Modifier3:
+              Id:
+                Value: 0
+          Stickers:
+            Item1:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item10:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item11:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item12:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item13:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item14:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item15:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item16:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item2:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item3:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item4:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item5:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item6:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item7:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item8:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+            Item9:
+              Angle:
+                X:
+                  RawValue: 0
+                Y:
+                  RawValue: 0
+                Z:
+                  RawValue: 0
+                W:
+                  RawValue: 0
+              Sticker:
+                Id:
+                  Value: 0
+          Template:
+            Id:
+              Value: 0
     IsRealBattle: 0
-    Icon: 
 --- !u!4 &1565167105
 Transform:
   m_ObjectHideFlags: 0

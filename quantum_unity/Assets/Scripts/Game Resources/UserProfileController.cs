@@ -17,8 +17,8 @@ public class UserProfileController : SpawnableController<bool>
 
     protected override void SetUp(bool isJoining)
     {
-        _templateInstance.transform.GetChild(1).GetChild(1).gameObject.SetActive(isJoining);
-        _templateInstance.transform.GetChild(1).GetChild(2).gameObject.SetActive(!isJoining);
+        _templateInstance.transform.GetChild(1).GetChild(3).gameObject.SetActive(isJoining);
+        _templateInstance.transform.GetChild(1).GetChild(4).gameObject.SetActive(!isJoining);
 
         _name = "Untitled";
         _addedNew = false;
@@ -102,6 +102,9 @@ public class UserProfileController : SpawnableController<bool>
 
     public void SetProfile(SerializableWrapper<UserProfile> profile)
     {
+        if (!profile.MadeByPlayer)
+            profile.SetName($"Guest {_player.Index.Local + 1}");
+
         _player.SetProfile(profile);
     }
 

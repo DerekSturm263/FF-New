@@ -13,8 +13,6 @@ namespace Quantum
         {
             Log.Debug("Match reset!");
 
-            f.SystemEnable<CharacterControllerSystem>();
-
             TimerSystem.SetTime(f, new(0, 0, f.Global->CurrentMatch.Ruleset.Match.Time), false);
             TimerSystem.StopCountdown(f);
 

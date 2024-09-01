@@ -41,7 +41,7 @@ namespace Quantum
             
             if (ticks == timer->Start)
             {
-                MatchSystem.StartOfMatch(f);
+                MatchSystem.StartOfMatch(f, FighterIndex.GetAllTeams(f));
             }
             else if (ticks == timer->End)
             {

@@ -5,6 +5,7 @@
     {
         public AssetRefEntityPrototype Prototype;
         public bool DestroySelfOnHit;
+        public bool CanInteractWithOwner;
 
         public abstract void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance);
         public virtual void OnHit(Frame f, EntityRef user, EntityRef target, EntityRef item, ItemInstance* itemInstance)

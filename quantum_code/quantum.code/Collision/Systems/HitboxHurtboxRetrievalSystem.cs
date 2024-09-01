@@ -6,7 +6,7 @@ namespace Quantum
     {
         public override void Update(Frame f)
         {
-            if (!f.Global->IsMatchRunning)
+            if (!f.Global->IsMatchRunning && f.Global->CurrentMatch.Ruleset.Match.Time != -1)
                 return;
 
             var hitboxFilter = f.Unsafe.FilterStruct<HitboxHurtboxQueryInjectionSystem.Filter>();
@@ -27,24 +27,42 @@ namespace Quantum
                         if (defender == hitbox.HitboxInstance->Owner)
                             continue;
 
-                        ResolveHit(f, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender);
+                        if (f.Global->CurrentMatch.Ruleset.Players.AllowFriendlyFire &&
+                            f.TryGet(defender, out PlayerStats defenderStats) &&
+                            f.TryGet(hitbox.HitboxInstance->Owner, out PlayerStats attackerStats) &&
+                            defenderStats.Index.Team == attackerStats.Index.Team)
+                            continue;
+
+                        FPVector2 positionHit = (hitbox.Transform->Position + f.Get<Transform2D>(entityHit).Position) / 2;
+
+                        ResolveHit(f, hitbox.Transform->Position, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender, positionHit, hitbox.HitboxInstance->Settings.Offensive.Knockback);
                     }
                 }
             }
         }
 
-        private void ResolveHit(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveHit(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender, FPVector2 position, FPVector2 direction)
         {
+            if (f.TryGet(defender, out Stats stats) && stats.IFrameTime > 0)
+                return;
+
             Log.Debug($"{attacker.Index} hit {defender.Index}");
 
             ResolveDamage(f, hitbox, hurtbox, attacker, defender);
-            ResolveKnockback(f, hitbox, hurtbox, attacker, defender);
+            ResolveKnockback(f, hitboxPosition, hitbox, hurtbox, attacker, defender);
 
-            f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false);
-
-            if (f.TryGet(attacker, out PlayerStats attackerStats) && f.TryGet(defender, out PlayerStats defenderStats))
+            if (hurtbox.CanBeDamaged)
             {
-                f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, defenderStats.Index, hitbox);
+                if (hitbox.Visual.OnlyShakeOnHit)
+                    f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false, defender);
+
+                if (f.TryGet(attacker, out PlayerStats attackerStats))
+                {
+                    if (f.TryGet(defender, out PlayerStats defenderStats))
+                        f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, defenderStats.Index, hitbox, position, direction);
+                    else
+                        f.Events.OnHitboxHurtboxCollision(attacker, attackerStats.Index, defender, FighterIndex.Invalid, hitbox, position, direction);
+                }
             }
         }
 
@@ -68,62 +86,60 @@ namespace Quantum
                     f.Events.OnPlayerHit(defender, playerStats2->Index, damage);
                 }
 
-                if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
+                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
                 {
-                    if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
+                    attackerPlayerStats->Stats.TotalDamageDealt += damage;
+                    defenderStats->IFrameTime = 15;
+
+                    if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
                     {
                         ++attackerPlayerStats->Stats.Kills;
-                    }
 
-                    if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
+                        if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
+                        {
+                            ++defenderPlayerStats->Stats.Deaths;
+                        }
+                    }
+                    else
                     {
-                        ++defenderPlayerStats->Stats.Deaths;
+                        StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, defenderStats);
                     }
-                }
-                else
-                {
-                    StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, attackerStats);
-                }
 
-                // Increase energy.
-                FP multiplier = 1;
+                    // Increase energy.
+                    FP multiplier = 1;
 
-                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats2))
-                {
-                    if (attackerPlayerStats2->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
+                    if (attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
                     {
-                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats2->Build.Gear.MainWeapon.Enhancer.Id);
-                        multiplier = (weaponEnhancer as ChargingWeaponEnhancer).Multiplier;
-                    }
-                }
+                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id);
 
-                StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 5) * multiplier);
+                        if (weaponEnhancer is ChargingWeaponEnhancer chargingWeaponEnhancer)
+                            multiplier = chargingWeaponEnhancer.Multiplier;
+                    }
+
+                    StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 5) * multiplier);
+                }
             }
         }
 
-        private void ResolveKnockback(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveKnockback(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
         {
-            if (hurtbox.CanBeKnockedBack &&
-                f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) &&
-                f.Unsafe.TryGetPointer(defender, out CharacterController* characterController))
+            if (hurtbox.CanBeKnockedBack && f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController) && f.TryGet(defender, out Transform2D transform))
             {
-                characterController->KnockbackVelocityX = hitbox.Offensive.Knockback.X;
-                physicsBody->Velocity.Y = hitbox.Offensive.Knockback.Y;
+                int directionMultiplier;
 
-                characterController->KnockbackVelocityTime = 1;
-                characterController->Influence = 0;
-            }
-
-            if (hurtbox.CanBeInterrupted && f.Unsafe.TryGetPointer(defender, out CustomAnimator* customAnimator))
-            {
-                if (hitbox.Offensive.Knockback.SqrMagnitude > 5 * 5)
+                if (hitbox.Offensive.AlignKnockbackToPlayerDirection)
                 {
-                    CustomAnimator.SetTrigger(f, customAnimator, "Knocked Back");
+                    directionMultiplier = characterController->MovementDirection;
                 }
                 else
                 {
-                    CustomAnimator.SetTrigger(f, customAnimator, "Hurt");
+                    if (hitboxPosition.X > transform.Position.X)
+                        directionMultiplier = -1;
+                    else
+                        directionMultiplier = 1;
                 }
+
+                CharacterControllerSystem.ApplyKnockback(f, hitbox, attacker, defender, directionMultiplier);
             }
         }
     }

@@ -29,6 +29,7 @@ MonoBehaviour:
   Price: 100
   FilterTags: []
   GroupTags: []
+  isRandom: 0
   Settings_WeaponTemplate:
     Identifier:
       Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Sword
@@ -39,127 +40,64 @@ MonoBehaviour:
         Value: 946998319576419557
     Primaries:
       Down:
-        Step1:
+        Animation:
           Id:
-            Value: 2625817037107311357
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 3968701328997666424
       Horizontal:
-        Step1:
+        Animation:
           Id:
-            Value: 3126110743777979828
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 1448431223148581206
       Neutral:
-        Step1:
+        Animation:
           Id:
-            Value: 3044890205620584930
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 2178979117682719594
       Up:
-        Step1:
+        Animation:
           Id:
-            Value: 2445023314518283217
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 569437924331451248
     Aerials:
+      Backward:
+        Animation:
+          Id:
+            Value: 4459672976787377181
       Down:
-        Step1:
+        Animation:
           Id:
-            Value: 0
-        Step2:
+            Value: 322589237936647048
+      Forward:
+        Animation:
           Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
-      Horizontal:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 228190690032313430
       Neutral:
-        Step1:
+        Animation:
           Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 4136701055838317166
       Up:
-        Step1:
+        Animation:
           Id:
-            Value: 2988594933814182285
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 4454286589825151145
+    Dash:
+      Animation:
+        Id:
+          Value: 1838915878649779520
     Secondaries:
       Down:
-        Step1:
+        Animation:
           Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 3293940520248556559
       Horizontal:
-        Step1:
+        Animation:
           Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 2867213110893801618
       Neutral:
-        Step1:
+        Animation:
           Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+            Value: 3627631213703433334
       Up:
-        Step1:
+        Animation:
           Id:
             Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+  Main: {fileID: 5330014999742854058, guid: 8634f918c01a2174e97bf4fb0eb238bc, type: 3}
   Alt: {fileID: 0}
   Preview: {fileID: 5330014999742854058, guid: 3fd4292a23641ac44886f80a5815e99c, type: 3}
   IconCameraPosition: {x: -7.07, y: 4.86, z: -11.45}

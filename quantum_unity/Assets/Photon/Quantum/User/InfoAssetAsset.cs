@@ -20,4 +20,6 @@ public abstract partial class InfoAssetAsset : AssetBase
     [Header("Meta Data")]
     public string[] FilterTags;
     public Tuple<string, string>[] GroupTags;
+
+    [HideInInspector] public bool isRandom;
 }

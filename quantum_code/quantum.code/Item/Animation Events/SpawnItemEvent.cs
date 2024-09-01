@@ -15,7 +15,7 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
                 ItemSpawnSettings settings = characterController->LerpFromAnimationHold(ItemSpawnSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                ItemSpawnSystem.SpawnWithOwner(f, settings, entity);
+                ItemSpawnSystem.SpawnParented(f, settings, entity);
             }
         }
     }

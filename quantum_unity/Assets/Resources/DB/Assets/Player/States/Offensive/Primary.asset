@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2b55201aec22c4984d7cca170e2a74, type: 3}
+  m_Name: Primary
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/Assets/Player/States/Offensive/Primary
+      Guid:
+        Value: 3192026892342397567
+    StateType: 11
+    EntranceAvailability: -1
+    Transitions:
+    - Destination:
+        Id:
+          Value: 465073245602432142
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 1168556265468863481
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 3546671476055600932
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 628293921427931570
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 2048
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3376984258394561285
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 512
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 1924883501020756908
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 32
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3324217043794129396
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 2
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3192026892342397567
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 32
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 4451811439850391496
+      TransitionTime: 3
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 64
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3506845103799130783
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 128
+        Condition: 1
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 609323575392403005
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 256
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 2317698654362679996
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 16
+        Condition: 1
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3217819227435897599
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 4096
+        Condition: 1
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 1624409685463332702
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 4
+        Condition: 1
+        DoInvert: 0
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 328942225980547397
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
+    OverrideDirection: 1
+    MutuallyExclusiveColliders: 0
+    GroundedMovement:
+      Acceleration:
+        RawValue: 0
+      Deceleration:
+        RawValue: 0
+      TopSpeed:
+        RawValue: 0
+      TurnAroundSpeed:
+        RawValue: 0
+    AerialMovement:
+      Acceleration:
+        RawValue: 0
+      Deceleration:
+        RawValue: 0
+      TopSpeed:
+        RawValue: 0
+      TurnAroundSpeed:
+        RawValue: 0
+    MinimumYVelocity:
+      RawValue: 65536
+    FastFallForce:
+      RawValue: -655360
+    OnEnter:
+      ManipulateVelocity: 0
+      Velocity:
+        RawValue: 0
+      ManipulateGravity: 0
+      Gravity:
+        RawValue: 0
+    OnExit:
+      ManipulateVelocity: 0
+      Velocity:
+        RawValue: 0
+      ManipulateGravity: 0
+      Gravity:
+        RawValue: 0
+    Default:
+      Id:
+        Value: 328942225980547397
+    MinimumDashAttackSpeed:
+      RawValue: 65536

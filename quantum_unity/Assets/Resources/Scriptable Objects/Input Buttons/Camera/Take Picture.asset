@@ -12,15 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0faede8a365ff94e9e7540698611055, type: 3}
   m_Name: Take Picture
   m_EditorClassIdentifier: 
-  _ids:
+  _idsToIcons:
     _kvps:
     - _item1: Keyboard
-      _item2: Enter
+      _item2: {fileID: 588017126, guid: 99e28aec0a8f67143b4b4782ab1e4310, type: 3}
     - _item1: Xbox Controller
-      _item2: A
+      _item2: {fileID: 21300052, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
     - _item1: PlayStation Controller
-      _item2: Cross
+      _item2: {fileID: 21300052, guid: 10045ad39fef69944b33bedc39310592, type: 3}
     - _item1: Switch Pro Controller
-      _item2: B
-  _action: {fileID: -7054940997851299301, guid: ff96afa8dc9df0242920ce8cf48026f3,
-    type: 3}
+      _item2: {fileID: 21300042, guid: e35b1509688e6294cad1ada6c91b7693, type: 3}
+  _action:
+    m_Name: Action
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 78e75588-ba5c-4662-afbc-dcab245a5cf1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 34e2db71-4603-41f1-bacd-6970dceeb372
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: c54ee045-6990-45fe-940c-22fb903915bc
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Gamepad
+      m_Action: Action
+      m_Flags: 0
+    m_Flags: 0

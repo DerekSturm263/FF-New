@@ -1,16 +1,19 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class UpgradeUltimate : Ultimate
     {
+        public ApparelStats ApparelStatsMultiplier;
+        public WeaponStats WeaponStatsMultiplier;
+
         public override void OnBegin(Frame f, EntityRef user)
         {
+            base.OnBegin(f, user);
+
             if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
             {
-                stats->ApparelStatsMultiplier = ApparelHelper.Multiply(stats->ApparelStatsMultiplier, new() { Agility = FP._1_10, Defense = FP._1_10, Dodge = 1, Jump = 1, Weight = 1 });
-                stats->WeaponStatsMultiplier = WeaponHelper.Multiply(stats->WeaponStatsMultiplier, new() { Damage = FP._1_20, Knockback = 2, Speed = FP._1_10 });
+                stats->ApparelStatsMultiplier = ApparelHelper.Multiply(stats->ApparelStatsMultiplier, ApparelStatsMultiplier);
+                stats->WeaponStatsMultiplier = WeaponHelper.Multiply(stats->WeaponStatsMultiplier, WeaponStatsMultiplier);
             }
         }
 

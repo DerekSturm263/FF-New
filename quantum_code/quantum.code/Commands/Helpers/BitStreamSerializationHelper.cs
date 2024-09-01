@@ -215,7 +215,8 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref SpawnSettings value)
         {
             stream.Serialize(ref value.PlayerSpawnPoints);
-            stream.Serialize(ref value.ItemSpawnPoints);
+            stream.Serialize(ref value.MinPoint);
+            stream.Serialize(ref value.MaxPoint);
         }
 
         public static unsafe void Serialize(this IBitStream stream, ref ArrayPlayerSpawnPoints value)
@@ -261,6 +262,7 @@ namespace Quantum
         public static void Serialize(this IBitStream stream, ref MatchSettings value)
         {
             stream.Serialize(ref value.WinCondition);
+            stream.Serialize(ref value.TieResolver);
             stream.Serialize(ref value.Time);
             stream.Serialize(ref value.ShowTimer);
             stream.Serialize(ref value.MatchCount);
@@ -275,6 +277,7 @@ namespace Quantum
             stream.Serialize(ref value.MaxHealth);
             stream.Serialize(ref value.MaxEnergy);
             stream.Serialize(ref value.EnergyChargeRate);
+            stream.Serialize(ref value.EnergyConsumptionRate);
             stream.Serialize(ref value.RespawnTime);
             stream.Serialize(ref value.AllowFriendlyFire);
             stream.Serialize(ref value.AllowDuplicateSelection);
@@ -332,13 +335,6 @@ namespace Quantum
             stream.Serialize(ref value.Item16);
         }
 
-        public static void Serialize(this IBitStream stream, ref StagePickerType value)
-        {
-            int intValue = (int)value;
-            stream.Serialize(ref intValue);
-            value = (StagePickerType)intValue;
-        }
-
         #endregion
 
         #region Misc
@@ -372,10 +368,11 @@ namespace Quantum
         public static unsafe void Serialize(this IBitStream stream, ref FighterIndex value)
         {
             stream.Serialize(ref value.Local);
-            stream.Serialize(ref value.Device);
             stream.Serialize(ref value.Global);
             stream.Serialize(ref value.GlobalNoBots);
             stream.Serialize(ref value.GlobalNoHumans);
+            stream.Serialize(ref value.Team);
+            stream.Serialize(ref value.Device);
             stream.Serialize(ref value.Type);
         }
 
@@ -392,6 +389,22 @@ namespace Quantum
             stream.Serialize(ref value.G);
             stream.Serialize(ref value.B);
             stream.Serialize(ref value.A);
+        }
+
+        public static void Serialize(this IBitStream stream, ref ItemSpawnSettings value)
+        {
+            stream.Serialize(ref value.Item);
+            stream.Serialize(ref value.Velocity);
+            stream.Serialize(ref value.Offset);
+            stream.Serialize(ref value.StartHolding);
+        }
+
+        public static unsafe void Serialize(this IBitStream stream, ref ArrayColors value)
+        {
+            stream.Serialize(ref value.Item1);
+            stream.Serialize(ref value.Item2);
+            stream.Serialize(ref value.Item3);
+            stream.Serialize(ref value.Item4);
         }
 
         #endregion

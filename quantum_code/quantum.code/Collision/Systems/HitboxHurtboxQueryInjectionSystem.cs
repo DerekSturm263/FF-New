@@ -6,7 +6,7 @@
         {
             public EntityRef Entity;
 
-            public Transform3D* Transform;
+            public Transform2D* Transform;
             public HitboxInstance* HitboxInstance;
         }
 
@@ -17,20 +17,10 @@
 
             while (hitboxFilter.Next(&hitbox))
             {
-                Shape2D shape2D = new()
-                {
-                    BroadRadius = hitbox.HitboxInstance->Shape.BroadRadius,
-                    Centroid = hitbox.HitboxInstance->Shape.Centroid.XY,
-                    Box = new()
-                    {
-                        Extents = hitbox.HitboxInstance->Shape.Box.Extents.XY
-                    }
-                };
-
                 hitbox.HitboxInstance->PathQueryIndex = f.Physics2D.AddOverlapShapeQuery
                 (
-                    transform: Transform2D.Create(hitbox.Transform->Position.XY, hitbox.Transform->Rotation.Z),
-                    shape: shape2D,
+                    transform: Transform2D.Create(hitbox.Transform->Position),
+                    shape: hitbox.HitboxInstance->Shape,
                     layerMask: f.RuntimeConfig.HitboxLayer
                 );
             }

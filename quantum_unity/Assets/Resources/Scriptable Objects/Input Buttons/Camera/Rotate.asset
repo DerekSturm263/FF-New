@@ -12,15 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0faede8a365ff94e9e7540698611055, type: 3}
   m_Name: Rotate
   m_EditorClassIdentifier: 
-  _ids:
+  _idsToIcons:
     _kvps:
     - _item1: Keyboard
-      _item2: Arrows
+      _item2: {fileID: 1330783094, guid: 99e28aec0a8f67143b4b4782ab1e4310, type: 3}
     - _item1: Xbox Controller
-      _item2: JS Right
+      _item2: {fileID: 21300018, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
     - _item1: PlayStation Controller
-      _item2: JS Right
+      _item2: {fileID: 21300018, guid: 10045ad39fef69944b33bedc39310592, type: 3}
     - _item1: Switch Pro Controller
-      _item2: JS Right
-  _action: {fileID: -1204712419166705794, guid: ff96afa8dc9df0242920ce8cf48026f3,
-    type: 3}
+      _item2: {fileID: 21300018, guid: e35b1509688e6294cad1ada6c91b7693, type: 3}
+  _action:
+    m_Name: Action
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: 35c79f73-c115-4677-8e82-1adf4be825f9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Arrow Keys
+      m_Id: b0f015ba-0210-45a3-a265-bde324d2ddd3
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 06a4731e-10a4-4e31-800f-d6483b0dbcd2
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 8
+    - m_Name: down
+      m_Id: a849b34b-c5ff-4672-980a-6a46ab9cc261
+      m_Path: <Keyboard>/downArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 6db228eb-7659-49e8-898c-3aff6cb6f083
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 4b96f8ad-009d-475d-b01d-56cec5af5c44
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 8
+    - m_Name: 
+      m_Id: a5073b92-ce13-4876-8bbf-23449e077973
+      m_Path: <Gamepad>/rightStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Gamepad
+      m_Action: Action
+      m_Flags: 0
+    m_Flags: 0

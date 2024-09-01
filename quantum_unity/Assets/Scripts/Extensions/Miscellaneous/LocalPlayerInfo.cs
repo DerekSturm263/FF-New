@@ -25,6 +25,10 @@ public class LocalPlayerInfo
         _index.Global = global;
         _index.GlobalNoBots = globalNoBots;
     }
+    public void SetTeamIndex(int team)
+    {
+        _index.Team = team;
+    }
 
     public LocalPlayerInfo(InputDevice device, FighterIndex index)
     {

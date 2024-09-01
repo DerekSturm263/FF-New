@@ -10,9 +10,6 @@ struct FighterIndex
     // The player's local player index.
     int Local;
 
-    // The player's device index.
-    int Device;
-
     // The player's global player index (including bots).
     int Global;
     
@@ -21,6 +18,12 @@ struct FighterIndex
 
     // The player's global player index (excluding humans).
     int GlobalNoHumans;
+
+    // The player's team index.
+    int Team;
+    
+    // The player's device index.
+    int Device;
 
     // The type of player this is.
     FighterType Type;

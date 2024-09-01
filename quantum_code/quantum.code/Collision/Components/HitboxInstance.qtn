@@ -3,8 +3,9 @@ component HitboxInstance
 	int PathQueryIndex;
 
 	entity_ref Owner;
+	list<FPVector2> Positions;
 
 	HitboxSettings Settings;
-	Shape3D Shape;
+	Shape2D Shape;
 	int Lifetime;
 }

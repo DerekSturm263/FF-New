@@ -1,4 +1,7 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+using Quantum.Inspector;
+
+namespace Quantum
 {
     [System.Serializable]
     public sealed unsafe partial class SpawnHitboxEvent : FrameEvent
@@ -15,22 +18,18 @@
         public HitboxSettings UnchargedSettings;
         public HitboxSettings FullyChargedSettings;
 
+        [HideInInspector] public ListHelper<FPVector2>[] BakedShapePositions;
+
         public override void Begin(Frame f, EntityRef entity, int frame)
         {
             Log.Debug("Spawning hitbox!");
 
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
-                HitboxSettings settings = characterController->LerpFromAnimationHold(HitboxSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-
-                if (Parent == ParentType.Player)
+                for (int i = 0; i < Shape.CompoundShapes.Length; ++i)
                 {
-                    HitboxSystem.SpawnHitbox(f, settings, Shape, Length, entity, entity);
-                }
-                else
-                {
-                    EntityRef parent = f.Unsafe.GetPointer<PlayerStats>(entity)->ActiveWeapon;
-                    HitboxSystem.SpawnHitbox(f, settings, Shape, Length, entity, parent);
+                    HitboxSettings settings = characterController->LerpFromAnimationHold(HitboxSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+                    HitboxSystem.SpawnHitbox(f, settings, Shape.CompoundShapes[i].CreateShape(f), Length, entity, BakedShapePositions[i].List, true);
                 }
             }
         }

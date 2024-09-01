@@ -33,7 +33,7 @@ public class InventoryAssetEditor : Editor
 
             foreach (var item in oldInventory)
             {
-                inventoryAsset.Inventory.ItemCollection.Add(item.Key, new(true, item.Value.Item2.HasValue ? 99 : new Nullable<int>(null)));
+                inventoryAsset.Inventory.ItemCollection.Add(item.Key, new(true, item.Value.Item2.HasValue ? 99 : new Nullable<int>()));
             }
         }
 

@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 5278277884724125650}
   - component: {fileID: 6725792672269039532}
   - component: {fileID: -1621118010388834983}
+  - component: {fileID: 1445507461078064026}
   m_Layer: 5
   m_Name: Selector
   m_TagString: Untagged
@@ -409,8 +410,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arrow: {fileID: 8375734015156403875}
   _label: {fileID: 5104842765991369509}
-  _colors:
-  - {r: 0.7169812, g: 0.26717696, b: 0.26717696, a: 1}
-  - {r: 0.26717696, g: 0.39264017, b: 0.7169812, a: 1}
-  - {r: 0.71479636, g: 0.7169812, b: 0.26717696, a: 1}
-  - {r: 0.26717696, g: 0.7169812, b: 0.47339797, a: 1}
+  _anim: {fileID: 6725792672269039532}
+  _canvasGroup: {fileID: 1445507461078064026}
+  _disabled: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!225 &1445507461078064026
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8470615325100544517}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

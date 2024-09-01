@@ -11,6 +11,7 @@
 
                 // physics querying
                 new HitboxSystem(),
+                new ItemSystem(),
                 new HitboxHurtboxQueryInjectionSystem(),
 
                 new Core.PhysicsSystem2D(),
@@ -32,18 +33,20 @@
                 new MatchSystem(),
                 new TimerSystem(),
                 new PlayerSpawnSystem(),
+                new ShakeableSystem(),
                 new CharacterControllerSystem(),
                 new ConfirmationSystem(),
                 new StatsSystem(),
                 new PlayerStatsSystem(),
                 new ItemSpawnSystem(),
-                new ItemSystem(),
                 new HurtboxSystem(),
 
                 // animation-related systems
                 new CustomAnimatorSystem(),
                 new CustomAnimatorStateSystem(),
-                new CustomAnimatorResetTriggersSystem()
+                new CustomAnimatorResetTriggersSystem(),
+
+                new CharacterControllerButtonResetSystem()
             ];
         }
     }

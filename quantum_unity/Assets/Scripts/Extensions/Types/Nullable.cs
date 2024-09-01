@@ -4,25 +4,27 @@ using UnityEngine;
 namespace Extensions.Types
 {
     [System.Serializable]
-    public struct Nullable<T> where T : struct
+    public class Nullable<T>
     {
         [SerializeField] private T _nonNullValue;
         [SerializeField] private bool _hasValue;
 
-        public readonly bool HasValue => _hasValue;
-        public readonly T Value => _nonNullValue;
+        public bool HasValue => _hasValue;
+        public T Value => _nonNullValue;
 
-        public Nullable(T? value)
+        public Nullable(T value)
         {
-            if (value is not null)
-                _nonNullValue = value.Value;
-            else
-                _nonNullValue = default;
-
-            _hasValue = value.HasValue;
+            _nonNullValue = value;
+            _hasValue = true;
         }
 
-        public readonly T GetValueOrDefault()
+        public Nullable()
+        {
+            _nonNullValue = default;
+            _hasValue = false;
+        }
+
+        public T GetValueOrDefault()
         {
             if (_hasValue)
                 return _nonNullValue;
@@ -30,7 +32,7 @@ namespace Extensions.Types
                 return default;
         }
 
-        public readonly T GetValueOrDefault(T defaultValue)
+        public T GetValueOrDefault(T defaultValue)
         {
             if (_hasValue)
                 return _nonNullValue;
@@ -38,7 +40,7 @@ namespace Extensions.Types
                 return defaultValue;
         }
 
-        public override readonly bool Equals(object other)
+        public override bool Equals(object other)
         {
             if (other is null || other is not Nullable<T>)
                 return false;
@@ -46,9 +48,9 @@ namespace Extensions.Types
             return _nonNullValue.Equals(((Nullable<T>)other)._nonNullValue) && _hasValue.Equals(((Nullable<T>)other)._hasValue);
         }
 
-        public override readonly int GetHashCode() => HashCode.Combine(_nonNullValue, _hasValue);
+        public override int GetHashCode() => HashCode.Combine(_nonNullValue, _hasValue);
 
-        public override readonly string ToString() => _nonNullValue.ToString();
+        public override string ToString() => _nonNullValue.ToString();
 
         public static implicit operator Nullable<T>(T value) => new(value);
         public static explicit operator T(Nullable<T> value) => value.GetValueOrDefault();

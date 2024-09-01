@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Quantum.Types;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -11,6 +13,7 @@ namespace Quantum
             Global = -1,
             GlobalNoBots = -1,
             GlobalNoHumans = -1,
+            Team = -1,
             Device = -1,
             Type = FighterType.Human
         };
@@ -107,6 +110,39 @@ namespace Quantum
             return result;
         }
 
-        public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Device: {Device}, Type: {Type})";
+        public readonly ColorRGBA GetLightColor(Frame f) => ArrayHelper.All(f.RuntimeConfig.TeamColors)[Team];
+        public readonly ColorRGBA GetDarkColor(Frame f) => ArrayHelper.All(f.RuntimeConfig.DarkTeamColors)[Team];
+
+        public static IEnumerable<Team> GetAllTeams(Frame f)
+        {
+            // Create a new list of players.
+            List<PlayerNameIndex> players = [];
+
+            // Add each player to the list of players
+            foreach (var stats in f.GetComponentIterator<PlayerStats>())
+            {
+                players.Add(new() { Index = stats.Component.Index, Name = stats.Component.Name });
+            }
+
+            // Return the list grouped by their teams.
+            return players.GroupBy(item => item.Index.Team).Select(item =>
+            {
+                Team team = new();
+                team.Set(item);
+
+                return team;
+            });
+        }
+
+        public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Team {Team}, Device: {Device}, Type: {Type})";
+
+        public override readonly bool Equals(object obj)
+        {
+            if (obj is not FighterIndex)
+                return false;
+
+            FighterIndex objF = (FighterIndex)obj;
+            return objF.Local == Local && objF.Global == Global && objF.GlobalNoBots == GlobalNoBots && objF.GlobalNoHumans == GlobalNoHumans && objF.Device == Device && objF.Type == Type;
+        }
     }
 }

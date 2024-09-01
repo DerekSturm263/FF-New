@@ -13,7 +13,7 @@ namespace Quantum
             if (parent is null)
             {
                 if (Shape.ShapeType == Shape2DType.Box)
-                    Draw.Rectangle(Shape.PositionOffset + offset, Shape.BoxExtents, 0);
+                    Draw.Rectangle(Shape.PositionOffset + offset, Shape.BoxExtents * 2, 0);
                 else
                     Draw.Circle(Shape.PositionOffset + offset, Shape.CircleRadius);
 
@@ -22,7 +22,7 @@ namespace Quantum
             else
             {
                 if (Shape.ShapeType == Shape2DType.Box)
-                    Draw.Rectangle(parent->Position + Shape.PositionOffset + offset, Shape.BoxExtents, 0);
+                    Draw.Rectangle(parent->Position + Shape.PositionOffset + offset, Shape.BoxExtents * 2, 0);
                 else
                     Draw.Circle(parent->Position + Shape.PositionOffset + offset, Shape.CircleRadius);
 

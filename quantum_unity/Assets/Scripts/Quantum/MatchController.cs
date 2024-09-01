@@ -1,4 +1,5 @@
 using Extensions.Components.Miscellaneous;
+using GameResources.UI.Popup;
 using Quantum;
 using System.Linq;
 using UnityEngine;
@@ -74,12 +75,16 @@ public class MatchController : Controller<MatchController>
         };
     }
 
-    public void GainCurrency()
+    public unsafe void GainCurrency()
     {
         if (QuantumRunner.Default.Game.Frames.Verified.TryGetSingleton(out Timer timer))
         {
             int diference = timer.OriginalTime - timer.Time;
-            InventoryController.Instance.GainCurrency((uint)(diference * 0.75f));
+            uint money = (uint)(diference / Random.Range(125, 150) * QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers);
+            
+            InventoryController.Instance.GainCurrency(money);
+
+            ToastController.Instance.Spawn($"${money} gained!");
         }
     }
 }
