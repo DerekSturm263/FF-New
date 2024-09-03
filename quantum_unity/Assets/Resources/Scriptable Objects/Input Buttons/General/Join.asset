@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0faede8a365ff94e9e7540698611055, type: 3}
+  m_Name: Join
+  m_EditorClassIdentifier: 
+  _idsToIcons:
+    _kvps:
+    - _item1: Keyboard
+      _item2: {fileID: 588017126, guid: 99e28aec0a8f67143b4b4782ab1e4310, type: 3}
+    - _item1: Xbox Controller
+      _item2: {fileID: 21300046, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+    - _item1: PlayStation Controller
+      _item2: {fileID: 21300042, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+    - _item1: Switch Pro Controller
+      _item2: {fileID: 21300050, guid: e35b1509688e6294cad1ada6c91b7693, type: 3}
+  _idsToIconsPositive:
+    _kvps: []
+  _action:
+    m_Name: Action
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 4742c02a-a6ad-41aa-bea6-6301b86425bb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: dc26f763-905c-4651-b5ca-e59b225fd94f
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Keyboard + Mouse
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 7483fefc-ce40-4eba-8fdf-b156a87669c2
+      m_Path: <Gamepad>/start
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: Gamepad
+      m_Action: Action
+      m_Flags: 0
+    m_Flags: 0

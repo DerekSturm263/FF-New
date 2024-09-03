@@ -39,7 +39,15 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController) && f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
             {
                 PhysicsSettings settings = characterController->LerpFromAnimationHold(PhysicsSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                transform->Position = characterController->ApplyPhysicsPosition + GetPositionAtTime(settings, (FP)elapsedFrames / Length, characterController->MovementDirection);
+                FPVector2 newPos = characterController->ApplyPhysicsPosition + GetPositionAtTime(settings, (FP)elapsedFrames / Length, characterController->MovementDirection);
+
+                if (newPos.X > transform->Position.X && characterController->GetNearbyCollider(Colliders.RightWall) ||
+                    newPos.X < transform->Position.X && characterController->GetNearbyCollider(Colliders.LeftWall) ||
+                    newPos.Y > transform->Position.Y && characterController->GetNearbyCollider(Colliders.Ceiling) ||
+                    newPos.Y < transform->Position.Y && characterController->GetNearbyCollider(Colliders.Ground))
+                    return;
+
+                transform->Position = newPos;
             }
         }
 

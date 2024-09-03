@@ -107,6 +107,12 @@ public class PlayerEventReceiver : MonoBehaviour
         {
             _parent.SetPrimaryWeaponInstance(Instantiate(template.Main, _primaryWeapon));
         }
+
+        WeaponMaterialAsset material = UnityDB.FindAsset<WeaponMaterialAsset>(mainWeapon.Material.Id);
+        if (material)
+        {
+            _parent.PrimaryWeaponInstance.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
+        }
     }
 
     public void SetAltWeapon(Weapon altWeapon, EntityRef entity)

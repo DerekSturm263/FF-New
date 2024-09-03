@@ -1,4 +1,6 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     [System.Serializable]
     public sealed unsafe partial class HoldAnimationEvent : FrameEvent
@@ -10,6 +12,7 @@
 
         public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
+            /*
             Log.Debug("Holding animation!");
 
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
@@ -22,31 +25,40 @@
             }
 
             f.Events.OnPlayerHoldAnimation(entity, true);
+            */
         }
 
         public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
         {
+            /*
             if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
                 customAnimator->speed = 0;
+            */
         }
 
         public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
         {
+            /*
             Log.Debug("Cleaning up animation holding!");
-
-            if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
-                customAnimator->speed = 1;
-
-            f.Events.OnPlayerHoldAnimation(entity, false);
 
             if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
             {
+                if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
+                {
+                    customAnimator->speed = 1;
+                }
+
+                f.Events.OnPlayerHoldAnimation(entity, false);
+
                 characterController->HoldButton = 0;
+
+                characterController->HoldLevel = (FP)characterController->HeldAnimationFrameTime / characterController->MaxHoldAnimationFrameTime;
 
                 characterController->HeldAnimationFrameTime = 0;
                 characterController->MaxHoldAnimationFrameTime = 0;
                 characterController->CanMove = parent.CanMove;
             }
+            */
         }
     }
 }

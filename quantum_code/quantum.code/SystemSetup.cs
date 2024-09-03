@@ -10,8 +10,8 @@
                 new ChildParentLinkSystem(),
 
                 // physics querying
-                new HitboxSystem(),
                 new ItemSystem(),
+                new HitboxSystem(),
                 new HitboxHurtboxQueryInjectionSystem(),
 
                 new Core.PhysicsSystem2D(),

@@ -20,7 +20,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 37c50b10b573e404eae974b2a7f5477d, type: 3}
   Description: The blaster makes use of long-ranged attacks that can be used to start
     combos if you equip a close-range weapon in your other slot.
-  IncludeInLists: 1
+  IncludeInLists: 0
   IsUnlocked: 1
   StartingCount:
     _nonNullValue: 0
@@ -55,11 +55,15 @@ MonoBehaviour:
           Id:
             Value: 0
     Aerials:
+      Backward:
+        Animation:
+          Id:
+            Value: 0
       Down:
         Animation:
           Id:
             Value: 0
-      Horizontal:
+      Forward:
         Animation:
           Id:
             Value: 0
@@ -71,6 +75,10 @@ MonoBehaviour:
         Animation:
           Id:
             Value: 0
+    Dash:
+      Animation:
+        Id:
+          Value: 0
     Secondaries:
       Down:
         Animation:

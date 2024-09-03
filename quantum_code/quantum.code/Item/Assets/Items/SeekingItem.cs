@@ -9,6 +9,7 @@ namespace Quantum
         public FP SpeedMultiplier;
         public FP LerpTime;
         public FPVector2 Offset;
+        public FP SeekTime;
 
         public override void OnStart(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
         {
@@ -22,6 +23,9 @@ namespace Quantum
 
         public override unsafe void OnUpdate(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
         {
+            if (itemInstance->ActiveTime > SeekTime)
+                return;
+
             if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody) &&
                 f.Unsafe.TryGetPointer(item, out Transform2D* transform) &&
                 f.Unsafe.TryGetPointer(itemInstance->Target, out Transform2D* targetTransform))

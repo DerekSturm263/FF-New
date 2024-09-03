@@ -36,7 +36,8 @@ namespace Quantum
                     updateableItem.OnUpdate(f, filter.ItemInstance->Owner, filter.Entity, filter.ItemInstance);
             }
 
-            filter.ItemInstance->ActiveTime += f.DeltaTime;
+            if (!filter.ItemInstance->Holder.IsValid)
+                filter.ItemInstance->ActiveTime += f.DeltaTime;
         }
 
         public void OnRemoved(Frame f, EntityRef entity, ItemInstance* component)
@@ -68,15 +69,25 @@ namespace Quantum
                 if (itemInstance->Holder.IsValid)
                     return;
 
+                ++itemInstance->Collisions;
+
                 if (f.TryFindAsset(itemInstance->Item.Id, out Item item))
                 {
                     if (!item.CanInteractWithOwner && info.Other == itemInstance->Owner)
                         return;
 
-                    if (itemInstance->IsActive)
+                    if (itemInstance->IsActive && (itemInstance->Collisions >= itemInstance->MaxCollisions || f.Unsafe.TryGetPointer(info.Other, out CharacterController* _)))
                     {
                         item.OnHit(f, itemInstance->Owner, info.Other, info.Entity, itemInstance);
                     }
+                }
+
+                if (itemInstance->DoBounce && f.Unsafe.TryGetPointer(info.Entity, out PhysicsBody2D* physicsBody))
+                {
+                    if (FPVector2.Dot(info.ContactNormal, FPVector2.Up) > FP._0_50)
+                        physicsBody->Velocity.Y = info.ContactNormal.Y * 10;
+                    else
+                        physicsBody->Velocity.X = info.ContactNormal.X * 10;
                 }
             }
 
@@ -103,7 +114,10 @@ namespace Quantum
                 itemInstance->Owner = user;
 
                 if (f.Unsafe.TryGetPointer(item, out PhysicsCollider2D* physicsCollider))
+                {
                     physicsCollider->Enabled = false;
+                    physicsCollider->Layer = f.RuntimeConfig.ItemLayer;
+                }
 
                 if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody))
                 {

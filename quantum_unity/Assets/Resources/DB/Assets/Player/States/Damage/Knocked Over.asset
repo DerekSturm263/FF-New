@@ -70,6 +70,16 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 628293921427931570
+      TransitionTime: 0
+      RequiresInput: 1
+      InputInfo:
+        Buttons: 1024
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
     OverrideDirection: 0
     MutuallyExclusiveColliders: 0
     GroundedMovement:
@@ -110,8 +120,9 @@ MonoBehaviour:
         RawValue: 0
     MovementInfluence:
       RawValue: 0
+    DisableCollision: 0
     Default:
       Id:
         Value: 328942225980547397
     MinimumYVelocityToKnockOver:
-      RawValue: -655360
+      RawValue: 655360

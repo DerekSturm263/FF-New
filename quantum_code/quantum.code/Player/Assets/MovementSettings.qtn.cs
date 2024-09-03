@@ -9,6 +9,9 @@ namespace Quantum
         public FP DeadStickZone;
         public int InputCheckTime;
 
+        public int PlayerCollision;
+        public int NoPlayerCollision;
+
         [Header("Cast Settings")]
         public ShapeCastHelper GroundedCast;
         public ShapeCastHelper WallCastLeft;

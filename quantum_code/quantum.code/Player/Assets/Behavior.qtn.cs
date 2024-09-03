@@ -7,13 +7,13 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class Behavior : InfoAsset
     {
-        public List<AssetRefPlayerState> States;
-
         [Tooltip("Whether or not this Behavior is controllable by a human")] public bool IsControllable;
         [Tooltip("A higher value will cause the AI perform actions more frequently")] public FP ActionSwitchTime;
         [Tooltip("A higher value will cause the AI to randomize its inputs to be more human")] public FP Randomness;
         [Tooltip("A higher value will cause the AI to switch things up things that don't work and keep doing things that do work")] public FP Teachability;
         [Tooltip("A higher value will cause the AI to change its target more often")] public FP TargetSwitchTime;
+
+        public Input.Buttons Buttons;
 
         public Input GetInput(Frame f, CharacterControllerSystem.Filter userFilter)
         {
@@ -85,11 +85,7 @@ namespace Quantum
         {
             Input input = default;
 
-            FP x = (targetFilter.Transform->Position - userFilter.Transform->Position).Normalized.X;
-            if (aiData->CurrentGoal.HasFlag(Goal.IncreaseGap))
-                x *= -1;
-
-            input.Movement = new(x, 0);
+            input.InputButtons = Buttons;
 
             return input;
         }

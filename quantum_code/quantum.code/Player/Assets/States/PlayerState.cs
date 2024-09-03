@@ -70,6 +70,8 @@ namespace Quantum
 
         public FP MovementInfluence;
 
+        public bool DisableCollision;
+
         public bool TryResolve(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, out TransitionInfo outTransition)
         {
             bool canExit = CanExit(f, stateMachine, ref filter, input, settings);
@@ -137,6 +139,9 @@ namespace Quantum
             if (OnEnter.ManipulateGravity)
                 filter.PhysicsBody->GravityScale = OnEnter.Gravity;
 
+            if (DisableCollision)
+                filter.PhysicsCollider->Layer = settings.NoPlayerCollision;
+
             InitializeAnimator(f, filter.CustomAnimator);
         }
 
@@ -182,6 +187,9 @@ namespace Quantum
 
             if (OnExit.ManipulateGravity)
                 filter.PhysicsBody->GravityScale = OnExit.Gravity;
+
+            if (DisableCollision)
+                filter.PhysicsCollider->Layer = settings.PlayerCollision;
 
             Log.Debug($"Finishing exiting state: {GetType()}");
         }

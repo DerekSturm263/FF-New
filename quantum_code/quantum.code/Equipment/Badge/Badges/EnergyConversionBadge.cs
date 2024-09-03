@@ -16,6 +16,12 @@ namespace Quantum
                 characterController->CurrentState == Block &&
                 f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
+                Behavior behavior = f.FindAsset<Behavior>(characterController->Behavior.Id);
+                Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(user).Player) : behavior.GetInput(f, default);
+                
+                if (!characterController->IsHeldThisFrame(input, Input.Buttons.MainWeapon))
+                    return;
+
                 if (stats->CurrentStats.Energy > 0 && stats->CurrentStats.Health < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 {
                     StatsSystem.ModifyHealth(f, user, stats, HealthGain, true);

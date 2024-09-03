@@ -35,21 +35,31 @@ namespace Quantum
 
                         FPVector2 positionHit = (hitbox.Transform->Position + f.Get<Transform2D>(entityHit).Position) / 2;
 
-                        ResolveHit(f, hitbox.Transform->Position, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender, positionHit, hitbox.HitboxInstance->Settings.Offensive.Knockback);
+                        ResolveHit(f, hitbox.Transform->Position, hitbox.HitboxInstance->Settings, hurtbox->Settings, hitbox.HitboxInstance->Owner, defender, positionHit, hitbox.HitboxInstance->Settings.Offensive.Knockback, hitbox.HitboxInstance->Lifetime);
                     }
                 }
             }
         }
 
-        private void ResolveHit(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender, FPVector2 position, FPVector2 direction)
+        private void ResolveHit(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender, FPVector2 position, FPVector2 direction, int hitboxLifetime)
         {
             if (f.TryGet(defender, out Stats stats) && stats.IFrameTime > 0)
                 return;
 
             Log.Debug($"{attacker.Index} hit {defender.Index}");
 
-            ResolveDamage(f, hitbox, hurtbox, attacker, defender);
-            ResolveKnockback(f, hitboxPosition, hitbox, hurtbox, attacker, defender);
+            // Grab the hit player's stats from their outfit.
+            ApparelStats apparelStats = ApparelHelper.Default;
+            WeaponStats weaponStats = WeaponHelper.Default;
+
+            if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
+                apparelStats = ApparelHelper.FromStats(f, defenderPlayerStats);
+
+            if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
+                weaponStats = WeaponHelper.FromStats(f, attackerPlayerStats);
+
+            ResolveDamage(f, hitbox, hurtbox, attacker, defender, apparelStats, weaponStats);
+            ResolveKnockback(f, hitboxPosition, hitbox, hurtbox, attacker, defender, apparelStats, weaponStats, hitboxLifetime);
 
             if (hurtbox.CanBeDamaged)
             {
@@ -66,63 +76,54 @@ namespace Quantum
             }
         }
 
-        private void ResolveDamage(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveDamage(Frame f, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender, ApparelStats apparelStats, WeaponStats weaponStats)
         {
             if (hurtbox.CanBeDamaged &&
                 f.Unsafe.TryGetPointer(defender, out Stats* defenderStats) &&
-                f.Unsafe.TryGetPointer(attacker, out Stats* attackerStats))
+                f.Unsafe.TryGetPointer(attacker, out Stats* attackerStats) &&
+                f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
             {
-                // Grab the hit player's stats from their outfit.
-                ApparelStats apparelStats = ApparelHelper.Default;
-
-                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* playerStats))
-                    apparelStats = ApparelHelper.FromStats(f, playerStats);
-
                 // Apply damage.
-                FP damage = -hitbox.Offensive.Damage * (1 / apparelStats.Defense);
+                FP damage = -hitbox.Offensive.Damage * (1 / apparelStats.Defense) * weaponStats.Damage;
 
-                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* playerStats2))
+                if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
+                    f.Events.OnPlayerHit(defender, defenderPlayerStats->Index, damage);
+
+                attackerPlayerStats->Stats.TotalDamageDealt -= damage;
+
+                if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
                 {
-                    f.Events.OnPlayerHit(defender, playerStats2->Index, damage);
+                    ++attackerPlayerStats->Stats.Kills;
+
+                    if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats2))
+                    {
+                        ++defenderPlayerStats2->Stats.Deaths;
+                    }
+                }
+                else
+                {
+                    StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, defenderStats);
                 }
 
-                if (f.Unsafe.TryGetPointer(attacker, out PlayerStats* attackerPlayerStats))
+                if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats3))
                 {
-                    attackerPlayerStats->Stats.TotalDamageDealt -= damage;
-                    defenderStats->IFrameTime = 15;
-
-                    if (StatsSystem.ModifyHealth(f, defender, defenderStats, damage, true))
+                    if (defenderPlayerStats3->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
                     {
-                        ++attackerPlayerStats->Stats.Kills;
+                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(defenderPlayerStats3->Build.Gear.MainWeapon.Enhancer.Id);
 
-                        if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats))
-                        {
-                            ++defenderPlayerStats->Stats.Deaths;
-                        }
+                        if (f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController))
+                            weaponEnhancer.OnHit(f, attacker, defender, hitbox, characterController->HoldLevel);
                     }
-                    else
-                    {
-                        StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, defenderStats);
-                    }
-
-                    // Increase energy.
-                    FP multiplier = 1;
-
-                    if (attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
-                    {
-                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id);
-
-                        if (weaponEnhancer is ChargingWeaponEnhancer chargingWeaponEnhancer)
-                            multiplier = chargingWeaponEnhancer.Multiplier;
-                    }
-
-                    StatsSystem.ModifyEnergy(f, attacker, attackerStats, (hitbox.Offensive.Damage / 3) * multiplier);
                 }
+
+                StatsSystem.ModifyEnergy(f, attacker, attackerStats, hitbox.Offensive.Damage / 2);
             }
         }
 
-        private void ResolveKnockback(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender)
+        private void ResolveKnockback(Frame f, FPVector2 hitboxPosition, HitboxSettings hitbox, HurtboxSettings hurtbox, EntityRef attacker, EntityRef defender, ApparelStats apparelStats, WeaponStats weaponStats, int hitboxLifetime)
         {
+            hitbox.Offensive.Knockback *= weaponStats.Knockback;
+
             if (hurtbox.CanBeKnockedBack && f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController) && f.TryGet(defender, out Transform2D transform))
             {
                 int directionMultiplier;
@@ -139,7 +140,7 @@ namespace Quantum
                         directionMultiplier = 1;
                 }
 
-                CharacterControllerSystem.ApplyKnockback(f, hitbox, attacker, defender, directionMultiplier);
+                CharacterControllerSystem.ApplyKnockback(f, hitbox, attacker, defender, directionMultiplier, 1, hitboxLifetime);
             }
         }
     }

@@ -17,17 +17,18 @@ MonoBehaviour:
       Path: 
       Guid:
         Value: 0
+  Icon: {fileID: 21300000, guid: 48ef04daed08f5048b4dabd1f8c494b9, type: 3}
   Description: The whip uses mid-ranged attacks with wide hitboxes to juggle and
     out-range opponents. It can be good for starting certain combos as well.
-  IncludeInLists: 1
+  IncludeInLists: 0
   IsUnlocked: 0
   StartingCount:
     _nonNullValue: 0
     _hasValue: 0
   Price: 100
-  Icon: {fileID: 21300000, guid: 48ef04daed08f5048b4dabd1f8c494b9, type: 3}
-  Background: {fileID: 0}
-  SortingID: 0
+  FilterTags: []
+  GroupTags: []
+  isRandom: 0
   Settings_WeaponTemplate:
     Identifier:
       Path: Resources/DB/Assets/Build/Equipment/Weapons/Weapons/Templates/Whip
@@ -38,126 +39,65 @@ MonoBehaviour:
         Value: 0
     Primaries:
       Down:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Horizontal:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Neutral:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Up:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
     Aerials:
+      Backward:
+        Animation:
+          Id:
+            Value: 0
       Down:
-        Step1:
+        Animation:
           Id:
             Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
-      Horizontal:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+      Forward:
+        Animation:
           Id:
             Value: 0
       Neutral:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Up:
-        Step1:
+        Animation:
           Id:
             Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+    Dash:
+      Animation:
+        Id:
+          Value: 0
     Secondaries:
       Down:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Horizontal:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Neutral:
-        Step1:
-          Id:
-            Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
+        Animation:
           Id:
             Value: 0
       Up:
-        Step1:
+        Animation:
           Id:
             Value: 0
-        Step2:
-          Id:
-            Value: 0
-        Step3:
-          Id:
-            Value: 0
+  Main: {fileID: 0}
   Alt: {fileID: 0}
   Preview: {fileID: 0}
+  IconCameraPosition: {x: 0, y: 0, z: 0}
+  IconCameraRotation: {x: 0, y: 0, z: 0}

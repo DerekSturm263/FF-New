@@ -17,19 +17,26 @@ MonoBehaviour:
       Path: 
       Guid:
         Value: 0
-  Description: 'A sub enhanced with Bouncy will bounce on the floor and walls until
-    it despawns or hits another player. '
+  Icon: {fileID: 21300000, guid: 1f5e887269427894aa5643f3ef05cce8, type: 3}
+  Description: 'A sub enhanced with Bouncy will bounce off the floor until it hits
+    or a wall or another player. '
   IncludeInLists: 1
   IsUnlocked: 1
   StartingCount:
     _nonNullValue: 2
     _hasValue: 1
   Price: 20
-  Icon: {fileID: 21300000, guid: 1f5e887269427894aa5643f3ef05cce8, type: 3}
-  Background: {fileID: 0}
-  SortingID: 0
+  FilterTags: []
+  GroupTags: []
+  isRandom: 0
   Settings_BouncySubEnhancer:
     Identifier:
       Path: Resources/DB/Assets/Build/Equipment/Weapons/Subs/Enhancers/Bouncy
       Guid:
         Value: 402126719603344075
+    MaxBounces: 4
+    Wall:
+      BitMask: 64
+    Material:
+      Id:
+        Value: 2066140116659965338

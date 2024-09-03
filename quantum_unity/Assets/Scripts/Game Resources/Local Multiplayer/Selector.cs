@@ -28,7 +28,6 @@ public class Selector : MonoBehaviour
     public void Initialize(LocalPlayerInfo playerInfo)
     {
         _playerInfo = playerInfo;
-
         UpdateColors();
     }
 

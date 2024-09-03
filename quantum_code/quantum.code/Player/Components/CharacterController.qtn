@@ -85,6 +85,7 @@ component CharacterController
 
     // Knockback
     FPVector2 OriginalPosition;
+    FPVector2 KnockbackMultiplier;
     KnockbackInfo DeferredKnockback;
     KnockbackInfo CurrentKnockback;
     KnockbackInfo OldKnockback;
@@ -113,6 +114,7 @@ component CharacterController
     // Animation Events
 	int HeldAnimationFrameTime;
 	int MaxHoldAnimationFrameTime;
+    FP HoldLevel;
     int HoldButton;
     bool ButtonHeld;
     FPVector2 ApplyPhysicsPosition;

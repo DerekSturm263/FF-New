@@ -1,6 +1,5 @@
 using Extensions.Components.Miscellaneous;
 using Quantum;
-using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -57,7 +56,7 @@ public class DrawHitboxHurtbox : Controller<DrawHitboxHurtbox>
 
         while (filter.Next(&item))
         {
-            transform = Matrix4x4.TRS(item.Transform->Position.ToUnityVector3(), item.Transform->Rotation.ToUnityQuaternion(), 2 * item.HitboxInstance->Shape.BroadRadius.AsFloat * Vector3.one);
+            transform = Matrix4x4.TRS((item.Transform->Position + item.HitboxInstance->Shape.Centroid).ToUnityVector3(), item.Transform->Rotation.ToUnityQuaternion(), 2 * item.HitboxInstance->Shape.BroadRadius.AsFloat * Vector3.one);
             
             Graphics.DrawMesh(_circle, transform, _material, 0, Camera.main, 0, properties);
         }

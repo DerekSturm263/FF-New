@@ -15,6 +15,7 @@ namespace Quantum
             public CharacterController* CharacterController;
             public Transform2D* Transform;
             public PhysicsBody2D* PhysicsBody;
+            public PhysicsCollider2D* PhysicsCollider;
             public CustomAnimator* CustomAnimator;
             public PlayerStats* PlayerStats;
             public Stats* Stats;
@@ -84,6 +85,15 @@ namespace Quantum
                 filter.CharacterController->JumpCount = stats.Jump.AsShort;
                 filter.CharacterController->DodgeCount = stats.Dodge.AsShort;
             }
+
+            if (!filter.CharacterController->NearbyColliders.HasFlag(Colliders.Ground))
+            {
+                filter.PhysicsCollider->Layer = movementSettings.NoPlayerCollision;
+            }
+            else if (filter.CharacterController->NearbyColliders.HasFlag(Colliders.Ground) && !f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).DisableCollision)
+            {
+                filter.PhysicsCollider->Layer = movementSettings.PlayerCollision;
+            }
         }
 
         private void HandleRespawning(Frame f, ref Filter filter, MovementSettings movementSettings)
@@ -113,7 +123,12 @@ namespace Quantum
             }
 
             if (!buttonHeld || filter.CharacterController->HeldAnimationFrameTime >= filter.CharacterController->MaxHoldAnimationFrameTime)
-                filter.CustomAnimator->speed = 1;
+            {
+                if (filter.PlayerStats->ActiveWeapon == ActiveWeaponType.Primary)
+                    filter.CustomAnimator->speed = f.FindAsset<WeaponMaterial>(filter.PlayerStats->Build.Gear.MainWeapon.Material.Id).Stats.Speed;
+                else
+                    filter.CustomAnimator->speed = f.FindAsset<WeaponMaterial>(filter.PlayerStats->Build.Gear.AltWeapon.Material.Id).Stats.Speed;
+            }
         }
 
         private void HandleUltimate(Frame f, Filter filter)
@@ -172,23 +187,33 @@ namespace Quantum
             return new FPVector2(x, y) * scalar;
         }
 
-        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier)
+        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier, FP freezeFramesMultiplier, int hitboxLifetime)
         {
-            FPVector2 updatedDirection = new(hitbox.Offensive.Knockback.X * directionMultiplier, hitbox.Offensive.Knockback.Y);
+            FP newX = hitbox.Offensive.Knockback.X * directionMultiplier;
+            FP newY = (hitbox.Offensive.Knockback.X == FP._0 && hitbox.Offensive.Knockback.Y < 0 && f.Get<CharacterController>(defender).GetNearbyCollider(Colliders.Ground)) ? -hitbox.Offensive.Knockback.Y : hitbox.Offensive.Knockback.Y;
+
+            FPVector2 updatedDirection = FPVector2.Scale(new(newX, newY), f.Unsafe.GetPointer<CharacterController>(defender)->KnockbackMultiplier);
+
+            uint freezeTime = (uint)(hitbox.Delay.TargetFreezeFrames * freezeFramesMultiplier).AsInt;
 
             ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.UserFreezeFrames, 0);
-            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.TargetFreezeFrames, hitbox.Delay.TargetShakeStrength);
+            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, freezeTime, hitbox.Delay.TargetShakeStrength);
 
-            if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
+            if (f.Unsafe.TryGetPointer(defender, out Stats* stats))
             {
-                characterController->DeferredKnockback = new() { Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
-                characterController->OldKnockback = characterController->DeferredKnockback;
-                characterController->OriginalPosition = transform->Position;
+                stats->IFrameTime = (int)freezeTime + hitboxLifetime;
 
-                if (f.TryGet(defender, out PlayerStats stats))
+                if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
                 {
-                    characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
-                    f.Events.OnPlayerChangeDirection(defender, stats.Index, characterController->MovementDirection);
+                    characterController->DeferredKnockback = new() { SetState = characterController->KnockbackMultiplier.Equals(FPVector2.One), Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
+                    characterController->OldKnockback = characterController->DeferredKnockback;
+                    characterController->OriginalPosition = transform->Position;
+
+                    if (f.TryGet(defender, out PlayerStats playerStats))
+                    {
+                        characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
+                        f.Events.OnPlayerChangeDirection(defender, playerStats.Index, characterController->MovementDirection);
+                    }
                 }
             }
         }

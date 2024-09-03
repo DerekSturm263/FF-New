@@ -1,7 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Types;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Quantum
 {
@@ -84,6 +83,7 @@ namespace Quantum
                 itemInstance->FallY = settings.Offset.Y;
                 itemInstance->Item = item;
                 itemInstance->Owner = owner;
+                itemInstance->MaxCollisions = 1;
             }
 
             if (f.Unsafe.TryGetPointer(newItem, out PhysicsBody2D* physicsBody))

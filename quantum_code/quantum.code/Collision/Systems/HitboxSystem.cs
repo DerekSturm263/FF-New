@@ -41,7 +41,6 @@ namespace Quantum
                 hitboxes.Remove(entity);
             }
 
-            component->Shape.Compound.FreePersistent(f);
             f.Events.OnHitboxSpawnDespawn(component->Owner, entity, false);
 
             f.FreeList(component->Positions);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4961953053630497690}
   - component: {fileID: -1021235288708050047}
   - component: {fileID: -6166161976002533024}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 0
+    Layer: 10
     CallbackFlags:
       Value: 18
   PhysicsBody:
@@ -204,9 +204,13 @@ MonoBehaviour:
     Target: {fileID: 0}
     FallState:
       Value: 0
+    IsActive:
+      Value: 0
     FallSpeed:
       RawValue: 0
     FallY:
+      RawValue: 0
+    ActiveTime:
       RawValue: 0
     Uses: 0
 --- !u!114 &-6166161976002533024
@@ -318,10 +322,35 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6377946277985932414, guid: 5b3706c7066732d4d803898f57c81340,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -4642658776784181373, guid: 5b3706c7066732d4d803898f57c81340,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -2917492305885950150, guid: 5b3706c7066732d4d803898f57c81340,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b3706c7066732d4d803898f57c81340,
         type: 3}
       propertyPath: m_Name
       value: Strykyn
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5b3706c7066732d4d803898f57c81340,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058565312645080894, guid: 5b3706c7066732d4d803898f57c81340,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

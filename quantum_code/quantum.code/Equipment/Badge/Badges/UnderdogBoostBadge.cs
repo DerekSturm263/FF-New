@@ -5,9 +5,6 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class UnderdogBoostBadge : Badge
     {
-        public FP MinimumStocks;
-        public FP MinimumHealth;
-
         public ApparelStats ApparelStatsMultiplier;
         public WeaponStats WeaponStatsMultiplier;
 
@@ -15,7 +12,7 @@ namespace Quantum
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats) && f.Unsafe.TryGetPointer(user, out PlayerStats* playerStats))
             {
-                if (stats->CurrentStats.Stocks <= MinimumStocks || stats->CurrentStats.Health < MinimumHealth)
+                if (stats->CurrentStats.Stocks <= f.Global->CurrentMatch.Ruleset.Players.StockCount / 2)
                 {
                     playerStats->ApparelStatsMultiplier = ApparelStatsMultiplier;
                     playerStats->WeaponStatsMultiplier = WeaponStatsMultiplier;

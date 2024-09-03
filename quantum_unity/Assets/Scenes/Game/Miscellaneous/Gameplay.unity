@@ -1710,6 +1710,7 @@ MonoBehaviour:
       BitMask: 512
     GroundLayer:
       BitMask: 64
+    ItemLayer: 10
     TeamColors:
       Item1:
         R: 183
@@ -5691,6 +5692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2142843478}
   - component: {fileID: 2142843477}
+  - component: {fileID: 2142843479}
   m_Layer: 0
   m_Name: Local Input Controller
   m_TagString: Untagged
@@ -7314,6 +7316,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 367862351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2142843479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142843476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063cfe864b238e488b5ce598cacc84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 11400000, guid: 3fac5f80842efce478109c1544f9c489, type: 2}
+  _readContinuous: 0
+  _processWhenEmpty: 0
+  _parent: {fileID: 0}
+  _requiresFocus: 0
+  _onAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2142843477}
+        m_TargetAssemblyTypeName: LocalInputController, CustomQuantum
+        m_MethodName: ResetPositions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onAxisAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onVector2Action:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCtxAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

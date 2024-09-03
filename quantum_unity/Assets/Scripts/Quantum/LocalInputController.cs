@@ -3,6 +3,7 @@ using Quantum;
 using UnityEngine;
 using Extensions.Components.Miscellaneous;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class LocalInputController : Controller<LocalInputController>
 {
@@ -32,6 +33,12 @@ public class LocalInputController : Controller<LocalInputController>
         _canInput = false;
         
         QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
+    }
+
+    public void ResetPositions()
+    {
+        CommandResetAllPlayerPositions command = new();
+        QuantumRunner.Default.Game.SendCommand(command);
     }
 
     public void PollInput(CallbackPollInput callback)

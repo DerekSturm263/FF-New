@@ -9,6 +9,7 @@ namespace Quantum {
         
         public LayerMask HitboxLayer;
         public LayerMask GroundLayer;
+        public int ItemLayer;
 
         public ArrayColors TeamColors;
         public ArrayColors DarkTeamColors;
@@ -20,6 +21,7 @@ namespace Quantum {
             stream.Serialize(ref Hitbox);
             stream.Serialize(ref HitboxLayer);
             stream.Serialize(ref GroundLayer);
+            stream.Serialize(ref ItemLayer);
             stream.Serialize(ref TeamColors);
             stream.Serialize(ref DarkTeamColors);
         }

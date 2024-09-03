@@ -181,7 +181,7 @@ namespace Quantum
                 if (amount > 0)
                     playerStats->Stats.TotalEnergyGenerated += amount;
                 else
-                    playerStats->Stats.TotalEnergyConsumed += amount;
+                    playerStats->Stats.TotalEnergyConsumed -= amount;
             }
 
             SetEnergy(f, entityRef, stats, stats->CurrentStats.Energy + (amount * stats->StatsMultiplier.Energy * (amount > 0 ? f.Global->CurrentMatch.Ruleset.Players.EnergyChargeRate : f.Global->CurrentMatch.Ruleset.Players.EnergyConsumptionRate)));

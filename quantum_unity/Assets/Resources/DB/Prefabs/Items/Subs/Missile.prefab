@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4961953053630497690}
   - component: {fileID: 6617683391152891420}
   - component: {fileID: 7146012837412123612}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 0
+    Layer: 10
     CallbackFlags:
       Value: 18
   PhysicsBody:
@@ -129,9 +129,9 @@ MonoBehaviour:
     Mass:
       RawValue: 65536
     Drag:
-      RawValue: 32768
+      RawValue: 0
     AngularDrag:
-      RawValue: 32768
+      RawValue: 0
     CenterOfMass2D:
       X:
         RawValue: 0
@@ -211,7 +211,13 @@ MonoBehaviour:
       RawValue: 0
     FallY:
       RawValue: 0
+    ActiveTime:
+      RawValue: 0
     Uses: 0
+    Collisions: 0
+    MaxCollisions: 0
+    DoBounce:
+      Value: 0
 --- !u!114 &7146012837412123612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +260,7 @@ GameObject:
   - component: {fileID: 2132200511173077200}
   - component: {fileID: 3783909783075708938}
   - component: {fileID: 8584042039013385437}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 'Smoke Trail effect '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5148,10 +5154,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2478642989625121966, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -2211848432716328424, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1019860791970802633, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 427201706842483095, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 588265637510146402, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d754ea5a693007c4ba95ac2dd5189a3e,
         type: 3}
       propertyPath: m_Name
       value: Zenith Missile
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 995597679050957660, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390191603177027457, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064162893221759837, guid: d754ea5a693007c4ba95ac2dd5189a3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

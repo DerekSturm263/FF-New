@@ -41,6 +41,7 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.Prototypes.Input_Prototype LastFrame;
     public Quantum.QBoolean StartedInAir;
     public Photon.Deterministic.FPVector2 OriginalPosition;
+    public Photon.Deterministic.FPVector2 KnockbackMultiplier;
     public Quantum.Prototypes.KnockbackInfo_Prototype DeferredKnockback;
     public Quantum.Prototypes.KnockbackInfo_Prototype CurrentKnockback;
     public Quantum.Prototypes.KnockbackInfo_Prototype OldKnockback;
@@ -59,6 +60,7 @@ namespace Quantum.Prototypes.Unity {
     public Photon.Deterministic.FP ThrowMultiplier;
     public System.Int32 HeldAnimationFrameTime;
     public System.Int32 MaxHoldAnimationFrameTime;
+    public Photon.Deterministic.FP HoldLevel;
     public System.Int32 HoldButton;
     public Quantum.QBoolean ButtonHeld;
     public Photon.Deterministic.FPVector2 ApplyPhysicsPosition;
@@ -86,6 +88,7 @@ namespace Quantum.Prototypes.Unity {
       result.LastFrame = this.LastFrame;
       result.StartedInAir = this.StartedInAir;
       result.OriginalPosition = this.OriginalPosition;
+      result.KnockbackMultiplier = this.KnockbackMultiplier;
       result.DeferredKnockback = this.DeferredKnockback;
       result.CurrentKnockback = this.CurrentKnockback;
       result.OldKnockback = this.OldKnockback;
@@ -104,6 +107,7 @@ namespace Quantum.Prototypes.Unity {
       result.ThrowMultiplier = this.ThrowMultiplier;
       result.HeldAnimationFrameTime = this.HeldAnimationFrameTime;
       result.MaxHoldAnimationFrameTime = this.MaxHoldAnimationFrameTime;
+      result.HoldLevel = this.HoldLevel;
       result.HoldButton = this.HoldButton;
       result.ButtonHeld = this.ButtonHeld;
       result.ApplyPhysicsPosition = this.ApplyPhysicsPosition;
@@ -187,6 +191,9 @@ namespace Quantum.Prototypes.Unity {
     public Photon.Deterministic.FP FallY;
     public Photon.Deterministic.FP ActiveTime;
     public System.Int32 Uses;
+    public System.Int32 Collisions;
+    public System.Int32 MaxCollisions;
+    public Quantum.QBoolean DoBounce;
 
     public sealed override Quantum.Prototypes.ItemInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.ItemInstance_Prototype();
@@ -200,6 +207,9 @@ namespace Quantum.Prototypes.Unity {
       result.FallY = this.FallY;
       result.ActiveTime = this.ActiveTime;
       result.Uses = this.Uses;
+      result.Collisions = this.Collisions;
+      result.MaxCollisions = this.MaxCollisions;
+      result.DoBounce = this.DoBounce;
       return result;
     }
   }

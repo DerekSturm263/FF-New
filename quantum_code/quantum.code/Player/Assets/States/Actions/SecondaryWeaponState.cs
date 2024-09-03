@@ -54,8 +54,14 @@ namespace Quantum
                 MoveRef animRef = DirectionalHelper.GetFromDirection(weaponTemplate.Secondaries, filter.CharacterController->DirectionEnum);
                 QuantumAnimationEvent animEvent = f.FindAsset<QuantumAnimationEvent>(animRef.Animation.Id);
 
+                WeaponMaterial material = f.FindAsset<WeaponMaterial>(filter.PlayerStats->Build.Gear.AltWeapon.Material.Id);
+                if (material is not null)
+                    filter.CustomAnimator->speed = material.Stats.Speed;
+
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
             }
+
+            filter.CharacterController->HoldLevel = 0;
         }
 
         public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
@@ -64,7 +70,16 @@ namespace Quantum
 
             filter.CharacterController->CanMove = true;
             filter.CharacterController->MaintainVelocity = false;
+            filter.CharacterController->HeldAnimationFrameTime = 0;
+            filter.CharacterController->MaxHoldAnimationFrameTime = 0;
+            filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
+
+            filter.CharacterController->HeldAnimationFrameTime = 0;
+            filter.CharacterController->MaxHoldAnimationFrameTime = 0;
+
             filter.PhysicsBody->GravityScale = 1;
+
+            filter.CustomAnimator->speed = 1;
 
             base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);
         }

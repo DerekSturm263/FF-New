@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public static class WeaponHelper
     {
@@ -26,9 +24,7 @@ namespace Quantum
 
         public static unsafe WeaponStats FromStats(Frame f, PlayerStats* stats)
         {
-            WeaponStats weaponStats = Default;
-
-            weaponStats = Add(FromWeapon(f, stats->Build.Gear.MainWeapon), weaponStats);
+            WeaponStats weaponStats = FromWeapon(f, stats->Build.Gear.MainWeapon);
 
             return Multiply(weaponStats, stats->WeaponStatsMultiplier);
         }

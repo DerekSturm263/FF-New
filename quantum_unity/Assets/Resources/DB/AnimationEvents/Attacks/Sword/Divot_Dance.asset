@@ -20,7 +20,7 @@ MonoBehaviour:
       Guid:
         Value: 3123313836264161406
     StartingFrame: 4
-    EndingFrame: 20
+    EndingFrame: 11
     Parent: 1
     Shape:
       ShapeType: 16
@@ -68,13 +68,57 @@ MonoBehaviour:
           RawValue: 0
         UserTag: 0
         IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        TargetFreezeFrames: 10
+        TargetFreezeFrames: 5
         TargetShakeStrength:
           RawValue: 65536
-        UserFreezeFrames: 6
+        UserFreezeFrames: 5
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
@@ -84,7 +128,7 @@ MonoBehaviour:
           X:
             RawValue: 0
           Y:
-            RawValue: 332922
+            RawValue: 262144
         StatusEffect:
           Id:
             Value: 0
@@ -159,42 +203,72 @@ MonoBehaviour:
           RawValue: 28491
         Y:
           RawValue: -7553
+    - List:
       - X:
-          RawValue: 58985
+          RawValue: -51447
         Y:
-          RawValue: 6521
+          RawValue: 43474
       - X:
-          RawValue: 75945
+          RawValue: -5287
         Y:
-          RawValue: 20965
+          RawValue: 37398
       - X:
-          RawValue: 87188
+          RawValue: 20078
         Y:
-          RawValue: 38127
+          RawValue: 45906
       - X:
-          RawValue: 92431
+          RawValue: 12082
         Y:
-          RawValue: 55810
+          RawValue: 54587
       - X:
-          RawValue: 92623
+          RawValue: 3934
         Y:
-          RawValue: 71611
+          RawValue: 53207
       - X:
-          RawValue: 90398
+          RawValue: 2977
         Y:
-          RawValue: 83800
+          RawValue: 44299
       - X:
-          RawValue: 88686
+          RawValue: 12167
         Y:
-          RawValue: 90618
+          RawValue: 39584
       - X:
-          RawValue: 89488
+          RawValue: 22713
         Y:
-          RawValue: 91912
+          RawValue: 43878
+    - List:
       - X:
-          RawValue: 92870
+          RawValue: -71420
         Y:
-          RawValue: 88081
+          RawValue: 39372
+      - X:
+          RawValue: 7685
+        Y:
+          RawValue: 15834
+      - X:
+          RawValue: 45144
+        Y:
+          RawValue: 55376
+      - X:
+          RawValue: 17965
+        Y:
+          RawValue: 80325
+      - X:
+          RawValue: -13698
+        Y:
+          RawValue: 72078
+      - X:
+          RawValue: -23662
+        Y:
+          RawValue: 40808
+      - X:
+          RawValue: -2651
+        Y:
+          RawValue: 18378
+      - X:
+          RawValue: 25500
+        Y:
+          RawValue: 19070
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -249,13 +323,13 @@ MonoBehaviour:
   m_Name: Sourspot
   m_EditorClassIdentifier: 
   Description: 
-  Color: {r: 1, g: 0.504717, b: 0.504717, a: 1}
+  Color: {r: 1, g: 0, b: 0, a: 1}
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Attacks/Sword/Divot_Dance|Sourspot
       Guid:
         Value: 2113364088954793814
-    StartingFrame: 4
+    StartingFrame: 12
     EndingFrame: 20
     Parent: 1
     Shape:
@@ -282,6 +356,28 @@ MonoBehaviour:
       UserTag: 0
       IsPersistent: 1
       CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       - ShapeType: 1
         PolygonCollider:
           Id:
@@ -329,10 +425,10 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        TargetFreezeFrames: 10
+        TargetFreezeFrames: 5
         TargetShakeStrength:
           RawValue: 65536
-        UserFreezeFrames: 6
+        UserFreezeFrames: 5
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
@@ -342,7 +438,7 @@ MonoBehaviour:
           X:
             RawValue: 0
           Y:
-            RawValue: 242483
+            RawValue: 262144
         StatusEffect:
           Id:
             Value: 0
@@ -386,37 +482,42 @@ MonoBehaviour:
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -51447
+          RawValue: 58985
         Y:
-          RawValue: 43474
+          RawValue: 6521
       - X:
-          RawValue: -5287
+          RawValue: 75945
         Y:
-          RawValue: 37398
+          RawValue: 20965
       - X:
-          RawValue: 20078
+          RawValue: 87188
         Y:
-          RawValue: 45906
+          RawValue: 38127
       - X:
-          RawValue: 12082
+          RawValue: 92431
         Y:
-          RawValue: 54587
+          RawValue: 55810
       - X:
-          RawValue: 3934
+          RawValue: 92623
         Y:
-          RawValue: 53207
+          RawValue: 71611
       - X:
-          RawValue: 2977
+          RawValue: 90398
         Y:
-          RawValue: 44299
+          RawValue: 83800
       - X:
-          RawValue: 12167
+          RawValue: 88686
         Y:
-          RawValue: 39584
+          RawValue: 90618
       - X:
-          RawValue: 22713
+          RawValue: 89488
         Y:
-          RawValue: 43878
+          RawValue: 91912
+      - X:
+          RawValue: 92870
+        Y:
+          RawValue: 88081
+    - List:
       - X:
           RawValue: 29010
         Y:
@@ -454,38 +555,6 @@ MonoBehaviour:
         Y:
           RawValue: 74035
     - List:
-      - X:
-          RawValue: -71420
-        Y:
-          RawValue: 39372
-      - X:
-          RawValue: 7685
-        Y:
-          RawValue: 15834
-      - X:
-          RawValue: 45144
-        Y:
-          RawValue: 55376
-      - X:
-          RawValue: 17965
-        Y:
-          RawValue: 80325
-      - X:
-          RawValue: -13698
-        Y:
-          RawValue: 72078
-      - X:
-          RawValue: -23662
-        Y:
-          RawValue: 40808
-      - X:
-          RawValue: -2651
-        Y:
-          RawValue: 18378
-      - X:
-          RawValue: 25500
-        Y:
-          RawValue: 19070
       - X:
           RawValue: 43469
         Y:

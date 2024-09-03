@@ -6,13 +6,16 @@ namespace Quantum
     [System.Serializable]
     public unsafe partial class VampiricWeaponEnhancer : WeaponEnhancer
     {
-        public FP HealthIncrease;
+        public FP HealthMultiplier;
+        public FP SuccessLevel;
 
-        public override void OnHit(Frame f, EntityRef user, EntityRef target)
+        public override void OnHit(Frame f, EntityRef user, EntityRef target, HitboxSettings hitbox, FP chargeLevel)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
+            if (f.Unsafe.TryGetPointer(user, out Stats* stats) &&
+                f.Unsafe.TryGetPointer(user, out CharacterController* characterController) &&
+                chargeLevel >= SuccessLevel)
             {
-                stats->CurrentStats.Health += HealthIncrease;
+                stats->CurrentStats.Health += hitbox.Offensive.Damage * HealthMultiplier;
             }
         }
     }

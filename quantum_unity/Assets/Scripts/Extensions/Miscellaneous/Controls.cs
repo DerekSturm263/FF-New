@@ -55,15 +55,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dodge"",
-                    ""type"": ""Button"",
-                    ""id"": ""782bce3c-d3cf-4ca8-8393-461173a05f42"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Look Up"",
                     ""type"": ""Button"",
                     ""id"": ""cf506901-11c4-4779-976e-650e3e449869"",
@@ -73,9 +64,27 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Left Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""bfb43be6-2808-49b5-8892-51be8a010da2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Block"",
                     ""type"": ""Button"",
                     ""id"": ""735af238-c85f-4628-abe3-f221aeb5d05c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""782bce3c-d3cf-4ca8-8393-461173a05f42"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -166,15 +175,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""67e5f143-03fc-4d3c-8444-a4ea52f46e14"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Left Right"",
-                    ""type"": ""Button"",
-                    ""id"": ""bfb43be6-2808-49b5-8892-51be8a010da2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -668,39 +668,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""399075bb-b2b5-4db3-9fd1-15e10d24d8df"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard + Mouse"",
-                    ""action"": ""Dodge"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1e81ca46-bdda-45cc-84ce-2693c23188f0"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Dodge"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b9bc7b4b-be64-4bdc-8ead-e74a775cb546"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Dodge"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""b76516dc-9f58-4fcb-808d-50cfe36b7360"",
                     ""path"": ""<Keyboard>/semicolon"",
                     ""interactions"": """",
@@ -806,6 +773,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Left Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""399075bb-b2b5-4db3-9fd1-15e10d24d8df"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e81ca46-bdda-45cc-84ce-2693c23188f0"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9bc7b4b-be64-4bdc-8ead-e74a775cb546"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1249,9 +1249,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
-        m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_LookUp = m_Player.FindAction("Look Up", throwIfNotFound: true);
+        m_Player_LeftRight = m_Player.FindAction("Left Right", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
+        m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_Primary = m_Player.FindAction("Primary", throwIfNotFound: true);
         m_Player_Secondary = m_Player.FindAction("Secondary", throwIfNotFound: true);
         m_Player_Sub1 = m_Player.FindAction("Sub 1", throwIfNotFound: true);
@@ -1262,7 +1263,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Leave = m_Player.FindAction("Leave", throwIfNotFound: true);
         m_Player_Ready = m_Player.FindAction("Ready", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
-        m_Player_LeftRight = m_Player.FindAction("Left Right", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Any = m_Menu.FindAction("Any", throwIfNotFound: true);
@@ -1333,9 +1333,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Crouch;
-    private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_LookUp;
+    private readonly InputAction m_Player_LeftRight;
     private readonly InputAction m_Player_Block;
+    private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_Primary;
     private readonly InputAction m_Player_Secondary;
     private readonly InputAction m_Player_Sub1;
@@ -1346,7 +1347,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Leave;
     private readonly InputAction m_Player_Ready;
     private readonly InputAction m_Player_Cancel;
-    private readonly InputAction m_Player_LeftRight;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -1354,9 +1354,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
-        public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @LookUp => m_Wrapper.m_Player_LookUp;
+        public InputAction @LeftRight => m_Wrapper.m_Player_LeftRight;
         public InputAction @Block => m_Wrapper.m_Player_Block;
+        public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @Primary => m_Wrapper.m_Player_Primary;
         public InputAction @Secondary => m_Wrapper.m_Player_Secondary;
         public InputAction @Sub1 => m_Wrapper.m_Player_Sub1;
@@ -1367,7 +1368,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Leave => m_Wrapper.m_Player_Leave;
         public InputAction @Ready => m_Wrapper.m_Player_Ready;
         public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
-        public InputAction @LeftRight => m_Wrapper.m_Player_LeftRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1386,15 +1386,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
-            @Dodge.started += instance.OnDodge;
-            @Dodge.performed += instance.OnDodge;
-            @Dodge.canceled += instance.OnDodge;
             @LookUp.started += instance.OnLookUp;
             @LookUp.performed += instance.OnLookUp;
             @LookUp.canceled += instance.OnLookUp;
+            @LeftRight.started += instance.OnLeftRight;
+            @LeftRight.performed += instance.OnLeftRight;
+            @LeftRight.canceled += instance.OnLeftRight;
             @Block.started += instance.OnBlock;
             @Block.performed += instance.OnBlock;
             @Block.canceled += instance.OnBlock;
+            @Dodge.started += instance.OnDodge;
+            @Dodge.performed += instance.OnDodge;
+            @Dodge.canceled += instance.OnDodge;
             @Primary.started += instance.OnPrimary;
             @Primary.performed += instance.OnPrimary;
             @Primary.canceled += instance.OnPrimary;
@@ -1425,9 +1428,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
-            @LeftRight.started += instance.OnLeftRight;
-            @LeftRight.performed += instance.OnLeftRight;
-            @LeftRight.canceled += instance.OnLeftRight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1441,15 +1441,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
-            @Dodge.started -= instance.OnDodge;
-            @Dodge.performed -= instance.OnDodge;
-            @Dodge.canceled -= instance.OnDodge;
             @LookUp.started -= instance.OnLookUp;
             @LookUp.performed -= instance.OnLookUp;
             @LookUp.canceled -= instance.OnLookUp;
+            @LeftRight.started -= instance.OnLeftRight;
+            @LeftRight.performed -= instance.OnLeftRight;
+            @LeftRight.canceled -= instance.OnLeftRight;
             @Block.started -= instance.OnBlock;
             @Block.performed -= instance.OnBlock;
             @Block.canceled -= instance.OnBlock;
+            @Dodge.started -= instance.OnDodge;
+            @Dodge.performed -= instance.OnDodge;
+            @Dodge.canceled -= instance.OnDodge;
             @Primary.started -= instance.OnPrimary;
             @Primary.performed -= instance.OnPrimary;
             @Primary.canceled -= instance.OnPrimary;
@@ -1480,9 +1483,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
-            @LeftRight.started -= instance.OnLeftRight;
-            @LeftRight.performed -= instance.OnLeftRight;
-            @LeftRight.canceled -= instance.OnLeftRight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1593,9 +1593,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
-        void OnDodge(InputAction.CallbackContext context);
         void OnLookUp(InputAction.CallbackContext context);
+        void OnLeftRight(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
         void OnPrimary(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
         void OnSub1(InputAction.CallbackContext context);
@@ -1606,7 +1607,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLeave(InputAction.CallbackContext context);
         void OnReady(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
-        void OnLeftRight(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

@@ -240,11 +240,7 @@ public class WeaponController : Controller<WeaponController>
 
     public void PreviewMaterial(WeaponMaterialAsset material)
     {
-        /*if (_templateObj)
-            Destroy(_templateObj);
-
-        if (template.Weapon)
-            _templateObj = Instantiate(template.Weapon, _objParent);*/
+        TemplateObj.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
 
         if (_price.isActiveAndEnabled)
         {

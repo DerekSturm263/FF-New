@@ -38,8 +38,13 @@ namespace Quantum
                     StartHolding = true
                 };
 
-                ItemSpawnSystem.SpawnParented(f, itemSpawnSettings, filter.Entity);
-                
+                EntityRef item = ItemSpawnSystem.SpawnParented(f, itemSpawnSettings, filter.Entity);
+
+                SubEnhancer subEnhancer = f.FindAsset<SubEnhancer>(filter.PlayerStats->Build.Gear.SubWeapon.Enhancer.Id);
+
+                if (subEnhancer is not null)
+                    subEnhancer.OnSpawn(f, filter.Entity, item, filter.PlayerStats->Build.Gear.SubWeapon);
+
                 filter.CharacterController->HasSubWeapon = true;
                 ++filter.PlayerStats->Stats.SubUses;
             }

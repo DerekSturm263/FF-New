@@ -30,13 +30,29 @@ namespace Quantum
 
         public static unsafe ApparelStats FromStats(Frame f, PlayerStats* stats)
         {
-            ApparelStats apparelStats = Default;
+            ApparelStats apparelStats = default;
 
             apparelStats = Add(FromApparel(f, stats->Build.Outfit.Headgear), apparelStats);
             apparelStats = Add(FromApparel(f, stats->Build.Outfit.Clothing), apparelStats);
             apparelStats = Add(FromApparel(f, stats->Build.Outfit.Legwear), apparelStats);
 
+            apparelStats.Agility = 2 - Pow(FP._0_50, apparelStats.Agility);
+            apparelStats.Defense = 2 - Pow(FP._0_50, apparelStats.Defense);
+            apparelStats.Jump = 1 + (apparelStats.Jump / 2).AsInt;
+            apparelStats.Dodge = 1 + (apparelStats.Dodge / 3).AsInt;
+            apparelStats.Weight = 2 - Pow(FP._0_50, apparelStats.Weight);
+
             return Multiply(apparelStats, stats->ApparelStatsMultiplier);
+        }
+
+        private static FP Pow(FP a, FP pow)
+        {
+            FP result = 1;
+
+            for (int i = 0; i < pow; ++i)
+                result *= a;
+
+            return result;
         }
 
         private static ApparelStats FromApparel(Frame f, Apparel apparel)
