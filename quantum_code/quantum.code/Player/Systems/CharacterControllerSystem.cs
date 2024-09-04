@@ -54,20 +54,6 @@ namespace Quantum
 
                 filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
             }
-
-            // Apply the knockback velocity.
-            if (filter.CharacterController->CurrentKnockback.Time > 0)
-            {
-                filter.CharacterController->CurrentKnockback.Time -= f.DeltaTime;
-                filter.CharacterController->CurrentKnockback.Direction.X -= f.DeltaTime;
-
-                if (filter.CharacterController->CurrentKnockback.Time <= 0 || (filter.CharacterController->GetNearbyCollider(Colliders.Ground) && filter.CharacterController->CurrentKnockback.Time < FP._0_50))
-                {
-                    filter.CharacterController->CurrentKnockback = default;
-                }
-
-                PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
-            }
         }
 
         private void HandleGround(Frame f, Filter filter, MovementSettings movementSettings)
@@ -152,41 +138,6 @@ namespace Quantum
             }
         }
 
-        [Conditional("DEBUG")]
-        private void PreviewKnockback(FPVector2 amount, FPVector2 offset)
-        {
-            var lineList = CalculateArcPositions(20, amount, offset);
-
-            for (int i = 0; i < lineList.Length - 1; ++i)
-            {
-                Draw.Line(lineList[i], lineList[i + 1]);
-            }
-        }
-
-        private ReadOnlySpan<FPVector3> CalculateArcPositions(int resolution, FPVector2 amount, FPVector2 offset)
-        {
-            FPVector3[] positions = new FPVector3[resolution];
-
-            for (int i = 0; i < resolution; ++i)
-            {
-                FP t = (FP)i / resolution;
-                positions[i] = (CalculateArcPoint(t, 20, 1, amount) + offset).XYO;
-            }
-
-            return positions;
-        }
-
-        private FPVector2 CalculateArcPoint(FP t, FP gravity, FP scalar, FPVector2 amount)
-        {
-            amount.X += FP._1 / 10000;
-            FP angle = FPMath.Atan2(amount.Y, amount.X);
-
-            FP x = t * amount.X;
-            FP y = x * FPMath.Tan(angle) - (gravity * x * x / (2 * amount.Magnitude * amount.Magnitude * FPMath.Cos(angle) * FPMath.Cos(angle)));
-
-            return new FPVector2(x, y) * scalar;
-        }
-
         public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier, FP freezeFramesMultiplier, int hitboxLifetime)
         {
             FP newX = hitbox.Offensive.Knockback.X * directionMultiplier;
@@ -194,10 +145,10 @@ namespace Quantum
 
             FPVector2 updatedDirection = FPVector2.Scale(new(newX, newY), f.Unsafe.GetPointer<CharacterController>(defender)->KnockbackMultiplier);
 
-            uint freezeTime = (uint)(hitbox.Delay.TargetFreezeFrames * freezeFramesMultiplier).AsInt;
+            uint freezeTime = (uint)(hitbox.Delay.FreezeFrames * freezeFramesMultiplier).AsInt;
 
-            ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.UserFreezeFrames, 0);
-            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, freezeTime, hitbox.Delay.TargetShakeStrength);
+            ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.FreezeFrames, 0);
+            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, freezeTime, hitbox.Delay.ShakeStrength);
 
             if (f.Unsafe.TryGetPointer(defender, out Stats* stats))
             {
@@ -205,11 +156,12 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
                 {
-                    characterController->DeferredKnockback = new() { SetState = characterController->KnockbackMultiplier.Equals(FPVector2.One), Direction = updatedDirection, Time = hitbox.Offensive.Knockback.Magnitude / 12 };
+                    characterController->DeferredKnockback = new() { Direction = updatedDirection };
                     characterController->OldKnockback = characterController->DeferredKnockback;
                     characterController->OriginalPosition = transform->Position;
+                    characterController->HitStunTime = hitbox.Offensive.HitStun;
 
-                    if (f.TryGet(defender, out PlayerStats playerStats))
+                    if (updatedDirection != FPVector2.Zero && f.TryGet(defender, out PlayerStats playerStats))
                     {
                         characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
                         f.Events.OnPlayerChangeDirection(defender, playerStats.Index, characterController->MovementDirection);

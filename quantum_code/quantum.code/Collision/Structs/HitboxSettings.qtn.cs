@@ -20,7 +20,9 @@ namespace Quantum
             {
                 Damage = FPMath.Lerp(a.Damage, b.Damage, t),
                 Knockback = FPVector2.Lerp(a.Knockback, b.Knockback, t),
-                StatusEffect = a.StatusEffect
+                HitStun = FPMath.Lerp(a.HitStun, b.HitStun, t).AsInt,
+                StatusEffect = a.StatusEffect,
+                AlignKnockbackToPlayerDirection = a.AlignKnockbackToPlayerDirection
             };
         }
 
@@ -28,8 +30,8 @@ namespace Quantum
         {
             return new()
             {
-                UserFreezeFrames = (uint)FPMath.Lerp(a.UserFreezeFrames, b.UserFreezeFrames, t).AsInt,
-                TargetFreezeFrames = (uint)FPMath.Lerp(a.TargetFreezeFrames, b.TargetFreezeFrames, t).AsInt
+                FreezeFrames = (uint)FPMath.Lerp(a.FreezeFrames, b.FreezeFrames, t).AsInt,
+                ShakeStrength = FPMath.Lerp(a.ShakeStrength, b.ShakeStrength, t)
             };
         }
 
@@ -37,6 +39,7 @@ namespace Quantum
         {
             return new()
             {
+                OnlyShakeOnHit = a.OnlyShakeOnHit,
                 CameraShake = a.CameraShake,
                 TargetShake = a.TargetShake
             };

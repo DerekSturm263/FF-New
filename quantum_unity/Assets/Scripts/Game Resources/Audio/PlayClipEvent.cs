@@ -8,15 +8,12 @@ namespace Quantum
         public ClipSettings UnchargedSettings;
         public ClipSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Playing clip!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                ClipSettings settings = characterController->LerpFromAnimationHold_UNSAFE(ClipSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                AudioSource.PlayClipAtPoint(settings.GetClip(f.Unsafe.GetPointer<PlayerStats>(entity)->Build.Frame.Voice), Vector3.zero, settings.Volume);
-            }
+            ClipSettings settings = filter.CharacterController->LerpFromAnimationHold_UNSAFE(ClipSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            AudioSource.PlayClipAtPoint(settings.GetClip(filter.PlayerStats->Build.Frame.Voice), Vector3.zero, settings.Volume);
         }
     }
 }

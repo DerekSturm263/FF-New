@@ -17,38 +17,28 @@ namespace Quantum
         public PhysicsSettings UnchargedSettings;
         public PhysicsSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Applying physics!");
 
-            if (f.Unsafe.TryGetPointer(entity, out PhysicsBody2D* physicsBody))
-            {
-                physicsBody->GravityScale = 0;
-            }
-
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController) && f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
-            {
-                characterController->ApplyPhysicsPosition = transform->Position;
-            }
+            filter.PhysicsBody->GravityScale = 0;
+            filter.CharacterController->ApplyPhysicsPosition = filter.Transform->Position;
         }
 
-        public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
+        public override void Update(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame, int elapsedFrames)
         {
             Log.Debug("Updating physics!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController) && f.Unsafe.TryGetPointer(entity, out Transform2D* transform))
-            {
-                PhysicsSettings settings = characterController->LerpFromAnimationHold(PhysicsSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                FPVector2 newPos = characterController->ApplyPhysicsPosition + GetPositionAtTime(settings, (FP)elapsedFrames / Length, characterController->MovementDirection);
+            PhysicsSettings settings = filter.CharacterController->LerpFromAnimationHold(PhysicsSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            FPVector2 newPos = filter.CharacterController->ApplyPhysicsPosition + GetPositionAtTime(settings, (FP)elapsedFrames / Length, filter.CharacterController->MovementDirection);
 
-                if (newPos.X > transform->Position.X && characterController->GetNearbyCollider(Colliders.RightWall) ||
-                    newPos.X < transform->Position.X && characterController->GetNearbyCollider(Colliders.LeftWall) ||
-                    newPos.Y > transform->Position.Y && characterController->GetNearbyCollider(Colliders.Ceiling) ||
-                    newPos.Y < transform->Position.Y && characterController->GetNearbyCollider(Colliders.Ground))
-                    return;
+            if (newPos.X > filter.Transform->Position.X && filter.CharacterController->GetNearbyCollider(Colliders.RightWall) ||
+                newPos.X < filter.Transform->Position.X && filter.CharacterController->GetNearbyCollider(Colliders.LeftWall) ||
+                newPos.Y > filter.Transform->Position.Y && filter.CharacterController->GetNearbyCollider(Colliders.Ceiling) ||
+                newPos.Y < filter.Transform->Position.Y && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
+                return;
 
-                transform->Position = newPos;
-            }
+            filter.Transform->Position = newPos;
         }
 
         public static FPVector2 GetPositionAtTime(PhysicsSettings settings, FP normalizedTime, int direction)
@@ -56,14 +46,11 @@ namespace Quantum
             return new FPVector2(settings.XCurve.Evaluate(normalizedTime) * settings.XForce * direction, settings.YCurve.Evaluate(normalizedTime) * settings.YForce);
         }
 
-        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Cleaning up physics!");
 
-            if (f.Unsafe.TryGetPointer(entity, out PhysicsBody2D* physicsBody))
-            {
-                physicsBody->GravityScale = 1;
-            }
+            filter.PhysicsBody->GravityScale = 1;
         }
     }
 }

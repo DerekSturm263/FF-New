@@ -13,31 +13,27 @@ namespace Quantum
         public bool CanMove;
         public bool MaintainVelocity;
 
-        public void InvokeEvents(Frame f, EntityRef entity, int frame)
+        public void InvokeEvents(Frame f, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             if (frame == Committed.Min)
             {
                 Log.Debug("Committed!");
 
-                if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-                {
-                    characterController->PossibleStates = 0;
-                    characterController->CanMove = CanMove;
-                    characterController->MaintainVelocity = MaintainVelocity;
-                
-                }
+                filter.CharacterController->PossibleStates = 0;
+                filter.CharacterController->CanMove = CanMove;
+                filter.CharacterController->MaintainVelocity = MaintainVelocity;
             }
+
             if (frame == Committed.Max)
             {
-                if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-                {
-                    characterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
-                    characterController->CanMove = true;
-                    characterController->MaintainVelocity = false;
-                }
+                filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
+                filter.CharacterController->CanMove = true;
+                filter.CharacterController->MaintainVelocity = false;
 
                 Log.Debug("Not committed!");
             }
+
+            var list = f.ResolveList(filter.CustomAnimator->UnresolvedEvents);
 
             for (int i = 0; i < Events.Count; ++i)
             {
@@ -46,17 +42,23 @@ namespace Quantum
                 if (frame == frameEvent.StartingFrame)
                 {
                     Log.Debug("Event Begin");
-                    frameEvent.Begin(f, this, entity, frame);
+                    frameEvent.Begin(f, this, ref filter, input, frame);
+
+                    if (frameEvent.Length > 1)
+                        list.Add(frameEvent);
                 }
                 else if (frame > frameEvent.StartingFrame && frame < frameEvent.EndingFrame)
                 {
                     Log.Debug("Event Update");
-                    frameEvent.Update(f, this, entity, frame, frame - frameEvent.StartingFrame);
+                    frameEvent.Update(f, this, ref filter, input, frame, frame - frameEvent.StartingFrame);
                 }
                 else if (frame == frameEvent.EndingFrame)
                 {
                     Log.Debug("Event End");
-                    frameEvent.End(f, this, entity, frame);
+                    frameEvent.End(f, this, ref filter, input, frame);
+
+                    if (frameEvent.Length > 1)
+                        list.Remove(frameEvent);
                 }
             }
         }

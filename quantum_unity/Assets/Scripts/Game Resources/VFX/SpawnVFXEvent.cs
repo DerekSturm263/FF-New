@@ -9,15 +9,12 @@ namespace Quantum
         public VFXSettings UnchargedSettings;
         public VFXSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Spawning VFX!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                VFXSettings settings = characterController->LerpFromAnimationHold_UNSAFE(VFXSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                VFXController.Instance.SpawnEffectParented(settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(entity).transform);
-            }
+            VFXSettings settings = filter.CharacterController->LerpFromAnimationHold_UNSAFE(VFXSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            VFXController.Instance.SpawnEffectParented(settings, Object.FindFirstObjectByType<EntityViewUpdater>().GetView(filter.Entity).transform);
         }
     }
 }

@@ -10,55 +10,42 @@ namespace Quantum
         public uint MinLength;
         public uint MaxLength;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
-            /*
             Log.Debug("Holding animation!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                characterController->HoldButton = (int)Button;
+            filter.CharacterController->HoldButton = (int)Button;
 
-                characterController->HeldAnimationFrameTime = 0;
-                characterController->MaxHoldAnimationFrameTime = (int)MaxLength;
-                characterController->CanMove = false;
-            }
+            filter.CharacterController->HeldAnimationFrameTime = 0;
+            filter.CharacterController->MaxHoldAnimationFrameTime = (int)MaxLength;
+            filter.CharacterController->CanMove = false;
 
-            f.Events.OnPlayerHoldAnimation(entity, true);
-            */
+            f.Events.OnPlayerHoldAnimation(filter.Entity, true);
         }
 
-        public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
+        public override void Update(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame, int elapsedFrames)
         {
-            /*
-            if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
-                customAnimator->speed = 0;
-            */
+            filter.CustomAnimator->speed = 0;
         }
 
-        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
-            /*
             Log.Debug("Cleaning up animation holding!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                if (f.Unsafe.TryGetPointer(entity, out CustomAnimator* customAnimator))
-                {
-                    customAnimator->speed = 1;
-                }
+            filter.CustomAnimator->speed = 1;
 
-                f.Events.OnPlayerHoldAnimation(entity, false);
+            f.Events.OnPlayerHoldAnimation(filter.Entity, false);
 
-                characterController->HoldButton = 0;
+            filter.CharacterController->HoldButton = 0;
 
-                characterController->HoldLevel = (FP)characterController->HeldAnimationFrameTime / characterController->MaxHoldAnimationFrameTime;
+            if (filter.CharacterController->MaxHoldAnimationFrameTime != 0)
+                filter.CharacterController->HoldLevel = (FP)filter.CharacterController->HeldAnimationFrameTime / filter.CharacterController->MaxHoldAnimationFrameTime;
+            else
+                filter.CharacterController->HoldLevel = 0;
 
-                characterController->HeldAnimationFrameTime = 0;
-                characterController->MaxHoldAnimationFrameTime = 0;
-                characterController->CanMove = parent.CanMove;
-            }
-            */
+            filter.CharacterController->HeldAnimationFrameTime = 0;
+            filter.CharacterController->MaxHoldAnimationFrameTime = 0;
+            filter.CharacterController->CanMove = parent.CanMove;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public sealed unsafe partial class SpawnItemEvent : FrameEvent
@@ -8,15 +6,12 @@ namespace Quantum
         public ItemSpawnSettings UnchargedSettings;
         public ItemSpawnSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Spawning projectile!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                ItemSpawnSettings settings = characterController->LerpFromAnimationHold(ItemSpawnSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                ItemSpawnSystem.SpawnParented(f, settings, entity);
-            }
+            ItemSpawnSettings settings = filter.CharacterController->LerpFromAnimationHold(ItemSpawnSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            ItemSpawnSystem.SpawnParented(f, settings, filter.Entity);
         }
     }
 }

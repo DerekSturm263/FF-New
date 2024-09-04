@@ -31,8 +31,9 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private Color _fullEnergy;
     [SerializeField] private Color _emptyStock;
     [SerializeField] private Color _fullStock;
+    [SerializeField] private Color _emptyStockPortrait;
 
-    private float _healthRatio, _energyRatio;
+    private float _healthRatio, _energyRatio, _stockRatio;
 
     private EntityRef _entity;
     public void SetEntity(EntityRef entity) => _entity = entity;
@@ -40,7 +41,7 @@ public class HUDPlayerLink : MonoBehaviour
     [SerializeField] private GameObject _displayObj;
     [SerializeField] private DisplayAllBuildInfo _display;
 
-    private void Update()
+    private unsafe void Update()
     {
         if (!_health || !_energy)
             return;
@@ -57,10 +58,15 @@ public class HUDPlayerLink : MonoBehaviour
         }
         else
         {
-            if (_healthRatio > 0 && _healthRatio < 0.2f)
+            if (_healthRatio > 0 && _healthRatio < 0.2f && QuantumRunner.Default.Game.Frames.Verified.Global->IsMatchRunning)
                 _portrait.material = _lowHealth;
             else
                 _portrait.material = null;
+
+            if (_stockRatio > 0 || !QuantumRunner.Default.Game.Frames.Verified.Global->IsMatchRunning)
+                _portrait.color = Color.white;
+            else
+                _portrait.color = _emptyStockPortrait;
         }
 
         _lowHealthObj.SetActive(_health.fillAmount <= 0.2f);
@@ -155,7 +161,9 @@ public class HUDPlayerLink : MonoBehaviour
         
         if (_lifeCount)
             _lifeCount.gameObject.SetActive(showLifeAsNumber);
-        
+
+        _stockRatio = maxStocks == -1 ? 1 : (float)newStocks / maxStocks;
+
         if (showLifeAsNumber)
         {
             if (maxStocks == -1)

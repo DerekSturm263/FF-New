@@ -105,15 +105,10 @@ namespace Quantum
                     StatsSystem.GiveStatusEffect(f, hitbox.Offensive.StatusEffect, defender, defenderStats);
                 }
 
-                if (f.Unsafe.TryGetPointer(defender, out PlayerStats* defenderPlayerStats3))
+                if (attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
                 {
-                    if (defenderPlayerStats3->Build.Gear.MainWeapon.Enhancer.Id.IsValid)
-                    {
-                        WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(defenderPlayerStats3->Build.Gear.MainWeapon.Enhancer.Id);
-
-                        if (f.Unsafe.TryGetPointer(attacker, out CharacterController* characterController))
-                            weaponEnhancer.OnHit(f, attacker, defender, hitbox, characterController->HoldLevel);
-                    }
+                    WeaponEnhancer weaponEnhancer = f.FindAsset<WeaponEnhancer>(attackerPlayerStats->Build.Gear.MainWeapon.Enhancer.Id);
+                    weaponEnhancer.OnHit(f, attacker, defender, hitbox);
                 }
 
                 StatsSystem.ModifyEnergy(f, attacker, attackerStats, hitbox.Offensive.Damage / 2);

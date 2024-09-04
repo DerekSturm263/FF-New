@@ -5,9 +5,9 @@ namespace Quantum
     [System.Serializable]
     public struct UnityEventSettings
     {
-        public UnityEvent OnBegin;
-        public UnityEvent<int> OnUpdate;
-        public UnityEvent OnEnd;
+        public UnityEvent<CharacterControllerSystem.Filter> OnBegin;
+        public UnityEvent<CharacterControllerSystem.Filter, int> OnUpdate;
+        public UnityEvent<CharacterControllerSystem.Filter> OnEnd;
 
         public static UnityEventSettings Lerp(UnityEventSettings a, UnityEventSettings b, float c)
         {
@@ -24,37 +24,28 @@ namespace Quantum
         public UnityEventSettings UnchargedSettings;
         public UnityEventSettings FullyChargedSettings;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Executing event!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                UnityEventSettings settings = characterController->LerpFromAnimationHold_UNSAFE(UnityEventSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                settings.OnBegin.Invoke();
-            }
+            UnityEventSettings settings = filter.CharacterController->LerpFromAnimationHold_UNSAFE(UnityEventSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            settings.OnBegin.Invoke(filter);
         }
 
-        public override void Update(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame, int elapsedFrames)
+        public override void Update(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame, int elapsedFrames)
         {
             Log.Debug("Updating event!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                UnityEventSettings settings = characterController->LerpFromAnimationHold_UNSAFE(UnityEventSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                settings.OnUpdate.Invoke(elapsedFrames);
-            }
+            UnityEventSettings settings = filter.CharacterController->LerpFromAnimationHold_UNSAFE(UnityEventSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            settings.OnUpdate.Invoke(filter, elapsedFrames);
         }
 
-        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Cleaning up event!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                UnityEventSettings settings = characterController->LerpFromAnimationHold_UNSAFE(UnityEventSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                settings.OnEnd.Invoke();
-            }
+            UnityEventSettings settings = filter.CharacterController->LerpFromAnimationHold_UNSAFE(UnityEventSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+            settings.OnEnd.Invoke(filter);
         }
     }
 }

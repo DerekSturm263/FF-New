@@ -41,6 +41,7 @@ namespace Quantum.Editor {
       public Quantum.ContinueAnimationEvent[] ContinueAnimationEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
       public Quantum.ItemSpawningItem[] ItemSpawningItem = {};
+      public Quantum.HitState[] HitState = {};
       public Quantum.DeadState[] DeadState = {};
       public Quantum.KnockbackState[] KnockbackState = {};
       public Quantum.KnockedOverState[] KnockedOverState = {};

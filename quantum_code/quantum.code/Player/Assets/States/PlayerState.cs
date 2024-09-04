@@ -34,11 +34,8 @@ namespace Quantum
     [Serializable]
     public struct StatekeepingInfo
     {
-        public bool ManipulateVelocity;
-        public FP Velocity;
-
-        public bool ManipulateGravity;
-        public FP Gravity;
+        public NullableFP Velocity;
+        public NullableFP Gravity;
     }
 
     public unsafe abstract partial class PlayerState
@@ -133,11 +130,11 @@ namespace Quantum
         {
             Log.Debug($"Finishing entering state: {GetType()}");
 
-            if (OnEnter.ManipulateVelocity)
-                filter.CharacterController->Velocity = OnEnter.Velocity;
+            if (OnEnter.Velocity.HasValue)
+                filter.CharacterController->Velocity = OnEnter.Velocity.Value;
 
-            if (OnEnter.ManipulateGravity)
-                filter.PhysicsBody->GravityScale = OnEnter.Gravity;
+            if (OnEnter.Gravity.HasValue)
+                filter.PhysicsBody->GravityScale = OnEnter.Gravity.Value;
 
             if (DisableCollision)
                 filter.PhysicsCollider->Layer = settings.NoPlayerCollision;
@@ -182,11 +179,11 @@ namespace Quantum
 
         public virtual void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
-            if (OnExit.ManipulateVelocity)
-                filter.CharacterController->Velocity = OnExit.Velocity;
+            if (OnExit.Velocity.HasValue)
+                filter.CharacterController->Velocity = OnExit.Velocity.Value;
 
-            if (OnExit.ManipulateGravity)
-                filter.PhysicsBody->GravityScale = OnExit.Gravity;
+            if (OnExit.Gravity.HasValue)
+                filter.PhysicsBody->GravityScale = OnExit.Gravity.Value;
 
             if (DisableCollision)
                 filter.PhysicsCollider->Layer = settings.PlayerCollision;
@@ -194,7 +191,7 @@ namespace Quantum
             Log.Debug($"Finishing exiting state: {GetType()}");
         }
 
-        private bool DoesStateTypeMatch(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter)
+        protected bool DoesStateTypeMatch(PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter)
         {
             return (EntranceAvailability.HasFlag(EntranceType.Grounded) && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
                 || (EntranceAvailability.HasFlag(EntranceType.Aerial) && !filter.CharacterController->GetNearbyCollider(Colliders.Ground));

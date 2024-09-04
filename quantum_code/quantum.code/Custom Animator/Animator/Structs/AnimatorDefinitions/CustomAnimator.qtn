@@ -35,6 +35,7 @@ component CustomAnimator{
 
     // <state id, weights>
     [HideInInspector] dictionary<int, BlendTreeWeights> BlendTreeWeights;
+	list <asset_ref<FrameEvent>> UnresolvedEvents;
 }
 
 struct BlendTreeWeights

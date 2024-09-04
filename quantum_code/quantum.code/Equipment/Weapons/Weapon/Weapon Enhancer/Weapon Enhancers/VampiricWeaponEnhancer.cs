@@ -1,5 +1,4 @@
-﻿
-using Photon.Deterministic;
+﻿using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -9,13 +8,13 @@ namespace Quantum
         public FP HealthMultiplier;
         public FP SuccessLevel;
 
-        public override void OnHit(Frame f, EntityRef user, EntityRef target, HitboxSettings hitbox, FP chargeLevel)
+        public override void OnHit(Frame f, EntityRef user, EntityRef target, HitboxSettings hitbox)
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats) &&
                 f.Unsafe.TryGetPointer(user, out CharacterController* characterController) &&
-                chargeLevel >= SuccessLevel)
+                characterController->HoldLevel >= SuccessLevel)
             {
-                stats->CurrentStats.Health += hitbox.Offensive.Damage * HealthMultiplier;
+                StatsSystem.ModifyHealth(f, user, stats, hitbox.Offensive.Damage * HealthMultiplier, false);
             }
         }
     }

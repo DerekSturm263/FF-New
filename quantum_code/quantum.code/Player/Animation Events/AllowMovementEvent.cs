@@ -5,24 +5,18 @@
     {
         public StatesFlag AllowedStates;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Allowing movement!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                characterController->PossibleStates = AllowedStates;
-            }
+            filter.CharacterController->PossibleStates = AllowedStates;
         }
 
-        public override void End(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void End(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Cleaning up movement allowance!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
-            {
-                characterController->PossibleStates = 0;
-            }
+            filter.CharacterController->PossibleStates = 0;
         }
     }
 }

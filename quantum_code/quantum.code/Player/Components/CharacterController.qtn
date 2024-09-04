@@ -14,6 +14,7 @@ enum States
     Primary,
     Secondary,
     Dead,
+    Hit,
     Knockback,
     KnockedOver
 }
@@ -34,9 +35,10 @@ enum StatesFlag
     Interact = 1024,
     Primary = 2048,
     Secondary = 4096,
-    Dead = 8192,
-    Knockback = 16384,
-    KnockedOver = 32768
+    Hit = 8192,
+    Dead = 16384,
+    Knockback = 32768,
+    KnockedOver = 65536
 }
 
 [System.Flags]
@@ -89,6 +91,7 @@ component CharacterController
     KnockbackInfo DeferredKnockback;
     KnockbackInfo CurrentKnockback;
     KnockbackInfo OldKnockback;
+    int HitStunTime;
 
     // Move
     FP Velocity;

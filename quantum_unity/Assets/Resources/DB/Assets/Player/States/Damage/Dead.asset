@@ -37,37 +37,51 @@ MonoBehaviour:
         RawValue: 3276800
       Deceleration:
         RawValue: 655360
+      MovingLerpDeceleration:
+        RawValue: 655360
       TopSpeed:
         RawValue: 655360
       TurnAroundSpeed:
         RawValue: 131072
+      TurnAroundThreshold:
+        RawValue: 3276
     AerialMovement:
       Acceleration:
         RawValue: 655360
       Deceleration:
         RawValue: 655360
+      MovingLerpDeceleration:
+        RawValue: 655360
       TopSpeed:
         RawValue: 655360
       TurnAroundSpeed:
         RawValue: 98304
+      TurnAroundThreshold:
+        RawValue: 3276
     MinimumYVelocity:
       RawValue: 65536
     FastFallForce:
       RawValue: -655360
     OnEnter:
-      ManipulateVelocity: 0
       Velocity:
-        RawValue: 0
-      ManipulateGravity: 0
+        _hasValue: 0
+        _value:
+          RawValue: 0
       Gravity:
-        RawValue: 0
+        _hasValue: 0
+        _value:
+          RawValue: 0
     OnExit:
-      ManipulateVelocity: 0
       Velocity:
-        RawValue: 0
-      ManipulateGravity: 0
+        _hasValue: 0
+        _value:
+          RawValue: 0
       Gravity:
-        RawValue: 0
+        _hasValue: 0
+        _value:
+          RawValue: 0
     MovementInfluence:
       RawValue: 0
-    Time: 120
+    DisableCollision: 0
+    SpawnHeight:
+      RawValue: 163840

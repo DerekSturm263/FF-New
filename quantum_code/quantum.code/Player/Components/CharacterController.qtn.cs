@@ -83,14 +83,14 @@ namespace Quantum
             if (GetNearbyCollider(Colliders.RightWall) && amount > 0)
                 amount = 0;
 
-            //bool isTurning = false;
+            bool isTurning = false;
 
             // Exit if the player is holding too much up or down.
             if (FPMath.Abs(amount) < movementSettings.DeadStickZone)
             {
                 // Set the player to stop moving.
                 Velocity = LerpSpeed(moveSettings, f.DeltaTime, 0, Velocity, moveSettings.Deceleration);
-                MovingLerp = FPMath.Lerp(MovingLerp, 0, f.DeltaTime * 10);
+                MovingLerp = FPMath.Lerp(MovingLerp, 0, f.DeltaTime * moveSettings.MovingLerpDeceleration);
 
                 CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsMoving", false);
             }
@@ -100,16 +100,12 @@ namespace Quantum
                 FP topSpeed = CalculateTopSpeed(moveSettings, amount);
 
                 // Apply the target velocity based on their speed.
-                if (FPMath.Abs(Velocity) > (FP)1 / 20 && FPMath.SignInt(amount) != FPMath.SignInt(Velocity))
+                if (FPMath.Abs(Velocity) > moveSettings.TurnAroundThreshold && FPMath.SignInt(amount) != FPMath.SignInt(Velocity))
                 {
                     Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.TurnAroundSpeed);
-                    //isTurning = true;
+                    isTurning = true;
                 }
-                else if (FPMath.Abs(Velocity) < FPMath.Abs(topSpeed))
-                {
-                    Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.Acceleration);
-                }
-                else if (FPMath.Abs(Velocity) > FPMath.Abs(topSpeed))
+                else if (FPMath.Abs(Velocity) < FPMath.Abs(topSpeed) || FPMath.Abs(Velocity) > FPMath.Abs(topSpeed))
                 {
                     Velocity = LerpSpeed(moveSettings, f.DeltaTime, amount, Velocity, moveSettings.Acceleration);
                 }
@@ -134,6 +130,7 @@ namespace Quantum
             }
 
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "Speed", FPMath.Abs(Velocity / 10));
+            CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsTurning", isTurning);
 
             filter.PhysicsBody->Velocity.X = (filter.CharacterController->Velocity * stats.Agility) + filter.CharacterController->CurrentKnockback.Direction.X;
         }

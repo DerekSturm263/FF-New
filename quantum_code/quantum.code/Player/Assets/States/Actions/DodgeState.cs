@@ -93,13 +93,6 @@ namespace Quantum
             filter.PhysicsBody->Velocity = dodge;
         }
 
-        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
-        {
-            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, false);
-
-            base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
-        }
-
         public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             filter.CharacterController->DodgeType = (DodgeType)(-1);

@@ -20,17 +20,14 @@ namespace Quantum
 
         [HideInInspector] public ListHelper<FPVector2>[] BakedShapePositions;
 
-        public override void Begin(Frame f, QuantumAnimationEvent parent, EntityRef entity, int frame)
+        public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Spawning hitbox!");
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController))
+            for (int i = 0; i < Shape.CompoundShapes.Length; ++i)
             {
-                for (int i = 0; i < Shape.CompoundShapes.Length; ++i)
-                {
-                    HitboxSettings settings = characterController->LerpFromAnimationHold(HitboxSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                    HitboxSystem.SpawnHitbox(f, settings, Shape.CompoundShapes[i].CreateShape(f), Length, entity, BakedShapePositions[i].List, true);
-                }
+                HitboxSettings settings = filter.CharacterController->LerpFromAnimationHold(HitboxSettings.Lerp, UnchargedSettings, FullyChargedSettings);
+                HitboxSystem.SpawnHitbox(f, settings, Shape.CompoundShapes[i].CreateShape(f), Length, filter.Entity, BakedShapePositions[i].List, true);
             }
         }
     }
