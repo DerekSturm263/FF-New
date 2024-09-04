@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/PlayerState/KnockedOverState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 400)]
 public partial class KnockedOverStateAsset : PlayerStateAsset {
-  public Quantum.KnockedOverState Settings;
+  public Quantum.KnockedOverState Settings_KnockedOverState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_KnockedOverState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_KnockedOverState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.KnockedOverState();
+    if (Settings_KnockedOverState == null) {
+      Settings_KnockedOverState = new Quantum.KnockedOverState();
     }
     base.Reset();
   }

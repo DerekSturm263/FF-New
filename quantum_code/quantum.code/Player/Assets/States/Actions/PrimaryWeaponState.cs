@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using Quantum.Inspector;
 using Quantum.Types;
 
 namespace Quantum
@@ -6,6 +7,8 @@ namespace Quantum
     [System.Serializable]
     public unsafe sealed class PrimaryWeaponState : ActionState
     {
+        [Header("State-Specific Values")]
+
         public AssetRefPlayerState Default;
         public FP MinimumDashAttackSpeed;
 
@@ -92,18 +95,8 @@ namespace Quantum
         {
             filter.PlayerStats->ActiveWeapon = ActiveWeaponType.None;
 
-            filter.CharacterController->CanMove = true;
-            filter.CharacterController->MaintainVelocity = false;
             filter.CharacterController->HeldAnimationFrameTime = 0;
             filter.CharacterController->MaxHoldAnimationFrameTime = 0;
-            filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
-
-            filter.CharacterController->HeldAnimationFrameTime = 0;
-            filter.CharacterController->MaxHoldAnimationFrameTime = 0;
-
-            filter.PhysicsBody->GravityScale = 1;
-            
-            filter.CustomAnimator->speed = 1;
 
             base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);
         }

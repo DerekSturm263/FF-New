@@ -32,6 +32,12 @@ namespace Quantum
             PhysicsSettings settings = filter.CharacterController->LerpFromAnimationHold(PhysicsSettings.Lerp, UnchargedSettings, FullyChargedSettings);
             FPVector2 newPos = filter.CharacterController->ApplyPhysicsPosition + GetPositionAtTime(settings, (FP)elapsedFrames / Length, filter.CharacterController->MovementDirection);
 
+            if (!settings.UseXAxis)
+                newPos.X = filter.Transform->Position.X;
+
+            if (!settings.UseYAxis)
+                newPos.Y = filter.Transform->Position.Y;
+
             if (newPos.X > filter.Transform->Position.X && filter.CharacterController->GetNearbyCollider(Colliders.RightWall) ||
                 newPos.X < filter.Transform->Position.X && filter.CharacterController->GetNearbyCollider(Colliders.LeftWall) ||
                 newPos.Y > filter.Transform->Position.Y && filter.CharacterController->GetNearbyCollider(Colliders.Ceiling) ||

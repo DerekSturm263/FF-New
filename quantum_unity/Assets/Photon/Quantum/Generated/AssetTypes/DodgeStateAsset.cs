@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/PlayerState/ActionState/DodgeState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 393)]
 public partial class DodgeStateAsset : ActionStateAsset {
-  public Quantum.DodgeState Settings;
+  public Quantum.DodgeState Settings_DodgeState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_DodgeState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_DodgeState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.DodgeState();
+    if (Settings_DodgeState == null) {
+      Settings_DodgeState = new Quantum.DodgeState();
     }
     base.Reset();
   }

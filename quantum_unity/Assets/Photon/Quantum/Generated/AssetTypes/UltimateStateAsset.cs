@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/PlayerState/ActionState/UltimateState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 410)]
 public partial class UltimateStateAsset : ActionStateAsset {
-  public Quantum.UltimateState Settings;
+  public Quantum.UltimateState Settings_UltimateState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_UltimateState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_UltimateState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.UltimateState();
+    if (Settings_UltimateState == null) {
+      Settings_UltimateState = new Quantum.UltimateState();
     }
     base.Reset();
   }

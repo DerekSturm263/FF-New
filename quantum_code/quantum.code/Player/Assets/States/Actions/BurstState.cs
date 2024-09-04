@@ -1,10 +1,13 @@
 ﻿using Photon.Deterministic;
+using Quantum.Inspector;
 
 namespace Quantum
 {
     [System.Serializable]
     public unsafe sealed class BurstState : ActionState
     {
+        [Header("State-Specific Values")]
+
         public FP EnergyCost;
         public int Time;
 
@@ -21,9 +24,6 @@ namespace Quantum
             base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             filter.PhysicsBody->Velocity = FPVector2.Zero;
-
-            filter.CharacterController->CanMove = true;
-            filter.CharacterController->MaintainVelocity = false;
 
             StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -EnergyCost);
         }

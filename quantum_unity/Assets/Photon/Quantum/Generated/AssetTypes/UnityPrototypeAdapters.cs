@@ -53,6 +53,8 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.QBoolean GroundedJump;
     public Quantum.Prototypes.JumpType_Prototype JumpType;
     public System.Int16 JumpCount;
+    public System.Int32 JumpBuffer;
+    public System.Int32 JumpTime;
     public Quantum.QBoolean GroundedDodge;
     public Quantum.Prototypes.DodgeType_Prototype DodgeType;
     public System.Int16 DodgeCount;
@@ -66,6 +68,7 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.QBoolean ButtonHeld;
     public Photon.Deterministic.FPVector2 ApplyPhysicsPosition;
     public Quantum.QBoolean PressedButton;
+    public Quantum.QBoolean ResetActions;
     public Quantum.QBoolean IsReady;
     public Photon.Deterministic.FP ReadyTime;
     public System.Int32 UltimateTime;
@@ -101,6 +104,8 @@ namespace Quantum.Prototypes.Unity {
       result.GroundedJump = this.GroundedJump;
       result.JumpType = this.JumpType;
       result.JumpCount = this.JumpCount;
+      result.JumpBuffer = this.JumpBuffer;
+      result.JumpTime = this.JumpTime;
       result.GroundedDodge = this.GroundedDodge;
       result.DodgeType = this.DodgeType;
       result.DodgeCount = this.DodgeCount;
@@ -114,6 +119,7 @@ namespace Quantum.Prototypes.Unity {
       result.ButtonHeld = this.ButtonHeld;
       result.ApplyPhysicsPosition = this.ApplyPhysicsPosition;
       result.PressedButton = this.PressedButton;
+      result.ResetActions = this.ResetActions;
       result.IsReady = this.IsReady;
       result.ReadyTime = this.ReadyTime;
       result.UltimateTime = this.UltimateTime;
@@ -164,6 +170,7 @@ namespace Quantum.Prototypes.Unity {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.PrototypeAttribute(typeof(Quantum.HurtboxInstance))]
   public class HurtboxInstance_Prototype : Quantum.PrototypeAdapter<Quantum.Prototypes.HurtboxInstance_Prototype> {
+    public Quantum.Prototypes.HurtboxSettings_Prototype OldSettings;
     public Quantum.Prototypes.HurtboxSettings_Prototype Settings;
     public System.Int32 Index;
     [Quantum.LocalReference]
@@ -171,6 +178,7 @@ namespace Quantum.Prototypes.Unity {
 
     public sealed override Quantum.Prototypes.HurtboxInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.HurtboxInstance_Prototype();
+      result.OldSettings = this.OldSettings;
       result.Settings = this.Settings;
       result.Index = this.Index;
       converter.Convert(this.Owner, out result.Owner);

@@ -23,21 +23,13 @@ namespace Quantum
             if (!aiData->Target.IsValid)
                 return default;
 
-            CharacterControllerSystem.Filter targetFilter = new()
+            if (f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, aiData->Target, out CharacterControllerSystem.Filter targetFilter))
             {
-                Entity = aiData->Target,
+                SetGoals(f, userFilter, aiData, targetFilter);
+                return PerformActions(f, userFilter, aiData, targetFilter);
+            }
 
-                CharacterController = f.Unsafe.GetPointer<CharacterController>(aiData->Target),
-                Transform = f.Unsafe.GetPointer<Transform2D>(aiData->Target),
-                PhysicsBody = f.Unsafe.GetPointer<PhysicsBody2D>(aiData->Target),
-                CustomAnimator = f.Unsafe.GetPointer<CustomAnimator>(aiData->Target),
-                Stats = f.Unsafe.GetPointer<Stats>(aiData->Target),
-                PlayerStats = f.Unsafe.GetPointer<PlayerStats>(aiData->Target),
-                Shakeable = f.Unsafe.GetPointer<Shakeable>(aiData->Target)
-            };
-
-            SetGoals(f, userFilter, aiData, targetFilter);
-            return PerformActions(f, userFilter, aiData, targetFilter);
+            return default;
         }
 
         private void SetTarget(Frame f, CharacterControllerSystem.Filter userFilter, AIData* aiData)

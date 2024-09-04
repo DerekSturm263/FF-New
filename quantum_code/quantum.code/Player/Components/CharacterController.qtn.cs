@@ -29,18 +29,18 @@ namespace Quantum
         public readonly MovementMoveSettings GetMoveSettings(PlayerState state)
         {
             if (GetNearbyCollider(Colliders.Ground))
-                return state.GroundedMovement;
+                return state.Movement.GroundedMovement;
             else
-                return state.AerialMovement;
+                return state.Movement.AerialMovement;
         }
 
-        public readonly MovementCurveSettings GetJumpSettings(JumpState state)
+        public readonly MovementCurveSettings GetJumpSettings(PlayerState state)
         {
             return JumpType switch
             {
-                JumpType.ShortHop => state.ShortJump,
-                JumpType.FullHop => state.FullJump,
-                JumpType.Aerial => state.AerialJump,
+                JumpType.ShortHop => state.Jump.ShortJump,
+                JumpType.FullHop => state.Jump.FullJump,
+                JumpType.Aerial => state.Jump.AerialJump,
                 _ => default,
             };
         }

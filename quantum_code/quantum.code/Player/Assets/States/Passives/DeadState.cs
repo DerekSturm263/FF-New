@@ -1,11 +1,15 @@
 ﻿using Photon.Deterministic;
+using Quantum.Inspector;
 
 namespace Quantum
 {
     [System.Serializable]
     public unsafe sealed class DeadState : PlayerState
     {
+        [Header("State-Specific Values")]
+
         public FP SpawnHeight;
+        public HurtboxSettings RespawnSettings;
 
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
@@ -16,7 +20,7 @@ namespace Quantum
         {
             base.BeginEnter(f, stateMachine, ref filter, input, settings, previousState);
 
-            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = false, CanBeInterrupted = false, CanBeKnockedBack = false, DamageToBreak = int.MaxValue }, true);
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)((int)HurtboxType.Head * 2 - 1), RespawnSettings, true);
         }
 
         protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->StateTime >= f.Global->CurrentMatch.Ruleset.Players.RespawnTime * 60;

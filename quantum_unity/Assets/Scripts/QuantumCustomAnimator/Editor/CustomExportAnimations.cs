@@ -472,7 +472,7 @@ public class CustomExportAnimations : MonoBehaviour
 
             }
 
-            frameData.hurtboxPositions = new HurtboxTransformInfo[17];
+            frameData.hurtboxPositions = new HurtboxTransformInfo[15];
 
             clip.SampleAnimation(player, (float)i / frameCount);
             Debug.Log(i);

@@ -1,10 +1,13 @@
 ﻿using Photon.Deterministic;
+using Quantum.Inspector;
 
 namespace Quantum
 {
     [System.Serializable]
     public unsafe sealed class DodgeState : ActionState
     {
+        [Header("State-Specific Values")]
+
         public AssetRefPlayerState Default;
 
         public MovementCurveSettingsXY SpotDodge;
@@ -13,7 +16,7 @@ namespace Quantum
         public MovementCurveSettingsXY AerialDodge;
 
         public MovementCurveSettings AerialGravity;
-        public int MaxTimeToRoll = 20;
+        public int MaxTimeToRoll;
 
         protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->GetDodgeSettings(this).Frames;
 
@@ -82,9 +85,9 @@ namespace Quantum
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
                 {
                     if (filter.CharacterController->StateTime < MaxTimeToRoll)
-                        stateMachine.ForceTransition(f, ref filter, input, settings, this, settings.InputCheckTime);
+                        stateMachine.ForceTransition(f, ref filter, input, settings, this, 3);
                     else
-                        stateMachine.ForceTransition(f, ref filter, input, settings, Default, settings.InputCheckTime);
+                        stateMachine.ForceTransition(f, ref filter, input, settings, Default, 3);
 
                     filter.CharacterController->NextStateTime = filter.CharacterController->StateTime;
                 }
@@ -95,7 +98,7 @@ namespace Quantum
 
         public override void FinishExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
-            filter.CharacterController->DodgeType = (DodgeType)(-1);
+            filter.CharacterController->DodgeType = DodgeType.None;
 
             base.FinishExit(f, stateMachine, ref filter, input, settings, nextState);
         }

@@ -63,7 +63,7 @@ namespace Quantum
 
             if (hurtbox.CanBeDamaged)
             {
-                if (hitbox.Visual.OnlyShakeOnHit)
+                if (hitbox.Visual.OnlyShakeOnHit && hitbox.Offensive.Knockback != default)
                     f.Events.OnCameraShake(hitbox.Visual.CameraShake, hitbox.Offensive.Knockback.Normalized, false, defender);
 
                 if (f.TryGet(attacker, out PlayerStats attackerStats))

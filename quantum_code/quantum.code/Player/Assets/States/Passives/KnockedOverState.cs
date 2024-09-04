@@ -1,11 +1,12 @@
 ﻿using Photon.Deterministic;
+using Quantum.Inspector;
 
 namespace Quantum
 {
     [System.Serializable]
     public unsafe sealed class KnockedOverState : PlayerState
     {
-        public AssetRefPlayerState Default;
+        [Header("State-Specific Values")]
 
         public FP MinimumYVelocityToKnockOver;
 
@@ -13,7 +14,5 @@ namespace Quantum
         {
             return base.CanEnter(f, stateMachine, ref filter, input, settings) && filter.CharacterController->CurrentKnockback.Direction.Magnitude >= MinimumYVelocityToKnockOver;
         }
-
-        protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => true;
     }
 }

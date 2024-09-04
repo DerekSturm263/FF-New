@@ -1,13 +1,15 @@
 ﻿using Photon.Deterministic;
 using System.Diagnostics;
 using System;
+using Quantum.Inspector;
 
 namespace Quantum
 {
     [System.Serializable]
     public unsafe sealed class KnockbackState : PlayerState
     {
-        public FP MaximumYVelocity;
+        [Header("State-Specific Values")]
+
         public int MaxInfluence;
 
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)

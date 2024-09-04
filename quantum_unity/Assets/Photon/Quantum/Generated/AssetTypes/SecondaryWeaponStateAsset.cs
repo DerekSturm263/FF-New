@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/PlayerState/ActionState/SecondaryWeaponState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 408)]
 public partial class SecondaryWeaponStateAsset : ActionStateAsset {
-  public Quantum.SecondaryWeaponState Settings;
+  public Quantum.SecondaryWeaponState Settings_SecondaryWeaponState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_SecondaryWeaponState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_SecondaryWeaponState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.SecondaryWeaponState();
+    if (Settings_SecondaryWeaponState == null) {
+      Settings_SecondaryWeaponState = new Quantum.SecondaryWeaponState();
     }
     base.Reset();
   }

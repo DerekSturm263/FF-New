@@ -7,8 +7,11 @@ namespace Quantum
     {
         public FPAnimationCurve XCurve;
         public FP XForce;
+        public bool UseXAxis;
+
         public FPAnimationCurve YCurve;
         public FP YForce;
+        public bool UseYAxis;
 
         public static PhysicsSettings Lerp(PhysicsSettings a, PhysicsSettings b, FP t)
         {
@@ -16,8 +19,10 @@ namespace Quantum
             {
                 XCurve = Lerp(a.XCurve, b.XCurve, t),
                 XForce = FPMath.Lerp(a.XForce, b.XForce, t),
+                UseXAxis = a.UseXAxis,
                 YCurve = Lerp(a.YCurve, b.YCurve, t),
-                YForce = FPMath.Lerp(a.YForce, b.YForce, t)
+                YForce = FPMath.Lerp(a.YForce, b.YForce, t),
+                UseYAxis = a.UseYAxis
             };
         }
 

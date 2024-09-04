@@ -1,6 +1,4 @@
-﻿using System.Runtime;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public sealed unsafe partial class ContinueAnimationEvent : FrameEvent

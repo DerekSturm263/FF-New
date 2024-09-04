@@ -3,13 +3,8 @@
 namespace Quantum
 {
     [System.Serializable]
-    public unsafe sealed class SubState : PlayerState
+    public unsafe sealed class SubState : InputState
     {
-        protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
-        {
-            return filter.CharacterController->WasReleasedThisFrame(input, Input.Buttons.SubWeapon);
-        }
-
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             if (!base.CanEnter(f, stateMachine, ref filter, input, settings) || filter.PlayerStats->HeldItem.IsValid)
@@ -41,9 +36,7 @@ namespace Quantum
                 EntityRef item = ItemSpawnSystem.SpawnParented(f, itemSpawnSettings, filter.Entity);
 
                 SubEnhancer subEnhancer = f.FindAsset<SubEnhancer>(filter.PlayerStats->Build.Gear.SubWeapon.Enhancer.Id);
-
-                if (subEnhancer is not null)
-                    subEnhancer.OnSpawn(f, filter.Entity, item, filter.PlayerStats->Build.Gear.SubWeapon);
+                subEnhancer?.OnSpawn(f, filter.Entity, item, filter.PlayerStats->Build.Gear.SubWeapon);
 
                 filter.CharacterController->HasSubWeapon = true;
                 ++filter.PlayerStats->Stats.SubUses;

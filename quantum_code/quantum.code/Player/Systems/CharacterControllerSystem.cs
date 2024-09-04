@@ -1,6 +1,4 @@
 ﻿using Photon.Deterministic;
-using System;
-using System.Diagnostics;
 
 namespace Quantum
 {
@@ -62,7 +60,9 @@ namespace Quantum
 
             // Get all the nearby colliders.
             filter.CharacterController->NearbyColliders = filter.CharacterController->GetNearbyColliders(f, movementSettings, filter.Transform);
-            filter.CharacterController->NearbyColliders &= ~f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).MutuallyExclusiveColliders;
+
+            if (filter.CharacterController->JumpTime > 0)
+                filter.CharacterController->NearbyColliders &= ~Colliders.Ground;
 
             // Get if the player is grounded or not...
             if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
@@ -76,7 +76,7 @@ namespace Quantum
             {
                 filter.PhysicsCollider->Layer = movementSettings.NoPlayerCollision;
             }
-            else if (filter.CharacterController->NearbyColliders.HasFlag(Colliders.Ground) && !f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).DisableCollision)
+            else if (filter.CharacterController->NearbyColliders.HasFlag(Colliders.Ground) && f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).CanCollide)
             {
                 filter.PhysicsCollider->Layer = movementSettings.PlayerCollision;
             }
@@ -92,7 +92,7 @@ namespace Quantum
             if (filter.Stats->CurrentStats.Health >= f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
             {
                 filter.Stats->IsRespawning = false;
-                StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, true);
+                StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)((int)HurtboxType.Head * 2 - 1), HurtboxSettings.Default, true);
             }
         }
 

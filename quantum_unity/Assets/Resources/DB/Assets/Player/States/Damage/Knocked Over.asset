@@ -17,8 +17,119 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Player/States/Damage/Knocked Over
       Guid:
         Value: 2040742986628519977
-    StateType: 15
+    StateType: 16
     EntranceAvailability: 1
+    OnEnter:
+      XVelocity:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      AnimatorSpeed:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+    OnExit:
+      XVelocity:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      AnimatorSpeed:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+    CanCollide: 1
+    Movement:
+      GroundedMovement:
+        Acceleration:
+          RawValue: 0
+        Deceleration:
+          RawValue: 0
+        MovingLerpDeceleration:
+          RawValue: 0
+        TopSpeed:
+          RawValue: 0
+        TurnAroundSpeed:
+          RawValue: 0
+        TurnAroundThreshold:
+          RawValue: 0
+      AerialMovement:
+        Acceleration:
+          RawValue: 0
+        Deceleration:
+          RawValue: 0
+        MovingLerpDeceleration:
+          RawValue: 0
+        TopSpeed:
+          RawValue: 0
+        TurnAroundSpeed:
+          RawValue: 0
+        TurnAroundThreshold:
+          RawValue: 0
+      MovementInfluence:
+        RawValue: 0
+    Jump:
+      ShortJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      FullJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      AerialJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      MinimumYVelocity:
+        RawValue: 0
+      FastFallForce:
+        RawValue: 0
+      CanJump: 0
+    OverrideDirection: 0
     Transitions:
     - Destination:
         Id:
@@ -42,6 +153,16 @@ MonoBehaviour:
       InterruptCurrentState: 1
     - Destination:
         Id:
+          Value: 3515774777103534100
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
           Value: 328942225980547397
       TransitionTime: 0
       RequiresInput: 1
@@ -50,16 +171,6 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 0
-    - Destination:
-        Id:
-          Value: 628293921427931570
-      TransitionTime: 3
-      RequiresInput: 1
-      InputInfo:
-        Buttons: 2048
-        Condition: 0
-        DoInvert: 0
-      InterruptCurrentState: 1
     - Destination:
         Id:
           Value: 3324217043794129396
@@ -80,61 +191,341 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 1
-    OverrideDirection: 0
-    MutuallyExclusiveColliders: 0
-    GroundedMovement:
-      Acceleration:
-        RawValue: 3276800
-      Deceleration:
-        RawValue: 655360
-      MovingLerpDeceleration:
-        RawValue: 655360
-      TopSpeed:
-        RawValue: 655360
-      TurnAroundSpeed:
-        RawValue: 131072
-      TurnAroundThreshold:
-        RawValue: 3276
-    AerialMovement:
-      Acceleration:
-        RawValue: 655360
-      Deceleration:
-        RawValue: 655360
-      MovingLerpDeceleration:
-        RawValue: 655360
-      TopSpeed:
-        RawValue: 655360
-      TurnAroundSpeed:
-        RawValue: 98304
-      TurnAroundThreshold:
-        RawValue: 3276
-    MinimumYVelocity:
-      RawValue: 65536
-    FastFallForce:
-      RawValue: -655360
+  Settings_KnockedOverState:
+    Identifier:
+      Path: Resources/DB/Assets/Player/States/Damage/Knocked Over
+      Guid:
+        Value: 4481084475666116752
+    StateType: 16
+    EntranceAvailability: 1
     OnEnter:
-      Velocity:
+      XVelocity:
         _hasValue: 0
         _value:
           RawValue: 0
-      Gravity:
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      AnimatorSpeed:
         _hasValue: 0
         _value:
           RawValue: 0
     OnExit:
-      Velocity:
+      XVelocity:
         _hasValue: 0
         _value:
           RawValue: 0
-      Gravity:
+      GravityScale:
         _hasValue: 0
         _value:
           RawValue: 0
-    MovementInfluence:
-      RawValue: 0
-    DisableCollision: 0
-    Default:
-      Id:
-        Value: 328942225980547397
+      AnimatorSpeed:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+    CanCollide: 1
+    Movement:
+      GroundedMovement:
+        Acceleration:
+          RawValue: 3276800
+        Deceleration:
+          RawValue: 655360
+        MovingLerpDeceleration:
+          RawValue: 655360
+        TopSpeed:
+          RawValue: 655360
+        TurnAroundSpeed:
+          RawValue: 131072
+        TurnAroundThreshold:
+          RawValue: 3276
+      AerialMovement:
+        Acceleration:
+          RawValue: 655360
+        Deceleration:
+          RawValue: 655360
+        MovingLerpDeceleration:
+          RawValue: 655360
+        TopSpeed:
+          RawValue: 655360
+        TurnAroundSpeed:
+          RawValue: 98304
+        TurnAroundThreshold:
+          RawValue: 3276
+      MovementInfluence:
+        RawValue: 0
+    Jump:
+      ShortJump:
+        Curve:
+          Samples:
+          - RawValue: 131072
+          - RawValue: 130760
+          - RawValue: 129904
+          - RawValue: 128535
+          - RawValue: 126681
+          - RawValue: 124374
+          - RawValue: 121642
+          - RawValue: 118517
+          - RawValue: 115027
+          - RawValue: 111203
+          - RawValue: 107075
+          - RawValue: 102673
+          - RawValue: 98026
+          - RawValue: 93166
+          - RawValue: 88121
+          - RawValue: 82922
+          - RawValue: 77599
+          - RawValue: 72182
+          - RawValue: 66700
+          - RawValue: 61184
+          - RawValue: 55664
+          - RawValue: 50170
+          - RawValue: 44731
+          - RawValue: 39377
+          - RawValue: 34140
+          - RawValue: 29048
+          - RawValue: 24131
+          - RawValue: 19421
+          - RawValue: 14945
+          - RawValue: 10736
+          - RawValue: 6821
+          - RawValue: 3233
+          - RawValue: 0
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 983040
+          Resolution: 32
+          OriginalPreWrapMode: 8
+          OriginalPostWrapMode: 8
+          Keys:
+          - Time:
+              RawValue: 0
+            Value:
+              RawValue: 131072
+            InTangent:
+              RawValue: -63
+            OutTangent:
+              RawValue: -63
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+          - Time:
+              RawValue: 983040
+            Value:
+              RawValue: 0
+            InTangent:
+              RawValue: -6497
+            OutTangent:
+              RawValue: -6497
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+        Force:
+          RawValue: 393216
+        Frames: 16
+      FullJump:
+        Curve:
+          Samples:
+          - RawValue: 131072
+          - RawValue: 131026
+          - RawValue: 130932
+          - RawValue: 130763
+          - RawValue: 130490
+          - RawValue: 130087
+          - RawValue: 129528
+          - RawValue: 128785
+          - RawValue: 127832
+          - RawValue: 126641
+          - RawValue: 125185
+          - RawValue: 123439
+          - RawValue: 121374
+          - RawValue: 118964
+          - RawValue: 116181
+          - RawValue: 113000
+          - RawValue: 109392
+          - RawValue: 105332
+          - RawValue: 100792
+          - RawValue: 95745
+          - RawValue: 90164
+          - RawValue: 83529
+          - RawValue: 75456
+          - RawValue: 66328
+          - RawValue: 56528
+          - RawValue: 46440
+          - RawValue: 36447
+          - RawValue: 26934
+          - RawValue: 18285
+          - RawValue: 10883
+          - RawValue: 5112
+          - RawValue: 1356
+          - RawValue: 0
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 983040
+          Resolution: 32
+          OriginalPreWrapMode: 8
+          OriginalPostWrapMode: 8
+          Keys:
+          - Time:
+              RawValue: 0
+            Value:
+              RawValue: 131072
+            InTangent:
+              RawValue: -63
+            OutTangent:
+              RawValue: -63
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+          - Time:
+              RawValue: 616146
+            Value:
+              RawValue: 89831
+            InTangent:
+              RawValue: -12562
+            OutTangent:
+              RawValue: -12562
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+          - Time:
+              RawValue: 983040
+            Value:
+              RawValue: 0
+            InTangent:
+              RawValue: -63
+            OutTangent:
+              RawValue: -63
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+        Force:
+          RawValue: 557056
+        Frames: 18
+      AerialJump:
+        Curve:
+          Samples:
+          - RawValue: 131072
+          - RawValue: 131026
+          - RawValue: 130932
+          - RawValue: 130763
+          - RawValue: 130490
+          - RawValue: 130087
+          - RawValue: 129528
+          - RawValue: 128785
+          - RawValue: 127832
+          - RawValue: 126641
+          - RawValue: 125185
+          - RawValue: 123439
+          - RawValue: 121374
+          - RawValue: 118964
+          - RawValue: 116181
+          - RawValue: 113000
+          - RawValue: 109392
+          - RawValue: 105332
+          - RawValue: 100792
+          - RawValue: 95745
+          - RawValue: 90164
+          - RawValue: 83529
+          - RawValue: 75456
+          - RawValue: 66328
+          - RawValue: 56528
+          - RawValue: 46440
+          - RawValue: 36447
+          - RawValue: 26934
+          - RawValue: 18285
+          - RawValue: 10883
+          - RawValue: 5112
+          - RawValue: 1356
+          - RawValue: 0
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 983040
+          Resolution: 32
+          OriginalPreWrapMode: 8
+          OriginalPostWrapMode: 8
+          Keys:
+          - Time:
+              RawValue: 0
+            Value:
+              RawValue: 131072
+            InTangent:
+              RawValue: -63
+            OutTangent:
+              RawValue: -63
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+          - Time:
+              RawValue: 616146
+            Value:
+              RawValue: 89831
+            InTangent:
+              RawValue: -12562
+            OutTangent:
+              RawValue: -12562
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+          - Time:
+              RawValue: 983040
+            Value:
+              RawValue: 0
+            InTangent:
+              RawValue: -63
+            OutTangent:
+              RawValue: -63
+            TangentMode: 0
+            TangentModeLeft: 0
+            TangentModeRight: 0
+        Force:
+          RawValue: 557056
+        Frames: 18
+      MinimumYVelocity:
+        RawValue: 65536
+      FastFallForce:
+        RawValue: -655360
+      CanJump: 1
+    OverrideDirection: 0
+    Transitions:
+    - Destination:
+        Id:
+          Value: 3091768950882416283
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 897413305682095965
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 2443669867909557010
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
     MinimumYVelocityToKnockOver:
       RawValue: 655360

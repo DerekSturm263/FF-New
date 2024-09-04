@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/PlayerState/ActionState/EmoteState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 394)]
 public partial class EmoteStateAsset : ActionStateAsset {
-  public Quantum.EmoteState Settings;
+  public Quantum.EmoteState Settings_EmoteState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_EmoteState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_EmoteState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.EmoteState();
+    if (Settings_EmoteState == null) {
+      Settings_EmoteState = new Quantum.EmoteState();
     }
     base.Reset();
   }

@@ -20,11 +20,11 @@ MonoBehaviour:
         1
       Guid:
         Value: 2500658401770375813
-    StartingFrame: 11
-    EndingFrame: 20
+    StartingFrame: 8
+    EndingFrame: 23
     Default:
       Id:
-        Value: 328942225980547397
+        Value: 1154833275834183447
     Button: 32
 --- !u!114 &-2593210091110669147
 MonoBehaviour:
@@ -142,20 +142,20 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        TargetFreezeFrames: 6
-        TargetShakeStrength:
-          RawValue: 65536
-        UserFreezeFrames: 6
+        FreezeFrames: 5
+        ShakeStrength:
+          RawValue: 0
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 327680
+        HitStun: 5
         Knockback:
           X:
-            RawValue: 65536
+            RawValue: 0
           Y:
-            RawValue: 65536
+            RawValue: 0
         StatusEffect:
           Id:
             Value: 0
@@ -170,15 +170,15 @@ MonoBehaviour:
             Value: 3470376909750409904
     FullyChargedSettings:
       Delay:
-        TargetFreezeFrames: 10
-        TargetShakeStrength:
-          RawValue: 65536
-        UserFreezeFrames: 6
+        FreezeFrames: 0
+        ShakeStrength:
+          RawValue: 0
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 655360
+        HitStun: 0
         Knockback:
           X:
             RawValue: 65536
@@ -292,11 +292,11 @@ MonoBehaviour:
         2
       Guid:
         Value: 3106732780624124521
-    StartingFrame: 29
-    EndingFrame: 37
+    StartingFrame: 26
+    EndingFrame: 40
     Default:
       Id:
-        Value: 328942225980547397
+        Value: 1154833275834183447
     Button: 32
 --- !u!114 &11400000
 MonoBehaviour:
@@ -451,18 +451,18 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        TargetFreezeFrames: 10
-        TargetShakeStrength:
-          RawValue: 65536
-        UserFreezeFrames: 10
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 327680
+        HitStun: 30
         Knockback:
           X:
-            RawValue: 655360
+            RawValue: 1310720
           Y:
             RawValue: 557056
         StatusEffect:
@@ -479,15 +479,15 @@ MonoBehaviour:
             Value: 3470376909750409904
     FullyChargedSettings:
       Delay:
-        TargetFreezeFrames: 10
-        TargetShakeStrength:
-          RawValue: 65536
-        UserFreezeFrames: 6
+        FreezeFrames: 0
+        ShakeStrength:
+          RawValue: 0
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 655360
+        HitStun: 0
         Knockback:
           X:
             RawValue: 655360
@@ -641,20 +641,20 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        TargetFreezeFrames: 6
-        TargetShakeStrength:
-          RawValue: 65536
-        UserFreezeFrames: 6
+        FreezeFrames: 5
+        ShakeStrength:
+          RawValue: 0
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 327680
+        HitStun: 5
         Knockback:
           X:
-            RawValue: 65536
+            RawValue: 0
           Y:
-            RawValue: 65536
+            RawValue: 0
         StatusEffect:
           Id:
             Value: 0
@@ -669,15 +669,15 @@ MonoBehaviour:
             Value: 3470376909750409904
     FullyChargedSettings:
       Delay:
-        TargetFreezeFrames: 10
-        TargetShakeStrength:
-          RawValue: 65536
-        UserFreezeFrames: 6
+        FreezeFrames: 0
+        ShakeStrength:
+          RawValue: 0
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 655360
+        HitStun: 0
         Knockback:
           X:
             RawValue: 65536
@@ -754,7 +754,7 @@ MonoBehaviour:
         Value: 2382624350789218751
     StartingFrame: 23
     EndingFrame: 52
-    UsabilityType: 0
+    UsabilityType: 255
     UnchargedSettings:
       XCurve:
         Samples:
@@ -825,6 +825,7 @@ MonoBehaviour:
           TangentModeRight: 0
       XForce:
         RawValue: 98304
+      UseXAxis: 1
       YCurve:
         Samples: []
         PreWrapMode: 0
@@ -839,9 +840,43 @@ MonoBehaviour:
         Keys: []
       YForce:
         RawValue: 65536
+      UseYAxis: 0
     FullyChargedSettings:
       XCurve:
-        Samples: []
+        Samples:
+        - RawValue: 0
+        - RawValue: 2039
+        - RawValue: 4078
+        - RawValue: 6118
+        - RawValue: 8157
+        - RawValue: 10197
+        - RawValue: 12237
+        - RawValue: 14277
+        - RawValue: 16318
+        - RawValue: 18359
+        - RawValue: 20400
+        - RawValue: 22442
+        - RawValue: 24484
+        - RawValue: 26527
+        - RawValue: 28571
+        - RawValue: 30615
+        - RawValue: 32660
+        - RawValue: 34706
+        - RawValue: 36753
+        - RawValue: 38801
+        - RawValue: 40850
+        - RawValue: 42900
+        - RawValue: 44951
+        - RawValue: 47003
+        - RawValue: 49057
+        - RawValue: 51111
+        - RawValue: 53167
+        - RawValue: 55225
+        - RawValue: 57284
+        - RawValue: 59344
+        - RawValue: 61406
+        - RawValue: 63470
+        - RawValue: 0
         PreWrapMode: 0
         PostWrapMode: 0
         StartTime:
@@ -851,9 +886,32 @@ MonoBehaviour:
         Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
-        Keys: []
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 65264
+          OutTangent:
+            RawValue: 65264
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 66120
+          OutTangent:
+            RawValue: 66120
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
       XForce:
-        RawValue: 0
+        RawValue: 98304
+      UseXAxis: 1
       YCurve:
         Samples: []
         PreWrapMode: 0
@@ -867,4 +925,5 @@ MonoBehaviour:
         OriginalPostWrapMode: 0
         Keys: []
       YForce:
-        RawValue: 0
+        RawValue: 65536
+      UseYAxis: 0

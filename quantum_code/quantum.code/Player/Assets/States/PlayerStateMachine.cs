@@ -6,8 +6,6 @@ namespace Quantum
     {
         public void Resolve(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
-
             // Set some values that any state might check.
             if (!f.FindAsset<PlayerState>(filter.CharacterController->CurrentState.Id).OverrideDirection)
             {

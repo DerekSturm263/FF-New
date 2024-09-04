@@ -280,7 +280,36 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(hurtboxes[hurtboxType], out HurtboxInstance* hurtbox))
                     {
+                        hurtbox->OldSettings = hurtbox->Settings;
                         hurtbox->Settings = settings;
+                    }
+                }
+
+                f.Events.OnHurtboxStateChange(entity, hurtboxesType, settings);
+            }
+        }
+
+        public static void ResetHurtboxes(Frame f, EntityRef entity, HurtboxType hurtboxesType, bool doReset)
+        {
+            HurtboxSettings settings = default;
+
+            if (f.Unsafe.TryGetPointer(entity, out Stats* stats))
+            {
+                if (!doReset && stats->IsRespawning)
+                    return;
+
+                var hurtboxes = f.ResolveDictionary(stats->Hurtboxes);
+
+                for (int i = 0; i < 15; ++i)
+                {
+                    HurtboxType hurtboxType = (HurtboxType)Math.Pow(2, i);
+                    if (!hurtboxesType.HasFlag(hurtboxType))
+                        continue;
+
+                    if (f.Unsafe.TryGetPointer(hurtboxes[hurtboxType], out HurtboxInstance* hurtbox))
+                    {
+                        hurtbox->Settings = hurtbox->OldSettings;
+                        settings = hurtbox->Settings;
                     }
                 }
 

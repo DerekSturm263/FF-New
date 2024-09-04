@@ -47,6 +47,8 @@ namespace Quantum.Editor {
       public Quantum.KnockedOverState[] KnockedOverState = {};
       public Quantum.LookUpState[] LookUpState = {};
       public Quantum.DefaultState[] DefaultState = {};
+      public Quantum.PlayerState[] PlayerState = {};
+      public Quantum.InputState[] InputState = {};
       public Quantum.AnyoneStagePicker[] AnyoneStagePicker = {};
       public Quantum.LoserStagePicker[] LoserStagePicker = {};
       public Quantum.RandomStagePicker[] RandomStagePicker = {};
@@ -88,7 +90,6 @@ namespace Quantum.Editor {
       public Quantum.DodgeState[] DodgeState = {};
       public Quantum.EmoteState[] EmoteState = {};
       public Quantum.InteractState[] InteractState = {};
-      public Quantum.JumpState[] JumpState = {};
       public Quantum.QuantumAnimationEvent[] QuantumAnimationEvent = {};
       public Quantum.MovementSettings[] MovementSettings = {};
       public Quantum.BuildAsset[] BuildAsset = {};

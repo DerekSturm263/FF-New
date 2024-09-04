@@ -17,8 +17,119 @@ MonoBehaviour:
       Path: Resources/DB/Assets/Player/States/Damage/Knockback
       Guid:
         Value: 1168556265468863481
-    StateType: 14
+    StateType: 15
     EntranceAvailability: -1
+    OnEnter:
+      XVelocity:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      AnimatorSpeed:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+    OnExit:
+      XVelocity:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      AnimatorSpeed:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+    CanCollide: 1
+    Movement:
+      GroundedMovement:
+        Acceleration:
+          RawValue: 0
+        Deceleration:
+          RawValue: 0
+        MovingLerpDeceleration:
+          RawValue: 0
+        TopSpeed:
+          RawValue: 0
+        TurnAroundSpeed:
+          RawValue: 0
+        TurnAroundThreshold:
+          RawValue: 0
+      AerialMovement:
+        Acceleration:
+          RawValue: 0
+        Deceleration:
+          RawValue: 0
+        MovingLerpDeceleration:
+          RawValue: 0
+        TopSpeed:
+          RawValue: 0
+        TurnAroundSpeed:
+          RawValue: 0
+        TurnAroundThreshold:
+          RawValue: 0
+      MovementInfluence:
+        RawValue: 0
+    Jump:
+      ShortJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      FullJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      AerialJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      MinimumYVelocity:
+        RawValue: 0
+      FastFallForce:
+        RawValue: 0
+      CanJump: 0
+    OverrideDirection: 0
     Transitions:
     - Destination:
         Id:
@@ -40,6 +151,16 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 3515774777103534100
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
     - Destination:
         Id:
           Value: 628293921427931570
@@ -110,59 +231,163 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 0
-    OverrideDirection: 0
-    MutuallyExclusiveColliders: 0
-    GroundedMovement:
-      Acceleration:
-        RawValue: 3276800
-      Deceleration:
-        RawValue: 655360
-      MovingLerpDeceleration:
-        RawValue: 655360
-      TopSpeed:
-        RawValue: 655360
-      TurnAroundSpeed:
-        RawValue: 131072
-      TurnAroundThreshold:
-        RawValue: 3276
-    AerialMovement:
-      Acceleration:
-        RawValue: 655360
-      Deceleration:
-        RawValue: 655360
-      MovingLerpDeceleration:
-        RawValue: 655360
-      TopSpeed:
-        RawValue: 655360
-      TurnAroundSpeed:
-        RawValue: 98304
-      TurnAroundThreshold:
-        RawValue: 3276
-    MinimumYVelocity:
-      RawValue: 65536
-    FastFallForce:
-      RawValue: 0
+  Settings_KnockbackState:
+    Identifier:
+      Path: Resources/DB/Assets/Player/States/Damage/Knockback
+      Guid:
+        Value: 2443669867909557010
+    StateType: 15
+    EntranceAvailability: -1
     OnEnter:
-      Velocity:
+      XVelocity:
         _hasValue: 0
         _value:
           RawValue: 0
-      Gravity:
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+      AnimatorSpeed:
         _hasValue: 0
         _value:
           RawValue: 0
     OnExit:
-      Velocity:
+      XVelocity:
         _hasValue: 0
         _value:
           RawValue: 0
-      Gravity:
+      GravityScale:
         _hasValue: 0
         _value:
           RawValue: 0
-    MovementInfluence:
-      RawValue: 0
-    DisableCollision: 0
-    MaximumYVelocity:
-      RawValue: -131072
-    MaxInfluence: 45
+      AnimatorSpeed:
+        _hasValue: 0
+        _value:
+          RawValue: 0
+    CanCollide: 1
+    Movement:
+      GroundedMovement:
+        Acceleration:
+          RawValue: 3276800
+        Deceleration:
+          RawValue: 655360
+        MovingLerpDeceleration:
+          RawValue: 655360
+        TopSpeed:
+          RawValue: 655360
+        TurnAroundSpeed:
+          RawValue: 131072
+        TurnAroundThreshold:
+          RawValue: 3276
+      AerialMovement:
+        Acceleration:
+          RawValue: 655360
+        Deceleration:
+          RawValue: 655360
+        MovingLerpDeceleration:
+          RawValue: 655360
+        TopSpeed:
+          RawValue: 655360
+        TurnAroundSpeed:
+          RawValue: 98304
+        TurnAroundThreshold:
+          RawValue: 3276
+      MovementInfluence:
+        RawValue: 0
+    Jump:
+      ShortJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      FullJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      AerialJump:
+        Curve:
+          Samples: []
+          PreWrapMode: 0
+          PostWrapMode: 0
+          StartTime:
+            RawValue: 0
+          EndTime:
+            RawValue: 0
+          Resolution: 0
+          OriginalPreWrapMode: 0
+          OriginalPostWrapMode: 0
+          Keys: []
+        Force:
+          RawValue: 0
+        Frames: 0
+      MinimumYVelocity:
+        RawValue: 0
+      FastFallForce:
+        RawValue: 0
+      CanJump: 0
+    OverrideDirection: 0
+    Transitions:
+    - Destination:
+        Id:
+          Value: 3091768950882416283
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 897413305682095965
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 2443669867909557010
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    - Destination:
+        Id:
+          Value: 4481084475666116752
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 1
+    MaxInfluence: 60

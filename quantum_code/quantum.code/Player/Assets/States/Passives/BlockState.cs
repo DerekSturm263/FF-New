@@ -3,10 +3,8 @@
 namespace Quantum
 {
     [System.Serializable]
-    public unsafe sealed class BlockState : PlayerState
+    public unsafe sealed class BlockState : InputState
     {
-        public AssetRefPlayerState Dodge;
-
         public FPVector2 KnockbackMultiplier;
 
         public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
@@ -16,14 +14,10 @@ namespace Quantum
             filter.CharacterController->KnockbackMultiplier = KnockbackMultiplier;
         }
 
-        protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
-        {
-            return filter.CharacterController->WasReleasedThisFrame(input, Input.Buttons.Block);
-        }
-
         public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             filter.CharacterController->KnockbackMultiplier = FPVector2.One;
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, (HurtboxType)((int)HurtboxType.Head * 2 - 1), HurtboxSettings.Default, false);
 
             base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }

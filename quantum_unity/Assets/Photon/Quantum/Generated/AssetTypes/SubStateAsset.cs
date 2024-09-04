@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/PlayerState/SubState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 408)]
-public partial class SubStateAsset : PlayerStateAsset {
-  public Quantum.SubState Settings;
+[CreateAssetMenu(menuName = "Quantum/PlayerState/InputState/SubState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 408)]
+public partial class SubStateAsset : InputStateAsset {
+  public Quantum.SubState Settings_SubState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_SubState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_SubState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.SubState();
+    if (Settings_SubState == null) {
+      Settings_SubState = new Quantum.SubState();
     }
     base.Reset();
   }

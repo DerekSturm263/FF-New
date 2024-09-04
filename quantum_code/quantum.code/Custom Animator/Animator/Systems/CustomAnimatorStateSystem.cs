@@ -24,52 +24,41 @@ namespace Quantum
 
                 Log.Debug($"Frame: {frame}");
 
-                CharacterControllerSystem.Filter filter = new()
+                if (f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, entity, out CharacterControllerSystem.Filter filter))
                 {
-                    Entity = entity,
-                    Transform = f.Unsafe.GetPointer<Transform2D>(entity),
-                    CharacterController = f.Unsafe.GetPointer<CharacterController>(entity),
-                    CustomAnimator = animator,
-                    PhysicsBody = f.Unsafe.GetPointer<PhysicsBody2D>(entity),
-                    PhysicsCollider = f.Unsafe.GetPointer<PhysicsCollider2D>(entity),
-                    PlayerStats = f.Unsafe.GetPointer<PlayerStats>(entity),
-                    Shakeable = f.Unsafe.GetPointer<Shakeable>(entity),
-                    Stats = f.Unsafe.GetPointer<Stats>(entity)
-                };
+                    Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
+                    Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(entity).Player) : behavior.GetInput(f, default);
 
-                Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
-                Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(entity).Player) : behavior.GetInput(f, default);
-
-                asset.InvokeEvents(f, ref filter, input, frame);
+                    asset.InvokeEvents(f, ref filter, input, frame);
+                }
             }
         }
 
         public void OnAnimatorStateExit(Frame f, EntityRef entity, CustomAnimator* animator)
         {
-            var list = f.ResolveList(animator->UnresolvedEvents);
-            
-            while (list.Count > 0)
+            if (f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, entity, out CharacterControllerSystem.Filter filter))
             {
-                FrameEvent animEvent = f.FindAsset<FrameEvent>(list[0].Id);
+                var list = f.ResolveList(animator->UnresolvedEvents);
 
-                CharacterControllerSystem.Filter filter = new()
+                while (list.Count > 0)
                 {
-                    Entity = entity,
-                    Transform = f.Unsafe.GetPointer<Transform2D>(entity),
-                    CharacterController = f.Unsafe.GetPointer<CharacterController>(entity),
-                    CustomAnimator = animator,
-                    PhysicsBody = f.Unsafe.GetPointer<PhysicsBody2D>(entity),
-                    PhysicsCollider = f.Unsafe.GetPointer<PhysicsCollider2D>(entity),
-                    PlayerStats = f.Unsafe.GetPointer<PlayerStats>(entity),
-                    Shakeable = f.Unsafe.GetPointer<Shakeable>(entity),
-                    Stats = f.Unsafe.GetPointer<Stats>(entity)
-                };
+                    FrameEvent animEvent = f.FindAsset<FrameEvent>(list[0].Id);
 
-                Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
-                Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(entity).Player) : behavior.GetInput(f, default);
+                    Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
+                    Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(entity).Player) : behavior.GetInput(f, default);
 
-                animEvent.End(f, default, ref filter, input, 0);
-                list.RemoveAt(0);
+                    animEvent.End(f, default, ref filter, input, 0);
+                    list.RemoveAt(0);
+                }
+
+                if (filter.CharacterController->ResetActions)
+                {
+                    filter.CharacterController->ResetActions = false;
+
+                    filter.CharacterController->MaintainVelocity = false;
+                    filter.CharacterController->CanMove = true;
+                    filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
+                }
             }
         }
 

@@ -22,13 +22,17 @@ namespace Quantum
                 filter.CharacterController->PossibleStates = 0;
                 filter.CharacterController->CanMove = CanMove;
                 filter.CharacterController->MaintainVelocity = MaintainVelocity;
+
+                filter.CharacterController->ResetActions = true;
             }
 
             if (frame == Committed.Max)
             {
-                filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
-                filter.CharacterController->CanMove = true;
+                filter.CharacterController->ResetActions = false;
+
                 filter.CharacterController->MaintainVelocity = false;
+                filter.CharacterController->CanMove = true;
+                filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
 
                 Log.Debug("Not committed!");
             }

@@ -7,8 +7,6 @@ namespace Quantum
     {
         [Header("General Settings")]
         public FP DeadStickZone;
-        public int InputCheckTime;
-
         public int PlayerCollision;
         public int NoPlayerCollision;
 

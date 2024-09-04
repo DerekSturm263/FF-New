@@ -74,7 +74,7 @@ namespace Quantum.Custom.Animator
                 position = a.position + b.position,
                 rotation = a.rotation + b.rotation,
                 rotationY = a.rotationY + b.rotationY,
-                hurtboxPositions = new HurtboxTransformInfo[17]
+                hurtboxPositions = new HurtboxTransformInfo[15]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -94,7 +94,7 @@ namespace Quantum.Custom.Animator
                 position = b.position - a.position,
                 rotation = b.rotation - a.rotation,
                 rotationY = b.rotationY - a.rotationY,
-                hurtboxPositions = new HurtboxTransformInfo[17]
+                hurtboxPositions = new HurtboxTransformInfo[15]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -114,7 +114,7 @@ namespace Quantum.Custom.Animator
                 position = FPVector3.Scale(a.position, b.position),
                 rotation = a.rotation * b.rotation,
                 rotationY = a.rotationY * b.rotationY,
-                hurtboxPositions = new HurtboxTransformInfo[17]
+                hurtboxPositions = new HurtboxTransformInfo[15]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -134,7 +134,7 @@ namespace Quantum.Custom.Animator
                 position = a.position * b,
                 rotation = a.rotation * b,
                 rotationY = a.rotationY * b,
-                hurtboxPositions = new HurtboxTransformInfo[17]
+                hurtboxPositions = new HurtboxTransformInfo[15]
             };
 
             for (int i = 0; i < result.hurtboxPositions.Length; ++i)
@@ -153,7 +153,7 @@ namespace Quantum.Custom.Animator
                 time = FPMath.Lerp(a.time, b.time, value),
                 position = FPVector3.Lerp(a.position, b.position, value),
                 rotationY = FPMath.Lerp(a.rotationY, b.rotationY, value),
-                hurtboxPositions = new HurtboxTransformInfo[17]
+                hurtboxPositions = new HurtboxTransformInfo[15]
             };
 
             for (int i = 0; i < output.hurtboxPositions.Length; ++i)

@@ -12,13 +12,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum/PlayerState/ActionState/BurstState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 391)]
 public partial class BurstStateAsset : ActionStateAsset {
-  public Quantum.BurstState Settings;
+  public Quantum.BurstState Settings_BurstState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_BurstState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_BurstState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.BurstState();
+    if (Settings_BurstState == null) {
+      Settings_BurstState = new Quantum.BurstState();
     }
     base.Reset();
   }

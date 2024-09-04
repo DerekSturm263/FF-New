@@ -17,7 +17,7 @@
         {
             Log.Debug("Cleaning up hurtboxes!");
 
-            StatsSystem.ModifyHurtboxes(f, filter.Entity, Hurtboxes, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 }, false);
+            StatsSystem.ResetHurtboxes(f, filter.Entity, Hurtboxes, false);
         }
     }
 }

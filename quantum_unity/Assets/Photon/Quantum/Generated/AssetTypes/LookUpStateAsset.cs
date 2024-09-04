@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/PlayerState/LookUpState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 401)]
-public partial class LookUpStateAsset : PlayerStateAsset {
-  public Quantum.LookUpState Settings;
+[CreateAssetMenu(menuName = "Quantum/PlayerState/InputState/LookUpState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 401)]
+public partial class LookUpStateAsset : InputStateAsset {
+  public Quantum.LookUpState Settings_LookUpState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_LookUpState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_LookUpState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.LookUpState();
+    if (Settings_LookUpState == null) {
+      Settings_LookUpState = new Quantum.LookUpState();
     }
     base.Reset();
   }

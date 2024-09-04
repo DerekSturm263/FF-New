@@ -10,8 +10,18 @@
 using Quantum;
 using UnityEngine;
 
-public abstract partial class PlayerStateAsset : AssetBase {
+[CreateAssetMenu(menuName = "Quantum/PlayerState/PlayerState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 390)]
+public partial class PlayerStateAsset : AssetBase {
+  public Quantum.PlayerState Settings;
 
+  public override Quantum.AssetObject AssetObject => Settings;
+  
+  public override void Reset() {
+    if (Settings == null) {
+      Settings = new Quantum.PlayerState();
+    }
+    base.Reset();
+  }
 }
 
 public static partial class PlayerStateAssetExts {

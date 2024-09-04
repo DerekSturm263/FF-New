@@ -1447,6 +1447,7 @@ MonoBehaviour:
     animator_blend_count: 0
     AnimatorVariables: []
     BlendTreeWeights: []
+    UnresolvedEvents: []
 --- !u!114 &7579628621272166192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,7 +1497,7 @@ MonoBehaviour:
         RawValue: 0
     CurrentState:
       Id:
-        Value: 328942225980547397
+        Value: 1154833275834183447
     NextState:
       Id:
         Value: 0
@@ -1524,24 +1525,19 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-      Time:
-        RawValue: 0
     CurrentKnockback:
       Direction:
         X:
           RawValue: 0
         Y:
           RawValue: 0
-      Time:
-        RawValue: 0
     OldKnockback:
       Direction:
         X:
           RawValue: 0
         Y:
           RawValue: 0
-      Time:
-        RawValue: 0
+    HitStunTime: 0
     Velocity:
       RawValue: 0
     MovingLerp:
@@ -1553,12 +1549,14 @@ MonoBehaviour:
     GroundedJump:
       Value: 0
     JumpType:
-      Value: 0
+      Value: -1
     JumpCount: 0
+    JumpBuffer: 0
+    JumpTime: 0
     GroundedDodge:
       Value: 0
     DodgeType:
-      Value: 0
+      Value: -1
     DodgeCount: 0
     IsThrowing:
       Value: 0
@@ -1579,6 +1577,8 @@ MonoBehaviour:
       Y:
         RawValue: 0
     PressedButton:
+      Value: 0
+    ResetActions:
       Value: 0
     IsReady:
       Value: 0
@@ -1779,6 +1779,11 @@ MonoBehaviour:
     Strength:
       RawValue: 0
     Position:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    Velocity:
       X:
         RawValue: 0
       Y:

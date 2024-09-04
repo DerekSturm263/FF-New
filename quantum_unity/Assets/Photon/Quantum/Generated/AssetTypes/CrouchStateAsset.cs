@@ -10,15 +10,17 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/PlayerState/CrouchState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 392)]
-public partial class CrouchStateAsset : PlayerStateAsset {
-  public Quantum.CrouchState Settings;
+[CreateAssetMenu(menuName = "Quantum/PlayerState/InputState/CrouchState", order = Quantum.EditorDefines.AssetMenuPriorityStart + 392)]
+public partial class CrouchStateAsset : InputStateAsset {
+  public Quantum.CrouchState Settings_CrouchState;
 
-  public override Quantum.AssetObject AssetObject => Settings;
+  public override string AssetObjectPropertyPath => nameof(Settings_CrouchState);
+  
+  public override Quantum.AssetObject AssetObject => Settings_CrouchState;
   
   public override void Reset() {
-    if (Settings == null) {
-      Settings = new Quantum.CrouchState();
+    if (Settings_CrouchState == null) {
+      Settings_CrouchState = new Quantum.CrouchState();
     }
     base.Reset();
   }

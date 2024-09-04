@@ -52,6 +52,7 @@ enum Colliders
 
 enum JumpType
 {
+    None = -1,
     ShortHop,
     FullHop,
     Aerial
@@ -59,6 +60,7 @@ enum JumpType
 
 enum DodgeType
 {
+    None = -1,
     Spot,
     RollForward,
     RollBackward,
@@ -103,6 +105,8 @@ component CharacterController
     bool GroundedJump;
     JumpType JumpType;
     short JumpCount;
+    int JumpBuffer;
+    int JumpTime;
     
     // Dodge
     bool GroundedDodge;
@@ -122,6 +126,7 @@ component CharacterController
     bool ButtonHeld;
     FPVector2 ApplyPhysicsPosition;
     bool PressedButton;
+    bool ResetActions;
 
     // Readiness
     bool IsReady;

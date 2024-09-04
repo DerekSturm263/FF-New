@@ -1,8 +1,6 @@
 ﻿using Photon.Deterministic;
 using Quantum.Collections;
 using Quantum.Custom.Animator;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace Quantum
 {
@@ -74,7 +72,7 @@ namespace Quantum
             }
 
             Log.Debug("ERROR");
-            return new() { hurtboxPositions = new HurtboxTransformInfo[17] };
+            return new() { hurtboxPositions = new HurtboxTransformInfo[15] };
         }
 
         public static FP GetFP(Frame f, CustomAnimator* a, int index)

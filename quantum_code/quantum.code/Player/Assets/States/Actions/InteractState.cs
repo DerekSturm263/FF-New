@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using Quantum.Inspector;
 using Quantum.Types;
 
 namespace Quantum
@@ -6,6 +7,8 @@ namespace Quantum
     [System.Serializable]
     public unsafe sealed class InteractState : ActionState
     {
+        [Header("State-Specific Values")]
+
         public ShapeCastHelper InteractCast;
         public FP InteractCastDistanceMultiplier;
 
@@ -22,6 +25,7 @@ namespace Quantum
         {
             return base.CanEnter(f, stateMachine, ref filter, input, settings) &&
                 (filter.PlayerStats->HeldItem.IsValid ||
+                filter.CharacterController->HasSubWeapon ||
                 InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0) * InteractCastDistanceMultiplier).Count > 0);
         }
 
