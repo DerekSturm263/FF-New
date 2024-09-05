@@ -19,5 +19,12 @@
         {
             return filter.CharacterController->HitStunTime <= 0;
         }
+
+        public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
+        {
+            filter.CharacterController->HitStunTime = 0;
+
+            base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
+        }
     }
 }

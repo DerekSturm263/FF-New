@@ -11,42 +11,70 @@ namespace Quantum
         [Header("State-Specific Values")]
 
         public int MaxInfluence;
+        public FP InfluenceMultiplier;
+        public FP DecelerationSpeed;
+
+        public FP WallVelocityAbsorption;
+        public FP MinimumVelocity;
+        public int MinStateTimeToGrounded;
 
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            return filter.Shakeable->Time <= 0 &&
-                   DoesStateTypeMatch(stateMachine, ref filter) && !filter.CharacterController->CurrentKnockback.Equals(default(KnockbackInfo)) && filter.CharacterController->HitStunTime > 0;
+            return DoesStateTypeMatch(stateMachine, ref filter) && filter.CharacterController->StartKnockback;
+        }
+
+        public override void BeginEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
+        {
+            base.BeginEnter(f, stateMachine, ref filter, input, settings, previousState);
+         
+            filter.CharacterController->StartKnockback = false;
+        }
+
+        public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
+        {
+            base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
+
+            filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
         }
 
         public override void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
             base.Update(f, stateMachine, ref filter, input, settings);
 
-            if (filter.CharacterController->OldKnockback.Direction.X > 0 && filter.CharacterController->GetNearbyCollider(Colliders.RightWall) ||
-                filter.CharacterController->OldKnockback.Direction.X < 0 && filter.CharacterController->GetNearbyCollider(Colliders.LeftWall))
+            if (filter.PhysicsBody->Velocity.X > 0 && filter.CharacterController->GetNearbyCollider(Colliders.RightWall) ||
+                filter.PhysicsBody->Velocity.X < 0 && filter.CharacterController->GetNearbyCollider(Colliders.LeftWall))
             {
-                filter.CharacterController->CurrentKnockback.Direction.X *= -1;
+                filter.CharacterController->CurrentKnockback.Direction.X *= -WallVelocityAbsorption;
+
+                if (FPMath.Abs(filter.CharacterController->CurrentKnockback.Direction.X) < MinimumVelocity)
+                    filter.CharacterController->CurrentKnockback.Length = 1;
             }
 
-            PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
+            if (filter.CharacterController->CurrentKnockback.Direction.Y < 0 && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
+            {
+                filter.CharacterController->CurrentKnockback.Direction.Y *= -WallVelocityAbsorption;
+            }
+
+            filter.CharacterController->CurrentKnockback.Direction.X = FPMath.Lerp(filter.CharacterController->CurrentKnockback.Direction.X, 0, f.DeltaTime * DecelerationSpeed);
+            --filter.CharacterController->CurrentKnockback.Length;
 
             CustomAnimator.SetFixedPoint(f, filter.CustomAnimator, "KnockbackY", filter.PhysicsBody->Velocity.Normalized.Y);
-            --filter.CharacterController->HitStunTime;
+
+            PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
         }
 
-        protected override FP GetMovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => FPMath.Clamp(filter.CharacterController->StateTime / MaxInfluence, FP._0, FP._1);
+        protected override FP GetMovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => FPMath.Clamp(filter.CharacterController->StateTime / MaxInfluence, FP._0, FP._1) * InfluenceMultiplier;
 
         protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            return filter.CharacterController->HitStunTime <= 0 || filter.CharacterController->GetNearbyCollider(Colliders.Ground);
+            return filter.CharacterController->CurrentKnockback.Length <= 0 || (filter.CharacterController->GetNearbyCollider(Colliders.Ground) && filter.CharacterController->StateTime > MinStateTimeToGrounded);
         }
 
         public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
-            base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
-
             filter.CharacterController->CurrentKnockback = default;
-            filter.CharacterController->HitStunTime = 0;
+
+            base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }
 
         [Conditional("DEBUG")]

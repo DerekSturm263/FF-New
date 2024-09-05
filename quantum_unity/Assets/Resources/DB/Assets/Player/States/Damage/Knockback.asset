@@ -289,7 +289,7 @@ MonoBehaviour:
         TopSpeed:
           RawValue: 655360
         TurnAroundSpeed:
-          RawValue: 98304
+          RawValue: 163840
         TurnAroundThreshold:
           RawValue: 3276
       MovementInfluence:
@@ -389,5 +389,24 @@ MonoBehaviour:
         Buttons: 0
         Condition: 0
         DoInvert: 0
-      InterruptCurrentState: 1
+      InterruptCurrentState: 0
+    - Destination:
+        Id:
+          Value: 1154833275834183447
+      TransitionTime: 0
+      RequiresInput: 0
+      InputInfo:
+        Buttons: 0
+        Condition: 0
+        DoInvert: 0
+      InterruptCurrentState: 0
     MaxInfluence: 60
+    InfluenceMultiplier:
+      RawValue: 32768
+    DecelerationSpeed:
+      RawValue: 65536
+    WallVelocityAbsorption:
+      RawValue: 52428
+    MinimumVelocity:
+      RawValue: 1310720
+    MinStateTimeToGrounded: 4

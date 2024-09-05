@@ -17,7 +17,7 @@
         {
             Log.Debug("Cleaning up hurtboxes!");
 
-            StatsSystem.ResetHurtboxes(f, filter.Entity, Hurtboxes, false);
+            StatsSystem.ModifyHurtboxes(f, filter.Entity, Hurtboxes, HurtboxSettings.Default, false);
         }
     }
 }

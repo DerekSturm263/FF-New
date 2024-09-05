@@ -46,6 +46,7 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.Prototypes.KnockbackInfo_Prototype CurrentKnockback;
     public Quantum.Prototypes.KnockbackInfo_Prototype OldKnockback;
     public System.Int32 HitStunTime;
+    public Quantum.QBoolean StartKnockback;
     public Photon.Deterministic.FP Velocity;
     public Photon.Deterministic.FP MovingLerp;
     public Quantum.QBoolean CanMove;
@@ -97,6 +98,7 @@ namespace Quantum.Prototypes.Unity {
       result.CurrentKnockback = this.CurrentKnockback;
       result.OldKnockback = this.OldKnockback;
       result.HitStunTime = this.HitStunTime;
+      result.StartKnockback = this.StartKnockback;
       result.Velocity = this.Velocity;
       result.MovingLerp = this.MovingLerp;
       result.CanMove = this.CanMove;

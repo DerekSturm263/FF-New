@@ -59,6 +59,9 @@ namespace Quantum
 
             filter.PlayerStats->ActiveWeapon = ActiveWeaponType.Primary;
 
+            if (filter.CharacterController->JumpTime > 0 && filter.CharacterController->JumpTime < 4)
+                filter.CharacterController->JumpType = JumpType.ShortHop;
+
             Weapon weaponAsset = filter.PlayerStats->Build.Gear.MainWeapon;
             if (f.TryFindAsset(weaponAsset.Template.Id, out WeaponTemplate weaponTemplate))
             {

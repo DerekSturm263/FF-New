@@ -33,5 +33,10 @@ namespace Extensions.Components.Miscellaneous
             gameObj.GetComponent<Animator>().ResetTrigger("On");
             gameObj.GetComponent<Animator>().ResetTrigger("Off");
         }
+
+        public void OpenURL(string link)
+        {
+            Application.OpenURL(link);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Quantum
 
         protected override bool CanEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
-            return base.CanEnter(f, stateMachine, ref filter, input, settings) && filter.CharacterController->CurrentKnockback.Direction.Magnitude >= MinimumYVelocityToKnockOver;
+            return DoesStateTypeMatch(stateMachine, ref filter) && filter.CharacterController->OldKnockback.Direction.Magnitude >= MinimumYVelocityToKnockOver;
         }
     }
 }

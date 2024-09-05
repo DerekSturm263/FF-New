@@ -50,7 +50,7 @@ namespace Quantum
                 filter.CharacterController->CurrentKnockback = filter.CharacterController->DeferredKnockback;
                 filter.CharacterController->DeferredKnockback = default;
 
-                filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
+                filter.CharacterController->StartKnockback = true;
             }
         }
 
@@ -141,7 +141,7 @@ namespace Quantum
         public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier, FP freezeFramesMultiplier, int hitboxLifetime)
         {
             FP newX = hitbox.Offensive.Knockback.X * directionMultiplier;
-            FP newY = (hitbox.Offensive.Knockback.X == FP._0 && hitbox.Offensive.Knockback.Y < 0 && f.Get<CharacterController>(defender).GetNearbyCollider(Colliders.Ground)) ? -hitbox.Offensive.Knockback.Y : hitbox.Offensive.Knockback.Y;
+            FP newY = hitbox.Offensive.Knockback.Y;
 
             FPVector2 updatedDirection = FPVector2.Scale(new(newX, newY), f.Unsafe.GetPointer<CharacterController>(defender)->KnockbackMultiplier);
 
@@ -156,16 +156,23 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
                 {
-                    characterController->DeferredKnockback = new() { Direction = updatedDirection };
-                    characterController->OldKnockback = characterController->DeferredKnockback;
-                    characterController->OriginalPosition = transform->Position;
-                    characterController->HitStunTime = hitbox.Offensive.HitStun;
-
-                    if (updatedDirection != FPVector2.Zero && f.TryGet(defender, out PlayerStats playerStats))
+                    if (updatedDirection != default)
                     {
-                        characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
-                        f.Events.OnPlayerChangeDirection(defender, playerStats.Index, characterController->MovementDirection);
+                        characterController->DeferredKnockback = new() { Direction = updatedDirection, Length = hitbox.Offensive.HitStun };
+                        characterController->OldKnockback = characterController->DeferredKnockback;
+
+                        if (f.TryGet(defender, out PlayerStats playerStats))
+                        {
+                            characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
+                            f.Events.OnPlayerChangeDirection(defender, playerStats.Index, characterController->MovementDirection);
+                        }
                     }
+                    else
+                    {
+                        characterController->HitStunTime = hitbox.Offensive.HitStun;
+                    }
+
+                    characterController->OriginalPosition = transform->Position;
                 }
             }
         }
