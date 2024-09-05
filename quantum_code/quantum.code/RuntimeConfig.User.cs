@@ -14,6 +14,8 @@ namespace Quantum {
         public ArrayColors TeamColors;
         public ArrayColors DarkTeamColors;
 
+        public AssetRefPlayerState DefaultState;
+
         partial void SerializeUserData(BitStream stream)
         {
             stream.Serialize(ref StageSourceMap);
@@ -24,6 +26,7 @@ namespace Quantum {
             stream.Serialize(ref ItemLayer);
             stream.Serialize(ref TeamColors);
             stream.Serialize(ref DarkTeamColors);
+            stream.Serialize(ref DefaultState);
         }
     }
 }

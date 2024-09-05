@@ -150,7 +150,7 @@ public class HUDPlayerLink : MonoBehaviour
         _energyText?.SetText($"{newEnergy}/{maxEnergy}");
     }
 
-    public void UpdateStocks(int newStocks, int maxStocks)
+    public unsafe void UpdateStocks(int newStocks, int maxStocks)
     {
         bool showLifeAsNumber = maxStocks > 10 || maxStocks == -1;
 

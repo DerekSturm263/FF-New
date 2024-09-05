@@ -35,7 +35,7 @@ namespace Quantum
             
             if (!filter.PlayerStats->HeldItem.IsValid)
             {
-                Physics2D.HitCollection hitCollection = InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0));
+                Physics2D.HitCollection hitCollection = InteractCast.GetCastResults(f, filter.Transform, new FPVector2(filter.CharacterController->MovementDirection, 0) * InteractCastDistanceMultiplier);
 
                 for (int i = 0; i < hitCollection.Count; ++i)
                 {

@@ -169,7 +169,7 @@ namespace Quantum
 
         private void HandleJumping(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, ApparelStats stats)
         {
-            if (Jump.CanJump && filter.CharacterController->WasPressedThisFrame(input, Input.Buttons.Jump) && filter.CharacterController->JumpCount > 0)
+            if ((filter.CharacterController->CanJump || Jump.CanJump) && filter.CharacterController->WasPressedThisFrame(input, Input.Buttons.Jump) && filter.CharacterController->JumpCount > 0)
             {
                 filter.CharacterController->JumpBuffer = 4;
             }

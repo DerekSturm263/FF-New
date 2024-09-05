@@ -21,6 +21,7 @@ namespace Quantum
 
                 filter.CharacterController->PossibleStates = 0;
                 filter.CharacterController->CanMove = CanMove;
+                filter.CharacterController->CanJump = false;
                 filter.CharacterController->MaintainVelocity = MaintainVelocity;
 
                 filter.CharacterController->ResetActions = true;
@@ -32,6 +33,7 @@ namespace Quantum
 
                 filter.CharacterController->MaintainVelocity = false;
                 filter.CharacterController->CanMove = true;
+                filter.CharacterController->CanJump = true;
                 filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
 
                 Log.Debug("Not committed!");

@@ -56,6 +56,7 @@ namespace Quantum.Prototypes.Unity {
     public System.Int16 JumpCount;
     public System.Int32 JumpBuffer;
     public System.Int32 JumpTime;
+    public Quantum.QBoolean CanJump;
     public Quantum.QBoolean GroundedDodge;
     public Quantum.Prototypes.DodgeType_Prototype DodgeType;
     public System.Int16 DodgeCount;
@@ -108,6 +109,7 @@ namespace Quantum.Prototypes.Unity {
       result.JumpCount = this.JumpCount;
       result.JumpBuffer = this.JumpBuffer;
       result.JumpTime = this.JumpTime;
+      result.CanJump = this.CanJump;
       result.GroundedDodge = this.GroundedDodge;
       result.DodgeType = this.DodgeType;
       result.DodgeCount = this.DodgeCount;

@@ -10,7 +10,6 @@ namespace Quantum
     {
         [Header("State-Specific Values")]
 
-        public int MaxInfluence;
         public FP InfluenceMultiplier;
         public FP DecelerationSpeed;
 
@@ -63,7 +62,7 @@ namespace Quantum
             PreviewKnockback(filter.CharacterController->OldKnockback.Direction, filter.CharacterController->OriginalPosition);
         }
 
-        protected override FP GetMovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => FPMath.Clamp(filter.CharacterController->StateTime / MaxInfluence, FP._0, FP._1) * InfluenceMultiplier;
+        protected override FP GetMovementInfluence(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => FPMath.Clamp(filter.CharacterController->StateTime / (FP)filter.CharacterController->OldKnockback.Length, FP._0, FP._1) * InfluenceMultiplier;
 
         protected override bool CanExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
         {
@@ -72,7 +71,8 @@ namespace Quantum
 
         public override void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
-            filter.CharacterController->CurrentKnockback = default;
+            if (f.FindAsset<PlayerState>(nextState.Id) != this)
+                filter.CharacterController->CurrentKnockback = default;
 
             base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }

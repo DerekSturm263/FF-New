@@ -57,6 +57,7 @@ namespace Quantum
 
                     filter.CharacterController->MaintainVelocity = false;
                     filter.CharacterController->CanMove = true;
+                    filter.CharacterController->CanJump = false;
                     filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
                 }
             }
