@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Linq;
 using System.Reflection;
 
 namespace Quantum
@@ -55,6 +56,8 @@ namespace Quantum
             SetPosition(f, entity, FP._1_50);
             f.Events.OnHurtboxStateChange(entity, (HurtboxType)32767, new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
 
+            FighterIndex.UpdateGlobalList(f);
+
             return entity;
         }
 
@@ -65,6 +68,8 @@ namespace Quantum
             f.Events.OnPlayerDespawn(new() { Entity = player, Index = stats.Index, Name = stats.Name, Position = transform.Position });
 
             RemovePlayerFromList(f, stats.Index);
+
+            FighterIndex.UpdateGlobalList(f);
 
             f.Destroy(player);
         }

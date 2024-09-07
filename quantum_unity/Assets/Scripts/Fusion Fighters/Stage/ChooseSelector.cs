@@ -18,11 +18,11 @@ public class ChooseSelector : MonoBehaviour
         _binding = GetComponent<BindParent>();
     }
 
-    private void OnEnable()
+    private unsafe void OnEnable()
     {
         if (_isStageSelector)
         {
-            StagePicker stagePicker = QuantumRunner.Default.Game.Frames.Verified.FindAsset<StagePicker>(RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id);
+            StagePicker stagePicker = QuantumRunner.Default.Game.Frames.Verified.FindAsset<StagePicker>(QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Ruleset.Stage.StagePicker.Id);
             var (unsorted, sorted) = MatchSystem.GetTeams(QuantumRunner.Default.Game.Frames.Verified);
 
             bool canSelect = (sorted.Count() == 0 && stagePicker.GetInitialPickers(QuantumRunner.Default.Game.Frames.Verified, unsorted).Any(item => item.Get(QuantumRunner.Default.Game.Frames.Verified).Any(item => item.Index.Equals(_binding.Player.Index)))) ||

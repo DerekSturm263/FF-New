@@ -6,7 +6,7 @@ namespace Quantum
 {
     public unsafe partial struct Team
     {
-        public IEnumerable<PlayerNameIndex> Get(Frame f)
+        public readonly IEnumerable<PlayerNameIndex> Get(Frame f)
         {
             List<PlayerNameIndex> list = [];
 

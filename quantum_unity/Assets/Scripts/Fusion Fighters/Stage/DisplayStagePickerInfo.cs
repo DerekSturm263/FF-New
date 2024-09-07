@@ -16,7 +16,7 @@ public class DisplayStagePickerInfo : UIBehaviour
 
     protected override unsafe void OnEnable()
     {
-        StagePicker stagePicker = QuantumRunner.Default.Game.Frames.Verified.FindAsset<StagePicker>(RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id);
+        StagePicker stagePicker = QuantumRunner.Default.Game.Frames.Verified.FindAsset<StagePicker>(QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Ruleset.Stage.StagePicker.Id);
         var (unsorted, sorted) = MatchSystem.GetTeams(QuantumRunner.Default.Game.Frames.Verified);
 
         var allowedPickers = sorted.Count() == 0 ?
@@ -77,13 +77,13 @@ public class DisplayStagePickerInfo : UIBehaviour
         _text.SetText(text);
     }
 
-    private SerializableWrapper<Stage> GetRandom()
+    private unsafe SerializableWrapper<Stage> GetRandom()
     {
         List<SerializableWrapper<Stage>> results = new();
 
         results.AddRange(Resources.LoadAll<StageAssetAsset>("DB/Assets/Stage/Stages").Where(item => item.IncludeInLists).Select(item => item.Stage));
 
-        if (RulesetController.Instance.CurrentRuleset.value.Stage.AllowCustomStages)
+        if (QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Ruleset.Stage.AllowCustomStages)
             results.AddRange(FusionFighters.Serializer.LoadAllFromDirectory<SerializableWrapper<Stage>>(StageController.GetPath()));
 
         return results[Random.Range(0, results.Count)];

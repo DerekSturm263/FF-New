@@ -7,8 +7,6 @@ public class HostClientEvents : MonoBehaviour
     [SerializeField] private UnityEvent _onHost;
     [SerializeField] private UnityEvent _onClient;
 
-    [SerializeField] private UnityEvent _load;
-
     public static int DeviceIndex
     {
         get
@@ -24,12 +22,14 @@ public class HostClientEvents : MonoBehaviour
     {
         if (UIMain.Client is not null)
         {
-            _load.Invoke();
-
-            if (UIMain.Client.LocalPlayer.IsMasterClient)
+            if (!UIMain.Client.InRoom || UIMain.Client.LocalPlayer.IsMasterClient)
                 _onHost.Invoke();
             else
                 _onClient.Invoke();
+        }
+        else
+        {
+            _onHost.Invoke();
         }
     }
 

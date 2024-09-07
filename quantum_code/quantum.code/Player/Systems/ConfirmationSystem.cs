@@ -46,7 +46,7 @@ namespace Quantum
                 ++f.Global->PlayersReady;
                 f.Events.OnPlayerReady(filter.Entity, filter.PlayerStats->Index);
 
-                if (FighterIndex.GetAllTeams(f).Count() > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
+                if (f.ResolveList(f.Global->Teams).Count() > 1 && f.Global->PlayersReady == f.Global->TotalPlayers)
                 {
                     HandleAllPlayersReady(f);
                 }

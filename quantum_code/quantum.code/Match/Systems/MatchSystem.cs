@@ -14,7 +14,7 @@ namespace Quantum
                 if (f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.WinCondition.Id, out WinCondition winCondition) &&
                     f.TryFindAsset(f.Global->CurrentMatch.Ruleset.Match.TieResolver.Id, out TieResolver tieResolver))
                 {
-                    var teams = FighterIndex.GetAllTeams(f);
+                    var teams = f.ResolveList(f.Global->Teams);
 
                     if (winCondition.IsMatchOver(f, teams))
                         EndOfMatch(f, teams, winCondition, tieResolver);
@@ -37,6 +37,7 @@ namespace Quantum
             f.Global->CanPlayersEdit = true;
 
             f.Global->GizmoInstances = f.AllocateList<EntityRef>();
+            f.Global->Teams = f.AllocateList<Team>();
         }
 
         public override void OnDisabled(Frame f)
@@ -46,6 +47,9 @@ namespace Quantum
 
             f.FreeList(f.Global->StagesPicked);
             f.Global->StagesPicked = default;
+
+            f.FreeList(f.Global->Teams);
+            f.Global->Teams = default;
         }
 
         public static void StartOfMatch(Frame f, IEnumerable<Team> teams)
@@ -195,7 +199,7 @@ namespace Quantum
         {
             StagePicker stagePicker = f.FindAsset<StagePicker>(f.Global->CurrentMatch.Ruleset.Stage.StagePicker.Id);
 
-            var unsortedTeams = FighterIndex.GetAllTeams(f);
+            var unsortedTeams = f.ResolveList(f.Global->Teams);
             var sortedTeams = f.Global->Results.SortedTeams.Get(f);
 
             return (unsortedTeams, sortedTeams);

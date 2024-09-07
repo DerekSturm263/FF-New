@@ -345,12 +345,12 @@ public sealed class QuantumRunner : MonoBehaviour, IDisposable {
     runner._startGameTimeout = 0.0f;
     if (param.StartGameTimeoutInSeconds > 0) {
       runner._startGameTimeout = Time.time + param.StartGameTimeoutInSeconds;
+        }
+
+        return runner;
     }
 
-    return runner;
-  }
-
-  public static DeterministicPlatformInfo CreatePlatformInfo() {
+    public static DeterministicPlatformInfo CreatePlatformInfo() {
     DeterministicPlatformInfo info;
     info            = new DeterministicPlatformInfo();
     info.Allocator  = new QuantumUnityNativeAllocator();

@@ -38,7 +38,7 @@ public class StageController : Controller<StageController>
         var selectors = FindObjectsByType<ChooseSelector>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         selectors.First(item => item.Binding.Player.Index.Equals(index)).SetActive(false);
 
-        if (RulesetController.Instance.CurrentRuleset.value.Stage.StagePicker.Id == _vote.Id)
+        if (QuantumRunner.Default.Game.Frames.Verified.Global->CurrentMatch.Ruleset.Stage.StagePicker.Id == _vote.Id)
         {
             int count = QuantumRunner.Default.Game.Frames.Verified.Global->TotalPlayers - QuantumRunner.Default.Game.Frames.Verified.Global->SelectedPlayerCount - 1;
             FindFirstObjectByType<DisplayStagePickerInfo>().SetText($"Waiting on {count} player(s) to vote");

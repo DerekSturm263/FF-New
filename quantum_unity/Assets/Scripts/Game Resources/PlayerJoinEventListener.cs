@@ -46,6 +46,9 @@ public class PlayerJoinEventListener :  MonoBehaviour
 
     public void BindSelectScreens(LocalPlayerInfo player)
     {
+        if (_menus.ContainsKey(player))
+            return;
+
         BindParent css = Instantiate(_characterSelectMenu, _characterSelectParent.transform);
         css.Bind(player);
 

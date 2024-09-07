@@ -50,6 +50,7 @@ namespace Quantum
             factories.Add(new CommandChangeTeam());
             factories.Add(new CommandTeleport());
             factories.Add(new CommandResetAllPlayerPositions());
+            factories.Add(new CommandStart());
         }
     }
 }

@@ -113,7 +113,7 @@ namespace Quantum
         public readonly ColorRGBA GetLightColor(Frame f) => ArrayHelper.All(f.RuntimeConfig.TeamColors)[Team];
         public readonly ColorRGBA GetDarkColor(Frame f) => ArrayHelper.All(f.RuntimeConfig.DarkTeamColors)[Team];
 
-        public static IEnumerable<Team> GetAllTeams(Frame f)
+        private static IEnumerable<Team> GetAllTeams(Frame f)
         {
             // Create a new list of players.
             List<PlayerNameIndex> players = [];
@@ -132,6 +132,17 @@ namespace Quantum
 
                 return team;
             });
+        }
+
+        public static void UpdateGlobalList(Frame f)
+        {
+            var teams = f.ResolveList(f.Global->Teams);
+            teams.Clear();
+
+            foreach (var team in GetAllTeams(f))
+            {
+                teams.Add(team);
+            }
         }
 
         public override readonly string ToString() => $"(Local: {Local}, Global: {Global}, Global No Bots {GlobalNoBots}, Global No Humans {GlobalNoHumans}, Team {Team}, Device: {Device}, Type: {Type})";

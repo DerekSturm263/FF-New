@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -24,6 +25,8 @@ namespace Quantum
             {
                 stats->Index.Team = teamIndex;
                 f.Events.OnPlayerChangeTeam(player, stats->Index);
+
+                FighterIndex.UpdateGlobalList(f);
             }
         }
     }

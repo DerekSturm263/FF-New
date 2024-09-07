@@ -92,6 +92,8 @@
                     commandTeleport.Execute(f);
                 else if (command is CommandResetAllPlayerPositions commandResetAllPlayerPositions)
                     commandResetAllPlayerPositions.Execute(f);
+                else if (command is CommandStart commandStart)
+                    commandStart.Execute(f);
             }
         }
     }

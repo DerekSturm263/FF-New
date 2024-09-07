@@ -93,5 +93,10 @@ namespace Extensions.Components.Scene
 
             _isTransitioning = false;
         }
+
+        public void LoadSceneAdditive(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        }
     }
 }

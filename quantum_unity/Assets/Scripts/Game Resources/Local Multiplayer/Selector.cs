@@ -33,7 +33,10 @@ public class Selector : MonoBehaviour
 
     public void UpdateColors()
     {
-        if (QuantumRunner.Default && QuantumRunner.Default.IsRunning && QuantumRunner.Default.Game.Frames.Verified.TryGet(FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, _playerInfo.Index), out Quantum.CharacterController characterController) && characterController.IsReady)
+        if (!QuantumRunner.Default || !QuantumRunner.Default.IsRunning)
+            return;
+
+        if (QuantumRunner.Default.Game.Frames.Verified.TryGet(FighterIndex.GetPlayerFromIndex(QuantumRunner.Default.Game.Frames.Verified, _playerInfo.Index), out Quantum.CharacterController characterController) && characterController.IsReady)
         {
             _canvasGroup.alpha = 0.5f;
             _anim.enabled = false;
