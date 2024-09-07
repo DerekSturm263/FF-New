@@ -1,12 +1,14 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Alla.Utils
 {
     public class MaterialAndShaderRendererUtil
     {
+#if UNITY_EDITOR
         // Method to render a texture from a shader
         public static Texture2D Renderer(Shader shader, int textureWidth, int textureHeight)
         {
@@ -111,10 +113,11 @@ namespace Alla.Utils
             System.IO.File.WriteAllBytes(filePath, bytes);
 
             // Refresh the AssetDatabase to show the new file in the Unity Editor
-            AssetDatabase.Refresh();
+            UnityEditor.AssetDatabase.Refresh();
 
             Debug.Log($"Quad rendered and saved to {filePath}"); // Log the file path for reference
             return true; // Return success
         }
+#endif
     }
 }
