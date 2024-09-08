@@ -16,12 +16,12 @@ public class DisplayBattleStats : Display<BattleStats, List<UnityEvent<string>>>
     {
         _component[0].Invoke(item.Kills.ToString());
         _component[1].Invoke(item.Deaths.ToString());
-        _component[2].Invoke((item.TimeSurvived - FP._0_01).ToString("n2"));
-        _component[3].Invoke(item.TotalDamageDealt.ToString("n2"));
-        _component[4].Invoke(item.TotalDamageTaken.ToString("n2"));
-        _component[5].Invoke(item.TotalDamageHealed.ToString("n2"));
-        _component[6].Invoke(item.TotalEnergyGenerated.ToString("n2"));
-        _component[7].Invoke(item.TotalEnergyConsumed.ToString("n2"));
+        _component[2].Invoke(item.TimeSurvived.AsInt.ToString());
+        _component[3].Invoke(item.TotalDamageDealt.AsInt.ToString());
+        _component[4].Invoke(item.TotalDamageTaken.AsInt.ToString());
+        _component[5].Invoke(item.TotalDamageHealed.AsInt.ToString());
+        _component[6].Invoke(item.TotalEnergyGenerated.AsInt.ToString());
+        _component[7].Invoke(item.TotalEnergyConsumed.AsInt.ToString());
         _component[8].Invoke(item.SubUses.ToString());
         _component[9].Invoke(item.UltimateUses.ToString());
         _component[10].Invoke(item.ItemUses.ToString());

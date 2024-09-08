@@ -137,7 +137,7 @@ public class HUDPlayerLink : MonoBehaviour
         else
             _healthRatio = 0;
 
-        _healthText?.SetText($"{newHealth}/{maxHealth}");
+        _healthText?.SetText($"{newHealth.AsInt}/{maxHealth.AsInt}");
     }
 
     public void UpdateEnergy(FP newEnergy, FP maxEnergy)
@@ -147,7 +147,7 @@ public class HUDPlayerLink : MonoBehaviour
         else
             _energyRatio = 0;
 
-        _energyText?.SetText($"{newEnergy}/{maxEnergy}");
+        _energyText?.SetText($"{newEnergy.AsInt}/{maxEnergy.AsInt}");
     }
 
     public unsafe void UpdateStocks(int newStocks, int maxStocks)

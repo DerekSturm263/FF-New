@@ -66,7 +66,8 @@ namespace Quantum.Demo {
       }
 
       var joinRandomParams = new OpJoinRandomRoomParams();
-      joinRandomParams.SqlLobbyFilter = RulesetController.Instance.CurrentRuleset.FileID.ToString();
+      //joinRandomParams.SqlLobbyFilter = RulesetController.Instance.CurrentRuleset.FileID.ToString();
+            //joinRandomParams.TypedLobby = new($"{RulesetController.Instance.CurrentRuleset.FileID} Lobby", LobbyType.SqlLobby);
 
       _enterRoomParams = new EnterRoomParams();
       _enterRoomParams.RoomOptions = new RoomOptions();
