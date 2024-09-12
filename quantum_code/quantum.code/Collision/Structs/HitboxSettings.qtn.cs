@@ -40,6 +40,7 @@ namespace Quantum
             return new()
             {
                 OnlyShakeOnHit = a.OnlyShakeOnHit,
+                SpawnHitSparks = a.SpawnHitSparks,
                 CameraShake = a.CameraShake,
                 TargetShake = a.TargetShake
             };

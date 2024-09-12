@@ -89,6 +89,7 @@ namespace Quantum
 
         public bool OverrideDirection;
         public List<TransitionInfo> Transitions;
+        public WeaponState WeaponState;
 
         public bool TryResolve(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, out TransitionInfo outTransition)
         {
@@ -127,6 +128,8 @@ namespace Quantum
         public virtual void BeginEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
         {
             Log.Debug($"Beginning entering state: {GetType()}");
+
+            f.Events.OnSwitchWeapon(filter.Entity, filter.PlayerStats->Index, WeaponState);
         }
 
         public virtual void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
@@ -237,6 +240,8 @@ namespace Quantum
         public virtual void BeginExit(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState nextState)
         {
             ShutdownAnimator(f, filter.CustomAnimator);
+
+            f.Events.OnSwitchWeapon(filter.Entity, filter.PlayerStats->Index, WeaponState.Default);
 
             Log.Debug($"Beginning exiting state: {GetType()}");
         }

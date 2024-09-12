@@ -47,6 +47,7 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.Prototypes.KnockbackInfo_Prototype OldKnockback;
     public System.Int32 HitStunTime;
     public Quantum.QBoolean StartKnockback;
+    public Quantum.QBoolean HitGround;
     public Photon.Deterministic.FP Velocity;
     public Photon.Deterministic.FP MovingLerp;
     public Quantum.QBoolean CanMove;
@@ -100,6 +101,7 @@ namespace Quantum.Prototypes.Unity {
       result.OldKnockback = this.OldKnockback;
       result.HitStunTime = this.HitStunTime;
       result.StartKnockback = this.StartKnockback;
+      result.HitGround = this.HitGround;
       result.Velocity = this.Velocity;
       result.MovingLerp = this.MovingLerp;
       result.CanMove = this.CanMove;
@@ -154,20 +156,25 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 PathQueryIndex;
     [Quantum.LocalReference]
     public global::EntityPrototype Owner;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Parent;
     [Quantum.Inspector.DynamicCollectionAttribute()]
     public Photon.Deterministic.FPVector2[] Positions = System.Array.Empty<Photon.Deterministic.FPVector2>();
     public Quantum.Prototypes.HitboxSettings_Prototype Settings;
     public Quantum.Shape2D Shape;
     public System.Int32 Lifetime;
+    public Quantum.AssetRefSpawnHitboxEvent Event;
 
     public sealed override Quantum.Prototypes.HitboxInstance_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.HitboxInstance_Prototype();
       result.PathQueryIndex = this.PathQueryIndex;
       converter.Convert(this.Owner, out result.Owner);
+      converter.Convert(this.Parent, out result.Parent);
       result.Positions = this.Positions;
       result.Settings = this.Settings;
       result.Shape = this.Shape;
       result.Lifetime = this.Lifetime;
+      result.Event = this.Event;
       return result;
     }
   }
@@ -199,11 +206,13 @@ namespace Quantum.Prototypes.Unity {
     public global::EntityPrototype Holder;
     [Quantum.LocalReference]
     public global::EntityPrototype Target;
+    [Quantum.LocalReference]
+    public global::EntityPrototype Hitbox;
     public Quantum.QBoolean FallState;
     public Quantum.QBoolean IsActive;
     public Photon.Deterministic.FP FallSpeed;
     public Photon.Deterministic.FP FallY;
-    public Photon.Deterministic.FP ActiveTime;
+    public System.Int32 ActiveTime;
     public System.Int32 Uses;
     public System.Int32 Collisions;
     public System.Int32 MaxCollisions;
@@ -215,6 +224,7 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.Owner, out result.Owner);
       converter.Convert(this.Holder, out result.Holder);
       converter.Convert(this.Target, out result.Target);
+      converter.Convert(this.Hitbox, out result.Hitbox);
       result.FallState = this.FallState;
       result.IsActive = this.IsActive;
       result.FallSpeed = this.FallSpeed;

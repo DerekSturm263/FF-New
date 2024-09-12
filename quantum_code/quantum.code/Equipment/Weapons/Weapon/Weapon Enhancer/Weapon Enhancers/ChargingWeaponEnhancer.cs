@@ -7,10 +7,9 @@ namespace Quantum
     {
         public FP Multiplier;
 
-        public override void OnHit(Frame f, EntityRef user, EntityRef target, HitboxSettings hitbox)
+        public override void OnHit(Frame f, ref CharacterControllerSystem.Filter filter, EntityRef target, HitboxSettings hitbox)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-                StatsSystem.ModifyEnergy(f, user, stats, hitbox.Offensive.Damage / 4 * Multiplier);
+            StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, hitbox.Offensive.Damage / 4 * Multiplier);
         }
     }
 }

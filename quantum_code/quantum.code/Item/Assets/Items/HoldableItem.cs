@@ -11,9 +11,9 @@
 
         public Handedness HandednessType;
 
-        public override void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
+        public override void Invoke(Frame f, EntityRef user, ref ItemSystem.Filter filter)
         {
-            ItemSystem.PickUp(f, user, item);
+            ItemSystem.PickUp(f, user, filter.Entity);
         }
     }
 }

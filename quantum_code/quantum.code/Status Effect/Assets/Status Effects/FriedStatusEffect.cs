@@ -1,29 +1,17 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class FriedStatusEffect : StatusEffect
     {
-        public override void OnApply(Frame f, EntityRef user)
+        public override void OnApply(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
-            {
-                characterController->CanInput = false;
-            }
-            
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->StatusEffectTimeLeft = (stats->StatusEffectTimeLeft * stats->StatusEffectMultiplier).AsInt;
-            }
+            filter.CharacterController->CanInput = false;
+            filter.Stats->StatusEffectTimeLeft = (filter.Stats->StatusEffectTimeLeft * filter.Stats->StatusEffectMultiplier).AsInt;
         }
 
-        public override void OnRemove(Frame f, EntityRef user)
+        public override void OnRemove(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
-            {
-                characterController->CanInput = true;
-            }
+            filter.CharacterController->CanInput = true;
         }
     }
 }

@@ -129,7 +129,7 @@ namespace Quantum
                     if (filter.CharacterController->UltimateTime == 0)
                     {
                         // Invoke the Ultimate's End function once time runs out to reset stats and stuff.
-                        ultimate.OnEnd(f, filter.Entity);
+                        ultimate.OnEnd(f, ref filter);
                     }
                 }
 
@@ -138,17 +138,14 @@ namespace Quantum
             }
         }
 
-        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, int directionMultiplier, FP freezeFramesMultiplier, int hitboxLifetime)
+        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, FP freezeFramesMultiplier, int hitboxLifetime)
         {
-            FP newX = hitbox.Offensive.Knockback.X * directionMultiplier;
-            FP newY = hitbox.Offensive.Knockback.Y;
-
-            FPVector2 updatedDirection = FPVector2.Scale(new(newX, newY), f.Unsafe.GetPointer<CharacterController>(defender)->KnockbackMultiplier);
-
             uint freezeTime = (uint)(hitbox.Delay.FreezeFrames * freezeFramesMultiplier).AsInt;
 
-            ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, updatedDirection, hitbox.Delay.FreezeFrames, 0);
-            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, updatedDirection, freezeTime, hitbox.Delay.ShakeStrength);
+            if (hitbox.Offensive.AlignKnockbackToPlayerDirection)
+                ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, hitbox.Offensive.Knockback, hitbox.Delay.FreezeFrames, 0);
+            
+            ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, hitbox.Offensive.Knockback, freezeTime, hitbox.Delay.ShakeStrength);
 
             if (f.Unsafe.TryGetPointer(defender, out Stats* stats))
             {
@@ -156,14 +153,14 @@ namespace Quantum
 
                 if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
                 {
-                    if (updatedDirection != default)
+                    if (hitbox.Offensive.Knockback != default)
                     {
-                        characterController->DeferredKnockback = new() { Direction = updatedDirection, Length = hitbox.Offensive.HitStun };
+                        characterController->DeferredKnockback = new() { Direction = hitbox.Offensive.Knockback, Length = hitbox.Offensive.HitStun };
                         characterController->OldKnockback = characterController->DeferredKnockback;
 
                         if (f.TryGet(defender, out PlayerStats playerStats))
                         {
-                            characterController->MovementDirection = -FPMath.SignInt(updatedDirection.X);
+                            characterController->MovementDirection = -FPMath.SignInt(hitbox.Offensive.Knockback.X);
                             f.Events.OnPlayerChangeDirection(defender, playerStats.Index, characterController->MovementDirection);
                         }
                     }

@@ -10,8 +10,8 @@
 using Quantum;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quantum/InfoAsset/Item/HitboxItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
-public partial class HitboxItemAsset : ItemAsset {
+[CreateAssetMenu(menuName = "Quantum/InfoAsset/Item/UpdateableItem/HitboxItem", order = Quantum.EditorDefines.AssetMenuPriorityStart + 215)]
+public partial class HitboxItemAsset : UpdateableItemAsset {
   public Quantum.HitboxItem Settings_HitboxItem;
 
   public override string AssetObjectPropertyPath => nameof(Settings_HitboxItem);

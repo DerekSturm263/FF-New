@@ -1,0 +1,14 @@
+enum WeaponState
+{
+    Default,
+    SwitchWeapons,
+    BothOff
+}
+
+synced event OnSwitchWeapon
+{
+    EntityRef Player;
+    FighterIndex Index;
+
+    WeaponState State;
+}

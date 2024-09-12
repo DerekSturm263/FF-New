@@ -9,6 +9,7 @@ namespace Quantum
             return new()
             {
                 Item = a.Item,
+                AlignToPlayerDirection = a.AlignToPlayerDirection,
                 Velocity = FPVector2.Lerp(a.Velocity, b.Velocity, t),
                 Offset = FPVector2.Lerp(a.Offset, b.Offset, t),
                 StartHolding = a.StartHolding

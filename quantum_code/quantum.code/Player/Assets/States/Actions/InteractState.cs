@@ -43,7 +43,7 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(hitCollection[i].Entity, out ItemInstance* itemInstance))
                     {
-                        ItemSystem.Use(f, filter.Entity, hitCollection[i].Entity, itemInstance);
+                        ItemSystem.Use(f, filter.Entity, hitCollection[i].Entity);
 
                         filter.CharacterController->IsThrowing = false;
                         CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsThrowing", false);

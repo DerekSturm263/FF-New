@@ -34,7 +34,7 @@
                 if (animEvent is not null)
                     CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
 
-                ultimate.OnBegin(f, filter.Entity);
+                ultimate.OnBegin(f, ref filter);
                 
                 filter.CharacterController->UltimateTime = ultimate.Length;
                 ++filter.PlayerStats->Stats.UltimateUses;

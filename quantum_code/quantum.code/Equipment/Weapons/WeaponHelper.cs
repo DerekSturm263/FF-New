@@ -24,8 +24,8 @@
 
         public static unsafe WeaponStats FromStats(Frame f, PlayerStats* stats)
         {
-            WeaponStats weaponStats = FromWeapon(f, stats->Build.Gear.MainWeapon);
-
+            WeaponStats weaponStats = FromWeapon(f, stats->ActiveWeapon == ActiveWeaponType.Primary ? stats->Build.Gear.MainWeapon : stats->Build.Gear.AltWeapon);
+            
             return Multiply(weaponStats, stats->WeaponStatsMultiplier);
         }
 

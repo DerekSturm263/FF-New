@@ -1,5 +1,139 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8824857497201600694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b124538649fe5ce4ca94f40fc96fe75b, type: 3}
+  m_Name: Charge
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Neutral Secondary|Charge
+      Guid:
+        Value: 1651245274616781296
+    StartingFrame: 187
+    EndingFrame: 189
+    Button: 64
+    MinLength: 10
+    MaxLength: 120
+--- !u!114 &-4862478164717600480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb92bcded5eada84a9ffecf113ad721f, type: 3}
+  m_Name: Button Press 1
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Neutral Secondary|Button
+        Press 1
+      Guid:
+        Value: 3259773067039276727
+    StartingFrame: 4
+    EndingFrame: 43
+    Default:
+      Id:
+        Value: 1154833275834183447
+    Button: 64
+--- !u!114 &-2075159502428218016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb92bcded5eada84a9ffecf113ad721f, type: 3}
+  m_Name: Button Press 2
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Neutral Secondary|Button
+        Press 2
+      Guid:
+        Value: 3856054354889329705
+    StartingFrame: 51
+    EndingFrame: 127
+    Default:
+      Id:
+        Value: 1154833275834183447
+    Button: 64
+--- !u!114 &-2051680577195270173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Fire 1
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Neutral Secondary|Fire
+        1
+      Guid:
+        Value: 3585893129457822047
+    StartingFrame: 23
+    EndingFrame: 23
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,10 +152,138 @@ MonoBehaviour:
       Guid:
         Value: 4339759121978342037
     AnimID: 1848470088
-    Events: []
+    Events:
+    - Id:
+        Value: 3259773067039276727
+    - Id:
+        Value: 3856054354889329705
+    - Id:
+        Value: 3585893129457822047
+    - Id:
+        Value: 2594059785053147596
+    - Id:
+        Value: 1655531634359243837
+    - Id:
+        Value: 1651245274616781296
     Committed:
-      Max: 0
+      Max: 292
       Min: 0
     CanMove: 0
     MaintainVelocity: 0
   Clip: {fileID: 4310728966678284580, guid: 72d2605dffc52354997a6343ad5f4347, type: 3}
+--- !u!114 &78503625310325210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Fire 2
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Neutral Secondary|Fire
+        2
+      Guid:
+        Value: 2594059785053147596
+    StartingFrame: 94
+    EndingFrame: 94
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+--- !u!114 &5709765242276769174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Fire 3
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Neutral Secondary|Fire
+        3
+      Guid:
+        Value: 1655531634359243837
+    StartingFrame: 288
+    EndingFrame: 288
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 1310720
+        Y:
+          RawValue: 0

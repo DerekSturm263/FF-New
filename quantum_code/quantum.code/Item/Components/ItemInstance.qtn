@@ -5,12 +5,13 @@
     entity_ref Owner;
     entity_ref Holder;
     entity_ref Target;
+    entity_ref Hitbox;
     
     bool FallState;
     bool IsActive;
     FP FallSpeed;
     FP FallY;
-    FP ActiveTime;
+    int ActiveTime;
 
     int Uses;
     int Collisions;

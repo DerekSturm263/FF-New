@@ -71,8 +71,11 @@ MonoBehaviour:
     Prototype:
       Id:
         Value: 1893760561789642782
+    DestroyOnAnyHit: 1
+    DestroyOnHitAfterMinCollisions: -1
     DestroySelfOnHit: 1
     CanInteractWithOwner: 1
+    AlignDirectionToVelocity: 1
     HandednessType: 0
     HitboxSettings:
       Delay:
@@ -98,6 +101,8 @@ MonoBehaviour:
           Id:
             Value: 2339117124231534448
         OnlyShakeOnHit:
+          Value: 0
+        SpawnHitSparks:
           Value: 0
         TargetShake:
           Id:
@@ -149,4 +154,4 @@ MonoBehaviour:
         UserTag: 0
         IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
-    Lifetime: 15
+    HitboxLifetime: 15

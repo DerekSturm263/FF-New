@@ -18,10 +18,69 @@ MonoBehaviour:
       Guid:
         Value: 4423368159925097548
     AnimID: 617280613
-    Events: []
+    Events:
+    - Id:
+        Value: 2539182689492660970
     Committed:
       Max: 0
       Min: 0
     CanMove: 0
     MaintainVelocity: 0
   Clip: {fileID: 7692512423189433180, guid: 693018cf27cd43e49a70480bc4e9d031, type: 3}
+--- !u!114 &2476860524202194745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Aerials/Down Air|Fire
+      Guid:
+        Value: 2539182689492660970
+    StartingFrame: 25
+    EndingFrame: 26
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 32768
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 327680
+        Y:
+          RawValue: -458752
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 32768
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 327680
+        Y:
+          RawValue: -458752

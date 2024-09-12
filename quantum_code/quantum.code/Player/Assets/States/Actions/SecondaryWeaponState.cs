@@ -62,7 +62,7 @@ namespace Quantum
 
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
             }
-
+            
             filter.CharacterController->HoldLevel = 0;
         }
 

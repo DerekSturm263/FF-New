@@ -7,12 +7,9 @@
         public Bot Bot;
         public string Name;
 
-        public override void OnBegin(Frame f, EntityRef user)
+        public override void OnBegin(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            base.OnBegin(f, user);
-
-            if (!f.TryGet(user, out PlayerStats playerStats))
-                return;
+            base.OnBegin(f, ref filter);
 
             FighterIndex index = new()
             {
@@ -20,24 +17,23 @@
                 Global = FighterIndex.GetNextGlobalIndex(f),
                 GlobalNoBots = -1,
                 GlobalNoHumans = FighterIndex.GetNextGlobalIndexNoHumans(f),
-                Team = playerStats.Index.Team,
-                Device = playerStats.Index.Device,
+                Team = filter.PlayerStats->Index.Team,
+                Device = filter.PlayerStats->Index.Device,
                 Type = FighterType.Bot
             };
 
-            EntityRef entity = PlayerSpawnSystem.SpawnPlayer(f, default, Prototype, false, Name, index, false, playerStats.Build);
+            EntityRef digitalDoubleEntity = PlayerSpawnSystem.SpawnPlayer(f, default, Prototype, false, Name, index, false, filter.PlayerStats->Build);
 
-            if (f.Unsafe.TryGetPointer(entity, out CharacterController* characterController2))
+            if (f.Unsafe.TryGetPointer(digitalDoubleEntity, out CharacterController* characterController2))
                 characterController2->Behavior = Bot.Behavior;
 
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
-                characterController->DigitalDouble = entity;
+            filter.CharacterController->DigitalDouble = digitalDoubleEntity;
         }
 
-        public override void OnEnd(Frame f, EntityRef user)
+        public override void OnEnd(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController) && characterController->DigitalDouble.IsValid)
-                PlayerSpawnSystem.DespawnPlayer(f, characterController->DigitalDouble);
+            if (filter.CharacterController->DigitalDouble.IsValid)
+                PlayerSpawnSystem.DespawnPlayer(f, filter.CharacterController->DigitalDouble);
         }
     }
 }

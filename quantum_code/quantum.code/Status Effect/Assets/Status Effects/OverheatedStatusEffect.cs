@@ -7,23 +7,17 @@ namespace Quantum
     {
         public FP Damage;
 
-        public override void OnApply(Frame f, EntityRef user)
+        public override void OnApply(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->CurrentStats.Health -= Damage * stats->StatusEffectMultiplier;
-            }
+            filter.Stats->CurrentStats.Health -= Damage * filter.Stats->StatusEffectMultiplier;
         }
 
-        public override void OnTick(Frame f, EntityRef user)
+        public override void OnTick(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->CurrentStats.Health -= Damage * stats->StatusEffectMultiplier;
-            }
+            filter.Stats->CurrentStats.Health -= Damage * filter.Stats->StatusEffectMultiplier;
         }
 
-        public override void OnRemove(Frame f, EntityRef user)
+        public override void OnRemove(Frame f, ref CharacterControllerSystem.Filter filter)
         {
 
         }

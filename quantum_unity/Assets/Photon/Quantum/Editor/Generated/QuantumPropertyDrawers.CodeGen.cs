@@ -155,6 +155,13 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(AssetRefSpawnHitboxEvent))]
+  public class AssetRefSpawnHitboxEventPropertyDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(SpawnHitboxEventAsset));
+    }
+  }
+
   [CustomPropertyDrawer(typeof(AssetRefStageAsset))]
   public class AssetRefStageAssetPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -271,10 +278,12 @@ namespace Quantum.Editor {
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.FighterType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.Goal_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.HurtboxType_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.ItemCollisionType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.JumpType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.MatchEndType_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.States_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.StatesFlag_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.WeaponState_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]
   partial class PrototypeDrawer {}
 }

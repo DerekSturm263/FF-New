@@ -33,19 +33,22 @@ namespace Quantum
             if (f.TryFindAsset(filter.ItemInstance->Item.Id, out Item item))
             {
                 if (item is UpdateableItem updateableItem)
-                    updateableItem.OnUpdate(f, filter.ItemInstance->Owner, filter.Entity, filter.ItemInstance);
+                    updateableItem.OnUpdate(f, filter.ItemInstance->Owner, ref filter);
+
+                if (item.AlignDirectionToVelocity)
+                    filter.Transform->Rotation = FPMath.Atan2(filter.PhysicsBody->Velocity.Y, filter.PhysicsBody->Velocity.X);
             }
 
             if (!filter.ItemInstance->Holder.IsValid)
-                filter.ItemInstance->ActiveTime += f.DeltaTime;
+                ++filter.ItemInstance->ActiveTime;
         }
 
         public void OnRemoved(Frame f, EntityRef entity, ItemInstance* component)
         {
-            if (f.TryFindAsset(component->Item.Id, out Item item))
+            if (f.TryFindAsset(component->Item.Id, out Item item) && f.Unsafe.ComponentGetter<Filter>().TryGet(f, entity, out Filter filter))
             {
                 if (item is UpdateableItem updateableItem)
-                    updateableItem.OnExit(f, component->Owner, entity, component);
+                    updateableItem.OnExit(f, component->Owner, ref filter);
             }
         }
 
@@ -76,9 +79,18 @@ namespace Quantum
                     if (!item.CanInteractWithOwner && info.Other == itemInstance->Owner)
                         return;
 
-                    if (itemInstance->IsActive && (itemInstance->Collisions >= itemInstance->MaxCollisions || f.Unsafe.TryGetPointer(info.Other, out CharacterController* _)))
+                    bool isPlayer = f.Unsafe.TryGetPointer(info.Other, out CharacterController* _);
+
+                    bool overrideCollisionCount = (item.DestroyOnAnyHit.HasFlag(ItemCollisionType.Player) && isPlayer) ||
+                                                  (item.DestroyOnAnyHit.HasFlag(ItemCollisionType.Environment) && !isPlayer);
+
+                    if (itemInstance->IsActive && (itemInstance->Collisions >= itemInstance->MaxCollisions || overrideCollisionCount))
                     {
-                        item.OnHit(f, itemInstance->Owner, info.Other, info.Entity, itemInstance);
+                        bool canHit = (item.DestroyOnHitAfterMinCollisions.HasFlag(ItemCollisionType.Player) && isPlayer) ||
+                                      (item.DestroyOnHitAfterMinCollisions.HasFlag(ItemCollisionType.Environment) && !isPlayer);
+
+                        if (canHit && f.Unsafe.ComponentGetter<Filter>().TryGet(f, info.Entity, out Filter filter) && item.OnHit(f, itemInstance->Owner, info.Other, ref filter))
+                            ItemSpawnSystem.Despawn(f, info.Entity);
                     }
                 }
 
@@ -95,8 +107,8 @@ namespace Quantum
             {
                 if (f.TryFindAsset(stats->Build.Gear.SubWeapon.Template.Id, out SubTemplate subWeaponTemplate))
                 {
-                    if (f.TryFindAsset(stats->Build.Gear.SubWeapon.Enhancer.Id, out SubEnhancer enhancer))
-                        enhancer.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Gear.SubWeapon);
+                    if (f.TryFindAsset(stats->Build.Gear.SubWeapon.Enhancer.Id, out SubEnhancer enhancer) && f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, itemInstance->Owner, out CharacterControllerSystem.Filter filter))
+                        enhancer.OnHit(f, ref filter, info.Other, info.Entity, stats->Build.Gear.SubWeapon);
 
                     subWeaponTemplate.OnHit(f, itemInstance->Owner, info.Other, info.Entity, stats->Build.Gear.SubWeapon);
                 }
@@ -154,16 +166,19 @@ namespace Quantum
             }
         }
 
-        public static void Use(Frame f, EntityRef user, EntityRef itemEntity, ItemInstance* itemInstance)
+        public static void Use(Frame f, EntityRef user, EntityRef itemEntity)
         {
-            Item item = f.FindAsset<Item>(itemInstance->Item.Id);
-            item.Invoke(f, user, itemEntity, itemInstance);
+            if (f.Unsafe.ComponentGetter<Filter>().TryGet(f, itemEntity, out Filter filter))
+            {
+                Item item = f.FindAsset<Item>(filter.ItemInstance->Item.Id);
+                item.Invoke(f, user, ref filter);
 
-            itemInstance->FallState = false;
-            itemInstance->IsActive = true;
+                filter.ItemInstance->FallState = false;
+                filter.ItemInstance->IsActive = true;
 
-            if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
-                ++stats->Stats.ItemUses;
+                if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
+                    ++stats->Stats.ItemUses;
+            }
         }
     }
 }

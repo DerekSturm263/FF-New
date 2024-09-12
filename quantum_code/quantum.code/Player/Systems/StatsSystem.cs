@@ -100,19 +100,19 @@ namespace Quantum
 
         private void UpdateStatusEffect(Frame f, EntityRef entity, Stats* stats)
         {
-            if (stats->StatusEffectTimeLeft > 0)
+            if (stats->StatusEffectTimeLeft > 0 && f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, entity, out CharacterControllerSystem.Filter filter))
             {
                 stats->StatusEffectTimeLeft--;
                 StatusEffect statusEffect = f.FindAsset<StatusEffect>(stats->StatusEffect.Id);
 
                 if (stats->StatusEffectTimeLeft == 0)
                 {
-                    statusEffect.OnRemove(f, entity);
+                    statusEffect.OnRemove(f, ref filter);
                     stats->StatusEffect.Id = AssetGuid.Invalid;
                 }
                 else if (stats->StatusEffectTimeLeft % statusEffect.TickRate == 0)
                 {
-                    statusEffect.OnTick(f, entity);
+                    statusEffect.OnTick(f, ref filter);
                 }
             }
         }
@@ -238,12 +238,12 @@ namespace Quantum
 
         public static void GiveStatusEffect(Frame f, AssetRefStatusEffect statusEffectAsset, EntityRef entity, Stats* stats)
         {
-            if (f.TryFindAsset(statusEffectAsset.Id, out StatusEffect statusEffect))
+            if (f.TryFindAsset(statusEffectAsset.Id, out StatusEffect statusEffect) && f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, entity, out CharacterControllerSystem.Filter filter))
             {
                 stats->StatusEffect = statusEffect;
                 stats->StatusEffectTimeLeft = statusEffect.ActiveTime;
 
-                statusEffect.OnApply(f, entity);
+                statusEffect.OnApply(f, ref filter);
             }
         }
 

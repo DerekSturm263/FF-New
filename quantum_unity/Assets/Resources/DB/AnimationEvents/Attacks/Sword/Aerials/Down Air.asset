@@ -1,5 +1,199 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1373081266089290430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685eb21e2c122c040b7b7414c5210823, type: 3}
+  m_Name: Move
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Aerials/Down Air|Move
+      Guid:
+        Value: 193730751521696778
+    StartingFrame: 12
+    EndingFrame: 26
+    UsabilityType: 255
+    UnchargedSettings:
+      XCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 0
+      UseXAxis: 0
+      YCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 6279
+        - RawValue: 12144
+        - RawValue: 17609
+        - RawValue: 22687
+        - RawValue: 27393
+        - RawValue: 31741
+        - RawValue: 35745
+        - RawValue: 39420
+        - RawValue: 42779
+        - RawValue: 45836
+        - RawValue: 48607
+        - RawValue: 51104
+        - RawValue: 53343
+        - RawValue: 55337
+        - RawValue: 57100
+        - RawValue: 58647
+        - RawValue: 59992
+        - RawValue: 61149
+        - RawValue: 62132
+        - RawValue: 62955
+        - RawValue: 63633
+        - RawValue: 64179
+        - RawValue: 64609
+        - RawValue: 64935
+        - RawValue: 65172
+        - RawValue: 65335
+        - RawValue: 65437
+        - RawValue: 65493
+        - RawValue: 65516
+        - RawValue: 65522
+        - RawValue: 65523
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 207736
+          OutTangent:
+            RawValue: 207736
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 699
+          OutTangent:
+            RawValue: 699
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      YForce:
+        RawValue: -196608
+      UseYAxis: 1
+    FullyChargedSettings:
+      XCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      XForce:
+        RawValue: 0
+      UseXAxis: 0
+      YCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 6279
+        - RawValue: 12144
+        - RawValue: 17609
+        - RawValue: 22687
+        - RawValue: 27393
+        - RawValue: 31741
+        - RawValue: 35745
+        - RawValue: 39420
+        - RawValue: 42779
+        - RawValue: 45836
+        - RawValue: 48607
+        - RawValue: 51104
+        - RawValue: 53343
+        - RawValue: 55337
+        - RawValue: 57100
+        - RawValue: 58647
+        - RawValue: 59992
+        - RawValue: 61149
+        - RawValue: 62132
+        - RawValue: 62955
+        - RawValue: 63633
+        - RawValue: 64179
+        - RawValue: 64609
+        - RawValue: 64935
+        - RawValue: 65172
+        - RawValue: 65335
+        - RawValue: 65437
+        - RawValue: 65493
+        - RawValue: 65516
+        - RawValue: 65522
+        - RawValue: 65524
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 207736
+          OutTangent:
+            RawValue: 207736
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 699
+          OutTangent:
+            RawValue: 699
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      YForce:
+        RawValue: -196608
+      UseYAxis: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,10 +212,487 @@ MonoBehaviour:
       Guid:
         Value: 322589237936647048
     AnimID: -204104308
-    Events: []
+    Events:
+    - Id:
+        Value: 193730751521696778
+    - Id:
+        Value: 2045785388181028639
     Committed:
       Max: 38
       Min: 0
     CanMove: 0
-    MaintainVelocity: 0
+    MaintainVelocity: 1
   Clip: {fileID: 8378846352423484029, guid: ff297105cf3d76a43a41e1ca51554d6d, type: 3}
+--- !u!114 &4830405142123212039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Sweetspot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Sword/Aerials/Down Air|Sweetspot
+      Guid:
+        Value: 2045785388181028639
+    StartingFrame: 3
+    EndingFrame: 26
+    Parent: 1
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 655360
+        HitStun: 20
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: -393216
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        FreezeFrames: 0
+        ShakeStrength:
+          RawValue: 0
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 0
+        HitStun: 0
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 0
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 0
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: -59321
+        Y:
+          RawValue: 109904
+      - X:
+          RawValue: -39386
+        Y:
+          RawValue: 134249
+      - X:
+          RawValue: 5817
+        Y:
+          RawValue: 153371
+      - X:
+          RawValue: 59590
+        Y:
+          RawValue: 143024
+      - X:
+          RawValue: 93730
+        Y:
+          RawValue: 110363
+      - X:
+          RawValue: 104629
+        Y:
+          RawValue: 84502
+      - X:
+          RawValue: 107157
+        Y:
+          RawValue: 73314
+      - X:
+          RawValue: 110423
+        Y:
+          RawValue: 58490
+      - X:
+          RawValue: 113694
+        Y:
+          RawValue: 33988
+      - X:
+          RawValue: 111522
+        Y:
+          RawValue: 8812
+      - X:
+          RawValue: 106628
+        Y:
+          RawValue: -7622
+      - X:
+          RawValue: 106296
+        Y:
+          RawValue: -4605
+      - X:
+          RawValue: 105198
+        Y:
+          RawValue: 4917
+      - X:
+          RawValue: 101965
+        Y:
+          RawValue: 10582
+      - X:
+          RawValue: 98563
+        Y:
+          RawValue: 15043
+      - X:
+          RawValue: 96352
+        Y:
+          RawValue: 15359
+      - X:
+          RawValue: 95854
+        Y:
+          RawValue: 9594
+      - X:
+          RawValue: 95409
+        Y:
+          RawValue: 3023
+      - X:
+          RawValue: 95088
+        Y:
+          RawValue: -13
+      - X:
+          RawValue: 95871
+        Y:
+          RawValue: 1127
+      - X:
+          RawValue: 97319
+        Y:
+          RawValue: 4495
+      - X:
+          RawValue: 98837
+        Y:
+          RawValue: 7722
+      - X:
+          RawValue: 99851
+        Y:
+          RawValue: 9430
+      - X:
+          RawValue: 99791
+        Y:
+          RawValue: 7549
+    - List:
+      - X:
+          RawValue: -4566
+        Y:
+          RawValue: 112778
+      - X:
+          RawValue: 11900
+        Y:
+          RawValue: 116188
+      - X:
+          RawValue: 38009
+        Y:
+          RawValue: 110076
+      - X:
+          RawValue: 58452
+        Y:
+          RawValue: 88623
+      - X:
+          RawValue: 63331
+        Y:
+          RawValue: 64134
+      - X:
+          RawValue: 61266
+        Y:
+          RawValue: 49557
+      - X:
+          RawValue: 61181
+        Y:
+          RawValue: 41865
+      - X:
+          RawValue: 61012
+        Y:
+          RawValue: 32774
+      - X:
+          RawValue: 59166
+        Y:
+          RawValue: 22641
+      - X:
+          RawValue: 56065
+        Y:
+          RawValue: 13828
+      - X:
+          RawValue: 53066
+        Y:
+          RawValue: 7515
+      - X:
+          RawValue: 51545
+        Y:
+          RawValue: 5247
+      - X:
+          RawValue: 49579
+        Y:
+          RawValue: 4338
+      - X:
+          RawValue: 46770
+        Y:
+          RawValue: 3727
+      - X:
+          RawValue: 44163
+        Y:
+          RawValue: 3430
+      - X:
+          RawValue: 42059
+        Y:
+          RawValue: 3220
+      - X:
+          RawValue: 40597
+        Y:
+          RawValue: 3120
+      - X:
+          RawValue: 39785
+        Y:
+          RawValue: 3915
+      - X:
+          RawValue: 39753
+        Y:
+          RawValue: 5669
+      - X:
+          RawValue: 40686
+        Y:
+          RawValue: 8078
+      - X:
+          RawValue: 42068
+        Y:
+          RawValue: 10822
+      - X:
+          RawValue: 43516
+        Y:
+          RawValue: 13234
+      - X:
+          RawValue: 44554
+        Y:
+          RawValue: 14903
+      - X:
+          RawValue: 44778
+        Y:
+          RawValue: 15272
+    - List:
+      - X:
+          RawValue: -30977
+        Y:
+          RawValue: 111392
+      - X:
+          RawValue: -12838
+        Y:
+          RawValue: 124900
+      - X:
+          RawValue: 22481
+        Y:
+          RawValue: 130959
+      - X:
+          RawValue: 59001
+        Y:
+          RawValue: 114863
+      - X:
+          RawValue: 77994
+        Y:
+          RawValue: 86432
+      - X:
+          RawValue: 82183
+        Y:
+          RawValue: 66413
+      - X:
+          RawValue: 83358
+        Y:
+          RawValue: 57034
+      - X:
+          RawValue: 84846
+        Y:
+          RawValue: 45178
+      - X:
+          RawValue: 85468
+        Y:
+          RawValue: 28114
+      - X:
+          RawValue: 82815
+        Y:
+          RawValue: 11408
+      - X:
+          RawValue: 78902
+        Y:
+          RawValue: 213
+      - X:
+          RawValue: 77955
+        Y:
+          RawValue: 494
+      - X:
+          RawValue: 76407
+        Y:
+          RawValue: 4618
+      - X:
+          RawValue: 73393
+        Y:
+          RawValue: 7034
+      - X:
+          RawValue: 70403
+        Y:
+          RawValue: 9031
+      - X:
+          RawValue: 68247
+        Y:
+          RawValue: 9075
+      - X:
+          RawValue: 67251
+        Y:
+          RawValue: 6243
+      - X:
+          RawValue: 66616
+        Y:
+          RawValue: 3484
+      - X:
+          RawValue: 66444
+        Y:
+          RawValue: 2928
+      - X:
+          RawValue: 67305
+        Y:
+          RawValue: 4725
+      - X:
+          RawValue: 68718
+        Y:
+          RawValue: 7770
+      - X:
+          RawValue: 70200
+        Y:
+          RawValue: 10575
+      - X:
+          RawValue: 71227
+        Y:
+          RawValue: 12263
+      - X:
+          RawValue: 71314
+        Y:
+          RawValue: 11547
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit: {fileID: 0}

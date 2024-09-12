@@ -6,8 +6,8 @@
         public int ActiveTime;
         public int TickRate;
 
-        public abstract void OnApply(Frame f, EntityRef user);
-        public virtual void OnTick(Frame f, EntityRef user) { }
-        public abstract void OnRemove(Frame f, EntityRef user);
+        public abstract void OnApply(Frame f, ref CharacterControllerSystem.Filter filter);
+        public virtual void OnTick(Frame f, ref CharacterControllerSystem.Filter filter) { }
+        public abstract void OnRemove(Frame f, ref CharacterControllerSystem.Filter filter);
     }
 }

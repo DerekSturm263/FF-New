@@ -4,7 +4,7 @@ using UnityEngine;
 public unsafe partial class SpawnHitboxEventAsset
 {
     public VFXSettings VFXOnHit;
-    public ClipSettings AudioOnHit;
+    public AudioClip AudioOnHit;
 
     public void InitForBaking()
     {

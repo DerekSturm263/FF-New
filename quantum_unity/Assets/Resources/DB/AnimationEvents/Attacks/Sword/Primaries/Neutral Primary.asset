@@ -153,7 +153,7 @@ MonoBehaviour:
         HitStun: 5
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 524288
           Y:
             RawValue: 0
         StatusEffect:
@@ -165,6 +165,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 0
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -181,9 +183,9 @@ MonoBehaviour:
         HitStun: 0
         Knockback:
           X:
-            RawValue: 65536
+            RawValue: 524288
           Y:
-            RawValue: 65536
+            RawValue: 0
         StatusEffect:
           Id:
             Value: 0
@@ -193,71 +195,73 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 0
         TargetShake:
           Id:
             Value: 3470376909750409904
     BakedShapePositions:
     - List:
       - X:
-          RawValue: 87554
+          RawValue: 96224
         Y:
           RawValue: 68225
       - X:
-          RawValue: 131832
+          RawValue: 140502
         Y:
           RawValue: 77411
       - X:
-          RawValue: 151411
+          RawValue: 160081
         Y:
           RawValue: 65082
       - X:
-          RawValue: 125202
+          RawValue: 133872
         Y:
           RawValue: 50942
       - X:
-          RawValue: 32146
+          RawValue: 40816
         Y:
           RawValue: 67203
     - List:
       - X:
-          RawValue: 61164
+          RawValue: 69834
         Y:
           RawValue: 77439
       - X:
-          RawValue: 83946
+          RawValue: 92616
         Y:
           RawValue: 73538
       - X:
-          RawValue: 95739
+          RawValue: 104409
         Y:
           RawValue: 65439
       - X:
-          RawValue: 89567
+          RawValue: 98237
         Y:
           RawValue: 58033
       - X:
-          RawValue: 59684
+          RawValue: 68354
         Y:
           RawValue: 59396
     - List:
       - X:
-          RawValue: 73893
+          RawValue: 82563
         Y:
           RawValue: 72995
       - X:
-          RawValue: 107044
+          RawValue: 115714
         Y:
           RawValue: 75406
       - X:
-          RawValue: 122592
+          RawValue: 131262
         Y:
           RawValue: 65267
       - X:
-          RawValue: 106756
+          RawValue: 115426
         Y:
           RawValue: 54612
       - X:
-          RawValue: 46401
+          RawValue: 55071
         Y:
           RawValue: 63162
   VFXOnHit:
@@ -267,11 +271,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}
 --- !u!114 &-779799418191943220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +474,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -501,6 +503,8 @@ MonoBehaviour:
           Id:
             Value: 3470376909750409904
         OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
           Value: 1
         TargetShake:
           Id:
@@ -564,11 +568,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}
 --- !u!114 &7885616707923461754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,7 +652,7 @@ MonoBehaviour:
         HitStun: 5
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 327680
           Y:
             RawValue: 0
         StatusEffect:
@@ -664,6 +664,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 0
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -680,9 +682,9 @@ MonoBehaviour:
         HitStun: 0
         Knockback:
           X:
-            RawValue: 65536
+            RawValue: 327680
           Y:
-            RawValue: 65536
+            RawValue: 0
         StatusEffect:
           Id:
             Value: 0
@@ -692,33 +694,35 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 0
         TargetShake:
           Id:
             Value: 3470376909750409904
     BakedShapePositions:
     - List:
       - X:
-          RawValue: 42481
+          RawValue: 51151
         Y:
           RawValue: 67396
       - X:
-          RawValue: 62518
+          RawValue: 71188
         Y:
           RawValue: 65995
       - X:
-          RawValue: 77921
+          RawValue: 86591
         Y:
           RawValue: 65835
       - X:
-          RawValue: 80471
+          RawValue: 89141
         Y:
           RawValue: 65577
       - X:
-          RawValue: 80642
+          RawValue: 89312
         Y:
           RawValue: 65016
       - X:
-          RawValue: 79132
+          RawValue: 87802
         Y:
           RawValue: 64475
   VFXOnHit:
@@ -728,11 +732,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}
 --- !u!114 &9201720604558377803
 MonoBehaviour:
   m_ObjectHideFlags: 0

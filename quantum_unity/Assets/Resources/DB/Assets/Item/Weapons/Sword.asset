@@ -42,39 +42,45 @@ MonoBehaviour:
         Value: 2013112306673559321
     Prototype:
       Id:
-        Value: 0
-    DestroySelfOnHit: 0
+        Value: 2753098096087298238
+    DestroyOnAnyHit: 1
+    DestroyOnHitAfterMinCollisions: -1
+    DestroySelfOnHit: 1
     CanInteractWithOwner: 0
+    AlignDirectionToVelocity: 1
+    Lifetime: 60
     HitboxSettings:
       Delay:
-        TargetFreezeFrames: 0
-        TargetShakeStrength:
-          RawValue: 0
-        UserFreezeFrames: 0
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 0
         Damage:
-          RawValue: 0
+          RawValue: 655360
+        HitStun: 40
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 327680
           Y:
-            RawValue: 0
+            RawValue: 327680
         StatusEffect:
           Id:
             Value: 0
       Visual:
         CameraShake:
           Id:
-            Value: 0
+            Value: 3470376909750409904
         OnlyShakeOnHit:
-          Value: 0
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
-            Value: 0
+            Value: 3470376909750409904
     Shape:
-      ShapeType: 0
+      ShapeType: 16
       PolygonCollider:
         Id:
           Value: 0
@@ -96,5 +102,71 @@ MonoBehaviour:
         RawValue: 0
       UserTag: 0
       IsPersistent: 1
-      CompoundShapes: []
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 75366
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 19660
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 13107
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 46530
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0

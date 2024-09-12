@@ -1,5 +1,223 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6759430209893476072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b124538649fe5ce4ca94f40fc96fe75b, type: 3}
+  m_Name: Charge
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Down Primary|Charge
+      Guid:
+        Value: 726765653877934038
+    StartingFrame: 3
+    EndingFrame: 5
+    Button: 32
+    MinLength: 10
+    MaxLength: 120
+--- !u!114 &-5843931349407437786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685eb21e2c122c040b7b7414c5210823, type: 3}
+  m_Name: Slide
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Down Primary|Slide
+      Guid:
+        Value: 1433724063310475626
+    StartingFrame: 6
+    EndingFrame: 44
+    UsabilityType: 0
+    UnchargedSettings:
+      XCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 5733
+        - RawValue: 11117
+        - RawValue: 16163
+        - RawValue: 20882
+        - RawValue: 25284
+        - RawValue: 29382
+        - RawValue: 33186
+        - RawValue: 36708
+        - RawValue: 39958
+        - RawValue: 42948
+        - RawValue: 45690
+        - RawValue: 48193
+        - RawValue: 50470
+        - RawValue: 52531
+        - RawValue: 54388
+        - RawValue: 56052
+        - RawValue: 57535
+        - RawValue: 58846
+        - RawValue: 59998
+        - RawValue: 61001
+        - RawValue: 61867
+        - RawValue: 62608
+        - RawValue: 63233
+        - RawValue: 63755
+        - RawValue: 64184
+        - RawValue: 64531
+        - RawValue: 64809
+        - RawValue: 65028
+        - RawValue: 65198
+        - RawValue: 65333
+        - RawValue: 65441
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 189188
+          OutTangent:
+            RawValue: 189188
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 2909
+          OutTangent:
+            RawValue: 2909
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      XForce:
+        RawValue: 262144
+      UseXAxis: 1
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 0
+      UseYAxis: 0
+    FullyChargedSettings:
+      XCurve:
+        Samples:
+        - RawValue: 0
+        - RawValue: 5733
+        - RawValue: 11117
+        - RawValue: 16163
+        - RawValue: 20882
+        - RawValue: 25284
+        - RawValue: 29382
+        - RawValue: 33186
+        - RawValue: 36708
+        - RawValue: 39958
+        - RawValue: 42948
+        - RawValue: 45690
+        - RawValue: 48193
+        - RawValue: 50470
+        - RawValue: 52531
+        - RawValue: 54388
+        - RawValue: 56052
+        - RawValue: 57535
+        - RawValue: 58846
+        - RawValue: 59998
+        - RawValue: 61001
+        - RawValue: 61867
+        - RawValue: 62608
+        - RawValue: 63233
+        - RawValue: 63755
+        - RawValue: 64184
+        - RawValue: 64531
+        - RawValue: 64809
+        - RawValue: 65028
+        - RawValue: 65198
+        - RawValue: 65333
+        - RawValue: 65441
+        - RawValue: 0
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 189188
+          OutTangent:
+            RawValue: 189188
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 65536
+          InTangent:
+            RawValue: 2909
+          OutTangent:
+            RawValue: 2909
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+      XForce:
+        RawValue: 393216
+      UseXAxis: 1
+      YCurve:
+        Samples: []
+        PreWrapMode: 0
+        PostWrapMode: 0
+        StartTime:
+          RawValue: 0
+        EndTime:
+          RawValue: 65536
+        Resolution: 32
+        OriginalPreWrapMode: 0
+        OriginalPostWrapMode: 0
+        Keys: []
+      YForce:
+        RawValue: 0
+      UseYAxis: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,10 +236,307 @@ MonoBehaviour:
       Guid:
         Value: 3051691458934514697
     AnimID: 690097763
-    Events: []
+    Events:
+    - Id:
+        Value: 1433724063310475626
+    - Id:
+        Value: 1096738676649271602
+    - Id:
+        Value: 726765653877934038
     Committed:
-      Max: 0
+      Max: 44
       Min: 0
     CanMove: 0
     MaintainVelocity: 0
   Clip: {fileID: -3268956015618930612, guid: caf5ecc3d970c9a4abc7ea2075089b28, type: 3}
+--- !u!114 &5639023276090419698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: Feet
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Down Primary|Feet
+      Guid:
+        Value: 1096738676649271602
+    StartingFrame: 7
+    EndingFrame: 44
+    Parent: 0
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 32768
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 22937
+          Y:
+            RawValue: 7208
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 655360
+        HitStun: 40
+        Knockback:
+          X:
+            RawValue: 327680
+          Y:
+            RawValue: 327680
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 983040
+        HitStun: 40
+        Knockback:
+          X:
+            RawValue: 327680
+          Y:
+            RawValue: 327680
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+      - X:
+          RawValue: 22937
+        Y:
+          RawValue: 7208
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit: {fileID: 0}

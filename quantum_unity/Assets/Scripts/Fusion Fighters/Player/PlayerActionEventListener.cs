@@ -1,11 +1,17 @@
 using GameResources;
 using Quantum;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerActionEventListener : MonoBehaviour
 {
     [SerializeField] private VFX _jump;
     [SerializeField] private VFX _spawnDespawn;
+
+    [SerializeField] private GameObject _knockbackTrail;
+    [SerializeField] private Vector3 _trailOffset;
+
+    private Dictionary<EntityRef, ParticleSystem> _playersToTrails = new();
 
     private EntityViewUpdater _entityViewUpdater;
 
@@ -20,6 +26,8 @@ public class PlayerActionEventListener : MonoBehaviour
         QuantumEvent.Subscribe<EventOnHurtboxStateChange>(listener: this, handler: UpdateHurtboxSettings);
         QuantumEvent.Subscribe<EventOnPlayerRespawn>(listener: this, handler: Respawn);
         QuantumEvent.Subscribe<EventOnPlayerHoldAnimation>(listener: this, handler: UpdateHurtboxToHold);
+        QuantumEvent.Subscribe<EventOnSwitchWeapon>(listener: this, handler: SwitchWeapon);
+        QuantumEvent.Subscribe<EventOnPlayerKnockback>(listener: this, handler: Knockback);
     }
 
     public void Spawn(EventOnPlayerSpawn e)
@@ -65,5 +73,35 @@ public class PlayerActionEventListener : MonoBehaviour
             _entityViewUpdater.GetView(e.Player).GetComponentInChildren<PlayerEventReceiver>().SetHurtboxState(new() { CanBeDamaged = true, CanBeInterrupted = false, CanBeKnockedBack = false, DamageToBreak = 0 });
         else
             _entityViewUpdater.GetView(e.Player).GetComponentInChildren<PlayerEventReceiver>().SetHurtboxState(new() { CanBeDamaged = true, CanBeInterrupted = true, CanBeKnockedBack = true, DamageToBreak = 0 });
+    }
+
+    public void SwitchWeapon(EventOnSwitchWeapon e)
+    {
+        _entityViewUpdater.GetView(e.Player).GetComponentInChildren<PlayerEventReceiver>().SwitchWeapons(e.State);
+    }
+
+    public void Knockback(EventOnPlayerKnockback e)
+    {
+        if (e.IsKnockingBack)
+        {
+            if (_playersToTrails.ContainsKey(e.Player))
+                return;
+
+            GameObject trail = Instantiate(_knockbackTrail, Vector3.zero, Quaternion.identity);
+            _playersToTrails.Add(e.Player, trail.GetComponent<ParticleSystem>());
+
+            trail.transform.position = _entityViewUpdater.GetView(e.Player).transform.position + _trailOffset;
+
+            Follow follow = trail.AddComponent<Follow>();
+            follow.SetTarget(_entityViewUpdater.GetView(e.Player).transform, _trailOffset);
+        }
+        else
+        {
+            if (_playersToTrails.TryGetValue(e.Player, out ParticleSystem ps))
+            {
+                ps.Stop();
+                _playersToTrails.Remove(e.Player);
+            }
+        }
     }
 }

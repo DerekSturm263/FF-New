@@ -6,7 +6,7 @@ namespace Quantum
     {
         public AssetRefStatusEffect StatusEffect;
 
-        public override void OnHit(Frame f, EntityRef user, EntityRef target, EntityRef subWeapon, Sub sub)
+        public override void OnHit(Frame f, ref CharacterControllerSystem.Filter filter, EntityRef target, EntityRef subWeapon, Sub sub)
         {
             if (f.Unsafe.TryGetPointer(target, out Stats* stats))
                 StatsSystem.GiveStatusEffect(f, StatusEffect, target, stats);

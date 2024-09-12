@@ -10,13 +10,13 @@ public class PlayerEventReceiverParent : MonoBehaviour
     public void AddRenderer(Renderer renderer) => _meshRenderers.Add(renderer);
     public void RemoveRenderer(Renderer renderer) => _meshRenderers.Remove(renderer);
 
-    private GameObject _primaryWeaponInstance;
-    public GameObject PrimaryWeaponInstance => _primaryWeaponInstance;
-    public void SetPrimaryWeaponInstance(GameObject primaryWeaponInstance) => _primaryWeaponInstance = primaryWeaponInstance;
+    private (GameObject, GameObject) _primaryWeaponInstance;
+    public (GameObject, GameObject) PrimaryWeaponInstance => _primaryWeaponInstance;
+    public void SetPrimaryWeaponInstance((GameObject, GameObject) weapons) => _primaryWeaponInstance = weapons;
 
-    private GameObject _secondaryWeaponInstance;
-    public GameObject SecondaryWeaponInstance => _secondaryWeaponInstance;
-    public void SetSecondaryWeaponInstance(GameObject secondaryWeaponInstance) => _secondaryWeaponInstance = secondaryWeaponInstance;
+    private (GameObject, GameObject) _secondaryWeaponInstance;
+    public (GameObject, GameObject) SecondaryWeaponInstance => _secondaryWeaponInstance;
+    public void SetSecondaryWeaponInstance((GameObject, GameObject) weapons) => _secondaryWeaponInstance = weapons;
 
     private GameObject _subInstance;
     public GameObject SubInstance => _subInstance;

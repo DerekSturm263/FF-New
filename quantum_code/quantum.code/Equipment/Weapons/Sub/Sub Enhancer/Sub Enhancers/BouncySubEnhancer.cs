@@ -7,7 +7,7 @@
         public LayerMask Wall;
         public AssetRefPhysicsMaterial Material;
 
-        public override void OnSpawn(Frame f, EntityRef user, EntityRef subWeapon, Sub sub)
+        public override void OnSpawn(Frame f, ref CharacterControllerSystem.Filter filter, EntityRef subWeapon, Sub sub)
         {
             if (f.Unsafe.TryGetPointer(subWeapon, out ItemInstance* itemInstance))
             {

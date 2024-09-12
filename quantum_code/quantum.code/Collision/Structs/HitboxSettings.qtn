@@ -27,6 +27,7 @@ struct DelaySettings
 struct VisualSettings
 {
     [Tooltip("Whether or not the camera should only shake if the hit lands")] bool OnlyShakeOnHit;
+    [Tooltip("Whether or not to spawn hit sparks on hit")] bool SpawnHitSparks;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> CameraShake;
     [Tooltip("How much the camera should shake as soon as the hitbox hits an opponent")] asset_ref<ShakeSettings> TargetShake;
 }

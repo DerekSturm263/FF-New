@@ -1,5 +1,62 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8128129633150465976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Up Primary|Fire
+      Guid:
+        Value: 3983972569300840220
+    StartingFrame: 36
+    EndingFrame: 36
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 0
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 131072
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 655360
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 0
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 131072
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 655360
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,9 +75,11 @@ MonoBehaviour:
       Guid:
         Value: 150455137461991090
     AnimID: 1849850952
-    Events: []
+    Events:
+    - Id:
+        Value: 3983972569300840220
     Committed:
-      Max: 0
+      Max: 36
       Min: 0
     CanMove: 0
     MaintainVelocity: 0

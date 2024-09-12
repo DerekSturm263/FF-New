@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53f36665b7d04e4dbf4ad439f40c535, type: 3}
+  m_Name: Laser
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Icon: {fileID: 0}
+  Description: 
+  IncludeInLists: 0
+  IsUnlocked: 0
+  StartingCount:
+    _nonNullValue: 0
+    _hasValue: 0
+  Price: 0
+  FilterTags: []
+  GroupTags: []
+  isRandom: 0
+  SFX:
+    _kvps: []
+  ItemVFX: {fileID: 0}
+  UserVFX: {fileID: 0}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls: []
+  Settings_HitboxItem:
+    Identifier:
+      Path: Resources/DB/Assets/Item/Projectiles/Laser
+      Guid:
+        Value: 1689468402426674858
+    Prototype:
+      Id:
+        Value: 1560247797480829486
+    DestroyOnAnyHit: -1
+    DestroyOnHitAfterMinCollisions: -1
+    DestroySelfOnHit: 1
+    CanInteractWithOwner: 0
+    AlignDirectionToVelocity: 1
+    Lifetime: 60
+    HitboxSettings:
+      Delay:
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 0
+        Damage:
+          RawValue: 327680
+        HitStun: 45
+        Knockback:
+          X:
+            RawValue: 524288
+          Y:
+            RawValue: 524288
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 0
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 32768
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 26214
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0

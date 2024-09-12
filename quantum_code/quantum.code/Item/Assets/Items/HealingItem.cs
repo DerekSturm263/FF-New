@@ -15,7 +15,7 @@ namespace Quantum
         public Stat HealingStat;
         public int Amount;
 
-        public override void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
+        public override void Invoke(Frame f, EntityRef user, ref ItemSystem.Filter filter)
         {
             if (f.Unsafe.TryGetPointer(user, out Stats* stats))
             {
@@ -35,7 +35,7 @@ namespace Quantum
                 }
             }
 
-            base.Invoke(f, user, item, itemInstance);
+            base.Invoke(f, user, ref filter);
         }
     }
 }

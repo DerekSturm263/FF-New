@@ -19,8 +19,8 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Attacks/Sword/Aerials/Forward Air|Sweetspot
       Guid:
         Value: 286979593394011360
-    StartingFrame: 12
-    EndingFrame: 15
+    StartingFrame: 11
+    EndingFrame: 16
     Parent: 1
     Shape:
       ShapeType: 16
@@ -94,6 +94,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -122,27 +124,37 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -61475
+          RawValue: -48773
+        Y:
+          RawValue: 82324
+      - X:
+          RawValue: -52805
         Y:
           RawValue: 71192
       - X:
-          RawValue: 44934
+          RawValue: 53604
         Y:
           RawValue: 35918
       - X:
-          RawValue: 125805
+          RawValue: 134475
         Y:
           RawValue: 46366
       - X:
-          RawValue: 6059
+          RawValue: 14729
         Y:
           RawValue: 80959
+      - X:
+          RawValue: -889
+        Y:
+          RawValue: 80143
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -150,11 +162,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +211,8 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Attacks/Sword/Aerials/Forward Air|Sourspot
       Guid:
         Value: 1022096340750023949
-    StartingFrame: 12
-    EndingFrame: 15
+    StartingFrame: 11
+    EndingFrame: 16
     Parent: 1
     Shape:
       ShapeType: 16
@@ -300,6 +308,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -328,44 +338,62 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -10493
+          RawValue: -14126
+        Y:
+          RawValue: 57937
+      - X:
+          RawValue: -1823
         Y:
           RawValue: 55641
       - X:
-          RawValue: 51038
+          RawValue: 59708
         Y:
           RawValue: 46874
       - X:
-          RawValue: 71155
+          RawValue: 79825
         Y:
           RawValue: 55575
       - X:
-          RawValue: 15678
+          RawValue: 24348
         Y:
           RawValue: 77133
+      - X:
+          RawValue: 16480
+        Y:
+          RawValue: 75848
     - List:
       - X:
-          RawValue: -35085
+          RawValue: -30838
+        Y:
+          RawValue: 69700
+      - X:
+          RawValue: -26415
         Y:
           RawValue: 63142
       - X:
-          RawValue: 48094
+          RawValue: 56764
         Y:
           RawValue: 41590
       - X:
-          RawValue: 97516
+          RawValue: 106186
         Y:
           RawValue: 51133
       - X:
-          RawValue: 11038
+          RawValue: 19708
         Y:
           RawValue: 78979
+      - X:
+          RawValue: 8102
+        Y:
+          RawValue: 77920
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -373,8 +401,4 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}

@@ -7,20 +7,14 @@ namespace Quantum
     {
         public FP StatusEffectMultiplier;
 
-        public override void OnApply(Frame f, EntityRef user)
+        public override void OnApply(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->StatusEffectMultiplier = StatusEffectMultiplier;
-            }
+            filter.Stats->StatusEffectMultiplier = StatusEffectMultiplier;
         }
 
-        public override void OnRemove(Frame f, EntityRef user)
+        public override void OnRemove(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->StatusEffectMultiplier = 1;
-            }
+            filter.Stats->StatusEffectMultiplier = 1;
         }
     }
 }

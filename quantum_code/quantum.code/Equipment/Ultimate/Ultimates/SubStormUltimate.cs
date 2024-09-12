@@ -3,22 +3,16 @@
     [System.Serializable]
     public unsafe partial class SubStormUltimate : Ultimate
     {
-        public override void OnBegin(Frame f, EntityRef user)
+        public override void OnBegin(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            base.OnBegin(f, user);
-
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->StatsMultiplier.Energy = 0;
-            }
+            base.OnBegin(f, ref filter);
+            
+            filter.Stats->StatsMultiplier.Energy = 0;
         }
 
-        public override void OnEnd(Frame f, EntityRef user)
+        public override void OnEnd(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
-            {
-                stats->StatsMultiplier.Energy = 1;
-            }
+            filter.Stats->StatsMultiplier.Energy = 1;
         }
     }
 }

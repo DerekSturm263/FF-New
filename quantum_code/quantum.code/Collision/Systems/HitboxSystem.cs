@@ -24,6 +24,9 @@ namespace Quantum
             else if (filter.HitboxInstance->Lifetime > 0 && filter.HitboxInstance->Lifetime < list.Count)
                 filter.Transform->Position = list[filter.HitboxInstance->Lifetime - 1];
 
+            if (filter.HitboxInstance->Parent.IsValid)
+                filter.Transform->Position += f.Unsafe.GetPointer<Transform2D>(filter.HitboxInstance->Parent)->Position;
+
             --filter.HitboxInstance->Lifetime;
             if (filter.HitboxInstance->Lifetime <= 0)
             {
@@ -64,7 +67,7 @@ namespace Quantum
             }
         }
 
-        public static void SpawnHitbox(Frame f, HitboxSettings settings, Shape2D shape, int lifetime, EntityRef user, List<FPVector2> positions, bool parentToUser)
+        public static EntityRef SpawnHitbox(Frame f, HitboxSettings settings, Shape2D shape, int lifetime, EntityRef user, List<FPVector2> positions, EntityRef parent, SpawnHitboxEvent eventParent)
         {
             Log.Debug("Spawning hitbox!");
 
@@ -85,18 +88,15 @@ namespace Quantum
                     hitboxInstance->Settings = settings;
                     hitboxInstance->Lifetime = lifetime;
                     hitboxInstance->Owner = user;
+                    hitboxInstance->Parent = parent;
+                    hitboxInstance->Event = eventParent;
 
                     hitboxInstance->Positions = f.AllocateList<FPVector2>();
                     QList<FPVector2> positionsComponent = f.ResolveList(hitboxInstance->Positions);
 
-                    FPVector2 offset = default;
-
-                    if (parentToUser && f.Unsafe.TryGetPointer(user, out Transform2D* transform))
-                        offset = transform->Position;
-
                     for (int i = 0; i < positions.Count; ++i)
                     {
-                        positionsComponent.Add(offset + new FPVector2(positions[i].X * (parentToUser ? characterController->MovementDirection : 1), positions[i].Y));
+                        positionsComponent.Add(new FPVector2(positions[i].X * (parent == user ? characterController->MovementDirection : 1), positions[i].Y));
                     }
 
                     QList<EntityRef> hitboxLists = f.ResolveList(stats->Hitboxes);
@@ -104,7 +104,11 @@ namespace Quantum
 
                     f.Events.OnHitboxSpawnDespawn(user, hitboxEntity, true);
                 }
+
+                return hitboxEntity;
             }
+
+            return EntityRef.None;
         }
     }
 }

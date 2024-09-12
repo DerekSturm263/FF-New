@@ -7,20 +7,14 @@ namespace Quantum
     {
         public FP ThrowMultiplier;
 
-        public override void OnApply(Frame f, EntityRef user)
+        public override void OnApply(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
-            {
-                characterController->ThrowMultiplier = ThrowMultiplier;
-            }
+            filter.CharacterController->ThrowMultiplier = ThrowMultiplier;
         }
 
-        public override void OnRemove(Frame f, EntityRef user)
+        public override void OnRemove(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController))
-            {
-                characterController->ThrowMultiplier = 1;
-            }
+            filter.CharacterController->ThrowMultiplier = 1;
         }
     }
 }

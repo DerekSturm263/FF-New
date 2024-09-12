@@ -5,14 +5,14 @@
     {
         public HitboxSettings HitboxSettings;
         public Shape2DConfig Shape;
-        public int Lifetime;
 
-        public override unsafe void OnHit(Frame f, EntityRef user, EntityRef target, EntityRef item, ItemInstance* itemInstance)
+        public int HitboxLifetime;
+
+        public override unsafe bool OnHit(Frame f, EntityRef user, EntityRef target, ref ItemSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
-                HitboxSystem.SpawnHitbox(f, HitboxSettings, Shape.CreateShape(f), Lifetime, user, [transform->Position], false);
+            HitboxSystem.SpawnHitbox(f, HitboxSettings, Shape.CreateShape(f), HitboxLifetime, user, [filter.Transform->Position], EntityRef.None, null);
 
-            base.OnHit(f, user, target, item, itemInstance);
+            return base.OnHit(f, user, target, ref filter);
         }
     }
 }

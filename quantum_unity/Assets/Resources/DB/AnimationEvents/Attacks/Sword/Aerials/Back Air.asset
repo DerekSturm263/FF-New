@@ -49,7 +49,7 @@ MonoBehaviour:
       Guid:
         Value: 1500442341472940035
     StartingFrame: 7
-    EndingFrame: 13
+    EndingFrame: 18
     Parent: 1
     Shape:
       ShapeType: 16
@@ -123,6 +123,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -151,39 +153,61 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -57898
+          RawValue: -49228
         Y:
           RawValue: 81011
       - X:
-          RawValue: -93738
+          RawValue: -85068
         Y:
           RawValue: 62577
       - X:
-          RawValue: -121846
+          RawValue: -113176
         Y:
           RawValue: 54857
       - X:
-          RawValue: -123239
+          RawValue: -114569
         Y:
           RawValue: 54172
       - X:
-          RawValue: -123911
+          RawValue: -115241
         Y:
           RawValue: 55097
       - X:
-          RawValue: -124375
+          RawValue: -115705
         Y:
           RawValue: 54782
       - X:
-          RawValue: -124534
+          RawValue: -115864
         Y:
           RawValue: 54789
+      - X:
+          RawValue: -116197
+        Y:
+          RawValue: 53949
+      - X:
+          RawValue: -115459
+        Y:
+          RawValue: 52872
+      - X:
+          RawValue: -113990
+        Y:
+          RawValue: 51822
+      - X:
+          RawValue: -112421
+        Y:
+          RawValue: 50276
+      - X:
+          RawValue: -105629
+        Y:
+          RawValue: 44980
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -191,11 +215,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}
 --- !u!114 &9111278250168115978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +236,7 @@ MonoBehaviour:
       Guid:
         Value: 2360284148380291939
     StartingFrame: 7
-    EndingFrame: 13
+    EndingFrame: 18
     Parent: 1
     Shape:
       ShapeType: 16
@@ -312,6 +332,8 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
@@ -340,68 +362,110 @@ MonoBehaviour:
             Value: 3470376909750409904
         OnlyShakeOnHit:
           Value: 1
+        SpawnHitSparks:
+          Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
     BakedShapePositions:
     - List:
       - X:
-          RawValue: -6170
+          RawValue: 2499
         Y:
           RawValue: 71835
       - X:
-          RawValue: -39066
+          RawValue: -30396
         Y:
           RawValue: 67582
       - X:
-          RawValue: -66221
+          RawValue: -57551
         Y:
           RawValue: 51951
       - X:
-          RawValue: -67746
+          RawValue: -59076
         Y:
           RawValue: 49311
       - X:
-          RawValue: -68534
+          RawValue: -59864
         Y:
           RawValue: 49181
       - X:
-          RawValue: -68942
+          RawValue: -60272
         Y:
           RawValue: 49445
       - X:
-          RawValue: -69006
+          RawValue: -60336
         Y:
           RawValue: 50404
+      - X:
+          RawValue: -60885
+        Y:
+          RawValue: 48271
+      - X:
+          RawValue: -60816
+        Y:
+          RawValue: 45732
+      - X:
+          RawValue: -59859
+        Y:
+          RawValue: 45820
+      - X:
+          RawValue: -57376
+        Y:
+          RawValue: 47604
+      - X:
+          RawValue: -50329
+        Y:
+          RawValue: 49469
     - List:
       - X:
-          RawValue: -31121
+          RawValue: -22451
         Y:
           RawValue: 76261
       - X:
-          RawValue: -65437
+          RawValue: -56767
         Y:
           RawValue: 65168
       - X:
-          RawValue: -93052
+          RawValue: -84382
         Y:
           RawValue: 53353
       - X:
-          RawValue: -94514
+          RawValue: -85844
         Y:
           RawValue: 51656
       - X:
-          RawValue: -95245
+          RawValue: -86575
         Y:
           RawValue: 52035
       - X:
-          RawValue: -95681
+          RawValue: -87011
         Y:
           RawValue: 52019
       - X:
-          RawValue: -95790
+          RawValue: -87120
         Y:
           RawValue: 52520
+      - X:
+          RawValue: -87565
+        Y:
+          RawValue: 51010
+      - X:
+          RawValue: -87173
+        Y:
+          RawValue: 49176
+      - X:
+          RawValue: -85969
+        Y:
+          RawValue: 48715
+      - X:
+          RawValue: -83927
+        Y:
+          RawValue: 48893
+      - X:
+          RawValue: -77003
+        Y:
+          RawValue: 47303
   VFXOnHit:
     VFXObject: {fileID: 0}
     Parent: 0
@@ -409,8 +473,4 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}

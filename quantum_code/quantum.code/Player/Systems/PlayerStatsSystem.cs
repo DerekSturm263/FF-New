@@ -14,9 +14,9 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Badge.Id, out Badge badge))
+            if (f.TryFindAsset(filter.PlayerStats->Build.Gear.Badge.Id, out Badge badge) && f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, filter.Entity, out CharacterControllerSystem.Filter characterFilter))
             {
-                badge.OnUpdate(f, filter.Entity);
+                badge.OnUpdate(f, ref characterFilter);
             }
 
             if (f.Global->IsMatchRunning)
@@ -309,8 +309,11 @@ namespace Quantum
             Sub oldSub = stats->Build.Gear.SubWeapon;
             stats->Build.Gear.SubWeapon = sub;
 
-            f.FindAsset<SubEnhancer>(oldSub.Enhancer.Id)?.OnRemove(f, user);
-            f.FindAsset<SubEnhancer>(sub.Enhancer.Id)?.OnApply(f, user);
+            if (f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, user, out CharacterControllerSystem.Filter filter))
+            {
+                f.FindAsset<SubEnhancer>(oldSub.Enhancer.Id)?.OnRemove(f, ref filter);
+                f.FindAsset<SubEnhancer>(sub.Enhancer.Id)?.OnApply(f, ref filter);
+            }
 
             f.Events.OnPlayerSetSub(user, oldSub, sub);
         }
@@ -325,14 +328,14 @@ namespace Quantum
 
         public static void ApplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
         {
-            if (f.TryFindAsset(badgeAsset.Id, out Badge badge))
-                badge.OnApply(f, user);
+            if (f.TryFindAsset(badgeAsset.Id, out Badge badge) && f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, user, out CharacterControllerSystem.Filter filter))
+                badge.OnApply(f, ref filter);
         }
 
         public static void UnapplyBadge(Frame f, EntityRef user, AssetRefBadge badgeAsset)
         {
-            if (f.TryFindAsset(badgeAsset.Id, out Badge badge))
-                badge.OnRemove(f, user);
+            if (f.TryFindAsset(badgeAsset.Id, out Badge badge) && f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, user, out CharacterControllerSystem.Filter filter))
+                badge.OnRemove(f, ref filter);
         }
 
         public static void RemoveBadge(Frame f, EntityRef user, PlayerStats* stats)

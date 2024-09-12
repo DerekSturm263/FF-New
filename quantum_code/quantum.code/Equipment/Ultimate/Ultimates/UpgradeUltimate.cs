@@ -6,18 +6,15 @@
         public ApparelStats ApparelStatsMultiplier;
         public WeaponStats WeaponStatsMultiplier;
 
-        public override void OnBegin(Frame f, EntityRef user)
+        public override void OnBegin(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            base.OnBegin(f, user);
+            base.OnBegin(f, ref filter);
 
-            if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
-            {
-                stats->ApparelStatsMultiplier = ApparelHelper.Multiply(stats->ApparelStatsMultiplier, ApparelStatsMultiplier);
-                stats->WeaponStatsMultiplier = WeaponHelper.Multiply(stats->WeaponStatsMultiplier, WeaponStatsMultiplier);
-            }
+            filter.PlayerStats->ApparelStatsMultiplier = ApparelHelper.Multiply(filter.PlayerStats->ApparelStatsMultiplier, ApparelStatsMultiplier);
+            filter.PlayerStats->WeaponStatsMultiplier = WeaponHelper.Multiply(filter.PlayerStats->WeaponStatsMultiplier, WeaponStatsMultiplier);
         }
 
-        public override void OnEnd(Frame f, EntityRef user)
+        public override void OnEnd(Frame f, ref CharacterControllerSystem.Filter filter)
         {
 
         }

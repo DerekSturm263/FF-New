@@ -11,11 +11,11 @@ namespace Quantum
         public AssetRefQuantumAnimationEvent Move;
         public int Length;
 
-        public virtual void OnBegin(Frame f, EntityRef user)
+        public virtual void OnBegin(Frame f, ref CharacterControllerSystem.Filter filter)
         {
             f.Events.OnSetCameraSettings(CameraSettings, CameraSettingsTime);
         }
 
-        public abstract void OnEnd(Frame f, EntityRef user);
+        public abstract void OnEnd(Frame f, ref CharacterControllerSystem.Filter filter);
     }
 }

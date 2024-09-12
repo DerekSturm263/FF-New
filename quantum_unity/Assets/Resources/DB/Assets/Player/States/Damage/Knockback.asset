@@ -231,6 +231,7 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 0
+    WeaponState: 0
   Settings_KnockbackState:
     Identifier:
       Path: Resources/DB/Assets/Player/States/Damage/Knockback
@@ -400,12 +401,15 @@ MonoBehaviour:
         Condition: 0
         DoInvert: 0
       InterruptCurrentState: 0
+    WeaponState: 0
     InfluenceMultiplier:
       RawValue: 22937
     DecelerationSpeed:
       RawValue: 131072
     WallVelocityAbsorption:
       RawValue: 52428
+    GroundVelocityAbsorption:
+      RawValue: 98304
     MinimumVelocity:
       RawValue: 327680
     MinStateTimeToGrounded: 12

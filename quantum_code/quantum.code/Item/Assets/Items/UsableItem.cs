@@ -5,16 +5,15 @@
     {
         public int Uses;
 
-        public override void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
+        public override void Invoke(Frame f, EntityRef user, ref ItemSystem.Filter filter)
         {
-            ++itemInstance->Uses;
+            ++filter.ItemInstance->Uses;
 
-            if (f.Unsafe.TryGetPointer(item, out Transform2D* transform))
-                f.Events.OnItemUse(user, item, this, transform->Position);
+            f.Events.OnItemUse(user, filter.Entity, this, filter.Transform->Position);
 
-            if (itemInstance->Uses == Uses)
+            if (filter.ItemInstance->Uses == Uses)
             {
-                ItemSpawnSystem.Despawn(f, item);
+                ItemSpawnSystem.Despawn(f, filter.Entity);
             }
         }
     }

@@ -27,12 +27,36 @@ public class PlayerEventReceiver : MonoBehaviour
     {
         _parent = GetComponentInParent<PlayerEventReceiverParent>();
         _clothingParent = GetComponent<ParentClothing>();
+
+        SwitchWeapons(WeaponState.Default);
     }
 
     private void Update()
     {
         UpdateHurtboxVisuals(Mathf.PingPong(Time.time * _parent.FlashSpeed, 1));
         UpdateExpression();
+    }
+
+    public void SwitchWeapons(WeaponState state)
+    {
+        if (state == WeaponState.BothOff)
+        {
+            _parent.PrimaryWeaponInstance.Item1?.SetActive(false);
+            _parent.PrimaryWeaponInstance.Item2?.SetActive(false);
+
+            _parent.SecondaryWeaponInstance.Item1?.SetActive(false);
+            _parent.SecondaryWeaponInstance.Item2?.SetActive(false);
+        }
+        else
+        {
+            bool doSwitch = state == WeaponState.SwitchWeapons;
+
+            _parent.PrimaryWeaponInstance.Item1?.SetActive(!doSwitch);
+            _parent.PrimaryWeaponInstance.Item2?.SetActive(doSwitch);
+
+            _parent.SecondaryWeaponInstance.Item1?.SetActive(!doSwitch);
+            _parent.SecondaryWeaponInstance.Item2?.SetActive(doSwitch);
+        }
     }
 
     public void SetAvatar(AvatarColorBinding avatar, PlayerEventReceiver newAvatarObj, EntityRef entity)
@@ -42,15 +66,17 @@ public class PlayerEventReceiver : MonoBehaviour
 
         if (newAvatarObj != this)
         {
-            if (_parent.PrimaryWeaponInstance)
-            {
-                _parent.PrimaryWeaponInstance.transform.SetParent(newAvatarObj._primaryWeapon, false);
-            }
+            if (_parent.PrimaryWeaponInstance.Item1)
+                _parent.PrimaryWeaponInstance.Item1.transform.SetParent(newAvatarObj._primaryWeapon, false);
+            
+            if (_parent.PrimaryWeaponInstance.Item2)
+                _parent.PrimaryWeaponInstance.Item2.transform.SetParent(newAvatarObj._primaryWeapon, false);
 
-            if (_parent.SecondaryWeaponInstance)
-            {
-                _parent.SecondaryWeaponInstance.transform.SetParent(newAvatarObj._secondaryWeapon, false);
-            }
+            if (_parent.SecondaryWeaponInstance.Item1)
+                _parent.SecondaryWeaponInstance.Item1.transform.SetParent(newAvatarObj._secondaryWeapon, false);
+                
+            if (_parent.SecondaryWeaponInstance.Item2)
+                _parent.SecondaryWeaponInstance.Item2.transform.SetParent(newAvatarObj._secondaryWeapon, false);
 
             if (_parent.SubInstance)
             {
@@ -97,33 +123,65 @@ public class PlayerEventReceiver : MonoBehaviour
         _parent.SetAvatar(avatar.Avatar);
     }
 
-    public void SetMainWeapon(Weapon mainWeapon, EntityRef entity)
+    public void SetMainWeapon(Weapon weapon, EntityRef entity)
     {
-        if (_parent.PrimaryWeaponInstance)
-            Destroy(_parent.PrimaryWeaponInstance);
-
-        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(mainWeapon.Template.Id);
-        if (template && template.Main)
+        if (_parent.PrimaryWeaponInstance.Item1)
         {
-            _parent.SetPrimaryWeaponInstance(Instantiate(template.Main, _primaryWeapon));
+            Destroy(_parent.PrimaryWeaponInstance.Item1);
+            _parent.SetPrimaryWeaponInstance((null, _parent.PrimaryWeaponInstance.Item2));
         }
 
-        WeaponMaterialAsset material = UnityDB.FindAsset<WeaponMaterialAsset>(mainWeapon.Material.Id);
+        if (_parent.SecondaryWeaponInstance.Item2)
+        {
+            Destroy(_parent.SecondaryWeaponInstance.Item2);
+            _parent.SetSecondaryWeaponInstance((_parent.SecondaryWeaponInstance.Item1, null));
+        }
+
+        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(weapon.Template.Id);
+        if (template && template.Main)
+        {
+            _parent.SetPrimaryWeaponInstance((Instantiate(template.Main, _primaryWeapon), _parent.PrimaryWeaponInstance.Item2));
+            _parent.SetSecondaryWeaponInstance((_parent.SecondaryWeaponInstance.Item1, Instantiate(template.Alt, _secondaryWeapon)));
+
+            _parent.SecondaryWeaponInstance.Item2?.SetActive(false);
+        }
+
+        WeaponMaterialAsset material = UnityDB.FindAsset<WeaponMaterialAsset>(weapon.Material.Id);
         if (material)
         {
-            _parent.PrimaryWeaponInstance.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
+            _parent.PrimaryWeaponInstance.Item1?.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
+            _parent.SecondaryWeaponInstance.Item2?.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
         }
     }
 
-    public void SetAltWeapon(Weapon altWeapon, EntityRef entity)
+    public void SetAltWeapon(Weapon weapon, EntityRef entity)
     {
-        if (_parent.SecondaryWeaponInstance)
-            Destroy(_parent.SecondaryWeaponInstance);
+        if (_parent.SecondaryWeaponInstance.Item1)
+        {
+            Destroy(_parent.SecondaryWeaponInstance.Item1);
+            _parent.SetSecondaryWeaponInstance((null, _parent.SecondaryWeaponInstance.Item2));
+        }
 
-        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(altWeapon.Template.Id);
+        if (_parent.PrimaryWeaponInstance.Item2)
+        {
+            Destroy(_parent.PrimaryWeaponInstance.Item2);
+            _parent.SetPrimaryWeaponInstance((_parent.PrimaryWeaponInstance.Item1, null));
+        }
+
+        WeaponTemplateAsset template = UnityDB.FindAsset<WeaponTemplateAsset>(weapon.Template.Id);
         if (template && template.Alt)
         {
-            _parent.SetSecondaryWeaponInstance(Instantiate(template.Alt, _secondaryWeapon));
+            _parent.SetSecondaryWeaponInstance((Instantiate(template.Alt, _secondaryWeapon), _parent.SecondaryWeaponInstance.Item2));
+            _parent.SetPrimaryWeaponInstance((_parent.PrimaryWeaponInstance.Item1, Instantiate(template.Main, _primaryWeapon)));
+
+            _parent.PrimaryWeaponInstance.Item2?.SetActive(false);
+        }
+
+        WeaponMaterialAsset material = UnityDB.FindAsset<WeaponMaterialAsset>(weapon.Material.Id);
+        if (material)
+        {
+            _parent.SecondaryWeaponInstance.Item1?.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
+            _parent.PrimaryWeaponInstance.Item2?.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Base_Color", material.Color);
         }
     }
 

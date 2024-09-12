@@ -1,4 +1,5 @@
 using GameResources;
+using GameResources.Audio;
 using Quantum;
 using UnityEngine;
 
@@ -31,27 +32,27 @@ public class HitboxHurtboxEvents : MonoBehaviour
         {
             Parent = VFXSettings.ParentType.None,
             DoesFollowParent = false,
-            Direction = e.Direction.ToUnityVector3(),
+            Direction = e.Settings.Offensive.Knockback.ToUnityVector3(),
             Offset = e.Position.ToUnityVector3(),
             VFXObject = _hitEffectCircle,
             ScaleMultiplier = _scale
         });
 
-        /*GameObject sparks = VFXController.Instance.SpawnEffectUnparented(new()
+        if (e.Settings.Visual.SpawnHitSparks)
         {
-            Parent = VFXSettings.ParentType.None,
-            DoesFollowParent = false,
-            Direction = e.Direction.ToUnityVector3(),
-            Offset = e.Position.ToUnityVector3(),
-            VFXObject = _hitEffectSpark,
-            ScaleMultiplier = _scale2
-        });
+            VFXController.Instance.SpawnEffectUnparented(new()
+            {
+                Parent = VFXSettings.ParentType.None,
+                DoesFollowParent = false,
+                Direction = e.Settings.Offensive.Knockback.ToUnityVector3(),
+                Offset = e.Position.ToUnityVector3(),
+                VFXObject = _hitEffectSpark,
+                ScaleMultiplier = _scale2
+            });
+        }
 
-        for (int i = 0; i < sparks.transform.childCount; ++i)
-        {
-            ParticleSystem child = sparks.transform.GetChild(i).GetComponent<ParticleSystem>();
-            //child.
-        }*/
+        //AudioClip clip = UnityDB.FindAsset<SpawnHitboxEventAsset>(e.Event.Id).AudioOnHit;
+        //AudioSource.PlayClipAtPoint(clip, e.Position.ToUnityVector3(), 10);
     }
 
     private void HandleHitboxSpawnDespawn(EventOnHitboxSpawnDespawn e)

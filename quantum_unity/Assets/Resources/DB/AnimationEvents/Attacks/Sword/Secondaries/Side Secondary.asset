@@ -139,20 +139,20 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        FreezeFrames: 0
+        FreezeFrames: 10
         ShakeStrength:
-          RawValue: 0
+          RawValue: 6553
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 327680
-        HitStun: 0
+        HitStun: 50
         Knockback:
           X:
-            RawValue: 239206
+            RawValue: 655360
           Y:
-            RawValue: 378798
+            RawValue: 655360
         StatusEffect:
           Id:
             Value: 0
@@ -161,26 +161,28 @@ MonoBehaviour:
           Id:
             Value: 3470376909750409904
         OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
           Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
     FullyChargedSettings:
       Delay:
-        FreezeFrames: 0
+        FreezeFrames: 10
         ShakeStrength:
-          RawValue: 0
+          RawValue: 6553
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
           RawValue: 655360
-        HitStun: 0
+        HitStun: 50
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 655360
           Y:
-            RawValue: 0
+            RawValue: 655360
         StatusEffect:
           Id:
             Value: 0
@@ -189,6 +191,8 @@ MonoBehaviour:
           Id:
             Value: 3470376909750409904
         OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
           Value: 1
         TargetShake:
           Id:
@@ -648,11 +652,7 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}
 --- !u!114 &-1001453871489171638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,15 +868,15 @@ MonoBehaviour:
     AnimID: 292305905
     Events:
     - Id:
-        Value: 1414204831665080715
-    - Id:
         Value: 3230995086527496219
+    - Id:
+        Value: 1414204831665080715
     - Id:
         Value: 1662894310962574079
     - Id:
         Value: 3686125898823597747
     Committed:
-      Max: 81
+      Max: 58
       Min: 0
     CanMove: 0
     MaintainVelocity: 0
@@ -996,20 +996,20 @@ MonoBehaviour:
       IsSetFromSourceCollider: 0
     UnchargedSettings:
       Delay:
-        FreezeFrames: 0
+        FreezeFrames: 10
         ShakeStrength:
-          RawValue: 0
+          RawValue: 6553
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
-          RawValue: 327680
-        HitStun: 0
+          RawValue: 655360
+        HitStun: 50
         Knockback:
           X:
-            RawValue: 412221
+            RawValue: 655360
           Y:
-            RawValue: 640942
+            RawValue: 655360
         StatusEffect:
           Id:
             Value: 0
@@ -1018,26 +1018,28 @@ MonoBehaviour:
           Id:
             Value: 3470376909750409904
         OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
           Value: 1
         TargetShake:
           Id:
             Value: 3470376909750409904
     FullyChargedSettings:
       Delay:
-        FreezeFrames: 0
+        FreezeFrames: 10
         ShakeStrength:
-          RawValue: 0
+          RawValue: 6553
       Offensive:
         AlignKnockbackToPlayerDirection:
           Value: 1
         Damage:
-          RawValue: 655360
-        HitStun: 0
+          RawValue: 983040
+        HitStun: 50
         Knockback:
           X:
-            RawValue: 0
+            RawValue: 655360
           Y:
-            RawValue: 0
+            RawValue: 655360
         StatusEffect:
           Id:
             Value: 0
@@ -1046,6 +1048,8 @@ MonoBehaviour:
           Id:
             Value: 3470376909750409904
         OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
           Value: 1
         TargetShake:
           Id:
@@ -1145,8 +1149,4 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: 0}
     Direction: {x: 0, y: 0, z: 0}
     ScaleMultiplier: {x: 0, y: 0, z: 0}
-  AudioOnHit:
-    Variants:
-      _kvps: []
-    Mixer: {fileID: 0}
-    Volume: 0
+  AudioOnHit: {fileID: 0}

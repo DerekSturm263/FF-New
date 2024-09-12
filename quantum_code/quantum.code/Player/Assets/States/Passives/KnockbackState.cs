@@ -14,6 +14,7 @@ namespace Quantum
         public FP DecelerationSpeed;
 
         public FP WallVelocityAbsorption;
+        public FP GroundVelocityAbsorption;
         public FP MinimumVelocity;
         public int MinStateTimeToGrounded;
 
@@ -25,8 +26,9 @@ namespace Quantum
         public override void BeginEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
         {
             base.BeginEnter(f, stateMachine, ref filter, input, settings, previousState);
-         
+
             filter.CharacterController->StartKnockback = false;
+            filter.CharacterController->HitGround = false;
         }
 
         public override void FinishEnter(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState previousState)
@@ -34,6 +36,7 @@ namespace Quantum
             base.FinishEnter(f, stateMachine, ref filter, input, settings, previousState);
 
             filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
+            f.Events.OnPlayerKnockback(filter.Entity, true);
         }
 
         public override void Update(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings)
@@ -49,9 +52,12 @@ namespace Quantum
                     filter.CharacterController->CurrentKnockback.Length = 1;
             }
 
-            if (filter.CharacterController->CurrentKnockback.Direction.Y < 0 && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
+            if (!filter.CharacterController->HitGround && filter.CharacterController->CurrentKnockback.Direction.Y < 0 && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {
-                filter.CharacterController->CurrentKnockback.Direction.Y *= -WallVelocityAbsorption;
+                filter.CharacterController->CurrentKnockback.Direction.Y *= -GroundVelocityAbsorption;
+                filter.PhysicsBody->Velocity.Y = filter.CharacterController->CurrentKnockback.Direction.Y;
+
+                filter.CharacterController->HitGround = true;
             }
 
             filter.CharacterController->CurrentKnockback.Direction.X = FPMath.Lerp(filter.CharacterController->CurrentKnockback.Direction.X, 0, f.DeltaTime * DecelerationSpeed);
@@ -73,6 +79,8 @@ namespace Quantum
         {
             if (f.FindAsset<PlayerState>(nextState.Id) != this)
                 filter.CharacterController->CurrentKnockback = default;
+            
+            f.Events.OnPlayerKnockback(filter.Entity, false);
 
             base.BeginExit(f, stateMachine, ref filter, input, settings, nextState);
         }

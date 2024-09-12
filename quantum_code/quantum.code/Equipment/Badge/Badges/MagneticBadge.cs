@@ -10,32 +10,26 @@ namespace Quantum
         public FP FollowRadius;
         public FP GrabRadius;
 
-        public override void OnUpdate(Frame f, EntityRef user)
+        public override void OnUpdate(Frame f, ref CharacterControllerSystem.Filter filter)
         {
             var itemFilter = f.Unsafe.FilterStruct<ItemSystem.Filter>();
             var item = default(ItemSystem.Filter);
 
-            if (!f.TryGet(user, out Transform2D transform))
-                return;
-
             while (itemFilter.Next(&item))
             {
-                if (!f.Unsafe.TryGetPointer(item.Entity, out ItemInstance* itemInstance))
+                if (item.ItemInstance->IsActive)
                     continue;
 
-                if (itemInstance->IsActive)
-                    continue;
-
-                FP distance = FPVector2.DistanceSquared(transform.Position, item.Transform->Position);
+                FP distance = FPVector2.DistanceSquared(filter.Transform->Position, item.Transform->Position);
 
                 if (distance <= FollowRadius * FollowRadius)
                 {
-                    item.PhysicsBody->Velocity = (transform.Position - item.Transform->Position).Normalized * Speed;
+                    item.PhysicsBody->Velocity = (filter.Transform->Position - item.Transform->Position).Normalized * Speed;
 
                     if (distance <= GrabRadius * GrabRadius)
                     {
-                        if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats) && !stats->HeldItem.IsValid)
-                            ItemSystem.Use(f, user, item.Entity, itemInstance);
+                        if (!filter.PlayerStats->HeldItem.IsValid)
+                            ItemSystem.Use(f, filter.Entity, item.Entity);
                     }
                 }
             }

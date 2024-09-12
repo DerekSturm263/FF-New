@@ -10,22 +10,20 @@ namespace Quantum
         public FP HealthGain;
         public FP EnergyLoss;
 
-        public override void OnUpdate(Frame f, EntityRef user)
+        public override void OnUpdate(Frame f, ref CharacterControllerSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out CharacterController* characterController) &&
-                characterController->CurrentState == Block &&
-                f.Unsafe.TryGetPointer(user, out Stats* stats))
+            if (filter.CharacterController->CurrentState == Block)
             {
-                Behavior behavior = f.FindAsset<Behavior>(characterController->Behavior.Id);
-                Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(user).Player) : behavior.GetInput(f, default);
+                Behavior behavior = f.FindAsset<Behavior>(filter.CharacterController->Behavior.Id);
+                Input input = behavior.IsControllable ? *f.GetPlayerInput(f.Get<PlayerLink>(filter.Entity).Player) : behavior.GetInput(f, default);
                 
-                if (!characterController->IsHeldThisFrame(input, Input.Buttons.MainWeapon))
+                if (!filter.CharacterController->IsHeldThisFrame(input, Input.Buttons.MainWeapon))
                     return;
 
-                if (stats->CurrentStats.Energy > 0 && stats->CurrentStats.Health < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
+                if (filter.Stats->CurrentStats.Energy > 0 && filter.Stats->CurrentStats.Health < f.Global->CurrentMatch.Ruleset.Players.MaxHealth)
                 {
-                    StatsSystem.ModifyHealth(f, user, stats, HealthGain, true);
-                    StatsSystem.ModifyEnergy(f, user, stats, -EnergyLoss);
+                    StatsSystem.ModifyHealth(f, filter.Entity, filter.Stats, HealthGain, true);
+                    StatsSystem.ModifyEnergy(f, filter.Entity, filter.Stats, -EnergyLoss);
                 }
             }
         }

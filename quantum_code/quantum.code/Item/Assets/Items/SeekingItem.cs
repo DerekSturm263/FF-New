@@ -11,35 +11,30 @@ namespace Quantum
         public FPVector2 Offset;
         public FP SeekTime;
 
-        public override void OnStart(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
+        public override void OnStart(Frame f, EntityRef user, ref ItemSystem.Filter filter)
         {
-            itemInstance->Target = PlayerStatsSystem.FindNearestOtherPlayer(f, user);
+            base.OnStart(f, user, ref filter);
 
-            if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody2D))
-            {
-                physicsBody2D->GravityScale = 0;
-            }
+            filter.ItemInstance->Target = PlayerStatsSystem.FindNearestOtherPlayer(f, user);
+            filter.PhysicsBody->GravityScale = 0;
         }
 
-        public override unsafe void OnUpdate(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
+        public override unsafe void OnUpdate(Frame f, EntityRef user, ref ItemSystem.Filter filter)
         {
-            if (itemInstance->ActiveTime > SeekTime)
+            if (filter.ItemInstance->ActiveTime > SeekTime)
                 return;
 
-            if (f.Unsafe.TryGetPointer(item, out PhysicsBody2D* physicsBody) &&
-                f.Unsafe.TryGetPointer(item, out Transform2D* transform) &&
-                f.Unsafe.TryGetPointer(itemInstance->Target, out Transform2D* targetTransform))
+            if (f.Unsafe.TryGetPointer(filter.ItemInstance->Target, out Transform2D* targetTransform))
             {
-                FPVector2 targetVelocity = ((targetTransform->Position + Offset) - transform->Position).Normalized * SpeedOverTime.Evaluate(itemInstance->ActiveTime) * SpeedMultiplier;
+                FPVector2 targetVelocity = ((targetTransform->Position + Offset) - filter.Transform->Position).Normalized * SpeedOverTime.Evaluate((FP)filter.ItemInstance->ActiveTime / (FP._1 * 60)) * SpeedMultiplier;
 
-                physicsBody->Velocity = FPVector2.Lerp(physicsBody->Velocity, targetVelocity, f.DeltaTime * LerpTime);
-                transform->Rotation = FPMath.Atan2(physicsBody->Velocity.Y, physicsBody->Velocity.X);
+                filter.PhysicsBody->Velocity = FPVector2.Lerp(filter.PhysicsBody->Velocity, targetVelocity, f.DeltaTime * LerpTime);
             }
         }
 
-        public override void OnExit(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance)
+        public override void OnExit(Frame f, EntityRef user, ref ItemSystem.Filter filter)
         {
-            itemInstance->Target = EntityRef.None;
+            filter.ItemInstance->Target = EntityRef.None;
         }
     }
 }

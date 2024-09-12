@@ -8,13 +8,11 @@ namespace Quantum
         public FP HealthMultiplier;
         public FP SuccessLevel;
 
-        public override void OnHit(Frame f, EntityRef user, EntityRef target, HitboxSettings hitbox)
+        public override void OnHit(Frame f, ref CharacterControllerSystem.Filter filter, EntityRef target, HitboxSettings hitbox)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats) &&
-                f.Unsafe.TryGetPointer(user, out CharacterController* characterController) &&
-                characterController->HoldLevel >= SuccessLevel)
+            if (filter.CharacterController->HoldLevel >= SuccessLevel)
             {
-                StatsSystem.ModifyHealth(f, user, stats, hitbox.Offensive.Damage * HealthMultiplier, false);
+                StatsSystem.ModifyHealth(f, filter.Entity, filter.Stats, hitbox.Offensive.Damage * HealthMultiplier, false);
             }
         }
     }

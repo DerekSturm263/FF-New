@@ -54,6 +54,7 @@ namespace Quantum
                 ItemSpawnSettings settings = new()
                 {
                     Item = itemAsset,
+                    AlignToPlayerDirection = false,
                     Velocity = FPVector2.Zero,
                     Offset = hit.Value.Point + new FPVector2(0, 4),
                     StartHolding = false
@@ -74,7 +75,12 @@ namespace Quantum
 
             if (f.Unsafe.TryGetPointer(newItem, out Transform2D* transform))
             {
-                transform->Position = settings.Offset;
+                FP offsetMultiplier = 1;
+
+                if (settings.AlignToPlayerDirection && f.Unsafe.TryGetPointer(owner, out CharacterController* characterController))
+                    offsetMultiplier = characterController->MovementDirection;
+
+                transform->Position = new(settings.Offset.X * offsetMultiplier, settings.Offset.Y);
             }
 
             if (f.Unsafe.TryGetPointer(newItem, out ItemInstance* itemInstance))
@@ -90,7 +96,12 @@ namespace Quantum
             {
                 if (settings.Velocity != FPVector2.Zero)
                 {
-                    physicsBody->Velocity = settings.Velocity;
+                    FP directionMultiplier = 1;
+
+                    if (settings.AlignToPlayerDirection && f.Unsafe.TryGetPointer(owner, out CharacterController* characterController))
+                        directionMultiplier = characterController->MovementDirection;
+
+                    physicsBody->Velocity = new(settings.Velocity.X * directionMultiplier, settings.Velocity.Y);
                 }
                 else
                 {
@@ -101,8 +112,8 @@ namespace Quantum
             if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
                 ++itemSpawner->CurrentSpawned;
 
-            if (item is UpdateableItem updateableItem)
-                updateableItem.OnStart(f, owner, newItem, itemInstance);
+            if (item is UpdateableItem updateableItem && f.Unsafe.ComponentGetter<ItemSystem.Filter>().TryGet(f, newItem, out ItemSystem.Filter filter))
+                updateableItem.OnStart(f, owner, ref filter);
 
             return newItem;
         }
@@ -125,6 +136,9 @@ namespace Quantum
 
         public static void Despawn(Frame f, EntityRef item)
         {
+            if (f.Unsafe.TryGetPointer(item, out ItemInstance* itemInstance) && itemInstance->Hitbox.IsValid)
+                f.Destroy(itemInstance->Hitbox);
+
             f.Destroy(item);
 
             if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))

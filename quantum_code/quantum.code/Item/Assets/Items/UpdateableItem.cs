@@ -1,12 +1,21 @@
-﻿namespace Quantum
+﻿using Photon.Deterministic;
+
+namespace Quantum
 {
     [System.Serializable]
     public abstract unsafe partial class UpdateableItem : Item
     {
-        public override unsafe void Invoke(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance) { }
+        public int Lifetime;
 
-        public abstract unsafe void OnStart(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance);
-        public abstract unsafe void OnUpdate(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance);
-        public abstract unsafe void OnExit(Frame f, EntityRef user, EntityRef item, ItemInstance* itemInstance);
+        public override unsafe void Invoke(Frame f, EntityRef user, ref ItemSystem.Filter filter) { }
+
+        public virtual unsafe void OnStart(Frame f, EntityRef user, ref ItemSystem.Filter filter)
+        {
+            if (AlignDirectionToVelocity)
+                filter.Transform->Rotation = FPMath.Atan2(filter.PhysicsBody->Velocity.Y, filter.PhysicsBody->Velocity.X);
+        }
+
+        public abstract unsafe void OnUpdate(Frame f, EntityRef user, ref ItemSystem.Filter filter);
+        public abstract unsafe void OnExit(Frame f, EntityRef user, ref ItemSystem.Filter filter);
     }
 }
