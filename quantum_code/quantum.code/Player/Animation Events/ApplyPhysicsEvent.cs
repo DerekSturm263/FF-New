@@ -14,15 +14,19 @@ namespace Quantum
 
         public Usability UsabilityType;
 
+        public FPVector2 StartOffset;
+
         public PhysicsSettings UnchargedSettings;
         public PhysicsSettings FullyChargedSettings;
+
+        public bool ResetPosition;
 
         public override void Begin(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame)
         {
             Log.Debug("Applying physics!");
 
             filter.PhysicsBody->GravityScale = 0;
-            filter.CharacterController->ApplyPhysicsPosition = filter.Transform->Position;
+            filter.CharacterController->ApplyPhysicsPosition = filter.Transform->Position + StartOffset;
         }
 
         public override void Update(Frame f, QuantumAnimationEvent parent, ref CharacterControllerSystem.Filter filter, Input input, int frame, int elapsedFrames)
@@ -57,6 +61,9 @@ namespace Quantum
             Log.Debug("Cleaning up physics!");
 
             filter.PhysicsBody->GravityScale = 1;
+
+            if (ResetPosition)
+                filter.Transform->Position = filter.CharacterController->ApplyPhysicsPosition - StartOffset;
         }
     }
 }

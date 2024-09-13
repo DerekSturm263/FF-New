@@ -32,8 +32,7 @@ namespace Quantum
 
             while (filter.Next(&player))
             {
-                MovementSettings settings = f.FindAsset<MovementSettings>(player.CharacterController->Settings.Id);
-                CharacterControllerSystem.StateMachine.ForceTransition(f, ref player, default, settings, f.RuntimeConfig.DefaultState, 0);
+                CharacterControllerSystem.StateMachine.ForceTransition(f, ref player, default, f.RuntimeConfig.DefaultState, 0);
 
                 player.Stats->IsRespawning = false;
 

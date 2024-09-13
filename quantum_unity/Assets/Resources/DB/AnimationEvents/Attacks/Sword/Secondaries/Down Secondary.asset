@@ -19,8 +19,8 @@ MonoBehaviour:
       Path: Resources/DB/AnimationEvents/Attacks/Sword/Secondaries/Down Secondary|Carry
       Guid:
         Value: 326364307582524067
-    StartingFrame: 21
-    EndingFrame: 22
+    StartingFrame: 4
+    EndingFrame: 28
     UsabilityType: 0
     UnchargedSettings:
       XCurve:
@@ -30,29 +30,84 @@ MonoBehaviour:
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
         Keys: []
       XForce:
-        RawValue: 65536
+        RawValue: 0
       UseXAxis: 0
       YCurve:
-        Samples: []
+        Samples:
+        - RawValue: 0
+        - RawValue: 6446
+        - RawValue: 12506
+        - RawValue: 18176
+        - RawValue: 23453
+        - RawValue: 28335
+        - RawValue: 32818
+        - RawValue: 36900
+        - RawValue: 40577
+        - RawValue: 43847
+        - RawValue: 46707
+        - RawValue: 49154
+        - RawValue: 51185
+        - RawValue: 52797
+        - RawValue: 53988
+        - RawValue: 54754
+        - RawValue: 55092
+        - RawValue: 55000
+        - RawValue: 54475
+        - RawValue: 53513
+        - RawValue: 52112
+        - RawValue: 50270
+        - RawValue: 47982
+        - RawValue: 45247
+        - RawValue: 42061
+        - RawValue: 38421
+        - RawValue: 34325
+        - RawValue: 29769
+        - RawValue: 24752
+        - RawValue: 19269
+        - RawValue: 13317
+        - RawValue: 6895
+        - RawValue: 0
         PreWrapMode: 0
         PostWrapMode: 0
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
-        Keys: []
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 212458
+          OutTangent:
+            RawValue: 212458
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: -228282
+          OutTangent:
+            RawValue: -228282
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
       YForce:
         RawValue: 65536
-      UseYAxis: 0
+      UseYAxis: 1
     FullyChargedSettings:
       XCurve:
         Samples: []
@@ -61,8 +116,8 @@ MonoBehaviour:
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
         Keys: []
@@ -70,20 +125,75 @@ MonoBehaviour:
         RawValue: 0
       UseXAxis: 0
       YCurve:
-        Samples: []
+        Samples:
+        - RawValue: 0
+        - RawValue: 6446
+        - RawValue: 12506
+        - RawValue: 18176
+        - RawValue: 23453
+        - RawValue: 28335
+        - RawValue: 32818
+        - RawValue: 36900
+        - RawValue: 40577
+        - RawValue: 43847
+        - RawValue: 46707
+        - RawValue: 49154
+        - RawValue: 51185
+        - RawValue: 52797
+        - RawValue: 53988
+        - RawValue: 54754
+        - RawValue: 55092
+        - RawValue: 55000
+        - RawValue: 54475
+        - RawValue: 53513
+        - RawValue: 52112
+        - RawValue: 50270
+        - RawValue: 47982
+        - RawValue: 45247
+        - RawValue: 42061
+        - RawValue: 38421
+        - RawValue: 34325
+        - RawValue: 29769
+        - RawValue: 24752
+        - RawValue: 19269
+        - RawValue: 13317
+        - RawValue: 6895
+        - RawValue: 0
         PreWrapMode: 0
         PostWrapMode: 0
         StartTime:
           RawValue: 0
         EndTime:
-          RawValue: 0
-        Resolution: 0
+          RawValue: 65536
+        Resolution: 32
         OriginalPreWrapMode: 0
         OriginalPostWrapMode: 0
-        Keys: []
+        Keys:
+        - Time:
+            RawValue: 0
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: 212458
+          OutTangent:
+            RawValue: 212458
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
+        - Time:
+            RawValue: 65536
+          Value:
+            RawValue: 0
+          InTangent:
+            RawValue: -228282
+          OutTangent:
+            RawValue: -228282
+          TangentMode: 0
+          TangentModeLeft: 0
+          TangentModeRight: 0
       YForce:
-        RawValue: 0
-      UseYAxis: 0
+        RawValue: 65536
+      UseYAxis: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,11 +215,13 @@ MonoBehaviour:
     Events:
     - Id:
         Value: 3788185455107371823
+    - Id:
+        Value: 326364307582524067
     Committed:
       Max: 39
       Min: 0
-    CanMove: 1
-    MaintainVelocity: 0
+    CanMove: 0
+    MaintainVelocity: 1
   Clip: {fileID: -7635598400918682647, guid: 4e428c4804cba3d4f860b1ba5f923560, type: 3}
 --- !u!114 &1639620329641309674
 MonoBehaviour:

@@ -89,7 +89,7 @@ namespace Quantum
 
             if (filter.CharacterController->StartedInAir && filter.CharacterController->GetNearbyCollider(Colliders.Ground))
             {
-                stateMachine.ForceTransition(f, ref filter, input, settings, Default, 0);
+                stateMachine.ForceTransition(f, ref filter, input, Default, 0);
                 filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
             }
         }

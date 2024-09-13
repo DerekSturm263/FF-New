@@ -25,9 +25,7 @@
 
             if (!filter.CharacterController->PressedButton)
             {
-                MovementSettings settings = f.FindAsset<MovementSettings>(filter.CharacterController->Settings.Id);
-
-                CharacterControllerSystem.StateMachine.ForceTransition(f, ref filter, input, settings, Default, 0);
+                CharacterControllerSystem.StateMachine.ForceTransition(f, ref filter, input, Default, 0);
                 filter.CharacterController->PossibleStates = (StatesFlag)((int)StatesFlag.KnockedOver * 2 - 1);
             }
 

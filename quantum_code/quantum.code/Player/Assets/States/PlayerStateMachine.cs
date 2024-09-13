@@ -60,8 +60,10 @@ namespace Quantum
             Log.Debug($"Transitioning from {filter.CharacterController->CurrentState} to {filter.CharacterController->NextState} for {transition.TransitionTime} frames");
         }
 
-        public void ForceTransition(Frame f, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings, AssetRefPlayerState state, int transitionTime)
+        public void ForceTransition(Frame f, ref CharacterControllerSystem.Filter filter, Input input, AssetRefPlayerState state, int transitionTime)
         {
+            MovementSettings settings = f.FindAsset<MovementSettings>(filter.CharacterController->Settings.Id);
+
             // Set the next state and transition time.
             filter.CharacterController->NextState = state;
             filter.CharacterController->NextStateTime = filter.CharacterController->StateTime + transitionTime;

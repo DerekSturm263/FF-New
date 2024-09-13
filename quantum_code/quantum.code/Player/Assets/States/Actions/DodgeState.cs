@@ -85,9 +85,9 @@ namespace Quantum
                 if (filter.CharacterController->GetNearbyCollider(Colliders.Ground))
                 {
                     if (filter.CharacterController->StateTime < MaxTimeToRoll)
-                        stateMachine.ForceTransition(f, ref filter, input, settings, this, 3);
+                        stateMachine.ForceTransition(f, ref filter, input, this, 3);
                     else
-                        stateMachine.ForceTransition(f, ref filter, input, settings, Default, 3);
+                        stateMachine.ForceTransition(f, ref filter, input, Default, 3);
 
                     filter.CharacterController->NextStateTime = filter.CharacterController->StateTime;
                 }

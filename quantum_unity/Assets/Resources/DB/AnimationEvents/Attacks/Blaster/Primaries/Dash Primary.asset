@@ -1,5 +1,343 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7951912686447863279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: H2
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0.495283, b: 0.495283, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Dash Primary|H2
+      Guid:
+        Value: 2399606500707907752
+    StartingFrame: 13
+    EndingFrame: 23
+    Parent: 0
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 57016
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 33423
+          Y:
+            RawValue: 48496
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        FreezeFrames: 5
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 327680
+        HitStun: 20
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 327680
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        FreezeFrames: 5
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 327680
+        HitStun: 20
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 327680
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit: {fileID: 0}
+--- !u!114 &-6010941373362511494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebefd11601b9e6a408941af99e1e6547, type: 3}
+  m_Name: H1
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Dash Primary|H1
+      Guid:
+        Value: 1435541166329220256
+    StartingFrame: 10
+    EndingFrame: 12
+    Parent: 0
+    Shape:
+      ShapeType: 16
+      PolygonCollider:
+        Id:
+          Value: 0
+      CircleRadius:
+        RawValue: 0
+      EdgeExtent:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      PositionOffset:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      RotationOffset:
+        RawValue: 0
+      UserTag: 0
+      IsPersistent: 1
+      CompoundShapes:
+      - ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 57016
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 33423
+          Y:
+            RawValue: 48496
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsSetFromSourceCollider: 0
+      IsSetFromSourceCollider: 0
+    UnchargedSettings:
+      Delay:
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 655360
+        HitStun: 40
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 655360
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    FullyChargedSettings:
+      Delay:
+        FreezeFrames: 10
+        ShakeStrength:
+          RawValue: 6553
+      Offensive:
+        AlignKnockbackToPlayerDirection:
+          Value: 1
+        Damage:
+          RawValue: 655360
+        HitStun: 40
+        Knockback:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 655360
+        StatusEffect:
+          Id:
+            Value: 0
+      Visual:
+        CameraShake:
+          Id:
+            Value: 3470376909750409904
+        OnlyShakeOnHit:
+          Value: 1
+        SpawnHitSparks:
+          Value: 1
+        TargetShake:
+          Id:
+            Value: 3470376909750409904
+    BakedShapePositions:
+    - List:
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+      - X:
+          RawValue: 42093
+        Y:
+          RawValue: 48496
+  VFXOnHit:
+    VFXObject: {fileID: 0}
+    Parent: 0
+    DoesFollowParent: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Direction: {x: 0, y: 0, z: 0}
+    ScaleMultiplier: {x: 0, y: 0, z: 0}
+  AudioOnHit: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,10 +356,14 @@ MonoBehaviour:
       Guid:
         Value: 3873622573623243777
     AnimID: -609591313
-    Events: []
+    Events:
+    - Id:
+        Value: 1435541166329220256
+    - Id:
+        Value: 2399606500707907752
     Committed:
-      Max: 0
+      Max: 25
       Min: 0
     CanMove: 0
-    MaintainVelocity: 0
+    MaintainVelocity: 1
   Clip: {fileID: -2447737137725789856, guid: 2f581898fe7f41c49acf7cfc2ef3f3e3, type: 3}

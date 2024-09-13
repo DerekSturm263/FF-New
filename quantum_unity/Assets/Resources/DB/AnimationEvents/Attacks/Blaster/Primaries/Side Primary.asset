@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8635923310654996744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Shoot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Side Primary|Shoot
+      Guid:
+        Value: 950434331335918516
+    StartingFrame: 38
+    EndingFrame: 38
+    Button: 0
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,9 +76,11 @@ MonoBehaviour:
       Guid:
         Value: 3340503041050279586
     AnimID: 372504430
-    Events: []
+    Events:
+    - Id:
+        Value: 950434331335918516
     Committed:
-      Max: 0
+      Max: 40
       Min: 0
     CanMove: 0
     MaintainVelocity: 0

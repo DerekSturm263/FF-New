@@ -46,6 +46,11 @@ MonoBehaviour:
     StartingFrame: 6
     EndingFrame: 44
     UsabilityType: 0
+    StartOffset:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
     UnchargedSettings:
       XCurve:
         Samples:
@@ -218,6 +223,7 @@ MonoBehaviour:
       YForce:
         RawValue: 0
       UseYAxis: 0
+    ResetPosition: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +248,8 @@ MonoBehaviour:
     - Id:
         Value: 1096738676649271602
     - Id:
+        Value: 706615647289945143
+    - Id:
         Value: 726765653877934038
     Committed:
       Max: 44
@@ -249,6 +257,65 @@ MonoBehaviour:
     CanMove: 0
     MaintainVelocity: 0
   Clip: {fileID: -3268956015618930612, guid: caf5ecc3d970c9a4abc7ea2075089b28, type: 3}
+--- !u!114 &2313777753385407834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Optional Shoot
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Down Primary|Optional
+        Shoot
+      Guid:
+        Value: 706615647289945143
+    StartingFrame: 8
+    EndingFrame: 35
+    Button: 32
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 0
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 0
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
 --- !u!114 &5639023276090419698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,9 +428,9 @@ MonoBehaviour:
         HitStun: 40
         Knockback:
           X:
-            RawValue: 327680
+            RawValue: 655360
           Y:
-            RawValue: 327680
+            RawValue: 655360
         StatusEffect:
           Id:
             Value: 0
