@@ -5,11 +5,11 @@
     {
         public int Uses;
 
-        public override void Invoke(Frame f, EntityRef user, ref ItemSystem.Filter filter)
+        public override void Invoke(Frame f, ref CharacterControllerSystem.Filter user, ref ItemSystem.Filter filter)
         {
             ++filter.ItemInstance->Uses;
 
-            f.Events.OnItemUse(user, filter.Entity, this, filter.Transform->Position);
+            f.Events.OnItemUse(user.Entity, filter.Entity, this, filter.Transform->Position);
 
             if (filter.ItemInstance->Uses == Uses)
             {

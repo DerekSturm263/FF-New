@@ -1,6 +1,4 @@
-﻿using Photon.Deterministic;
-
-namespace Quantum
+﻿namespace Quantum
 {
     [System.Serializable]
     public unsafe partial class HealingItem : UsableItem
@@ -15,27 +13,24 @@ namespace Quantum
         public Stat HealingStat;
         public int Amount;
 
-        public override void Invoke(Frame f, EntityRef user, ref ItemSystem.Filter filter)
+        public override void Invoke(Frame f, ref CharacterControllerSystem.Filter user, ref ItemSystem.Filter filter)
         {
-            if (f.Unsafe.TryGetPointer(user, out Stats* stats))
+            switch (HealingStat)
             {
-                switch (HealingStat)
-                {
-                    case Stat.Health:
-                        StatsSystem.ModifyHealth(f, user, stats, Amount, true);
-                        break;
+                case Stat.Health:
+                    StatsSystem.ModifyHealth(f, user.Entity, user.Stats, Amount, true);
+                    break;
 
-                    case Stat.Energy:
-                        StatsSystem.ModifyEnergy(f, user, stats, Amount);
-                        break;
+                case Stat.Energy:
+                    StatsSystem.ModifyEnergy(f, user.Entity, user.Stats, Amount);
+                    break;
 
-                    case Stat.Stocks:
-                        StatsSystem.ModifyStocks(f, user, stats, Amount);
-                        break;
-                }
+                case Stat.Stocks:
+                    StatsSystem.ModifyStocks(f, user.Entity, user.Stats, Amount);
+                    break;
             }
 
-            base.Invoke(f, user, ref filter);
+            base.Invoke(f, ref user, ref filter);
         }
     }
 }

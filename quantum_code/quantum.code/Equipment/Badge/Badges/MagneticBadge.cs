@@ -29,7 +29,7 @@ namespace Quantum
                     if (distance <= GrabRadius * GrabRadius)
                     {
                         if (!filter.PlayerStats->HeldItem.IsValid)
-                            ItemSystem.Use(f, filter.Entity, item.Entity);
+                            ItemSystem.Use(f, ref filter, item.Entity);
                     }
                 }
             }

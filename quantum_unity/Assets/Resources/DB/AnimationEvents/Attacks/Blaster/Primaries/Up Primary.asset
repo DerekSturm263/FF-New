@@ -21,6 +21,7 @@ MonoBehaviour:
         Value: 3983972569300840220
     StartingFrame: 36
     EndingFrame: 36
+    Button: 0
     UnchargedSettings:
       AlignToPlayerDirection:
         Value: 0
@@ -78,9 +79,35 @@ MonoBehaviour:
     Events:
     - Id:
         Value: 3983972569300840220
+    - Id:
+        Value: 408859594930866667
     Committed:
       Max: 36
       Min: 0
     CanMove: 0
     MaintainVelocity: 0
   Clip: {fileID: 181071617313704926, guid: b81d6c9110b610a44a435cf2587e4d5a, type: 3}
+--- !u!114 &4253304354982041485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1211483252dc98d478362c6ac10197b5, type: 3}
+  m_Name: Speed Up
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Primaries/Up Primary|Speed
+        Up
+      Guid:
+        Value: 408859594930866667
+    StartingFrame: 0
+    EndingFrame: 35
+    Speed:
+      RawValue: 98304

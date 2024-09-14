@@ -60,6 +60,11 @@ namespace Quantum
                 if (material is not null)
                     filter.CustomAnimator->speed = material.Stats.Speed;
 
+                if (filter.CharacterController->DirectionEnum == Direction.Left)
+                    filter.CharacterController->SetDirection(f, -1, filter.Entity, filter.PlayerStats->Index);
+                else if (filter.CharacterController->DirectionEnum == Direction.Right)
+                    filter.CharacterController->SetDirection(f, 1, filter.Entity, filter.PlayerStats->Index);
+
                 CustomAnimator.SetCurrentState(f, filter.CustomAnimator, animEvent.AnimID);
             }
             

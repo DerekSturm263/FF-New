@@ -1,5 +1,46 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9125556274411279977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb921237849c35d4ab6cc1b94eb31d52, type: 3}
+  m_Name: Buff Until Attack
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Secondaries/Down Secondary|Buff
+        Until Attack
+      Guid:
+        Value: 789911328237404565
+    StartingFrame: 26
+    EndingFrame: 26
+    ApparelStatsMultiplier:
+      Agility:
+        RawValue: 65536
+      Defense:
+        RawValue: 65536
+      Dodge:
+        RawValue: 65536
+      Jump:
+        RawValue: 65536
+      Weight:
+        RawValue: 65536
+    WeaponStatsMultiplier:
+      Damage:
+        RawValue: 81920
+      Knockback:
+        RawValue: 81920
+      Speed:
+        RawValue: 65536
+    DefaultTime: -1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,7 +59,9 @@ MonoBehaviour:
       Guid:
         Value: 1304010830616010857
     AnimID: 580714552
-    Events: []
+    Events:
+    - Id:
+        Value: 789911328237404565
     Committed:
       Max: 0
       Min: 0

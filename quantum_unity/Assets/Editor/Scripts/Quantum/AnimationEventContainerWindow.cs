@@ -103,6 +103,16 @@ public class AnimationEventContainerWindow : EditorWindow
             startingFrame = movement.Settings.StartingFrame;
             endingFrame = movement.Settings.EndingFrame;
         }
+        else if (frameEvent is ChangeSpeedAnimationEventAsset speed)
+        {
+            startingFrame = speed.Settings.StartingFrame;
+            endingFrame = speed.Settings.EndingFrame;
+        }
+        else if (frameEvent is BuffStatAnimationEventAsset buff)
+        {
+            startingFrame = buff.Settings.StartingFrame;
+            endingFrame = buff.Settings.EndingFrame;
+        }
 
         Rect nameRect = new(rect.x, rect.y, 149, rect.height);
 
@@ -175,6 +185,16 @@ public class AnimationEventContainerWindow : EditorWindow
         {
             movement.Settings.StartingFrame = (int)startingFrame;
             movement.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is ChangeSpeedAnimationEventAsset speed)
+        {
+            speed.Settings.StartingFrame = (int)startingFrame;
+            speed.Settings.EndingFrame = (int)endingFrame;
+        }
+        else if (frameEvent is BuffStatAnimationEventAsset buff)
+        {
+            buff.Settings.StartingFrame = (int)startingFrame;
+            buff.Settings.EndingFrame = (int)endingFrame;
         }
 
         if (isFocused)
@@ -384,6 +404,16 @@ public class AnimationEventContainerWindow : EditorWindow
             {
                 startingFrame = movement.Settings.StartingFrame;
                 endingFrame = movement.Settings.EndingFrame;
+            }
+            else if (frameEvent is ChangeSpeedAnimationEventAsset speed)
+            {
+                startingFrame = speed.Settings.StartingFrame;
+                endingFrame = speed.Settings.EndingFrame;
+            }
+            else if (frameEvent is BuffStatAnimationEventAsset buff)
+            {
+                startingFrame = buff.Settings.StartingFrame;
+                endingFrame = buff.Settings.EndingFrame;
             }
 
             if (_scrubFrame >= startingFrame && _scrubFrame <= endingFrame)

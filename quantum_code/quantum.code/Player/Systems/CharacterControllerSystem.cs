@@ -138,18 +138,21 @@ namespace Quantum
             }
         }
 
-        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, EntityRef attacker, EntityRef defender, FP freezeFramesMultiplier, int hitboxLifetime)
+        public static void ApplyKnockback(Frame f, HitboxSettings hitbox, ref Filter attacker, EntityRef defender, FP freezeFramesMultiplier, int hitboxLifetime)
         {
             uint freezeTime = (uint)(hitbox.Delay.FreezeFrames * freezeFramesMultiplier).AsInt;
 
             if (hitbox.Offensive.AlignKnockbackToPlayerDirection)
-                ShakeableSystem.Shake(f, attacker, hitbox.Visual.TargetShake, hitbox.Offensive.Knockback, hitbox.Delay.FreezeFrames, 0);
+                ShakeableSystem.Shake(f, attacker.Entity, hitbox.Visual.TargetShake, hitbox.Offensive.Knockback, hitbox.Delay.FreezeFrames, 0);
             
             ShakeableSystem.Shake(f, defender, hitbox.Visual.TargetShake, hitbox.Offensive.Knockback, freezeTime, hitbox.Delay.ShakeStrength);
 
             if (f.Unsafe.TryGetPointer(defender, out Stats* stats))
             {
-                stats->IFrameTime = (int)freezeTime + hitboxLifetime;
+                if (hitbox.Offensive.IFrameTime == 0)
+                    stats->IFrameTime = (int)freezeTime + hitboxLifetime;
+                else
+                    stats->IFrameTime = (int)freezeTime + hitbox.Offensive.IFrameTime;
 
                 if (f.Unsafe.TryGetPointer(defender, out PhysicsBody2D* physicsBody) && f.Unsafe.TryGetPointer(defender, out CharacterController* characterController) && f.Unsafe.TryGetPointer(defender, out Transform2D* transform))
                 {
@@ -160,8 +163,7 @@ namespace Quantum
 
                         if (f.TryGet(defender, out PlayerStats playerStats))
                         {
-                            characterController->MovementDirection = -FPMath.SignInt(hitbox.Offensive.Knockback.X);
-                            f.Events.OnPlayerChangeDirection(defender, playerStats.Index, characterController->MovementDirection);
+                            characterController->SetDirection(f, -FPMath.SignInt(hitbox.Offensive.Knockback.X), defender, playerStats.Index);
                         }
                     }
                     else

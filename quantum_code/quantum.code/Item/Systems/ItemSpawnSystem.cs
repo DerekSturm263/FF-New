@@ -112,8 +112,10 @@ namespace Quantum
             if (f.Unsafe.TryGetPointerSingleton(out ItemSpawner* itemSpawner))
                 ++itemSpawner->CurrentSpawned;
 
-            if (item is UpdateableItem updateableItem && f.Unsafe.ComponentGetter<ItemSystem.Filter>().TryGet(f, newItem, out ItemSystem.Filter filter))
-                updateableItem.OnStart(f, owner, ref filter);
+            if (item is UpdateableItem updateableItem &&
+                f.Unsafe.ComponentGetter<ItemSystem.Filter>().TryGet(f, newItem, out ItemSystem.Filter filter) &&
+                f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, owner, out CharacterControllerSystem.Filter playerFilter))
+                updateableItem.OnStart(f, ref playerFilter, ref filter);
 
             return newItem;
         }

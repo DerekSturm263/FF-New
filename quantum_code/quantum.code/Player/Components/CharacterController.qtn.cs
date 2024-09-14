@@ -115,13 +115,11 @@ namespace Quantum
                 {
                     if (MovementDirection == 1 && filter.PhysicsBody->Velocity.X < 0)
                     {
-                        MovementDirection = -1;
-                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
+                        SetDirection(f, -1, filter.Entity, filter.PlayerStats->Index);
                     }
                     else if (MovementDirection == -1 && filter.PhysicsBody->Velocity.X > 0)
                     {
-                        MovementDirection = 1;
-                        f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, MovementDirection);
+                        SetDirection(f, 1, filter.Entity, filter.PlayerStats->Index);
                     }
                 }
 
@@ -137,6 +135,12 @@ namespace Quantum
 
         private readonly FP LerpSpeed(MovementMoveSettings settings, FP deltaTime, FP stickX, FP currentAmount, FP speedMultiplier) => FPMath.Lerp(currentAmount, CalculateTopSpeed(settings, stickX), deltaTime * speedMultiplier);
         private readonly FP CalculateTopSpeed(MovementMoveSettings settings, FP stickX) => stickX * settings.TopSpeed;
+
+        public void SetDirection(Frame f, int direction, EntityRef entity, FighterIndex index)
+        {
+            MovementDirection = direction;
+            f.Events.OnPlayerChangeDirection(entity, index, MovementDirection);
+        }
 
         public readonly T LerpFromAnimationHold<T>(System.Func<T, T, FP, T> lerpFunc, T a, T b) where T : struct => lerpFunc.Invoke(a, b, HoldLevel);
         public readonly T LerpFromAnimationHold_UNSAFE<T>(System.Func<T, T, float, T> lerpFunc, T a, T b) where T : struct => lerpFunc.Invoke(a, b, HoldLevel.AsFloat);

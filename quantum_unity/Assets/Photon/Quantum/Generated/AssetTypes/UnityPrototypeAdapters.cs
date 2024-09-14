@@ -77,6 +77,7 @@ namespace Quantum.Prototypes.Unity {
     public System.Int32 UltimateTime;
     [Quantum.LocalReference]
     public global::EntityPrototype DigitalDouble;
+    public Quantum.QBoolean DoResetBuffs;
 
     public sealed override Quantum.Prototypes.CharacterController_Prototype Convert(EntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.CharacterController_Prototype();
@@ -130,6 +131,7 @@ namespace Quantum.Prototypes.Unity {
       result.ReadyTime = this.ReadyTime;
       result.UltimateTime = this.UltimateTime;
       converter.Convert(this.DigitalDouble, out result.DigitalDouble);
+      result.DoResetBuffs = this.DoResetBuffs;
       return result;
     }
   }

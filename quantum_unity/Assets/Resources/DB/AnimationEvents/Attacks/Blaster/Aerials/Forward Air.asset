@@ -18,10 +18,96 @@ MonoBehaviour:
       Guid:
         Value: 1159710521962217474
     AnimID: -644096671
-    Events: []
+    Events:
+    - Id:
+        Value: 3302698889260955731
+    - Id:
+        Value: 2454808618867306950
     Committed:
-      Max: 0
+      Max: 32
       Min: 0
-    CanMove: 0
+    CanMove: 1
     MaintainVelocity: 0
   Clip: {fileID: 3336659559413775035, guid: 037f08ae61cd8f54f9385fc2f8ebfecd, type: 3}
+--- !u!114 &4219346920517919508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c5ce0c98c6334fa96f37ef83cddc1, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Aerials/Forward Air|Fire
+      Guid:
+        Value: 3302698889260955731
+    StartingFrame: 23
+    EndingFrame: 23
+    Button: 0
+    UnchargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+    FullyChargedSettings:
+      AlignToPlayerDirection:
+        Value: 1
+      Item:
+        Id:
+          Value: 1689468402426674858
+      Offset:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 65536
+      StartHolding:
+        Value: 0
+      Velocity:
+        X:
+          RawValue: 655360
+        Y:
+          RawValue: 0
+--- !u!114 &9036080006192694144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1211483252dc98d478362c6ac10197b5, type: 3}
+  m_Name: Speed Up
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Aerials/Forward Air|Speed
+        Up
+      Guid:
+        Value: 2454808618867306950
+    StartingFrame: 0
+    EndingFrame: 22
+    Speed:
+      RawValue: 131072

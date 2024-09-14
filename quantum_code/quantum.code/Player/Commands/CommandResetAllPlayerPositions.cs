@@ -25,8 +25,7 @@ namespace Quantum
 
                 if (resetDirection)
                 {
-                    player.CharacterController->MovementDirection = 1;
-                    f.Events.OnPlayerChangeDirection(player.Entity, player.PlayerStats->Index, player.CharacterController->MovementDirection);
+                    player.CharacterController->SetDirection(f, 1, player.Entity, player.PlayerStats->Index);
                 }
             }
         }

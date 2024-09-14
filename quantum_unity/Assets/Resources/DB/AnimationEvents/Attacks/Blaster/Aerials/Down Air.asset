@@ -21,11 +21,13 @@ MonoBehaviour:
     Events:
     - Id:
         Value: 2539182689492660970
+    - Id:
+        Value: 2771409774489091375
     Committed:
-      Max: 0
+      Max: 37
       Min: 0
     CanMove: 0
-    MaintainVelocity: 0
+    MaintainVelocity: 1
   Clip: {fileID: 7692512423189433180, guid: 693018cf27cd43e49a70480bc4e9d031, type: 3}
 --- !u!114 &2476860524202194745
 MonoBehaviour:
@@ -40,14 +42,15 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   Description: 
-  Color: {r: 1, g: 1, b: 1, a: 1}
+  Color: {r: 1, g: 0, b: 0, a: 1}
   Settings:
     Identifier:
       Path: Resources/DB/AnimationEvents/Attacks/Blaster/Aerials/Down Air|Fire
       Guid:
         Value: 2539182689492660970
     StartingFrame: 25
-    EndingFrame: 26
+    EndingFrame: 25
+    Button: 0
     UnchargedSettings:
       AlignToPlayerDirection:
         Value: 1
@@ -84,3 +87,26 @@ MonoBehaviour:
           RawValue: 327680
         Y:
           RawValue: -458752
+--- !u!114 &4151909100044807326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1211483252dc98d478362c6ac10197b5, type: 3}
+  m_Name: Speed Up
+  m_EditorClassIdentifier: 
+  Description: 
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Settings:
+    Identifier:
+      Path: Resources/DB/AnimationEvents/Attacks/Blaster/Aerials/Down Air|Speed Up
+      Guid:
+        Value: 2771409774489091375
+    StartingFrame: 0
+    EndingFrame: 24
+    Speed:
+      RawValue: 131072

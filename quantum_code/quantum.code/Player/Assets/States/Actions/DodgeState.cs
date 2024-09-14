@@ -59,8 +59,7 @@ namespace Quantum
 
             if (!wasMoving && filter.CharacterController->DirectionValue.X != 0)
             {
-                filter.CharacterController->MovementDirection = -FPMath.SignInt(filter.CharacterController->DirectionValue.X);
-                f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, filter.CharacterController->MovementDirection);
+                filter.CharacterController->SetDirection(f, -FPMath.SignInt(filter.CharacterController->DirectionValue.X), filter.Entity, filter.PlayerStats->Index);
             }
 
             CustomAnimator.SetBoolean(f, filter.CustomAnimator, "RollForward", wasMoving);

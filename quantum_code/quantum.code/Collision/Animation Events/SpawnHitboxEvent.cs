@@ -27,7 +27,7 @@ namespace Quantum
             for (int i = 0; i < Shape.CompoundShapes.Length; ++i)
             {
                 HitboxSettings settings = filter.CharacterController->LerpFromAnimationHold(HitboxSettings.Lerp, UnchargedSettings, FullyChargedSettings);
-                HitboxSystem.SpawnHitbox(f, settings, Shape.CompoundShapes[i].CreateShape(f), Length, filter.Entity, BakedShapePositions[i].List, filter.Entity, this);
+                HitboxSystem.SpawnHitbox(f, settings, Shape.CompoundShapes[i].CreateShape(f), Length, ref filter, BakedShapePositions[i].List, filter.Entity, this);
             }
         }
     }

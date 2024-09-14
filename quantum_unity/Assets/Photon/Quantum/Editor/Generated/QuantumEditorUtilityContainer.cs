@@ -38,6 +38,8 @@ namespace Quantum.Editor {
       public Quantum.WeaponAsset[] WeaponAsset = {};
       public Quantum.HitboxItem[] HitboxItem = {};
       public Quantum.AllowMovementEvent[] AllowMovementEvent = {};
+      public Quantum.BuffStatAnimationEvent[] BuffStatAnimationEvent = {};
+      public Quantum.ChangeSpeedAnimationEvent[] ChangeSpeedAnimationEvent = {};
       public Quantum.ContinueAnimationEvent[] ContinueAnimationEvent = {};
       public Quantum.HoldAnimationEvent[] HoldAnimationEvent = {};
       public Quantum.ItemSpawningItem[] ItemSpawningItem = {};

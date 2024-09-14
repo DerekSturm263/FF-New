@@ -11,15 +11,15 @@ namespace Quantum
         public FPVector2 Offset;
         public FP SeekTime;
 
-        public override void OnStart(Frame f, EntityRef user, ref ItemSystem.Filter filter)
+        public override void OnStart(Frame f, ref CharacterControllerSystem.Filter user, ref ItemSystem.Filter filter)
         {
-            base.OnStart(f, user, ref filter);
+            base.OnStart(f, ref user, ref filter);
 
-            filter.ItemInstance->Target = PlayerStatsSystem.FindNearestOtherPlayer(f, user);
+            filter.ItemInstance->Target = PlayerStatsSystem.FindNearestOtherPlayer(f, user.Entity);
             filter.PhysicsBody->GravityScale = 0;
         }
 
-        public override unsafe void OnUpdate(Frame f, EntityRef user, ref ItemSystem.Filter filter)
+        public override unsafe void OnUpdate(Frame f, ref CharacterControllerSystem.Filter user, ref ItemSystem.Filter filter)
         {
             if (filter.ItemInstance->ActiveTime > SeekTime)
                 return;
@@ -32,7 +32,7 @@ namespace Quantum
             }
         }
 
-        public override void OnExit(Frame f, EntityRef user, ref ItemSystem.Filter filter)
+        public override void OnExit(Frame f, ref CharacterControllerSystem.Filter user, ref ItemSystem.Filter filter)
         {
             filter.ItemInstance->Target = EntityRef.None;
         }

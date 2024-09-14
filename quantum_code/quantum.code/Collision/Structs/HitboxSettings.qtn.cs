@@ -21,6 +21,7 @@ namespace Quantum
                 Damage = FPMath.Lerp(a.Damage, b.Damage, t),
                 Knockback = FPVector2.Lerp(a.Knockback, b.Knockback, t),
                 HitStun = FPMath.Lerp(a.HitStun, b.HitStun, t).AsInt,
+                IFrameTime = FPMath.Lerp(a.IFrameTime, b.IFrameTime, t).AsInt,
                 StatusEffect = a.StatusEffect,
                 AlignKnockbackToPlayerDirection = a.AlignKnockbackToPlayerDirection
             };

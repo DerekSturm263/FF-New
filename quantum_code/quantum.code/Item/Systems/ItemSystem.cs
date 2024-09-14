@@ -32,8 +32,9 @@ namespace Quantum
 
             if (f.TryFindAsset(filter.ItemInstance->Item.Id, out Item item))
             {
-                if (item is UpdateableItem updateableItem)
-                    updateableItem.OnUpdate(f, filter.ItemInstance->Owner, ref filter);
+                if (item is UpdateableItem updateableItem &&
+                    f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, filter.ItemInstance->Owner, out CharacterControllerSystem.Filter playerFilter))
+                    updateableItem.OnUpdate(f, ref playerFilter, ref filter);
 
                 if (item.AlignDirectionToVelocity)
                     filter.Transform->Rotation = FPMath.Atan2(filter.PhysicsBody->Velocity.Y, filter.PhysicsBody->Velocity.X);
@@ -45,10 +46,12 @@ namespace Quantum
 
         public void OnRemoved(Frame f, EntityRef entity, ItemInstance* component)
         {
-            if (f.TryFindAsset(component->Item.Id, out Item item) && f.Unsafe.ComponentGetter<Filter>().TryGet(f, entity, out Filter filter))
+            if (f.TryFindAsset(component->Item.Id, out Item item))
             {
-                if (item is UpdateableItem updateableItem)
-                    updateableItem.OnExit(f, component->Owner, ref filter);
+                if (item is UpdateableItem updateableItem &&
+                    f.Unsafe.ComponentGetter<Filter>().TryGet(f, entity, out Filter filter) &&
+                    f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, component->Owner, out CharacterControllerSystem.Filter playerFilter))
+                    updateableItem.OnExit(f, ref playerFilter, ref filter);
             }
         }
 
@@ -89,7 +92,10 @@ namespace Quantum
                         bool canHit = (item.DestroyOnHitAfterMinCollisions.HasFlag(ItemCollisionType.Player) && isPlayer) ||
                                       (item.DestroyOnHitAfterMinCollisions.HasFlag(ItemCollisionType.Environment) && !isPlayer);
 
-                        if (canHit && f.Unsafe.ComponentGetter<Filter>().TryGet(f, info.Entity, out Filter filter) && item.OnHit(f, itemInstance->Owner, info.Other, ref filter))
+                        if (canHit &&
+                            f.Unsafe.ComponentGetter<Filter>().TryGet(f, info.Entity, out Filter filter) &&
+                            f.Unsafe.ComponentGetter<CharacterControllerSystem.Filter>().TryGet(f, itemInstance->Owner, out CharacterControllerSystem.Filter playerFilter) &&
+                            item.OnHit(f, ref playerFilter, info.Other, ref filter))
                             ItemSpawnSystem.Despawn(f, info.Entity);
                     }
                 }
@@ -166,18 +172,17 @@ namespace Quantum
             }
         }
 
-        public static void Use(Frame f, EntityRef user, EntityRef itemEntity)
+        public static void Use(Frame f, ref CharacterControllerSystem.Filter user, EntityRef itemEntity)
         {
             if (f.Unsafe.ComponentGetter<Filter>().TryGet(f, itemEntity, out Filter filter))
             {
                 Item item = f.FindAsset<Item>(filter.ItemInstance->Item.Id);
-                item.Invoke(f, user, ref filter);
+                item.Invoke(f, ref user, ref filter);
 
                 filter.ItemInstance->FallState = false;
                 filter.ItemInstance->IsActive = true;
 
-                if (f.Unsafe.TryGetPointer(user, out PlayerStats* stats))
-                    ++stats->Stats.ItemUses;
+                ++user.PlayerStats->Stats.ItemUses;
             }
         }
     }

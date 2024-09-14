@@ -17,6 +17,7 @@ namespace Quantum
         public FPVector2 ThrowForceOffset;
 
         public int ThrowTime;
+        public int ThrowFrame = 12;
         public int UseTime;
 
         protected override int StateTime(Frame f, PlayerStateMachine stateMachine, ref CharacterControllerSystem.Filter filter, Input input, MovementSettings settings) => filter.CharacterController->IsThrowing ? ThrowTime : UseTime;
@@ -43,7 +44,7 @@ namespace Quantum
 
                     if (f.Unsafe.TryGetPointer(hitCollection[i].Entity, out ItemInstance* itemInstance))
                     {
-                        ItemSystem.Use(f, filter.Entity, hitCollection[i].Entity);
+                        ItemSystem.Use(f, ref filter, hitCollection[i].Entity);
 
                         filter.CharacterController->IsThrowing = false;
                         CustomAnimator.SetBoolean(f, filter.CustomAnimator, "IsThrowing", false);
@@ -65,7 +66,7 @@ namespace Quantum
         {
             base.Update(f, stateMachine, ref filter, input, settings);
 
-            if (filter.CharacterController->IsThrowing && filter.CharacterController->StateTime == 12)
+            if (filter.CharacterController->IsThrowing && filter.CharacterController->StateTime == ThrowFrame)
             {
                 if (filter.CharacterController->DirectionEnum == Direction.Neutral)
                 {
@@ -75,13 +76,13 @@ namespace Quantum
                 {
                     filter.CharacterController->DirectionValue = new(filter.CharacterController->MovementDirection, 0);
                 }
-                
-                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalHelper.GetFromDirection(ThrowOffset, filter.CharacterController->DirectionEnum), (filter.CharacterController->DirectionValue * ThrowForce + ThrowForceOffset) * filter.CharacterController->ThrowMultiplier);
+
+                FP multiplier = filter.CharacterController->ThrowMultiplier;
+                ItemSystem.Throw(f, filter.Entity, filter.PlayerStats->HeldItem, DirectionalHelper.GetFromDirection(ThrowOffset, filter.CharacterController->DirectionEnum), (filter.CharacterController->DirectionValue * ThrowForce + ThrowForceOffset) * multiplier);
 
                 if (filter.CharacterController->DirectionValue.X != 0)
                 {
-                    filter.CharacterController->MovementDirection = FPMath.SignInt(filter.CharacterController->DirectionValue.X);
-                    f.Events.OnPlayerChangeDirection(filter.Entity, filter.PlayerStats->Index, filter.CharacterController->MovementDirection);
+                    filter.CharacterController->SetDirection(f, FPMath.SignInt(filter.CharacterController->DirectionValue.X), filter.Entity, filter.PlayerStats->Index);
                 }
             }
         }

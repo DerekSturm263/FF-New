@@ -15,6 +15,7 @@ namespace Quantum
         public Usability UsabilityType;
 
         public FPVector2 StartOffset;
+        public FPVector2 EndOffset;
 
         public PhysicsSettings UnchargedSettings;
         public PhysicsSettings FullyChargedSettings;
@@ -64,6 +65,8 @@ namespace Quantum
 
             if (ResetPosition)
                 filter.Transform->Position = filter.CharacterController->ApplyPhysicsPosition - StartOffset;
+
+            filter.Transform->Position += new FPVector2(EndOffset.X * filter.CharacterController->MovementDirection, EndOffset.Y);
         }
     }
 }

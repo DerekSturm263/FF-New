@@ -97,11 +97,9 @@ namespace Quantum
             if (f.Unsafe.TryGetPointer(player, out CharacterController* characterController))
             {
                 if (index.Global % 2 != 0)
-                    characterController->MovementDirection = -1;
+                    characterController->SetDirection(f, -1, player, index);
                 else
-                    characterController->MovementDirection = 1;
-
-                f.Events.OnPlayerChangeDirection(player, index, characterController->MovementDirection);
+                    characterController->SetDirection(f, 1, player, index);
             }
         }
 
